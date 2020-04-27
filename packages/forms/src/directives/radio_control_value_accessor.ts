@@ -68,23 +68,23 @@ export class RadioControlRegistry {
 }
 
 /**
- * @description
- * The `ControlValueAccessor` for writing radio control values and listening to radio control
- * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
+ *  @description
+ *  The `ControlValueAccessor`для написания контрольных значений радио и слушать радиоуправления.
+ * меняется. Метод доступа к значениям используется `FormControlDirective` , `FormControlName` и
+ *  `NgModel`директивы.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using radio buttons with reactive form directives
+ *  ### Использование переключателей с директивами реактивной формы
  *
- * The follow example shows how to use radio buttons in a reactive form. When using radio buttons in
- * a reactive form, radio buttons in the same group should have the same `formControlName`.
- * Providing a `name` attribute is optional.
+ * В следующем примере показано, как использовать переключатели в реактивной форме. При использовании переключателей в
+ * Реактивная форма, переключатели в одной и той же группе должны иметь одинаковое `formControlName`.
+ * Предоставление `name``name` необязательно.
  *
- * {@example forms/ts/reactiveRadioButtons/reactive_radio_button_example.ts region='Reactive'}
+ *  {@example forms/ts/reactiveRadioButtons/reactive_radio_button_example.ts region='Reactive'}
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

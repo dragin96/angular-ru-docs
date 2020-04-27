@@ -14,28 +14,28 @@ import {ActivatedRoute} from '../router_state';
 import {PRIMARY_OUTLET} from '../shared';
 
 /**
- * @description
+ *  @description
  *
- * Acts as a placeholder that Angular dynamically fills based on the current router state.
+ * Действует как заполнитель, который Angular динамически заполняет на основе текущего состояния маршрутизатора.
  *
- * Each outlet can have a unique name, determined by the optional `name` attribute.
- * The name cannot be set or changed dynamically. If not set, default value is "primary".
+ * Каждое отделение может иметь уникальное имя, определяемое необязательным `name``name`.
+ * Имя не может быть установлено или изменено динамически. Если не установлено, значением по умолчанию является «основной».
  *
- * ```
- * <router-outlet></router-outlet>
- * <router-outlet name='left'></router-outlet>
- * <router-outlet name='right'></router-outlet>
- * ```
+ *  ```
+ *  <router-outlet></router-outlet>
+ *  <router-outlet name='left'></router-outlet>
+ *  <router-outlet name='right'></router-outlet>
+ *  ```
  *
- * A router outlet emits an activate event when a new component is instantiated,
- * and a deactivate event when a component is destroyed.
+ * Розетка маршрутизатора генерирует событие активации при создании нового компонента
+ * и событие деактивации, когда компонент уничтожен.
  *
- * ```
- * <router-outlet
- *   (activate)='onActivate($event)'
- *   (deactivate)='onDeactivate($event)'></router-outlet>
- * ```
- * @ngModule RouterModule
+ *  ```
+ *  <router-outlet
+ *    (activate)='onActivate($event)'
+ *    (deactivate)='onDeactivate($event)'></router-outlet>
+ *  ```
+ *  @ngModule RouterModule
  *
  * @publicApi
  */

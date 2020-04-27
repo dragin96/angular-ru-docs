@@ -9,17 +9,17 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Converts a value into its JSON-format representation.  Useful for debugging.
+ * Преобразует значение в его представление в формате JSON. Полезно для отладки.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following component uses a JSON pipe to convert an object
- * to JSON format, and displays the string in both formats for comparison.
+ * Следующий компонент использует JSON-канал для преобразования объекта
+ * в формате JSON, и отображает строку в обоих форматах для сравнения.
  *
- * {@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
+ *  {@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
  *
  * @publicApi
  */

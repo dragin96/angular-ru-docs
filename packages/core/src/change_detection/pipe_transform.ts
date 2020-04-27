@@ -7,26 +7,26 @@
  */
 
 /**
- * An interface that is implemented by pipes in order to perform a transformation.
- * Angular invokes the `transform` method with the value of a binding
- * as the first argument, and any parameters as the second argument in list form.
+ * Интерфейс, который реализован каналами для выполнения преобразования.
+ * Angular вызывает `transform` метод со значениемпривязки.
+ * в качестве первого аргумента и любые параметры в качестве второго аргумента в форме списка.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * In the following example, `RepeatPipe` repeats a given value a given number of times.
+ * В следующем примере, `RepeatPipe` повторяет заданное значение заданное количество раз.
  *
- * ```ts
- * import {Pipe, PipeTransform} from '@angular/core';
+ *  ```ts
+ *  import {Pipe, PipeTransform} from '@angular/core';
  *
- * @Pipe({name: 'repeat'})
- * export class RepeatPipe implements PipeTransform {
- *   transform(value: any, times: number) {
- *     return value.repeat(times);
- *   }
- * }
- * ```
+ *  @Pipe({name: 'repeat'})
+ *  export class RepeatPipe implements PipeTransform {
+ *    transform(value: any, times: number) {
+ *      return value.repeat(times);
+ *    }
+ *  }
+ *  ```
  *
- * Invoking `{{ 'ok' | repeat:3 }}` in a template produces `okokok`.
+ * Вызывая`{{ 'ok' | repeat:3 }}`в шаблоне выдает `okokok`.
  *
  * @publicApi
  */

@@ -11,27 +11,27 @@ import {getDebugContext, getErrorLogger, getOriginalError} from './errors';
 
 
 /**
- * Provides a hook for centralized exception handling.
+ * Обеспечивает ловушку для централизованной обработки исключений.
  *
- * The default implementation of `ErrorHandler` prints error messages to the `console`. To
- * intercept error handling, write a custom exception handler that replaces this default as
- * appropriate for your app.
+ * Реализация по умолчанию `ErrorHandler` выводит сообщения об ошибках в `console` .Для.
+ * перехватить обработку ошибок, написать собственный обработчик исключений, который заменяет это значение по умолчанию
+ * подходит для вашего приложения.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * class MyErrorHandler implements ErrorHandler {
- *   handleError(error) {
- *     // do something with the exception
- *   }
- * }
+ *  ```
+ *  class MyErrorHandler implements ErrorHandler {
+ *    handleError(error) {
+ *      // do something with the exception
+ *    }
+ *  }
  *
- * @NgModule({
- *   providers: [{provide: ErrorHandler, useClass: MyErrorHandler}]
- * })
- * class MyModule {}
- * ```
+ *  @NgModule({
+ *    providers: [{provide: ErrorHandler, useClass: MyErrorHandler}]
+ *  })
+ *  class MyModule {}
+ *  ```
  *
  * @publicApi
  */

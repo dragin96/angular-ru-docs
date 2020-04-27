@@ -21,17 +21,17 @@ import {_sanitizeUrl as _sanitizeUrl} from './url_sanitizer';
 
 
 /**
- * An `html` sanitizer which converts untrusted `html` **string** into trusted string by removing
- * dangerous content.
+ *  An `html`дезинфицирующеекоторый преобразует ненадежного `html` строку в доверенную строку,удалив.
+ * опасный контент.
  *
- * This method parses the `html` and locates potentially dangerous content (such as urls and
- * javascript) and removes it.
+ * Этот метод анализирует `html` и находит потенциально опасный контент (такой как URL и
+ * javascript) и удаляет его.
  *
- * It is possible to mark a string as trusted by calling {@link bypassSanitizationTrustHtml}.
+ * Можно пометить строку как доверенную, вызвав{@link bypassSanitizationTrustHtml},
  *
- * @param unsafeHtml untrusted `html`, typically from the user.
- * @returns `html` string which is safe to display to user, because all of the dangerous javascript
- * and urls have been removed.
+ *  @param unsafeHtml `html``html` ,, как правило, от пользователя.
+ *  @returns `html`строка, которая безопасна для отображения пользователю, потому что весь опасный JavaScript
+ * и URL были удалены.
  *
  * @publicApi
  */
@@ -47,17 +47,17 @@ export function ɵɵsanitizeHtml(unsafeHtml: any): string {
 }
 
 /**
- * A `style` sanitizer which converts untrusted `style` **string** into trusted string by removing
- * dangerous content.
+ *  A `style`дезинфицирующегокоторый преобразует ненадежный `style` строкув доверенную строку путемудаления.
+ * опасный контент.
  *
- * This method parses the `style` and locates potentially dangerous content (such as urls and
- * javascript) and removes it.
+ * Этот метод анализирует `style` и находит потенциально опасный контент (такой как URL и
+ * javascript) и удаляет его.
  *
- * It is possible to mark a string as trusted by calling {@link bypassSanitizationTrustStyle}.
+ * Можно пометить строку как доверенную, вызвав{@link bypassSanitizationTrustStyle},
  *
- * @param unsafeStyle untrusted `style`, typically from the user.
- * @returns `style` string which is safe to bind to the `style` properties, because all of the
- * dangerous javascript and urls have been removed.
+ *  @param unsafeStyle ненадежный `style` стиль,правилоот пользователя.
+ *  @returns `style`строкакоторый является безопасным для связывания с `style` свойств стиля, потому чтовсе.
+ * опасный javascript и URL были удалены.
  *
  * @publicApi
  */
@@ -73,18 +73,18 @@ export function ɵɵsanitizeStyle(unsafeStyle: any): string {
 }
 
 /**
- * A `url` sanitizer which converts untrusted `url` **string** into trusted string by removing
- * dangerous
- * content.
+ *  A `url`дезинфицирующеекоторый преобразует ненадежный `url` строкув доверенную строку путемудаления.
+ * опасно.
+ * содержание.
  *
- * This method parses the `url` and locates potentially dangerous content (such as javascript) and
- * removes it.
+ * Этот метод анализирует `url` и находит потенциально опасный контент (такой как javascript) и
+ * удаляет это.
  *
- * It is possible to mark a string as trusted by calling {@link bypassSanitizationTrustUrl}.
+ * Можно пометить строку как доверенную, вызвав{@link bypassSanitizationTrustUrl},
  *
- * @param unsafeUrl untrusted `url`, typically from the user.
- * @returns `url` string which is safe to bind to the `src` properties such as `<img src>`, because
- * all of the dangerous javascript has been removed.
+ *  @param unsafeUrl Ненадежных `url` URL,правилоот пользователя.
+ *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как`<img src>`, потому что
+ * весь опасный javascript был удален.
  *
  * @publicApi
  */
@@ -100,13 +100,13 @@ export function ɵɵsanitizeUrl(unsafeUrl: any): string {
 }
 
 /**
- * A `url` sanitizer which only lets trusted `url`s through.
+ *  A `url`дезинфицирующеекоторый только позволяет доверять `url` с помощью.
  *
- * This passes only `url`s marked trusted by calling {@link bypassSanitizationTrustResourceUrl}.
+ * Это передает только `url` помеченные как доверенные путем вызова{@link bypassSanitizationTrustResourceUrl},
  *
- * @param unsafeResourceUrl untrusted `url`, typically from the user.
- * @returns `url` string which is safe to bind to the `src` properties such as `<img src>`, because
- * only trusted `url`s have been allowed to pass.
+ *  @param unsafeResourceUrl Ненадежных `url` URL,правилоот пользователя.
+ *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как`<img src>`, потому что
+ * Только доверенные `url` были разрешены для прохождения.
  *
  * @publicApi
  */
@@ -122,14 +122,14 @@ export function ɵɵsanitizeResourceUrl(unsafeResourceUrl: any): string {
 }
 
 /**
- * A `script` sanitizer which only lets trusted javascript through.
+ *  A `script`дезинфицирующеекоторый только позволяет доверять JavaScript через.
  *
- * This passes only `script`s marked trusted by calling {@link
+ * Это передает только `script` помеченный как доверенный путем вызова {@link
  * bypassSanitizationTrustScript}.
  *
- * @param unsafeScript untrusted `script`, typically from the user.
- * @returns `url` string which is safe to bind to the `<script>` element such as `<img src>`,
- * because only trusted `scripts` have been allowed to pass.
+ *  @param unsafeScript ненадежный `script` , обычно от пользователя.
+ *  @returns `url`строкакоторая является безопасной для привязки к `<script>` элементтакие как`<img src>`SRC,.
+ * потому что только доверенные `scripts` были разрешены для прохождения.
  *
  * @publicApi
  */
@@ -162,17 +162,17 @@ export function getUrlSanitizer(tag: string, prop: string) {
 }
 
 /**
- * Sanitizes URL, selecting sanitizer function based on tag and property names.
+ * Санитизирует URL, выбирая дезинфицирующую функцию на основе тегов и имен свойств.
  *
- * This function is used in case we can't define security context at compile time, when only prop
- * name is available. This happens when we generate host bindings for Directives/Components. The
- * host element is unknown at compile time, so we defer calculation of specific sanitizer to
- * runtime.
+ * Эта функция используется в случае, если мы не можем определить контекст безопасности во время компиляции, когда только prop
+ * имя доступно. Это происходит, когда мы генерируем привязки хоста для Директив / Компонентов.
+ * Элемент хоста неизвестен во время компиляции, поэтому мы откладываем вычисление определенного дезинфицирующего средства до
+ * время выполнения.
  *
- * @param unsafeUrl untrusted `url`, typically from the user.
- * @param tag target element tag name.
- * @param prop name of the property that contains the value.
- * @returns `url` string which is safe to bind.
+ *  @param unsafeUrl Ненадежных `url` URL,правилоот пользователя.
+ *  @param тег целевой элемент имя тега.
+ *  @param имя свойства, которое содержит значение.
+ *  @returns `url`строкакоторую можно связать.
  *
  * @publicApi
  */
@@ -181,8 +181,8 @@ export function ɵɵsanitizeUrlOrResourceUrl(unsafeUrl: any, tag: string, prop: 
 }
 
 /**
- * The default style sanitizer will handle sanitization for style properties by
- * sanitizing any CSS property that can include a `url` value (usually image-based properties)
+ * Средство очистки стиля по умолчанию будет обрабатывать очистку для свойств стиля с помощью
+ * дезинфекция любого свойства CSS, которое может включать `url``url` (обычно это свойства на основе изображений)
  *
  * @publicApi
  */

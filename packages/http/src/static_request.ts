@@ -16,43 +16,42 @@ import {URLSearchParams} from './url_search_params';
 
 // TODO(jeffbcross): properly implement body accessors
 /**
- * Creates `Request` instances from provided values.
+ * Создает `Request` экземпляры из предоставленных значений.
  *
- * The Request's interface is inspired by the Request constructor defined in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#request-class),
- * but is considered a static value whose body can be accessed many times. There are other
- * differences in the implementation, but this is the most significant.
+ * Интерфейс запроса основан на конструкторе запроса, определенном в[Fetch. Spec).](https://fetch.spec.whatwg.org/#request-class),
+ * но считается статическим значением, к телу которого можно получить доступ много раз. Есть и другие
+ * различия в реализации, но это самое значительное.
  *
- * `Request` instances are typically created by higher-level classes, like {@link Http} and
- * {@link Jsonp}, but it may occasionally be useful to explicitly create `Request` instances.
- * One such example is when creating services that wrap higher-level services, like {@link Http},
- * where it may be useful to generate a `Request` with arbitrary headers and search params.
+ *  `Request`обычно создаются классами более высокого уровня, такими как{@link Http}и.
+ *  {@link Jsonp}, но иногда может быть полезно явно создать `Request` экземпляры.
+ * Одним из таких примеров является создание сервисов, которые обертывают сервисы более высокого уровня, такие как{@link Http},.
+ * где может быть полезно сгенерировать `Request` с произвольными заголовками и параметрами поиска.
  *
- * ```typescript
- * import {Injectable, Injector} from '@angular/core';
- * import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
+ *  ```typescript
+ *  import {Injectable, Injector} from '@angular/core';
+ *  import {HTTP_PROVIDERS, Http, Request, RequestMethod} from '@angular/http';
  *
- * @Injectable()
- * class AutoAuthenticator {
- *   constructor(public http:Http) {}
- *   request(url:string) {
- *     return this.http.request(new Request({
- *       method: RequestMethod.Get,
- *       url: url,
- *       search: 'password=123'
- *     }));
- *   }
- * }
+ *  @Injectable()
+ *  class AutoAuthenticator {
+ *    constructor(public http:Http) {}
+ *    request(url:string) {
+ *      return this.http.request(new Request({
+ *        method: RequestMethod.Get,
+ *        url: url,
+ *        search: 'password=123'
+ *      }));
+ *    }
+ *  }
  *
- * var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
- * var authenticator = injector.get(AutoAuthenticator);
- * authenticator.request('people.json').subscribe(res => {
- *   //URL should have included '?password=123'
- *   console.log('people', res.json());
- * });
- * ```
+ *  var injector = Injector.resolveAndCreate([HTTP_PROVIDERS, AutoAuthenticator]);
+ *  var authenticator = injector.get(AutoAuthenticator);
+ *  authenticator.request('people.json').subscribe(res => {
+ *    //URL should have included '?password=123'
+ *    console.log('people', res.json());
+ *  });
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class Request extends Body {

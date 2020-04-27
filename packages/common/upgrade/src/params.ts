@@ -7,7 +7,7 @@
  */
 
 /**
- * A codec for encoding and decoding URL parts.
+ * Кодек для кодирования и декодирования частей URL.
  *
  * @publicApi
  **/
@@ -99,8 +99,8 @@ export abstract class UrlCodec {
 }
 
 /**
- * A `UrlCodec` that uses logic from AngularJS to serialize and parse URLs
- * and URL parameters.
+ *  A `UrlCodec`который использует логику от AngularJS сериализации и синтаксическогоURL.
+ * и параметры URL.
  *
  * @publicApi
  */

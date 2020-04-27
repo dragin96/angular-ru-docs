@@ -22,7 +22,7 @@ function paramParser(rawParams: string = ''): Map<string, string[]> {
   return map;
 }
 /**
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  **/
 export class QueryEncoder {
@@ -49,39 +49,39 @@ function standardEncoding(v: string): string {
 }
 
 /**
- * Map-like representation of url search parameters, based on
- * [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) in the url living standard,
- * with several extensions for merging URLSearchParams objects:
- *   - setAll()
- *   - appendAll()
- *   - replaceAll()
+ * Картографическое представление параметров поиска URL, основанных на
+ *  [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams)в URL уровня жизни
+ * с несколькими расширениями для объединения URLSearchParamsобъектов:.
+ * - setAll ()
+ * - appendAll ()
+ * - заменить все ()
  *
- * This class accepts an optional second parameter of ${@link QueryEncoder},
- * which is used to serialize parameters before making a request. By default,
- * `QueryEncoder` encodes keys and values of parameters using `encodeURIComponent`,
- * and then un-encodes certain characters that are allowed to be part of the query
- * according to IETF RFC 3986: https://tools.ietf.org/html/rfc3986.
+ * Этот класс принимает необязательный второй параметр ${@link QueryEncoder},.
+ * который используется для сериализации параметров перед выполнением запроса. Поумолчанию.
+ *  `QueryEncoder`кодирует ключи и значения параметровпомощью `encodeURIComponent` encodeURIComponent,.
+ * а затем расшифровывает определенные символы, которые могут быть частью запроса
+ * в соответствии с IETF RFC 3986: https://tools.ietf.org/html/rfc3986.
  *
- * These are the characters that are not encoded: `! $ \' ( ) * + , ; A 9 - . _ ~ ? /`
+ * Это символы, которые не закодированы:`! $ \' ( ) + , ; A 9 - . _ ~ ? /`
  *
- * If the set of allowed query characters is not acceptable for a particular backend,
- * `QueryEncoder` can be subclassed and provided as the 2nd argument to URLSearchParams.
+ * Если набор допустимых символов запроса не является приемлемым для конкретного внутреннегоинтерфейса,.
+ *  `QueryEncoder`может бытьподклассы и предоставлен как 2-й аргумент для URLSearchParams.
  *
- * ```
- * import {URLSearchParams, QueryEncoder} from '@angular/http';
- * class MyQueryEncoder extends QueryEncoder {
- *   encodeKey(k: string): string {
- *     return myEncodingFunction(k);
- *   }
+ *  ```
+ *  import {URLSearchParams, QueryEncoder} from '@angular/http';
+ *  class MyQueryEncoder extends QueryEncoder {
+ *    encodeKey(k: string): string {
+ *      return myEncodingFunction(k);
+ *    }
  *
- *   encodeValue(v: string): string {
- *     return myEncodingFunction(v);
- *   }
- * }
+ *    encodeValue(v: string): string {
+ *      return myEncodingFunction(v);
+ *    }
+ *  }
  *
- * let params = new URLSearchParams('', new MyQueryEncoder());
- * ```
- * @deprecated see https://angular.io/guide/http
+ *  let params = new URLSearchParams('', new MyQueryEncoder());
+ *  ```
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class URLSearchParams {

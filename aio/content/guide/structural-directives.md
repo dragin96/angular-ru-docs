@@ -1,4 +1,5 @@
-# Structural directives
+{@a structural-directives}
+# Структурные директивы
 
 <style>
   h4 {font-size: 17px !important; text-transform: none !important;}
@@ -8,54 +9,55 @@
 
 
 
-This guide looks at how Angular manipulates the DOM with **structural directives** and
-how you can write your own structural directives to do the same thing.
+В этом руководстве рассказывается, как Angular манипулирует DOM **структурными директивами** и
+как вы можете написать свои собственные структурные директивы, чтобы сделать то же самое.
 
-Try the <live-example></live-example>.
+Попробуйте <live-example></live-example>.
 
 
 {@a definition}
 
 
 
-## What are structural directives?
+{@a what-are-structural-directives}
+## Каковы структурные директивы?
 
-Structural directives are responsible for HTML layout.
-They shape or reshape the DOM's _structure_, typically by adding, removing, or manipulating
-elements.
+Структурные директивы отвечают за макет HTML.
+Они формируют или изменяют структуру DOM _, обычно добавляя, удаляя или манипулируя
+элементы.
 
-As with other directives, you apply a structural directive to a _host element_.
-The directive then does whatever it's supposed to do with that host element and its descendants.
+Как и в случае с другими директивами, вы применяете структурную директиву к элементу _host_.
+Затем директива делает то, что должна делать с этим элементом хоста и его потомками.
 
-Structural directives are easy to recognize.
-An asterisk (*) precedes the directive attribute name as in this example.
+Структурные директивы легко распознать.
+Звездочка ( *) предшествует имени атрибута директивы, как в этом примере.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif)" region="ngif"></code-example>
 
 
 
-No brackets. No parentheses. Just `*ngIf` set to a string.
+Нет скобок. Нет скобок. Только  `*ngIf`  установлено в строку.
 
-You'll learn in this guide that the [asterisk (*) is a convenience notation](guide/structural-directives#asterisk)
-and the string is a [_microsyntax_](guide/structural-directives#microsyntax) rather than the usual
-[template expression](guide/template-syntax#template-expressions).
-Angular desugars this notation into a marked-up `<ng-template>` that surrounds the
-host element and its descendents.
-Each structural directive does something different with that template.
+Из этого руководства вы узнаете, что [звездочка (*) - это условное обозначение](guide/structural-directives#asterisk)
+и строка является [_microsyntax_](guide/structural-directives#microsyntax)а не обычным
+[шаблонное выражение](guide/template-syntax#template-expressions).
+Angular Desugars это обозначение в размеченной  `<ng-template>`  который окружает
+элемент host и его потомки.
+Каждая структурная директива делает что-то свое с этим шаблоном.
 
-Three of the common, built-in structural directives&mdash;[NgIf](guide/template-syntax#ngIf),
-[NgFor](guide/template-syntax#ngFor), and [NgSwitch...](guide/template-syntax#ngSwitch)&mdash;are
-described in the [_Template Syntax_](guide/template-syntax) guide and seen in samples throughout the Angular documentation.
-Here's an example of them in a template:
+Три из общих, встроенных в структурном directives- [NgIf](guide/template-syntax#ngIf),
+[NgFor](guide/template-syntax#ngFor)и [NgSwitch ...](guide/template-syntax#ngSwitch)- есть
+описано в руководстве [_Template Syntax_](guide/template-syntax)и встречается в примерах по всей документации Angular.
+Вот пример из них в качестве шаблона:
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (built-in)" region="built-in"></code-example>
 
 
 
-This guide won't repeat how to _use_ them. But it does explain _how they work_
-and how to [write your own](guide/structural-directives#unless) structural directive.
+Это руководство не повторяет, как их использовать. Но это объясняет, как они работают
+и как [написать свою](guide/structural-directives#unless)структурную директиву.
 
 
 <div class="callout is-helpful">
@@ -63,21 +65,21 @@ and how to [write your own](guide/structural-directives#unless) structural direc
 
 
 <header>
-  Directive spelling
+  Директивное правописание
 </header>
 
 
 
-Throughout this guide, you'll see a directive spelled in both _UpperCamelCase_ and _lowerCamelCase_.
-Already you've seen `NgIf` and `ngIf`.
-There's a reason. `NgIf` refers to the directive _class_;
-`ngIf` refers to the directive's _attribute name_.
+В этом руководстве вы увидите директиву, записанную как в _UpperCamelCase_, так и в _lowerCamelCase_.
+Вы уже видели  `NgIf`  и  `ngIf`.
+Есть причина.  `NgIf`  ссылается на директиву _class_;
+ `ngIf` ссылается на _attribute name_ директивы.
 
-A directive _class_ is spelled in _UpperCamelCase_ (`NgIf`).
-A directive's _attribute name_ is spelled in _lowerCamelCase_ (`ngIf`).
-The guide refers to the directive _class_ when talking about its properties and what the directive does.
-The guide refers to the _attribute name_ when describing how
-you apply the directive to an element in the HTML template.
+Директива _class_ записана в _UpperCamelCase_ (`NgIf`).
+_Attribute name_ директивы пишется в _lowerCamelCase_ (`ngIf`).
+Руководство ссылается на директиву _class_, когда говорит о ее свойствах и о том, что делает директива.
+Руководство ссылается на _attribute name_ при описании как
+вы применяете директиву к элементу в шаблоне HTML.
 
 
 </div>
@@ -88,19 +90,19 @@ you apply the directive to an element in the HTML template.
 
 
 
-There are two other kinds of Angular directives, described extensively elsewhere:
-(1)&nbsp;components and (2)&nbsp;attribute directives.
+Есть два других вида Angular директив, широко описаны в другом месте:
+(1) компоненты и (2) атрибутные директивы.
 
-A *component* manages a region of HTML in the manner of a native HTML element.
-Technically it's a directive with a template.
+*Компонент* управляет область HTML в виде нативного HTML элемента.
+Технически это директива с шаблоном.
 
-An [*attribute* directive](guide/attribute-directives) changes the appearance or behavior
-of an element, component, or another directive.
-For example, the built-in [`NgStyle`](guide/template-syntax#ngStyle) directive
-changes several element styles at the same time.
+[* Атрибут* директива](guide/attribute-directives)изменяет внешний вид или поведение
+элемента, компонента или другой директивы.
+Например, встроенная [  `NgStyle`  ](guide/template-syntax#ngStyle)директива
+изменяет несколько стилей элемента одновременно.
 
-You can apply many _attribute_ directives to one host element.
-You can [only apply one](guide/structural-directives#one-per-element) _structural_ directive to a host element.
+Вы можете применить много директив _attribute_ к одному элементу хоста.
+Вы можете [только применить одну](guide/structural-directives#one-per-element)директиву _structural_ к элементу хоста.
 
 
 </div>
@@ -111,18 +113,19 @@ You can [only apply one](guide/structural-directives#one-per-element) _structura
 
 
 
-## NgIf case study
+{@a ngif-case-study}
+## NgIf тематическое исследование
 
-`NgIf` is the simplest structural directive and the easiest to understand.
-It takes a boolean expression and makes an entire chunk of the DOM appear or disappear.
+ `NgIf` - это самая простая структурная директива и самая простая для понимания.
+Он принимает логическое выражение и заставляет весь кусок DOM появляться или исчезать.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif-true)" region="ngif-true"></code-example>
 
 
 
-The `ngIf` directive doesn't hide elements with CSS. It adds and removes them physically from the DOM.
-Confirm that fact using browser developer tools to inspect the DOM.
+ `ngIf` Директива не скрывает элементы с помощью CSS. Он добавляет и удаляет их физически из DOM.
+Подтвердите этот факт, используя инструменты разработчика браузера для проверки DOM.
 
 
 <div class="lightbox">
@@ -131,24 +134,25 @@ Confirm that fact using browser developer tools to inspect the DOM.
 
 
 
-The top paragraph is in the DOM. The bottom, disused paragraph is not;
-in its place is a comment about "bindings" (more about that [later](guide/structural-directives#asterisk)).
+Верхний абзац находится в DOM. Внизу, заброшенный абзац нет;
+на его месте комментарий о «привязках» (подробнее об этом [позже](guide/structural-directives#asterisk)).
 
-When the condition is false, `NgIf` removes its host element from the DOM,
-detaches it from DOM events (the attachments that it made),
-detaches the component from Angular change detection, and destroys it.
-The component and DOM nodes can be garbage-collected and free up memory.
+Когда условие ложно,  `NgIf`  удаляет его хозяина элемент из DOM,
+отсоединяет его от событий DOM (вложений, которые он сделал)
+отсоединяет компонент от обнаружения Angular изменений и уничтожает его.
+Узлы компонента и DOM могут быть собраны мусором и освободить память.
 
-### Why *remove* rather than *hide*?
+{@a why-*remove*-rather-than-*hide*}
+### Зачем *удалять,* а не *скрывать*?
 
-A directive could hide the unwanted paragraph instead by setting its `display` style to `none`.
+Директива может скрыть нежелательный абзац, установив его  `display`  стиль  `none`.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (display-none)" region="display-none"></code-example>
 
 
 
-While invisible, the element remains in the DOM.
+Пока невидимый, элемент остается в DOM.
 
 
 <div class="lightbox">
@@ -157,58 +161,59 @@ While invisible, the element remains in the DOM.
 
 
 
-The difference between hiding and removing doesn't matter for a simple paragraph.
-It does matter when the host element is attached to a resource intensive component.
-Such a component's behavior continues even when hidden.
-The component stays attached to its DOM element. It keeps listening to events.
-Angular keeps checking for changes that could affect data bindings.
-Whatever the component was doing, it keeps doing.
+Разница между сокрытием и удалением не имеет значения для простого абзаца.
+Имеет значение, когда элемент хоста подключен к ресурсоемкому компоненту.
+Поведение такого компонента продолжается даже тогда, когда оно скрыто.
+Компонент остается подключенным к своему элементу DOM. Он продолжает слушать события.
+Angular продолжает проверять изменения, которые могут повлиять на привязки данных.
+Что бы ни делал компонент, он продолжает делать.
 
-Although invisible, the component&mdash;and all of its descendant components&mdash;tie up resources.
-The performance and memory burden can be substantial, responsiveness can degrade, and the user sees nothing.
+Несмотря на то, что этот компонент и невидимые компоненты невидимы, они связывают ресурсы.
+Производительность и нагрузка на память могут быть значительными, скорость отклика может ухудшиться, и пользователь ничего не видит.
 
-On the positive side, showing the element again is quick.
-The component's previous state is preserved and ready to display.
-The component doesn't re-initialize&mdash;an operation that could be expensive.
-So hiding and showing is sometimes the right thing to do.
+С положительной стороны, показ элемента снова быстро.
+Предыдущее состояние компонента сохраняется и готово к отображению.
+Компонент не инициализируется повторно - операция, которая может быть дорогой.
+Так что скрываться и показывать иногда бывает правильно.
 
-But in the absence of a compelling reason to keep them around,
-your preference should be to remove DOM elements that the user can't see
-and recover the unused resources with a structural directive like `NgIf` .
+Но в отсутствие веской причины держать их рядом
+Ваше предпочтение должно состоять в том, чтобы удалить элементы DOM, которые пользователь не может видеть
+и восстановить неиспользованные ресурсы со структурной директивой, такой как  `NgIf`.
 
-**These same considerations apply to every structural directive, whether built-in or custom.**
-Before applying a structural directive, you might want to pause for a moment
-to consider the consequences of adding and removing elements and of creating and destroying components.
+**Эти же соображения применимы к любой структурной директиве, встроенной или настраиваемой.**
+Прежде чем применять структурную директиву, вы можете на минуту остановиться
+рассмотреть последствия добавления и удаления элементов, а также создания и уничтожения компонентов.
 
 
 {@a asterisk}
 
 
 
-## The asterisk (*) prefix
+{@a the-asterisk--prefix}
+## Звездочка (*) префикс
 
-Surely you noticed the asterisk (*) prefix to the directive name
-and wondered why it is necessary and what it does.
+Конечно, вы заметили asterisk (*) префикс к имени директивы
+и задавался вопросом, зачем это нужно и для чего это нужно.
 
-Here is `*ngIf` displaying the hero's name if `hero` exists.
+Вот  `*ngIf`  отображается имя героя, если  `hero`  существует.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (asterisk)" region="asterisk"></code-example>
 
 
 
-The asterisk is "syntactic sugar" for something a bit more complicated.
-Internally, Angular translates the `*ngIf` _attribute_ into a `<ng-template>` _element_, wrapped around the host element, like this.
+Звездочка - это «синтаксический сахар» для чего-то более сложного.
+Внутри Angular переводит  `*ngIf`  _attribute_ в  `<ng-template>`  _element_, обернутый вокруг элемента host, вот так.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif-template)" region="ngif-template"></code-example>
 
 
 
-* The `*ngIf` directive moved to the `<ng-template>` element where it became a property binding,`[ngIf]`.
-* The rest of the `<div>`, including its class attribute, moved inside the `<ng-template>` element.
+*  `*ngIf` директива перенесена в  `<ng-template>`  элемент где он стал привязкой свойства,  `[ngIf]`.
+* Остаток от  `<div>`, включая атрибут class, перемещен внутри  `<ng-template>`  элемент.
 
-The first form is not actually rendered, only the finished product ends up in the DOM.
+Первая форма фактически не отображается, в DOM попадает только готовый продукт.
 
 
 <div class="lightbox">
@@ -217,41 +222,42 @@ The first form is not actually rendered, only the finished product ends up in th
 
 
 
-Angular consumed the `<ng-template>` content during its actual rendering and
-replaced the `<ng-template>` with a diagnostic comment.
+Angular расход  `<ng-template>`  Содержимое во время его фактического отображения и
+заменил  `<ng-template>`  с диагностическим комментарием.
 
-The [`NgFor`](guide/structural-directives#ngFor) and [`NgSwitch...`](guide/structural-directives#ngSwitch) directives follow the same pattern.
+[  `NgFor`  ](guide/structural-directives#ngFor)и [ ` NgSwitch ... ` ](guide/structural-directives#ngSwitch)директивы по той же схеме.
 
 
 {@a ngFor}
 
 
 
-## Inside _*ngFor_
+{@a inside-ngfor}
+## Внутри _*ngFor_
 
-Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax to `<ng-template>` _element_.
+Angular трансформация  `*ngFor`  аналогичным образом из asterisk (*синтаксиса) в  `<ng-template>`  _element_.
 
-Here's a full-featured application of `NgFor`, written both ways:
+Вот полнофункциональное приложение  `NgFor`, написанные в обоих направлениях:
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (inside-ngfor)" region="inside-ngfor"></code-example>
 
 
 
-This is manifestly more complicated than `ngIf` and rightly so.
-The `NgFor` directive has more features, both required and optional, than the `NgIf` shown in this guide.
-At minimum `NgFor` needs a looping variable (`let hero`) and a list (`heroes`).
+Это явно сложнее, чем  `ngIf`  и правильно.
+ `NgFor` Директива имеет больше возможностей, как обязательных, так и необязательных, чем  `NgIf`  показано в этом руководстве.
+Как минимум  `NgFor`  нужна циклическая переменная (`let hero`) и список (`heroes`).
 
-You enable these features in the string assigned to `ngFor`, which you write in Angular's [microsyntax](guide/structural-directives#microsyntax).
+Вы включаете эти функции в строке, назначенной  `ngFor`, который вы пишете в Angular's [микросинтаксис](guide/structural-directives#microsyntax).
 
 
 <div class="alert is-helpful">
 
 
 
-Everything _outside_ the `ngFor` string stays with the host element
-(the `<div>`) as it moves inside the `<ng-template>`.
-In this example, the `[ngClass]="odd"` stays on the `<div>`.
+Все _вне_  `ngFor`  строка остается с элементом host
+(`<div>`) как он движется внутри  `<ng-template>`.
+В этом примере  `[ngClass]="odd"`  пребывание на  `<div>`.
 
 
 </div>
@@ -261,62 +267,65 @@ In this example, the `[ngClass]="odd"` stays on the `<div>`.
 {@a microsyntax}
 
 
-## Microsyntax
+## Микросинтаксис
 
-The Angular microsyntax lets you configure a directive in a compact, friendly string.
-The microsyntax parser translates that string into attributes on the `<ng-template>`:
+Микросинтаксис Angular позволяет вам сконфигурировать директиву в виде удобной компактной строки.
+Синтаксический анализатор microsyntax преобразует эту строку в атрибуты  `<ng-template>`  :
 
-* The `let` keyword declares a [_template input variable_](guide/structural-directives#template-input-variable)
-that you reference within the template. The input variables in this example are `hero`, `i`, and `odd`.
-The parser translates `let hero`, `let i`, and `let odd` into variables named
-`let-hero`, `let-i`, and `let-odd`.
+*  `let` ключевое слово объявляет [переменную ввода _template_](guide/structural-directives#template-input-variable)
+что вы ссылаетесь в шаблоне. Входные переменные в этом примере  `hero`, `i`  и  `odd`.
+Парсер переводит `let hero `, ` let i`, и `let odd` в переменных с именем
+ `let-hero `, ` let-i`, и  `let-odd`.
 
-* The microsyntax parser title-cases all directives and prefixes them with the directive's
-attribute name, such as `ngFor`. For example, the `ngFor` input properties,
-`of` and `trackBy`, become `ngForOf` and `ngForTrackBy`, respectively.
-That's how the directive learns that the list is `heroes` and the track-by function is `trackById`.
+* Заголовок синтаксического анализатора microsyntax регистрирует все директивы и ставит перед ними префиксы
+имя атрибута, например  `ngFor`  . Например,  `ngFor`  входных свойств
+ `of ` и ` trackBy`, стать  `ngForOf`  и  `ngForTrackBy`  соответственно.
+Вот как директива узнает, что список  `heroes`  и функция отслеживания  `trackById`.
 
-* As the `NgFor` directive loops through the list, it sets and resets properties of its own _context_ object.
-These properties can include, but aren't limited to, `index`, `odd`, and a special property
-named `$implicit`.
+* Как  `NgFor`  Директива проходит по списку, она устанавливает и сбрасывает свойства своего собственного объекта _context_.
+Эти свойства могут включать, но не ограничиваются,  `index`, `odd`, а особая собственность
+названный  `$implicit`.
 
-* The `let-i` and `let-odd` variables were defined as `let i=index` and `let odd=odd`.
-Angular sets them to the current value of the context's `index` and `odd` properties.
+*  `let-i ` и ` let-odd` переменные были определены как `let i=index ` и ` let odd=odd`.
+Angular устанавливает их в текущее значение контекста  `index`  и  `odd`  свойства.
 
-* The context property for `let-hero` wasn't specified.
-Its intended source is implicit.
-Angular sets `let-hero` to the value of the context's `$implicit` property,
-which `NgFor` has initialized with the hero for the current iteration.
+* Свойство context для  `let-hero`  не указан.
+Предполагаемый источник неявный.
+Angular комплекты  `let-hero`  значение контекста  `$implicit`  свойство
+который  `NgFor`  инициализирован с героем для текущей итерации.
 
-* The [`NgFor` API guide](api/common/NgForOf "API: NgFor")
-describes additional `NgFor` directive properties and context properties.
+* [ `Руководство API NgFor` ](api/common/NgForOf "API: NgFor")
+описывает дополнительные  `NgFor`  свойства директивы и свойства контекста.
 
-* The `NgForOf` directive implements `NgFor`. Read more about additional `NgForOf` directive properties and context properties in the [NgForOf API reference](api/common/NgForOf).
+*  `NgForOf` Директива реализует  `NgFor`  . Узнайте больше о дополнительных  `NgForOf`  директивы и свойства контекста в [ссылка на API NgForOf](api/common/NgForOf).
 
-### Writing your own structural directives
+{@a writing-your-own-structural-directives}
+### Написание собственных структурных директив
 
-These microsyntax mechanisms are also available to you when you write your own structural directives.
-For example, microsyntax in Angular allows you to write `<div *ngFor="let item of items">{{item}}</div>`
-instead of `<ng-template ngFor let-item [ngForOf]="items"><div>{{item}}</div></ng-template>`.
-The following sections provide detailed information on constraints, grammar,
-and translation of microsyntax.
+Эти механизмы микросинтаксиса также доступны вам, когда вы пишете свои собственные структурные директивы.
+Например, микросинтаксис в Angular позволяет писать `<div *ngFor="let item of items">{{item}}</div>` 
+вместо того `<ng-template ngFor let-item [ngForOf]="items"><div>{{item}}</div></ng-template>`.
+В следующих разделах содержится подробная информация об ограничениях, грамматике,
+и перевод микросинтаксиса.
 
-### Constraints
+{@a constraints}
+### Ограничения
 
-Microsyntax must meet the following requirements:
+Microsyntax должны отвечать следующим требованиям:
 
-- It must be known ahead of time so that IDEs can parse it without knowing the underlying semantics of the directive or what directives are present.
-- It must translate to key-value attributes in the DOM.
+- Он должен быть известен заранее, чтобы IDE могли его проанализировать, не зная семантики директивы или того, какие директивы присутствуют.
+- Он должен преобразовываться в атрибуты ключ-значение в DOM.
 
-### Grammar
+{@a grammar}
+### Грамматика
 
-When you write your own structural directives, use the following grammar:
+Когда вы пишете свои собственные структурные директивы, используйте следующую грамматику:
 
 ```
-*:prefix="( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )*"
+*:prefix="(:let | :expression) (';' | ',')? (:let | :as | :keyExp)*"
 ```
 
-The following tables describe each portion of the microsyntax grammar.
+В следующих таблицах описана каждая часть грамматики микросинтаксиса.
 
 <!-- What should I put in the table headers? -->
 
@@ -327,23 +336,23 @@ The following tables describe each portion of the microsyntax grammar.
   </tr>
   <tr>
     <td><code>prefix</code></td>
-    <td>HTML attribute key</td>
+    <td>Ключ атрибута HTML </td>
   </tr>
   <tr>
     <td><code>key</code></td>
-    <td>HTML attribute key</td>
+    <td>Ключ атрибута HTML </td>
   </tr>
   <tr>
     <td><code>local</code></td>
-    <td>local variable name used in the template</td>
+    <td>имя локальной переменной, используемой в шаблоне </td>
   </tr>
   <tr>
     <td><code>export</code></td>
-    <td>value exported by the directive under a given name</td>
+    <td>значение экспортируется директивой под заданным именем </td>
   </tr>
   <tr>
     <td><code>expression</code></td>
-    <td>standard Angular expression</td>
+    <td>Стандартное Angular выражение </td>
   </tr>
 </table>
 
@@ -364,27 +373,28 @@ The following tables describe each portion of the microsyntax grammar.
 </table>
 
 
-### Translation
+{@a translation}
+### Перевод
 
-A microsyntax is translated to the normal binding syntax as follows:
+Microsyntax переводится в нормальный синтаксис связывания следующим образом :
 
 <!-- What to put in the table headers below? Are these correct?-->
 <table>
   <tr>
-    <th>Microsyntax</th>
-    <th>Translation</th>
+    <th>Микросинтаксис </th>
+    <th>Перевод </th>
   </tr>
   <tr>
-    <td><code>prefix</code> and naked <code>expression</code></td>
+    <td><code>prefix</code>и голый <code>expression</code></td>
     <td><code>[prefix]="expression"</code></td>
   </tr>
   <tr>
     <td><code>keyExp</code></td>
     <td><code>[prefixKey] "expression"
-    (let-prefixKey="export")</code>
+    (let-prefixKey="export") </code>
     <br />
-    Notice that the <code>prefix</code>
-    is added to the <code>key</code>
+    Обратите внимание, что <code>prefix</code>
+    добавлен в <code>key</code>
     </td>
   </tr>
   <tr>
@@ -393,14 +403,15 @@ A microsyntax is translated to the normal binding syntax as follows:
   </tr>
 </table>
 
-### Microsyntax examples
+{@a microsyntax-examples}
+### Примеры микросинтаксиса
 
-The following table demonstrates how Angular desugars microsyntax.
+В следующей таблице показано, как Angular desugars микросинтаксис.
 
 <table>
   <tr>
-    <th>Microsyntax</th>
-    <th>Desugared</th>
+    <th>Микросинтаксис </th>
+    <th>Desugared </th>
   </tr>
   <tr>
     <td><code>*ngFor="let item of [1,2,3]"</code></td>
@@ -421,10 +432,10 @@ The following table demonstrates how Angular desugars microsyntax.
   </tr>
 </table>
 
-Studying the
-[source code for `NgIf`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
-and [`NgForOf`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgForOf")
-is a great way to learn more.
+Изучая
+[исходный код для  `NgIf` ](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
+и [  `NgForOf`  ](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgForOf")
+это отличный способ узнать больше.
 
 
 {@a template-input-variable}
@@ -433,90 +444,93 @@ is a great way to learn more.
 {@a template-input-variables}
 
 
-## Template input variable
+{@a template-input-variable}
+## Шаблон входной переменной
 
-A _template input variable_ is a variable whose value you can reference _within_ a single instance of the template.
-There are several such variables in this example: `hero`, `i`, and `odd`.
-All are preceded by the keyword `let`.
+Входная переменная _template_ - это переменная, значение которой вы можете ссылаться на _within_ отдельного экземпляра шаблона.
+В этом примере есть несколько таких переменных:  `hero`, `i`  и  `odd`.
+Всем предшествует ключевое слово  `let`.
 
-A _template input variable_ is **_not_** the same as a
-[template _reference_ variable](guide/template-syntax#ref-vars),
-neither _semantically_ nor _syntactically_.
+Входная переменная _template_ является **_не_** такой же, как
+[Шаблон переменной _reference_](guide/template-syntax#ref-vars),
+ни _семантически_, ни _синтаксически_.
 
-You declare a template _input_ variable using the `let` keyword (`let hero`).
-The variable's scope is limited to a _single instance_ of the repeated template.
-You can use the same variable name again in the definition of other structural directives.
+Вы объявляете переменную шаблона _input_, используя  `let`  ключевое слово (`let hero`).
+Область действия переменной ограничена одним экземпляром повторяющегося шаблона.
+Вы можете снова использовать то же имя переменной в определении других структурных директив.
 
-You declare a template _reference_ variable by prefixing the variable name with `#` (`#var`).
-A _reference_ variable refers to its attached element, component or directive.
-It can be accessed _anywhere_ in the _entire template_.
+Вы объявляете переменную _reference_ шаблона, добавляя к имени переменной префикс  `#`  (`#var`)
+Переменная _reference_ ссылается на связанный с ней элемент, компонент или директиву.
+Это может быть доступно _anywhere_ в шаблоне _entire_.
 
-Template _input_ and _reference_ variable names have their own namespaces. The `hero` in `let hero` is never the same
-variable as the `hero` declared as `#hero`.
+Имена переменных шаблонов _input_ и _reference_ имеют свои собственные пространства имен.  `hero ` в ` let hero` никогда не бывает прежним
+переменная как  `hero`  объявлен  `#hero`.
 
 
 {@a one-per-element}
 
 
-## One structural directive per host element
+{@a one-structural-directive-per-host-element}
+## Одна структурная директива на элемент хоста
 
-Someday you'll want to repeat a block of HTML but only when a particular condition is true.
-You'll _try_ to put both an `*ngFor` and an `*ngIf` on the same host element.
-Angular won't let you. You may apply only one _structural_ directive to an element.
+Когда-нибудь вам захочется повторить блок HTML, но только когда определенное условие выполнено.
+Вы будете _try_ поставить оба  `*ngFor`  и  `*ngIf`  на том же элементе хоста.
+Angular не позволит вам. Вы можете применить только одну _structural_ директиву к элементу.
 
-The reason is simplicity. Structural directives can do complex things with the host element and its descendents.
-When two directives lay claim to the same host element, which one takes precedence?
-Which should go first, the `NgIf` or the `NgFor`? Can the `NgIf` cancel the effect of the `NgFor`?
-If so (and it seems like it should be so), how should Angular generalize the ability to cancel for other structural directives?
+Причина простота. Структурные директивы могут делать сложные вещи с элементом host и его потомками.
+Когда две директивы претендуют на один и тот же хост-элемент, какая из них имеет приоритет?
+Который должен идти первым,  `NgIf`  или  `NgFor`  ? Может ли  `NgIf`  отменить эффект  `NgFor`  ?
+Если это так (и похоже, что так и должно быть), как Angular должен обобщать возможность отмены для других структурных директив?
 
-There are no easy answers to these questions. Prohibiting multiple structural directives makes them moot.
-There's an easy solution for this use case: put the `*ngIf` on a container element that wraps the `*ngFor` element.
-One or both elements can be an [`ng-container`](guide/structural-directives#ngcontainer) so you don't have to introduce extra levels of HTML.
+На эти вопросы нет простых ответов. Запрещение нескольких структурных директив делает их спорными.
+Для этого варианта использования есть простое решение:  `*ngIf`  на элементе контейнера, который оборачивает  `*ngFor`  элемент.
+Один или оба элемента могут быть [  `ng-container`  ](guide/structural-directives#ngcontainer)поэтому вам не нужно вводить дополнительные уровни HTML.
 
 
 {@a ngSwitch}
 
 
 
-## Inside _NgSwitch_ directives
+{@a inside-ngswitch-directives}
+## Внутри _NgSwitch_ директив
 
-The Angular _NgSwitch_ is actually a set of cooperating directives: `NgSwitch`, `NgSwitchCase`, and `NgSwitchDefault`.
+Angular _NgSwitch_ на самом деле представляет собой набор взаимодействующих директив:  `NgSwitch`, `NgSwitchCase`  и  `NgSwitchDefault`.
 
-Here's an example.
+Вот пример.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngswitch)" region="ngswitch"></code-example>
 
 
 
-The switch value assigned to `NgSwitch` (`hero.emotion`) determines which
-(if any) of the switch cases are displayed.
+Значение переключателя присвоено  `NgSwitch`  (`hero.emotion`) определяет какой
+(если есть) отображаются случаи переключения.
 
-`NgSwitch` itself is not a structural directive.
-It's an _attribute_ directive that controls the behavior of the other two switch directives.
-That's why you write `[ngSwitch]`, never `*ngSwitch`.
+ `NgSwitch` Сам не является структурной директивой.
+Это директива _attribute_, которая управляет поведением двух других директив switch.
+Вот почему ты пишешь  `[ngSwitch]`, никогда  `*ngSwitch`.
 
-`NgSwitchCase` and `NgSwitchDefault` _are_ structural directives.
-You attach them to elements using the asterisk (*) prefix notation.
-An `NgSwitchCase` displays its host element when its value matches the switch value.
-The `NgSwitchDefault` displays its host element when no sibling `NgSwitchCase` matches the switch value.
+ `NgSwitchCase ` и ` NgSwitchDefault` _are_ структурные директивы.
+Вы присоединяете их к элементам, используя asterisk (*префикс).
+ `NgSwitchCase` отображает свой хост-элемент, когда его значение соответствует значению переключателя.
+ `NgSwitchDefault` отображает свой хост-элемент, когда нет родного брата  `NgSwitchCase`  соответствует значению переключателя.
 
 
 <div class="alert is-helpful">
 
 
 
-The element to which you apply a directive is its _host_ element.
-The `<happy-hero>` is the host element for the happy `*ngSwitchCase`.
-The `<unknown-hero>` is the host element for the `*ngSwitchDefault`.
+Элемент, к которому вы применяете директиву, является ее элементом _host_.
+ `<happy-hero>` - элемент хозяина для счастливого  `*ngSwitchCase`.
+ `<unknown-hero>` является основным элементом для  `*ngSwitchDefault`.
 
 
 </div>
 
 
 
-As with other structural directives, the `NgSwitchCase` and `NgSwitchDefault`
-can be desugared into the `<ng-template>` element form.
+Как и в случае с другими структурными директивами,  `NgSwitchCase`  и  `NgSwitchDefault` 
+может быть выведен в  `<ng-template>`  Форма элемента.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngswitch-template)" region="ngswitch-template"></code-example>
@@ -526,37 +540,38 @@ can be desugared into the `<ng-template>` element form.
 {@a prefer-asterisk}
 
 
-## Prefer the asterisk (*) syntax.
+{@a prefer-the-asterisk--syntax}
+## Предпочитаю звездочки (*синтаксис).
 
-The asterisk (*) syntax is more clear than the desugared form.
-Use [&lt;ng-container&gt;](guide/structural-directives#ng-container) when there's no single element
-to host the directive.
+звездочки (*Синтаксис) более понятен, чем десагаред.
+Используйте [<ng-container>](guide/structural-directives#ng-container)когда нет ни одного элемента
+разместить директиву.
 
-While there's rarely a good reason to apply a structural directive in template _attribute_ or _element_ form,
-it's still important to know that Angular creates a `<ng-template>` and to understand how it works.
-You'll refer to the `<ng-template>` when you [write your own structural directive](guide/structural-directives#unless).
+В то время как редко хороший повод, чтобы применить структурную директиву шаблона _attribute_ или _element_ формы
+все еще важно знать, что Angular создает  `<ng-template>`  и понять, как он работает.
+Вы будете ссылаться на  `<ng-template>`  когда вы [напишите свою собственную структурную директиву](guide/structural-directives#unless).
 
 
 {@a template}
 
 
-
+{@a the-ng-template}
 ## The *&lt;ng-template&gt;*
 
-The &lt;ng-template&gt; is an Angular element for rendering HTML.
-It is never displayed directly.
-In fact, before rendering the view, Angular _replaces_ the `<ng-template>` and its contents with a comment.
+<Ng-template> - это Angular элемент для рендеринга HTML.
+Он никогда не отображается напрямую.
+На самом деле, перед рендерингом представления, Angular _replaces_ the  `<ng-template>`  и его содержимое с комментарием.
 
-If there is no structural directive and you merely wrap some elements in a `<ng-template>`,
-those elements disappear.
-That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
+Если нет структурной директивы, и вы просто заключаете некоторые элементы в  `<ng-template>`,
+эти элементы исчезают.
+Это судьба середины "Бедро!" в фразе «Бедро! Бедро! Ура!».
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (template-tag)" region="template-tag"></code-example>
 
 
 
-Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
+Angular стирает середину «Hip!», Оставляя приветствие чуть менее восторженным.
 
 
 <div class="lightbox">
@@ -565,8 +580,8 @@ Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
 
 
 
-A structural directive puts a `<ng-template>` to work
-as you'll see when you [write your own structural directive](guide/structural-directives#unless).
+Структурная директива ставит  `<ng-template>`  для работы
+как вы увидите, когда вы [напишите свою собственную структурную директиву](guide/structural-directives#unless).
 
 
 {@a ngcontainer}
@@ -576,45 +591,46 @@ as you'll see when you [write your own structural directive](guide/structural-di
 
 
 
-## Group sibling elements with &lt;ng-container&gt;
+{@a group-sibling-elements-with-&ltng-container}
+## Сгруппируйте одноуровневые элементы с помощью <ng-container>
 
-There's often a _root_ element that can and should host the structural directive.
-The list element (`<li>`) is a typical host element of an `NgFor` repeater.
+Часто есть элемент _root_, который может и должен содержать структурную директиву.
+Элемент списка (`<li>`) является типичным хост-элементом  `NgFor`  репитера.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngfor-li)" region="ngfor-li"></code-example>
 
 
 
-When there isn't a host element, you can usually wrap the content in a native HTML container element,
-such as a `<div>`, and attach the directive to that wrapper.
+Если элемент host отсутствует, вы обычно можете обернуть содержимое в собственный элемент контейнера HTML
+такой как  `<div>`  и приложите директиву к этой оболочке.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif)" region="ngif"></code-example>
 
 
 
-Introducing another container element&mdash;typically a `<span>` or `<div>`&mdash;to
-group the elements under a single _root_ is usually harmless.
-_Usually_ ... but not _always_.
+Представляем другой элемент контейнера - обычно  `<span>`  или  `<div>`  - к
+Группировка элементов под одним _root_ обычно безвредна.
+_ Обычно ... но не всегда.
 
-The grouping element may break the template appearance because CSS styles
-neither expect nor accommodate the new layout.
-For example, suppose you have the following paragraph layout.
+Элемент группировки может нарушить внешний вид шаблона из-за стилей CSS
+не ожидайте и не приспособьте новый макет.
+Например, предположим, что у вас есть следующий макет абзаца.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif-span)" region="ngif-span"></code-example>
 
 
 
-You also have a CSS style rule that happens to apply to a `<span>` within a `<p>`aragraph.
+У вас также есть правило стиля CSS, которое применяется к  `<span>`  пределах  `<p>`  aragraph.
 
 
 <code-example path="structural-directives/src/app/app.component.css" header="src/app/app.component.css (p-span)" region="p-span"></code-example>
 
 
 
-The constructed paragraph renders strangely.
+Построенный абзац выглядит странно.
 
 
 <div class="lightbox">
@@ -623,20 +639,20 @@ The constructed paragraph renders strangely.
 
 
 
-The `p span` style, intended for use elsewhere, was inadvertently applied here.
+ `p span` Стиль, предназначенный для использования в других местах, был непреднамеренно применен здесь.
 
-Another problem: some HTML elements require all immediate children to be of a specific type.
-For example, the `<select>` element requires `<option>` children.
-You can't wrap the _options_ in a conditional `<div>` or a `<span>`.
+Другая проблема: некоторые элементы HTML требуют, чтобы все непосредственные потомки были определенного типа.
+Например,  `<select>`  элемент требует  `<option>`  детей.
+Вы не можете обернуть _options_ в условном  `<div>`  или  `<span>`.
 
-When you try this,
+Когда вы попробуете это
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (select-span)" region="select-span"></code-example>
 
 
 
-the drop down is empty.
+раскрывающийся список пуст.
 
 
 <div class="lightbox">
@@ -645,21 +661,22 @@ the drop down is empty.
 
 
 
-The browser won't display an `<option>` within a `<span>`.
+Браузер не будет отображать  `<option>`  пределах  `<span>`.
 
-### &lt;ng-container&gt; to the rescue
+{@a ng-container-to-the-rescue}
+### <ng-container> на помощь
 
-The Angular `<ng-container>` is a grouping element that doesn't interfere with styles or layout
-because Angular _doesn't put it in the DOM_.
+Angular  `<ng-container>`  - это группирующий элемент, который не влияет на стили или макет
+потому что Angular не помещает его в DOM_.
 
-Here's the conditional paragraph again, this time using `<ng-container>`.
+Вот снова условный абзац, на этот раз используя  `<ng-container>`.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (ngif-ngcontainer)" region="ngif-ngcontainer"></code-example>
 
 
 
-It renders properly.
+Это делает правильно.
 
 
 <div class="lightbox">
@@ -668,14 +685,14 @@ It renders properly.
 
 
 
-Now conditionally exclude a _select_ `<option>` with `<ng-container>`.
+Теперь условно исключить _select_  `<option>`  с  `<ng-container>`.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (select-ngcontainer)" region="select-ngcontainer"></code-example>
 
 
 
-The drop down works properly.
+Раскрывающийся список работает правильно.
 
 
 <div class="lightbox">
@@ -684,14 +701,14 @@ The drop down works properly.
 
 <div class="alert is-helpful">
 
-**Note:** Remember that ngModel directive is defined as a part of Angular FormsModule and you need to include FormsModule in the imports: [...] section of the Angular module metadata, in which you want to use it.
+**Примечание.** Помните, что директива ngModel определена как часть Angular FormsModule, и вам необходимо включить FormsModule в раздел import: [...] метаданных модуля Angular, в котором вы хотите его использовать.
 
 </div>
 
 
-The `<ng-container>` is a syntax element recognized by the Angular parser.
-It's not a directive, component, class, or interface.
-It's more like the curly braces in a JavaScript `if`-block:
+ `<ng-container>` - это синтаксический элемент, распознаваемый анализатором Angular.
+Это не директива, компонент, класс или интерфейс.
+Это больше похоже на фигурные скобки в JavaScript  `if`  -блок:
 
 
 <code-example language="javascript">
@@ -705,88 +722,91 @@ It's more like the curly braces in a JavaScript `if`-block:
 
 
 
-Without those braces, JavaScript would only execute the first statement
-when you intend to conditionally execute all of them as a single block.
-The `<ng-container>` satisfies a similar need in Angular templates.
+Без этих скобок JavaScript будет выполнять только первый оператор
+когда вы собираетесь условно выполнить их все как один блок.
+ `<ng-container>` удовлетворяет аналогичную потребность в шаблонах Angular.
 
 
 {@a unless}
 
 
 
-## Write a structural directive
+{@a write-a-structural-directive}
+## Написать структурную директиву
 
-In this section, you write an `UnlessDirective` structural directive
-that does the opposite of `NgIf`.
-`NgIf` displays the template content when the condition is `true`.
-`UnlessDirective` displays the content when the condition is ***false***.
+В этом разделе вы пишете  `UnlessDirective`  структурная директива
+это противоположно  `NgIf`.
+ `NgIf` отображает содержимое шаблона, когда условие  `true`.
+ `UnlessDirective` отображает содержимое, когда условие ***ложно***.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (appUnless-1)" region="appUnless-1"></code-example>
 
 
 
-Creating a directive is similar to creating a component.
+Создание директивы похоже на создание компонента.
 
-* Import the `Directive` decorator (instead of the `Component` decorator).
+* Импортировать  `Directive`  декоратор (вместо  `Component`  декоратор).
 
-* Import the `Input`, `TemplateRef`, and `ViewContainerRef` symbols; you'll need them for _any_ structural directive.
+* Импортировать  `Input`, `TemplateRef`  и  `ViewContainerRef`  Символы ; они понадобятся вам для _any_ структурной директивы.
 
-* Apply the decorator to the directive class.
+* Примените декоратор к директивному классу.
 
-* Set the CSS *attribute selector* that identifies the directive when applied to an element in a template.
+* Установите CSS*селектор атрибута, * который идентифицирует директиву при применении к элементу в шаблоне.
 
-Here's how you might begin:
+Вот как вы можете начать:
 
 
 <code-example path="structural-directives/src/app/unless.directive.ts" header="src/app/unless.directive.ts (skeleton)" region="skeleton"></code-example>
 
 
 
-The directive's _selector_ is typically the directive's **attribute name** in square brackets, `[appUnless]`.
-The brackets define a CSS
-<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">attribute selector</a>.
+_Selector_ директивы обычно является директивы **именем атрибута** в квадратных скобках,  `[appUnless]`.
+Скобки определяют CSS
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">Селектор атрибутов </a>.
 
-The directive _attribute name_ should be spelled in _lowerCamelCase_ and begin with a prefix.
-Don't use `ng`. That prefix belongs to Angular.
-Pick something short that fits you or your company.
-In this example, the prefix is `app`.
+Директива _attribute name_ должна быть записана в _lowerCamelCase_ и начинаться с префикса.
+Не использовать  `ng`  . Этот префикс принадлежит Angular.
+Выберите что-то короткое, что подходит вам или вашей компании.
+В этом примере префикс  `app`.
 
 
-The directive _class_ name ends in `Directive` per the [style guide](guide/styleguide#02-03 "Angular Style Guide").
-Angular's own directives do not.
+Имя _class_ директивы оканчивается на  `Directive`  согласно [руководство по стилю](guide/styleguide#02-03 "Angular Style Guide").
+Собственные директивы Angular этого не делают.
 
-### _TemplateRef_ and _ViewContainerRef_
+{@a templateref-and-viewcontainerref}
+### _TemplateRef_ и _ViewContainerRef_
 
-A simple structural directive like this one creates an
+Простая структурная директива, подобная этой, создает
 [_embedded view_](api/core/EmbeddedViewRef "API: EmbeddedViewRef")
-from the Angular-generated `<ng-template>` and inserts that view in a
+из Angular  `<ng-template>`  и вставляет это представление в
 [_view container_](api/core/ViewContainerRef "API: ViewContainerRef")
-adjacent to the directive's original `<p>` host element.
+рядом с оригиналом директивы  `<p>`  хост-элемент.
 
-You'll acquire the `<ng-template>` contents with a
-[`TemplateRef`](api/core/TemplateRef "API: TemplateRef")
-and access the _view container_ through a
-[`ViewContainerRef`](api/core/ViewContainerRef "API: ViewContainerRef").
+Вы приобретете  `<ng-template>`  Содержимое с
+[  `TemplateRef`  ](api/core/TemplateRef "API: TemplateRef")
+и получить доступ к _view контейнеру через
+[  `ViewContainerRef`  ](api/core/ViewContainerRef "API: ViewContainerRef").
 
-You inject both in the directive constructor as private variables of the class.
+Вы вводите оба в конструктор директивы как частные переменные класса.
 
 
 <code-example path="structural-directives/src/app/unless.directive.ts" header="src/app/unless.directive.ts (ctor)" region="ctor"></code-example>
 
 
 
-### The _appUnless_ property
+{@a the-appunless-property}
+### Свойство _appUnless_
 
-The directive consumer expects to bind a true/false condition to `[appUnless]`.
-That means the directive needs an `appUnless` property, decorated with `@Input`
+Потребитель директивы ожидает связать истинное / ложное условие с `[appUnless]`.
+Это означает, что директива нуждается в `appUnless` недвижимость, украшенная `@Input`
 
 
 <div class="alert is-helpful">
 
 
 
-Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outputs) guide.
+Читать о `@Input` в [_Template Syntax_](guide/template-syntax#inputs-outputs)руководство.
 
 
 </div>
@@ -797,35 +817,35 @@ Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outp
 
 
 
-Angular sets the `appUnless` property whenever the value of the condition changes.
-Because the `appUnless` property does work, it needs a setter.
+Angular набор `appUnless` всякий раз, когда значение условия изменяется.
+Поскольку `appUnless` работает, ему нужен установщик.
 
-* If the condition is falsy and the view hasn't been created previously,
-tell the _view container_ to create the _embedded view_ from the template.
+* Если условие falsy и вид не был создан ранее,
+скажите _view container_, чтобы создать _embedded view_ из шаблона.
 
-* If the condition is truthy and the view is currently displayed,
-clear the container which also destroys the view.
+* Если условие truthy и в данный момент отображается вид,
+очистить контейнер, который также уничтожает вид.
 
-Nobody reads the `appUnless` property so it doesn't need a getter.
+Никто не читает `appUnless` поэтому оно не нуждается в геттере.
 
-The completed directive code looks like this:
+Заполненная директива код выглядит следующим образом :
 
 
 <code-example path="structural-directives/src/app/unless.directive.ts" header="src/app/unless.directive.ts (excerpt)" region="no-docs"></code-example>
 
 
 
-Add this directive to the `declarations` array of the AppModule.
+Добавьте эту директиву к `declarations` массив модуля AppModule.
 
-Then create some HTML to try it.
+Затем создайте HTML, чтобы попробовать.
 
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (appUnless)" region="appUnless"></code-example>
 
 
 
-When the `condition` is falsy, the top (A) paragraph appears and the bottom (B) paragraph disappears.
-When the `condition` is truthy, the top (A) paragraph is removed and the bottom (B) paragraph appears.
+Когда `condition` ложное, появляется верхний (A) абзац, а нижний (B) абзац исчезает.
+Когда `condition` верно, верхний абзац (A) удаляется, а нижний (B) абзац появляется.
 
 
 <div class="lightbox">
@@ -838,11 +858,11 @@ When the `condition` is truthy, the top (A) paragraph is removed and the bottom 
 
 
 
-## Summary
+## Резюме
 
-You can both try and download the source code for this guide in the <live-example></live-example>.
+Вы можете попробовать и загрузить исходный код этого руководства в <live-example></live-example>.
 
-Here is the source from the `src/app/` folder.
+Вот источник из `src/app/` папка.
 
 
 <code-tabs>
@@ -879,11 +899,11 @@ Here is the source from the `src/app/` folder.
 
 
 
-You learned
+Вы узнали
 
-* that structural directives manipulate HTML layout.
-* to use [`<ng-container>`](guide/structural-directives#ngcontainer) as a grouping element when there is no suitable host element.
-* that the Angular desugars [asterisk (*) syntax](guide/structural-directives#asterisk) into a `<ng-template>`.
-* how that works for the `NgIf`, `NgFor` and `NgSwitch` built-in directives.
-* about the [_microsyntax_](guide/structural-directives#microsyntax) that expands into a [`<ng-template>`](guide/structural-directives#template).
-* to write a [custom structural directive](guide/structural-directives#unless), `UnlessDirective`.
+* что структурные директивы манипулируют макетом HTML.
+* использовать [``](guide/structural-directives#ngcontainer)как группирующий элемент, когда нет подходящего хост-элемента.
+* что Angular десугары [звездочка (*) синтаксис](guide/structural-directives#asterisk)в `<ng-template>`.
+* как это работает для `NgIf`, `NgFor` и `NgSwitch` встроенные директивы.
+* о [_microsyntax_](guide/structural-directives#microsyntax)который расширяется в [``](guide/structural-directives#template).
+* написать [пользовательскую структурную директиву](guide/structural-directives#unless), `UnlessDirective`.

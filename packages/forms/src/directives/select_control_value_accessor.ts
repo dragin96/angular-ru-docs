@@ -27,60 +27,60 @@ function _extractId(valueString: string): string {
 }
 
 /**
- * @description
- * The `ControlValueAccessor` for writing select control values and listening to select control
- * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
+ *  @description
+ *  The `ControlValueAccessor`для записи выберите значение управления и прослушивание выбрать режимуправления.
+ * меняется. Метод доступа к значениям используется `FormControlDirective` , `FormControlName` и
+ *  `NgModel`директивы.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using select controls in a reactive form
+ *  ### Использование элементов управления в реактивной форме
  *
- * The following examples show how to use a select control in a reactive form.
+ * В следующих примерах показано, как использовать элемент управления select в реактивной форме.
  *
- * {@example forms/ts/reactiveSelectControl/reactive_select_control_example.ts region='Component'}
+ *  {@example forms/ts/reactiveSelectControl/reactive_select_control_example.ts region='Component'}
  *
- * ### Using select controls in a template-driven form
+ *  ### Использование элементов управления select в форме на основе шаблона
  *
- * To use a select in a template-driven form, simply add an `ngModel` and a `name`
- * attribute to the main `<select>` tag.
+ * Чтобы использовать выбор в шаблоне управляемой форме, просто добавьте `ngModel` и `name`
+ * атрибут основного `<select>`.
  *
- * {@example forms/ts/selectControl/select_control_example.ts region='Component'}
+ *  {@example forms/ts/selectControl/select_control_example.ts region='Component'}
  *
- * ### Customizing option selection
+ *  ### Настройка параметров выбора
  *
- * Angular uses object identity to select option. It's possible for the identities of items
- * to change while the data does not. This can happen, for example, if the items are produced
- * from an RPC to the server, and that RPC is re-run. Even if the data hasn't changed, the
- * second response will produce objects with different identities.
+ * Angular использует идентификатор объекта для выбора опции. Это возможно для идентичности предметов
+ * изменить, пока данные не изменяются. Это может произойти, например, если товары произведены
+ * с RPC на сервер, и этот RPC повторно запускается. Даже если данные не изменились,то.
+ * Второй ответ будет производить объекты с разными идентичностями.
  *
- * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
- * `compareWith` takes a **function** which has two arguments: `option1` and `option2`.
- * If `compareWith` is given, Angular selects option by the return value of the function.
+ * Чтобы настроить алгоритм сравнения опций по умолчанию, `<select>` поддерживает `compareWith` вход.
+ *  `compareWith`принимает функцию, которая имеет два аргумента: `option1` и `option2`.
+ * Если `compareWith` , Angular выбирает опцию по возвращаемому значению функции.
  *
- * ```ts
- * const selectedCountriesControl = new FormControl();
- * ```
+ *  ```ts
+ *  const selectedCountriesControl = new FormControl();
+ *  ```
  *
- * ```
- * <select [compareWith]="compareFn"  [formControl]="selectedCountriesControl">
- *     <option *ngFor="let country of countries" [ngValue]="country">
- *         {{country.name}}
- *     </option>
- * </select>
+ *  ```
+ *  <select [compareWith]="compareFn"[formControl]="selectedCountriesControl">
+ *      <optionngFor="let country of countries" [ngValue]="country">
+ *          {{country.name}}
+ *      </option>
+ *  </select>
  *
- * compareFn(c1: Country, c2: Country): boolean {
- *     return c1 && c2 ? c1.id === c2.id : c1 === c2;
- * }
- * ```
+ *  compareFn(c1: Country, c2: Country): boolean {
+ *      return c1 && c2 ? c1.id === c2.id : c1 === c2;
+ *  }
+ *  ```
  *
- * **Note:** We listen to the 'change' event because 'input' events aren't fired
- * for selects in Firefox and IE:
+ * Примечание: мы слушаем событие 'change', потому что события 'input' не запускаются
+ * для выбирает в Firefox иIE:.
  * https://bugzilla.mozilla.org/show_bug.cgi?id=1024350
  * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/4660045/
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({
@@ -194,13 +194,13 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 }
 
 /**
- * @description
- * Marks `<option>` as dynamic, so Angular can be notified when options change.
+ *  @description
+ * Marks `<option>` как динамика, так Angular может быть уведомлен при изменении параметров.
  *
- * @see `SelectControlValueAccessor`
+ *  @see `SelectControlValueAccessor`
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({selector: 'option'})

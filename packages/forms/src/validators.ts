@@ -19,41 +19,41 @@ function isEmptyInputValue(value: any): boolean {
 }
 
 /**
- * @description
- * An `InjectionToken` for registering additional synchronous validators used with
- * `AbstractControl`s.
+ *  @description
+ *  An `InjectionToken`для регистрации дополнительных синхронных валидаторовиспользуемыхс.
+ *  `AbstractControl`s.
  *
- * @see `NG_ASYNC_VALIDATORS`
+ *  @see `NG_ASYNC_VALIDATORS`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Providing a custom validator
+ *  ### Предоставление собственного валидатора
  *
- * The following example registers a custom validator directive. Adding the validator to the
- * existing collection of validators requires the `multi: true` option.
+ * В следующем примере регистрируется пользовательская директива валидатора. Добавление валидатора в
+ * Для существующей коллекции валидаторов требуется`multi: true`..
  *
- * ```typescript
- * @Directive({
- *   selector: '[customValidator]',
- *   providers: [{provide: NG_VALIDATORS, useExisting: CustomValidatorDirective, multi: true}]
- * })
- * class CustomValidatorDirective implements Validator {
- *   validate(control: AbstractControl): ValidationErrors | null {
- *     return { 'custom': true };
- *   }
- * }
- * ```
+ *  ```typescript
+ *  @Directive({
+ *    selector: '[customValidator]',
+ *    providers: [{provide: NG_VALIDATORS, useExisting: CustomValidatorDirective, multi: true}]
+ *  })
+ *  class CustomValidatorDirective implements Validator {
+ *    validate(control: AbstractControl): ValidationErrors | null {
+ *      return { 'custom': true };
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
 export const NG_VALIDATORS = new InjectionToken<Array<Validator|Function>>('NgValidators');
 
 /**
- * @description
- * An `InjectionToken` for registering additional asynchronous validators used with
- * `AbstractControl`s.
+ *  @description
+ *  An `InjectionToken`для регистрации дополнительных асинхронных валидаторовиспользуемыхс.
+ *  `AbstractControl`s.
  *
- * @see `NG_VALIDATORS`
+ *  @see `NG_VALIDATORS`
  *
  * @publicApi
  */
@@ -94,13 +94,13 @@ const EMAIL_REGEXP =
     /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 /**
- * @description
- * Provides a set of built-in validators that can be used by form controls.
+ *  @description
+ * Предоставляет набор встроенных валидаторов, которые могут использоваться элементами управления формой.
  *
- * A validator is a function that processes a `FormControl` or collection of
- * controls and returns an error map or null. A null map means that validation has passed.
+ * Валидатор - это функция, которая обрабатывает `FormControl` или коллекцию
+ * контролирует и возвращает карту ошибок или ноль. Нулевая карта означает, что проверка прошла успешно.
  *
- * @see [Form Validation](/guide/form-validation)
+ *  @see [Проверка формы](/guide/form-validation)
  *
  * @publicApi
  */

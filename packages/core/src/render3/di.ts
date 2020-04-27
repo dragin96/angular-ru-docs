@@ -234,33 +234,33 @@ export function diPublicInInjector(
 }
 
 /**
- * Inject static attribute value into directive constructor.
+ * Вставить статическое значение атрибута в конструктор директивы.
  *
- * This method is used with `factory` functions which are generated as part of
- * `defineDirective` or `defineComponent`. The method retrieves the static value
- * of an attribute. (Dynamic attributes are not supported since they are not resolved
- *  at the time of injection and can change over time.)
+ * Этот метод используется с `factory` функцийкоторые генерируются какчасть.
+ *  `defineDirective `или` defineComponent`defineComponent. Метод извлекает статическое значение
+ * атрибута. (Динамические атрибуты не поддерживаются, поскольку они не разрешены
+ * во время инъекции и может меняться со временем.)
  *
- * # Example
- * Given:
- * ```
- * @Component(...)
- * class MyComponent {
- *   constructor(@Attribute('title') title: string) { ... }
- * }
- * ```
- * When instantiated with
- * ```
- * <my-component title="Hello"></my-component>
- * ```
+ *  # Пример
+ * Дано:.
+ *  ```
+ *  @Component(...)
+ *  class MyComponent {
+ *    constructor(@Attribute('title') title: string) { ... }
+ *  }
+ *  ```
+ * Когда создается экземпляр с
+ *  ```
+ *  <my-component title="Hello"></my-component>
+ *  ```
  *
- * Then factory method generated is:
- * ```
- * MyComponent.ɵcmp = defineComponent({
- *   factory: () => new MyComponent(injectAttribute('title'))
- *   ...
- * })
- * ```
+ * Затем фабричный методгенерируемый:.
+ *  ```
+ *  MyComponent.ɵcmp = defineComponent({
+ *    factory: () => new MyComponent(injectAttribute('title'))
+ *    ...
+ *  })
+ *  ```
  *
  * @publicApi
  */

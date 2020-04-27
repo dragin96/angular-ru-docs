@@ -13,7 +13,7 @@ import {getRegisteredNgModuleType} from './ng_module_factory_registration';
 
 
 /**
- * Used to load ng module factories.
+ * Используется для загрузки заводских модулей.
  *
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated, and `NgModuleFactoryLoader` is
@@ -36,9 +36,9 @@ export function getModuleFactory__POST_R3__(id: string): NgModuleFactory<any> {
 }
 
 /**
- * Returns the NgModuleFactory with the given id, if it exists and has been loaded.
- * Factories for modules that do not specify an `id` cannot be retrieved. Throws if the module
- * cannot be found.
+ * Возвращает NgModuleFactory с заданным идентификатором, если он существует и был загружен.
+ * Фабрики для модулей, которые не указывают `id` не могут быть получены. Кидает, если модуль
+ * не может быть найден.
  * @publicApi
  */
 export const getModuleFactory: (id: string) => NgModuleFactory<any> = getModuleFactory__PRE_R3__;

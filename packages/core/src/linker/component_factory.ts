@@ -15,9 +15,9 @@ import {NgModuleRef} from './ng_module_factory';
 import {ViewRef} from './view_ref';
 
 /**
- * Represents a component created by a `ComponentFactory`.
- * Provides access to the component instance and related objects,
- * and provides the means of destroying the instance.
+ * Представляет компонент, созданный с помощью `ComponentFactory`.
+ * Предоставляет доступ к экземпляру компонента и связанным объектам
+ * и предоставляет средства для уничтожения экземпляра.
  *
  * @publicApi
  */
@@ -68,11 +68,11 @@ export abstract class ComponentRef<C> {
 }
 
 /**
- * Base class for a factory that can create a component dynamically.
- * Instantiate a factory for a given type of component with `resolveComponentFactory()`.
- * Use the resulting `ComponentFactory.create()` method to create a component of that type.
+ * Базовый класс для фабрики, которая может динамически создавать компонент.
+ * Создайте фабрику для компонента данного типа с помощью `resolveComponentFactory()`.
+ * Используйте полученный метод `ComponentFactory.create()` для создания компонента этого типа.
  *
- * @see [Dynamic Components](guide/dynamic-component-loader)
+ *  @see [Динамические компоненты](guide/dynamic-component-loader)
  *
  * @publicApi
  */

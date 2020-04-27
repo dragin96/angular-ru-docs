@@ -18,127 +18,127 @@ import {NgAdapterInjector} from './util';
 
 
 /**
- * @description
+ *  @description
  *
- * An `NgModule`, which you import to provide AngularJS core services,
- * and has an instance method used to bootstrap the hybrid upgrade application.
+ *  An `NgModule`NgModule, который вы импортируетечтобы обеспечить AngularJS основныхуслуг,.
+ * и имеет метод экземпляра, используемый для начальной загрузки гибридного приложения обновления.
  *
- * *Part of the [upgrade/static](api?query=upgrade/static)
- * library for hybrid upgrade apps that support AOT compilation*
+ * Часть[апгрейд / статика](api?query=upgrade/static)
+ * библиотека для гибридных приложений обновления, которые поддерживают компиляцию AOT
  *
- * The `upgrade/static` package contains helpers that allow AngularJS and Angular components
- * to be used together inside a hybrid upgrade application, which supports AOT compilation.
+ *  The `upgrade/static`пакет содержит хелперыкоторые позволяют AngularJS и Angularкомпоненты.
+ * для совместного использования в гибридном приложении обновления, которое поддерживает компиляцию AOT.
  *
- * Specifically, the classes and functions in the `upgrade/static` module allow the following:
+ * частности, классы и функции в `upgrade/static` модуляпозволяют:.
  *
- * 1. Creation of an Angular directive that wraps and exposes an AngularJS component so
- *    that it can be used in an Angular template. See `UpgradeComponent`.
- * 2. Creation of an AngularJS directive that wraps and exposes an Angular component so
- *    that it can be used in an AngularJS template. See `downgradeComponent`.
- * 3. Creation of an Angular root injector provider that wraps and exposes an AngularJS
- *    service so that it can be injected into an Angular context. See
- *    {@link UpgradeModule#upgrading-an-angular-1-service Upgrading an AngularJS service} below.
- * 4. Creation of an AngularJS service that wraps and exposes an Angular injectable
- *    so that it can be injected into an AngularJS context. See `downgradeInjectable`.
- * 3. Bootstrapping of a hybrid Angular application which contains both of the frameworks
- *    coexisting in a single application.
+ *  1. Создание директивы Angular, которая оборачивает и выставляет компонент AngularJS так
+ * что его можно использовать в угловом шаблоне. Смотрите `UpgradeComponent`.
+ * 2. Создание директивы AngularJS, которая оборачивает и выставляет компонент Angular так
+ * что он может быть использован в шаблоне AngularJS. Смотрите `downgradeComponent`.
+ * 3. Создание поставщика корневого инжектора Angular, который оборачивает и выставляет AngularJS
+ * сервис, так что он может быть введен в Angular контекст. См
+ *     {@link UpgradeModule#upgrading-an-angular-1-service Upgrading an AngularJS service}ниже.
+ * 4. Создание службы AngularJS, которая оборачивает и предоставляет доступ к инъекциям Angular
+ * чтобы его можно было вставить в контекст AngularJS. Смотрите `downgradeInjectable`.
+ * 3. Начальная загрузка гибридного Angular приложения, содержащего обе платформы
+ * сосуществовать в одном приложении.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ```ts
- * import {UpgradeModule} from '@angular/upgrade/static';
- * ```
+ *  ```ts
+ *  import {UpgradeModule} from '@angular/upgrade/static';
+ *  ```
  *
- * See also the {@link UpgradeModule#examples examples} below.
+ * Смотрите также{@link UpgradeModule#examples examples}ниже.
  *
- * ### Mental Model
+ *  ### Ментальная модель
  *
- * When reasoning about how a hybrid application works it is useful to have a mental model which
- * describes what is happening and explains what is happening at the lowest level.
+ * При рассуждении о том, как работает гибридное приложение, полезно иметь умственную модель, которая
+ * описывает, что происходит, и объясняет, что происходит на самом низком уровне.
  *
- * 1. There are two independent frameworks running in a single application, each framework treats
- *    the other as a black box.
- * 2. Each DOM element on the page is owned exactly by one framework. Whichever framework
- *    instantiated the element is the owner. Each framework only updates/interacts with its own
- *    DOM elements and ignores others.
- * 3. AngularJS directives always execute inside the AngularJS framework codebase regardless of
- *    where they are instantiated.
- * 4. Angular components always execute inside the Angular framework codebase regardless of
- *    where they are instantiated.
- * 5. An AngularJS component can be "upgraded"" to an Angular component. This is achieved by
- *    defining an Angular directive, which bootstraps the AngularJS component at its location
- *    in the DOM. See `UpgradeComponent`.
- * 6. An Angular component can be "downgraded" to an AngularJS component. This is achieved by
- *    defining an AngularJS directive, which bootstraps the Angular component at its location
- *    in the DOM. See `downgradeComponent`.
- * 7. Whenever an "upgraded"/"downgraded" component is instantiated the host element is owned by
- *    the framework doing the instantiation. The other framework then instantiates and owns the
- *    view for that component.
- *    1. This implies that the component bindings will always follow the semantics of the
- *       instantiation framework.
- *    2. The DOM attributes are parsed by the framework that owns the current template. So
- *       attributes in AngularJS templates must use kebab-case, while AngularJS templates must use
- *       camelCase.
- *    3. However the template binding syntax will always use the Angular style, e.g. square
- *       brackets (`[...]`) for property binding.
- * 8. Angular is bootstrapped first; AngularJS is bootstrapped second. AngularJS always owns the
- *    root component of the application.
- * 9. The new application is running in an Angular zone, and therefore it no longer needs calls to
- *    `$apply()`.
+ *  1. В одном приложении работают две независимые платформы, каждая из которых обрабатывает
+ * другой как черный ящик.
+ * 2. Каждый элемент DOM на странице принадлежит ровно одному фреймворку. Какую бы рамку
+ * экземпляр элемента является владельцем. Каждый фреймворк только обновляет / взаимодействует со своим собственным
+ * DOM элементы и игнорирует других.
+ * 3. Директивы AngularJS всегда выполняются внутри базы кода AngularJS независимо от
+ * где они созданы.
+ * 4. Angular компоненты всегда выполняются внутри кодовой базы Angular Framework независимо от
+ * где они созданы.
+ * 5. Компонент AngularJS можно «обновить» до компонента Angular
+ * определяя директиву Angular, которая загружает компонент AngularJS на своем месте
+ * в ДОМ. Смотрите `UpgradeComponent`.
+ * 6. Компонент Angular может быть «понижен» до компонента AngularJS. Это достигается путем
+ * определяя директиву AngularJS, которая загружает компонент Angular на его месте
+ * в ДОМ. Смотрите `downgradeComponent`.
+ * 7. Каждый раз, когда создается экземпляр «обновленного» / «пониженного качества», хост-элемент принадлежит
+ * Фреймворк делает экземпляр. Другая структура затем создает и владеет
+ * посмотреть на этот компонент.
+ *     1. Это подразумевает, что привязки компонентов всегда будут следовать семантике
+ * рамки реализации.
+ * 2. Атрибуты DOM анализируются платформой, которой принадлежит текущий шаблон.Так.
+ * атрибуты в шаблонах AngularJS должны использовать kebab-case, в то время как шаблоны AngularJS должны использовать
+ * верблюжий.
+ * 3. Однако синтаксис привязки шаблона всегда будет использовать стиль Angular, например, квадрат
+ * скобки (`[...]`) для привязки свойства.
+ * 8. Angular загружается первым; AngularJS загружается вторым. AngularJS всегда владеет
+ * корневой компонент приложения.
+ * 9. Новое приложение работает в Angular зоне, и поэтому ему больше не нужны вызовы
+ *     `$apply()`.
  *
- * ### The `UpgradeModule` class
+ *  ### The `UpgradeModule`класса.
  *
- * This class is an `NgModule`, which you import to provide AngularJS core services,
- * and has an instance method used to bootstrap the hybrid upgrade application.
+ * Этот класс является `NgModule` , который вы импортируете для предоставления основных сервисов AngularJS
+ * и имеет метод экземпляра, используемый для начальной загрузки гибридного приложения обновления.
  *
- * * Core AngularJS services
- *   Importing this `NgModule` will add providers for the core
- *   [AngularJS services](https://docs.angularjs.org/api/ng/service) to the root injector.
+ * Основные услуги AngularJS
+ * этого `NgModule``NgModule` добавит провайдеров для ядра
+ *    [Услуги AngularJS](https://docs.angularjs.org/api/ng/service)для корневого инжектора.
  *
- * * Bootstrap
- *   The runtime instance of this class contains a {@link UpgradeModule#bootstrap `bootstrap()`}
- *   method, which you use to bootstrap the top level AngularJS module onto an element in the
- *   DOM for the hybrid upgrade app.
+ * Бутстрап
+ * Экземпляр времени выполнения этого класса содержит{@link UpgradeModule#bootstrap `bootstrap()`}
+ * метод, который используется для начальной загрузки модуля AngularJS верхнего уровня на элемент в
+ * DOM для гибридного приложения обновления.
  *
- *   It also contains properties to access the {@link UpgradeModule#injector root injector}, the
- *   bootstrap `NgZone` and the
- *   [AngularJS $injector](https://docs.angularjs.org/api/auto/service/$injector).
+ * Он также содержит свойства для доступа к{@link UpgradeModule#injector root injector},То.
+ * начальная `NgZone` и
+ *    [AngularJS $ инжектор](https://docs.angularjs.org/api/auto/service/$injector).
  *
  * ### Examples
  *
- * Import the `UpgradeModule` into your top level {@link NgModule Angular `NgModule`}.
+ * Импортируйте `UpgradeModule` на свой верхний уровень{@link NgModule Angular `NgModule`},
  *
- * {@example upgrade/static/ts/full/module.ts region='ng2-module'}
+ *  {@example upgrade/static/ts/full/module.ts region='ng2-module'}
  *
- * Then inject `UpgradeModule` into your Angular `NgModule` and use it to bootstrap the top level
- * [AngularJS module](https://docs.angularjs.org/api/ng/type/angular.Module) in the
- * `ngDoBootstrap()` method.
+ * Затем `UpgradeModule` в свой Angular `NgModule``NgModule` и используйте его для начальной загрузки верхнего уровня
+ *  [Модуль AngularJS](https://docs.angularjs.org/api/ng/type/angular.Module)в
+ *  `ngDoBootstrap()`метод.
  *
- * {@example upgrade/static/ts/full/module.ts region='bootstrap-ng1'}
+ *  {@example upgrade/static/ts/full/module.ts region='bootstrap-ng1'}
  *
- * Finally, kick off the whole process, by bootstraping your top level Angular `NgModule`.
+ * Наконец,весь процесс, загрузив свой Angularвысшего уровня `NgModule``NgModule`.
  *
- * {@example upgrade/static/ts/full/module.ts region='bootstrap-ng2'}
+ *  {@example upgrade/static/ts/full/module.ts region='bootstrap-ng2'}
  *
- * {@a upgrading-an-angular-1-service}
- * ### Upgrading an AngularJS service
+ *  {@a upgrading-an-angular-1-service}
+ *  ### Обновление сервиса AngularJS
  *
- * There is no specific API for upgrading an AngularJS service. Instead you should just follow the
- * following recipe:
+ * Не существует специального API для обновления сервиса AngularJS. Вместо этого вы должны просто следовать
+ * Следующийрецепт:.
  *
- * Let's say you have an AngularJS service:
+ * Скажемвас есть услугиAngularJS:.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-text-formatter-service"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng1-text-formatter-service"}
  *
- * Then you should define an Angular provider to be included in your `NgModule` `providers`
- * property.
+ * Затем вы должны определить поставщика Angular, который будет включен в ваш `NgModule``providers`
+ * имущество.
  *
- * {@example upgrade/static/ts/full/module.ts region="upgrade-ng1-service"}
+ *  {@example upgrade/static/ts/full/module.ts region="upgrade-ng1-service"}
  *
- * Then you can use the "upgraded" AngularJS service by injecting it into an Angular component
- * or service.
+ * Затем вы можете использовать «обновленный» сервис AngularJS, внедрив его в компонент Angular
+ * или сервис.
  *
- * {@example upgrade/static/ts/full/module.ts region="use-ng1-upgraded-service"}
+ *  {@example upgrade/static/ts/full/module.ts region="use-ng1-upgraded-service"}
  *
  * @publicApi
  */

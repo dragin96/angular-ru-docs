@@ -1,42 +1,46 @@
-# Ivy compatibility examples
+{@a ivy-compatibility-examples}
+# Примеры совместимости плюща
 
-This appendix is intended to provide more background on Ivy changes. Many of these examples list error messages you may see, so searching by error message might be a good idea if you are debugging.
+Это приложение предназначено для предоставления дополнительной информации об изменениях Ivy. Во многих из этих примеров перечислены сообщения об ошибках, которые вы можете увидеть, поэтому поиск по сообщениям об ошибках может быть хорошей идеей при отладке.
 
 <div class="alert is-critical">
-NOTE: Most of these issues affect a small percentage of applications encountering unusual or rare edge cases.
+ПРИМЕЧАНИЕ. Большинство из этих проблем затрагивает небольшой процент приложений, которые сталкиваются с необычными или редкими случаями.
 </div>
 
 
 {@a content-children-descendants}
-## @ContentChildren queries only match direct children by default
+{@a @contentchildren-queries-only-match-direct-children-by-default}
+## По умолчанию запросы @ContentChildren соответствуют прямым дочерним элементам
 
 
-### Basic example of change
+{@a basic-example-of-change}
+### Основной пример изменения
 
-Let's say a component (`Comp`) has a `@ContentChildren` query for `'foo'`:
+Допустим компонент (`Comp`) имеет `@ContentChildren` Запрос для `'foo'` :
 
 ```html
 <comp>
     <div>
-         <div #foo></div>   <!-- matches in old runtime, not in new runtime -->
+         <div #foo></div> <!-- matches in old runtime, not in new runtime -->
     </div>
 </comp>
 ```
 
-In the previous runtime, the `<div>` with `#foo` would match.
-With Ivy, that `<div>` does not match because it is not a direct child of `<comp>`.
+В предыдущей среде выполнения `<div>` с `#foo` будет соответствовать.
+С Айви, это `<div>` не совпадает, потому что он не является прямым потомком `<comp>`.
 
 
-### Background
+{@a background}
+### Фон
 
-By default, `@ContentChildren` queries have the `descendants` flag set to `false`.
+По умолчанию, `@ContentChildren` Запросы имеют `descendants` флаг установлен в `false`.
 
-In the previous rendering engine, "descendants" referred to "descendant directives".
-An element could be a match as long as there were no other directives between the element and the requesting directive.
-This made sense for directives with nesting like tabs, where nested tab directives might not be desirable to match.
-However, this caused surprising behavior for users because adding an unrelated directive like `ngClass` to a wrapper element could invalidate query results.
+В предыдущем механизме рендеринга «потомки» ссылались на «директивы потомков».
+Элемент может быть совпадением, если между элементом и запрашивающей директивой нет других директив.
+Это имело смысл для директив с вложенными вкладками, где нежелательно совпадать с вложенными директивами вкладок.
+Тем не менее, это вызвало удивительное поведение для пользователей, потому что добавление несвязанной директивы, такой как `ngClass` для элемента оболочки может сделать недействительными результаты запроса.
 
-For example, with the content query and template below, the last two `Tab` directives would not be matches:
+Например, с запросом контента и шаблоном ниже, последние два `Tab` директивы не будут матчи:
 
 ```
 @ContentChildren(Tab, {descendants: false}) tabs: QueryList<Tab>
@@ -45,19 +49,19 @@ For example, with the content query and template below, the last two `Tab` direc
 ```
 <tab-list>
   <div>
-    <tab> One </tab>     <!-- match (nested in element) -->
+    <tab> One </tab> <!-- match (nested in element) -->
   </div>
-  <tab>                  <!-- match (top level) -->
-    <tab> A </tab>       <!-- not a match (nested in tab) -->
+  <tab> <!-- match (top level) -->
+    <tab> A </tab> <!-- not a match (nested in tab) -->
   </tab>
   <div [ngClass]="classes">
-    <tab> Two </tab>     <!-- not a match (nested in ngClass) -->
+    <tab> Two </tab> <!-- not a match (nested in ngClass) -->
   </div>
 </tab-list>
 ```
 
-In addition, the differences between type and string predicates were subtle and sometimes unclear.
-For example, if you replace the type predicate above with a `'foo'` string predicate, the matches change:
+Кроме того, различия между предикатами типа и строки были тонкими и иногда неясными.
+Например, если вы замените предикат типа выше на `'foo'` строка сказуемое, матчи изменить:
 
 ```
 @ContentChildren('foo', {descendants: false}) foos: QueryList<ElementRef>
@@ -66,75 +70,79 @@ For example, if you replace the type predicate above with a `'foo'` string predi
 ```
 <tab-list>
   <div>
-    <div #foo> One </div>     <!-- match (nested in element) -->
+    <div #foo> One </div> <!-- match (nested in element) -->
   </div>
-  <tab #foo>                  <!-- match (top level) -->
-    <div #foo> A </div>       <!-- match (nested in tab) -->
+  <tab #foo> <!-- match (top level) -->
+    <div #foo> A </div> <!-- match (nested in tab) -->
   </tab>
   <div [ngClass]="classes">
-    <div #foo> Two </div>     <!-- match (nested in ngClass) -->
+    <div #foo> Two </div> <!-- match (nested in ngClass) -->
   </div>
 </tab-list>
 ```
 
-Because the previous behavior was inconsistent and surprising to users, we did not want to reproduce it in Ivy.
-Instead, we simplified the mental model so that "descendants" refers to DOM nesting only.
-Any DOM element between the requesting component and a potential match will invalidate that match.
-Type predicates and string predicates also have identical matching behavior.
+Поскольку предыдущее поведение было непоследовательным и удивительным для пользователей, мы не хотели воспроизводить его в Ivy.
+Вместо этого мы упростили ментальную модель, так что «потомки» относятся только к вложению DOM.
+Любой элемент DOM между запрашивающим компонентом и потенциальным соответствием аннулирует это соответствие.
+Предикаты типа и строковые предикаты также имеют идентичное поведение сопоставления.
 
-Ivy behavior for directive/string predicates:
+Поведение Ivy для директивы / строковых предикатов
 ```
 <tab-list>
   <div>
-    <tab> One </tab>     <!-- not a match (nested in element) -->
+    <tab> One </tab> <!-- not a match (nested in element) -->
   </div>
-  <tab>                  <!-- match (top level) -->
-    <tab> A </tab>       <!-- not a match (nested in tab) -->
+  <tab> <!-- match (top level) -->
+    <tab> A </tab> <!-- not a match (nested in tab) -->
   </tab>
   <div [ngClass]="classes">
-    <tab> Two </tab>     <!-- not a match (nested in div) -->
+    <tab> Two </tab> <!-- not a match (nested in div) -->
   </div>
 </tab-list>
 ```
 
 
-### Example of error
+{@a example-of-error}
+### Пример ошибки
 
-The error message that you see will depend on how the particular content query is used in the application code.
-Frequently, an error is thrown when a property is referenced on the content query result (which is now `undefined`).
+Отображаемое сообщение об ошибке будет зависеть от того, как конкретный запрос контента используется в коде приложения.
+Часто возникает ошибка, когда свойство ссылается на результат запроса контента (который теперь `undefined`).
 
-For example, if the component sets the content query results to a property, `foos`, `foos.first.bar` would throw the error:
+Например, если компонент устанавливает результаты запроса содержимого в свойстве, `foos`, `foos.first.bar` бы бросить ошибку:
 
 ```
 Uncaught TypeError: Cannot read property 'bar' of undefined
 ```
 
-If you see an error like this, and the `undefined` property refers to the result of a `@ContentChildren` query, it may well be caused by this change.
+Если вы видите такую ​​ошибку, и `undefined` свойство относится к результату `@ContentChildren` Запрос, вполне может быть вызван этим изменением.
 
 
-### Recommended fix
+{@a recommended-fix}
+### Рекомендуемое исправление
 
-You can either add the `descendants: true` flag to ignore wrapper elements or remove the wrapper elements themselves.
+Вы можете добавить `descendants: true` флаг чтобы игнорировать элементы оболочки или удалять сами элементы оболочки.
 
-Option 1:
+Вариант 1:
 ```
 @ContentChildren('foo', {descendants: true}) foos: QueryList<ElementRef>;
 ```
 
-Option 2:
+Вариант 2:
 ```
 <comp>
-   <div #foo></div>   <!-- matches in both old runtime and  new runtime -->
+   <div #foo></div> <!-- matches in both old runtime and new runtime -->
 </comp>
 ```
 
 {@a undecorated-classes}
-## All classes that use Angular DI must have an Angular class-level decorator
+{@a all-classes-that-use-angular-di-must-have-an-angular-class-level-decorator}
+## Все классы, которые используют Angular DI, должны иметь декоратор уровня Angular
 
 
-### Basic example of change:
+{@a basic-example-of-change}
+### Базовый пример изменения:
 
-In the previous rendering engine, the following would work:
+В предыдущем рендеринге, следующий будет работать:
 
 ```
 export class DataService {
@@ -145,9 +153,9 @@ export class DataService {
 export class AppService extends DataService {...}
 ```
 
-In Ivy, it will throw an error because `DataService` is using Angular dependency injection, but is missing an `@Injectable` decorator.
+В Ivy выдает ошибку, потому что `DataService` использует внедрение зависимостей Angular, но отсутствует `@Injectable` декоратор.
 
-The following would also work in the previous rendering engine, but in Ivy would require a `@Directive` decorator because it uses DI:
+Следующее также будет работать в предыдущем движке рендеринга, но в Ivy потребуется `@Directive` декоратор, поскольку он использует DI:
 
 ```
 export class BaseMenu {
@@ -158,26 +166,28 @@ export class BaseMenu {
 export class SettingsMenu extends BaseMenu {}
 ```
 
-The same is true if your directive class extends a decorated directive, but does not have a decorator of its own.
+То же самое верно, если ваш класс директивы расширяет декорированную директиву, но не имеет собственного декоратора.
 
-If you're using the CLI, there are two automated migrations that should transition your code for you ([this one](guide/migration-injectable) and [this one](guide/migration-undecorated-classes)).
-However, as you're adding new code in version 9, you may run into this difference.
+Если вы используете CLI, есть две автоматические миграции, которые должны перенести ваш код для вас ( [этот](guide/migration-injectable)и [этот](guide/migration-undecorated-classes)).
+Однако, когда вы добавляете новый код в версии 9, вы можете столкнуться с этой разницей.
 
-### Background
+{@a background}
+### Фон
 
-When a class has an Angular decorator like `@Injectable` or `@Directive`, the Angular compiler generates extra code to support injecting dependencies into the constructor of your class.
-When using inheritance, Ivy needs both the parent class and the child class to apply a decorator to generate the correct code.
-Otherwise, when the decorator is missing from the parent class, the subclass will inherit a constructor from a class for which the compiler did not generate special constructor info, and Angular won't have the dependency info it needs to create it properly.
+Когда у класса есть Angular декоратор, такой как `@Injectable` или `@Directive`, Angular-компилятор генерирует дополнительный код для поддержки внедрения зависимостей в конструктор вашего класса.
+При использовании наследования Ivy нужен родительский класс и дочерний класс, чтобы применить декоратор для генерации правильного кода.
+В противном случае, когда декоратор отсутствует в родительском классе, подкласс унаследует конструктор от класса, для которого компилятор не сгенерировал специальную информацию конструктора, и у Angular не будет информации о зависимостях, необходимой для его правильного создания.
 
-In the previous rendering engine, the compiler had global knowledge, so in some cases (such as AOT mode or the presence of certain injection flags), it could look up the missing data.
-However, the Ivy compiler only processes each class in isolation.
-This means that compilation has the potential to be faster (and opens the framework up for optimizations and features going forward), but the compiler can't automatically infer the same information as before.
+В предыдущем механизме рендеринга компилятор обладал глобальными знаниями, поэтому в некоторых случаях (например, в режиме AOT или при наличии определенных флагов внедрения) он мог искать недостающие данные.
+Однако компилятор Ivy обрабатывает каждый класс отдельно.
+Это означает, что компиляция потенциально может быть быстрее (и открывает основу для оптимизации и дальнейшего развития функций), но компилятор не может автоматически выводить ту же информацию, что и раньше.
 
-Adding the proper decorator explicitly provides this information.
+Добавление правильного декоратора явно предоставляет эту информацию.
 
-### Example of error
+{@a example-of-error}
+### Пример ошибки
 
-In JIT mode, the framework will throw the following error:
+В режиме JIT, рамка выбросит следующее сообщение об ошибке:
 
 ```
 ERROR: This constructor is not compatible with Angular Dependency Injection because its dependency at index X of the parameter list is invalid.
@@ -186,7 +196,7 @@ This can happen if the dependency type is a primitive like a string or if an anc
 Please check that 1) the type for the parameter at index X is correct and 2) the correct Angular decorators are defined for this class and its ancestors.
 ```
 
-In AOT mode, you'll see something like:
+В режиме AOT, вы увидите что - то вроде:
 
 ```
 X inherits its constructor from Y, but the latter does not have an Angular decorator of its own.
@@ -194,19 +204,20 @@ Dependency injection will not be able to resolve the parameters of Y's construct
 @Directive decorator to Y, or add an explicit constructor to X.
 ```
 
-In some cases, the framework may not be able to detect the missing decorator.
-In these cases, you'll generally see a runtime error thrown when there is a property access attempted on the missing dependency.
-If dependency was `foo`, you'd see an error when accessing something like `foo.bar`:
+В некоторых случаях структура может быть не в состоянии обнаружить отсутствующий декоратор.
+В этих случаях вы обычно видите ошибку времени выполнения, возникающую при попытке доступа к свойству по отсутствующей зависимости.
+Если зависимость была `foo`, вы увидите ошибку при доступе к чему-то вроде `foo.bar` :
 
 ```
 Uncaught TypeError: Cannot read property 'bar' of undefined
 ```
 
-If you see an error like this, and the `undefined` value refers to something that should have been injected, it may be this change.
+Если вы видите такую ​​ошибку, и `undefined` значение относится к чему-то, что должно было быть введено, возможно, это изменение.
 
-### Recommended fix
+{@a recommended-fix}
+### Рекомендуемое исправление
 
-- Add an `@Injectable` decorator to anything you plan to provide or inject.
+- Добавить `@Injectable` декоратор для всего, что вы планируете предоставить или внедрить.
 
 ```
 @Injectable()
@@ -218,10 +229,10 @@ export class DataService {
 export class AppService extends DataService {...}
 ```
 
-- Add a [selectorless `@Directive` decorator](guide/migration-undecorated-classes#what-does-it-mean-to-have-a-directive-decorator-with-no-metadata-inside-of-it) to any class that extends a directive or any class from which a directive inherits.
+- Добавьте [селекторный декоратор `@ Directive` ](guide/migration-undecorated-classes#what-does-it-mean-to-have-a-directive-decorator-with-no-metadata-inside-of-it)к любому классу, который расширяет директиву, или к любому классу, от которого наследуется директива.
 
 ```
-@Directive()            // selectorless, so it's not usable directly
+@Directive() // selectorless, so it's not usable directly
 export class BaseMenu {
   constructor(private vcr: ViewContainerRef) {}
 }
@@ -231,10 +242,12 @@ export class SettingsMenu extends BaseMenu {}
 ```
 
 {@a select-value-binding}
-## Cannot Bind to `value` property of `<select>` with `*ngFor`
+{@a cannot-bind-to-value-property-of-<select>-with-*ngfor}
+## Невозможно привязать к `value` свойства `<select>` с помощью `*ngFor` 
 
 
-### Basic example of change
+{@a basic-example-of-change-}
+### Основной пример изменения
 
 
 ```html
@@ -243,14 +256,15 @@ export class SettingsMenu extends BaseMenu {}
 </select>
 ```
 
-In the View Engine runtime, the above code would set the initial value of the `<select>` as expected.
-In Ivy, the initial value would not be set at all in this case.
+Во время выполнения View Engine приведенный выше код установит начальное значение `<select>` как ожидалось.
+В Ivy начальное значение не будет установлено вообще в этом случае.
 
 
-### Background
+{@a background}
+### Фон
 
-Prior to Ivy, directive input bindings were always executed in their own change detection pass before any DOM bindings were processed.
-This was an implementation detail that supported the use case in question:
+До Ivy привязки входных директив всегда выполнялись на их собственном проходе обнаружения изменений до обработки любых привязок DOM.
+Это деталь реализации, которая поддержала случай использования в вопросе:
 
 ```html
 <select [value]="someValue">
@@ -258,93 +272,39 @@ This was an implementation detail that supported the use case in question:
 </select>
 ```
 
-It happened to work because the `*ngFor` would be checked first, during the directive input binding pass, and thus create the options first.
-Then the DOM binding pass would run, which would check the `value` binding.
-At this time, it would be able to match the value against one of the existing options, and set the value of the `<select>` element in the DOM to display that option.
+Это сработало, потому что `*ngFor` будет проверен первым, во время прохода привязки ввода директивы, и, таким образом, сначала создаст параметры.
+Затем запускается проход привязки DOM, который проверяет `value` привязки.
+В это время он сможет сопоставить значение с одним из существующих параметров и установить значение `<select>` элемент в DOM, чтобы отобразить эту опцию.
 
-In Ivy, bindings are checked in the order they are defined in the template, regardless of whether they are directive input bindings or DOM bindings.
-This change makes change detection easier to reason about for debugging purposes, since bindings will be checked in depth-first order as declared in the template.
+В Ivy привязки проверяются в том порядке, в котором они определены в шаблоне, независимо от того, являются ли они привязками директивных входов или привязками DOM.
+Это изменение упрощает обнаружение изменений в целях отладки, поскольку привязки будут проверяться в порядке глубины, как объявлено в шаблоне.
 
-In this case, it means that the `value` binding will be checked before the `*ngFor` is checked, as it is declared above the `*ngFor` in the template.
-Consequently, the value of the `<select>` element will be set before any options are created, and it won't be able to match and display the correct option in the DOM.
+В этом случае это означает, что `value` привязка будет проверена перед `*ngFor` проверяется, так как он объявлен выше `*ngFor` в шаблоне.
+Следовательно, значение `<select>` Элемент будет установлен до того, как будут созданы какие-либо параметры, и он не сможет соответствовать и отобразить правильный параметр в DOM.
 
-### Example of error
+{@a example-of-error}
+### Пример ошибки
 
-There is no error thrown, but the `<select>` in question will not have the correct initial value displayed in the DOM.
+Там нет ошибки, но `<select>` не будет правильного начального значения, отображаемого в DOM.
 
 
-### Recommended fix
+{@a recommended-fix}
+### Рекомендуемое исправление
 
-To fix this problem, we recommend binding to the `selected` property on the `<option>` instead of the `value` on the `<select>`.
+Чтобы решить эту проблему, мы рекомендуем привязать к `selected` свойство на `<option>` вместо `value` на `<select>`.
 
-*Before*
+*До*
 ```html
 <select [value]="someValue">
   <option *ngFor="let option of options" [value]="option"> {{ option }} <option>
 </select>
 ```
 
-*After*
+*После*
 ```html
 <select>
   <option *ngFor="let option of options" [value]="option" [selected]="someValue == option">
     {{ option }}
   <option>
 </select>
-```
-
-{@a forward-refs-directive-inputs}
-## Forward references to directive inputs accessed through local refs are no longer supported.
-
-
-### Basic example of change
-
-
-```ts
-@Directive({
-  selector: '[myDir]',
-  exportAs: 'myDir'
-})
-export class MyDir {
-  @Input() message: string;
-}
-```
-
-```html
-{{ myDir.name }}
-<div myDir #myDir="myDir" [name]="myName"></div>
-```
-
-In the View Engine runtime, the above code would print out the name without any errors.
-In Ivy, the `myDir.name` binding will throw an `ExpressionChangedAfterItHasBeenCheckedError`.
-
-
-### Background
-
-In the ViewEngine runtime, directive input bindings and element bindings were executed in different stages. Angular would process the template one full time to check directive inputs only (e.g. `[name]`), then process the whole template again to check element and text bindings only (e.g.`{{ myDir.name }}`). This meant that the `name` directive input would be checked before the `myDir.name` text binding despite their relative order in the template, which some users felt to be counterintuitive.
-
-In contrast, Ivy processes the template in just one pass, so that bindings are checked in the same order that they are written in the template. In this case, it means that the `myDir.name` binding will be checked before the `name` input sets the property on the directive (and thus it will be `undefined`). Since the `myDir.name` property will be set by the time the next change detection pass runs, a change detection error is thrown.
-
-### Example of error
-
-Assuming that the value for `myName` is `Angular`, you should see an error that looks like
-
-```
-Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'undefined'. Current value: 'Angular'.
-```
-
-### Recommended fix
-
-To fix this problem, we recommend either getting the information for the binding directly from the host component (e.g. the `myName` property from our example) or to move the data binding after the directive has been declared so that the initial value is available on the first pass.
-
-*Before*
-```html
-{{ myDir.name }}
-<div myDir #myDir="myDir" [name]="myName"></div>
-```
-
-*After*
-```html
-{{ myName }}
-<div myDir [name]="myName"></div>
 ```

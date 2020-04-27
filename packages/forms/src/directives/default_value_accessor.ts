@@ -27,36 +27,36 @@ function _isAndroid(): boolean {
 }
 
 /**
- * @description
- * Provide this token to control if form directives buffer IME input until
- * the "compositionend" event occurs.
+ *  @description
+ * Предоставьте этот токен, чтобы контролировать, будут ли директивы формы буферизовать ввод IME до
+ * происходит событие «составление».
  * @publicApi
  */
 export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionEventMode');
 
 /**
- * @description
- * The default `ControlValueAccessor` for writing a value and listening to changes on input
- * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
+ *  @description
+ * По умолчанию `ControlValueAccessor` для записи значения и прослушивания изменений навходе.
+ * элементы. Метод доступа используется `FormControlDirective` , `FormControlName` и
+ *  `NgModel`директивы.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using the default value accessor
+ *  ### Использование метода доступа к значениям по умолчанию
  *
- * The following example shows how to use an input element that activates the default value accessor
- * (in this case, a text field).
+ * В следующем примере показано, как использовать элемент ввода, который активирует средство доступа к значениям по умолчанию
+ * (в данном случае текстовое поле).
  *
- * ```ts
- * const firstNameControl = new FormControl();
- * ```
+ *  ```ts
+ *  const firstNameControl = new FormControl();
+ *  ```
  *
- * ```
- * <input type="text" [formControl]="firstNameControl">
- * ```
+ *  ```
+ *  <input type="text" [formControl]="firstNameControl">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

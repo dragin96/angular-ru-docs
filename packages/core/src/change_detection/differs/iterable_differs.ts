@@ -14,15 +14,15 @@ import {DefaultIterableDifferFactory} from '../differs/default_iterable_differ';
 
 
 /**
- * A type describing supported iterable types.
+ * Тип, описывающий поддерживаемые итерируемые типы.
  *
  * @publicApi
  */
 export type NgIterable<T> = Array<T>|Iterable<T>;
 
 /**
- * A strategy for tracking changes over time to an iterable. Used by {@link NgForOf} to
- * respond to changes in an iterable by effecting equivalent changes in the DOM.
+ * Стратегия отслеживания изменений с течением времени до итеративной. Использован{@link NgForOf}к.
+ * реагировать на изменения в итерируемом, осуществляя эквивалентные изменения в DOM.
  *
  * @publicApi
  */
@@ -38,8 +38,8 @@ export interface IterableDiffer<V> {
 }
 
 /**
- * An object describing the changes in the `Iterable` collection since last time
- * `IterableDiffer#diff()` was invoked.
+ * Объект, описывающий изменения в `Iterable` коллекциис последнего раза
+ *  `IterableDiffer#diff()`.
  *
  * @publicApi
  */
@@ -94,7 +94,7 @@ export interface IterableChanges<V> {
 }
 
 /**
- * Record representing the item change information.
+ * Запись, представляющая информацию об изменении элемента.
  *
  * @publicApi
  */
@@ -113,16 +113,16 @@ export interface IterableChangeRecord<V> {
 }
 
 /**
- * @deprecated v4.0.0 - Use IterableChangeRecord instead.
+ *  @deprecated v4.0.0 - используйте взамен IterableChangeRecord.
  * @publicApi
  */
 export interface CollectionChangeRecord<V> extends IterableChangeRecord<V> {}
 
 /**
- * An optional function passed into the `NgForOf` directive that defines how to track
- * changes for items in an iterable.
- * The function takes the iteration index and item ID.
- * When supplied, Angular tracks changes by the return value of the function.
+ * Необязательная функция, переданная в `NgForOf` директивукоторая определяет, как отслеживать
+ * изменения для элементов в итерации.
+ * Функция принимает индекс итерации и идентификатор элемента.
+ * При наличии Angular отслеживает изменения, возвращаемые значением функции.
  *
  * @publicApi
  */
@@ -131,7 +131,7 @@ export interface TrackByFunction<T> {
 }
 
 /**
- * Provides a factory for {@link IterableDiffer}.
+ * Обеспечивает фабрику для{@link IterableDiffer},
  *
  * @publicApi
  */
@@ -141,7 +141,7 @@ export interface IterableDifferFactory {
 }
 
 /**
- * A repository of different iterable diffing strategies used by NgFor, NgClass, and others.
+ * Хранилище различных итерируемых стратегий различий, используемых NgFor, NgClass и другими.
  *
  * @publicApi
  */

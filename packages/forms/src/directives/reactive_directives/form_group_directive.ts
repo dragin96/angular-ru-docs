@@ -24,26 +24,26 @@ export const formDirectiveProvider: any = {
 };
 
 /**
- * @description
+ *  @description
  *
- * Binds an existing `FormGroup` to a DOM element.
+ * Связывает существующую `FormGroup` с элементом DOM.
  *
- * This directive accepts an existing `FormGroup` instance. It will then use this
- * `FormGroup` instance to match any child `FormControl`, `FormGroup`,
- * and `FormArray` instances to child `FormControlName`, `FormGroupName`,
- * and `FormArrayName` directives.
+ * Эта директива принимает существующий `FormGroup` экземпляр. Затем он будет использовать это
+ *  `FormGroup`экземплярчтобы соответствовать любому ребенку `FormControl` FormControl, `FormGroup` FormGroup,.
+ * и `FormArray` случаи к ребенку `FormControlName` FormControlName, `FormGroupName` FormGroupName,.
+ * и `FormArrayName` директивы.
  *
- * @see [Reactive Forms Guide](guide/reactive-forms)
- * @see `AbstractControl`
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
+ *  @see `AbstractControl`
  *
- * ### Register Form Group
+ *  ### Форма регистрации группы
  *
- * The following example registers a `FormGroup` with first name and last name controls,
- * and listens for the *ngSubmit* event when the button is clicked.
+ * В следующем примере регистрируется `FormGroup` с элементами управления имени и фамилии
+ * и прослушивает событиеngSubmit при нажатии кнопки.
  *
- * {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
+ *  {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
  *
- * @ngModule ReactiveFormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({

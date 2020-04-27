@@ -19,14 +19,14 @@ function isAbstractControlOptions(options: AbstractControlOptions|
 }
 
 /**
- * @description
- * Creates an `AbstractControl` from a user-specified configuration.
+ *  @description
+ * Создает `AbstractControl` из указанной пользователем конфигурации.
  *
- * The `FormBuilder` provides syntactic sugar that shortens creating instances of a `FormControl`,
- * `FormGroup`, or `FormArray`. It reduces the amount of boilerplate needed to build complex
- * forms.
+ *  The `FormBuilder`обеспечивает синтаксический сахаркоторый укорачивает создание экземпляров `FormControl` FormControl,.
+ *  `FormGroup `или` FormArray`. Это уменьшает количество шаблонов, необходимых для построения комплекса
+ * формы.
  *
- * @see [Reactive Forms Guide](/guide/reactive-forms)
+ *  @see [(Reactive GuideForms).](/guide/reactive-forms)
  *
  * @publicApi
  */

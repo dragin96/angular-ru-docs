@@ -7,22 +7,22 @@
  */
 
 /**
- * Indicates that the result of a {@link Pipe} transformation has changed even though the
- * reference has not changed.
+ * Указывает, что результат{@link Pipe}преобразование изменилось, хотя
+ * ссылка не изменилась.
  *
- * Wrapped values are unwrapped automatically during the change detection, and the unwrapped value
- * is stored.
+ * Обернутые значения автоматически развертываются во время обнаружения изменений и развернутого значения
+ * хранится.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * if (this._latestValue === this._latestReturnedValue) {
- *    return this._latestReturnedValue;
- *  } else {
- *    this._latestReturnedValue = this._latestValue;
- *    return WrappedValue.wrap(this._latestValue); // this will force update
- *  }
- * ```
+ *  ```
+ *  if (this._latestValue === this._latestReturnedValue) {
+ *     return this._latestReturnedValue;
+ *   } else {
+ *     this._latestReturnedValue = this._latestValue;
+ *     return WrappedValue.wrap(this._latestValue); // this will force update
+ *   }
+ *  ```
  *
  * @publicApi
  */

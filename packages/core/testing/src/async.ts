@@ -9,19 +9,19 @@
 import {asyncFallback} from './async_fallback';
 
 /**
- * Wraps a test function in an asynchronous test zone. The test will automatically
- * complete when all asynchronous calls within this zone are done. Can be used
- * to wrap an {@link inject} call.
+ * Оборачивает тестовую функцию в асинхронную тестовую зону. Тест будет автоматически
+ * завершить, когда все асинхронные вызовы в этой зоне выполнены. Может бытьиспользован.
+ * обернуть{@link inject}вызов.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * it('...', async(inject([AClass], (object) => {
- *   object.doSomething.then(() => {
- *     expect(...);
- *   })
- * });
- * ```
+ *  ```
+ *  it('...', async(inject([AClass], (object) => {
+ *    object.doSomething.then(() => {
+ *      expect(...);
+ *    })
+ *  });
+ *  ```
  *
  * @publicApi
  */

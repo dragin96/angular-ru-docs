@@ -1,68 +1,72 @@
+{@a ngmodules}
 # NgModules
 
-**NgModules** configure the injector and the compiler and help organize related things together.
+**NgModules** конфигурируют инжектор и компилятор и помогают организовать связанные вещи вместе.
 
-An NgModule is a class marked by the `@NgModule` decorator.
-`@NgModule` takes a metadata object that describes how to compile a component's template and how to create an injector at runtime.
-It identifies the module's own components, directives, and pipes,
-making some of them public, through the `exports` property, so that external components can use them.
-`@NgModule` can also add service providers to the application dependency injectors.
+NgModule - это класс, помеченный `@NgModule` decorator.
+ `@NgModule` принимает объект метаданных, который описывает, как скомпилировать шаблон компонента и как создать инжектор во время выполнения.
+Он идентифицирует собственные компоненты, директивы и каналы модуля
+сделать некоторые из них публичными, через `exports` свойство, чтобы его могли использовать внешние компоненты.
+ `@NgModule` также может добавлять поставщиков услуг к инжекторам зависимости приложения.
 
-For an example app showcasing all the techniques that NgModules related pages
-cover, see the <live-example></live-example>. For explanations on the individual techniques, visit the relevant NgModule pages under the NgModules
-section.
+Для примера приложения, демонстрирующего все методы, связанные с NgModules страниц
+Обложка, см <live-example></live-example>. Для объяснения отдельных методов, посетите соответствующие страницы NgModule под NgModules
+раздел.
 
-## Angular modularity
+{@a angular-modularity}
+## Angular модульность
 
-Modules are a great way to organize an application and extend it with capabilities from external libraries.
+Модули - отличный способ организовать приложение и дополнить его возможностями из внешних библиотек.
 
-Angular libraries are NgModules, such as `FormsModule`, `HttpClientModule`, and `RouterModule`.
-Many third-party libraries are available as NgModules such as
-<a href="https://material.angular.io/">Material Design</a>,
-<a href="http://ionicframework.com/">Ionic</a>, and
-<a href="https://github.com/angular/angularfire2">AngularFire2</a>.
+Angular библиотеки - это NgModules, такие как `FormsModule`, `HttpClientModule` и `RouterModule`.
+Многие сторонние библиотеки доступны как NgModules, такие как
+<a href="https://material.angular.io/">Материал Дизайн </a>,
+<a href="http://ionicframework.com/">Ионные </a>и
+<a href="https://github.com/angular/angularfire2">AngularFire2 </a>.
 
-NgModules consolidate components, directives, and pipes into
-cohesive blocks of functionality, each focused on a
-feature area, application business domain, workflow, or common collection of utilities.
+NgModules объединяют компоненты, директивы и трубы в
+Сплоченные блоки функциональности, каждый из которых ориентирован на
+область функций, бизнес-область приложения, рабочий процесс или общий набор утилит.
 
-Modules can also add services to the application.
-Such services might be internally developed, like something you'd develop yourself or come from outside sources, such as the Angular router and HTTP client.
+Модули также могут добавлять сервисы в приложение.
+Такие сервисы могут быть разработаны внутри компании, например, что-то, что вы разрабатываете сами или исходить из внешних источников, таких как Angular router и HTTP-клиент.
 
-Modules can be loaded eagerly when the application starts or lazy loaded asynchronously by the router.
+Модули могут загружаться с нетерпением, когда приложение запускается, или лениво загружаться маршрутизатором асинхронно.
 
-NgModule metadata does the following:
+NgModule метаданные делает следующее:
 
-* Declares which components, directives, and pipes belong to the module.
-* Makes some of those components, directives, and pipes public so that other module's component templates can use them.
-* Imports other modules with the components, directives, and pipes that components in the current module need.
-* Provides services that the other application components can use.
+* Объявляет, какие компоненты, директивы и каналы принадлежат модулю.
+* Делает некоторые из этих компонентов, директив и каналов общедоступными, чтобы их могли использовать шаблоны компонентов других модулей.
+* Импортирует другие модули с компонентами, директивами и каналами, которые необходимы компонентам в текущем модуле.
+* Предоставляет сервисы, которые могут использовать другие компоненты приложения.
 
-Every Angular app has at least one module, the root module.
-You [bootstrap](guide/bootstrapping) that module to launch the application.
+Каждое приложение Angular имеет как минимум один модуль, корневой модуль.
+Вы [bootstrap](guide/bootstrapping)этот модуль для запуска приложения.
 
-The root module is all you need in a simple application with a few components.
-As the app grows, you refactor the root module into [feature modules](guide/feature-modules)
-that represent collections of related functionality.
-You then import these modules into the root module.
+Корневой модуль - это все, что вам нужно в простом приложении с несколькими компонентами.
+По мере роста приложения вы переводите корневой модуль в [функциональные модули](guide/feature-modules)
+которые представляют коллекции связанных функций.
+Затем вы импортируете эти модули в корневой модуль.
 
-## The basic NgModule
+{@a the-basic-ngmodule}
+## Основной NgModule
 
-The [Angular CLI](cli) generates the following basic `AppModule` when creating a new app.
+[Угловое CLI](cli)генерирует следующие основные `AppModule` при создании нового приложения.
 
 
 <code-example path="ngmodules/src/app/app.module.1.ts" header="src/app/app.module.ts (default AppModule)">
 // @NgModule decorator with its metadata
 </code-example>
 
-At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). For more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
+Вверху находятся операторы импорта. Следующий раздел, где вы настраиваете `@NgModule`, указав, какие компоненты и директивы принадлежат ему (`declarations`), а также какие другие модули он использует (`imports`). Для получения дополнительной информации о структуре `@NgModule`, обязательно прочитайте [Bootstrapping](guide/bootstrapping).
 
 <hr />
 
-## More on NgModules
+{@a more-on-ngmodules}
+## Больше на NgModules
 
-You may also be interested in the following:
-* [Feature Modules](guide/feature-modules).
-* [Entry Components](guide/entry-components).
-* [Providers](guide/providers).
-* [Types of NgModules](guide/module-types).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Функциональные модули](guide/feature-modules).
+* [Входные компоненты](guide/entry-components).
+* [Провайдеры](guide/providers).
+* [Типы NgModules](guide/module-types).

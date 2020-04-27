@@ -1,21 +1,23 @@
-# AngularJS to Angular concepts: Quick reference
+{@a angularjs-to-angular-concepts-quick-reference}
+# AngularJS to Angular concept: краткий справочник
 
 
 {@a top}
 
 
-_Angular_ is the name for the Angular of today and tomorrow.
-_AngularJS_ is the name for all v1.x versions of Angular.
+_Angular_ это имя для Angular сегодня и завтра.
+_AngularJS_ - имя для всех v 1.x версий Angular.
 
-This guide helps you transition from AngularJS to Angular
-by mapping AngularJS syntax to the equivalent Angular syntax.
+Это руководство поможет вам перейти от AngularJS к Angular
+сопоставляя синтаксис AngularJS с эквивалентным синтаксисом Angular.
 
 
-**See the Angular syntax in this <live-example name="ajs-quick-reference"></live-example>**.
+**Смотрите Angular синтаксис в этом <live-example name="ajs-quick-reference"></live-example>**.
 
-## Template basics
-Templates are the user-facing part of an Angular application and are written in HTML.
-The following table lists some of the key AngularJS template features with their equivalent Angular template syntax.
+{@a template-basics}
+## Основы шаблонов
+Шаблоны являются частью пользовательского приложения Angular и написаны на HTML.
+В следующей таблице перечислены некоторые ключевые функции шаблона AngularJS с эквивалентным синтаксисом шаблона Angular.
 
 
 <table width="100%">
@@ -44,38 +46,37 @@ The following table lists some of the key AngularJS template features with their
 
     <td>
 
-
-      ### Bindings/interpolation
+      ### Привязки / интерполяция
 
       <code-example hideCopy>
         Your favorite hero is: {{vm.favoriteHero}}
       </code-example>
 
 
-      In AngularJS, an expression in curly braces denotes one-way binding.
-      This binds the value of the element to a property in the controller
-      associated with this template.
+      В AngularJS выражение в фигурных скобках обозначает одностороннее связывание.
+      Это связывает значение элемента со свойством в контроллере
+      связан с этим шаблоном.
 
-      When using the `controller as` syntax,
-      the binding is prefixed with the controller alias (`vm` or `$ctrl`) because you
-      have to be specific about the source of the binding.
+      При использовании `controller as` синтаксис
+      привязка начинается с псевдонима контроллера (`vm`  или  `$ctrl`) потому что вы
+      должны быть конкретными об источнике привязки.
     </td>
 
     <td>
 
 
-      ### Bindings/interpolation
+      ### Привязки / интерполяция
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="interpolation"></code-example>
 
 
-      In Angular, a template expression in curly braces still denotes one-way binding.
-      This binds the value of the element to a property of the component.
-      The context of the binding is implied and is always the
-      associated component, so it needs no reference variable.
+      В Angular шаблонное выражение в фигурных скобках по-прежнему обозначает одностороннюю привязку.
+      Это связывает значение элемента со свойством компонента.
+      Контекст связывания подразумевается и всегда является
+      связанный компонент, поэтому он не нуждается в ссылочной переменной.
 
-      For more information, see the [Interpolation](guide/template-syntax#interpolation)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Интерполяция](guide/template-syntax#interpolation)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -85,31 +86,31 @@ The following table lists some of the key AngularJS template features with their
     <td>
 
 
-      ### Filters
+      ### Фильтры
 
       <code-example hideCopy>
         &lt;td>{{movie.title | uppercase}}&lt;/td>
       </code-example>
 
 
-      To filter output in AngularJS templates, use the pipe character (|) and one or more filters.
+      Чтобы отфильтровать выходные данные в шаблонах AngularJS, используйте символ канала (|) и один или несколько фильтров.
 
-      This example filters the `title` property to uppercase.
+      Этот пример фильтрует  `title`  Свойство в верхнем регистре.
     </td>
 
     <td>
 
 
-      ### Pipes
+      ### Трубы
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="uppercase"></code-example>
 
 
-      In Angular you use similar syntax with the pipe (|) character to filter output, but now you call them **pipes**.
-      Many (but not all) of the built-in filters from AngularJS are
-      built-in pipes in Angular.
+      В Angular вы используете похожий синтаксис с символом канала (|) для фильтрации вывода, но теперь вы называете их **каналами**.
+      Многие (но не все) из встроенных фильтров AngularJS есть
+      трубы встроенные в Angular.
 
-      For more information, see [Filters/pipes](guide/ajs-quick-reference#filters-pipes) below.
+      Для получения дополнительной информации см. [Фильтры / трубы](guide/ajs-quick-reference#filters-pipes)ниже.
     </td>
 
   </tr>
@@ -119,7 +120,7 @@ The following table lists some of the key AngularJS template features with their
     <td>
 
 
-      ### Local variables
+      ### Локальные переменные
 
       <code-example hideCopy format="">
         &lt;tr ng-repeat="movie in vm.movies">
@@ -128,21 +129,21 @@ The following table lists some of the key AngularJS template features with their
       </code-example>
 
 
-      Here, `movie` is a user-defined local variable.
+      Вот,  `movie`  - это определенная пользователем локальная переменная.
     </td>
 
     <td>
 
 
-      ### Input variables
+      ### Входные переменные
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="local"></code-example>
 
 
-      Angular has true template input variables that are explicitly defined using the `let` keyword.
+      Angular имеет истинные входные переменные шаблона, которые явно определены с использованием  `let`  ключевое слово.
 
-      For more information, see the [ngFor micro-syntax](guide/template-syntax#microsyntax)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Микросинтаксис ngFor](guide/template-syntax#microsyntax)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -150,10 +151,11 @@ The following table lists some of the key AngularJS template features with their
 </table>
 
 
-## Template directives
-AngularJS provides more than seventy built-in directives for templates.
-Many of them aren't needed in Angular because of its more capable and expressive binding system.
-The following are some of the key AngularJS built-in directives and their equivalents in Angular.
+{@a template-directives}
+## Шаблонные директивы
+AngularJS предоставляет более семидесяти встроенных директив для шаблонов.
+Многие из них не нужны в Angular из-за его более способной и выразительной системы привязки.
+Ниже приведены некоторые ключевые встроенные директивы AngularJS и их эквиваленты в Angular.
 
 
 <table width="100%">
@@ -190,17 +192,17 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      The application startup process is called **bootstrapping**.
+      Процесс запуска приложения называется **начальной загрузкой**.
 
-      Although you can bootstrap an AngularJS app in code,
-      many applications bootstrap declaratively with the `ng-app` directive,
-      giving it the name of the application's module (`movieHunter`).
+      Хотя вы можете загрузить приложение AngularJS в коде
+      многие приложения запускаются декларативно с  `ng-app`  Директива
+      присвоив ему название модуля приложения (`movieHunter`).
     </td>
 
     <td>
 
 
-      ### Bootstrapping
+      ### Инициализация
 
       <code-example hideCopy path="ajs-quick-reference/src/main.ts" header="main.ts"></code-example>
       <br>
@@ -208,10 +210,10 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" header="app.module.ts"></code-example>
 
 
-      Angular doesn't have a bootstrap directive.
-      To launch the app in code, explicitly bootstrap the application's root module (`AppModule`)
-      in `main.ts`
-      and the application's root component (`AppComponent`) in `app.module.ts`.
+      У Angular нет директивы для начальной загрузки.
+      Чтобы запустить приложение в коде, явно загрузите корневой модуль приложения (`AppModule`)
+      в  `main.ts` 
+      и корневой компонент приложения (`AppComponent`) в  `app.module.ts`.
     </td>
 
   </tr>
@@ -230,14 +232,14 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-class` directive includes/excludes CSS classes
-      based on an expression. That expression is often a key-value control object with each
-      key of the object defined as a CSS class name, and each value defined as a template expression
-      that evaluates to a Boolean value.
+      В AngularJS,  `ng-class`  Директива включает / исключает CSS-классы
+      на основе выражения. Это выражение часто является объектом управления ключ-значение с каждым
+      ключ объекта, определенного как имя класса CSS, а каждое значение определяется как выражение шаблона
+      который оценивается как логическое значение.
 
-      In the first example, the `active` class is applied to the element if `isActive` is true.
+      В первом примере  `active`  класс применяется к элементу, если  `isActive`  это правда.
 
-      You can specify multiple classes, as shown in the second example.
+      Вы можете указать несколько классов, как показано во втором примере.
     </td>
 
     <td>
@@ -248,18 +250,18 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngClass"></code-example>
 
 
-      In Angular, the `ngClass` directive works similarly.
-      It includes/excludes CSS classes based on an expression.
+      В Angular  `ngClass`  Директива работает аналогично.
+      Включает / исключает классы CSS, основанные на выражении.
 
-      In the first example, the `active` class is applied to the element if `isActive` is true.
+      В первом примере  `active`  класс применяется к элементу, если  `isActive`  это правда.
 
-      You can specify multiple classes, as shown in the second example.
+      Вы можете указать несколько классов, как показано во втором примере.
 
-      Angular also has **class binding**, which is a good way to add or remove a single class,
-      as shown in the third example.
+      В Angular также есть **привязка классов**, которая является хорошим способом добавления или удаления одного класса
+      как показано в третьем примере.
 
-      For more information see the [Attribute, class, and style bindings](guide/template-syntax#other-bindings)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Привязка атрибутов, классов и стилей](guide/template-syntax#other-bindings)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
 
     </td>
 
@@ -278,39 +280,39 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-click` directive allows you to specify custom behavior when an element is clicked.
+      В AngularJS,  `ng-click`  Директива позволяет вам указать пользовательское поведение при нажатии на элемент.
 
-      In the first example, when the user clicks the button, the `toggleImage()` method in the controller referenced by the `vm` `controller as` alias is executed.
+      В первом примере, когда пользователь нажимает кнопку,  `toggleImage()`  в контроллере, на который ссылается  `vm`    `controller as` псевдоним выполняется.
 
-      The second example demonstrates passing in the `$event` object, which provides details about the event
-      to the controller.
+      Второй пример демонстрирует прохождение в  `$event`  объект, который предоставляет подробную информацию о событии
+      к контроллеру.
     </td>
 
     <td>
 
 
-      ### Bind to the `click` event
+      ### Привязать к  `click`  событие
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="event-binding"></code-example>
 
 
-      AngularJS event-based directives do not exist in Angular.
-      Rather, define one-way binding from the template view to the component using **event binding**.
+      AngularJS основанные на событиях директивы не существуют в Angular.
+      Вместо этого определите одностороннюю привязку из представления шаблона к компоненту, используя **привязку событий**.
 
-      For event binding, define the name of the target event within parenthesis and
-      specify a template statement, in quotes, to the right of the equals. Angular then
-      sets up an event handler for the target event. When the event is raised, the handler
-      executes the template statement.
+      Для привязки события определите имя целевого события в скобках и
+      укажите шаблонную инструкцию в кавычках справа от равенства. Angular тогда
+      устанавливает обработчик события для целевого события. Когда событие поднято, обработчик
+      выполняет оператор шаблона.
 
-      In the first example, when a user clicks the button, the `toggleImage()` method in the associated component is executed.
+      В первом примере, когда пользователь нажимает кнопку,  `toggleImage()`  в связанном компоненте выполняется.
 
-      The second example demonstrates passing in the `$event` object, which provides details about the event
-      to the component.
+      Второй пример демонстрирует прохождение в  `$event`  объект, который предоставляет подробную информацию о событии
+      к компоненту.
 
-      For a list of DOM events, see: https://developer.mozilla.org/en-US/docs/Web/Events.
+      Список событий DOM см. По адресу: https://developer.mozilla.org/en-US/docs/Web/Events.
 
-      For more information, see the [Event binding](guide/template-syntax#event-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Привязка к событию](guide/template-syntax#event-binding)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
 
     </td>
 
@@ -328,23 +330,23 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-controller` directive attaches a controller to the view.
-      Using the `ng-controller` (or defining the controller as part of the routing) ties the
-      view to the controller code associated with that view.
+      В AngularJS,  `ng-controller`  Директива прикрепляет контроллер к представлению.
+      С использованием  `ng-controller`  (или определение контроллера как части маршрутизации) связывает
+      вид на код контроллера, связанный с этим представлением.
     </td>
 
     <td>
 
 
-      ### Component decorator
+      ### Компонент декоратор
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component"></code-example>
 
 
-      In Angular, the template no longer specifies its associated controller.
-      Rather, the component specifies its associated template as part of the component class decorator.
+      В Angular шаблон больше не указывает связанный с ним контроллер.
+      Скорее компонент указывает свой связанный шаблон как часть декоратора класса компонента.
 
-      For more information, see [Architecture Overview](guide/architecture#components).
+      Для получения дополнительной информации см. [Обзор архитектуры](guide/architecture#components).
 
     </td>
 
@@ -356,16 +358,16 @@ The following are some of the key AngularJS built-in directives and their equiva
 
 
       ### ng-hide
-      In AngularJS, the `ng-hide` directive shows or hides the associated HTML element based on
-      an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).
+      В AngularJS,  `ng-hide`  Директива показывает или скрывает связанный элемент HTML на основе
+      выражение. Для получения дополнительной информации см. [Ng-show](guide/ajs-quick-reference#ng-show).
     </td>
 
     <td>
 
 
-      ### Bind to the `hidden` property
-      In Angular, you use property binding; there is no built-in *hide* directive.
-      For more information, see [ng-show](guide/ajs-quick-reference#ng-show).
+      ### Привязать к  `hidden`  собственность
+      В Angular вы используете привязку свойств; нет встроенной *скрытия* директивы.
+      Для получения дополнительной информации см. [Ng-show](guide/ajs-quick-reference#ng-show).
     </td>
 
   </tr>
@@ -382,41 +384,41 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      The `ng-href` directive allows AngularJS to preprocess the `href` property so that it
-      can replace the binding expression with the appropriate URL before the browser
-      fetches from that URL.
+ `ng-href` Директива позволяет AngularJS предварительно обрабатывать  `href`  свойство так, чтобы оно
+      может заменить выражение привязки на соответствующий URL перед браузером
+      извлекает из этого URL.
 
-      In AngularJS, the `ng-href` is often used to activate a route as part of navigation.
+      В AngularJS,  `ng-href`  часто используется для активации маршрута как части навигации.
 
       <code-example hideCopy format="">
         &lt;a ng-href="#{{ moviesHash }}">Movies&lt;/a>
       </code-example>
 
 
-      Routing is handled differently in Angular.
+      Маршрутизация обрабатывается по-разному в Angular.
     </td>
 
     <td>
 
 
-      ### Bind to the `href` property
+      ### Привязать к  `href`  собственности
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="href"></code-example>
 
 
-      Angular uses property binding; there is no built-in *href* directive.
-      Place the element's `href` property in square brackets and set it to a quoted template expression.
+      Angular использует привязку свойств; нет встроенной *href* директивы.
+      Поместите элемент  `href`  Свойство в квадратных скобках и установите его в выражение шаблона в кавычках.
 
-      For more information see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Свойство привязки](guide/template-syntax#property-binding)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
 
-      In Angular, `href` is no longer used for routing. Routing uses `routerLink`, as shown in the following example.
+      В Angular,  `href`  больше не используется для маршрутизации. Маршрутизация использует  `routerLink`, как показано в следующем примере.
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="router-link"></code-example>
 
 
-      For more information on routing, see [Defining a basic route](guide/router#basic-route)
-      in the [Routing & Navigation](guide/router) page.
+      Для получения дополнительной информации о маршрутизации см. [Привязка RouterLink](guide/router#router-link)
+      раздел [Маршрутизация и навигация](guide/router)страницы.
 
     </td>
 
@@ -434,10 +436,10 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-if` directive removes or recreates a portion of the DOM,
-      based on an expression. If the expression is false, the element is removed from the DOM.
+      В AngularJS,  `ng-if`  директива удаляет или воссоздает часть DOM,
+      на основе выражения. Если выражение ложно, элемент удаляется из DOM.
 
-      In this example, the `<table>` element is removed from the DOM unless the `movies` array has a length greater than zero.
+      В этом примере  `<table>`  элемент удаляется из DOM, если только  `movies`  массив имеет длину больше нуля.
     </td>
 
     <td>
@@ -448,13 +450,13 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngIf"></code-example>
 
 
-      The `*ngIf` directive in Angular works the same as the `ng-if` directive in AngularJS. It removes
-      or recreates a portion of the DOM based on an expression.
+ `*ngIf` Директива в Angular работает так же, как  `ng-if`  Директива в AngularJS. Это удаляет
+      или воссоздает часть DOM на основе выражения.
 
-      In this example, the `<table>` element is removed from the DOM unless the `movies` array has a length.
+      В этом примере  `<table>`  элемент удаляется из DOM, если только  `movies`  Массив имеет длину.
 
-      The (*) before `ngIf` is required in this example.
-      For more information, see [Structural Directives](guide/structural-directives).
+      ( *) Перед  `ngIf`  требуется в этом примере.
+      Для получения дополнительной информации см. [Структурные директивы](guide/structural-directives).
     </td>
 
   </tr>
@@ -471,8 +473,8 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-model` directive binds a form control to a property in the controller associated with the template.
-      This provides **two-way binding**, whereby any change made to the value in the view is synchronized with the model, and any change to the model is synchronized with the value in the view.
+      В AngularJS,  `ng-model`  Директива связывает элемент управления формы со свойством в контроллере, связанном с шаблоном.
+      Это обеспечивает **двустороннюю привязку**, при которой любое изменение, внесенное в значение в представлении, синхронизируется с моделью, а любое изменение в модели синхронизируется со значением в представлении.
     </td>
 
     <td>
@@ -483,12 +485,12 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngModel"></code-example>
 
 
-      In Angular, **two-way binding** is denoted by `[()]`, descriptively referred to as a "banana in a box". This syntax is a shortcut for defining both property binding (from the component to the view)
-      and event binding (from the view to the component), thereby providing two-way binding.
+      В Angular **двустороннее связывание** обозначается  `[()]`, описательно называемый «банан в коробке». Этот синтаксис является ярлыком для определения привязки обоих свойств (от компонента к представлению)
+      и привязка событий (от представления к компоненту), тем самым обеспечивая двустороннюю привязку.
 
-      For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to
-      form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации о двустороннем связывании с  `ngModel`, см. [NgModel - Двусторонняя привязка к
+      элементы формы с  `[(ngModel)]`  ] (../ guide / template-syntax.html #ngModel)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -505,10 +507,10 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-repeat` directive repeats the associated DOM element
-      for each item in the specified collection.
+      В AngularJS,  `ng-repeat`  Директива повторяет связанный элемент DOM
+      за каждый предмет в указанной коллекции.
 
-      In this example, the table row (`<tr>`) element repeats for each movie object in the collection of movies.
+      В этом примере строка таблицы (`<tr>`) элемент повторяется для каждого объекта фильма в коллекции фильмов.
     </td>
 
     <td>
@@ -519,17 +521,17 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngFor"></code-example>
 
 
-      The `*ngFor` directive in Angular is similar to the `ng-repeat` directive in AngularJS. It repeats
-      the associated DOM element for each item in the specified collection.
-      More accurately, it turns the defined element (`<tr>` in this example) and its contents into a template and
-      uses that template to instantiate a view for each item in the list.
+ `*ngFor` Директива в Angular похожа на  `ng-repeat`  Директива в AngularJS. Это повторяется
+      связанный элемент DOM для каждого элемента в указанной коллекции.
+      Точнее, получается определенный элемент (  `<tr>`  в этом примере) и его содержимое в шаблон и
+      использует этот шаблон для создания представления для каждого элемента в списке.
 
-      Notice the other syntax differences:
-      The (*) before `ngFor` is required;
-      the `let` keyword identifies `movie` as an input variable;
-      the list preposition is `of`, not `in`.
+      Обратите внимание на другие отличия синтаксиса:
+      ( *) Перед  `ngFor`  требуется;
+ `let` ключевое слово идентифицирует  `movie`  в качестве входной переменной;
+      предлог списка  `of`, не  `in`.
 
-      For more information, see [Structural Directives](guide/structural-directives).
+      Для получения дополнительной информации см. [Структурные директивы](guide/structural-directives).
     </td>
 
   </tr>
@@ -548,30 +550,30 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-show` directive shows or hides the associated DOM element, based on
-      an expression.
+      В AngularJS,  `ng-show`  Директива показывает или скрывает связанный элемент DOM на основе
+      выражение.
 
-      In this example, the `<div>` element is shown if the `favoriteHero` variable is truthy.
+      В этом примере  `<div>`  Элемент отображается, если  `favoriteHero`  переменная truthy.
     </td>
 
     <td>
 
 
-      ### Bind to the `hidden` property
+      ### Привязать к  `hidden`  собственность
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="hidden"></code-example>
 
 
-      Angular uses property binding; there is no built-in *show* directive.
-      For hiding and showing elements, bind to the HTML `hidden` property.
+      Angular использует привязку свойств; нет встроенной *show* директивы.
+      Для скрытия и отображения элементов, привязка к HTML  `hidden`  собственность.
 
-      To conditionally display an element, place the element's `hidden` property in square brackets and
-      set it to a quoted template expression that evaluates to the *opposite* of *show*.
+      Чтобы условно отобразить элемент, поместите элемент  `hidden`  свойство в квадратных скобках и
+      установить его в кавычки выражение шаблона, который вычисляется в *противоположную* от *шоу*.
 
-      In this example, the `<div>` element is hidden if the `favoriteHero` variable is not truthy.
+      В этом примере  `<div>`  Элемент скрыт, если  `favoriteHero`  переменная не truthy.
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации о привязке свойства см. [Привязка свойства](guide/template-syntax#property-binding)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -588,24 +590,24 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      The `ng-src` directive allows AngularJS to preprocess the `src` property so that it
-      can replace the binding expression with the appropriate URL before the browser
-      fetches from that URL.
+ `ng-src` Директива позволяет AngularJS предварительно обрабатывать  `src`  свойство так что это
+      может заменить выражение привязки на соответствующий URL перед браузером
+      извлекает из этого URL.
     </td>
 
     <td>
 
 
-      ### Bind to the `src` property
+      ### Привязать к  `src`  свойство
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="src"></code-example>
 
 
-      Angular uses property binding; there is no built-in *src* directive.
-      Place the `src` property in square brackets and set it to a quoted template expression.
+      Angular использует привязку свойств; нет встроенной *src* директивы.
+      Поместите  `src`  Свойство в квадратных скобках и установите его в выражение шаблона в кавычках.
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации о привязке свойства см. [Привязка свойства](guide/template-syntax#property-binding)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -622,12 +624,12 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-style` directive sets a CSS style on an HTML element
-      based on an expression. That expression is often a key-value control object with each
-      key of the object defined as a CSS property, and each value defined as an expression
-      that evaluates to a value appropriate for the style.
+      В AngularJS,  `ng-style`  Директива в стиле устанавливает стиль CSS для элемента HTML
+      на основе выражения. Это выражение часто является объектом управления ключ-значение с каждым
+      ключ объекта, определенного как свойство CSS, а каждое значение определяется как выражение
+      это оценивает к значению, подходящему для стиля.
 
-      In the example, the `color` style is set to the current value of the `colorPreference` variable.
+      В примере  `color`  стиль установлен на текущее значение  `colorPreference`  переменная.
     </td>
 
     <td>
@@ -638,17 +640,17 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngStyle"></code-example>
 
 
-      In Angular, the `ngStyle` directive works similarly. It sets a CSS style on an HTML element based on an expression.
+      В Angular  `ngStyle`  Директива работает аналогично. Он устанавливает стиль CSS для элемента HTML на основе выражения.
 
-      In the first example, the `color` style is set to the current value of the `colorPreference` variable.
+      В первом примере  `color`  стиль установлен на текущее значение  `colorPreference`  переменная.
 
-      Angular also has **style binding**, which is good way to set a single style. This is shown in the second example.
+      Angular также имеет **привязку стилей**, что является хорошим способом установки единого стиля. Это показано во втором примере.
 
-      For more information on style binding, see the [Style binding](guide/template-syntax#style-binding) section of the
-      [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации о стиле связывания см [переплет](guide/template-syntax#style-binding)секция
+      [Синтаксис шаблона](guide/template-syntax).
 
-      For more information on the `ngStyle` directive, see [NgStyle](guide/template-syntax#ngStyle)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации о  `ngStyle`  директива, см. [NgStyle](guide/template-syntax#ngStyle)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -676,13 +678,13 @@ The following are some of the key AngularJS built-in directives and their equiva
       </code-example>
 
 
-      In AngularJS, the `ng-switch` directive swaps the contents of
-      an element by selecting one of the templates based on the current value of an expression.
+      В AngularJS,  `ng-switch`  Директива меняет содержимое
+      элемент путем выбора одного из шаблонов на основе текущего значения выражения.
 
-      In this example, if `favoriteHero` is not set, the template displays "Please enter ...".
-      If `favoriteHero` is set, it checks the movie hero by calling a controller method.
-      If that method returns `true`, the template displays "Excellent choice!".
-      If that methods returns `false`, the template displays "No movie, sorry!".
+      В этом примере, если  `favoriteHero`  не установлен, в шаблоне отображается «Пожалуйста, введите...».
+      Если  `favoriteHero`  установлен, он проверяет героя фильма, вызывая метод контроллера.
+      Если этот метод возвращает  `true`, в шаблоне отображается «Отличный выбор!».
+      Если этот метод возвращает  `false`, шаблон отображает «Нет фильма, извините!».
     </td>
 
     <td>
@@ -693,19 +695,19 @@ The following are some of the key AngularJS built-in directives and their equiva
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngSwitch"></code-example>
 
 
-      In Angular, the `ngSwitch` directive works similarly.
-      It displays an element whose `*ngSwitchCase` matches the current `ngSwitch` expression value.
+      В Angular  `ngSwitch`  Директива работает аналогично.
+      Отображает элемент, чей  `*ngSwitchCase`  соответствует текущему  `ngSwitch`  выражения.
 
-      In this example, if `favoriteHero` is not set, the `ngSwitch` value is `null`
-      and `*ngSwitchDefault` displays, "Please enter ...".
-      If `favoriteHero` is set, the app checks the movie hero by calling a component method.
-      If that method returns `true`, the app selects `*ngSwitchCase="true"` and displays: "Excellent choice!"
-      If that methods returns `false`, the app selects `*ngSwitchCase="false"` and displays: "No movie, sorry!"
+      В этом примере, если  `favoriteHero`  не установлен,  `ngSwitch`  Значение равно  `null` 
+      и  `*ngSwitchDefault`  отображает «Пожалуйста, введите...».
+      Если  `favoriteHero`, приложение проверяет героя фильма, вызывая метод компонента.
+      Если этот метод возвращает  `true`, приложение выбирает  `*ngSwitchCase="true"`  и отображает: «Отличный выбор!»
+      Если этот метод возвращает  `false`, приложение выбирает  `*ngSwitchCase="false"`  и отображает: «Нет фильма, извините!»
 
-      The (*) before `ngSwitchCase` and `ngSwitchDefault` is required in this example.
+      ( *) Перед  `ngSwitchCase`  и  `ngSwitchDefault`  этом примере требуется.
 
-      For more information, see [The NgSwitch directives](guide/template-syntax#ngSwitch)
-      section of the [Template Syntax](guide/template-syntax) page.
+      Для получения дополнительной информации см. [Директивы NgSwitch](guide/template-syntax#ngSwitch)
+      раздел [Синтаксис шаблона](guide/template-syntax)страницы.
     </td>
 
   </tr>
@@ -717,10 +719,10 @@ The following are some of the key AngularJS built-in directives and their equiva
 
 
 
-## Filters/pipes
-Angular **pipes** provide formatting and transformation for data in the template, similar to AngularJS **filters**.
-Many of the built-in filters in AngularJS have corresponding pipes in Angular.
-For more information on pipes, see [Pipes](guide/pipes).
+## Фильтры / трубы
+Angular **каналы** обеспечивают форматирование и преобразование данных в шаблоне, аналогично AngularJS**фильтрам**.
+Многие из встроенных фильтров в AngularJS имеют соответствующие каналы в Angular.
+Для получения дополнительной информации о трубах см. [Трубы](guide/pipes).
 
 
 <table width="100%">
@@ -757,7 +759,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Formats a number as currency.
+      Форматирует число как валюту.
     </td>
 
     <td>
@@ -768,7 +770,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="currency"></code-example>
 
 
-      The Angular `currency` pipe is similar although some of the parameters have changed.
+      Angular  `currency`  труба похожа, хотя некоторые параметры изменились.
     </td>
 
   </tr>
@@ -785,7 +787,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Formats a date to a string based on the requested format.
+      Форматирует дату в строку на основе запрошенного формата.
     </td>
 
     <td>
@@ -796,7 +798,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="date"></code-example>
 
 
-      The Angular `date` pipe is similar.
+      Angular  `date`  трубы похожа.
 
     </td>
 
@@ -814,14 +816,14 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Selects a subset of items from the defined collection, based on the filter criteria.
+      Выбирает поднабор элементов из определенной коллекции на основе критериев фильтра.
     </td>
 
     <td>
 
 
       ### none
-      For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.
+      Из соображений производительности в Angular не существует сопоставимой трубы. Сделайте всю свою фильтрацию в компоненте. Если вам нужен один и тот же код фильтрации в нескольких шаблонах, подумайте о создании собственного канала.
 
     </td>
 
@@ -839,7 +841,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Converts a JavaScript object into a JSON string. This is useful for debugging.
+      Преобразует объект JavaScript в строку JSON. Это полезно для отладки.
     </td>
 
     <td>
@@ -850,7 +852,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="json"></code-example>
 
 
-      The Angular `json` pipe does the same thing.
+      Angular  `json`  pipe делает то же самое.
     </td>
 
   </tr>
@@ -867,8 +869,8 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Selects up to the first parameter (2) number of items from the collection
-      starting (optionally) at the beginning index (0).
+      Выбирает до первого параметра (2) количество предметов из коллекции
+      начиная (опционально) с начального индекса (0).
     </td>
 
     <td>
@@ -879,10 +881,10 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="slice"></code-example>
 
 
-      The `SlicePipe` does the same thing but the *order of the parameters is reversed*, in keeping
-      with the JavaScript `Slice` method.
-      The first parameter is the starting index; the second is the limit.
-      As in AngularJS, coding this operation within the component instead could improve performance.
+ `SlicePipe` делает то же самое, но *порядок параметров восстанавливается*, в соответствии
+      с помощью JavaScript  `Slice`  Метод.
+      Первый параметр - это начальный индекс; второй предел.
+      Как и в AngularJS, кодирование этой операции внутри компонента может повысить производительность.
     </td>
 
   </tr>
@@ -899,7 +901,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Converts the string to lowercase.
+      Преобразует строку в нижний регистр.
     </td>
 
     <td>
@@ -910,7 +912,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="lowercase"></code-example>
 
 
-      The Angular `lowercase` pipe does the same thing.
+      Angular  `lowercase`  труба делает то же самое.
     </td>
 
   </tr>
@@ -927,7 +929,7 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Formats a number as text.
+      Форматирует число как текст.
     </td>
 
     <td>
@@ -938,12 +940,12 @@ For more information on pipes, see [Pipes](guide/pipes).
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="number"></code-example>
 
 
-      The Angular `number` pipe is similar.
-      It provides more functionality when defining
-      the decimal places, as shown in the second example above.
+      Angular  `number`  трубы похож.
+      Это обеспечивает больше функциональности при определении
+      десятичные разряды, как показано во втором примере выше.
 
-      Angular also has a `percent` pipe, which formats a number as a local percentage
-      as shown in the third example.
+      Angular также имеет  `percent`  труба, которая форматирует число как локальный процент
+      как показано в третьем примере.
     </td>
 
   </tr>
@@ -960,16 +962,16 @@ For more information on pipes, see [Pipes](guide/pipes).
       </code-example>
 
 
-      Displays the collection in the order specified by the expression.
-      In this example, the movie title orders the `movieList`.
+      Отображает коллекцию в порядке, указанном выражением.
+      В этом примере название фильма упорядочивает  `movieList`.
     </td>
 
     <td>
 
 
       ### none
-      For performance reasons, no comparable pipe exists in Angular.
-      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.
+      Из соображений производительности в Angular не существует сопоставимой трубы.
+      Вместо этого используйте код компонента, чтобы упорядочить или отсортировать результаты. Если вам нужен один и тот же код заказа или сортировки в нескольких шаблонах, подумайте о создании собственного канала.
 
     </td>
 
@@ -983,14 +985,15 @@ For more information on pipes, see [Pipes](guide/pipes).
 
 
 
-## Modules/controllers/components
-In both AngularJS and Angular, modules help you organize your application into cohesive blocks of functionality.
+{@a modules-controllers-components}
+## Модули / контроллеры / компоненты
+Как в AngularJS, так и в Angular модули помогают вам организовать приложение в единые блоки функциональности.
 
-In AngularJS, you write the code that provides the model and the methods for the view in a **controller**.
-In Angular, you build a **component**.
+В AngularJS вы пишете код, который предоставляет модель и методы для представления в **контроллере**.
+В Angular вы создаете **компонент**.
 
-Because much AngularJS code is in JavaScript, JavaScript code is shown in the AngularJS column.
-The Angular code is shown using TypeScript.
+Поскольку большая часть кода AngularJS находится на JavaScript, код JavaScript отображается в столбце AngularJS.
+Angular код показан с использованием TypeScript.
 
 
 <table width="100%">
@@ -1029,8 +1032,8 @@ The Angular code is shown using TypeScript.
       </code-example>
 
 
-      In AngularJS, an immediately invoked function expression (or IIFE) around controller code
-      keeps it out of the global namespace.
+      В AngularJS, немедленно вызванное выражение функции (или IIFE) вокруг кода контроллера
+      держит его вне глобального пространства имен.
 
     </td>
 
@@ -1038,11 +1041,11 @@ The Angular code is shown using TypeScript.
 
 
       ### none
-      This is a nonissue in Angular because ES 2015 modules
-      handle the namespacing for you.
+      Это не выпуск в Angular, потому что модули ES 2015
+      обрабатывать пространство имен для вас.
 
-      For more information on modules, see the [Modules](guide/architecture#modules) section of the
-      [Architecture Overview](guide/architecture).
+      Для получения дополнительной информации о модулях см. [Модули](guide/architecture#modules)Раздел
+      [Обзор архитектуры](guide/architecture).
     </td>
 
   </tr>
@@ -1052,15 +1055,15 @@ The Angular code is shown using TypeScript.
     <td>
 
 
-      ### Angular modules
+      ### Angular модули
 
       <code-example hideCopy>
         angular.module("movieHunter", ["ngRoute"]);
       </code-example>
 
 
-      In AngularJS, an Angular module keeps track of controllers, services, and other code.
-      The second argument defines the list of other modules that this module depends upon.
+      В AngularJS модуль Angular отслеживает контроллеры, сервисы и другой код.
+      Второй аргумент определяет список других модулей, от которых зависит этот модуль.
     </td>
 
     <td>
@@ -1071,12 +1074,12 @@ The Angular code is shown using TypeScript.
       <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts"></code-example>
 
 
-      NgModules, defined with the `NgModule` decorator, serve the same purpose:
+      NgModules, определенные с  `NgModule`  декоратор, служат той же цели:
 
-      * `imports`: specifies the list of other modules that this module depends upon
-      * `declaration`: keeps track of your components, pipes, and directives.
+      *  `imports` : указывает список других модулей, от которых зависит этот модуль
+      *  `declaration` : отслеживает ваши компоненты, каналы и директивы.
 
-      For more information on modules, see [NgModules](guide/ngmodules).
+      Для получения дополнительной информации о модулях см. [NgModules](guide/ngmodules).
     </td>
 
   </tr>
@@ -1086,40 +1089,40 @@ The Angular code is shown using TypeScript.
     <td>
 
 
-      ### Controller registration
+      ### Регистрация контролера
 
       <code-example hideCopy>
         angular
-          .module("movieHunter")
-          .controller("MovieListCtrl",
+         .module("movieHunter")
+         .controller("MovieListCtrl",
                       ["movieService",
                        MovieListCtrl]);
       </code-example>
 
 
-      AngularJS has code in each controller that looks up an appropriate Angular module
-      and registers the controller with that module.
+      AngularJS имеет код в каждом контроллере, который ищет соответствующий модуль Angular
+      и регистрирует контроллер с этим модулем.
 
-      The first argument is the controller name. The second argument defines the string names of
-      all dependencies injected into this controller, and a reference to the controller function.
+      Первый аргумент - это имя контроллера. Второй аргумент определяет имена строк
+      все зависимости, введенные в этот контроллер, и ссылка на функцию контроллера.
     </td>
 
     <td>
 
 
-      ### Component decorator
+      ### Компонент декоратор
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component"></code-example>
 
 
-      Angular adds a decorator to the component class to provide any required metadata.
-      The `@Component` decorator declares that the class is a component and provides metadata about
-      that component such as its selector (or tag) and its template.
+      Angular добавляет декоратор к классу компонента для предоставления любых необходимых метаданных.
+ `@Component` decorator объявляет, что класс является компонентом, и предоставляет метаданные о
+      этот компонент, такой как его селектор (или тег) и его шаблон.
 
-      This is how you associate a template with logic, which is defined in the component class.
+      Вот как вы связываете шаблон с логикой, которая определена в классе компонентов.
 
-      For more information, see the [Components](guide/architecture#components)
-      section of the [Architecture Overview](guide/architecture) page.
+      Для получения дополнительной информации см. [Компоненты](guide/architecture#components)
+      раздел [Обзор архитектуры](guide/architecture)страницы.
     </td>
 
   </tr>
@@ -1129,7 +1132,7 @@ The Angular code is shown using TypeScript.
     <td>
 
 
-      ### Controller function
+      ### Функция контроллера
 
       <code-example hideCopy>
         function MovieListCtrl(movieService) {
@@ -1137,21 +1140,21 @@ The Angular code is shown using TypeScript.
       </code-example>
 
 
-      In AngularJS, you write the code for the model and methods in a controller function.
+      В AngularJS вы пишете код для модели и методов в функции контроллера.
     </td>
 
     <td>
 
 
-      ### Component class
+      ### Компонент класса
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="class"></code-example>
 
 
-      In Angular, you create a component class to contain the data model and control methods. Use the TypeScript <code>export</code> keyword to export the class so that the functionality can be imported into NgModules.
+      В Angular вы создаете класс компонента, который будет содержать модель данных и методы управления. Используйте машинописи <code>экспорта </code>ключевое слово, чтобы экспортировать класс так, что функциональные возможности могут быть импортированы в NgModules.
 
-      For more information, see the [Components](guide/architecture#components)
-      section of the [Architecture Overview](guide/architecture) page.
+      Для получения дополнительной информации см. [Компоненты](guide/architecture#components)
+      раздел [Обзор архитектуры](guide/architecture)страницы.
     </td>
 
   </tr>
@@ -1161,7 +1164,7 @@ The Angular code is shown using TypeScript.
     <td>
 
 
-      ### Dependency injection
+      ### Зависимость от инъекций
 
       <code-example hideCopy>
         MovieListCtrl.$inject = ['MovieService'];
@@ -1170,27 +1173,27 @@ The Angular code is shown using TypeScript.
       </code-example>
 
 
-      In AngularJS, you pass in any dependencies as controller function arguments.
-      This example injects a `MovieService`.
+      В AngularJS вы передаете любые зависимости в качестве аргументов функции контроллера.
+      Этот пример внедряет  `MovieService`.
 
-      To guard against minification problems, tell Angular explicitly
-      that it should inject an instance of the `MovieService` in the first parameter.
+      Чтобы избежать проблем минификации, расскажите Angular явно
+      что он должен внедрить экземпляр  `MovieService`  по первому параметру.
     </td>
 
     <td>
 
 
-      ### Dependency injection
+      ### Зависимость от инъекций
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="di"></code-example>
 
 
-      In Angular, you pass in dependencies as arguments to the component class constructor.
-      This example injects a `MovieService`.
-      The first parameter's TypeScript type tells Angular what to inject, even after minification.
+      В Angular вы передаете зависимости как аргументы конструктору класса компонента.
+      Этот пример внедряет  `MovieService`.
+      Тип TypeScript первого параметра сообщает Angular, что вводить, даже после минимизации.
 
-      For more information, see the [Dependency injection](guide/architecture#dependency-injection)
-      section of the [Architecture Overview](guide/architecture).
+      Для получения дополнительной информации см. [Внедрение зависимости](guide/architecture#dependency-injection)
+      раздел [Обзор архитектуры](guide/architecture).
     </td>
 
   </tr>
@@ -1201,13 +1204,13 @@ The Angular code is shown using TypeScript.
 
 
 
-## Style sheets
-Style sheets give your application a nice look.
-In AngularJS, you specify the style sheets for your entire application.
-As the application grows over time, the styles for the many parts of the application
-merge, which can cause unexpected results.
-In Angular, you can still define style sheets for your entire application. But now you can
-also encapsulate a style sheet within a specific component.
+## Таблицы стилей
+Таблицы стилей придают вашему приложению красивый вид.
+В AngularJS вы указываете таблицы стилей для всего вашего приложения.
+По мере того как приложение растет со временем, стили для многих частей приложения
+слияние, которое может привести к неожиданным результатам.
+В Angular вы все еще можете определять таблицы стилей для всего вашего приложения. Но теперь вы можете
+также инкапсулировать таблицу стилей в конкретный компонент.
 
 <table width="100%">
 
@@ -1243,29 +1246,29 @@ also encapsulate a style sheet within a specific component.
       </code-example>
 
 
-      AngularJS, uses a `link` tag in the head section of the `index.html` file
-      to define the styles for the application.
+      AngularJS, использует  `link`  тег в разделе заголовка  `index.html`  файл
+      определить стили для приложения.
     </td>
 
     <td>
 
 
 
-      ### Styles configuration
+      ### Конфигурация стилей
       <code-example hideCopy path="ajs-quick-reference/.angular-cli.1.json" region="styles"></code-example>
 
-      With the Angular CLI, you can configure your global styles in the `angular.json` file.
-      You can rename the extension to `.scss` to use sass.
+      С помощью Angular CLI вы можете настроить свои глобальные стили в  `angular.json`  файл.
+      Вы можете переименовать расширение в  `.scss`  использовать sass.
 
       ### StyleUrls
-      In Angular, you can use the `styles` or `styleUrls` property of the `@Component` metadata to define
-      a style sheet for a particular component.
+      В Angular вы можете использовать  `styles`  или  `styleUrls`  свойство объекта  `@Component`  метаданных для определения
+      таблица стилей для определенного компонента.
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="style-url"></code-example>
 
 
-      This allows you to set appropriate styles for individual components that won’t leak into
-      other parts of the application.
+      Это позволяет вам установить соответствующие стили для отдельных компонентов, в которые не попадет
+      другие части приложения.
     </td>
 
   </tr>

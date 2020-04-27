@@ -1,17 +1,19 @@
-# `ModuleWithProviders` Migration
+{@a modulewithproviders-migration}
+# `ModuleWithProviders` Миграция
 
-## What does this schematic do?
-
-
-Some Angular libraries, such as `@angular/router` and `@ngrx/store`, implement APIs that return a type called `ModuleWithProviders` (typically via a method named `forRoot()`).
-This type represents an `NgModule` along with additional providers.
-Angular version 9 deprecates use of `ModuleWithProviders` without an explicitly generic type, where the generic type refers to the type of the `NgModule`.
-
-This schematic will add a generic type to any `ModuleWithProviders` usages that are missing the generic.
-In the example below, the type of the `NgModule` is `SomeModule`, so the schematic changes the type to be `ModuleWithProviders<SomeModule>`.
+{@a what-does-this-schematic-do}
+## Что делает эта схема?
 
 
-**Before**
+Некоторые Angular библиотеки, такие как `@angular/router` и `@ngrx/store`, реализуйте API, которые возвращают тип с именем `ModuleWithProviders` (обычно через метод с именем `forRoot()` ).
+Этот тип представляет `NgModule` вместе с дополнительными провайдерами.
+Angular версия 9 не одобряет использование `ModuleWithProviders` без явно универсального типа, где универсальный тип ссылается на тип `NgModule`.
+
+Эта схема добавит универсальный тип к любому `ModuleWithProviders`, в которых отсутствует универсальный.
+В приведенном ниже примере тип `NgModule` это `SomeModule`, поэтому схема меняет тип на `ModuleWithProviders<SomeModule>`.
+
+
+**До**
 ```ts
 
 @NgModule({...})
@@ -28,7 +30,7 @@ export class MyModule {
 
 ```
 
-**After**
+**После**
 
 ```ts
 @NgModule({...})
@@ -44,34 +46,39 @@ export class MyModule {
 }
 ```
 
-In the rare case that the schematic can't determine the type of `ModuleWithProviders`, you may see the schematic print a TODO comment to update the code manually.
+В редком случае, когда схема не может определить тип `ModuleWithProviders`, вы можете увидеть схему печати комментария TODO для обновления кода вручную.
 
 
-## Why is this migration necessary?
+{@a why-is-this-migration-necessary}
+## Почему эта миграция необходима?
 
-`ModuleWithProviders` has had the generic type since Angular version 7, but it has been optional.
-This has compiled because the `metadata.json` files contained all the metadata.
-With Ivy, `metadata.json` files are no longer required, so the framework cannot assume that one with the necessary types has been provided.
-Instead, Ivy relies on the generic type for `ModuleWithProviders` to get the correct type information.
+ `ModuleWithProviders` с версии Angular 7, имеет универсальный тип, но он не является обязательным.
+Это скомпилировано, потому что `metadata.json` Файлы содержат все метаданные.
+С плющом, `metadata.json` Файлы больше не требуются, поэтому среда не может предполагать, что был предоставлен файл с необходимыми типами.
+Вместо этого Айви полагается на общий тип для `ModuleWithProviders` для получения правильной информации о типе.
 
-For this reason, Angular version 9 deprecates `ModuleWithProviders` without a generic type.
-A future version of Angular will remove the default generic type, making an explicit type required.
+По этой причине Angular версии 9 устарела `ModuleWithProviders` без универсального типа.
+В будущей версии Angular будет удален универсальный тип по умолчанию, что сделает явный тип обязательным.
 
-## Should I add the generic type when I add new `ModuleWithProviders` types to my application?
+{@a should-i-add-the-generic-type-when-i-add-new-modulewithproviders-types-to-my-application}
+## Должен ли я добавить универсальный тип, когда я добавляю новый `ModuleWithProviders` Типы для моего приложения?
 
-Yes, any time your code references the `ModuleWithProviders` type, it should have a generic type that matches the actual `NgModule` that is returned (for example, `ModuleWithProviders<MyModule>`).
-
-
-## What should I do if the schematic prints a TODO comment?
-
-The schematic will print a TODO comment in the event that it cannot detect the correct generic for the `ModuleWithProviders` type.
-In this case, you'll want to manually add the correct generic to `ModuleWithProviders`. It should match the type of whichever `NgModule` is returned in the `ModuleWithProviders` object.
-
-## What does this mean for libraries?
-
-Libraries should add the generic type to any usages of the `ModuleWithProviders` type.
+Да, каждый раз, когда ваш код ссылается на `ModuleWithProviders` Тип, он должен иметь универсальный тип, который соответствует фактическому `NgModule` который возвращается (например, `ModuleWithProviders<MyModule>`).
 
 
-## What about applications using non-migrated libraries?
+{@a what-should-i-do-if-the-schematic-prints-a-todo-comment}
+## Что мне делать, если схема печатает комментарий TODO?
 
-The [Angular compatibility compiler](guide/glossary#ngcc) (`ngcc`) should automatically transform any non-migrated libraries to generate the proper code.
+Схема напечатает комментарий TODO в том случае, если он не сможет определить правильный родовой для `ModuleWithProviders` Тип.
+В этом случае вам нужно будет вручную добавить правильный универсальный `ModuleWithProviders` . Это должно соответствовать типу, какой бы ни `NgModule` возвращается в `ModuleWithProviders` Объект.
+
+{@a what-does-this-mean-for-libraries}
+## Что это значит для библиотек?
+
+Библиотеки должны добавить универсальный тип к любому использованию `ModuleWithProviders` Тип.
+
+
+{@a what-about-applications-using-non-migrated-libraries}
+## А как насчет приложений, использующих немигрированные библиотеки?
+
+[Угловое компилятор совместимости](guide/glossary#ngcc)(`ngcc`) должен автоматически преобразовывать любые библиотеки для генерации правильного кода.

@@ -10,12 +10,12 @@ import {ApplicationRef} from '../application_ref';
 import {ChangeDetectorRef} from '../change_detection/change_detector_ref';
 
 /**
- * Represents an Angular [view](guide/glossary#view),
- * specifically the [host view](guide/glossary#view-tree) that is defined by a component.
- * Also serves as the base class
- * that adds destroy methods for [embedded views](guide/glossary#view-tree).
+ * Представляет Angular[(вид),.](guide/glossary#view)(вид),.
+ * в частности[хоста](guide/glossary#view-tree), которое определяется компонентом.
+ * Также служит базовым классом
+ * это добавляет методы уничтожения для[встроенные представления](guide/glossary#view-tree).
  *
- * @see `EmbeddedViewRef`
+ *  @see `EmbeddedViewRef`
  *
  * @publicApi
  */
@@ -41,56 +41,56 @@ export abstract class ViewRef extends ChangeDetectorRef {
 }
 
 /**
- * Represents an Angular [view](guide/glossary#view) in a view container.
- * An [embedded view](guide/glossary#view-tree) can be referenced from a component
- * other than the hosting component whose template defines it, or it can be defined
- * independently by a `TemplateRef`.
+ * Представляет Angular[представление](guide/glossary#view)в контейнере представления.
+ * На[встроенное представление](guide/glossary#view-tree)можно ссылаться из компонента
+ * кроме компонента хостинга, шаблон которого определяет его, или его можно определить
+ * независимо от `TemplateRef`.
  *
- * Properties of elements in a view can change, but the structure (number and order) of elements in
- * a view cannot. Change the structure of elements by inserting, moving, or
- * removing nested views in a view container.
+ * Свойства элементов в представлении могут изменяться, но структура (количество и порядок) элементов в
+ * вид не может. Измените структуру элементов, вставив, переместив или
+ * удаление вложенных представлений в контейнере представлений.
  *
- * @see `ViewContainerRef`
+ *  @see `ViewContainerRef`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following template breaks down into two separate `TemplateRef` instances,
- * an outer one and an inner one.
+ * Следующий шаблон разбивается на два отдельных `TemplateRef` экземпляра
+ * внешний и внутренний.
  *
- * ```
- * Count: {{items.length}}
- * <ul>
- *   <li *ngFor="let  item of items">{{item}}</li>
- * </ul>
- * ```
+ *  ```
+ *  Count: {{items.length}}
+ *  <ul>
+ *    <lingFor="letitem of items">{{item}}</li>
+ *  </ul>
+ *  ```
  *
- * This is the outer `TemplateRef`:
+ * Это внешняя `TemplateRef` TemplateRef:.
  *
- * ```
- * Count: {{items.length}}
- * <ul>
- *   <ng-template ngFor let-item [ngForOf]="items"></ng-template>
- * </ul>
- * ```
+ *  ```
+ *  Count: {{items.length}}
+ *  <ul>
+ *    <ng-template ngFor let-item [ngForOf]="items"></ng-template>
+ *  </ul>
+ *  ```
  *
- * This is the inner `TemplateRef`:
+ * Это внутренний `TemplateRef` TemplateRef:.
  *
- * ```
- *   <li>{{item}}</li>
- * ```
+ *  ```
+ *    <li>{{item}}</li>
+ *  ```
  *
- * The outer and inner `TemplateRef` instances are assembled into views as follows:
+ * Наружный и внутренний `TemplateRef` экземплярысобраны в представления следующим:.
  *
- * ```
- * <!-- ViewRef: outer-0 -->
- * Count: 2
- * <ul>
- *   <ng-template view-container-ref></ng-template>
- *   <!-- ViewRef: inner-1 --><li>first</li><!-- /ViewRef: inner-1 -->
- *   <!-- ViewRef: inner-2 --><li>second</li><!-- /ViewRef: inner-2 -->
- * </ul>
- * <!-- /ViewRef: outer-0 -->
- * ```
+ *  ```
+ *  <!-- ViewRef: outer-0 -->
+ *  Count: 2
+ *  <ul>
+ *    <ng-template view-container-ref></ng-template>
+ *    <!-- ViewRef: inner-1 --><li>first</li><!-- /ViewRef: inner-1 -->
+ *    <!-- ViewRef: inner-2 --><li>second</li><!-- /ViewRef: inner-2 -->
+ *  </ul>
+ *  <!-- /ViewRef: outer-0 -->
+ *  ```
  * @publicApi
  */
 export abstract class EmbeddedViewRef<C> extends ViewRef {

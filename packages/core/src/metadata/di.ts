@@ -11,38 +11,38 @@ import {Type} from '../interface/type';
 import {makePropDecorator} from '../util/decorators';
 
 /**
- * A DI token that you can use to create a virtual [provider](guide/glossary#provider)
- * that will populate the `entryComponents` field of components and NgModules
- * based on its `useValue` property value.
- * All components that are referenced in the `useValue` value (either directly
- * or in a nested array or map) are added to the `entryComponents` property.
+ * Токен DI, который можно использовать для создания виртуального[провайдера](guide/glossary#provider)
+ * это заполнит поле `entryComponents` компонентов и NgModules
+ * основе его `useValue` стоимости недвижимости useValue.
+ * Все компоненты, на которые есть ссылка в `useValue``useValue` (либо напрямую
+ * или во вложенном массиве или карте) добавляются в `entryComponents`.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following example shows how the router can populate the `entryComponents`
- * field of an NgModule based on a router configuration that refers
- * to components.
+ * В следующем примере показано, как маршрутизатор может заполнять `entryComponents`
+ * поле NgModule на основе конфигурации маршрутизатора, которая ссылается
+ * к компонентам.
  *
- * ```typescript
- * // helper function inside the router
- * function provideRoutes(routes) {
- *   return [
- *     {provide: ROUTES, useValue: routes},
- *     {provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: routes, multi: true}
- *   ];
- * }
+ *  ```typescript
+ *  // helper function inside the router
+ *  function provideRoutes(routes) {
+ *    return [
+ *      {provide: ROUTES, useValue: routes},
+ *      {provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: routes, multi: true}
+ *    ];
+ *  }
  *
- * // user code
- * let routes = [
- *   {path: '/root', component: RootComp},
- *   {path: '/teams', component: TeamsComp}
- * ];
+ *  // user code
+ *  let routes = [
+ *    {path: '/root', component: RootComp},
+ *    {path: '/teams', component: TeamsComp}
+ *  ];
  *
- * @NgModule({
- *   providers: [provideRoutes(routes)]
- * })
- * class ModuleWithRoutes {}
- * ```
+ *  @NgModule({
+ *    providers: [provideRoutes(routes)]
+ *  })
+ *  class ModuleWithRoutes {}
+ *  ```
  *
  * @publicApi
  * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
@@ -50,29 +50,29 @@ import {makePropDecorator} from '../util/decorators';
 export const ANALYZE_FOR_ENTRY_COMPONENTS = new InjectionToken<any>('AnalyzeForEntryComponents');
 
 /**
- * Type of the `Attribute` decorator / constructor function.
+ * Введите в `Attribute` декоратор / функции конструктора.
  *
  * @publicApi
  */
 export interface AttributeDecorator {
   /**
-   * Specifies that a constant attribute value should be injected.
-   *
-   * The directive can inject constant string literals of host element attributes.
-   *
-   * @usageNotes
-   *
-   * Suppose we have an `<input>` element and want to know its `type`.
-   *
-   * ```html
-   * <input type="text">
-   * ```
-   *
-   * A decorator can inject string literal `text` as in the following example.
-   *
-   * {@example core/ts/metadata/metadata.ts region='attributeMetadata'}
-   *
-   * @publicApi
+ * Указывает, что должно быть введено постоянное значение атрибута.
+ *
+ * Директива может вводить константные строковые литералы атрибутов хост-элемента.
+ *
+ *  @usageNotes
+ *
+ * Предположим, у нас есть `<input>` элементи мы хотим знать его `type`.
+ *
+ *  ```html
+ *  <input type="text">
+ *  ```
+ *
+ * Декоратор можетстроковый литерал `text``text` как в следующем примере.
+ *
+ *  {@example core/ts/metadata/metadata.ts region='attributeMetadata'}
+ *
+ * @publicApi
    */
   (name: string): any;
   new(name: string): Attribute;
@@ -80,7 +80,7 @@ export interface AttributeDecorator {
 
 
 /**
- * Type of the Attribute metadata.
+ * Тип метаданных Атрибута.
  *
  * @publicApi
  */
@@ -92,7 +92,7 @@ export interface Attribute {
 }
 
 /**
- * Type of the Query metadata.
+ * Тип метаданных запроса.
  *
  * @publicApi
  */
@@ -106,21 +106,21 @@ export interface Query {
 }
 
 /**
- * Base class for query metadata.
+ * Базовый класс для метаданных запроса.
  *
- * @see `ContentChildren`.
- * @see `ContentChild`.
- * @see `ViewChildren`.
- * @see `ViewChild`.
+ *  @see `ContentChildren`.
+ *  @see `ContentChild`.
+ *  @see `ViewChildren`.
+ *  @see `ViewChild`.
  *
  * @publicApi
  */
 export abstract class Query {}
 
 /**
- * Type of the ContentChildren decorator / constructor function.
+ * Тип функции декоратора / конструктора ContentChildren.
  *
- * @see `ContentChildren`.
+ *  @see `ContentChildren`.
  * @publicApi
  */
 export interface ContentChildrenDecorator {
@@ -162,19 +162,19 @@ export interface ContentChildrenDecorator {
 }
 
 /**
- * Type of the ContentChildren metadata.
+ * Тип метаданных ContentChildren.
  *
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export type ContentChildren = Query;
 
 /**
- * ContentChildren decorator and metadata.
+ * ContentChildren декоратор и метаданные.
  *
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const ContentChildren: ContentChildrenDecorator = makePropDecorator(
@@ -184,7 +184,7 @@ export const ContentChildren: ContentChildrenDecorator = makePropDecorator(
     Query);
 
 /**
- * Type of the ContentChild decorator / constructor function.
+ * Тип функции декоратора / конструктора ContentChild.
  *
  * @publicApi
  */
@@ -223,17 +223,17 @@ export interface ContentChildDecorator {
 }
 
 /**
- * Type of the ContentChild metadata.
+ * Тип метаданных ContentChild.
  *
  * @publicApi
  */
 export type ContentChild = Query;
 
 /**
- * ContentChild decorator and metadata.
+ * ContentChild декоратор и метаданные.
  *
  *
- * @Annotation
+ *  @Annotation
  *
  * @publicApi
  */
@@ -244,9 +244,9 @@ export const ContentChild: ContentChildDecorator = makePropDecorator(
     Query);
 
 /**
- * Type of the ViewChildren decorator / constructor function.
+ * Тип функции декоратора / конструктора ViewChildren.
  *
- * @see `ViewChildren`.
+ *  @see `ViewChildren`.
  *
  * @publicApi
  */
@@ -280,16 +280,16 @@ export interface ViewChildrenDecorator {
 }
 
 /**
- * Type of the ViewChildren metadata.
+ * Тип метаданных ViewChildren.
  *
  * @publicApi
  */
 export type ViewChildren = Query;
 
 /**
- * ViewChildren decorator and metadata.
+ * ViewChildren декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
@@ -299,9 +299,9 @@ export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
     Query);
 
 /**
- * Type of the ViewChild decorator / constructor function.
+ * Тип функции декоратора / конструктора ViewChild.
  *
- * @see `ViewChild`.
+ *  @see `ViewChild`.
  * @publicApi
  */
 export interface ViewChildDecorator {
@@ -348,16 +348,16 @@ export interface ViewChildDecorator {
 }
 
 /**
- * Type of the ViewChild metadata.
+ * Тип метаданных ViewChild.
  *
  * @publicApi
  */
 export type ViewChild = Query;
 
 /**
- * ViewChild decorator and metadata.
+ * Декоратор ViewChild и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const ViewChild: ViewChildDecorator = makePropDecorator(

@@ -9,44 +9,44 @@
 import {injectChangeDetectorRef as render3InjectChangeDetectorRef} from '../render3/view_engine_compatibility';
 
 /**
- * Base class for Angular Views, provides change detection functionality.
- * A change-detection tree collects all views that are to be checked for changes.
- * Use the methods to add and remove views from the tree, initiate change-detection,
- * and explicitly mark views as _dirty_, meaning that they have changed and need to be rerendered.
+ * Базовый класс для Angular Views, обеспечивает функциональность обнаружения изменений.
+ * Дерево обнаружения изменений собирает все представления, которые должны быть проверены на наличие изменений.
+ * Используйте методы для добавления и удаления вида из дерева, инициироватьизменение-обнаружение,.
+ * и явно помечать представления как _dirty_, что означает, что они изменились и требуют повторного отображения.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following examples demonstrate how to modify default change-detection behavior
- * to perform explicit detection when needed.
+ * В следующих примерах показано, как изменить поведение обнаружения изменений по умолчанию
+ * выполнять явное обнаружение при необходимости.
  *
- * ### Use `markForCheck()` with `CheckOnce` strategy
+ *  ### Используйте `markForCheck()` со `CheckOnce` стратегией
  *
- * The following example sets the `OnPush` change-detection strategy for a component
- * (`CheckOnce`, rather than the default `CheckAlways`), then forces a second check
- * after an interval. See [live demo](http://plnkr.co/edit/GC512b?p=preview).
+ * В следующем примере `OnPush` стратегия обнаружения измененийдля компонента
+ * (`CheckOnce` , а непо умолчанию `CheckAlways`), затемвторую проверку
+ * после перерыва. Смотрите[живое демо](http://plnkr.co/edit/GC512b?p=preview).
  *
- * <code-example path="core/ts/change_detect/change-detection.ts"
- * region="mark-for-check"></code-example>
+ *  <code-example path="core/ts/change_detect/change-detection.ts"
+ *  region="mark-for-check"></code-example>
  *
- * ### Detach change detector to limit how often check occurs
+ *  ### Отсоедините детектор изменений, чтобы ограничить частоту проверки
  *
- * The following example defines a component with a large list of read-only data
- * that is expected to change constantly, many times per second.
- * To improve performance, we want to check and update the list
- * less often than the changes actually occur. To do that, we detach
- * the component's change detector and perform an explicit local check every five seconds.
+ * В следующем примере определяется компонент с большим списком данных только для чтения
+ * ожидается, что он будет меняться постоянно, много раз в секунду.
+ * Чтобы повысить производительность, мы хотим проверить и обновить список
+ * реже, чем происходят изменения. Для этого мы отсоединяемся
+ * детектор изменений компонента и выполнять явную локальную проверку каждые пять секунд.
  *
- * <code-example path="core/ts/change_detect/change-detection.ts" region="detach"></code-example>
+ *  <code-example path="core/ts/change_detect/change-detection.ts" region="detach"></code-example>
  *
  *
- * ### Reattaching a detached component
+ *  ### Присоединение отдельного компонента
  *
- * The following example creates a component displaying live data.
- * The component detaches its change detector from the main change detector tree
- * when the `live` property is set to false, and reattaches it when the property
- * becomes true.
+ * В следующем примере создается компонент, отображающий текущие данные.
+ * Компонент отсоединяет свой детектор изменений от основного дерева детекторов изменений
+ * когда `live` установлено в false и повторно присоединяет его, когда свойство
+ * становится правдой.
  *
- * <code-example path="core/ts/change_detect/change-detection.ts" region="reattach"></code-example>
+ *  <code-example path="core/ts/change_detect/change-detection.ts" region="reattach"></code-example>
  *
  * @publicApi
  */

@@ -12,12 +12,12 @@ import {Request} from './static_request';
 import {URLSearchParams} from './url_search_params';
 
 /**
- * Abstract class from which real backends are derived.
+ * Абстрактный класс, из которого происходят реальные бэкэнды.
  *
- * The primary purpose of a `ConnectionBackend` is to create new connections to fulfill a given
- * {@link Request}.
+ * Основной целью `ConnectionBackend` является создание новых соединений для выполнения заданного
+ *  {@link Request},
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export abstract class ConnectionBackend {
@@ -25,9 +25,9 @@ export abstract class ConnectionBackend {
 }
 
 /**
- * Abstract class from which real connections are derived.
+ * Абстрактный класс, из которого происходят реальные связи.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export abstract class Connection {
@@ -39,9 +39,9 @@ export abstract class Connection {
 }
 
 /**
- * An XSRFStrategy configures XSRF protection (e.g. via headers) on an HTTP request.
+ * XSRFStrategy настраивает защиту XSRF (например, через заголовки) по HTTP-запросу.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export abstract class XSRFStrategy {
@@ -49,10 +49,10 @@ export abstract class XSRFStrategy {
 }
 
 /**
- * Interface for options to construct a RequestOptions, based on
- * [RequestInit](https://fetch.spec.whatwg.org/#requestinit) from the Fetch spec.
+ * Интерфейс для параметров для создания RequestOptions, основанных на
+ *  [RequestInit](https://fetch.spec.whatwg.org/#requestinit)из спецификации Fetch.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export interface RequestOptionsArgs {
@@ -75,10 +75,10 @@ export interface RequestArgs extends RequestOptionsArgs {
 }
 
 /**
- * Interface for options to construct a Response, based on
- * [ResponseInit](https://fetch.spec.whatwg.org/#responseinit) from the Fetch spec.
+ * Интерфейс для вариантов построения ответа на основе
+ *  [ResponseInit](https://fetch.spec.whatwg.org/#responseinit)из спецификации Fetch.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export interface ResponseOptionsArgs {

@@ -12,8 +12,8 @@ import {Router} from '@angular/router';
 import {UpgradeModule} from '@angular/upgrade/static';
 
 /**
- * Creates an initializer that sets up `ngRoute` integration
- * along with setting up the Angular router.
+ * Создает инициализатор, который устанавливает `ngRoute` интеграцию
+ * наряду с настройкой Angular маршрутизатора.
  *
  * @usageNotes
  *
@@ -51,14 +51,14 @@ export function locationSyncBootstrapListener(ngUpgrade: UpgradeModule) {
 }
 
 /**
- * Sets up a location change listener to trigger `history.pushState`.
- * Works around the problem that `onPopState` does not trigger `history.pushState`.
- * Must be called *after* calling `UpgradeModule.bootstrap`.
+ * Устанавливает прослушиватель изменения местоположения для запуска `history.pushState`.
+ * проблему, заключающуюся в том, что `onPopState``onPopState` не запускает `history.pushState`.
+ * Должен быть вызван после вызова `UpgradeModule.bootstrap`.
  *
- * @param ngUpgrade The upgrade NgModule.
- * @param urlType The location strategy.
- * @see `HashLocationStrategy`
- * @see `PathLocationStrategy`
+ *  @param ngUpgrade Обновление NgModule.
+ *  @param urlType Стратегия размещения.
+ *  @see `HashLocationStrategy`
+ *  @see `PathLocationStrategy`
  *
  * @publicApi
  */

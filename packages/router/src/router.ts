@@ -34,9 +34,9 @@ import {isUrlTree} from './utils/type_guards';
 
 
 /**
- * @description
+ *  @description
  *
- * Options that modify the navigation strategy.
+ * Параметры, которые изменяют стратегию навигации.
  *
  * @publicApi
  */
@@ -161,11 +161,11 @@ export interface NavigationExtras {
 }
 
 /**
- * Error handler that is invoked when a navigation error occurs.
+ * Обработчик ошибок, который вызывается при возникновении ошибки навигации.
  *
- * If the handler returns a value, the navigation promise is resolved with this value.
- * If the handler throws an exception, the navigation promise is rejected with
- * the exception.
+ * Если обработчик возвращает значение, обещание навигации разрешается с этим значением.
+ * Если обработчик выдает исключение, обещание навигации отклоняется
+ * исключение.
  *
  * @publicApi
  */
@@ -185,8 +185,8 @@ export type RestoredState = {
 };
 
 /**
- * Information about a navigation operation. Retrieve the most recent
- * navigation object with the `router.getCurrentNavigation()` method.
+ * Информация о навигационной операции. Получить самые последние
+ * навигационный объект с помощью `router.getCurrentNavigation()`.
  *
  * @publicApi
  */
@@ -277,14 +277,14 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
 }
 
 /**
- * @description
+ *  @description
  *
- * A service that provides navigation and URL manipulation capabilities.
+ * Сервис, который предоставляет возможности навигации и манипулирования URL.
  *
- * @see `Route`.
- * @see [Routing and Navigation Guide](guide/router).
+ *  @see `Route`.
+ *  @see [Руководство по маршрутизации и навигации](guide/router).
  *
- * @ngModule RouterModule
+ *  @ngModule RouterModule
  *
  * @publicApi
  */

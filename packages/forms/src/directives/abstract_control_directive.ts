@@ -11,10 +11,10 @@ import {AbstractControl} from '../model';
 import {ValidationErrors} from './validators';
 
 /**
- * @description
- * Base class for control directives.
+ *  @description
+ * Базовый класс для управляющих директив.
  *
- * This class is only used internally in the `ReactiveFormsModule` and the `FormsModule`.
+ * Этот класс используется только внутри в `ReactiveFormsModule` и `FormsModule` FormsModule.
  *
  * @publicApi
  */

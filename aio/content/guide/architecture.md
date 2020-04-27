@@ -1,157 +1,164 @@
-# Introduction to Angular concepts
+{@a introduction-to-angular-concepts}
+# Введение в Angular понятия
 
-Angular is a platform and framework for building single-page client applications using HTML and TypeScript.
-Angular is written in TypeScript.
-It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
+Angular - это платформа и платформа для создания одностраничных клиентских приложений с использованием HTML и TypeScript.
+Angular написан на TypeScript.
+Он реализует основные и дополнительные функции в виде набора библиотек TypeScript, которые вы импортируете в свои приложения.
 
-The architecture of an Angular application relies on certain fundamental concepts.
-The basic building blocks are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
+Архитектура приложения Angular опирается на определенные фундаментальные концепции.
+Основными строительными блоками являются *NgModules*, которые предоставляют контекст компиляции для *компонентов*. NgModules собирают связанный код в функциональные наборы; Angular-приложение определяется набором NgModules. В приложении всегда есть хотя бы *корневой модуль* это позволяет начальную загрузку, и, как правило, имеет гораздо больше*функциональных модулей *.
 
-* Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data.
+* Компоненты определяют*представления *, которые представляют собой наборы элементов экрана, которые Angular может выбирать и изменять в соответствии с логикой и данными вашей программы.
 
-* Components use *services*, which provide specific functionality not directly related to views. Service providers can be *injected* into components as *dependencies*, making your code modular, reusable, and efficient.
+* Компоненты используют*сервисы *, которые предоставляют определенные функциональные возможности, не связанные напрямую с представлениями. Поставщики услуг могут быть*внедрены * в компоненты как*зависимости *, что делает ваш код модульным, повторно используемым и эффективным.
 
-Both components and services are simply classes, with *decorators* that mark their type and provide metadata that tells Angular how to use them.
+И компоненты, и сервисы - это просто классы с *декораторами,* которые отмечают их тип и предоставляют метаданные, которые сообщают Angular, как их использовать.
 
-* The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
+* Метаданные для класса компонента связывают его с*шаблоном, * который определяет представление. Шаблон объединяет обычный HTML с Angular*директивами * и*разметкой привязки, * которые позволяют Angular изменять HTML перед его отображением.
 
-* The metadata for a service class provides the information Angular needs to make it available to components through *dependency injection (DI)*.
+* Метаданные для класса обслуживания предоставляют информацию, необходимую Angular, чтобы сделать ее доступной для компонентов посредством*внедрения зависимостей (DI) *.
 
-An app's components typically define many views, arranged hierarchically. Angular provides the `Router` service to help you define navigation paths among views. The router provides sophisticated in-browser navigational capabilities.
+Компоненты приложения обычно определяют множество представлений, расположенных иерархически. Angular обеспечивает `Router` Служба чтобы помочь вам определить пути навигации между представлениями. Маршрутизатор обеспечивает сложные навигационные возможности в браузере.
 
-<div class="alert is-helpful">
+<div class="alert is-helpful>
 
-  See the [Angular Glossary](guide/glossary) for basic definitions of important Angular terms and usage.
-
-</div>
-
-<div class="alert is-helpful">
-
-  For the sample app that this page describes, see the <live-example></live-example>.
-</div>
-
-## Modules
-
-Angular *NgModules* differ from and complement JavaScript (ES2015) modules. An NgModule declares a compilation context for a set of components that is dedicated to an application domain, a workflow, or a closely related set of capabilities. An NgModule can associate its components with related code, such as services, to form functional units.
-
-Every Angular app has a *root module*, conventionally named `AppModule`, which provides the bootstrap mechanism that launches the application. An app typically contains many functional modules.
-
-Like JavaScript modules, NgModules can import functionality from other NgModules, and allow their own functionality to be exported and used by other NgModules. For example, to use the router service in your app, you import the `Router` NgModule.
-
-Organizing your code into distinct functional modules helps in managing development of complex applications, and in designing for reusability. In addition, this technique lets you take advantage of *lazy-loading*&mdash;that is, loading modules on demand&mdash;to minimize the amount of code that needs to be loaded at startup.
-
-<div class="alert is-helpful">
-
-  For a more detailed discussion, see [Introduction to modules](guide/architecture-modules).
+  См. [Angular словарь](guide/glossary)для основных определений важных Angular терминов и использования.
 
 </div>
 
-## Components
+{@a modules}
+## Модули
 
-Every Angular application has at least one component, the *root component* that connects a component hierarchy with the page document object model (DOM). Each component defines a class that contains application data and logic, and is associated with an HTML *template* that defines a view to be displayed in a target environment.
+Angular *NgModules* отличаются и дополняют модули JavaScript (ES2015). NgModule объявляет контекст компиляции для набора компонентов, который выделен для домена приложения, рабочего процесса или тесно связанного набора возможностей. Модуль NgModule может связывать свои компоненты со связанным кодом, таким как сервисы, для формирования функциональных блоков.
 
-The `@Component()` decorator identifies the class immediately below it as a component, and provides the template and related component-specific metadata.
+Каждое приложение Angular имеет *корневой модуль*, условно названный `AppModule`, который предоставляет механизм начальной загрузки, запускающий приложение. Приложение обычно содержит много функциональных модулей.
+
+Как и модули JavaScript, NgModules могут импортировать функциональность из других NgModules, и позволяют экспортировать и использовать их собственные функции другими NgModules. Например, чтобы использовать службу роутера в вашем приложении, вы импортируете `Router` NgModule.
+
+Организация вашего кода в отдельные функциональные модули помогает в управлении разработкой сложных приложений и в разработке для повторного использования. Кроме того, этот метод позволяет вам использовать *ленивую загрузку,*то есть загрузку модулей по требованию, чтобы минимизировать объем кода, который должен быть загружен при запуске.
 
 <div class="alert is-helpful">
 
-   Decorators are functions that modify JavaScript classes. Angular defines a number of decorators that attach specific kinds of metadata to classes, so that the system knows what those classes mean and how they should work.
-
-   <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0">Learn more about decorators on the web.</a>
+  Для более подробного обсуждения см. [Введение в модули](guide/architecture-modules).
 
 </div>
 
-### Templates, directives, and data binding
+{@a components}
+## Компоненты
 
-A template combines HTML with Angular markup that can modify HTML elements before they are displayed.
-Template *directives* provide program logic, and *binding markup* connects your application data and the DOM.
-There are two types of data binding:
+Каждое приложение Angular имеет как минимум один компонент, *корневой компонент* который связывает иерархию компонентов с объектной моделью документа страницы (DOM). Каждый компонент определяет класс, который содержит данные приложения и логику, и связан с HTML,*шаблоном * который определяет представление, отображаемое в целевой среде.
 
-* *Event binding* lets your app respond to user input in the target environment by updating your application data.
-* *Property binding* lets you interpolate values that are computed from your application data into the HTML.
-
-Before a view is displayed, Angular evaluates the directives and resolves the binding syntax in the template to modify the HTML elements and the DOM, according to your program data and logic. Angular supports *two-way data binding*, meaning that changes in the DOM, such as user choices, are also reflected in your program data.
-
-Your templates can use *pipes* to improve the user experience by transforming values for display.
-For example, use pipes to display dates and currency values that are appropriate for a user's locale.
-Angular provides predefined pipes for common transformations, and you can also define your own pipes.
+ `@Component()` идентифицирует класс, находящийся непосредственно под ним, как компонент и предоставляет шаблон и связанные с ним метаданные, относящиеся к компоненту.
 
 <div class="alert is-helpful">
 
-  For a more detailed discussion of these concepts, see [Introduction to components](guide/architecture-components).
+   Декораторы - это функции, которые модифицируют классы JavaScript. Angular определяет количество декораторов, которые прикрепляют метаданные определенного типа к классам, чтобы система знала, что означают эти классы и как они должны работать.
+
+   <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0">Узнайте больше о декораторах в Интернете. </a>
+
+</div>
+
+{@a templates-directives-and-data-binding}
+### Шаблоны, директивы и привязка данных
+
+Шаблон сочетает в себе HTML с Angular разметкой, которая может изменять элементы HTML перед их отображением.
+шаблон*Директивы* обеспечивают логику программы, а *разметка привязки* соединяет данные вашего приложения и DOM.
+Есть два типа данных связывания:
+
+* *Привязка событий* позволяет вашему приложению реагировать на ввод пользователя в целевой среде путем обновления данных приложения.
+* *Привязка свойств* позволяет интерполировать значения, которые вычисляются из данных вашего приложения, в HTML.
+
+Перед отображением представления Angular оценивает директивы и разрешает синтаксис привязки в шаблоне для изменения элементов HTML и DOM в соответствии с данными и логикой вашей программы. Angular поддерживает *двустороннюю привязку данных*Это означает, что изменения в DOM, такие как выбор пользователя, также отражаются в данных вашей программы.
+
+Ваши шаблоны могут использовать *каналы* для улучшения взаимодействия с пользователем путем преобразования значений для отображения.
+Например, используйте каналы для отображения дат и значений валюты, которые соответствуют языку пользователя.
+Angular предоставляет предопределенные каналы для общих преобразований, и вы также можете определить свои собственные каналы.
+
+<div class="alert is-helpful">
+
+  Для более подробного обсуждения этих понятий см. [Введение в компоненты](guide/architecture-components).
 
 </div>
 
 {@a dependency-injection}
 
 
-## Services and dependency injection
+{@a services-and-dependency-injection}
+## Внедрение услуг и зависимостей
 
-For data or logic that isn't associated with a specific view, and that you want to share across components, you create a *service* class. A service class definition is immediately preceded by the `@Injectable()` decorator. The decorator provides the metadata that allows other providers to be **injected** as dependencies into your class.
+Для данных или логики, которые не связаны с конкретным представлением и которые вы хотите использовать совместно для всех компонентов, вы создаете *обслуживания* класс. Определению класса обслуживания непосредственно предшествует `@Injectable()` декоратор. Декоратор предоставляет метаданные, которые позволяют другим поставщикам **вводиться** как зависимости в ваш класс.
 
- *Dependency injection* (DI) lets you keep your component classes lean and efficient. They don't fetch data from the server, validate user input, or log directly to the console; they delegate such tasks to services.
+ *Внедрение зависимостей* (DI) позволяет вам поддерживать классы компонентов эффективными. Они не получают данные с сервера, не проверяют вводимые пользователем данные и не регистрируются непосредственно на консоли; они делегируют такие задачи службам.
 
 <div class="alert is-helpful">
 
-  For a more detailed discussion, see [Introduction to services and DI](guide/architecture-services).
+  Для более подробного обсуждения см. [Введение в службы и DI](guide/architecture-services).
 
 </div>
 
-### Routing
+{@a routing}
+### Маршрутизация
 
-The Angular `Router` NgModule provides a service that lets you define a navigation path among the different application states and view hierarchies in your app. It is modeled on the familiar browser navigation conventions:
+Angular `Router` NgModule предоставляет сервис, который позволяет вам определять путь навигации между различными состояниями приложения и просматривать иерархии в вашем приложении. Он стилизован знакомых браузер навигационных конвенций:
 
-* Enter a URL in the address bar and the browser navigates to a corresponding page.
+* Введите URL-адрес в адресной строке, и браузер перейдет на соответствующую страницу.
 
-* Click links on the page and the browser navigates to a new page.
+* Нажмите на ссылку на странице, и браузер перейдет на новую страницу.
 
-* Click the browser's back and forward buttons and the browser navigates backward and forward through the history of pages you've seen.
+* Нажимайте кнопки браузера «назад» и «вперед», и браузер перемещается назад и вперед по истории страниц, которые вы видели.
 
-The router maps URL-like paths to views instead of pages. When a user performs an action, such as clicking a link, that would load a new page in the browser, the router intercepts the browser's behavior, and shows or hides view hierarchies.
+Маршрутизатор сопоставляет URL-подобные пути с представлениями вместо страниц. Когда пользователь выполняет действие, такое как нажатие на ссылку, которое загружает новую страницу в браузер, маршрутизатор перехватывает поведение браузера и показывает или скрывает иерархии представлений.
 
-If the router determines that the current application state requires particular functionality, and the module that defines it hasn't been loaded, the router can *lazy-load* the module on demand.
+Если маршрутизатор определяет, что текущее состояние приложения требует определенной функциональности, а модуль, который определяет его, не был загружен, маршрутизатор может *лениво загрузить* модуль по требованию.
 
-The router interprets a link URL according to your app's view navigation rules and data state. You can navigate to new views when the user clicks a button or selects from a drop box, or in response to some other stimulus from any source. The router logs activity in the browser's history, so the back and forward buttons work as well.
+Маршрутизатор интерпретирует URL ссылки в соответствии с правилами навигации вашего приложения и состоянием данных. Вы можете перейти к новым представлениям, когда пользователь нажимает кнопку или выбирает из выпадающего списка, или в ответ на некоторые другие стимулы из любого источника. Маршрутизатор регистрирует активность в истории браузера, поэтому кнопки «назад» и «вперед» также работают.
 
-To define navigation rules, you associate *navigation paths* with your components. A path uses a URL-like syntax that integrates your program data, in much the same way that template syntax integrates your views with your program data. You can then apply program logic to choose which views to show or to hide, in response to user input and your own access rules.
+Чтобы определить правила навигации, вы связываете *пути навигации* с вашими компонентами. Путь использует URL-подобный синтаксис, который интегрирует данные вашей программы, почти так же, как синтаксис шаблона объединяет ваши представления с данными вашей программы. Затем вы можете применить программную логику, чтобы выбрать, какие представления показывать или скрывать, в ответ на ввод пользователя и ваши собственные правила доступа.
 
  <div class="alert is-helpful">
 
-   For a more detailed discussion, see [Routing and navigation](guide/router).
+   Для более подробного обсуждения см. [Маршрутизация и навигация](guide/router).
 
  </div>
 
 <hr/>
 
-## What's next
+{@a whats-next}
+## Что дальше
 
-You've learned the basics about the main building blocks of an Angular application. The following diagram shows how these basic pieces are related.
+Вы узнали основы об основных строительных блоках приложения Angular. Следующая диаграмма показывает, как связаны эти основные части.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/overview2.png" alt="overview">
 </div>
 
-* Together, a component and template define an Angular view.
-  * A decorator on a component class adds the metadata, including a pointer to the associated template.
-  * Directives and binding markup in a component's template modify views based on program data and logic.
-* The dependency injector provides services to a component, such as the router service that lets you define navigation among views.
+* Вместе компонент и шаблон определяют угловое представление.
+  * Декоратор класса компонента добавляет метаданные, включая указатель на связанный шаблон.
+  * Директивы и разметка привязки в шаблоне компонента изменяют представления на основе данных и логики программы.
+* Инжектор зависимостей предоставляет сервисы компоненту, например сервису маршрутизатора, который позволяет вам определять навигацию между представлениями.
 
-Each of these subjects is introduced in more detail in the following pages.
+Каждый из этих предметов более подробно представлен на следующих страницах.
 
-* [Introduction to Modules](guide/architecture-modules)
+* [Введение в модули](guide/architecture-modules)
 
-* [Introduction to Components](guide/architecture-components)
+* [Введение в компоненты](guide/architecture-components)
 
-  * [Templates and views](guide/architecture-components#templates-and-views)
+  * [Шаблоны и виды](guide/architecture-components#templates-and-views)
 
-  * [Component metadata](guide/architecture-components#component-metadata)
+  * [Метаданные компонента](guide/architecture-components#component-metadata)
 
-  * [Data binding](guide/architecture-components#data-binding)
+  * [Привязка данных](guide/architecture-components#data-binding)
 
-  * [Directives](guide/architecture-components#directives)
+  * [Директивы](guide/architecture-components#directives)
 
-  * [Pipes](guide/architecture-components#pipes)
+  * [Трубы](guide/architecture-components#pipes)
 
-* [Introduction to services and dependency injection](guide/architecture-services)
+* [Введение в сервисы и внедрение зависимостей](guide/architecture-services)
 
-When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
+<div class="alert is-helpful">
+
+   Обратите внимание, что код, указанный на этих страницах, доступен как <live-example></live-example>.
+</div>
+
+Когда вы знакомы с этими фундаментальными строительными блоками, вы можете изучить их более подробно в документации. Чтобы узнать больше о доступных инструментах и ​​методах, помогающих создавать и развертывать приложения Angular, см. [Следующие шаги: инструменты и методы](guide/architecture-next-steps).
 </div>

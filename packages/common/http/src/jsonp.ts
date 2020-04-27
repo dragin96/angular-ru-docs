@@ -41,10 +41,10 @@ export abstract class JsonpCallbackContext {
 }
 
 /**
- * Processes an `HttpRequest` with the JSONP method,
- * by performing JSONP style requests.
- * @see `HttpHandler`
- * @see `HttpXhrBackend`
+ * Обрабатывает `HttpRequest` с методомJSONP,.
+ * выполняя запросы в стиле JSONP.
+ *  @see `HttpHandler`
+ *  @see `HttpXhrBackend`
  *
  * @publicApi
  */
@@ -214,10 +214,10 @@ export class JsonpClientBackend implements HttpBackend {
 }
 
 /**
- * Identifies requests with the method JSONP and
- * shifts them to the `JsonpClientBackend`.
+ * Идентифицирует запросы с помощью метода JSONP и
+ * их в `JsonpClientBackend``JsonpClientBackend`.
  *
- * @see `HttpInterceptor`
+ *  @see `HttpInterceptor`
  *
  * @publicApi
  */

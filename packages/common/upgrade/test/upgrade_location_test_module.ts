@@ -24,9 +24,9 @@ export interface LocationUpgradeTestingConfig {
 }
 
 /**
- * @description
+ *  @description
  *
- * Is used in DI to configure the router.
+ * Используется в DI для настройки маршрутизатора.
  *
  * @publicApi
  */

@@ -15,10 +15,10 @@ export {StaticSymbol} from '@angular/compiler';
 export {BuiltinType, Definition, PipeInfo, Pipes, Signature, Span, Symbol, SymbolDeclaration, SymbolQuery, SymbolTable} from './symbols';
 
 /**
- * The information `LanguageService` needs from the `LanguageServiceHost` to describe the content of
- * a template and the language context the template is in.
+ * Информация `LanguageService` требуется `LanguageServiceHost` для описания содержимого
+ * шаблон и языковой контекст, в котором находится шаблон
  *
- * A host interface; see `LanguageServiceHost`.
+ * Интерфейс хоста; смотрите `LanguageServiceHost`.
  *
  * @publicApi
  */
@@ -55,9 +55,9 @@ export interface TemplateSource {
 }
 
 /**
- * Error information found getting declaration information
+ * Найдена информация об ошибке при получении информации об объявлении
  *
- * A host type; see `LanguageServiceHost`.
+ * Тип хоста; смотрите `LanguageServiceHost`.
  *
  * @publicApi
  */
@@ -75,15 +75,15 @@ export interface DeclarationError {
 }
 
 /**
- * Information about the component declarations.
+ * Информация о декларациях компонентов.
  *
- * A file might contain a declaration without a template because the file contains only
- * templateUrl references. However, the component declaration might contain errors that
- * need to be reported such as the template string is missing or the component is not
- * declared in a module. These error should be reported on the declaration, not the
- * template.
+ * Файл может содержать объявление без шаблона, потому что файл содержит только
+ * ссылки на templateUrl Однако объявление компонента может содержать ошибки, которые
+ * необходимо сообщить, например, отсутствует строка шаблона или нет компонента
+ * объявлено в модуле. Эти ошибки должны быть указаны в декларации, а не в
+ * шаблон.
  *
- * A host type; see `LanguageServiceHost`.
+ * Тип хоста; смотрите `LanguageServiceHost`.
  *
  * @publicApi
  */
@@ -111,29 +111,29 @@ export interface Declaration {
 }
 
 /**
- * The host for a `LanguageService`. This provides all the `LanguageService` requires to respond
- * to the `LanguageService` requests.
+ * Хост для `LanguageService` . Это обеспечивает все, что `LanguageService` требует для ответа
+ * на `LanguageService` запросы.
  *
- * This interface describes the requirements of the `LanguageService` on its host.
+ * Этот интерфейс описывает требования `LanguageService` на его хосте.
  *
- * The host interface is host language agnostic.
+ * Интерфейс хоста не зависит от языка хоста.
  *
- * Adding optional member to this interface or any interface that is described as a
- * `LanguageServiceHost` interface is not considered a breaking change as defined by SemVer.
- * Removing a method or changing a member from required to optional will also not be considered a
- * breaking change.
+ * Добавление необязательного члена к этому интерфейсу или любому интерфейсу, который описывается как
+ *  `LanguageServiceHost`Интерфейсне считается серьезным изменением, как определено SemVer.
+ * Удаление метода или изменение члена с обязательного на необязательный также не будет считаться
+ * переломное изменение.
  *
- * If a member is deprecated it will be changed to optional in a minor release before it is
- * removed in a major release.
+ * Если участник устарел, он будет заменен на необязательный в младшем выпуске, прежде чем это так
+ * удалено в основной версии.
  *
- * Adding a required member or changing a method's parameters, is considered a breaking change and
- * will only be done when breaking changes are allowed. When possible, a new optional member will
- * be added and the old member will be deprecated. The new member will then be made required in
- * and the old member will be removed only when breaking changes are allowed.
+ * Добавление обязательного члена или изменение параметров метода считается критическим изменением и
+ * будет сделано только тогда, когда разрешены критические изменения. По возможности новый необязательный участник будет
+ * будет добавлен и старый член будет признан устаревшим. Новый член будет затем обязательным в
+ * и старый член будет удален только тогда, когда разрешены критические изменения.
  *
- * While an interface is marked as experimental breaking-changes will be allowed between minor
- * releases. After an interface is marked as stable breaking-changes will only be allowed between
- * major releases. No breaking changes are allowed between patch releases.
+ * Хотя интерфейс помечен как экспериментальный, возможны критические изменения между второстепенными
+ * релизы. После того, как интерфейс помечен как стабильный, изменения будут разрешены только между
+ * основные релизы. Разрешающие изменения не допускаются между выпусками патча.
  *
  * @publicApi
  */
@@ -199,12 +199,12 @@ export type CompletionEntry = Omit<ts.CompletionEntry, 'kind'>&{
 };
 
 /**
- * A template diagnostics message chain. This is similar to the TypeScript
- * DiagnosticMessageChain. The messages are intended to be formatted as separate
- * sentence fragments and indented.
+ * Шаблон диагностической цепочки сообщений. Это похоже на TypeScript
+ * DiagnosticMessageChain. Сообщения предназначены для форматирования как отдельные
+ * фрагменты предложения и отступ.
  *
- * For compatibility previous implementation, the values are expected to override
- * toString() to return a formatted message.
+ * Для совместимости с предыдущей реализацией значения должны быть переопределены
+ * toString () для возврата отформатированного сообщения.
  *
  * @publicApi
  */
@@ -221,7 +221,7 @@ export interface DiagnosticMessageChain {
 }
 
 /**
- * An template diagnostic message to display.
+ * Шаблон диагностического сообщения для отображения.
  *
  * @publicApi
  */
@@ -243,11 +243,11 @@ export interface Diagnostic {
 }
 
 /**
- * An instance of an Angular language service created by `createLanguageService()`.
+ * Экземпляр языковой службы Angular, созданный методом `createLanguageService()`.
  *
- * The Angular language service implements a subset of methods defined in
- * The Angular language service implements a subset of methods defined by
- * the TypeScript language service.
+ * Языковая служба Angular реализует подмножество методов, определенных в
+ * Языковая служба Angular реализует подмножество методов, определенных
+ * языковая служба TypeScript.
  *
  * @publicApi
  */

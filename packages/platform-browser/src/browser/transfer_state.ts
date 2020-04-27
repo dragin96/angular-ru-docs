@@ -32,32 +32,32 @@ export function unescapeHtml(text: string): string {
 }
 
 /**
- * A type-safe key to use with `TransferState`.
+ * Типобезопасный ключ для использования с `TransferState`.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * const COUNTER_KEY = makeStateKey<number>('counter');
- * let value = 10;
+ *  ```
+ *  const COUNTER_KEY = makeStateKey<number>('counter');
+ *  let value = 10;
  *
- * transferState.set(COUNTER_KEY, value);
- * ```
+ *  transferState.set(COUNTER_KEY, value);
+ *  ```
  *
  * @publicApi
  */
 export type StateKey<T> = string&{__not_a_string: never};
 
 /**
- * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
+ * Создайте `StateKey<T>` который можно использовать для хранения значения типа T с помощью `TransferState`.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * const COUNTER_KEY = makeStateKey<number>('counter');
- * let value = 10;
+ *  ```
+ *  const COUNTER_KEY = makeStateKey<number>('counter');
+ *  let value = 10;
  *
- * transferState.set(COUNTER_KEY, value);
- * ```
+ *  transferState.set(COUNTER_KEY, value);
+ *  ```
  *
  * @publicApi
  */
@@ -66,15 +66,15 @@ export function makeStateKey<T = void>(key: string): StateKey<T> {
 }
 
 /**
- * A key value store that is transferred from the application on the server side to the application
- * on the client side.
+ * Хранилище значений ключей, которое передается из приложения на стороне сервера в приложение
+ * на стороне клиента.
  *
- * `TransferState` will be available as an injectable token. To use it import
- * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
+ *  `TransferState`будет доступен в качестве токена для инъекций. Чтобы использовать его импорт
+ *  `ServerTransferStateModule`на сервере `BrowserTransferStateModule` на клиенте.
  *
- * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
- * non-lossy manner.
+ * Значения в хранилище сериализуются / десериализуются с использованием JSON.stringify / JSON.parse. Так только
+ * логические, числовые, строковые, нулевые и неклассовые объекты будут сериализованы и десериализированы в
+ * без потерь способ.
  *
  * @publicApi
  */
@@ -159,8 +159,8 @@ export function initTransferState(doc: Document, appId: string) {
 }
 
 /**
- * NgModule to install on the client side while using the `TransferState` to transfer state from
- * server to client.
+ * NgModule для установки на стороне клиента при использовании `TransferState` для передачи состояния из
+ * сервер клиенту.
  *
  * @publicApi
  */

@@ -12,62 +12,62 @@ import {$INJECTOR, INJECTOR_KEY} from './constants';
 import {getTypeName, isFunction, validateInjectionKey} from './util';
 
 /**
- * @description
+ *  @description
  *
- * A helper function to allow an Angular service to be accessible from AngularJS.
+ * Вспомогательная функция, позволяющая сервису Angular быть доступным из AngularJS.
  *
- * *Part of the [upgrade/static](api?query=upgrade%2Fstatic)
- * library for hybrid upgrade apps that support AOT compilation*
+ * Часть[апгрейд / статика](api?query=upgrade%2Fstatic)
+ * библиотека для гибридных приложений обновления, которые поддерживают компиляцию AOT
  *
- * This helper function returns a factory function that provides access to the Angular
- * service identified by the `token` parameter.
+ * Эта вспомогательная функция возвращает заводскую функцию, которая обеспечивает доступ к Angular
+ * сервис, определенный `token` параметром.
  *
- * @usageNotes
- * ### Examples
+ *  @usageNotes
+ *  ### Примеры
  *
- * First ensure that the service to be downgraded is provided in an `NgModule`
- * that will be part of the upgrade application. For example, let's assume we have
- * defined `HeroesService`
+ * Сначала убедитесь, что сервис, который должен быть понижен, предоставляется в `NgModule`
+ * это будет частью приложения обновления. Например, давайте предположим, что у нас есть
+ * определено `HeroesService`
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes-service"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng2-heroes-service"}
  *
- * and that we have included this in our upgrade app `NgModule`
+ * и что мы включили это в наше приложение для обновления `NgModule`
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-module"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng2-module"}
  *
- * Now we can register the `downgradeInjectable` factory function for the service
- * on an AngularJS module.
+ * Теперь мы можем зарегистрировать `downgradeInjectable` фабричную функциюдля сервиса
+ * на модуле AngularJS.
  *
- * {@example upgrade/static/ts/full/module.ts region="downgrade-ng2-heroes-service"}
+ *  {@example upgrade/static/ts/full/module.ts region="downgrade-ng2-heroes-service"}
  *
- * Inside an AngularJS component's controller we can get hold of the
- * downgraded service via the name we gave when downgrading.
+ * Внутри контроллера компонента AngularJS мы можем получить
+ * Пониженное обслуживание через имя, которое мы дали при понижении.
  *
- * {@example upgrade/static/ts/full/module.ts region="example-app"}
+ *  {@example upgrade/static/ts/full/module.ts region="example-app"}
  *
- * <div class="alert is-important">
+ *  <div class="alert is-important">
  *
- *   When using `downgradeModule()`, downgraded injectables will not be available until the Angular
- *   module that provides them is instantiated. In order to be safe, you need to ensure that the
- *   downgraded injectables are not used anywhere _outside_ the part of the app where it is
- *   guaranteed that their module has been instantiated.
+ * При использовании `downgradeModule()` , понизившиеся инъекции не будут доступны до Angular
+ * Модуль, который предоставляет их, создается. Для того, чтобы быть в безопасности, вы должны убедиться, что
+ * Пониженные инъекционные препараты нигде не используются в той части приложения, где они находятся
+ * гарантировано, что их модуль был создан.
  *
- *   For example, it is _OK_ to use a downgraded service in an upgraded component that is only used
- *   from a downgraded Angular component provided by the same Angular module as the injectable, but
- *   it is _not OK_ to use it in an AngularJS component that may be used independently of Angular or
- *   use it in a downgraded Angular component from a different module.
+ * Например, _OK_ использовать устаревшую службу в обновленном компоненте, который используется только
+ * от пониженного Angular компонента, предоставленного тем же Angular модулем, что и инъекционный, но
+ * _не разрешено_ использовать его в компоненте AngularJS, который может использоваться независимо от Angular или
+ * используйте его в устаревшем компоненте Angular из другого модуля.
  *
- * </div>
+ *  </div>
  *
- * @param token an `InjectionToken` that identifies a service provided from Angular.
- * @param downgradedModule the name of the downgraded module (if any) that the injectable
- * "belongs to", as returned by a call to `downgradeModule()`. It is the module, whose injector will
- * be used for instantiating the injectable.<br />
- * (This option is only necessary when using `downgradeModule()` to downgrade more than one Angular
- * module.)
+ *  @param токен `InjectionToken` который идентифицирует сервис, предоставляемый из Angular.
+ *  @param downgradedModule имя пониженного качества модуля (если есть), который нужно ввести
+ * «принадлежит», как возвращено вызовом `downgradeModule()` . Это модуль, инжектор которого будет
+ * быть использованы для создания экземпляров инъекционных.<br />
+ * (Эта опция необходима только при использовании `downgradeModule()` для понижения более чем одного Angular
+ * модуль.)
  *
- * @returns a [factory function](https://docs.angularjs.org/guide/di) that can be
- * used to register the service on an AngularJS module.
+ *  @returns а[(заводская функция)](https://docs.angularjs.org/guide/di)которая можетбыть.
+ * используется для регистрации службы в модуле AngularJS.
  *
  * @publicApi
  */

@@ -14,20 +14,13 @@ import {EmbeddedViewRef} from './view_ref';
 
 
 /**
- * Represents an embedded template that can be used to instantiate embedded views.
- * To instantiate embedded views based on a template, use the `ViewContainerRef`
- * method `createEmbeddedView()`.
+ * Представляет встроенный шаблон, который можно использовать для создания экземпляров встроенных представлений.
+ * Для создания экземпляров встроенных представлений на основе шаблона используйте `ViewContainerRef`
+ * метод `createEmbeddedView()`.
  *
- * Access a `TemplateRef` instance by placing a directive on an `<ng-template>`
- * element (or directive prefixed with `*`). The `TemplateRef` for the embedded view
- * is injected into the constructor of the directive,
- * using the `TemplateRef` token.
- *
- * You can also use a `Query` to find a `TemplateRef` associated with
- * a component or a directive.
- *
- * @see `ViewContainerRef`
- * @see [Navigate the Component Tree with DI](guide/dependency-injection-navtree)
+ * Доступ к `TemplateRef` экземпляр, помещая директиву на `<ng-template>`
+ * элемент (или директива с префиксом ``). The `TemplateRef` for the embedded view.is injected into the constructor of the directive,.using the `TemplateRef` token...You can also use a `` token...You can also use a `Query` to find a `TemplateRef` associated with.a component or a directive...@see `ViewContainerRef`
+ *  @see [Перейдите в дереве компонентов с помощью DI](guide/dependency-injection-navtree)
  *
  * @publicApi
  */

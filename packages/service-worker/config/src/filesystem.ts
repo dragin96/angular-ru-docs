@@ -7,8 +7,8 @@
  */
 
 /**
- * An abstraction over a virtual file system used to enable testing and operation
- * of the config generator in different environments.
+ * Абстракция над виртуальной файловой системой, используемой для тестирования и работы
+ * генератора конфига в разных средах.
  *
  * @publicApi
  */

@@ -46,86 +46,86 @@ export const formControlBinding: any = {
 const resolvedPromise = (() => Promise.resolve(null))();
 
 /**
- * @description
- * Creates a `FormControl` instance from a domain model and binds it
- * to a form control element.
+ *  @description
+ * Создает `FormControl` экземпляриз модели домена и связывает его
+ * к элементу управления формы.
  *
- * The `FormControl` instance tracks the value, user interaction, and
- * validation status of the control and keeps the view synced with the model. If used
- * within a parent form, the directive also registers itself with the form as a child
- * control.
+ *  The `FormControl`экземпляротслеживает значение, взаимодействияпользователем,и.
+ * проверяет статус элемента управления и сохраняет вид синхронизированным с моделью. Если используется
+ * в родительской форме директива также регистрируется в форме как дочерняя
+ * контроль.
  *
- * This directive is used by itself or as part of a larger form. Use the
- * `ngModel` selector to activate it.
+ * Эта директива используется сама по себе или как часть более крупной формы. Используйте
+ *  `ngModel`селектор, чтобы активировать его.
  *
- * It accepts a domain model as an optional `Input`. If you have a one-way binding
- * to `ngModel` with `[]` syntax, changing the value of the domain model in the component
- * class sets the value in the view. If you have a two-way binding with `[()]` syntax
- * (also known as 'banana-box syntax'), the value in the UI always syncs back to
- * the domain model in your class.
+ * Он принимает модель доменакачестве необязательной `Input` Input. Если у вас есть односторонняя привязка
+ * в `ngModel` с `[]` синтаксисом`, изменяя значение модели предметной области в компоненте
+ * класс устанавливает значение в представлении. Если у вас двусторонняя привязка с `[()]` синтаксисом
+ * (также известный как «синтаксис бананового ящика»), значение в пользовательском интерфейсе всегда синхронизируется с
+ * модель предметной области в вашем классе.
  *
- * To inspect the properties of the associated `FormControl` (like validity state),
- * export the directive into a local template variable using `ngModel` as the key (ex:
- * `#myVar="ngModel"`). You then access the control using the directive's `control` property, but
- * most properties used (like `valid` and `dirty`) fall through to the control anyway for direct
- * access. See a full list of properties directly available in `AbstractControlDirective`.
+ * чтобы проверить свойства ассоциированной `FormControl` (напримерсостояниедействия),.
+ * экспортировать директиву в локальную переменную шаблонапомощью `ngModel` качестве ключа(например:.
+ *  `#myVar="ngModel"`). Затем выдоступ кдирективы `control``control``control` свойство, но
+ * большинство свойствиспользуемых (например `valid` и `dirty` немытый) проваливаются под контрольлюбом случае дляпрямой.
+ * доступ. Смотрите полный список свойств, непосредственно доступных в `AbstractControlDirective`.
  *
- * @see `RadioControlValueAccessor`
- * @see `SelectControlValueAccessor`
+ *  @see `RadioControlValueAccessor`
+ *  @see `SelectControlValueAccessor`
  *
- * @usageNotes
+ *  @usageNotes
  *
  * ### Using ngModel on a standalone control
  *
- * The following examples show a simple standalone control using `ngModel`:
+ * Следующие примеры показываютпростое управление автономного использования `ngModel` ngModel:.
  *
- * {@example forms/ts/simpleNgModel/simple_ng_model_example.ts region='Component'}
+ *  {@example forms/ts/simpleNgModel/simple_ng_model_example.ts region='Component'}
  *
- * When using the `ngModel` within `<form>` tags, you'll also need to supply a `name` attribute
- * so that the control can be registered with the parent form under that name.
+ * При использовании `ngModel` в `<form>` теги формы, вам также потребуется указать `name` атрибута.
+ * так что элемент управления может быть зарегистрирован в родительской форме под этим именем.
  *
- * In the context of a parent form, it's often unnecessary to include one-way or two-way binding,
- * as the parent form syncs the value for you. You access its properties by exporting it into a
- * local template variable using `ngForm` such as (`#f="ngForm"`). Use the variable where
- * needed on form submission.
+ * В контексте родительской формы часто нет необходимости включать одностороннее или двустороннее связывание
+ * как родительская форма синхронизирует значение для вас. Вы получаете доступ к его свойствам, экспортируя его в
+ * локальная переменная шаблона с использованием `ngForm` например (`#f="ngForm"`). Используйте переменную где
+ * необходимо при отправке формы.
  *
- * If you do need to populate initial values into your form, using a one-way binding for
- * `ngModel` tends to be sufficient as long as you use the exported form's value rather
- * than the domain model's value on submit.
+ * Если вам нужно заполнить начальные значения в форме, используя одностороннюю привязку для
+ *  `ngModel`имеет тенденцию быть достаточным, если вы скорее используете значение экспортированной формы
+ * чем значение модели домена при отправке.
  *
- * ### Using ngModel within a form
+ *  ### Использование ngModel в форме
  *
- * The following example shows controls using `ngModel` within a form:
+ * Следующий пример показываетуправлениепомощью `ngModel` вформе:.
  *
- * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
+ *  {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
- * ### Using a standalone ngModel within a group
+ *  ### Использование автономной модели ngModel в группе
  *
- * The following example shows you how to use a standalone ngModel control
- * within a form. This controls the display of the form, but doesn't contain form data.
+ * В следующем примере показано, как использовать автономный элемент управления ngModel
+ * в форме. Это управляет отображением формы, но не содержит данных формы.
  *
- * ```html
- * <form>
- *   <input name="login" ngModel placeholder="Login">
- *   <input type="checkbox" ngModel [ngModelOptions]="{standalone: true}"> Show more options?
- * </form>
- * <!-- form value: {login: ''} -->
- * ```
+ *  ```html
+ *  <form>
+ *    <input name="login" ngModel placeholder="Login">
+ *    <input type="checkbox" ngModel [ngModelOptions]="{standalone: true}"> Show more options?
+ *  </form>
+ *  <!-- form value: {login: ''} -->
+ *  ```
  *
- * ### Setting the ngModel name attribute through options
+ *  ### Установка атрибута имени ngModel через опции
  *
- * The following example shows you an alternate way to set the name attribute. The name attribute is
- * used within a custom form component, and the name `@Input` property serves a different purpose.
+ * В следующем примере показан альтернативный способ установки атрибута имени. Атрибут имени есть
+ * используется в пользовательском компоненте формы, а `@Input` используется для другой цели.
  *
- * ```html
- * <form>
- *   <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
- *   </my-person-control>
- * </form>
- * <!-- form value: {user: ''} -->
- * ```
+ *  ```html
+ *  <form>
+ *    <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
+ *    </my-person-control>
+ *  </form>
+ *  <!-- form value: {user: ''} -->
+ *  ```
  *
- * @ngModule FormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

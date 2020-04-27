@@ -16,51 +16,51 @@ import {controllerKey, getDowngradedModuleCount, getTypeName, getUpgradeAppType,
 
 
 /**
- * @description
+ *  @description
  *
- * A helper function that allows an Angular component to be used from AngularJS.
+ * Вспомогательная функция, которая позволяет использовать Angular компонент из AngularJS.
  *
- * *Part of the [upgrade/static](api?query=upgrade%2Fstatic)
- * library for hybrid upgrade apps that support AOT compilation*
+ * Часть[апгрейд / статика](api?query=upgrade%2Fstatic)
+ * библиотека для гибридных приложений обновления, которые поддерживают компиляцию AOT
  *
- * This helper function returns a factory function to be used for registering
- * an AngularJS wrapper directive for "downgrading" an Angular component.
+ * Эта вспомогательная функция возвращает заводскую функцию, которая будет использоваться для регистрации
+ * директива обертки AngularJS для понижения версии Angular-компонента.
  *
- * @usageNotes
- * ### Examples
+ *  @usageNotes
+ *  ### Примеры
  *
- * Let's assume that you have an Angular component called `ng2Heroes` that needs
- * to be made available in AngularJS templates.
+ * Давайте предположим, что у вас есть Angular-компонент с именем `ng2Heroes` который необходим
+ * быть доступным в шаблонах AngularJS.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng2-heroes"}
  *
- * We must create an AngularJS [directive](https://docs.angularjs.org/guide/directive)
- * that will make this Angular component available inside AngularJS templates.
- * The `downgradeComponent()` function returns a factory function that we
- * can use to define the AngularJS directive that wraps the "downgraded" component.
+ * Мы должны создать AngularJS[директива](https://docs.angularjs.org/guide/directive)
+ * это сделает этот Angular-компонент доступным внутри шаблонов AngularJS.
+ * Функция `downgradeComponent()` возвращает заводскую функцию, которую мы
+ * можно использовать для определения директивы AngularJS, которая оборачивает «пониженный» компонент.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes-wrapper"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng2-heroes-wrapper"}
  *
- * For more details and examples on downgrading Angular components to AngularJS components please
- * visit the [Upgrade guide](guide/upgrade#using-angular-components-from-angularjs-code).
+ * Для получения более подробной информации и примеров понижения компонентов Angular до компонентов AngularJS, пожалуйста
+ * посетите[Руководство по обновлению](guide/upgrade#using-angular-components-from-angularjs-code).
  *
- * @param info contains information about the Component that is being downgraded:
+ *  @param Информация содержит информацию о компонентекоторый в настоящее времяпонижена:.
  *
- * - `component: Type<any>`: The type of the Component that will be downgraded
- * - `downgradedModule?: string`: The name of the downgraded module (if any) that the component
- *   "belongs to", as returned by a call to `downgradeModule()`. It is the module, whose
- *   corresponding Angular module will be bootstrapped, when the component needs to be instantiated.
- *   <br />
- *   (This option is only necessary when using `downgradeModule()` to downgrade more than one
- *   Angular module.)
- * - `propagateDigest?: boolean`: Whether to perform {@link ChangeDetectorRef#detectChanges
- *   change detection} on the component on every
- *   [$digest](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest). If set to `false`,
- *   change detection will still be performed when any of the component's inputs changes.
- *   (Default: true)
+ * -`component: Type<any>`: Тип компонента, который будет понижен
+ * -`downgradedModule?: string`: имя пониженного класса (если есть) этого компонента
+ * «принадлежит», как возвращено вызовом `downgradeModule()` . Это модуль, чей
+ * соответствующий Angular модуль будет загружен, когда компонент должен быть создан.
+ *    <br />
+ * (Эта опция необходима только при использовании `downgradeModule()` для понижения более чем одного
+ * Angular модуль.)
+ * -`propagateDigest?: boolean``propagateDigest?: boolean``propagateDigest?: boolean`:ли{@link ChangeDetectorRef#detectChanges
+ *    change detection}на компоненте на каждом
+ *    [$ digest](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest). Если установлено `false`,
+ * обнаружение изменений будет по-прежнему выполняться при изменении любого из входов компонента.
+ * (По умолчанию: true)
  *
- * @returns a factory function that can be used to register the component in an
- * AngularJS module.
+ *  @returns заводская функция, которую можно использовать для регистрации компонента в
+ * Модуль AngularJS.
  *
  * @publicApi
  */

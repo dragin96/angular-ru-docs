@@ -14,33 +14,33 @@ import {SwitchView} from './ng_switch';
 
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @usageNotes
- * ```
- * <some-element [ngPlural]="value">
- *   <ng-template ngPluralCase="=0">there is nothing</ng-template>
- *   <ng-template ngPluralCase="=1">there is one</ng-template>
- *   <ng-template ngPluralCase="few">there are a few</ng-template>
- * </some-element>
- * ```
+ *  @usageNotes
+ *  ```
+ *  <some-element [ngPlural]="value">
+ *    <ng-template ngPluralCase="=0">there is nothing</ng-template>
+ *    <ng-template ngPluralCase="=1">there is one</ng-template>
+ *    <ng-template ngPluralCase="few">there are a few</ng-template>
+ *  </some-element>
+ *  ```
  *
- * @description
+ *  @description
  *
- * Adds / removes DOM sub-trees based on a numeric value. Tailored for pluralization.
+ * Добавляет / удаляет поддеревья DOM на основе числового значения. Специально для плюрализации.
  *
- * Displays DOM sub-trees that match the switch expression value, or failing that, DOM sub-trees
- * that match the switch expression's pluralization category.
+ * Отображает поддеревья DOM, которые соответствуют значению выражения переключателя, или, если это не так, поддеревья DOM
+ * которые соответствуют категории плюрализации выражения переключения.
  *
- * To use this directive you must provide a container element that sets the `[ngPlural]` attribute
- * to a switch expression. Inner elements with a `[ngPluralCase]` will display based on their
- * expression:
- * - if `[ngPluralCase]` is set to a value starting with `=`, it will only display if the value
- *   matches the switch expression exactly,
- * - otherwise, the view will be treated as a "category match", and will only display if exact
- *   value matches aren't found and the value maps to its category for the defined locale.
+ * чтобы использовать эту директивувы должны предоставить контейнер элементкоторый устанавливает `[ngPlural]` атрибут.
+ * к выражению переключателя. Внутренние элементы с `[ngPluralCase]` будут отображаться на основе их
+ * выражение:.
+ * - если для `[ngPluralCase]` установлено значение, начинающееся с `=` , он будет отображаться только если значение
+ * точно соответствует выражению переключателя
+ * - в противном случае представление будет рассматриваться как «соответствие категории» и будет отображаться только в том случае, если оно точное
+ * совпадения значений не найдены, и значение отображается в его категорию для определенной локали.
  *
- * See http://cldr.unicode.org/index/cldr-spec/plural-rules
+ * См. Http://cldr.unicode.org/index/cldr-spec/plural-rules
  *
  * @publicApi
  */
@@ -85,22 +85,22 @@ export class NgPlural {
 }
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @description
+ *  @description
  *
- * Creates a view that will be added/removed from the parent {@link NgPlural} when the
- * given expression matches the plural expression according to CLDR rules.
+ * Создает представление, которое будет добавлено / удалено из родительского{@link NgPlural}когда
+ * данное выражение соответствует множественному выражению в соответствии с правилами CLDR.
  *
- * @usageNotes
+ *  @usageNotes
+ *  ```
+ *  <some-element [ngPlural]="value">
+ *    <ng-template ngPluralCase="=0">...</ng-template>
+ *    <ng-template ngPluralCase="other">...</ng-template>
+ *  </some-element>
  * ```
- * <some-element [ngPlural]="value">
- *   <ng-template ngPluralCase="=0">...</ng-template>
- *   <ng-template ngPluralCase="other">...</ng-template>
- * </some-element>
- *```
  *
- * See {@link NgPlural} for more details and example.
+ * Видеть{@link NgPlural}для более подробной информации и примера.
  *
  * @publicApi
  */

@@ -41,38 +41,38 @@ abstract class HTMLCollection {
 }
 
 /**
- * @description
- * The `ControlValueAccessor` for writing multi-select control values and listening to multi-select
- * control changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
+ *  @description
+ *  The `ControlValueAccessor`для записи множественного выбора значений управления и прослушивания множественноговыбора.
+ * контрольные изменения. Метод доступа к значениям используется `FormControlDirective` , `FormControlName` и
+ *  `NgModel`директивы.
  *
- * @see `SelectControlValueAccessor`
+ *  @see `SelectControlValueAccessor`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using a multi-select control
+ *  ### Используя мульти-выбор управления
  *
- * The follow example shows you how to use a multi-select control with a reactive form.
+ * В следующем примере показано, как использовать элемент множественного выбора с реактивной формой.
  *
- * ```ts
- * const countryControl = new FormControl();
- * ```
+ *  ```ts
+ *  const countryControl = new FormControl();
+ *  ```
  *
- * ```
- * <select multiple name="countries" [formControl]="countryControl">
- *   <option *ngFor="let country of countries" [ngValue]="country">
- *     {{ country.name }}
- *   </option>
- * </select>
- * ```
+ *  ```
+ *  <select multiple name="countries" [formControl]="countryControl">
+ *    <optionngFor="let country of countries" [ngValue]="country">
+ *      {{ country.name }}
+ *    </option>
+ *  </select>
+ *  ```
  *
- * ### Customizing option selection
+ *  ### Настройка параметров выбора
  *
- * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
- * See the `SelectControlValueAccessor` for usage.
+ * Чтобы настроить алгоритм сравнения опций по умолчанию, `<select>` поддерживает `compareWith` вход.
+ * См. `SelectControlValueAccessor` для использования.
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({
@@ -222,13 +222,13 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
 }
 
 /**
- * @description
- * Marks `<option>` as dynamic, so Angular can be notified when options change.
+ *  @description
+ * Marks `<option>` как динамика, так Angular может быть уведомлен при изменении параметров.
  *
- * @see `SelectMultipleControlValueAccessor`
+ *  @see `SelectMultipleControlValueAccessor`
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({selector: 'option'})

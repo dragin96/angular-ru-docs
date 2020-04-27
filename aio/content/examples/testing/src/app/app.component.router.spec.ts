@@ -1,13 +1,16 @@
 // For more examples:
 //   https://github.com/angular/angular/blob/master/modules/@angular/router/test/integration.spec.ts
 
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick,
+} from '@angular/core/testing';
 
 import { asyncData } from '../testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation }         from '@angular/common/testing';
 
+// r - for relatively obscure router symbols
+import * as r                         from  '@angular/router';
 import { Router, RouterLinkWithHref } from '@angular/router';
 
 import { By }                 from '@angular/platform-browser';
@@ -16,7 +19,6 @@ import { Location }           from '@angular/common';
 
 import { click }              from '../testing';
 
-import { routes }             from './app-routing.module';
 import { AppModule }          from './app.module';
 import { AppComponent }       from './app.component';
 import { AboutComponent }     from './about/about.component';
@@ -35,10 +37,7 @@ describe('AppComponent & RouterTestingModule', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule,
-        RouterTestingModule.withRoutes(routes),
-      ],
+      imports: [ AppModule, RouterTestingModule ],
       providers: [
         { provide: HeroService, useClass: TestHeroService }
       ]
@@ -49,7 +48,7 @@ describe('AppComponent & RouterTestingModule', () => {
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
     tick(); // wait for async data to arrive
-    expectPathToBe('/dashboard', 'after initialNavigation()');
+    expect(location.path()).toEqual('/dashboard', 'after initialNavigation()');
     expectElementOf(DashboardComponent);
   }));
 
@@ -97,17 +96,14 @@ xdescribe('AppComponent & Lazy Loading (not working yet)', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule,
-        RouterTestingModule.withRoutes(routes),
-      ],
+      imports: [ AppModule, RouterTestingModule ]
     })
     .compileComponents();
   }));
 
   beforeEach(fakeAsync(() => {
     createComponent();
-    loader = TestBed.inject(NgModuleFactoryLoader) as SpyNgModuleFactoryLoader;
+    loader = TestBed.inject(NgModuleFactoryLoader);
     loader.stubbedModules = { expected: HeroModule };
     router.resetConfig([{path: 'heroes', loadChildren: 'expected'}]);
   }));

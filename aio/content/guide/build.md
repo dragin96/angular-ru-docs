@@ -1,21 +1,24 @@
-# Building and serving Angular apps
+{@a building-and-serving-angular-apps}
+# Создание и обслуживание приложений Angular
 
-This page discusses build-specific configuration options for Angular projects.
+На этой странице обсуждаются параметры конфигурации для проектов Angular.
 
 {@a app-environments}
 
-## Configuring application environments
+{@a configuring-application-environments}
+## Конфигурирование прикладных сред
 
-You can define different named build configurations for your project, such as *stage* and *production*, with different defaults.
+Вы можете определить разные именованные конфигурации сборки для вашего проекта, такие как *этап* и *производство*, с разными значениями по умолчанию.
 
-Each named configuration can have defaults for any of the options that apply to the various [builder targets](guide/glossary#target), such as `build`, `serve`, and `test`. The [Angular CLI](cli) `build`, `serve`, and `test` commands can then replace files with appropriate versions for your intended target environment.
+Каждая именованная конфигурация может иметь значения по умолчанию для любого из параметров, которые применяются к различным [целям компоновщика](guide/glossary#target), таким как  `build`,  `serve`  и  `test` . [Угловое CLI](cli)  `build `, ` serve ` и ` test` Затем команды могут заменить файлы соответствующими версиями для вашей целевой среды.
 
-### Configure environment-specific defaults
+{@a configure-environment-specific-defaults}
+### Сконфигурируйте специфичные для среды значения по умолчанию
 
-A project's `src/environments/` folder contains the base configuration file, `environment.ts`, which provides a default environment.
-You can add override defaults for additional environments, such as production and staging, in target-specific configuration files.
+Проект  `src/environments/`  папка содержит базовый файл конфигурации,  `environment.ts`, который обеспечивает среду по умолчанию.
+Вы можете добавить значения переопределения по умолчанию для дополнительных сред, таких как производственная и промежуточная, в файлах конфигурации для конкретных целей.
 
-For example:
+Например:
 
 ```
 └──myProject/src/environments/
@@ -24,7 +27,7 @@ For example:
                    └──environment.stage.ts
 ```
 
-The base file `environment.ts`, contains the default environment settings. For example:
+Базовый файл  `environment.ts`, содержит настройки среды по умолчанию. Например:
 
 ```
 export const environment = {
@@ -32,9 +35,9 @@ export const environment = {
 };
 ```
 
-The `build` command uses this as the build target when no environment is specified.
-You can add further variables, either as additional properties on the environment object, or as separate objects.
-For example, the following adds a default for a variable to the default environment:
+ `build` Команда использует это как цель сборки, когда среда не указана.
+Вы можете добавить дополнительные переменные, либо как дополнительные свойства объекта среды, либо как отдельные объекты.
+Например, следующий добавляет по умолчанию для переменной к окружающей среде по умолчанию:
 
 ```
 export const environment = {
@@ -43,8 +46,8 @@ export const environment = {
 };
 ```
 
-You can add target-specific configuration files, such as `environment.prod.ts`.
-The following sets content sets default values for the production build target:
+Вы можете добавить целевые файлы конфигурации, такие как  `environment.prod.ts`.
+Следующие наборы значений наборов контента по умолчанию для целевой сборки производства:
 
 ```
 export const environment = {
@@ -53,9 +56,10 @@ export const environment = {
 };
 ```
 
-### Using environment-specific variables in your app
+{@a using-environment-specific-variables-in-your-app}
+### Использование переменных окружения в вашем приложении
 
-The following application structure configures build targets for production and staging environments:
+Следующие структуры приложения конфигурирует построить цели для производства и демонстрационных сред:
 
 ```
 └── src
@@ -68,15 +72,15 @@ The following application structure configures build targets for production and 
         └── environment.ts
 ```
 
-To use the environment configurations you have defined, your components must import the original environments file:
+Для использования конфигурации среды, которые вы определили, ваши компоненты должны импортировать исходный файл сред:
 
 ```
 import { environment } from './../environments/environment';
 ```
 
-This ensures that the build and serve commands can find the configurations for specific build targets.
+Это гарантирует, что команды build и serve могут найти конфигурации для конкретных целей сборки.
 
-The following code in the component file (`app.component.ts`) uses an environment variable defined in the configuration files.
+Следующий код в файле компонента (`app.component.ts`) использует переменную среды, определенную в файлах конфигурации.
 
 ```
 import { Component } from '@angular/core';
@@ -96,14 +100,15 @@ export class AppComponent {
 ```
 {@a file-replacement}
 
-## Configure target-specific file replacements
+{@a configure-target-specific-file-replacements}
+## Сконфигурируйте замены файлов для конкретных целей
 
-The main CLI configuration file, `angular.json`, contains a `fileReplacements` section in the configuration for each build target, which allows you to replace any file with a target-specific version of that file.
-This is useful for including target-specific code or variables in a build that targets a specific environment, such as production or staging.
+Основной файл конфигурации CLI,  `angular.json`, содержит  `fileReplacements`  Раздел в конфигурации для каждого целевого объекта сборки, который позволяет заменить любой файл конкретной версией этого файла.
+Это полезно для включения специфичного для цели кода или переменных в сборку, предназначенную для конкретной среды, такой как производство или подготовка.
 
-By default no files are replaced.
-You can add file replacements for specific build targets.
-For example:
+По умолчанию файлы не заменяются.
+Вы можете добавить замены файлов для конкретных целей сборки.
+Например:
 
 ```
 "configurations": {
@@ -114,16 +119,16 @@ For example:
         "with": "src/environments/environment.prod.ts"
       }
     ],
-    ...
+   ...
 ```
 
-This means that when you build your production configuration (using `ng build --prod` or `ng build --configuration=production`), the `src/environments/environment.ts` file is replaced with the target-specific version of the file, `src/environments/environment.prod.ts`.
+Это означает, что когда вы создаете свою производственную конфигурацию (используя `ng build --prod ` или ` ng build --configuration=production `), ` src/environments/environment.ts` Файл заменяется целевой версией файла,  `src/environments/environment.prod.ts`.
 
-You can add additional configurations as required. To add a staging environment, create a copy of `src/environments/environment.ts` called `src/environments/environment.staging.ts`, then add a `staging` configuration to `angular.json`:
+Вы можете добавить дополнительные конфигурации по мере необходимости. Чтобы добавить промежуточную среду, создайте копию  `src/environments/environment.ts`  называется  `src/environments/environment.staging.ts`, затем добавьте  `staging`  конфигурация  `angular.json`  :
 
 ```
 "configurations": {
-  "production": { ... },
+  "production": {... },
   "staging": {
     "fileReplacements": [
       {
@@ -135,16 +140,16 @@ You can add additional configurations as required. To add a staging environment,
 }
 ```
 
-You can add more configuration options to this target environment as well.
-Any option that your build supports can be overridden in a build target configuration.
+Вы также можете добавить дополнительные параметры конфигурации в эту целевую среду.
+Любая опция, которую поддерживает ваша сборка, может быть переопределена в целевой конфигурации сборки.
 
-To build using the staging configuration, run the following command:
+Для того, чтобы построить с использованием конфигурации индексирования, выполните следующую команду:
 
 <code-example language="sh" class="code-shell">
  ng build --configuration=staging
 </code-example>
 
-You can also configure the `serve` command to use the targeted build configuration if you add it to the "serve:configurations" section of `angular.json`:
+Вы также можете настроить  `serve`  команда для использования целевой конфигурации сборки, если вы добавите ее в раздел «serve: configurations»  `angular.json`  :
 
 ```
 "serve": {
@@ -166,98 +171,99 @@ You can also configure the `serve` command to use the targeted build configurati
 {@a size-budgets}
 {@a configure-size-budgets}
 
-## Configuring size budgets
+{@a configuring-size-budgets}
+## Настройка размеров бюджетов
 
-As applications grow in functionality, they also grow in size.
-The CLI allows you to set size thresholds in your configuration to ensure that parts of your application stay within size boundaries that you define.
+По мере увеличения функциональности приложений они также увеличиваются в размерах.
+CLI позволяет вам устанавливать пороговые значения размера в вашей конфигурации, чтобы гарантировать, что части вашего приложения остаются в границах размера, которые вы определяете.
 
-Define your size boundaries in the CLI configuration file, `angular.json`, in a `budgets` section for each [configured environment](#app-environments).
+Определите границы вашего размера в файле конфигурации CLI,  `angular.json`, в  `budgets`  раздел для каждого [настроенная среда](#app-environments).
 
 ```
 {
-  ...
+ ...
   "configurations": {
     "production": {
-      ...
+     ...
       budgets: []
     }
   }
 }
 ```
 
-You can specify size budgets for the entire app, and for particular parts.
-Each budget entry configures a budget of a given type.
-Specify size values in the following formats:
+Вы можете указать размер бюджета для всего приложения и для отдельных частей.
+Каждая запись бюджета настраивает бюджет данного типа.
+Укажите значение размера в следующих форматах:
 
-* 123 or 123b: Size in bytes
+* 123 или 123b: размер в байтах
 
-* 123kb: Size in kilobytes
+* 123kb: размер в килобайтах
 
-* 123mb: Size in megabytes
+* 123mb: размер в мегабайтах
 
-* 12%: Percentage of size relative to baseline. (Not valid for baseline values.)
+* 12%: процент от размера относительно базовой линии. (Недействительно для базовых значений.)
 
-When you configure a budget, the build system warns or reports an error when a given part of the app reaches or exceeds a boundary size that you set.
+Когда вы настраиваете бюджет, система сборки предупреждает или сообщает об ошибке, когда заданная часть приложения достигает или превышает установленный вами размер границы.
 
-Each budget entry is a JSON object with the following properties:
+Каждый элемент бюджета представляет собой объект JSON со следующими свойствами:
 
 <table>
   <tr>
-    <th>Property</th>
-    <th>Value</th>
+    <th>Недвижимость </th>
+    <th>Значение </th>
   </tr>
 
   <tr>
-    <td>type</td>
+    <td>тип </td>
     <td>
 
-    The type of budget. One of:
+    Тип бюджета. Один из:
 
-* `bundle` - The size of a specific bundle.
-* `initial` - The initial size of the app.
-* `allScript` - The size of all scripts.
-* `all` - The size of the entire app.
-* `anyComponentStyle` - This size of any one component stylesheet.
-* `anyScript` - The size of any one script.
-* `any` - The size of any file.
+*  `bundle` - размер определенного комплекта.
+*  `initial` - начальный размер приложения.
+*  `allScript` - размер всех скриптов.
+*  `all` - размер всего приложения.
+*  `anyComponentStyle` - размер таблицы стилей любого компонента.
+*  `anyScript` - размер любого скрипта.
+*  `any` - размер любого файла.
 
     </td>
   </tr>
    <tr>
-    <td>name</td>
+    <td>имя </td>
     <td>
 
-    The name of the bundle (for `type=bundle`).
+    Наименование комплекта (для  `type=bundle`).
 
     </td>
   </tr>
   <tr>
-    <td>baseline</td>
-    <td>The baseline size for comparison.</td>
+    <td>базовый уровень </td>
+    <td>Базовый размер для сравнения. </td>
   </tr>
   <tr>
-    <td>maximumWarning</td>
-    <td>The maximum threshold for warning relative to the baseline.</td>
+    <td>maximumWarning </td>
+    <td>Максимальный порог для предупреждения относительно базовой линии. </td>
   </tr>
   <tr>
-    <td>maximumError</td>
-    <td>The maximum threshold for error relative to the baseline.</td>
+    <td>MaximumError </td>
+    <td>Максимальный порог для ошибки относительно базовой линии. </td>
   </tr>
   <tr>
-    <td>minimumWarning</td>
-    <td>The minimum threshold for warning relative to the baseline.</td>
+    <td>minimumWarning </td>
+    <td>Минимальный порог для предупреждения относительно базовой линии. </td>
   </tr>
   <tr>
-    <td>minimumError</td>
-    <td>The minimum threshold for error relative to the baseline.</td>
+    <td>minimumError </td>
+    <td>Минимальный порог для ошибки относительно базовой линии. </td>
   </tr>
   <tr>
-    <td>warning</td>
-    <td>The threshold for warning relative to the baseline (min & max).</td>
+    <td>предупреждение </td>
+    <td>Порог для предупреждения относительно базовой линии (мин и макс). </td>
   </tr>
   <tr>
-    <td>error</td>
-    <td>The threshold for error relative to the baseline (min & max).</td>
+    <td>ошибка </td>
+    <td>Порог для ошибки относительно базовой линии (мин и макс). </td>
   </tr>
 
  </table>
@@ -265,16 +271,17 @@ Each budget entry is a JSON object with the following properties:
 
 {@a browser-compat}
 
-## Configuring browser compatibility
+{@a configuring-browser-compatibility}
+## Настройка совместимости браузера
 
-The CLI uses [Autoprefixer](https://github.com/postcss/autoprefixer) to ensure compatibility with different browser and browser versions.
-You may find it necessary to target specific browsers or exclude certain browser versions from your build.
+CLI использует [Autoprefixer](https://github.com/postcss/autoprefixer)для обеспечения совместимости с различными версиями браузера и браузера.
+Вы можете счесть необходимым настроить таргетинг на определенные браузеры или исключить определенные версии браузеров из вашей сборки.
 
-Internally, Autoprefixer relies on a library called [Browserslist](https://github.com/browserslist/browserslist) to figure out which browsers to support with prefixing.
-Browserlist looks for configuration options in a `browserslist` property of the package configuration file, or in a configuration file named `.browserslistrc`.
-Autoprefixer looks for the `browserslist` configuration when it prefixes your CSS.
+Внутренне Autoprefixer использует библиотеку [Список браузеров](https://github.com/browserslist/browserslist)чтобы выяснить, какие браузеры поддерживать с префиксами.
+Список браузеров ищет параметры конфигурации в  `browserslist`  свойство файла конфигурации пакета или файла конфигурации с именем  `.browserslistrc`.
+Авторефиксатор ищет  `browserslist`  Конфигурация когда она префикс вашего CSS.
 
-* You can tell Autoprefixer what browsers to target by adding a browserslist property to the package configuration file, `package.json`:
+* Вы можете указать Autoprefixer, на какие браузеры ориентироваться, добавив свойство browserslist в файл конфигурации пакета,  `package.json`  :
 ```
  "browserslist": [
    "> 1%",
@@ -282,18 +289,19 @@ Autoprefixer looks for the `browserslist` configuration when it prefixes your CS
  ]
 ```
 
-* Alternatively, you can add a new file, `.browserslistrc`, to the project directory, that specifies browsers you want to support:
+* Кроме того, вы можете добавить новый файл,  `.browserslistrc`, в каталог проекта, который задает браузеры вы хотите поддержку:
 ```
  ### Supported Browsers
  > 1%
  last 2 versions
 ```
 
-See the [browserslist repo](https://github.com/browserslist/browserslist) for more examples of how to target specific browsers and versions.
+Смотрите список [репозиторий обозревателей](https://github.com/browserslist/browserslist)для большего количества примеров того, как настроить таргетинг на определенные браузеры и версии.
 
-### Backward compatibility with Lighthouse
+{@a backward-compatibility-with-lighthouse}
+### Обратная совместимость с маяком
 
-If you want to produce a progressive web app and are using [Lighthouse](https://developers.google.com/web/tools/lighthouse/) to grade the project, add the following `browserslist` entry to your `package.json` file, in order to eliminate the [old flexbox](https://developers.google.com/web/tools/lighthouse/audits/old-flexbox) prefixes:
+Если вы хотите создать прогрессивное веб-приложение и используете [Lighthouse](https://developers.google.com/web/tools/lighthouse/)для оценки проекта, добавьте следующее  `browserslist`  запись в  `package.json` файл, для того, чтобы устранить [старый Flexbox](https://developers.google.com/web/tools/lighthouse/audits/old-flexbox)префиксы:
 
 ```
 "browserslist": [
@@ -303,34 +311,36 @@ If you want to produce a progressive web app and are using [Lighthouse](https://
 ]
 ```
 
-### Backward compatibility with CSS grid
+{@a backward-compatibility-with-css-grid}
+### Обратная совместимость с сеткой CSS
 
-CSS grid layout support in Autoprefixer, which was previously on by default, is off by default in Angular 8 and higher.
+Поддержка разметки CSS-сетки в Autoprefixer, который ранее был включен по умолчанию, по умолчанию отключена в Angular 8 и выше.
 
-To use CSS grid with IE10/11, you must explicitly enable it using the `autoplace` option.
-To do this, add the following to the top of the global styles file (or within a specific css selector scope):
+Чтобы использовать CSS-сетку с IE10 / 11, вы должны явно включить ее, используя  `autoplace`.
+Чтобы сделать это, добавьте следующую строку в верхней части глобального файла стилей (или в пределах области селекторного конкретных CSS)
 
 ```
-/* autoprefixer grid: autoplace */
+/* autoprefixer grid: autoplace /
 ```
-or
+или
 ```
-/* autoprefixer grid: no-autoplace */
+/ autoprefixer grid: no-autoplace */
 ```
 
-For more information, see [Autoprefixer documentation](https://autoprefixer.github.io/).
+Для получения дополнительной информации см. [Документация Autoprefixer](https://autoprefixer.github.io/).
 
 
 {@a proxy}
 
-## Proxying to a backend server
+{@a proxying-to-a-backend-server}
+## Проксирование на бэкэнд-сервер
 
-You can use the [proxying support](https://webpack.js.org/configuration/dev-server/#devserverproxy) in the `webpack` dev server to divert certain URLs to a backend server, by passing a file to the `--proxy-config` build option.
-For example, to divert all calls for `http://localhost:4200/api` to a server running on `http://localhost:3000/api`, take the following steps.
+Вы можете использовать [прокси поддержку](https://webpack.js.org/configuration/dev-server/#devserverproxy)в  `webpack`  сервер для перенаправления определенных URL-адресов на внутренний сервер путем передачи файла  `--proxy-config`  сборки.
+Например, для переадресации всех звонков на  `http://localhost:4200/api`  к серверу, работающему на  `http://localhost:3000/api`, выполните следующие действия.
 
-1. Create a file `proxy.conf.json` in your project's `src/` folder.
+1. Создать файл  `proxy.conf.json`  в вашем проекте  `src/`  папка.
 
-1. Add the following content to the new proxy file:
+1. Добавьте следующее содержимое в новый прокси - файл:
     ```
     {
       "/api": {
@@ -340,9 +350,9 @@ For example, to divert all calls for `http://localhost:4200/api` to a server run
     }
     ```
 
-1. In the CLI configuration file, `angular.json`, add the `proxyConfig` option to the `serve` target:
+1. В файле конфигурации CLI  `angular.json`, добавьте  `proxyConfig`  опция для  `serve`  цели:
     ```
-    ...
+   ...
     "architect": {
       "serve": {
         "builder": "@angular-devkit/build-angular:dev-server",
@@ -350,20 +360,21 @@ For example, to divert all calls for `http://localhost:4200/api` to a server run
           "browserTarget": "your-application-name:build",
           "proxyConfig": "src/proxy.conf.json"
         },
-    ...
+   ...
     ```
 
-1. To run the dev server with this proxy configuration, call `ng serve`.
+1. Чтобы запустить dev-сервер с этой конфигурацией прокси, позвоните `ng serve`.
 
-You can edit the proxy configuration file to add configuration options; some examples are given below.
-For a description of all options, see [webpack DevServer documentation](https://webpack.js.org/configuration/dev-server/#devserverproxy).
+Вы можете отредактировать файл конфигурации прокси, чтобы добавить параметры конфигурации; некоторые примеры приведены ниже.
+Для описания всех параметров см [WebPack DevServer документации](https://webpack.js.org/configuration/dev-server/#devserverproxy).
 
-Note that if you edit the proxy configuration file, you must relaunch the `ng serve` process to make your changes effective.
+Обратите внимание, что если вы редактируете файл конфигурации прокси, вы должны перезапустить `ng serve` Процесс заявок, чтобы сделать ваши изменения эффективными.
 
-### Rewrite the URL path
+{@a rewrite-the-url-path}
+### Перепишите путь URL
 
-The `pathRewrite` proxy configuration option lets you rewrite the URL path at run time.
-For example, you can specify the following `pathRewrite` value to the proxy configuration to remove "api" from the end of a path.
+ `pathRewrite` конфигурации proxy позволяет перезаписать путь URL во время выполнения.
+Например, вы можете указать следующее  `pathRewrite`  Значение для конфигурации прокси, чтобы удалить «api» из конца пути.
 
 ```
 {
@@ -377,7 +388,7 @@ For example, you can specify the following `pathRewrite` value to the proxy conf
 }
 ```
 
-If you need to access a backend that is not on `localhost`, set the `changeOrigin` option as well. For example:
+Если вам нужен доступ к бэкэнду, который не включен  `localhost`, установите  `changeOrigin`  опция также. Например:
 
 ```
 {
@@ -392,7 +403,7 @@ If you need to access a backend that is not on `localhost`, set the `changeOrigi
 }
 ```
 
-To help determine whether your proxy is working as intended, set the `logLevel` option. For example:
+Чтобы определить, работает ли ваш прокси-сервер правильно, установите  `logLevel`  опция. Например:
 
 ```
 {
@@ -407,13 +418,14 @@ To help determine whether your proxy is working as intended, set the `logLevel` 
 }
 ```
 
-Proxy log levels are `info` (the default), `debug`, `warn`, `error`, and `silent`.
+Уровни прокси журнала  `info`  (по умолчанию),  `debug`,  `warn`,  `error`  и  `silent`.
 
-### Proxy multiple entries
+{@a proxy-multiple-entries}
+### Прокси несколько записей
 
-You can proxy multiple entries to the same target by defining the configuration in JavaScript.
+Вы можете проксировать несколько записей к одной и той же цели, определив конфигурацию в JavaScript.
 
-Set the proxy configuration file to `proxy.conf.js` (instead of `proxy.conf.json`), and specify configuration files as in the following example.
+Установите файл конфигурации прокси на  `proxy.conf.js`  (вместо  `proxy.conf.json`) и укажите файлы конфигурации, как в следующем примере.
 
 ```
 const PROXY_CONFIG = [
@@ -435,7 +447,7 @@ const PROXY_CONFIG = [
 module.exports = PROXY_CONFIG;
 ```
 
-In the CLI configuration file, `angular.json`, point to the JavaScript proxy configuration file:
+В файле конфигурации CLI  `angular.json`, указывают на прокси - файл конфигурации JavaScript:
 
 ```
 ...
@@ -449,9 +461,10 @@ In the CLI configuration file, `angular.json`, point to the JavaScript proxy con
 ...
 ```
 
-### Bypass the proxy
+{@a bypass-the-proxy}
+### Обойти прокси
 
-If you need to optionally bypass the proxy, or dynamically change the request before it's sent, add the bypass option, as shown in this JavaScript example.
+Если вам необходимо дополнительно обойти прокси-сервер или динамически изменить запрос перед его отправкой, добавьте опцию обхода, как показано в этом примере JavaScript.
 
 ```
 const PROXY_CONFIG = {
@@ -459,8 +472,8 @@ const PROXY_CONFIG = {
         "target": "http://localhost:3000",
         "secure": false,
         "bypass": function (req, res, proxyOptions) {
-            if (req.headers.accept.indexOf("html") !== -1) {
-                console.log("Skipping proxy for browser request.");
+            if (req.headers.accept.indexOf("html")  !== -1) {
+                console.log("Skipping proxy for browser request.") ;
                 return "/index.html";
             }
             req.headers["X-Custom-Header"] = "yes";
@@ -471,18 +484,19 @@ const PROXY_CONFIG = {
 module.exports = PROXY_CONFIG;
 ```
 
-### Using corporate proxy
+{@a using-corporate-proxy}
+### Использование корпоративного прокси
 
-If you work behind a corporate proxy, the backend cannot directly proxy calls to any URL outside your local network.
-In this case, you can configure the backend proxy to redirect calls through your corporate proxy using an agent:
+Если вы работаете за корпоративным прокси-сервером, серверная часть не может напрямую обращаться к любому URL-адресу за пределами вашей локальной сети.
+В этом случае, вы можете настроить прокси бэкэнда для перенаправления вызовов через корпоративный прокси - сервер с помощью агента:
 
 <code-example language="none" class="code-shell">
 npm install --save-dev https-proxy-agent
 </code-example>
 
-When you define an environment variable `http_proxy` or `HTTP_PROXY`, an agent is automatically added to pass calls through your corporate proxy when running `npm start`.
+Когда вы определяете переменную среды  `http_proxy`  или  `HTTP_PROXY`, агент автоматически добавляется для прохождения вызовов через ваш корпоративный прокси при запуске `npm start`.
 
-Use the following content in the JavaScript configuration file.
+Используйте следующее содержимое в файле конфигурации JavaScript.
 
 ```
 var HttpsProxyAgent = require('https-proxy-agent');

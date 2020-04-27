@@ -17,7 +17,7 @@ import {convertInjectableProviderToFactory} from './util';
 
 
 /**
- * Injectable providers used in `@Injectable` decorator.
+ * Инъекционные провайдеры, используемые в `@Injectable` decorator.
  *
  * @publicApi
  */
@@ -25,7 +25,7 @@ export type InjectableProvider = ValueSansProvider|ExistingSansProvider|StaticCl
     ConstructorSansProvider|FactorySansProvider|ClassSansProvider;
 
 /**
- * Type of the Injectable decorator / constructor function.
+ * Тип инъекционной функции декоратор / конструктор.
  *
  * @publicApi
  */
@@ -58,7 +58,7 @@ export interface InjectableDecorator {
 }
 
 /**
- * Type of the Injectable metadata.
+ * Тип вводимых метаданных.
  *
  * @publicApi
  */
@@ -78,9 +78,9 @@ export interface Injectable {
 }
 
 /**
- * Injectable decorator and metadata.
+ * Вводимый декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Injectable: InjectableDecorator = makeDecorator(

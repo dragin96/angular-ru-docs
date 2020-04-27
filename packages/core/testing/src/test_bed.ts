@@ -626,14 +626,14 @@ export class TestBedViewEngine implements TestBed {
 }
 
 /**
- * @description
- * Configures and initializes environment for unit testing and provides methods for
- * creating components and services in unit tests.
+ *  @description
+ * Настраивает и инициализирует среду для модульного тестирования и предоставляет методы для
+ * создание компонентов и сервисов в модульных тестах.
  *
- * `TestBed` is the primary api for writing unit tests for Angular applications and libraries.
+ *  `TestBed`- это основной API для написания модульных тестов для приложений и библиотек Angular.
  *
- * Note: Use `TestBed` in tests. It will be set to either `TestBedViewEngine` or `TestBedRender3`
- * according to the compiler used.
+ * Примечание: используйте `TestBed` в тестах. Он будет установлен либо `TestBedViewEngine` или `TestBedRender3`
+ * в соответствии с используемым компилятором.
  *
  * @publicApi
  */
@@ -641,9 +641,9 @@ export const TestBed: TestBedStatic =
     ivyEnabled ? TestBedRender3 as any as TestBedStatic : TestBedViewEngine as any as TestBedStatic;
 
 /**
- * Returns a singleton of the applicable `TestBed`.
+ * Возвращает синглтон применимого `TestBed`.
  *
- * It will be either an instance of `TestBedViewEngine` or `TestBedRender3`.
+ * Это будет либо экземпляр `TestBedViewEngine` или `TestBedRender3` TestBedRender3.
  *
  * @publicApi
  */
@@ -656,26 +656,26 @@ function _getTestBedViewEngine(): TestBedViewEngine {
 }
 
 /**
- * Allows injecting dependencies in `beforeEach()` and `it()`.
+ * Позволяетзависимости в `beforeEach()``beforeEach()` и `it()`.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * beforeEach(inject([Dependency, AClass], (dep, object) => {
- *   // some code that uses `dep` and `object`
- *   // ...
- * }));
+ *  ```
+ *  beforeEach(inject([Dependency, AClass], (dep, object) => {
+ *    // some code that uses `dep` and `object`
+ *    // ...
+ *  }));
  *
- * it('...', inject([AClass], (object) => {
- *   object.doSomething();
- *   expect(...);
- * })
- * ```
+ *  it('...', inject([AClass], (object) => {
+ *    object.doSomething();
+ *    expect(...);
+ *  })
+ *  ```
  *
- * Notes:
- * - inject is currently a function because of some Traceur limitation the syntax should
- * eventually
- *   becomes `it('...', @Inject (object: AClass, async: AsyncTestCompleter) => { ... });`
+ * Примечания:.
+ * - Внедрение в настоящее время является функцией из-за некоторых ограничений Traceur синтаксис должен
+ * в конце концов
+ * становится`it('...', @Inject (object: AClass, async: AsyncTestCompleter) => { ... });`
  *
  * @publicApi
  */

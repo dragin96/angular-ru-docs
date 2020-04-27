@@ -1,174 +1,184 @@
-# Component styles
+{@a component-styles}
+# Стили компонентов
 
-Angular applications are styled with standard CSS. That means you can apply
-everything you know about CSS stylesheets, selectors, rules, and media queries
-directly to Angular applications.
+Angular приложения оформлены со стандартным CSS. Это означает, что вы можете подать заявку
+все, что вы знаете о таблицах стилей CSS, селекторах, правилах и медиазапросах
+непосредственно к Angular приложениям.
 
-Additionally, Angular can bundle *component styles*
-with components, enabling a more modular design than regular stylesheets.
+Кроме того, Angular может связывать *стили компонентов*
+с компонентами, обеспечивающими более модульный дизайн, чем обычные таблицы стилей.
 
-This page describes how to load and apply these component styles.
+На этой странице описано, как загрузить и применить эти стили компонентов.
 
-You can run the <live-example></live-example> in Stackblitz and download the code from there.
+Вы можете запустить <live-example></live-example>в Stackblitz и скачать код оттуда.
 
-## Using component styles
+{@a using-component-styles}
+## Использование стилей компонентов
 
-For every Angular component you write, you may define not only an HTML template,
-but also the CSS styles that go with that template,
-specifying any selectors, rules, and media queries that you need.
+Для каждого компонента Angular, который вы пишете, вы можете определить не только HTML-шаблон
+но также стили CSS, которые идут с этим шаблоном
+указав любые селекторы, правила и медиа-запросы, которые вам нужны.
 
-One way to do this is to set the `styles` property in the component metadata.
-The `styles` property takes an array of strings that contain CSS code.
-Usually you give it one string, as in the following example:
+Один из способов сделать это - установить  `styles`  свойство в метаданных компонента.
+ `styles` Свойство принимает массив строк, содержащих код CSS.
+Обычно вы даете ему одну строку, как показано в следующем примере:
 
 <code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts"></code-example>
 
-## Style scope
+{@a style-scope}
+## Стильная сфера
 
 <div class="alert is-critical">
 
-The styles specified in `@Component` metadata _apply only within the template of that component_.
+Стили, указанные в  `@Component`  Метаданные компонента _применить только внутри шаблона этого компонента_.
 
 </div>
 
-They are _not inherited_ by any components nested within the template nor by any content projected into the component.
+Они не наследуются ни компонентами, вложенными в шаблон, ни содержимым, проецируемым в компонент.
 
-In this example, the `h1` style applies only to the `HeroAppComponent`,
-not to the nested `HeroMainComponent` nor to `<h1>` tags anywhere else in the application.
+В этом примере  `h1`  Стиль применяется только к  `HeroAppComponent`,
+не вложенным  `HeroMainComponent`  ни для  `<h1>`  теги в любом другом месте приложения.
 
-This scoping restriction is a ***styling modularity feature***.
+Это ограничение объема является ***модульным элементом стиля***.
 
-* You can use the CSS class names and selectors that make the most sense in the context of each component.
-
-
-* Class names and selectors are local to the component and don't collide with
-  classes and selectors used elsewhere in the application.
+* Вы можете использовать имена классов CSS и селекторы, которые имеют наибольшее значение в контексте каждого компонента.
 
 
-* Changes to styles elsewhere in the application don't affect the component's styles.
+* Имена классов и селекторы являются локальными для компонента и не конфликтуют с
+  классы и селекторы, используемые в других местах приложения.
 
 
-* You can co-locate the CSS code of each component with the TypeScript and HTML code of the component,
-  which leads to a neat and tidy project structure.
+* Изменения стилей в другом месте приложения не влияют на стили компонента.
 
 
-* You can change or remove component CSS code without searching through the
-  whole application to find where else the code is used.
+* Вы можете совместно найти CSS код каждого компонента с машинописи и HTML код компонента
+  что приводит к аккуратной и аккуратной структуре проекта.
+
+
+* Вы можете изменить или удалить компонентный код CSS без поиска через
+  Целое приложение, чтобы найти, где еще используется код.
 
 {@a special-selectors}
 
-## Special selectors
+{@a special-selectors}
+## Специальные селекторы
 
-Component styles have a few special *selectors* from the world of shadow DOM style scoping
-(described in the [CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1) page on the
-[W3C](https://www.w3.org) site).
-The following sections describe these selectors.
+У стилей компонентов есть несколько специальных *селекторов* из мира теневого DOM стиля
+(описано на [CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1)странице на сайте
+[W3C](https://www.w3.org)).
+В следующих разделах описываются эти селекторы.
 
+{@a host}
 ### :host
 
-Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
-targeting elements *inside* the component's template).
+Использовать  `:host`  селектор псевдо-класс для целевых стилей в элементе, что *хосты* компонент (в отличие от
+ориентированных на элементы *внутри* шаблона компонента).
 
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="host" header="src/app/hero-details.component.css"></code-example>
 
-The `:host` selector is the only way to target the host element. You can't reach
-the host element from inside the component with other selectors because it's not part of the
-component's own template. The host element is in a parent component's template.
+ `:host` Селектор является единственным способом нацеливания на элемент хоста. Вы не можете достичь
+Хост-элемент внутри компонента с другими селекторами, потому что он не является частью
+собственный шаблон компонента. Элемент host находится в шаблоне родительского компонента.
 
-Use the *function form* to apply host styles conditionally by
-including another selector inside parentheses after `:host`.
+Используйте *функциональную форму* для условного применения стилей хоста
+в том числе другой селектор в скобках после  `:host`.
 
-The next example targets the host element again, but only when it also has the `active` CSS class.
+Следующий пример снова нацелен на элемент host, но только когда он также имеет  `active`  класс CSS.
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" header="src/app/hero-details.component.css"></code-example>
 
-### :host-context
+{@a host-context}
+### : хост-контекст
 
-Sometimes it's useful to apply styles based on some condition *outside* of a component's view.
-For example, a CSS theme class could be applied to the document `<body>` element, and
-you want to change how your component looks based on that.
+Иногда полезно применять стили, основанные на каком-либо условии, *вне* поля зрения компонента.
+Например, класс CSS-темы может быть применен к документу  `<body>`  элемент, и
+исходя из этого, вы хотите изменить внешний вид вашего компонента.
 
-Use the `:host-context()` pseudo-class selector, which works just like the function
-form of `:host()`. The `:host-context()` selector looks for a CSS class in any ancestor of the component host element,
-up to the document root. The `:host-context()` selector is useful when combined with another selector.
+Использовать  `:host-context()`  селектор псевдокласса, который работает так же, как и функция
+форма  `:host()`  .  `:host-context()` селектор выглядит для класса CSS в любом предке элемента компонента хозяина,
+до корня документа.  `:host-context()` Селектор полезен в сочетании с другим селектором.
 
-The following example applies a `background-color` style to all `<h2>` elements *inside* the component, only
-if some ancestor element has the CSS class `theme-light`.
+В следующем примере применяется  `background-color`  стиль для всех  `<h2>`  Элементы *внутри* компонента, только
+если некоторый элемент-предок имеет класс CSS  `theme-light`.
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" header="src/app/hero-details.component.css"></code-example>
 
-### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
+{@a deprecated-deep--and-ng-deep}
+### (deprecated)  `/deep/`, `>>>`, и  `::ng-deep` 
 
-Component styles normally apply only to the HTML in the component's own template.
+Стили компонентов обычно применяются только к HTML в собственном шаблоне компонента.
 
-Applying the `::ng-deep` pseudo-class to any CSS rule completely disables view-encapsulation for
-that rule. Any style with `::ng-deep` applied becomes a global style. In order to scope the specified style
-to the current component and all its descendants, be sure to include the `:host` selector before
-`::ng-deep`. If the `::ng-deep` combinator is used without the `:host` pseudo-class selector, the style
-can bleed into other components.
+Применяя  `::ng-deep`  Псевдокласс для любого правила CSS полностью отключает инкапсуляцию вида
+это правило. Любой стиль с  `::ng-deep`  применяется становится глобальным стилем. Для того, чтобы охватить указанный стиль
+к текущему компоненту и всем его потомкам, обязательно включите  `:host`  селектор раньше
+ `::ng-deep` . Если  `::ng-deep`  комбинатор используется без  `:host`  селектор псевдокласса, стиль
+может кровоточить в другие компоненты.
 
-The following example targets all `<h3>` elements, from the host element down
-through this component to all of its child elements in the DOM.
+Следующий пример нацелен на все  `<h3>`  элементы, от основного элемента вниз
+через этот компонент для всех его дочерних элементов в DOM.
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="deep" header="src/app/hero-details.component.css"></code-example>
 
-The `/deep/` combinator also has the aliases `>>>`, and `::ng-deep`.
+ `/deep/` комбинатор также имеет псевдонимы  `>>>`, и  `::ng-deep`.
 
 <div class="alert is-important">
 
-Use `/deep/`, `>>>` and `::ng-deep` only with *emulated* view encapsulation.
-Emulated is the default and most commonly used view encapsulation. For more information, see the
-[Controlling view encapsulation](guide/component-styles#view-encapsulation) section.
+использование  `/deep/`, `>>>`   и  `::ng-deep` только с *эмулированной* инкапсуляцией вида.
+Эмуляция является стандартной и наиболее часто используемой инкапсуляцией представления. Для получения дополнительной информации см
+[Контроль инкапсуляции вида](guide/component-styles#view-encapsulation).
 
 </div>
 
 <div class="alert is-important">
 
-The shadow-piercing descendant combinator is deprecated and [support is being removed from major browsers](https://www.chromestatus.com/features/6750456638341120) and tools.
-As such we plan to drop support in Angular (for all 3 of `/deep/`, `>>>` and `::ng-deep`).
-Until then `::ng-deep` should be preferred for a broader compatibility with the tools.
+Пронзающий теневой комбинатор устаревших и [поддержка удаляется из основных браузеров](https://www.chromestatus.com/features/6750456638341120)и инструменты.
+Таким образом, мы планируем отказаться от поддержки в Angular (для всех 3  `/deep/`, `>>>`   и  `::ng-deep`).
+До тех пор  `::ng-deep`  следует предпочитать для более широкой совместимости с инструментами.
 
 </div>
 
 {@a loading-styles}
 
-## Loading component styles
+{@a loading-component-styles}
+## Загрузка стилей компонентов
 
-There are several ways to add styles to a component:
+Есть несколько способов добавления стилей к компоненту:
 
-* By setting `styles` or `styleUrls` metadata.
-* Inline in the template HTML.
-* With CSS imports.
+* Установив  `styles`  или  `styleUrls`  метаданные.
+* Встроенный в шаблон HTML.
+* С CSS-импортом.
 
-The scoping rules outlined earlier apply to each of these loading patterns.
+Изложенные ранее правила определения области действия применяются к каждому из этих шаблонов загрузки.
 
-### Styles in component metadata
+{@a styles-in-component-metadata}
+### Стили в метаданных компонента
 
-You can add a `styles` array property to the `@Component` decorator.
+Вы можете добавить  `styles`  свойство массива для  `@Component`  декоратор.
 
-Each string in the array defines some CSS for this component.
+Каждая строка в массиве определяет некоторый CSS для этого компонента.
 
 <code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts (CSS inline)">
 </code-example>
 
 <div class="alert is-critical">
 
-Reminder: these styles apply _only to this component_.
-They are _not inherited_ by any components nested within the template nor by any content projected into the component.
+Напоминание: эти стили применяются только к этому компоненту.
+Они не наследуются ни компонентами, вложенными в шаблон, ни содержимым, проецируемым в компонент.
 
 </div>
 
-The Angular CLI command [`ng generate component`](cli/generate) defines an empty `styles` array when you create the component with the `--inline-style` flag.
+Команда Angular CLI [ `ng generate component` ](cli/generate)определяет пустой  `styles`  массив при создании компонента с  `--inline-style`.
 
 <code-example language="sh" class="code-shell">
 ng generate component hero-app --inline-style
 </code-example>
 
-### Style files in component metadata
+{@a style-files-in-component-metadata}
+### Файлы стилей в метаданных компонента
 
-You can load styles from external CSS files by adding a `styleUrls` property
-to a component's `@Component` decorator:
+Вы можете загрузить стили из внешних файлов CSS, добавив  `styleUrls`  свойство
+к компоненту  `@Component`  декоратор:
 
 <code-tabs>
   <code-pane header="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
@@ -177,72 +187,77 @@ to a component's `@Component` decorator:
 
 <div class="alert is-critical">
 
-Reminder: the styles in the style file apply _only to this component_.
-They are _not inherited_ by any components nested within the template nor by any content projected into the component.
+Напоминание: стили в файле стиля применяются только к этому компоненту.
+Они не наследуются ни компонентами, вложенными в шаблон, ни содержимым, проецируемым в компонент.
 
 </div>
 
 <div class="alert is-helpful">
 
-  You can specify more than one styles file or even a combination of `styles` and `styleUrls`.
+  Вы можете указать более одного файла стилей или даже комбинацию  `styles`  и  `styleUrls`.
 
 </div>
 
-When you use the Angular CLI command [`ng generate component`](cli/generate) without the `--inline-style` flag, it creates an empty styles file for you and references that file in the component's generated `styleUrls`.
+Когда вы используете команду Angular CLI [ `ng generate component ` ](cli/generate)без ` --inline-style` flag, он создает пустой файл стилей для вас и ссылается на этот файл в сгенерированном компоненте  `styleUrls`.
 
 <code-example language="sh" class="code-shell">
 ng generate component hero-app
 </code-example>
 
-### Template inline styles
+{@a template-inline-styles}
+### Шаблон встроенных стилей
 
-You can embed CSS styles directly into the HTML template by putting them
-inside `<style>` tags.
+Вы можете вставлять стили CSS непосредственно в шаблон HTML, помещая их
+внутри  `<style>`  теги.
 
 <code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" header="src/app/hero-controls.component.ts">
 </code-example>
 
-### Template link tags
+{@a template-link-tags}
+### Теги ссылки на шаблоны
 
-You can also write `<link>` tags into the component's HTML template.
+Вы также можете написать  `<link>`  теги в HTML-шаблон компонента.
 
 <code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" header="src/app/hero-team.component.ts">
 </code-example>
 
 <div class="alert is-critical">
 
-When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
+При сборке с CLI обязательно включите связанный файл стиля среди ресурсов, которые будут скопированы на сервер, как описано в [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
 <!-- 2018-10-16: The link above is still the best source for this information. -->
 
-Once included, the CLI will include the stylesheet, whether the link tag's href URL is relative to the application root or the component file.
+После включения CLI будет включать таблицу стилей, независимо от того, является ли URL-адрес href тега ссылки относительно корня приложения или файла компонента.
 
 </div>
 
+{@a css-@imports}
 ### CSS @imports
 
-You can also import CSS files into the CSS files using the standard CSS `@import` rule.
-For details, see [`@import`](https://developer.mozilla.org/en/docs/Web/CSS/@import)
-on the [MDN](https://developer.mozilla.org) site.
+Вы также можете импортировать файлы CSS в файлы CSS, используя стандартный CSS  `@import`  правило.
+Подробнее см. [ `@ Import` ](https://developer.mozilla.org/en/docs/Web/CSS/@import)
+на сайте [MDN](https://developer.mozilla.org).
 
-In this case, the URL is relative to the CSS file into which you're importing.
+В этом случае URL относится к файлу CSS, в который вы импортируете.
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="import" header="src/app/hero-details.component.css (excerpt)">
 </code-example>
 
-### External and global style files
+{@a external-and-global-style-files}
+### Внешние и глобальные файлы стилей
 
-When building with the CLI, you must configure the `angular.json` to include _all external assets_, including external style files.
+При сборке с CLI необходимо настроить  `angular.json`  для включения всех внешних ресурсов, включая внешние файлы стилей.
 
-Register **global** style files in the `styles` section which, by default, is pre-configured with the global `styles.css` file.
+Зарегистрируйте **глобальные** файлы стилей в  `styles`  раздел который по умолчанию предварительно настроен с глобальным  `styles.css`  файл.
 
-See the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-global-styles) to learn more.
+Смотрите [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-global-styles)чтобы узнать больше.
 <!-- 2018-10-16: The link above is still the best source for this information. -->
 
 
-### Non-CSS style files
+{@a non-css-style-files}
+### Файлы стилей без CSS
 
-If you're building with the CLI,
-you can write style files in [sass](http://sass-lang.com/), [less](http://lesscss.org/), or [stylus](http://stylus-lang.com/) and specify those files in the `@Component.styleUrls` metadata with the appropriate extensions (`.scss`, `.less`, `.styl`) as in the following example:
+Если вы строите с CLI,
+Вы можете написать файлы стилей в [sass](http://sass-lang.com/), [less](http://lesscss.org/)или [stylus](http://stylus-lang.com/)и указать эти файлы в  `@Component.styleUrls`  Метаданные с соответствующими расширениями (`.scss`, `.less`, `.styl`), как показано в следующем примере:
 
 <code-example>
 @Component({
@@ -253,69 +268,71 @@ you can write style files in [sass](http://sass-lang.com/), [less](http://lesscs
 ...
 </code-example>
 
-The CLI build process runs the pertinent CSS preprocessor.
+Процесс сборки CLI запускает соответствующий препроцессор CSS.
 
-When generating a component file with `ng generate component`, the CLI emits an empty CSS styles file (`.css`) by default.
-You can configure the CLI to default to your preferred CSS preprocessor
-as explained in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
+При создании файла компонента с `ng generate component` CLI выдает пустой файл стилей CSS (`.css`) по умолчанию.
+Вы можете настроить CLI по умолчанию для вашего предпочтительного препроцессора CSS
+как объяснено в [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
 "CSS Preprocessor integration").
 <!-- 2018-10-16: The link above is still the best source for this information. -->
 
 
 <div class="alert is-important">
 
-Style strings added to the `@Component.styles` array _must be written in CSS_ because the CLI cannot apply a preprocessor to inline styles.
+Строки стиля добавлены в  `@Component.styles`  Массив _должен быть написан на CSS_, потому что CLI не может применить препроцессор к встроенным стилям.
 
 </div>
 
 {@a view-encapsulation}
 
-## View encapsulation
+{@a view-encapsulation}
+## Посмотреть инкапсуляцию
 
-As discussed earlier, component CSS styles are encapsulated into the component's view and don't
-affect the rest of the application.
+Как обсуждалось ранее, стили CSS компонента инкапсулированы в представление компонента и не делают этого
+влияет на остальную часть приложения.
 
-To control how this encapsulation happens on a *per
-component* basis, you can set the *view encapsulation mode* in the component metadata.
-Choose from the following modes:
+Чтобы контролировать, как эта инкапсуляция происходит на *per
+На компонента * основе вы можете установить*режим инкапсуляции представления * в метаданных компонента.
+Выберите один из следующих режимов:
 
-* `ShadowDom` view encapsulation uses the browser's native shadow DOM implementation (see
+*  `ShadowDom` представления использует собственную реализацию DOM браузера (см
   [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
-  on the [MDN](https://developer.mozilla.org) site)
-  to attach a shadow DOM to the component's host element, and then puts the component
-  view inside that shadow DOM. The component's styles are included within the shadow DOM.
+  На сайте [MDN](https://developer.mozilla.org))
+  присоединить теневой DOM к элементу хоста компонента, а затем поместить компонент
+  посмотреть в этой тени DOM. Стили компонента включены в теневой DOM.
 
-* `Native` view encapsulation uses a now deprecated version of the browser's native shadow DOM implementation - [learn about the changes](https://hayato.io/2016/shadowdomv1/).
+*  `Native` вид инкапсуляция используется в настоящее время устаревшего версии собственной реализации теневой DOM браузера - [узнать об изменениях](https://hayato.io/2016/shadowdomv1/).
 
-* `Emulated` view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing
-  (and renaming) the CSS code to effectively scope the CSS to the component's view.
-  For details, see [Inspecting generated CSS](guide/component-styles#inspect-generated-css) below.
+*  `Emulated` инкапсуляция представлений (по умолчанию) эмулирует поведение теневого DOM путем предварительной обработки
+  (и переименование) кода CSS для эффективного размещения CSS в представлении компонента.
+  Подробнее см. [Проверка сгенерированного CSS](guide/component-styles#inspect-generated-css)ниже.
 
-* `None` means that Angular does no view encapsulation.
-  Angular adds the CSS to the global styles.
-  The scoping rules, isolations, and protections discussed earlier don't apply.
-  This is essentially the same as pasting the component's styles into the HTML.
+*  `None` означает, что Angular не просматривает инкапсуляцию.
+  Angular добавляет CSS к глобальным стилям.
+  Обсуждаемые ранее правила определения границ, изоляции и защиты не применяются.
+  По сути, это то же самое, что и вставка стилей компонента в HTML.
 
-To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
+Чтобы установить режим инкапсуляции компонентов, используйте  `encapsulation`  свойство в компоненте метаданных:
 
 <code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" header="src/app/quest-summary.component.ts"></code-example>
 
-`ShadowDom` view encapsulation only works on browsers that have native support
-for shadow DOM (see [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1) on the
-[Can I use](http://caniuse.com) site). The support is still limited,
-which is why `Emulated` view encapsulation is the default mode and recommended
-in most cases.
+ `ShadowDom` вида работает только в браузерах, которые имеют встроенную поддержку
+для теневой DOM (см [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1)на
+[использование Can I](http://caniuse.com)сайт). Поддержка все еще ограничена
+вот почему  `Emulated`  инкапсуляция представления является режимом по умолчанию и рекомендуется
+в большинстве случаев.
 
 {@a inspect-generated-css}
 
-## Inspecting generated CSS
+{@a inspecting-generated-css}
+## Проверка сгенерированного CSS
 
-When using emulated view encapsulation, Angular preprocesses
-all component styles so that they approximate the standard shadow CSS scoping rules.
+При использовании эмуляции представления эмуляции, Angular препроцессирует
+все стили компонентов, чтобы они приближались к стандартным теневым правилам CSS.
 
-In the DOM of a running Angular application with emulated view
-encapsulation enabled, each DOM element has some extra attributes
-attached to it:
+В DOM запущенного приложения Angular с эмулированным представлением
+Инкапсуляция включена, каждый элемент DOM имеет некоторые дополнительные атрибуты
+прилагается к нему:
 
 <code-example format="">
   &lt;hero-details _nghost-pmm-5>
@@ -327,16 +344,16 @@ attached to it:
 
 </code-example>
 
-There are two kinds of generated attributes:
+Есть два вида генерируемых атрибутов:
 
-* An element that would be a shadow DOM host in native encapsulation has a
-  generated `_nghost` attribute. This is typically the case for component host elements.
-* An element within a component's view has a `_ngcontent` attribute
-that identifies to which host's emulated shadow DOM this element belongs.
+* Элемент, который будет теневым DOM-хостом в собственной инкапсуляции, имеет
+  генерироваться  `_nghost`  . Обычно это относится к элементам хоста компонента.
+* Элемент в представлении компонента имеет  `_ngcontent`  атрибут
+который идентифицирует эмулируемому теневому DOM хоста, к которому принадлежит этот элемент.
 
-The exact values of these attributes aren't important. They are automatically
-generated and you never refer to them in application code. But they are targeted
-by the generated component styles, which are in the `<head>` section of the DOM:
+Точные значения этих атрибутов не важны. Они автоматически
+генерируется и вы никогда не ссылаетесь на них в коде приложения. Но они нацелены
+сгенерированными стилями компонентов, которые находятся в  `<head>`  часть DOM:
 
 <code-example format="">
   [_nghost-pmm-5] {
@@ -350,6 +367,6 @@ by the generated component styles, which are in the `<head>` section of the DOM:
   }
 </code-example>
 
-These styles are post-processed so that each selector is augmented
-with `_nghost` or `_ngcontent` attribute selectors.
-These extra selectors enable the scoping rules described in this page.
+Эти стили постобработаны, так что каждый селектор дополнен
+с  `_nghost`  или  `_ngcontent`  атрибут селекторов.
+Эти дополнительные селекторы включают правила определения объема, описанные на этой странице.

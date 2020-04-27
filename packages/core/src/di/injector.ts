@@ -32,26 +32,26 @@ export function INJECTOR_IMPL__POST_R3__(
 export const INJECTOR_IMPL = INJECTOR_IMPL__PRE_R3__;
 
 /**
- * Concrete injectors implement this interface. Injectors are configured
- * with [providers](guide/glossary#provider) that associate
- * dependencies of various types with [injection tokens](guide/glossary#di-token).
+ * Конкретные инжекторы реализуют этот интерфейс. Форсунки настроены
+ * с[провайдерами](guide/glossary#provider)которые ассоциируются
+ * зависимости разных типов с[токены инъекции](guide/glossary#di-token).
  *
- * @see ["DI Providers"](guide/dependency-injection-providers).
- * @see `StaticProvider`
+ *  @see [«Провайдеры DI»](guide/dependency-injection-providers).
+ *  @see `StaticProvider`
  *
- * @usageNotes
+ *  @usageNotes
  *
- *  The following example creates a service injector instance.
+ * В следующем примере создается экземпляр инжектора службы.
  *
- * {@example core/di/ts/provider_spec.ts region='ConstructorProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='ConstructorProvider'}
  *
- * ### Usage example
+ *  ### Пример использования
  *
- * {@example core/di/ts/injector_spec.ts region='Injector'}
+ *  {@example core/di/ts/injector_spec.ts region='Injector'}
  *
- * `Injector` returns itself when given `Injector` as a token:
+ *  `Injector`возвращает себякогда дается `Injector` взнак:.
  *
- * {@example core/di/ts/injector_spec.ts region='injectInjector'}
+ *  {@example core/di/ts/injector_spec.ts region='injectInjector'}
  *
  * @publicApi
  */

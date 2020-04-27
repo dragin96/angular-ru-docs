@@ -16,28 +16,27 @@ import {URLSearchParams} from './url_search_params';
 
 
 /**
- * Creates a request options object to be optionally provided when instantiating a
- * {@link Request}.
+ * Создает объект параметров запроса, который может быть предоставлен при создании экземпляра
+ *  {@link Request},
  *
- * This class is based on the `RequestInit` description in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#requestinit).
+ * Этот класс основан на `RequestInit` описаниив[Fetch.Спец](https://fetch.spec.whatwg.org/#requestinit).
  *
- * All values are null by default. Typical defaults can be found in the {@link BaseRequestOptions}
- * class, which sub-classes `RequestOptions`.
+ * Все значения по умолчанию являются нулевыми. Типичные значения по умолчанию можно найти в{@link BaseRequestOptions}
+ * класс, который подклассов `RequestOptions`.
  *
- * ```typescript
- * import {RequestOptions, Request, RequestMethod} from '@angular/http';
+ *  ```typescript
+ *  import {RequestOptions, Request, RequestMethod} from '@angular/http';
  *
- * const options = new RequestOptions({
- *   method: RequestMethod.Post,
- *   url: 'https://google.com'
- * });
- * const req = new Request(options);
- * console.log('req.method:', RequestMethod[req.method]); // Post
- * console.log('options.url:', options.url); // https://google.com
- * ```
+ *  const options = new RequestOptions({
+ *    method: RequestMethod.Post,
+ *    url: 'https://google.com'
+ *  });
+ *  const req = new Request(options);
+ *  console.log('req.method:', RequestMethod[req.method]); // Post
+ *  console.log('options.url:', options.url); // https://google.com
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class RequestOptions {
@@ -169,43 +168,43 @@ export class RequestOptions {
 }
 
 /**
- * Subclass of {@link RequestOptions}, with default values.
+ * Подкласс{@link RequestOptions}со значениями по умолчанию.
  *
- * Default values:
- *  * method: {@link RequestMethod RequestMethod.Get}
- *  * headers: empty {@link Headers} object
+ * умолчаниюзначения:.
+ * метод:{@link RequestMethod RequestMethod.Get}
+ * заголовки: пусто{@link Headers}объект
  *
- * This class could be extended and bound to the {@link RequestOptions} class
- * when configuring an {@link Injector}, in order to override the default options
- * used by {@link Http} to create and send {@link Request Requests}.
+ * Этот класс может быть расширен и привязан к{@link RequestOptions}класс.
+ * при настройке{@link Injector}, чтобы переопределить параметры по умолчанию
+ * использован{@link Http}создать и отправить{@link Request Requests},
  *
- * ```typescript
- * import {BaseRequestOptions, RequestOptions} from '@angular/http';
+ *  ```typescript
+ *  import {BaseRequestOptions, RequestOptions} from '@angular/http';
  *
- * class MyOptions extends BaseRequestOptions {
- *   search: string = 'coreTeam=true';
- * }
+ *  class MyOptions extends BaseRequestOptions {
+ *    search: string = 'coreTeam=true';
+ *  }
  *
- * {provide: RequestOptions, useClass: MyOptions};
- * ```
+ *  {provide: RequestOptions, useClass: MyOptions};
+ *  ```
  *
- * The options could also be extended when manually creating a {@link Request}
- * object.
+ * Параметры также могут быть расширены при создании вручную{@link Request}
+ * объект.
  *
- * ```
- * import {BaseRequestOptions, Request, RequestMethod} from '@angular/http';
+ *  ```
+ *  import {BaseRequestOptions, Request, RequestMethod} from '@angular/http';
  *
- * const options = new BaseRequestOptions();
- * const req = new Request(options.merge({
- *   method: RequestMethod.Post,
- *   url: 'https://google.com'
- * }));
- * console.log('req.method:', RequestMethod[req.method]); // Post
- * console.log('options.url:', options.url); // null
- * console.log('req.url:', req.url); // https://google.com
- * ```
+ *  const options = new BaseRequestOptions();
+ *  const req = new Request(options.merge({
+ *    method: RequestMethod.Post,
+ *    url: 'https://google.com'
+ *  }));
+ *  console.log('req.method:', RequestMethod[req.method]); // Post
+ *  console.log('options.url:', options.url); // null
+ *  console.log('req.url:', req.url); // https://google.com
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

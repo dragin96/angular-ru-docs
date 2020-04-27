@@ -1,17 +1,19 @@
-# Missing `@Directive()`/`@Component()` decorator migration
+{@a missing-directive-component-decorator-migration}
+# Отсутствует `@Directive()` / `@Component()` миграция декоратора
 
-## What does this migration do?
+{@a what-does-this-migration-do}
+## Что делает эта миграция?
 
-This migration adds an empty `@Directive()` decorator to undecorated
-base classes that:
+Эта миграция добавляет пустой `@Directive()` декоратора, чтобы без отделки
+базовые классы:
 
-- use Angular features
-- are extended by directives or components
+- использовать Angular функции
+- расширены директивами или компонентами
 
-For example, in the diff below, a `@Directive()` decorator is added to `BaseMenu` because `BaseMenu` uses dependency injection.
+Например, в diff ниже, `@Directive()` декоратор `BaseMenu` потому что `BaseMenu` использует внедрение зависимостей.
 
 
-  **Before:**
+  **Перед тем как:**
   ```ts
   export class BaseMenu {
     constructor(private vcr: ViewContainerRef) {}
@@ -21,7 +23,7 @@ For example, in the diff below, a `@Directive()` decorator is added to `BaseMenu
   export class SettingsMenu extends BaseMenu {}
   ```
 
-  **After:**
+  **После того, как:**
   ```ts
   @Directive()
   export class BaseMenu {
@@ -32,9 +34,9 @@ For example, in the diff below, a `@Directive()` decorator is added to `BaseMenu
   export class SettingsMenu extends BaseMenu {}
   ```
 
-In the event that a directive or component is extended by a class without a decorator, the schematic copies any inherited directive or component metadata to the derived class.
+Если директива или компонент расширяется классом без декоратора, схема копирует любые унаследованные директивы или метаданные компонента в производный класс.
 
-**Before:**
+**Перед тем как:**
 ```ts
 @Component({
   selector: 'base-menu',
@@ -45,7 +47,7 @@ class BaseMenu {}
 export class SettingsMenu extends BaseMenu {}
 ```
 
-**After:**
+**После того, как:**
 ```ts
 @Component({
   selector: 'base-menu',
@@ -60,16 +62,16 @@ class BaseMenu {}
 export class SettingsMenu extends BaseMenu {}
 ```
 
-This schematic also decorates classes that use Angular field decorators, including:
-- `@Input()`
-- `@Output()`
-- `@HostBinding()`
-- `@HostListener()`
-- `@ViewChild()` / `@ViewChildren()`
-- `@ContentChild()` / `@ContentChildren()`
+Эта схема также украсит классы, которые используют угловое поле декоратор, в том числе:
+- `@Input()` 
+- `@Output()` 
+- `@HostBinding()` 
+- `@HostListener()` 
+- `@ViewChild()` / `@ViewChildren()` 
+- `@ContentChild()` / `@ContentChildren()` 
 
 
-**Before:**
+**Перед тем как:**
 ```ts
 class Base {
   @Output()
@@ -83,7 +85,7 @@ class Dir extends Base {
 }
 ```
 
-**After:**
+**После того, как :**
 ```ts
 @Directive() // schematic adds @Directive()
 class Base {
@@ -99,40 +101,45 @@ class Dir extends Base {
 ```
 
 
-## Why is this migration necessary?
+{@a why-is-this-migration-necessary}
+## Почему эта миграция необходима?
 
-### Migrating classes that use DI
+{@a migrating-classes-that-use-di}
+### Миграция классов, которые используют DI
 
-When a class has a `@Directive()` or `@Component()` decorator, the Angular compiler generates extra code to inject dependencies into the constructor.
-When using inheritance, Ivy needs both the parent class and the child class to apply a decorator to generate the correct code.
+Когда у класса есть `@Directive()` или `@Component()` декоратор, Angular компилятор генерирует дополнительный код для вставки зависимостей в конструктор.
+При использовании наследования Ivy нужен родительский класс и дочерний класс, чтобы применить декоратор для генерации правильного кода.
 
-You can think of this change as two cases: a parent class is missing a
-decorator or a child class is missing a decorator.
-In both scenarios, Angular's runtime needs additional information from the compiler.
-This additional information comes from adding decorators.
+Вы можете думать об этом изменении как о двух случаях: родительский класс отсутствует
+декоратор или дочерний класс отсутствует декоратор.
+В обоих сценариях среда выполнения Angular требует дополнительной информации от компилятора.
+Эта дополнительная информация поступает от добавления декораторов.
 
 
-#### Decorator missing from parent class
+{@a decorator-missing-from-parent-class}
+#### Декоратор отсутствует в родительском классе
 
-When the decorator is missing from the parent class, the subclass will inherit a constructor from a class for which the compiler did not generate special constructor info (because it was not decorated as a directive).
-When Angular then tries to create the subclass, it doesn't have the correct info to create it.
+Когда декоратор отсутствует в родительском классе, подкласс унаследует конструктор от класса, для которого компилятор не генерировал специальную информацию конструктора (поскольку он не был оформлен как директива).
+Когда Angular пытается создать подкласс, у него нет правильной информации для его создания.
 
-In View Engine, the compiler has global knowledge, so it can look up the missing data.
-However, the Ivy compiler only processes each directive in isolation.
-This means that compilation can be faster, but the compiler can't automatically infer the same information as before.
-Adding the `@Directive()` explicitly provides this information.
+В View Engine компилятор обладает глобальными знаниями, поэтому он может искать недостающие данные.
+Однако компилятор Ivy обрабатывает каждую директиву изолированно.
+Это означает, что компиляция может быть быстрее, но компилятор не может автоматически выводить ту же информацию, что и раньше.
+Добавление `@Directive()` явно предоставляет эту информацию.
 
-In the future, add `@Directive()` to base classes that do not already have decorators and are extended by directives.
+В будущем добавлю `@Directive()` для базовых классов, которые еще не имеют декораторов и расширены директивами.
 
-#### Decorator missing from child class
+{@a decorator-missing-from-child-class}
+#### Декоратор отсутствует в дочернем классе
 
-When the child class is missing the decorator, the child class inherits from the parent class yet has no decorators of its own.
-Without a decorator, the compiler has no way of knowing that the class is a `@Directive` or `@Component`, so it doesn't generate the proper instructions for the directive.
+Когда в дочернем классе отсутствует декоратор, дочерний класс наследует от родительского класса, но не имеет собственных декораторов.
+Без декоратора компилятор не может знать, что класс является `@Directive` или `@Component`, поэтому он не генерирует надлежащие инструкции для директивы.
 
-### Migrating classes that use field decorators
+{@a migrating-classes-that-use-field-decorators}
+### Перенос классов, которые используют декораторы полей
 
-In ViewEngine, base classes with field decorators like `@Input()` worked even when the class did not have a `@Directive()` or `@Component()` decorator.
-For example:
+В ViewEngine базовые классы с полевыми декораторами, такими как `@Input()` работал, даже когда у класса не было `@Directive()` или `@Component()` декоратор.
+Например:
 
 ```ts
 class Base {
@@ -148,41 +155,45 @@ class Dir extends Base {
 }
 ```
 
-However, this example won't compile with Ivy because the `Base` class _requires_ either a `@Directive()` or `@Component()` decorator to generate code for inputs, outputs, queries, and host bindings.
+Однако этот пример не будет компилироваться с Ivy, потому что `Base` класс _requires_ либо `@Directive()` или `@Component()` для генерации кода для входов, выходов, запросов и привязок хоста.
 
-Always requiring a class decorator leads to two main benefits for Angular:
+Всегда, требующие класс декоратор приводит к двум основнымам преимущества для Angular:
 
-1. The previous behavior was inconsistent.
-   Some Angular features required a decorator (dependency injection), but others did not.
-   Now, all Angular features consistently require a class decorator.
+1. Предыдущее поведение было противоречивым.
+   Некоторые функции Angular требуют декоратора (внедрение зависимости), а другие - нет.
+   Теперь все функции Angular постоянно требуют декоратор класса.
 
-1. Supporting undecorated classes increases the code size and complexity of Angular.
-   Always requiring class decorators allows the framework to become smaller and simpler for all users.
+1. Поддержка неокрашенных классов увеличивает размер кода и сложность Angular.
+   Всегда требующий декораторов классов позволяет каркасу становиться меньше и проще для всех пользователей.
 
 
-## What does it mean to have a `@Directive()` decorator with no metadata inside of it?
+{@a what-does-it-mean-to-have-a-directive-decorator-with-no-metadata-inside-of-it}
+## Что значит иметь `@Directive()` декоратор без метаданных внутри?
 
-The presence of the `@Directive` decorator causes Angular to generate extra code for the affected class.
-If that decorator includes no properties (metadata), the directive won't be matched to elements or instantiated directly, but other classes that _extend_ the directive class will inherit this generated code.
-You can think of this as an "abstract" directive.
+Наличие `@Directive` decorator заставляет Angular генерировать дополнительный код для затронутого класса.
+Если этот декоратор не содержит свойств (метаданных), директива не будет сопоставляться с элементами или создаваться непосредственно, но другие классы, которые _extend_ класс директивы будут наследовать этот сгенерированный код.
+Вы можете думать об этом как об «абстрактной» директиве.
 
-Adding an abstract directive to an `NgModule` will cause an error.
-A directive must have a `selector` property defined in order to match some element in a template.
+Добавление абстрактной директивы к `NgModule` вызовет ошибку.
+Директива должна иметь `selector` свойство определенное для соответствия некоторому элементу в шаблоне.
 
-## When do I need a `@Directive()` decorator without a selector?
+{@a when-do-i-need-a-directive-decorator-without-a-selector}
+## Когда мне нужно `@Directive()` декоратор без селектора?
 
-If you're using dependency injection, or any Angular-specific feature, such as `@HostBinding()`, `@ViewChild()`, or `@Input()`, you need a `@Directive()` or `@Component()` decorator.
-The decorator lets the compiler know to generate the correct instructions to create that class and any classes that extend it.
-If you don't want to use that base class as a directive directly, leave the selector blank.
-If you do want it to be usable independently, fill in the metadata as usual.
+Если вы используете внедрение зависимостей или любую специфическую для Angular функцию, такую ​​как `@HostBinding()`, `@ViewChild()` или `@Input()`, вам нужен `@Directive()` или `@Component()` декоратор.
+Декоратор сообщает компилятору, чтобы он генерировал правильные инструкции для создания этого класса и любых классов, которые его расширяют.
+Если вы не хотите использовать этот базовый класс в качестве директивы напрямую, оставьте селектор пустым.
+Если вы хотите, чтобы он мог использоваться независимо, заполните метаданные как обычно.
 
-Classes that don't use Angular features don't need an Angular decorator.
+Классы, которые не используют Angular объекты, не нуждаются в угловом декораторе.
 
-## I'm a library author. Should I add the `@Directive()` decorator to base classes?
+{@a im-a-library-author-should-i-add-the-directive-decorator-to-base-classes}
+## Я автор библиотеки. Должен ли я добавить `@Directive()` декоратор для базовых классов?
 
-As support for selectorless decorators is introduced in Angular version 9, if you want to support Angular version 8 and earlier, you shouldn't add a selectorless `@Directive()` decorator.
-You can either add `@Directive()` with a selector or move the Angular-specific features to affected subclasses.
+Поскольку в Angular версии 9 введена поддержка декораторов без селектора, если вы хотите поддерживать версию Angular 8 и более ранние, не следует добавлять селектор без выбора. `@Directive()` декоратор.
+Вы можете добавить `@Directive()` с селектором или переместите специфичные для Angular функции к затронутым подклассам.
 
-## What about applications using non-migrated libraries?
+{@a what-about-applications-using-non-migrated-libraries}
+## А как насчет приложений, использующих немигрированные библиотеки?
 
-The [Angular compatibility compiler](guide/glossary#ngcc) (`ngcc`) should automatically transform any non-migrated libraries to generate the proper code.
+[Угловое компилятор совместимости](guide/glossary#ngcc)(`ngcc`) должен автоматически преобразовывать любые библиотеки для генерации правильного кода.

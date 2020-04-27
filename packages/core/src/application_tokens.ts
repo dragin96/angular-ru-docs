@@ -11,13 +11,13 @@ import {ComponentRef} from './linker/component_factory';
 
 
 /**
- * A DI Token representing a unique string id assigned to the application by Angular and used
- * primarily for prefixing application attributes and CSS styles when
- * {@link ViewEncapsulation#Emulated ViewEncapsulation.Emulated} is being used.
+ * Токен DI, представляющий уникальный строковый идентификатор, назначенный приложению Angular и использованный
+ * прежде всего для префикса атрибутов приложения и стилей CSS, когда
+ *  {@link ViewEncapsulation#Emulated ViewEncapsulation.Emulated}используется.
  *
- * If you need to avoid randomly generated value to be used as an application id, you can provide
- * a custom value via a DI provider <!-- TODO: provider --> configuring the root {@link Injector}
- * using this token.
+ * Если вам необходимо избежать использования случайно сгенерированного значения в качестве идентификатора приложения, вы можете указать его
+ * пользовательское значение через провайдера DI<!-- TODO: provider -->настройка рута{@link Injector}
+ * используя этот токен.
  * @publicApi
  */
 export const APP_ID = new InjectionToken<string>('AppId');
@@ -27,7 +27,7 @@ export function _appIdRandomProviderFactory() {
 }
 
 /**
- * Providers that will generate a random APP_ID_TOKEN.
+ * Поставщики, которые будут генерировать случайные APP_ID_TOKEN.
  * @publicApi
  */
 export const APP_ID_RANDOM_PROVIDER = {
@@ -41,22 +41,22 @@ function _randomChar(): string {
 }
 
 /**
- * A function that will be executed when a platform is initialized.
+ * Функция, которая будет выполняться при инициализации платформы.
  * @publicApi
  */
 export const PLATFORM_INITIALIZER = new InjectionToken<Array<() => void>>('Platform Initializer');
 
 /**
- * A token that indicates an opaque platform id.
+ * Токен, который указывает на непрозрачный идентификатор платформы.
  * @publicApi
  */
 export const PLATFORM_ID = new InjectionToken<Object>('Platform ID');
 
 /**
- * All callbacks provided via this token will be called for every component that is bootstrapped.
- * Signature of the callback:
+ * Все обратные вызовы, предоставляемые через этот токен, будут вызываться для каждого загружаемого компонента.
+ * Подпись обратноговызова:.
  *
- * `(componentRef: ComponentRef) => void`.
+ *  `(componentRef: ComponentRef) => void`.
  *
  * @publicApi
  */
@@ -64,7 +64,7 @@ export const APP_BOOTSTRAP_LISTENER =
     new InjectionToken<Array<(compRef: ComponentRef<any>) => void>>('appBootstrapListener');
 
 /**
- * A token which indicates the root directory of the application
+ * Токен, указывающий корневой каталог приложения
  * @publicApi
  */
 export const PACKAGE_ROOT_URL = new InjectionToken<string>('Application Packages Root URL');

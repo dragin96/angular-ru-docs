@@ -10,10 +10,10 @@ import {detectChanges, markDirty} from '../instructions/all';
 import {getRootComponents} from './discovery_utils';
 
 /**
- * Marks a component for check (in case of OnPush components) and synchronously
- * performs change detection on the application this component belongs to.
+ * Отмечает компонент для проверки (в случае компонентов OnPush) и синхронно
+ * выполняет обнаружение изменений в приложении, к которому принадлежит этот компонент.
  *
- * @param component Component to {@link ChangeDetectorRef#markForCheck mark for check}.
+ *  @param Компонент Компонент для{@link ChangeDetectorRef#markForCheck mark for check},
  *
  * @publicApi
  * @globalApi ng

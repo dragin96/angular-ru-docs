@@ -20,8 +20,8 @@ const FACTORY_CLASS_SUFFIX = 'NgFactory';
 declare var System: any;
 
 /**
- * Configuration for SystemJsNgModuleLoader.
- * token.
+ * Конфигурация для SystemJsNgModuleLoader.
+ * маркер.
  *
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated, and `SystemJsNgModuleLoaderConfig`
@@ -47,7 +47,7 @@ const DEFAULT_CONFIG: SystemJsNgModuleLoaderConfig = {
 };
 
 /**
- * NgModuleFactoryLoader that uses SystemJS to load NgModuleFactory
+ * NgModuleFactoryLoader, который использует SystemJS для загрузки NgModuleFactory
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated, and `SystemJsNgModuleLoader` is
  * part of its implementation. See `LoadChildren` for more details.

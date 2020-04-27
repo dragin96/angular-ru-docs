@@ -20,111 +20,111 @@ import {NgAdapterInjector} from './util';
 let moduleUid = 0;
 
 /**
- * @description
+ *  @description
  *
- * A helper function for creating an AngularJS module that can bootstrap an Angular module
- * "on-demand" (possibly lazily) when a {@link downgradeComponent downgraded component} needs to be
- * instantiated.
+ * Вспомогательная функция для создания модуля AngularJS, который может загружать модуль Angular
+ * «по требованию» (возможно, лениво), когда{@link downgradeComponent downgraded component}должен быть
+ * инстанцирован.
  *
- * *Part of the [upgrade/static](api?query=upgrade/static) library for hybrid upgrade apps that
- * support AOT compilation.*
+ * Часть[обновление / статическая](api?query=upgrade/static)библиотека для гибридных приложений обновления
+ * поддержка компиляции AOT.
  *
- * It allows loading/bootstrapping the Angular part of a hybrid application lazily and not having to
- * pay the cost up-front. For example, you can have an AngularJS application that uses Angular for
- * specific routes and only instantiate the Angular modules if/when the user visits one of these
- * routes.
+ * Это позволяет загружать / загружать Angular часть гибридного приложения лениво и без необходимости
+ * оплатить стоимость авансом. Например, у вас может быть приложение AngularJS, которое использует Angular для
+ * конкретные маршруты и создавать экземпляры модулей Angular только если / когда пользователь посещает один из них
+ * маршруты.
  *
- * The Angular module will be bootstrapped once (when requested for the first time) and the same
- * reference will be used from that point onwards.
+ * Модуль Angular будет загружен один раз (при первом запросе) и тот же
+ * ссылка будет использоваться с этого момента.
  *
- * `downgradeModule()` requires either an `NgModuleFactory` or a function:
- * - `NgModuleFactory`: If you pass an `NgModuleFactory`, it will be used to instantiate a module
- *   using `platformBrowser`'s {@link PlatformRef#bootstrapModuleFactory bootstrapModuleFactory()}.
- * - `Function`: If you pass a function, it is expected to return a promise resolving to an
- *   `NgModuleRef`. The function is called with an array of extra {@link StaticProvider Providers}
- *   that are expected to be available from the returned `NgModuleRef`'s `Injector`.
+ *  `downgradeModule()`требует или `NgModuleFactory` илифункцию:.
+ * - `NgModuleFactory` : если вы передадите` `NgModuleFactory` , он будет использован для создания экземпляра модуля
+ * используя `platformBrowser` 's{@link PlatformRef#bootstrapModuleFactory bootstrapModuleFactory()},
+ * - `Function` : если вы передадите функцию, она должна вернуть обещание, разрешенное в
+ *    `NgModuleRef`. Функция вызывается с массивом дополнительных{@link StaticProvider Providers}
+ * которыекак ожидается, будут доступны с возвращаемым `NgModuleRef` NgModuleRef«s `Injector` Injector.
  *
- * `downgradeModule()` returns the name of the created AngularJS wrapper module. You can use it to
- * declare a dependency in your main AngularJS module.
+ *  `downgradeModule()`возвращает имя созданного модуля оболочки AngularJS. Вы можете использовать его для
+ * объявите зависимость в вашем основном модуле AngularJS.
  *
- * {@example upgrade/static/ts/lite/module.ts region="basic-how-to"}
+ *  {@example upgrade/static/ts/lite/module.ts region="basic-how-to"}
  *
- * For more details on how to use `downgradeModule()` see
- * [Upgrading for Performance](guide/upgrade-performance).
+ * Для получения более подробной информации о том, как использовать `downgradeModule()` смотрите
+ *  [Обновление для производительности](guide/upgrade-performance).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * Apart from `UpgradeModule`, you can use the rest of the `upgrade/static` helpers as usual to
- * build a hybrid application. Note that the Angular pieces (e.g. downgraded services) will not be
- * available until the downgraded module has been bootstrapped, i.e. by instantiating a downgraded
- * component.
+ * Помимо `UpgradeModule` , вы можете использовать остальных `upgrade/static``upgrade/static` как обычно
+ * создать гибридное приложение. Обратите внимание, что Angular части (например, пониженные услуги) не будут
+ * доступно до тех пор, пока пониженный модуль не будет загружен, то есть путем создания экземпляра пониженного уровня
+ * составная часть.
  *
- * <div class="alert is-important">
+ *  <div class="alert is-important">
  *
- *   You cannot use `downgradeModule()` and `UpgradeModule` in the same hybrid application.<br />
- *   Use one or the other.
+ * Вы не можете использовать `downgradeModule()` и `UpgradeModule` в одном и том же гибридном приложении.<br />
+ * Используйте один или другой.
  *
- * </div>
+ *  </div>
  *
- * ### Differences with `UpgradeModule`
+ *  ### Отличия от `UpgradeModule`
  *
- * Besides their different API, there are two important internal differences between
- * `downgradeModule()` and `UpgradeModule` that affect the behavior of hybrid applications:
+ * Помимо их различного API, между ними есть два важных внутренних различия
+ *  `downgradeModule() `и` UpgradeModule`которые влияют на поведение гибридныхприложений:.
  *
- * 1. Unlike `UpgradeModule`, `downgradeModule()` does not bootstrap the main AngularJS module
- *    inside the {@link NgZone Angular zone}.
- * 2. Unlike `UpgradeModule`, `downgradeModule()` does not automatically run a
- *    [$digest()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) when changes are
- *    detected in the Angular part of the application.
+ *  1. В отличие от `UpgradeModule` , `downgradeModule()` не загружает основной модуль AngularJS
+ * внутри{@link NgZone Angular zone},
+ * 2. В отличие от `UpgradeModule` , `downgradeModule()` не запускается автоматически
+ *     [$ digest ()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest)когда изменения есть
+ * обнаружен в Angular части приложения.
  *
- * What this means is that applications using `UpgradeModule` will run change detection more
- * frequently in order to ensure that both frameworks are properly notified about possible changes.
- * This will inevitably result in more change detection runs than necessary.
+ * Это означает, что приложения, использующие `UpgradeModule` будут больше запускать обнаружение изменений
+ * часто, чтобы гарантировать, что обе структуры должным образом уведомлены о возможных изменениях.
+ * Это неизбежно приведет к большему количеству прогонов обнаружения изменений, чем необходимо.
  *
- * `downgradeModule()`, on the other side, does not try to tie the two change detection systems as
- * tightly, restricting the explicit change detection runs only to cases where it knows it is
- * necessary (e.g. when the inputs of a downgraded component change). This improves performance,
- * especially in change-detection-heavy applications, but leaves it up to the developer to manually
- * notify each framework as needed.
+ *  `downgradeModule()`, с другой стороны, не пытается связать две системы обнаружения изменений как
+ * строгое ограничение явного обнаружения изменений выполняется только в тех случаях, когда оно знает, что это так
+ * необходимо (например, когда изменяются входные данные компонента пониженной версии). Это улучшает производительность
+ * особенно в приложениях с интенсивным обнаружением изменений, но оставляет их на усмотрение разработчика вручную
+ * уведомить каждую структуру по мере необходимости.
  *
- * For a more detailed discussion of the differences and their implications, see
- * [Upgrading for Performance](guide/upgrade-performance).
+ * Для более подробного обсуждения различий и их последствий см
+ *  [Обновление для производительности](guide/upgrade-performance).
  *
- * <div class="alert is-helpful">
+ *  <div class="alert is-helpful">
  *
- *   You can manually trigger a change detection run in AngularJS using
- *   [scope.$apply(...)](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply) or
- *   [$rootScope.$digest()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest).
+ * Вы можете вручную запустить прогон обнаружения изменений в AngularJS, используя
+ *    [scope. $ apply (...)](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply)или
+ *    [$ rootScope. $ digest ()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest).
  *
- *   You can manually trigger a change detection run in Angular using {@link NgZone#run
- *   ngZone.run(...)}.
+ * Вы можете вручную запустить прогон обнаружения изменений в Angular, используя{@link NgZone#run
+ *    ngZone.run(...)},
  *
- * </div>
+ *  </div>
  *
- * ### Downgrading multiple modules
+ *  ### Понижение нескольких модулей
  *
- * It is possible to downgrade multiple modules and include them in an AngularJS application. In
- * that case, each downgraded module will be bootstrapped when an associated downgraded component or
- * injectable needs to be instantiated.
+ * Можно понизить версию нескольких модулей и включить их в приложение AngularJS. Дюйм
+ * В этом случае каждый пониженный модуль будет загружен при ассоциированном пониженном компоненте или
+ * инъекционный должен быть создан.
  *
- * Things to keep in mind, when downgrading multiple modules:
+ * Что нужно иметь в виду, когда понижая несколькомодулей:.
  *
- * - Each downgraded component/injectable needs to be explicitly associated with a downgraded
- *   module. See `downgradeComponent()` and `downgradeInjectable()` for more details.
+ * - Каждый ухудшенный компонент / инъецируемый должен быть явно связан с пониженным
+ * модуль. Смотрите `downgradeComponent()` и `downgradeInjectable()` для более подробной информации.
  *
- * - If you want some injectables to be shared among all downgraded modules, you can provide them as
- *   `StaticProvider`s, when creating the `PlatformRef` (e.g. via `platformBrowser` or
- *   `platformBrowserDynamic`).
+ * - Если вы хотите, чтобы некоторые инъекционные препараты были доступны всем устаревшим модулям, вы можете указать их как
+ *    `StaticProvider`с, при создании `PlatformRef` (напримерпомощью `platformBrowser` или.
+ *    `platformBrowserDynamic`).
  *
- * - When using {@link PlatformRef#bootstrapmodule `bootstrapModule()`} or
- *   {@link PlatformRef#bootstrapmodulefactory `bootstrapModuleFactory()`} to bootstrap the
- *   downgraded modules, each one is considered a "root" module. As a consequence, a new instance
- *   will be created for every injectable provided in `"root"` (via
- *   {@link Injectable#providedIn `providedIn`}).
- *   If this is not your intention, you can have a shared module (that will act as act as the "root"
- *   module) and create all downgraded modules using that module's injector:
+ * - Когда используешь{@link PlatformRef#bootstrapmodule `bootstrapModule()`}или.
+ *    {@link PlatformRef#bootstrapmodulefactory `bootstrapModuleFactory()`}чтобы загрузить
+ * Пониженные модули, каждый считается «корневым» модулем. Как следствие, новый экземпляр
+ * будет создан для каждой инъекции, предоставленной в `"root"``"root"` (через
+ *    {@link Injectable#providedIn `providedIn`}).
+ * Если это не ваше намерение, вы можете иметь общий модуль (который будет действовать как «корень»)
+ * модуль) и создать все загрубленные модулииспользуя форсунку этогомодуля:.
  *
- *   {@example upgrade/static/ts/lite-multi-shared/module.ts region="shared-root-module"}
+ *    {@example upgrade/static/ts/lite-multi-shared/module.ts region="shared-root-module"}
  *
  * @publicApi
  */

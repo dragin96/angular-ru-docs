@@ -79,7 +79,7 @@ function parseUrl(urlStr: string, baseHref: string) {
 }
 
 /**
- * Mock platform location config
+ * Конфигурация макета платформы
  *
  * @publicApi
  */
@@ -89,7 +89,7 @@ export interface MockPlatformLocationConfig {
 }
 
 /**
- * Provider for mock platform location config
+ * Поставщик для макета конфигурации местоположения платформы
  *
  * @publicApi
  */
@@ -97,7 +97,7 @@ export const MOCK_PLATFORM_LOCATION_CONFIG =
     new InjectionToken<MockPlatformLocationConfig>('MOCK_PLATFORM_LOCATION_CONFIG');
 
 /**
- * Mock implementation of URL state.
+ * Ложная реализация состояния URL.
  *
  * @publicApi
  */

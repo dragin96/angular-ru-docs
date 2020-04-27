@@ -1,179 +1,186 @@
-# Attribute directives
+{@a attribute-directives}
+# Атрибут директивы
 
-An **Attribute** directive changes the appearance or behavior of a DOM element.
+**Атрибут** директива изменяет внешний вид или поведение DOM элемента.
 
-Try the <live-example title="Attribute Directive example"></live-example>.
+Попробуйте <live-example title="Attribute Directive example"></live-example>.
 
 {@a directive-overview}
 
-## Directives overview
+{@a directives-overview}
+## Обзор директив
 
-There are three kinds of directives in Angular:
+Есть три вида директив в угловому:
 
-1. Components&mdash;directives with a template.
-1. Structural directives&mdash;change the DOM layout by adding and removing DOM elements.
-1. Attribute directives&mdash;change the appearance or behavior of an element, component, or another directive.
+1. Компоненты - директивы с шаблоном.
+1. Структурные директивы - измените макет DOM, добавляя и удаляя элементы DOM.
+1. Директивы атрибутов - изменяют внешний вид или поведение элемента, компонента или другой директивы.
 
-*Components* are the most common of the three directives.
-You saw a component for the first time in the [Getting Started](start "Getting Started with Angular") tutorial.
+*Составные части* являются наиболее распространенными из трех директив.
+Вы впервые увидели компонент в руководстве [Приступая к работе](start "Getting Started with Angular").
 
-*Structural Directives* change the structure of the view.
-Two examples are [NgFor](guide/template-syntax#ngFor) and [NgIf](guide/template-syntax#ngIf).
-Learn about them in the [Structural Directives](guide/structural-directives) guide.
+*Структурные директивы* меняют структуру представления.
+Два примера [NgFor](guide/template-syntax#ngFor)и [NgIf](guide/template-syntax#ngIf).
+Узнайте о них в руководстве [Структурные директивы](guide/structural-directives).
 
-*Attribute directives* are used as attributes of elements.
-The built-in [NgStyle](guide/template-syntax#ngStyle) directive in the
-[Template Syntax](guide/template-syntax) guide, for example,
-can change several element styles at the same time.
+*Директивы атрибутов* используются в качестве атрибутов элементов.
+Встроенная [NgStyle](guide/template-syntax#ngStyle)директива в
+[Синтаксис шаблона](guide/template-syntax), например
+Можно изменить несколько стилей элемента одновременно.
 
-## Build a simple attribute directive
+{@a build-a-simple-attribute-directive}
+## Создайте простую директиву атрибута
 
-An attribute directive minimally requires building a controller class annotated with
-`@Directive`, which specifies the selector that identifies
-the attribute.
-The controller class implements the desired directive behavior.
+Директива атрибута минимально требует создания класса контроллера с аннотацией
+ `@Directive`, который определяет селектор, который идентифицирует
+атрибут.
+Класс контроллера реализует желаемое поведение директивы.
 
-This page demonstrates building a simple _appHighlight_ attribute
-directive to set an element's background color
-when the user hovers over that element. You can apply it like this:
+Эта страница демонстрирует создание простого атрибута _appHighlight_
+директива для установки цвета фона элемента
+когда пользователь наводит курсор на этот элемент. Вы можете применить это следующим образом :
 
 <code-example path="attribute-directives/src/app/app.component.1.html" header="src/app/app.component.html (applied)" region="applied"></code-example>
 
 {@a write-directive}
 
-Please note that directives _do not_ support namespaces.
+Обратите внимание, что директивы _не поддерживают_ пространства имен.
 
 <code-example path="attribute-directives/src/app/app.component.avoid.html" header="src/app/app.component.avoid.html (unsupported)" region="unsupported"></code-example>
 
-### Write the directive code
+{@a write-the-directive-code}
+### Напишите код директивы
 
-Create the directive class file in a terminal window with the CLI command [`ng generate directive`](cli/generate).
+Создайте файл класса директивы в окне терминала с помощью команды CLI [ `ng generate directive` ](cli/generate).
 
 <code-example language="sh" class="code-shell">
 ng generate directive highlight
 </code-example>
 
-The CLI creates `src/app/highlight.directive.ts`, a corresponding test file `src/app/highlight.directive.spec.ts`, and _declares_ the directive class in the root `AppModule`.
+CLI создает `src/app/highlight.directive.ts`, соответствующий тестовый файл `src/app/highlight.directive.spec.ts` и _declares_ класс директивы в корне `AppModule`.
 
 <div class="alert is-helpful">
 
-_Directives_ must be declared in [Angular Modules](guide/ngmodules) in the same manner as _components_.
+_Directives_ должен быть объявлен в [Angular модули](guide/ngmodules)же, как _components_.
 
 </div >
 
-The generated `src/app/highlight.directive.ts` is as follows:
+Сгенерированный `src/app/highlight.directive.ts` выглядит следующим образом :
 
 <code-example path="attribute-directives/src/app/highlight.directive.0.ts" header="src/app/highlight.directive.ts"></code-example>
 
-The imported `Directive` symbol provides Angular the `@Directive` decorator.
+Импортированный `Directive` символ обеспечивает Angular `@Directive` декоратор.
 
-The `@Directive` decorator's lone configuration property specifies the directive's
-[CSS attribute selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors), `[appHighlight]`.
+ `@Directive` одиночной конфигурации декоратора определяет директиву
+[Селектор атрибутов CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors), `[appHighlight]`.
 
-It's the brackets (`[]`) that make it an attribute selector.
-Angular locates each element in the template that has an attribute named `appHighlight` and applies the logic of this directive to that element.
+Это скобки (`[]`) которые делают его селектором атрибутов.
+Angular находит каждый элемент в шаблоне, который имеет атрибут с именем `appHighlight` и применяет логику этой директивы к этому элементу.
 
-The _attribute selector_ pattern explains the name of this kind of directive.
+Шаблон _attribute selector_ объясняет название этого вида директивы.
 
 <div class="alert is-helpful">
 
-#### Why not "highlight"?
+{@a why-not-highlight}
+#### Почему бы не «выделить»?
 
-Though *highlight* would be a more concise selector than *appHighlight* and it would work,
-the best practice is to prefix selector names to ensure
-they don't conflict with standard HTML attributes.
-This also reduces the risk of colliding with third-party directive names.
-The CLI added the `app` prefix for you.
+Хотя *highlight* будет более лаконичным селектором, чем *appHighlight,* и он будет работать
+Лучшая практика заключается в том, чтобы префикс имен селектора, чтобы обеспечить
+они не конфликтуют со стандартными атрибутами HTML.
+Это также снижает риск столкновения со сторонними именами директив.
+CLI добавил `app` префикс для вас.
 
-Make sure you do **not** prefix the `highlight` directive name with **`ng`** because
-that prefix is reserved for Angular and using it could cause bugs that are difficult to diagnose.
+Убедитесь, что вы ставите **не** префикс `highlight` название директивы с помощью** `ng`** потому что
+этот префикс зарезервирован для Angular, и его использование может привести к ошибкам, которые трудно диагностировать.
 
 </div>
 
-After the `@Directive` metadata comes the directive's controller class,
-called `HighlightDirective`, which contains the (currently empty) logic for the directive.
-Exporting `HighlightDirective` makes the directive accessible.
+После `@Directive` Метаданные поставляются с классом контроллера директивы
+называется `HighlightDirective`, который содержит (в настоящее время пустую) логику для директивы.
+Экспорт `HighlightDirective` делает директиву доступной.
 
-Now edit the generated `src/app/highlight.directive.ts` to look as follows:
+Теперь отредактируйте сгенерированный `src/app/highlight.directive.ts` выглядеть следующим образом :
 
 <code-example path="attribute-directives/src/app/highlight.directive.1.ts" header="src/app/highlight.directive.ts"></code-example>
 
-The `import` statement specifies an additional `ElementRef` symbol from the Angular `core` library:
+ `import` операторе указывается дополнительный `ElementRef` символ с Angular `core` библиотеки:
 
-You use the `ElementRef` in the directive's constructor
-to [inject](guide/dependency-injection) a reference to the host DOM element,
-the element to which you applied `appHighlight`.
+Вы используете `ElementRef` в конструкторе директивы
+к [инъекционный](guide/dependency-injection)ссылка на DOM элемент хоста,
+элемент, к которому вы применили `appHighlight`.
 
-`ElementRef` grants direct access to the host DOM element
-through its `nativeElement` property.
+ `ElementRef` предоставляет прямой доступ к элементу DOM хоста
+через его `nativeElement`.
 
-This first implementation sets the background color of the host element to yellow.
+Эта первая реализация устанавливает цвет фона элемента хоста на желтый.
 
 {@a apply-directive}
 
-## Apply the attribute directive
+{@a apply-the-attribute-directive}
+## Примените директиву атрибута
 
-To use the new `HighlightDirective`, add a paragraph (`<p>`) element to the template of the root `AppComponent` and apply the directive as an attribute.
+Чтобы использовать новый `HighlightDirective`, добавить абзац (`<p>`) элемент шаблона корня `AppComponent` и применять директиву в качестве атрибута.
 
 <code-example path="attribute-directives/src/app/app.component.1.html" header="src/app/app.component.html" region="applied"></code-example>
 
-Now run the application to see the `HighlightDirective` in action.
+Теперь запустите приложение, чтобы увидеть `HighlightDirective` в действии.
 
 
 <code-example language="sh" class="code-shell">
 ng serve
 </code-example>
 
-To summarize, Angular found the `appHighlight` attribute on the **host** `<p>` element.
-It created an instance of the `HighlightDirective` class and
-injected a reference to the `<p>` element into the directive's constructor
-which sets the `<p>` element's background style to yellow.
+Подводя итог, Angular нашел `appHighlight` на **хосте** `<p>` элемент.
+Он создал экземпляр `HighlightDirective` класс и
+вставил ссылку на `<p>` элемент в конструктор директивы
+который устанавливает `<p>` Стиль фона элемента к желтому.
 
 {@a respond-to-user}
 
-## Respond to user-initiated events
+{@a respond-to-user-initiated-events}
+## Реагировать на инициируемые пользователем события
 
-Currently, `appHighlight` simply sets an element color.
-The directive could be more dynamic.
-It could detect when the user mouses into or out of the element
-and respond by setting or clearing the highlight color.
+В настоящее время, `appHighlight` просто устанавливает цвет элемента.
+Директива может быть более динамичной.
+Он может обнаружить, когда пользователь подключается к элементу или выходит из него
+и ответьте, установив или очистив цвет выделения.
 
-Begin by adding `HostListener` to the list of imported symbols.
+Начните с добавления `HostListener` к списку импортируемых символов.
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
-Then add two event handlers that respond when the mouse enters or leaves,
-each adorned by the `HostListener` decorator.
+Затем добавьте два обработчика событий, которые реагируют, когда мышь входит или выходит
+каждый украшен `HostListener` декоратор.
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (mouse-methods)" region="mouse-methods"></code-example>
 
-The `@HostListener` decorator lets you subscribe to events of the DOM
-element that hosts an attribute directive, the `<p>` in this case.
+ `@HostListener` Декоратор позволяет подписаться на события DOM
+элемент, который содержит директиву атрибута, `<p>` в этом случае.
 
 <div class="alert is-helpful">
 
-Of course you could reach into the DOM with standard JavaScript and attach event listeners manually.
-There are at least three problems with _that_ approach:
+Конечно, вы можете получить доступ к DOM со стандартным JavaScript и подключить прослушиватели событий вручную.
+Есть по крайней мере три проблемы _that_ подхода:
 
-1. You have to write the listeners correctly.
-1. The code must *detach* the listener when the directive is destroyed to avoid memory leaks.
-1. Talking to DOM API directly isn't a best practice.
+1. Вы должны правильно написать слушателям.
+1. Код должен *отсоединять* слушателя, когда директива уничтожена, чтобы избежать утечек памяти.
+1. Общение с DOM API напрямую не является лучшей практикой.
 
 </div>
 
-The handlers delegate to a helper method that sets the color on the host DOM element, `el`.
+Обработчики делегируют вспомогательный метод, который устанавливает цвет элемента DOM хоста, `el`.
 
-The helper method, `highlight`, was extracted from the constructor.
-The revised constructor simply declares the injected `el: ElementRef`.
+Вспомогательный метод, `highlight`, был извлечен из конструктора.
+Пересмотренный конструктор просто объявляет внедренный `el: ElementRef`.
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (constructor)" region="ctor"></code-example>
 
-Here's the updated directive in full:
+Вот обновленная директива полностью:
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts"></code-example>
 
-Run the app and confirm that the background color appears when
-the pointer hovers over the paragraph element and disappears as the pointer moves out.
+Запустите приложение и убедитесь, что цвет фона появляется, когда
+указатель находится над элементом абзаца и исчезает при его перемещении.
 
 <div class="lightbox">
   <img src="generated/images/guide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight">
@@ -181,95 +188,99 @@ the pointer hovers over the paragraph element and disappears as the pointer move
 
 {@a bindings}
 
-## Pass values into the directive with an _@Input_ data binding
+{@a передать-значения-в-директиву-с-an- @ input-data-binding}
+## Передайте значения в директиву с привязкой данных _@ Input_
 
-Currently the highlight color is hard-coded _within_ the directive. That's inflexible.
-In this section, you give the developer the power to set the highlight color while applying the directive.
+В настоящее время основной цвет жестко запрограммирован в директиве. Это негибко.
+В этом разделе вы даете разработчику возможность установить цвет выделения при применении директивы.
 
-Begin by adding `Input` to the list of symbols imported from `@angular/core`.
+Начните с добавления `Input` в список символов, импортированных из `@angular/core`.
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" header="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
-Add a `highlightColor` property to the directive class like this:
+Добавить `highlightColor` свойство директивы класса, как это:
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (highlightColor)" region="color"></code-example>
 
 {@a input}
 
-### Binding to an _@Input_ property
+{@a привязка-к-ан- @ input-property}
+### Связывание со свойством _@ Input_
 
-Notice the `@Input` decorator. It adds metadata to the class that makes the directive's `highlightColor` property available for binding.
+Обратите внимание на `@Input` декоратор. Он добавляет метаданные в класс, который делает директиву `highlightColor` свойство доступно для привязки.
 
-It's called an *input* property because data flows from the binding expression _into_ the directive.
-Without that input metadata, Angular rejects the binding; see [below](guide/attribute-directives#why-input "Why add @Input?") for more about that.
+Это называется *входным* свойством, потому что данные вытекают из выражения привязки _into_ директива.
+Без этих входных метаданных Angular отклоняет привязку; см. [ниже](guide/attribute-directives#why-input "Why add @Input?") для получения дополнительной информации об этом.
 
-Try it by adding the following directive binding variations to the `AppComponent` template:
+Попробуйте, добавив следующие изменения директивы, обязательные для `AppComponent` шаблон:
 
 <code-example path="attribute-directives/src/app/app.component.1.html" header="src/app/app.component.html (excerpt)" region="color-1"></code-example>
 
-Add a `color` property to the `AppComponent`.
+Добавить `color` свойство к `AppComponent`.
 
 <code-example path="attribute-directives/src/app/app.component.1.ts" header="src/app/app.component.ts (class)" region="class"></code-example>
 
-Let it control the highlight color with a property binding.
+Позвольте этому управлять цветом выделения с привязкой свойства.
 
 <code-example path="attribute-directives/src/app/app.component.1.html" header="src/app/app.component.html (excerpt)" region="color-2"></code-example>
 
-That's good, but it would be nice to _simultaneously_ apply the directive and set the color _in the same attribute_ like this.
+Это хорошо, но было бы неплохо одновременно применить директиву и установить цвет в том же атрибуте, как этот.
 
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (color)" region="color"></code-example>
 
-The `[appHighlight]` attribute binding both applies the highlighting directive to the `<p>` element
-and sets the directive's highlight color with a property binding.
-You're re-using the directive's attribute selector (`[appHighlight]`) to do both jobs.
-That's a crisp, compact syntax.
+ `[appHighlight]` атрибута применяет директиву подсветки к `<p>` элемент
+и устанавливает цвет выделения директивы с привязкой свойства.
+Вы повторно используете селектор атрибута директивы (`[appHighlight]`), чтобы сделать обе работы.
+Это четкий, компактный синтаксис.
 
-You'll have to rename the directive's `highlightColor` property to `appHighlight` because that's now the color property binding name.
+Вам придется переименовать директиву `highlightColor` свойство для `appHighlight` потому что теперь это имя привязки свойства цвета.
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (renamed to match directive selector)" region="color-2"></code-example>
 
-This is disagreeable. The word, `appHighlight`, is a terrible property name and it doesn't convey the property's intent.
+Это неприятно. Слово, `appHighlight`, это ужасное имя свойства, и оно не передает намерения свойства.
 
 {@a input-alias}
 
-### Bind to an _@Input_ alias
+{@a bind-to-an- @ input-alias}
+### Привязать к псевдониму _@ Input_
 
-Fortunately you can name the directive property whatever you want _and_ **_alias it_** for binding purposes.
+К счастью, вы можете назвать свойство директивы как угодно _and_ **_alias it_** для целей привязки.
 
-Restore the original property name and specify the selector as the alias in the argument to `@Input`.
+Восстановите исходное имя свойства и укажите селектор в качестве псевдонима в аргументе для `@Input`.
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts (color property with alias)" region="color"></code-example>
 
-_Inside_ the directive the property is known as `highlightColor`.
-_Outside_ the directive, where you bind to it, it's known as `appHighlight`.
+Внутри директивы свойство известно как `highlightColor`.
+_Outside_ директива, где вы связываете ее, она известна как `appHighlight`.
 
-You get the best of both worlds: the property name you want and the binding syntax you want:
+Вы получаете лучшее из обоих миров: имя свойства вы хотите и переплета синтаксис вы хотите:
 
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (color)" region="color"></code-example>
 
-Now that you're binding via the alias to the `highlightColor`, modify the `onMouseEnter()` method to use that property.
-If someone neglects to bind to `appHighlight`, highlight the host element in red:
+Теперь, когда вы связываетесь через псевдоним с `highlightColor`, измените `onMouseEnter()` для использования этого свойства.
+Если кто-то не хочет связываться с `appHighlight` выделите хост - элемент в красном цвете:
 
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" header="src/app/highlight.directive.ts (mouse enter)" region="mouse-enter"></code-example>
 
-Here's the latest version of the directive class.
+Вот последняя версия директивы класса.
 
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" header="src/app/highlight.directive.ts (excerpt)"></code-example>
 
-## Write a harness to try it
+{@a write-a-harness-to-try-it}
+## Напишите жгут, чтобы попробовать это
 
-It may be difficult to imagine how this directive actually works.
-In this section, you'll turn `AppComponent` into a harness that
-lets you pick the highlight color with a radio button and bind your color choice to the directive.
+Может быть трудно представить, как эта директива на самом деле работает.
+В этом разделе вы включите `AppComponent` в жгут, что
+позволяет выбрать цвет подсветки с помощью переключателя и связать свой выбор цвета с директивой.
 
-Update <code>app.component.html</code> as follows:
+Обновление <code>app.component.html </code>следующим образом :
 
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (v2)" region="v2"></code-example>
 
-Revise the `AppComponent.color` so that it has no initial value.
+Пересмотреть `AppComponent.color` чтобы он не имел начального значения.
 
 <code-example path="attribute-directives/src/app/app.component.ts" header="src/app/app.component.ts (class)" region="class"></code-example>
 
-Here are the harness and directive in action.
+Вот жгут и директива в действии.
 
 <div class="lightbox">
   <img src="generated/images/guide/attribute-directives/highlight-directive-v2-anim.gif" alt="Highlight v.2">
@@ -277,50 +288,52 @@ Here are the harness and directive in action.
 
 {@a second-property}
 
-## Bind to a second property
+{@a bind-to-a-second-property}
+## Привязать ко второму свойству
 
-This highlight directive has a single customizable property. In a real app, it may need more.
+Эта директива выделения имеет одно настраиваемое свойство. В реальном приложении может потребоваться больше.
 
-At the moment, the default color&mdash;the color that prevails until
-the user picks a highlight color&mdash;is hard-coded as "red".
-Let the template developer set the default color.
+На данный момент цвет по умолчанию - цвет, который преобладает до
+пользователь выбирает выделенный цвет - он жестко закодирован как «красный».
+Позвольте разработчику шаблона установить цвет по умолчанию.
 
-Add a second **input** property to `HighlightDirective` called `defaultColor`:
+Добавьте второе **ввода** свойство в `HighlightDirective` называется `defaultColor` :
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts (defaultColor)" region="defaultColor"></code-example>
 
-Revise the directive's `onMouseEnter` so that it first tries to highlight with the `highlightColor`,
-then with the `defaultColor`, and falls back to "red" if both properties are undefined.
+Пересмотреть директиву `onMouseEnter` чтобы сначала попытаться выделить `highlightColor`,
+затем с `defaultColor` и возвращается к «красному», если оба свойства не определены.
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts (mouse-enter)" region="mouse-enter"></code-example>
 
-How do you bind to a second property when you're already binding to the `appHighlight` attribute name?
+Как вы связываете со вторым свойством, когда вы уже связываете с `appHighlight` атрибута ?
 
-As with components, you can add as many directive property bindings as you need by stringing them along in the template.
-The developer should be able to write the following template HTML to both bind to the `AppComponent.color`
-and fall back to "violet" as the default color.
+Как и в случае с компонентами, вы можете добавить столько привязок свойств директив, сколько вам нужно, выстроив их в шаблоне.
+Разработчик должен иметь возможность написать следующий шаблон HTML для привязки к `AppComponent.color` 
+и вернуться к «фиолетовому» в качестве цвета по умолчанию.
 
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (defaultColor)" region="defaultColor"></code-example>
 
-Angular knows that the `defaultColor` binding belongs to the `HighlightDirective`
-because you made it _public_ with the `@Input` decorator.
+Angular знает, что `defaultColor` привязка принадлежит `HighlightDirective` 
+потому что вы сделали это _public_ с `@Input` декоратор.
 
-Here's how the harness should work when you're done coding.
+Вот как должна работать подвеска, когда вы закончили писать код.
 
 <div class="lightbox">
   <img src="generated/images/guide/attribute-directives/highlight-directive-final-anim.gif" alt="Final Highlight">
 </div>
 
-## Summary
+{@a summary}
+## Резюме
 
-This page covered how to:
+Эта страница покрыта как:
 
-* [Build an **attribute directive**](guide/attribute-directives#write-directive) that modifies the behavior of an element.
-* [Apply the directive](guide/attribute-directives#apply-directive) to an element in a template.
-* [Respond to **events**](guide/attribute-directives#respond-to-user) that change the directive's behavior.
-* [**Bind** values to the directive](guide/attribute-directives#bindings).
+* [Создайте директиву** атрибута**](guide/attribute-directives#write-directive)которая изменяет поведение элемента.
+* [Примените директиву](guide/attribute-directives#apply-directive)к элементу в шаблоне.
+* [Отвечать на** события**](guide/attribute-directives#respond-to-user)которые изменяют поведение директивы.
+* [** Привязать** значения к директиве](guide/attribute-directives#bindings).
 
-The final source code follows:
+Окончательный исходный код следующим образом :
 
 <code-tabs>
   <code-pane header="app/app.component.ts" path="attribute-directives/src/app/app.component.ts"></code-pane>
@@ -333,57 +346,58 @@ The final source code follows:
 
 
 
-You can also experience and download the <live-example title="Attribute Directive example"></live-example>.
+Вы также можете испытать и скачать <live-example title="Attribute Directive example"></live-example>.
 
 {@a why-input}
 
-### Appendix: Why add _@Input_?
+{@a appendix-why-add- @ input}
+### Приложение: зачем добавлять _@ Input_?
 
-In this demo, the `highlightColor` property is an ***input*** property of
-the `HighlightDirective`. You've seen it applied without an alias:
+В этой демонстрации `highlightColor` Свойство является ***ввода*** свойством
+ `HighlightDirective` . Вы уже видели это применяется без псевдонима:
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts (color)" region="color"></code-example>
 
-You've seen it with an alias:
+Вы видели его с псевдонимом:
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts (color)" region="color"></code-example>
 
-Either way, the `@Input` decorator tells Angular that this property is
-_public_ and available for binding by a parent component.
-Without  `@Input`, Angular refuses to bind to the property.
+В любом случае, `@Input` Декоратор сообщает Angular, что это свойство есть
+_public_ и доступен для привязки родительским компонентом.
+Без `@Input`, Angular отказывается привязываться к собственности.
 
-You've bound template HTML to component properties before and never used `@Input`.
-What's different?
+Вы связали шаблон HTML со свойствами компонента ранее и никогда не использовали `@Input`.
+Чем отличается?
 
-The difference is a matter of trust.
-Angular treats a component's template as _belonging_ to the component.
-The component and its template trust each other implicitly.
-Therefore, the component's own template may bind to _any_ property of that component,
-with or without the `@Input` decorator.
+Разница заключается в доверии.
+Angular рассматривает шаблон компонента как _belonging_ для компонента.
+Компонент и его шаблон доверяют друг другу неявно.
+Следовательно, собственный шаблон компонента может связываться со свойством _any_ этого компонента
+с или без `@Input` декоратор.
 
-But a component or directive shouldn't blindly trust _other_ components and directives.
-The properties of a component or directive are hidden from binding by default.
-They are _private_ from an Angular binding perspective.
-When adorned with the `@Input` decorator, the property becomes _public_ from an Angular binding perspective.
-Only then can it be bound by some other component or directive.
+Но компонент или директива не должны слепо доверять другим компонентам и директивам.
+Свойства компонента или директивы по умолчанию скрыты от привязки.
+Они _private_ с точки зрения Angular привязки.
+Когда украшен `@Input` decorator, свойство становится _public_ с точки зрения Angular привязки.
+Только тогда он может быть связан каким-либо другим компонентом или директивой.
 
-You can tell if `@Input` is needed by the position of the property name in a binding.
+Вы можете сказать, если `@Input` необходим положением имени свойства в привязке.
 
-* When it appears in the template expression to the ***right*** of the equals (=),
-  it belongs to the template's component and does not require the `@Input` decorator.
+* Когда оно появляется в шаблонном выражении***справа*** от равенства (=)
+  он принадлежит компоненту шаблона и не требует `@Input` декоратор.
 
-* When it appears in **square brackets** ([ ]) to the **left** of the equals (=),
-  the property belongs to some _other_ component or directive;
-  that property must be adorned with the `@Input` decorator.
+* Когда он появляется в**квадратных скобках** ([])**слева** от равенства (=)
+  свойство принадлежит некоторому другому компоненту или директиве;
+  это свойство должно быть украшено `@Input` декоратор.
 
-Now apply that reasoning to the following example:
+Теперь применить это рассуждение к следующему примеру:
 
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (color)" region="color"></code-example>
 
-* The `color` property in the expression on the right belongs to the template's component.
-  The template and its component trust each other.
-  The `color` property doesn't require the `@Input` decorator.
+* `color` Свойство в выражении справа принадлежит компоненту шаблона.
+  Шаблон и его компонент доверяют друг другу.
+ `color` свойство не требует `@Input` декоратор.
 
-* The `appHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
-  not a property of the template's component. There are trust issues.
-  Therefore, the directive property must carry the `@Input` decorator.
+* `appHighlight` слева относится к свойству _aliased_ `HighlightDirective`,
+  не является свойством компонента шаблона. Есть проблемы с доверием.
+  Следовательно, свойство директивы должно нести `@Input` декоратор.

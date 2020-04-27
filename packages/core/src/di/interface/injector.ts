@@ -8,7 +8,7 @@
 
 
 /**
- * Injection flags for DI.
+ * Флаги впрыска для DI.
  *
  * @publicApi
  */

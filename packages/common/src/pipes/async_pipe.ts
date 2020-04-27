@@ -52,29 +52,29 @@ const _promiseStrategy = new PromiseStrategy();
 const _observableStrategy = new ObservableStrategy();
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Unwraps a value from an asynchronous primitive.
+ * Развертывает значение из асинхронного примитива.
  *
- * The `async` pipe subscribes to an `Observable` or `Promise` and returns the latest value it has
- * emitted. When a new value is emitted, the `async` pipe marks the component to be checked for
- * changes. When the component gets destroyed, the `async` pipe unsubscribes automatically to avoid
- * potential memory leaks.
+ *  The `async`трубы подписывается на `Observable` или `Promise` и возвращает последнее значениеимеет.
+ * излучается. Когдановое значение, `async``async` каналпомечает компонент для проверки
+ * меняется. Когда компонент уничтожается, `async` каналавтоматически отписывается, чтобы избежать
+ * потенциальные утечки памяти.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Examples
+ *  ### Примеры
  *
- * This example binds a `Promise` to the view. Clicking the `Resolve` button resolves the
- * promise.
+ * Этот пример связывает `Promise` с представлением. Нажатие `Resolve` кнопкиразрешает
+ * обещание.
  *
- * {@example common/pipes/ts/async_pipe.ts region='AsyncPipePromise'}
+ *  {@example common/pipes/ts/async_pipe.ts region='AsyncPipePromise'}
  *
- * It's also possible to use `async` with Observables. The example below binds the `time` Observable
- * to the view. The Observable continuously updates the view with the current time.
+ * Кроме тогоможно использовать `async` с наблюдаемыми. Ниже пример связывает `time` Наблюдаемое.
+ * на вид. The Observable постоянно обновляет представление с текущим временем.
  *
- * {@example common/pipes/ts/async_pipe.ts region='AsyncPipeObservable'}
+ *  {@example common/pipes/ts/async_pipe.ts region='AsyncPipeObservable'}
  *
  * @publicApi
  */

@@ -7,11 +7,11 @@
  */
 
 /**
- * A SecurityContext marks a location that has dangerous security implications, e.g. a DOM property
- * like `innerHTML` that could cause Cross Site Scripting (XSS) security bugs when improperly
- * handled.
+ * SecurityContext отмечает местоположение, которое имеет опасные последствия для безопасности, например, свойство DOM
+ * наподобие `innerHTML` которое может привести к ошибкам безопасности межсайтового скриптинга (XSS) при неправильном использовании
+ * обрабатываются.
  *
- * See DomSanitizer for more details on security in Angular applications.
+ * Смотрите DomSanitizer для более подробной информации о безопасности в приложениях Angular.
  *
  * @publicApi
  */

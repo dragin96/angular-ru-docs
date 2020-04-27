@@ -8,32 +8,32 @@
 import {ɵresetJitOptions as resetJitOptions} from '@angular/core';
 
 /**
- * Wraps a function in a new function which sets up document and HTML for running a test.
+ * Включает функцию в новую функцию, которая устанавливает документ и HTML для запуска теста.
  *
- * This function is intended to wrap an existing testing function. The wrapper
- * adds HTML to the `body` element of the `document` and subsequently tears it down.
+ * Эта функция предназначена для упаковки существующей функции тестирования. Обертка
+ * добавляет HTML в `body` элемента `document` а затем разрывает ее.
  *
- * This function is intended to be used with `async await` and `Promise`s. If the wrapped
- * function returns a promise (or is `async`) then the teardown is delayed until that `Promise`
- * is resolved.
+ * Эта функция предназначена для использования с`async await `и` Promise`с. Если завернутый
+ * Функция возвращает обещание (или `async` асинхронной)то демонтаж задерживается до этого `Promise`
+ * решено.
  *
- * On `node` this function detects if `document` is present and if not it will create one by
- * loading `domino` and installing it.
+ * На `node` эта функция обнаруживает, присутствует ли `document` и если нет, то создаст один
+ * загрузка `domino` и установка его.
  *
- * Example:
+ * Пример:.
  *
- * ```
- * describe('something', () => {
- *   it('should do something', withBody('<my-app></my-app>', async () => {
- *     const myApp = renderComponent(MyApp);
- *     await whenRendered(myApp);
- *     expect(getRenderedText(myApp)).toEqual('Hello World!');
- *   }));
- * });
- * ```
+ *  ```
+ *  describe('something', () => {
+ *    it('should do something', withBody('<my-app></my-app>', async () => {
+ *      const myApp = renderComponent(MyApp);
+ *      await whenRendered(myApp);
+ *      expect(getRenderedText(myApp)).toEqual('Hello World!');
+ *    }));
+ *  });
+ *  ```
  *
- * @param html HTML which should be inserted into `body` of the `document`.
- * @param blockFn function to wrap. The function can return promise or be `async`.
+ *  @param HTML HTMLкоторый должен быть вставлен в `body`of the `document`документа.
+ *  @param blockFn функция для переноса. Функция может возвращать обещание или быть `async` асинхронной.
  * @publicApi
  */
 export function withBody<T extends Function>(html: string, blockFn: T): T {
@@ -73,7 +73,7 @@ const domino: any = (function(domino) {
 })('domino');
 
 /**
- * Ensure that global has `Document` if we are in node.js
+ * Убедитесьчто глобальное имеет `Document` если мы вnode.js.
  * @publicApi
  */
 export function ensureDocument(): void {
@@ -100,7 +100,7 @@ export function ensureDocument(): void {
 }
 
 /**
- * Restore the state of `Document` between tests.
+ * Восстановите состояние `Document` между тестами.
  * @publicApi
  */
 export function cleanupDocument(): void {

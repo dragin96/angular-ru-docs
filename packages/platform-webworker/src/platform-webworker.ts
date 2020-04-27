@@ -21,7 +21,7 @@ export {platformWorkerApp, WorkerAppModule} from './worker_app';
 export {platformWorkerUi} from './worker_render';
 
 /**
- * Bootstraps the worker ui.
+ * Bootstraps рабочий интерфейс.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

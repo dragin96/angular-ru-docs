@@ -95,7 +95,7 @@ function coerceToAsyncValidator(
 export type FormHooks = 'change'|'blur'|'submit';
 
 /**
- * Interface for options provided to an `AbstractControl`.
+ * Интерфейс для опций, предоставляемых для `AbstractControl`.
  *
  * @publicApi
  */
@@ -126,16 +126,16 @@ function isOptionsObj(validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractContro
 
 
 /**
- * This is the base class for `FormControl`, `FormGroup`, and `FormArray`.
+ * Это базовый класс для `FormControl` , `FormGroup` и `FormArray`.
  *
- * It provides some of the shared behavior that all controls and groups of controls have, like
- * running validators, calculating status, and resetting state. It also defines the properties
- * that are shared between all sub-classes, like `value`, `valid`, and `dirty`. It shouldn't be
- * instantiated directly.
+ * Он предоставляет некоторые общие свойства, которые имеют все элементы управления и группы элементов управления, например
+ * запуск валидаторов, вычисление статуса и сброс состояния. Он также определяет свойства
+ * которые являются общимивсех подклассов, как `value` значение, `valid` действительным, и `dirty` грязного. Так не должно быть
+ * Создан непосредственно.
  *
- * @see [Forms Guide](/guide/forms)
- * @see [Reactive Forms Guide](/guide/reactive-forms)
- * @see [Dynamic Forms Guide](/guide/dynamic-form)
+ *  @see [Руководство по формам](/guide/forms)
+ *  @see [(Reactive GuideForms).](/guide/reactive-forms)
+ *  @see [(Dynamic GuideForms).](/guide/dynamic-form)
  *
  * @publicApi
  */
@@ -931,99 +931,99 @@ export abstract class AbstractControl {
 }
 
 /**
- * Tracks the value and validation status of an individual form control.
+ * Отслеживает значение и статус проверки отдельного элемента управления формы.
  *
- * This is one of the three fundamental building blocks of Angular forms, along with
- * `FormGroup` and `FormArray`. It extends the `AbstractControl` class that
- * implements most of the base functionality for accessing the value, validation status,
- * user interactions and events. See [usage examples below](#usage-notes).
+ * Это один из трех основных строительных блоков Angular форм, наряду с
+ *  `FormGroup `и` FormArray`. Он расширяет `AbstractControl` классэто.
+ * реализует большую часть базовой функциональности для доступа к значению, статуспроверки,.
+ * взаимодействия с пользователем и события. Смотрите[примеры использования ниже](#usage-notes).
  *
- * @see `AbstractControl`
- * @see [Reactive Forms Guide](guide/reactive-forms)
- * @see [Usage Notes](#usage-notes)
+ *  @see `AbstractControl`
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
+ *  @see [Примечания по использованию](#usage-notes)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Initializing Form Controls
+ *  ### Инициализация элементов управления формы
  *
- * Instantiate a `FormControl`, with an initial value.
+ * Инстанцировать в `FormControl` FormControl, с начальным значением.
  *
- * ```ts
- * const control = new FormControl('some value');
- * console.log(control.value);     // 'some value'
- *```
- *
- * The following example initializes the control with a form state object. The `value`
- * and `disabled` keys are required in this case.
- *
- * ```ts
- * const control = new FormControl({ value: 'n/a', disabled: true });
- * console.log(control.value);     // 'n/a'
- * console.log(control.status);    // 'DISABLED'
+ *  ```ts
+ *  const control = new FormControl('some value');
+ *  console.log(control.value);// 'some value'
  * ```
  *
- * The following example initializes the control with a sync validator.
+ * В следующем примере элемент управления инициализируется объектом состояния формы. `value`
+ * и `disabled` ключинеобходимы в данном случае.
  *
- * ```ts
- * const control = new FormControl('', Validators.required);
- * console.log(control.value);      // ''
- * console.log(control.status);     // 'INVALID'
- * ```
+ *  ```ts
+ *  const control = new FormControl({ value: 'n/a', disabled: true });
+ *  console.log(control.value);// 'n/a'
+ *  console.log(control.status);// 'DISABLED'
+ *  ```
  *
- * The following example initializes the control using an options object.
+ * В следующем примере элемент управления инициализируется с помощью валидатора синхронизации.
  *
- * ```ts
- * const control = new FormControl('', {
- *    validators: Validators.required,
- *    asyncValidators: myAsyncValidator
- * });
- * ```
+ *  ```ts
+ *  const control = new FormControl('', Validators.required);
+ *  console.log(control.value);// ''
+ *  console.log(control.status);// 'INVALID'
+ *  ```
  *
- * ### Configure the control to update on a blur event
+ * В следующем примере элемент управления инициализируется с помощью объекта параметров.
  *
- * Set the `updateOn` option to `'blur'` to update on the blur `event`.
+ *  ```ts
+ *  const control = new FormControl('', {
+ *     validators: Validators.required,
+ *     asyncValidators: myAsyncValidator
+ *  });
+ *  ```
  *
- * ```ts
- * const control = new FormControl('', { updateOn: 'blur' });
- * ```
+ *  ### Настройте элемент управления для обновления события размытия
  *
- * ### Configure the control to update on a submit event
+ * Установите `updateOn` опциюв `'blur'` для обновления на размытость `event` события.
  *
- * Set the `updateOn` option to `'submit'` to update on a submit `event`.
+ *  ```ts
+ *  const control = new FormControl('', { updateOn: 'blur' });
+ *  ```
  *
- * ```ts
- * const control = new FormControl('', { updateOn: 'submit' });
- * ```
+ *  ### Настройте элемент управления для обновления события отправки
  *
- * ### Reset the control back to an initial value
+ * Установите `updateOn` опциюв `'submit'` обновленнуюо отправке `event` события.
  *
- * You reset to a specific form state by passing through a standalone
- * value or a form state object that contains both a value and a disabled state
- * (these are the only two properties that cannot be calculated).
+ *  ```ts
+ *  const control = new FormControl('', { updateOn: 'submit' });
+ *  ```
  *
- * ```ts
- * const control = new FormControl('Nancy');
+ *  ### Сбросить элемент управления обратно к начальному значению
  *
- * console.log(control.value); // 'Nancy'
+ * Вы возвращаетесь к определенному состоянию формы, проходя через автономный
+ * значение или объект состояния формы, который содержит как значение, так и отключенное состояние
+ * (это только два свойства, которые не могут быть рассчитаны).
  *
- * control.reset('Drew');
+ *  ```ts
+ *  const control = new FormControl('Nancy');
  *
- * console.log(control.value); // 'Drew'
- * ```
+ *  console.log(control.value); // 'Nancy'
  *
- * ### Reset the control back to an initial value and disabled
+ *  control.reset('Drew');
  *
- * ```
- * const control = new FormControl('Nancy');
+ *  console.log(control.value); // 'Drew'
+ *  ```
  *
- * console.log(control.value); // 'Nancy'
- * console.log(control.status); // 'VALID'
+ *  ### Сбросить элемент управления обратно к исходному значению и отключить
  *
- * control.reset({ value: 'Drew', disabled: true });
+ *  ```
+ *  const control = new FormControl('Nancy');
  *
- * console.log(control.value); // 'Drew'
- * console.log(control.status); // 'DISABLED'
- * ```
+ *  console.log(control.value); // 'Nancy'
+ *  console.log(control.status); // 'VALID'
+ *
+ *  control.reset({ value: 'Drew', disabled: true });
+ *
+ *  console.log(control.value); // 'Drew'
+ *  console.log(control.status); // 'DISABLED'
+ *  ```
  *
  * @publicApi
  */
@@ -1220,74 +1220,74 @@ export class FormControl extends AbstractControl {
 }
 
 /**
- * Tracks the value and validity state of a group of `FormControl` instances.
+ * Отслеживает значение и состояние достоверности группы `FormControl` экземпляров.
  *
- * A `FormGroup` aggregates the values of each child `FormControl` into one object,
- * with each control name as the key.  It calculates its status by reducing the status values
- * of its children. For example, if one of the controls in a group is invalid, the entire
- * group becomes invalid.
+ *  A `FormGroup`агрегирует значения каждого ребенка `FormControl` в одинобъект,.
+ * с каждым именем элемента управления в качестве ключа. Он рассчитывает свой статус, уменьшая значения статуса
+ * своих детей. Например, если один из элементов управления в группе является недействительным, весь
+ * группа становится недействительной.
  *
- * `FormGroup` is one of the three fundamental building blocks used to define forms in Angular,
- * along with `FormControl` and `FormArray`.
+ *  `FormGroup`- это один из трех основных строительных блоков, используемых для определения форм в Angular
+ * вместе с `FormControl` и `FormArray`.
  *
- * When instantiating a `FormGroup`, pass in a collection of child controls as the first
- * argument. The key for each child registers the name for the control.
+ * При создании экземпляра `FormGroup` передайте коллекцию дочерних элементов управления в качестве первого
+ * аргумент. Ключ для каждого дочернего элемента регистрирует имя для элемента управления.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Create a form group with 2 controls
+ *  ### Создайте группу форм с 2 элементами управления
  *
- * ```
- * const form = new FormGroup({
- *   first: new FormControl('Nancy', Validators.minLength(2)),
- *   last: new FormControl('Drew'),
- * });
+ *  ```
+ *  const form = new FormGroup({
+ *    first: new FormControl('Nancy', Validators.minLength(2)),
+ *    last: new FormControl('Drew'),
+ *  });
  *
- * console.log(form.value);   // {first: 'Nancy', last; 'Drew'}
- * console.log(form.status);  // 'VALID'
- * ```
+ *  console.log(form.value);// {first: 'Nancy', last; 'Drew'}
+ *  console.log(form.status);// 'VALID'
+ *  ```
  *
- * ### Create a form group with a group-level validator
+ *  ### Создайте группу форм с валидатором на уровне группы
  *
- * You include group-level validators as the second arg, or group-level async
- * validators as the third arg. These come in handy when you want to perform validation
- * that considers the value of more than one child control.
+ * В качестве второго аргумента вы используете валидаторы на уровне группы или асинхронный на уровне группы
+ * валидаторы в качестве третьего аргумента. Они пригодятся, когда вы хотите выполнить проверку
+ * который учитывает значение более чем одного дочернего элемента управления.
  *
- * ```
- * const form = new FormGroup({
- *   password: new FormControl('', Validators.minLength(2)),
- *   passwordConfirm: new FormControl('', Validators.minLength(2)),
- * }, passwordMatchValidator);
+ *  ```
+ *  const form = new FormGroup({
+ *    password: new FormControl('', Validators.minLength(2)),
+ *    passwordConfirm: new FormControl('', Validators.minLength(2)),
+ *  }, passwordMatchValidator);
  *
  *
- * function passwordMatchValidator(g: FormGroup) {
- *    return g.get('password').value === g.get('passwordConfirm').value
- *       ? null : {'mismatch': true};
- * }
- * ```
+ *  function passwordMatchValidator(g: FormGroup) {
+ *     return g.get('password').value === g.get('passwordConfirm').value
+ *        ? null : {'mismatch': true};
+ *  }
+ *  ```
  *
- * Like `FormControl` instances, you choose to pass in
- * validators and async validators as part of an options object.
+ * Подобно `FormControl` экземплярам, вы выбираете передачу
+ * валидаторы и асинхронные валидаторы как часть объекта параметров.
  *
- * ```
- * const form = new FormGroup({
- *   password: new FormControl('')
- *   passwordConfirm: new FormControl('')
- * }, { validators: passwordMatchValidator, asyncValidators: otherValidator });
- * ```
+ *  ```
+ *  const form = new FormGroup({
+ *    password: new FormControl('')
+ *    passwordConfirm: new FormControl('')
+ *  }, { validators: passwordMatchValidator, asyncValidators: otherValidator });
+ *  ```
  *
- * ### Set the updateOn property for all controls in a form group
+ *  ### Установите свойство updateOn для всех элементов управления в группе форм
  *
- * The options object is used to set a default value for each child
- * control's `updateOn` property. If you set `updateOn` to `'blur'` at the
- * group level, all child controls default to 'blur', unless the child
- * has explicitly specified a different `updateOn` value.
+ * Объект параметров используется для установки значения по умолчанию для каждого дочернего элемента
+ * управления `updateOn` собственности. Если вы установите `updateOn` в `'blur'`at the
+ * на уровне группы все дочерние элементы управления по умолчанию имеют «размытие», кроме дочерних
+ * явно указал другое `updateOn` значение.
  *
- * ```ts
- * const c = new FormGroup({
- *   one: new FormControl()
- * }, { updateOn: 'blur' });
- * ```
+ *  ```ts
+ *  const c = new FormGroup({
+ *    one: new FormControl()
+ *  }, { updateOn: 'blur' });
+ *  ```
  *
  * @publicApi
  */
@@ -1648,66 +1648,66 @@ export class FormGroup extends AbstractControl {
 }
 
 /**
- * Tracks the value and validity state of an array of `FormControl`,
- * `FormGroup` or `FormArray` instances.
+ * Отслеживает значение и валидности состояние массива `FormControl` FormControl,.
+ *  `FormGroup `или` FormArray`экземпляры.
  *
- * A `FormArray` aggregates the values of each child `FormControl` into an array.
- * It calculates its status by reducing the status values of its children. For example, if one of
- * the controls in a `FormArray` is invalid, the entire array becomes invalid.
+ *  A `FormArray`агрегирует значения каждого ребенка `FormControl` в массив.
+ * Он рассчитывает свой статус, уменьшая значения статуса своих детей. Например, если один из
+ * элементы управления в `FormArray` является недействительным, то весь массив становится недействительным.
  *
- * `FormArray` is one of the three fundamental building blocks used to define forms in Angular,
- * along with `FormControl` and `FormGroup`.
+ *  `FormArray`- один из трех основных строительных блоков, используемых для определения форм в Angular
+ * наряду с `FormControl` и `FormGroup`.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Create an array of form controls
+ *  ### Создайте массив элементов управления формы
  *
- * ```
- * const arr = new FormArray([
- *   new FormControl('Nancy', Validators.minLength(2)),
- *   new FormControl('Drew'),
- * ]);
+ *  ```
+ *  const arr = new FormArray([
+ *    new FormControl('Nancy', Validators.minLength(2)),
+ *    new FormControl('Drew'),
+ *  ]);
  *
- * console.log(arr.value);   // ['Nancy', 'Drew']
- * console.log(arr.status);  // 'VALID'
- * ```
+ *  console.log(arr.value);// ['Nancy', 'Drew']
+ *  console.log(arr.status);// 'VALID'
+ *  ```
  *
- * ### Create a form array with array-level validators
+ *  ### Создайте массив форм с валидаторами уровня массива
  *
- * You include array-level validators and async validators. These come in handy
- * when you want to perform validation that considers the value of more than one child
- * control.
+ * Вы включаете валидаторы уровня массива и асинхронные валидаторы. Это пригодится
+ * когда вы хотите выполнить проверку, которая учитывает значение более чем одного дочернего элемента
+ * контроль.
  *
- * The two types of validators are passed in separately as the second and third arg
- * respectively, or together as part of an options object.
+ * Два типа валидаторов передаются отдельно как второй и третий аргументы
+ * соответственно или вместе как часть объекта параметров.
  *
- * ```
- * const arr = new FormArray([
- *   new FormControl('Nancy'),
- *   new FormControl('Drew')
- * ], {validators: myValidator, asyncValidators: myAsyncValidator});
- * ```
+ *  ```
+ *  const arr = new FormArray([
+ *    new FormControl('Nancy'),
+ *    new FormControl('Drew')
+ *  ], {validators: myValidator, asyncValidators: myAsyncValidator});
+ *  ```
  *
- * ### Set the updateOn property for all controls in a form array
+ *  ### Установите свойство updateOn для всех элементов управления в массиве форм
  *
- * The options object is used to set a default value for each child
- * control's `updateOn` property. If you set `updateOn` to `'blur'` at the
- * array level, all child controls default to 'blur', unless the child
- * has explicitly specified a different `updateOn` value.
+ * Объект параметров используется для установки значения по умолчанию для каждого дочернего элемента
+ * управления `updateOn` собственности. Если вы установите для `updateOn` значение `'blur'` на
+ * На уровне массива все дочерние элементы управления по умолчанию имеют «размытие», кроме дочерних
+ * явно указал другое `updateOn` значение.
  *
- * ```ts
- * const arr = new FormArray([
- *    new FormControl()
- * ], {updateOn: 'blur'});
- * ```
+ *  ```ts
+ *  const arr = new FormArray([
+ *     new FormControl()
+ *  ], {updateOn: 'blur'});
+ *  ```
  *
- * ### Adding or removing controls from a form array
+ *  ### Добавление или удаление элементов управления из массива форм
  *
- * To change the controls in the array, use the `push`, `insert`, `removeAt` or `clear` methods
- * in `FormArray` itself. These methods ensure the controls are properly tracked in the
- * form's hierarchy. Do not modify the array of `AbstractControl`s used to instantiate
- * the `FormArray` directly, as that result in strange and unexpected behavior such
- * as broken change detection.
+ * чтобы изменить элементы управления в массиве, используйте `push` задвинуть, `insert` вставки, `removeAt` или `clear` методы.
+ * в `FormArray` самой. Эти методы обеспечивают правильное отслеживание элементов управления в
+ * иерархия форм. Не изменяйте массив `AbstractControl` используемых для создания экземпляров
+ *  the `FormArray`непосредственно, как этот результат в странном и неожиданном поведениитакого.
+ * как обнаружение сломанных изменений.
  *
  * @publicApi
  */

@@ -1,22 +1,23 @@
-# Static query migration guide
-​
-**Important note for library authors: This migration is especially crucial for library authors to facilitate their users upgrading to version 9 when it becomes available.**
+{@a static-query-migration-guide}
+# Статический запрос Руководство по миграции
 
-In version 9, the default setting for `@ViewChild` and `@ContentChild` queries is changing in order to fix buggy and surprising behavior in queries (read more about that [here](#what-does-this-flag-mean)).
+**Важное примечание для авторов библиотеки. Эта миграция особенно важна для авторов библиотеки, чтобы облегчить пользователям обновление до версии 9, когда она станет доступной.**
 
-In preparation for this change, in version 8, we are migrating all applications and libraries to explicitly specify the resolution strategy for `@ViewChild` and `@ContentChild` queries.
+В версии 9 настройка по умолчанию для  `@ViewChild`  и  `@ContentChild`  Запросы изменяются, чтобы исправить ошибочное и неожиданное поведение в запросах (подробнее об этом [здесь](#what-does-this-flag-mean)).
 
-Specifically, this migration adds an explicit "static" flag that dictates when that query's results should be assigned.
-Adding this flag will ensure your code works the same way when upgrading to version 9.
+Готовясь к этому изменению, в версии 8 мы переносим все приложения и библиотеки, чтобы явно указать стратегию разрешения для  `@ViewChild`  и  `@ContentChild`  запросы.
 
-Before:
+В частности, эта миграция добавляет явный «статический» флаг, который указывает, когда должны быть назначены результаты этого запроса.
+Добавление этого флага гарантирует, что ваш код работает так же, как при обновлении до версии 9
+
+Перед тем как :
 
 ```
-// query results sometimes available in `ngOnInit`, sometimes in `ngAfterViewInit` (based on template)
+// query results sometimes available in  `ngOnInit`, sometimes in  `ngAfterViewInit`  (based on template)
 @ViewChild('foo') foo: ElementRef;
 ```
 
-After:
+После того, как :
 
 ```
 // query results available in ngOnInit
@@ -28,140 +29,149 @@ OR
 @ViewChild('foo', {static: false}) foo: ElementRef;
 ```
 
-Starting with version 9, the `static` flag will default to false.
-At that time, any `{static: false}` flags can be safely removed, and we will have a schematic that will update your code for you.
+Начиная с версии 9,  `static`  флаг по умолчанию будет ложным.
+В то время любой `{static: false}` Флаги можно безопасно удалить, и у нас будет схема, которая обновит ваш код для вас.
 
-Note: this flag only applies to `@ViewChild` and `@ContentChild` queries specifically, as `@ViewChildren` and `@ContentChildren` queries do not have a concept of static and dynamic (they are always resolved as if they are "dynamic").
+Примечание: этот флаг применяется только к  `@ViewChild`  и  `@ContentChild`  запрашивает конкретно, как  `@ViewChildren`  и  `@ContentChildren`  Запросы не имеют понятия статического и динамического (они всегда разрешаются, как если бы они были «динамическими»).
 
+{@a faq}
 ## FAQ
 
 {@a what-to-do-with-todo}
-### What should I do if I see a `/* TODO: add static flag */` comment printed by the schematic?
+{@a what-should-i-do-if-i-see-a-/*-todo-add-static-flag-*/-comment-printed-by-the-schematic}
+### Что мне делать, если я вижу `/* TODO: add static flag*/` комментарий, напечатанный на схеме?
 
-If you see this comment, it means that the schematic couldn't statically figure out the correct flag. In this case, you'll have to add the correct flag based on your application's behavior.
-For more information on how to choose, see the [next question](#how-do-i-choose).
+Если вы видите этот комментарий, это означает, что схема не может статически определить правильный флаг. В этом случае вам нужно будет добавить правильный флаг в зависимости от поведения вашего приложения.
+Для получения дополнительной информации о том, как выбрать, см. [Следующий вопрос](#how-do-i-choose).
 
 {@a how-do-i-choose}
-### How do I choose which `static` flag value to use: `true` or `false`?
+{@a how-do-i-choose-which-static-flag-value-to-use-true-or-false}
+### Как выбрать какой  `static`  значение флага для использования:  `true`  или  `false`  ?
 
-In the official API docs, we have always recommended retrieving query results in [`ngAfterViewInit` for view queries](https://angular.io/api/core/ViewChild#description) and [`ngAfterContentInit` for content queries](https://angular.io/api/core/ContentChild#description).
-This is because by the time those lifecycle hooks run, change detection has completed for the relevant nodes and we can guarantee that we have collected all the possible query results.
+В официальных документах API мы всегда рекомендовали извлекать результаты запросов в [  `ngAfterViewInit`   для запросов на просмотр](https://angular.io/api/core/ViewChild#description)и [ ` ngAfterContentInit`  для запросов на контент](https://angular.io/api/core/ContentChild#description).
+Это связано с тем, что к моменту запуска этих хуков жизненного цикла обнаружение изменений для соответствующих узлов завершено, и мы можем гарантировать, что мы собрали все возможные результаты запроса.
 
-Most applications will want to use `{static: false}` for the same reason. This setting will ensure query matches that are dependent on binding resolution (e.g. results inside `*ngIf`s or `*ngFor`s) will be found by the query.
+Большинство приложений захотят использовать `{static: false}` по той же причине. Этот параметр гарантирует соответствие запросов, которые зависят от разрешения привязки (например, результаты внутри  `*ngIf`  s или  `*ngFor`  s) будет найден по запросу.
 
-There are rarer cases where `{static: true}` flag might be necessary (see [answer here](#should-i-use-static-true)).
+Есть более редкие случаи, когда `{static: true}` Флаг может быть необходим (см. [ответ здесь](#should-i-use-static-true)).
 
 {@a should-i-use-static-true}
-### Is there a case where I should use `{static: true}`?
+{@a is-there-a-case-where-i-should-use-{static-true}}
+### Есть ли случай, когда я должен использовать `{static: true}` ?
 
-This option was introduced to support creating embedded views on the fly.
-If you need access to a `TemplateRef` in a query to create a view dynamically, you won't be able to do so in `ngAfterViewInit`.
-Change detection has already run on that view, so creating a new view with the template will cause an `ExpressionHasChangedAfterChecked` error to be thrown.
-In this case, you will want to set the `static` flag to `true` and create your view in `ngOnInit`.
-In most other cases, the best practice is to use `{static: false}`.
+Эта опция была введена для поддержки создания встроенных представлений на лету.
+Если вам нужен доступ к  `TemplateRef`  в запросе для динамического создания представления, вы не сможете сделать это в  `ngAfterViewInit`.
+Обнаружение изменений уже запущено в этом представлении, поэтому создание нового представления с шаблоном вызовет  `ExpressionHasChangedAfterChecked`  ошибка, которая будет выдана.
+В этом случае вы захотите установить  `static`  флаг для  `true`  и создать свой взгляд в  `ngOnInit`.
+В большинстве других случаев наилучшей практикой является использование `{static: false}`.
 
-However, to facilitate the migration to version 8, you may also want to set the `static` flag to `true` if your component code already depends on the query results being available some time **before** `ngAfterViewInit` (for view queries) or `ngAfterContentInit` (for content queries).
-For example, if your component relies on the query results being populated in the `ngOnInit` hook or in `@Input` setters, you will need to either set the flag to `true` or re-work your component to adjust to later timing.
+Однако, чтобы облегчить переход на версию 8, вы также можете установить  `static`  флаг для  `true`  если код компонента уже зависит от результатов запроса, доступных за некоторое время **до**  `ngAfterViewInit` (для запросов на просмотр) или  `ngAfterContentInit`  (для запросов контента).
+Например, если ваш компонент опирается на результаты запроса, заполняемые в  `ngOnInit`  крючок или в  `@Input`, вам нужно будет либо установить флаг  `true`  или переработайте ваш компонент, чтобы приспособиться к более позднему времени.
 
-Note: Selecting the static option means that query results nested in `*ngIf` or `*ngFor` will not be found by the query.
-These results are only retrievable after change detection runs.
+Примечание. Выбор статического параметра означает, что результаты запроса вложены в  `*ngIf`  или  `*ngFor`  не будет найден по запросу.
+Эти результаты можно получить только после запуска обнаружения изменений.
 
 {@a what-does-this-flag-mean}
-### What does this flag mean and why is it necessary?
+{@a what-does-this-flag-mean-and-why-is-it-necessary}
+### Что означает этот флаг и почему он необходим?
 
-The default behavior for queries has historically been undocumented and confusing, and has also commonly led to issues that are difficult to debug.
-In version 9, we would like to make query behavior more consistent and simple to understand.
+Поведение по умолчанию для запросов исторически было недокументированным и запутанным, а также обычно приводило к проблемам, которые трудно отладить.
+В версии 9 мы хотели бы сделать поведение запросов более последовательным и простым для понимания.
 
-To explain why, first it's important to understand how queries have worked up until now.
+Чтобы объяснить, почему, во-первых, важно понять, как запросы работали до сих пор.
 
-Without the `static` flag, the compiler decided when each query would be resolved on a case-by-case basis.
-All `@ViewChild`/`@ContentChild` queries were categorized into one of two buckets at compile time: "static" or "dynamic".
-This classification determined when query results would become available to users.
+Без  `static`  флаг, компилятор решил, когда каждый запрос будет решаться в каждом конкретном случае.
+Все  `@ViewChild`  /  `@ContentChild`  запросы были разделены на две группы: «статическая» или «динамическая».
+Эта классификация определяется, когда результаты запроса станут доступны пользователям.
 
-- **Static queries** were queries where the result could be determined statically because the result didn't depend on runtime values like bindings.
-Results from queries classified as static were available before change detection ran for that view (accessible in `ngOnInit`).
+- **Статические запросы** были запросами, в которых результат мог быть определен статически, потому что результат не зависел от значений времени выполнения, таких как привязки.
+Результаты запросов, классифицированных как статические, были доступны до запуска обнаружения изменений для этого представления (доступно в  `ngOnInit`).
 
-- **Dynamic queries** were queries where the result could NOT be determined statically because the result depended on runtime values (aka bindings).
-Results from queries classified as dynamic were not available until after change detection ran for that view (accessible in `ngAfterContentInit` for content queries or `ngAfterViewInit` for view queries).
+- **Динамические запросы** были запросами, где результат НЕ мог быть определен статически, потому что результат зависел от значений времени выполнения (или привязок).
+Результаты запросов, классифицированных как динамические, были недоступны до тех пор, пока не было выполнено обнаружение изменений для этого представления (доступно в  `ngAfterContentInit`  для запросов контента или  `ngAfterViewInit`  для просмотра запросов).
 
-For example, let's say we have a component, `Comp`. Inside it, we have this query:
+Например, допустим, у нас есть компонент,  `Comp`  . Внутри него, мы имеем этот запрос:
 
 ```
 @ViewChild(Foo) foo: Foo;
 ```
 
-and this template:
+и этот шаблон:
 
 ```
 <div foo></div>
 ```
 
-This `Foo` query would be categorized as static because at compile-time it's known that the `Foo` instance on the `<div>` is the correct result for the query.
-Because the query result is not dependent on runtime values, we don't have to wait for change detection to run on the template before resolving the query.
-Consequently, results can be made available in `ngOnInit`.
+Эта  `Foo`  Запрос будет классифицирован как статический, потому что во время компиляции известно, что  `Foo`  экземпляр на  `<div>`  - правильный результат для запроса.
+Поскольку результат запроса не зависит от значений времени выполнения, нам не нужно ждать, пока обнаружение изменений запустится в шаблоне, прежде чем разрешить запрос.
+Следовательно, результаты могут быть доступны в  `ngOnInit`.
 
-Let's say the query is the same, but the component template looks like this:
+Скажем, запрос одно и то же, но компонент выглядит шаблон:
 
 ```
 <div foo *ngIf="showing"></div>
 ```
 
-With that template, the query would be categorized as a dynamic query.
-We would need to know the runtime value of `showing` before determining what the correct results are for the query.
-As a result, change detection must run first, and results can only be made available in `ngAfterViewInit` or a setter for the query property.
+С этим шаблоном запрос будет классифицирован как динамический запрос.
+Нам нужно знать значение времени выполнения  `showing`  перед определением, какие правильные результаты для запроса.
+В результате обнаружение изменений должно выполняться первым, а результаты могут быть доступны только в  `ngAfterViewInit`  или установщик для свойства запроса.
 
-The effect of this implementation is that adding an `*ngIf` or `*ngFor` anywhere above a query match can change when that query's results become available.
+Результатом этой реализации является то, что добавление  `*ngIf`  или  `*ngFor`  любого места выше совпадение запроса может измениться, когда станут доступны результаты этого запроса.
 
-Keep in mind that these categories only applied to `@ViewChild` and `@ContentChild` queries specifically.
-`@ViewChildren` and `@ContentChildren` queries did not have a concept of static and dynamic, so they were always resolved as if they were "dynamic".
+Имейте в виду, что эти категории применяются только к  `@ViewChild`  и  `@ContentChild`  запрашивает конкретно.
+ `@ViewChildren ` и ` @ContentChildren` Запросы не имели понятия статического и динамического, поэтому они всегда разрешались, как если бы они были «динамическими».
 
-This strategy of resolving queries at different times based on the location of potential query matches has caused a lot of confusion. Namely:
+Эта стратегия разрешения запросов в разное время на основе местоположения потенциальных совпадений запросов вызывает много путаницы. А именно:
 
-* Sometimes query results are available in `ngOnInit`, but sometimes they aren't and it's not clear why (see [21800](https://github.com/angular/angular/issues/21800) or [19872](https://github.com/angular/angular/issues/19872)).
+* Иногда результаты запроса доступны в  `ngOnInit`, но иногда это не так, и не понятно почему (см. [21800](https://github.com/angular/angular/issues/21800)или [19872](https://github.com/angular/angular/issues/19872)).
 
-* `@ViewChild` queries are resolved at a different time from `@ViewChildren` queries, and `@ContentChild` queries are resolved at a different time from `@ContentChildren` queries.
-If a user turns a `@ViewChild` query into a `@ViewChildren` query, their code can break suddenly because the timing has shifted.
+*  `@ViewChild` Запросы разрешаются в разное время  `@ViewChildren`  Запросы и  `@ContentChild`  Запросы разрешаются в разное время  `@ContentChildren`  запросы.
+Если пользователь поворачивает  `@ViewChild`  запрос в  `@ViewChildren`  запрос, их код может внезапно сломаться, потому что время изменилось.
 
-* Code depending on a query result can suddenly stop working as soon as an `*ngIf` or an `*ngFor` is added to a template.
+* Код, зависящий от результата запроса, может внезапно перестать работать, как только  `*ngIf`  или  `*ngFor`  добавлен в шаблон.
 
-* A `@ContentChild` query for the same component will resolve at different times in the lifecycle for each usage of the component.
-This leads to buggy behavior where using a component with `*ngIf` is broken in subtle ways that aren't obvious to the component author.
+*  `@ContentChild` Запрос для одного и того же компонента будет разрешаться в разное время жизненного цикла для каждого использования компонента.
+Это приводит к ошибочному поведению при использовании компонента с  `*ngIf`  разбит тонкими способами, которые не очевидны для автора компонента.
 
-In version 9, we plan to simplify the behavior so all queries resolve after change detection runs by default.
-The location of query matches in the template cannot affect when the query result will become available and suddenly break your code, and the default behavior is always the same.
-This makes the logic more consistent and predictable for users.
+В версии 9 мы планируем упростить поведение, чтобы все запросы разрешались после запуска обнаружения изменений по умолчанию.
+Расположение совпадений запросов в шаблоне не может повлиять на то, когда результат запроса станет доступным и внезапно нарушит ваш код, а поведение по умолчанию всегда одинаково.
+Это делает логику более последовательной и предсказуемой для пользователей.
 
-That said, if an application does need query results earlier (for example, the query result is needed to create an embedded view), it's possible to add the `{static: true}` flag to explicitly ask for static resolution.
-With this flag, users can indicate that they only care about results that are statically available and the query results will be populated before `ngOnInit`.
+Тем не менее, если приложению нужны результаты запроса ранее (например, результат запроса необходим для создания встроенного представления), можно добавить `{static: true}` Флаг чтобы явно запрашивать статическое разрешение.
+С помощью этого флага пользователи могут указать, что они заботятся только о статически доступных результатах, и результаты запроса будут заполнены до  `ngOnInit`.
 
 {@a view-children-and-content-children}
-### Does this change affect `@ViewChildren` or `@ContentChildren` queries?
+{@a does-this-change-affect-@viewchildren-or-@contentchildren-queries}
+### Влияет ли это изменение на  `@ViewChildren`  или  `@ContentChildren`  запросы?
 
-No, this change only affects `@ViewChild` and `@ContentChild` queries specifically.
-`@ViewChildren` and `@ContentChildren` queries are already "dynamic" by default and don't support static resolution.
+Нет, это изменение влияет только  `@ViewChild`  и  `@ContentChild`  запрашивает конкретно.
+ `@ViewChildren ` и ` @ContentChildren` Запросы по умолчанию уже являются «динамическими» и не поддерживают статическое разрешение.
 
 {@a why-specify-static-false}
-### ​Why do I have to specify `{static: false}`? Isn't that the default?
+{@a ​why-do-i-have-to-specify-{static-false}-isnt-that-the-default}
+### Почему я должен указать `{static: false}` ? Разве это не по умолчанию?
 
-The goal of this migration is to transition apps that aren't yet on version 9 to a query pattern that is compatible with version 9.
-However, most applications use libraries, and it's likely that some of these libraries may not be upgraded to version 8 yet (and thus might not have the proper flags).
-Since the application's version of Angular will be used for compilation, if we change the default, the behavior of queries in the library's components will change to the version 8 default and possibly break.
-This way, an application's dependencies will behave the same way during the transition as they did in the previous version.
+Цель этой миграции - преобразовать приложения, которые еще не в версии 9, в шаблон запроса, совместимый с версией 9
+Однако большинство приложений используют библиотеки, и, вероятно, некоторые из этих библиотек еще не обновлены до версии 8 (и, следовательно, могут не иметь надлежащих флагов).
+Поскольку версия приложения Angular будет использоваться для компиляции, если мы изменим значение по умолчанию, поведение запросов в компонентах библиотеки изменится на версию 8 по умолчанию и, возможно, прекратится.
+Таким образом, зависимости приложения будут вести себя так же, как и в предыдущей версии.
 
-In Angular version 9 and later, it will be safe to remove any `{static: false}` flags and we will do this cleanup for you in a schematic.
+В версии Angular 9 и более поздних будет безопасно удалить любую `{static: false}` помечает, и мы сделаем эту очистку для вас в схеме.
 
 {@a libraries}
-###  Can I keep on using Angular libraries that haven’t yet updated to version 8 yet?
+{@a can-i-keep-on-using-angular-libraries-that-havent-yet-updated-to-version-8-yet}
+###  Могу ли я продолжать использовать библиотеки Angular, которые еще не обновлены до версии 8?
 
-Yes, absolutely!
-Because we have not changed the default query behavior in version 8 (i.e. the compiler still chooses a timing if no flag is set), when your application runs with a library that has not updated to version 8, the library will run the same way it did in version 7.
-This guarantees your app will work in version 8 even if libraries take longer to update their code.
+Да, конечно!
+Поскольку мы не изменили поведение запроса по умолчанию в версии 8 (т. Е. Компилятор по-прежнему выбирает время, если не установлен флаг), когда ваше приложение запускается с библиотекой, которая не обновлена ​​до версии 8, библиотека будет работать так же, как она сделал в версии 7
+Это гарантирует, что ваше приложение будет работать в версии 8, даже если библиотекам потребуется больше времени для обновления своего кода.
 
 {@a update-library-to-use-static-flag}
-###  Can I update my library to version 8 by adding the `static` flag to view queries, while still being compatible with Angular version 7 apps?
+{@a can-i-update-my-library-to-version-8-by-adding-the-static-flag-to-view-queries-while-still-being-compatible-with-angular-version-7-apps}
+###  Могу ли я обновить свою библиотеку до версии 8, добавив  `static`  флаг для просмотра запросов и совместимость с приложениями Angular версии 7?
 
-Yes, the Angular team's recommendation for libraries is to update to version 8 and add the `static` flag. Angular version 7 apps will continue to work with libraries that have this flag.
+Да, команда Angular рекомендует для библиотек обновить версию 8 и добавить  `static`  флаг. Приложения Angular версии 7 будут продолжать работать с библиотеками, имеющими этот флаг.
 
-However, if you update your library to Angular version 8 and want to take advantage of the new version 8 APIs, or you want more recent dependencies (such as Typescript or RxJS) your library will become incompatible with Angular version 7 apps. If your goal is to make your library compatible with Angular versions 7 and 8, you should not update your lib at all—except for `peerDependencies` in `package.json`.
+Однако, если вы обновите свою библиотеку до Angular версии 8 и захотите воспользоваться новыми API-интерфейсами версии 8 или захотите использовать более новые зависимости (такие как Typescript или RxJS), ваша библиотека станет несовместимой с приложениями Angular версии 7. Если ваша цель - сделать вашу библиотеку совместимой с Angular версий 7 и 8, вам вообще не следует обновлять вашу библиотеку - кроме  `peerDependencies`  in  `package.json`.
 
-In general, the most efficient plan is for libraries to adopt a 6 month major version schedule and bump the major version after each Angular update. That way, libraries stay in the same release cadence as Angular.
+В целом, наиболее эффективный план состоит в том, чтобы библиотеки приняли 6-месячный график основной версии и повышали основную версию после каждого обновления Angular. Таким образом, библиотеки остаются в том же ритме выпуска, что и Angular.

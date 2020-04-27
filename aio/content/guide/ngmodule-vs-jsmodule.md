@@ -1,47 +1,50 @@
-# JavaScript modules vs. NgModules
+{@a javascript-modules-vs.-ngmodules}
+# Модули JavaScript против NgModules
 
-JavaScript and Angular use modules to organize code, and
-though they organize it differently, Angular apps rely on both.
+JavaScript и Angular используют модули для организации кода и
+хотя они организовывают это по-разному, приложения Angular полагаются на оба.
 
 
-## JavaScript modules
+{@a javascript-modules}
+## Модули JavaScript
 
-In JavaScript, modules are individual files with JavaScript code in them. To make what’s in them available, you write an export statement, usually after the relevant code, like this:
+В JavaScript модули представляют собой отдельные файлы с кодом JavaScript в них. Для того, чтобы сделать то, что в них имеется, вы пишете заявление на экспорт, как правило, после соответствующего кода, например:
 
 ```typescript
 export class AppComponent { ... }
 ```
 
-Then, when you need that file’s code in another file, you import it like this:
+Затем, когда вам нужно код этого файла в другой файл, импортировать его как это:
 
 ```typescript
 import { AppComponent } from './app.component';
 ```
 
-JavaScript modules help you namespace, preventing accidental global variables.
+Модули JavaScript помогают вам пространство имен, предотвращая случайные глобальные переменные.
 
-For more information on JavaScript modules, see [JavaScript/ECMAScript modules](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/).
+Для получения дополнительной информации о модулях JavaScript см. [Модули JavaScript / ECMAScript](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/).
 
+{@a ngmodules}
 ## NgModules
 
 <!-- KW-- perMisko: let's discuss. This does not answer the question why it is different. Also, last sentence is confusing.-->
-NgModules are classes decorated with `@NgModule`. The `@NgModule` decorator’s `imports` array tells Angular what other NgModules the current module needs. The modules in the `imports` array are different than JavaScript modules because they are NgModules rather than regular JavaScript modules. Classes with an `@NgModule` decorator are by convention kept in their own files, but what makes them an `NgModule` isn’t being in their own file, like JavaScript modules; it’s the presence of `@NgModule` and its metadata.
+NgModules - классы, украшенные `@NgModule` . `@NgModule ` декоратор ` imports` массив говорит, что другие Angular NgModules текущие потребности модуля. Модули в `imports` Массив отличается от модулей JavaScript, потому что они являются модулями NgModules, а не обычными модулями JavaScript. Классы с `@NgModule` Декоратор хранится в своих собственных файлах, но что делает их `NgModule` не находится в своем собственном файле, как модули JavaScript; это присутствие `@NgModule` и его метаданные.
 
-The `AppModule` generated from the [Angular CLI](cli) demonstrates both kinds of modules in action:
+ `AppModule` генерируется из [Angular CLI](cli)демонстрирует оба вида модулей в действии:
 
 ```typescript
-/* These are JavaScript import statements. Angular doesn’t know anything about these. */
+/* These are JavaScript import statements. Angular doesn’t know anything about these.*/
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-/* The @NgModule decorator lets Angular know that this is an NgModule. */
+/* The @NgModule decorator lets Angular know that this is an NgModule.*/
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [     /* These are NgModule imports. */
+  imports: [ /* These are NgModule imports.*/
     BrowserModule
   ],
   providers: [],
@@ -51,22 +54,23 @@ export class AppModule { }
 ```
 
 
-The NgModule classes differ from JavaScript module in the following key ways:
+В NgModule классов отличаются от модуля JavaScript в следующих ключевых направлениях:
 
-* An NgModule bounds [declarable classes](guide/ngmodule-faq#q-declarable) only.
-Declarables are the only classes that matter to the [Angular compiler](guide/ngmodule-faq#q-angular-compiler).
-* Instead of defining all member classes in one giant file as in a JavaScript module,
-you list the module's classes in the `@NgModule.declarations` list.
-* An NgModule can only export the [declarable classes](guide/ngmodule-faq#q-declarable)
-it owns or imports from other modules. It doesn't declare or export any other kind of class.
-* Unlike JavaScript modules, an NgModule can extend the _entire_ application with services
-by adding providers to the `@NgModule.providers` list.
+* Только границы NgModule [объявляемые классы](guide/ngmodule-faq#q-declarable).
+Объявления являются единственными классами, которые имеют значение для [Angular компилятор](guide/ngmodule-faq#q-angular-compiler).
+* Вместо того, чтобы определить все классы членов в один гигантский файл, как в модуле JavaScript,
+вы перечисляете классы модуля в `@NgModule.declarations` list.
+* NgModule может экспортировать только [декларируемые классы](guide/ngmodule-faq#q-declarable)
+он владеет или импортирует из других модулей. Он не объявляет и не экспортирует другие виды классов.
+* В отличие от модулей JavaScript, NgModule может расширять приложение _entire_ сервисами
+добавив провайдеров в `@NgModule.providers` list.
 
 <hr />
 
-## More on NgModules
+{@a more-on-ngmodules}
+## Больше на NgModules
 
-For more information on NgModules, see:
-* [Bootstrapping](guide/bootstrapping).
-* [Frequently used modules](guide/frequent-ngmodules).
-* [Providers](guide/providers).
+Для получения дополнительной информации о NgModules, см
+* [Самозагрузка](guide/bootstrapping).
+* [Часто используемые модули](guide/frequent-ngmodules).
+* [Провайдеры](guide/providers).

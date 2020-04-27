@@ -55,24 +55,24 @@ const EVENT_NAMES = {
 };
 
 /**
- * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
- * @see `HammerGestureConfig`
+ * Токен DI для поддержки[HammerJS](http://hammerjs.github.io/)Angular.
+ *  @see `HammerGestureConfig`
  *
- * @ngModule HammerModule
+ *  @ngModule HammerModule
  * @publicApi
  */
 export const HAMMER_GESTURE_CONFIG = new InjectionToken<HammerGestureConfig>('HammerGestureConfig');
 
 
 /**
- * Function that loads HammerJS, returning a promise that is resolved once HammerJs is loaded.
+ * Функция, которая загружает HammerJS, возвращая обещание, которое разрешается после загрузки HammerJs.
  *
  * @publicApi
  */
 export type HammerLoader = () => Promise<void>;
 
 /**
- * Injection token used to provide a {@link HammerLoader} to Angular.
+ * Токен впрыска, используемый для{@link HammerLoader}на Angular.
  *
  * @publicApi
  */
@@ -85,8 +85,8 @@ export interface HammerInstance {
 }
 
 /**
- * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
- * for gesture recognition. Configures specific event recognition.
+ * Инъекционный[(HammerJSManager).](http://hammerjs.github.io/api/#hammer.manager)
+ * для распознавания жестов. Настраивает распознавание конкретного события.
  * @publicApi
  */
 @Injectable()
@@ -276,13 +276,13 @@ export const HAMMER_PROVIDERS__PRE_R3__: Provider[] = [
 export const HAMMER_PROVIDERS = HAMMER_PROVIDERS__PRE_R3__;
 
 /**
- * Adds support for HammerJS.
+ * Добавлена поддержка HammerJS.
  *
- * Import this module at the root of your application so that Angular can work with
- * HammerJS to detect gesture events.
+ * Импортируйте этот модуль в корень вашего приложения, чтобы Angular мог работать с ним
+ * HammerJS для обнаружения событий жестов.
  *
- * Note that applications still need to include the HammerJS script itself. This module
- * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ * Обратите внимание, что приложения по-прежнему должны включать сам скрипт HammerJS. Этотмодуль.
+ * просто устанавливает уровень координации между HammerJS и EventManager от Angular.
  *
  * @publicApi
  */

@@ -12,76 +12,76 @@ import {getNativeRequestAnimationFrame} from '../util/raf';
 
 
 /**
- * An injectable service for executing work inside or outside of the Angular zone.
+ * Инъекционная услуга для выполнения работ внутри или за пределами Angular зоны.
  *
- * The most common use of this service is to optimize performance when starting a work consisting of
- * one or more asynchronous tasks that don't require UI updates or error handling to be handled by
- * Angular. Such tasks can be kicked off via {@link #runOutsideAngular} and if needed, these tasks
- * can reenter the Angular zone via {@link #run}.
+ * Чаще всего этот сервис используется для оптимизации производительности при запуске работы, состоящей из
+ * одна или несколько асинхронных задач, которые не требуют обновления пользовательского интерфейса или обработки ошибок
+ * Angular. Такие задачи могут быть начаты с помощью{@link #runOutsideAngular}и при необходимости эти задачи
+ * может войти в Angular зону через{@link #run},
  *
- * <!-- TODO: add/fix links to:
- *   - docs explaining zones and the use of zones in Angular and change-detection
- *   - link to runOutsideAngular/run (throughout this file!)
- *   -->
+ *  <!-- TODO: add/fix links to:
+ *    - docs explaining zones and the use of zones in Angular and change-detection
+ *    - link to runOutsideAngular/run (throughout this file!)
+ *    -->
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * import {Component, NgZone} from '@angular/core';
- * import {NgIf} from '@angular/common';
+ *  ```
+ *  import {Component, NgZone} from '@angular/core';
+ *  import {NgIf} from '@angular/common';
  *
- * @Component({
- *   selector: 'ng-zone-demo',
- *   template: `
- *     <h2>Demo: NgZone</h2>
+ *  @Component({
+ *    selector: 'ng-zone-demo',
+ *    template: `
+ *      <h2>Demo: NgZone</h2>
  *
- *     <p>Progress: {{progress}}%</p>
- *     <p *ngIf="progress >= 100">Done processing {{label}} of Angular zone!</p>
+ *      <p>Progress: {{progress}}%</p>
+ *      <pngIf="progress >= 100">Done processing {{label}} of Angular zone!</p>
  *
- *     <button (click)="processWithinAngularZone()">Process within Angular zone</button>
- *     <button (click)="processOutsideOfAngularZone()">Process outside of Angular zone</button>
- *   `,
- * })
- * export class NgZoneDemo {
- *   progress: number = 0;
- *   label: string;
+ *      <button (click)="processWithinAngularZone()">Process within Angular zone</button>
+ *      <button (click)="processOutsideOfAngularZone()">Process outside of Angular zone</button>
+ *    `,
+ *  })
+ *  export class NgZoneDemo {
+ *    progress: number = 0;
+ *    label: string;
  *
- *   constructor(private _ngZone: NgZone) {}
+ *    constructor(private _ngZone: NgZone) {}
  *
- *   // Loop inside the Angular zone
- *   // so the UI DOES refresh after each setTimeout cycle
- *   processWithinAngularZone() {
- *     this.label = 'inside';
- *     this.progress = 0;
- *     this._increaseProgress(() => console.log('Inside Done!'));
- *   }
+ *    // Loop inside the Angular zone
+ *    // so the UI DOES refresh after each setTimeout cycle
+ *    processWithinAngularZone() {
+ *      this.label = 'inside';
+ *      this.progress = 0;
+ *      this._increaseProgress(() => console.log('Inside Done!'));
+ *    }
  *
- *   // Loop outside of the Angular zone
- *   // so the UI DOES NOT refresh after each setTimeout cycle
- *   processOutsideOfAngularZone() {
- *     this.label = 'outside';
- *     this.progress = 0;
- *     this._ngZone.runOutsideAngular(() => {
- *       this._increaseProgress(() => {
- *         // reenter the Angular zone and display done
- *         this._ngZone.run(() => { console.log('Outside Done!'); });
- *       });
- *     });
- *   }
+ *    // Loop outside of the Angular zone
+ *    // so the UI DOES NOT refresh after each setTimeout cycle
+ *    processOutsideOfAngularZone() {
+ *      this.label = 'outside';
+ *      this.progress = 0;
+ *      this._ngZone.runOutsideAngular(() => {
+ *        this._increaseProgress(() => {
+ *          // reenter the Angular zone and display done
+ *          this._ngZone.run(() => { console.log('Outside Done!'); });
+ *        });
+ *      });
+ *    }
  *
- *   _increaseProgress(doneCallback: () => void) {
- *     this.progress += 1;
- *     console.log(`Current progress: ${this.progress}%`);
+ *    _increaseProgress(doneCallback: () => void) {
+ *      this.progress += 1;
+ *      console.log(`Current progress: ${this.progress}%`);
  *
- *     if (this.progress < 100) {
- *       window.setTimeout(() => this._increaseProgress(doneCallback), 10);
- *     } else {
- *       doneCallback();
- *     }
- *   }
- * }
- * ```
+ *      if (this.progress < 100) {
+ *        window.setTimeout(() => this._increaseProgress(doneCallback), 10);
+ *      } else {
+ *        doneCallback();
+ *      }
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */

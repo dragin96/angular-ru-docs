@@ -1,85 +1,90 @@
-# Try it: Use forms for user input
+{@a getting-started-with-angular-forms}
+# Начало работы с Angular: Формы
 
-At the end of [Managing Data](start/start-data "Try it: Managing Data"), the online store application has a product catalog and a shopping cart.
+В конце [Управление данными](start/start-data "Getting Started: Managing Data") приложение интернет-магазина имеет каталог товаров и корзину покупок.
 
-This section walks you through adding a form-based checkout feature to collect user information as part of checkout.
+В этом разделе рассказывается, как добавить функцию проверки на основе форм, чтобы собирать информацию о пользователях как часть проверки.
 
-## Forms in Angular
+{@a forms-in-angular}
+## Формы в Angular
 
-Forms in Angular build upon the standard HTML forms to help you create custom form controls and easy validation experiences. There are two parts to an Angular Reactive form: the objects that live in the component to store and manage the form, and the visualization of the form that lives in the template.
+Формы в Angular основаны на стандартных HTML-формах, чтобы помочь вам создать пользовательские элементы управления и облегчить процесс проверки. Форма Angular Reactive состоит из двух частей: объектов, которые находятся в компоненте для хранения формы и управления ею, и визуализации формы, которая находится в шаблоне.
 
-## Define the checkout form model
+{@a define-the-checkout-form-model}
+## Определите модель формы оформления заказа
 
-First, set up the checkout form model. Defined in the component class, the form model is the source of truth for the status of the form.
+Сначала настройте модель формы оформления заказа. Модель формы, определенная в классе компонентов, является источником правды для статуса формы.
 
-1. Open `cart.component.ts`.
+1. открыто `cart.component.ts`.
 
-1. Angular's `FormBuilder` service provides convenient methods for generating controls. As with the other services you've used, you need to import and inject the service before you can use it:
+1. Angular's `FormBuilder` предоставляет удобные методы для генерации элементов управления. Как и другие услуги, которые вы использовали, вам нужно импортировать и внедрить услугу, прежде чем вы можете использовать его:
 
-    1. Import the `FormBuilder` service from the `@angular/forms` package.
+    1. Импортировать `FormBuilder` от `@angular/forms` пакет.
 
       <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.ts" region="imports">
       </code-example>
 
-      The `ReactiveFormsModule` provides the `FormBuilder` service, which `AppModule` (in `app.module.ts`) already imports.
+ `ReactiveFormsModule` предоставляет `FormBuilder`, который `AppModule` (в `app.module.ts`) уже импортирует.
 
-    1. Inject the `FormBuilder` service.
+    1. Введите `FormBuilder`.
 
       <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.ts" region="inject-form-builder">
       </code-example>
 
-1. Still in the `CartComponent` class, define the `checkoutForm` property to store the form model.
+1. Все еще в `CartComponent` Класс, определите `checkoutForm` Свойство для хранения модели формы.
 
     <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.ts" region="checkout-form">
     </code-example>
 
-1. To gather the user's name and address, set the `checkoutForm` property with a form model containing `name` and `address` fields, using the `FormBuilder` `group()` method. Add this between the curly braces, `{}`,
-of the constructor.
+1. Чтобы собрать имя пользователя и адрес, установите `checkoutForm` Свойство с моделью формы, содержащей `name` и `address` поля, используя `FormBuilder` `group()` метод. Добавьте это между фигурными скобками, `{}`,
+конструктора.
 
     <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.ts" region="checkout-form-group"></code-example>
 
-1. For the checkout process, users need to submit their name and address. When they submit their order, the form should reset and the cart should clear.
+1. Для оформления заказа пользователям необходимо указать свое имя и адрес. Когда они отправят свой заказ, форма должна быть сброшена, и корзина должна очиститься.
 
-    1. In `cart.component.ts`, define an `onSubmit()` method to process the form. Use the `CartService` `clearCart()` method to empty the cart items and reset the form after its submission. In a real-world app, this method would also submit the data to an external server. The entire cart component class is as follows:
+    1. В `cart.component.ts`, определить `onSubmit()` для обработки формы. Использовать `CartService` `clearCart()` для элементов корзины и сброса формы после ее отправки. В реальном приложении этот метод также передает данные на внешний сервер. Весь класс телега компонент выглядит следующим образом :
 
     <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.ts">
     </code-example>
 
-Now that you've defined the form model in the component class, you need a checkout form to reflect the model in the view.
+Теперь, когда вы определили модель формы в классе компонентов, вам нужна форма проверки, чтобы отразить модель в представлении.
 
-## Create the checkout form
+{@a create-the-checkout-form}
+## Создайте форму заказа
 
-Use the following steps to add a checkout form at the bottom of the "Cart" view.
+Используйте следующие шаги, чтобы добавить форму оформления заказа внизу страницы «Корзина».
 
-1. Open `cart.component.html`.
+1. открыто `cart.component.html`.
 
-1. At the bottom of the template, add an HTML form to capture user information.
+1. Внизу шаблона добавьте HTML-форму для сбора информации о пользователе.
 
-1. Use a `formGroup` property binding to bind the `checkoutForm` to the `form` tag in the template. Also include a "Purchase" button to submit the form.
+1. Использовать `formGroup` свойства для привязки `checkoutForm` на `form` тега в шаблоне. Также добавьте кнопку «Купить», чтобы отправить форму.
 
   <code-example header="src/app/cart/cart.component.html" path="getting-started/src/app/cart/cart.component.3.html" region="checkout-form">
   </code-example>
 
-1. On the `form` tag, use an `ngSubmit` event binding to listen for the form submission and call the `onSubmit()` method with the `checkoutForm` value.
+1. На `form` тег, используйте `ngSubmit` события для прослушивания формы и вызова `onSubmit()` с `checkoutForm` значение.
 
   <code-example path="getting-started/src/app/cart/cart.component.html" header="src/app/cart/cart.component.html (cart component template detail)" region="checkout-form-1">
   </code-example>
 
-1. Add input fields for `name` and `address`.  Use the `formControlName` attribute binding to bind the `checkoutForm` form controls for `name` and `address` to their input fields. The final complete component is as follows:
+1. Добавить поля ввода для `name` и `address` . Использовать `formControlName` атрибута для привязки `checkoutForm` элементы управления для `name` и `address` к их полям ввода. Окончательный полный компонент выглядит следующим образом :
 
   <code-example path="getting-started/src/app/cart/cart.component.html" header="src/app/cart/cart.component.html" region="checkout-form-2">
   </code-example>
 
-After putting a few items in the cart, users can now review their items, enter their name and address, and submit their purchase:
+После ввода нескольких элементов в корзине, теперь пользователи могут просматривать свои элементы, введите свое имя и адрес, и представить их покупку:
 
 <div class="lightbox">
-  <img src='generated/images/guide/start/cart-with-items-and-form.png' alt="Cart view with checkout form">
+  <img src='generated/images/guide/start/cart-with-items-and-form.png' alt="Cart page with checkout form">
 </div>
 
-To confirm submission, open the console where you should see an object containing the name and address you submitted.
+Чтобы подтвердить отправку, откройте консоль, где вы должны увидеть объект, содержащий имя и адрес, который вы отправили.
 
-## Next steps
+{@a next-steps}
+## Следующие шаги
 
-Congratulations! You have a complete online store application with a product catalog, a shopping cart, and a checkout function.
+Поздравляем! У вас есть полное приложение интернет-магазина с каталогом товаров, корзиной для покупок и функцией оформления заказа.
 
-[Continue to the "Deployment" section](start/start-deployment "Try it: Deployment") to move to local development, or deploy your app to Firebase or your own server.
+[Перейти к разделу «Развертывание»](start/start-deployment "Getting Started: Deployment") перейти к локальной разработке или развернуть приложение на Firebase или на своем собственном сервере.

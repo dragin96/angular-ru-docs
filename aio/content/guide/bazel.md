@@ -1,122 +1,129 @@
-# Building with Bazel
+{@a building-with-bazel}
+# Cборка с Bazel
 
-This guide explains how to build and test Angular apps with Bazel.
+В этом руководстве объясняется, как создавать и тестировать приложения Angular с помощью Bazel.
 
 
 <div class="alert is-helpful">
 
-This guide assumes you are already familiar with developing and building Angular applications using the [CLI](cli).
+В этом руководстве предполагается, что вы уже знакомы с разработкой и сборкой приложений Angular с использованием [CLI](cli).
 
-It describes features which are part of Angular Labs, and are not considered a stable, supported API.
+Он описывает функции, которые являются частью Angular Labs и не считаются стабильным, поддерживаемым API.
 
 </div>
 
-## Using Bazel with the Angular CLI
+{@a using-bazel-with-the-angular-cli}
+## Использование Bazel с Angular CLI
 
-The `@angular/bazel` package provides a builder that allows Angular CLI to use Bazel as the build tool.
+ `@angular/bazel` Пакет предоставляет компоновщик, который позволяет Angular CLI использовать Bazel в качестве инструмента компоновки.
 
-To opt-in an existing application, run
+Чтобы включить существующее приложение, запустите
 
 ```sh
 ng add @angular/bazel
 ```
 
-To use Bazel in a new application, first install `@angular/bazel` globally
+Чтобы использовать Bazel в новом приложении, сначала установите `@angular/bazel` глобально
 
 ```sh
 npm install -g @angular/bazel
 ```
 
-then create the new application with
+затем создайте новое приложение с помощью
 
 ```sh
 ng new --collection=@angular/bazel
 ```
 
-Now when you use Angular CLI build commands such as `ng build` and `ng serve`,
-Bazel is used behind the scenes.
-Outputs from Bazel appear in the `dist/bin` folder.
+Теперь, когда вы используете команды сборки Angular CLI, такие как `ng build ` и ` ng serve`,
+Базель используется за кулисами.
+Выходы из Базеля появляются в `dist/bin` папка.
 
-> The command-line output includes extra logging from Bazel.
-> We plan to reduce this in the future.
+> Вывод командной строки включает в себя дополнительные записи из Bazel.
+> Мы планируем уменьшить это в будущем.
 
-### Removing Bazel
+{@a removing-bazel}
+### Удаление Базеля
 
-If you need to opt-out from using Bazel, you can restore the backup files:
+Если вам нужно, чтобы отказаться от использования Bazel, вы можете восстановить резервные копии файлов:
 
-- `/angular.json.bak` replaces `/angular.json`
+- `/angular.json.bak ` заменяет ` /angular.json` 
 
-## Advanced configuration
+{@a advanced-configuration}
+## Расширенная конфигурация
 
 <div class="alert is-helpful">
 
-Editing the Bazel configuration may prevent you opting out of Bazel.
-Custom behaviors driven by Bazel won't be available in other Builders.
+Редактирование конфигурации Bazel может помешать вам отказаться от Bazel.
+Пользовательское поведение, управляемое Базелем, не будет доступно в других Строителях.
 
-This section assumes you are familiar with [Bazel](https://docs.bazel.build).
+В этом разделе предполагается, что вы знакомы с [Bazel](https://docs.bazel.build).
 
 </div>
 
-You can manually adjust the Bazel configuration to:
+Вы можете вручную настроить конфигурацию Базэл на:
 
-* customize the build steps
-* parallellize the build for scale and incrementality
+* настроить шаги сборки
+* распараллелить сборку для масштаба и приращения
 
-Create the initial Bazel configuration files by running the following command:
+Создание исходных файлов конфигурации Bazel, выполнив следующую команду:
 
 ```sh
 ng build --leaveBazelFilesOnDisk
 ```
 
-Now you'll find new files in the Angular workspace:
+Теперь вы найдете новые файлы в угловом рабочем пространстве
 
-* `/WORKSPACE` tells Bazel how to download external dependencies.
-* `/BUILD.bazel` and `/src/BUILD.bazel` tell Bazel about your source code.
+* `/WORKSPACE` сообщает как загружать внешние зависимости.
+* `/BUILD.bazel ` и ` /src/BUILD.bazel` расскажите о вашем исходном коде.
 
-You can find a full-featured example with custom Bazel configurations at https://github.com/bazelbuild/rules_nodejs/tree/master/examples/angular.
+Вы можете найти полнофункциональный пример с пользовательскими настройками Bazel по адресу https://github.com/bazelbuild/rules_nodejs/tree/master/examples/angular.
 
-Documentation for using Bazel for frontend projects is linked from https://docs.bazel.build/versions/master/bazel-and-javascript.html.
-
-
-
-## Running Bazel directly
-
-In some cases you'll want to bypass the Angular CLI builder, and run the Bazel CLI directly.
-The Bazel tool is managed by the `@bazel/bazelisk` package (similar to how Node.js can be managed by `nvm`).
-You can install it globally to get the `bazelisk` command in your path, or use `$(npm bin)/bazelisk` in place of bazelisk below.
-
-The common commands in Bazel are:
-
-* `bazelisk build [targets]`: Compile the default output artifacts of the given targets.
-* `bazelisk test [targets]`: For whichever `*_test` targets are found in the patterns, run the tests.
-* `bazelisk run [target]`: Compile the program represented by target, and then run it.
-
-To repeat the command any time the inputs change (watch mode), replace `bazelisk` with `ibazel` in these commands.
-
-The output locations are printed in the output.
-
-Full documentation for the Bazel CLI is at https://docs.bazel.build/versions/master/command-line-reference.html.
+Документация по использованию Bazel для внешних проектов приведена по ссылке https://docs.bazel.build/versions/master/bazel-and-javascript.html.
 
 
-## Querying the build graph
 
-Because Bazel constructs a graph out of your targets, you can find lots of useful information.
+{@a running-bazel-directly}
+## Запускаю Базель напрямую
 
-Using the graphviz optional dependency, you'll have a program `dot`, which you can use with `bazel query`:
+В некоторых случаях вы захотите обойти сборщик Angular CLI и напрямую запустить Bazel CLI.
+Инструмент Bazel управляется `@bazel/bazelisk` Пакет (аналогично тому, как Node.js может управляться `nvm`).
+Вы можете установить его глобально, чтобы получить `bazelisk` команда на вашем пути, или используйте `$(npm bin)/bazelisk` вместо базелиска ниже.
+
+Общие команды в Базэла являются:
+
+* `bazelisk build [targets]` : выходные артефакты по умолчанию для указанных целей.
+* `bazelisk test [targets]` : для любого `*_test` цели находятся в шаблонах, запустите тесты.
+* `bazelisk run [target]` : программу, представленную target, и затем запустите ее.
+
+Чтобы повторить команду при каждом изменении входов (режим просмотра), замените `bazelisk` с `ibazel` в этих командах.
+
+Места вывода печатаются на выходе.
+
+Полная документация по интерфейсу командной строки Bazel находится по адресу https://docs.bazel.build/versions/master/command-line-reference.html.
+
+
+{@a querying-the-build-graph}
+## Запрос графика сборки
+
+Поскольку Базель строит график из ваших целей, вы можете найти много полезной информации.
+
+Используя необязательную зависимость graphviz, вы получите программу `dot`, которую вы можете использовать с `bazel query` :
 
 ```bash
-$ bazel query --output=graph ... | dot -Tpng > graph.png
+$ bazel query --output=graph... | dot -Tpng > graph.png
 ```
 
-See https://docs.bazel.build/versions/master/query-how-to.html for more details on `bazel query`.
+См. Https://docs.bazel.build/versions/master/query-how-to.html для получения дополнительной информации о `bazel query`.
 
 
-## Customizing `BUILD.bazel` files
+{@a customizing-build.bazel-files}
+## Пользовательская настройка `BUILD.bazel` Файлы
 
-"Rules" are like plugins for Bazel. Many rule sets are available. This guide documents the ones maintained by the Angular team at Google.
+«Правила» похожи на плагины для Bazel. Многие наборы правил доступны. В этом руководстве описаны документы, поддерживаемые командой Angular в Google.
 
-Rules are used in `BUILD.bazel` files, which are markers for the packages in your workspace. Each `BUILD.bazel` file declares a separate package to Bazel, though you can have more coarse-grained distributions so that the packages you publish (for example, to `npm`) can be made up of many Bazel packages.
+Правила используются в `BUILD.bazel` Файлы, которые являются маркерами для пакетов в вашей рабочей области. каждый `BUILD.bazel` Файл объявляет отдельный пакет для Bazel, хотя вы можете иметь более грубые дистрибутивы, чтобы пакеты, которые вы публикуете (например, для `npm`) может состоять из множества пакетов Bazel.
 
-In the `BUILD.bazel` file, each rule must first be imported, using the `load` statement. Then the rule is called with some attributes, and the result of calling the rule is that you've declared to Bazel how it can derive some outputs given some inputs and dependencies. Then later, when you run a `bazel` command line, Bazel loads all the rules you've declared to determine an absolute ordering of what needs to be run. Note that only the rules needed to produce the requested output will actually be executed.
+в `BUILD.bazel` Файл, каждое правило должно быть сначала импортировано, используя `load` заявление. Затем правило вызывается с некоторыми атрибутами, и результат вызова правила заключается в том, что вы объявили Bazel, как оно может выводить некоторые выходные данные с учетом некоторых входных данных и зависимостей. Потом, когда вы запускаете `bazel` командной строке загружает все объявленные вами правила, чтобы определить абсолютный порядок действий, которые необходимо выполнить. Обратите внимание, что на самом деле будут выполняться только те правила, которые необходимы для получения запрошенного вывода.
 
-A list of common rules for frontend development is documented in the README at https://github.com/bazelbuild/rules_nodejs/.
+Список общих правил разработки веб-интерфейса описан в README по адресу https://github.com/bazelbuild/rules_nodejs/.

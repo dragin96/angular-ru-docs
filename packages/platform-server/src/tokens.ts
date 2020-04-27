@@ -9,7 +9,7 @@
 import {InjectionToken} from '@angular/core';
 
 /**
- * Config object passed to initialize the platform.
+ * Объект конфигурации передан для инициализации платформы.
  *
  * @publicApi
  */
@@ -19,15 +19,15 @@ export interface PlatformConfig {
 }
 
 /**
- * The DI token for setting the initial config for the platform.
+ * Токен DI для установки начальной конфигурации для платформы.
  *
  * @publicApi
  */
 export const INITIAL_CONFIG = new InjectionToken<PlatformConfig>('Server.INITIAL_CONFIG');
 
 /**
- * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
- * before current platform state is rendered to string.
+ * Функциякоторая будет выполняться при вызове `renderModuleFactory` или `renderModule` просто.
+ * до того, как текущее состояние платформы будет преобразовано в строку.
  *
  * @publicApi
  */

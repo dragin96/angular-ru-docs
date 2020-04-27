@@ -1,134 +1,140 @@
-# Upgrading for performance
+{@a upgrading-for-performance}
+# Обновление для производительности
 
 <div class="alert is-helpful">
 
-  _Angular_ is the name for the Angular of today and tomorrow.<br />
-  _AngularJS_ is the name for all 1.x versions of Angular.
+  _Angular_ это имя для Angular сегодня и завтра. <br />
+  _AngularJS_ - имя для всех 1.x версий Angular.
 
 </div>
 
-This guide describes some of the built-in tools for efficiently migrating AngularJS projects over to
-the Angular platform, one piece at a time. It is very similar to
-[Upgrading from AngularJS](guide/upgrade) with the exception that this one uses the {@link
-downgradeModule downgradeModule()} helper function instead of the {@link UpgradeModule
-UpgradeModule} class. This affects how the app is bootstrapped and how change detection is
-propagated between the two frameworks. It allows you to upgrade incrementally while improving the
-speed of your hybrid apps and leveraging the latest of Angular in AngularJS apps early in the
-process of upgrading.
+В этом руководстве описаны некоторые встроенные инструменты для эффективной миграции проектов AngularJS в
+Angular платформа, по одной штуке за раз. Это очень похоже на
+[Обновление от AngularJS](guide/upgrade)за исключением того, что этот использует {@link
+downgradeModule вспомогательная функция downgradeModule ()} вместо {@link UpgradeModule
+UpgradeModule}учебный класс. Это влияет на загрузку приложения и обнаружение изменений
+распространяется между двумя рамками. Это позволяет вам обновляться постепенно, улучшая
+скорость ваших гибридных приложений и использование новейших приложений Angular в AngularJS в начале
+процесс модернизации.
 
 
 
-## Preparation
+{@a preparation}
+## Подготовка
 
-Before discussing how you can use `downgradeModule()` to create hybrid apps, there are things that
-you can do to ease the upgrade process even before you begin upgrading. Because the steps are the
-same regardless of how you upgrade, refer to the [Preparation](guide/upgrade#preparation) section of
-[Upgrading from AngularJS](guide/upgrade).
-
-
-## Upgrading with `ngUpgrade`
-
-With the `ngUpgrade` library in Angular you can upgrade an existing AngularJS app incrementally by
-building a hybrid app where you can run both frameworks side-by-side. In these hybrid apps you can
-mix and match AngularJS and Angular components and services and have them interoperate seamlessly.
-That means you don't have to do the upgrade work all at once as there is a natural coexistence
-between the two frameworks during the transition period.
+Прежде чем обсуждать, как вы можете использовать `downgradeModule()` для создания гибридных приложений, есть вещи, которые
+Вы можете упростить процесс обновления даже до того, как начнете обновление. Потому что шаги
+То же самое независимо от того, как вы обновляете, обратитесь к [Подготовка](guide/upgrade#preparation)разделу
+[Обновление от AngularJS](guide/upgrade).
 
 
-### How `ngUpgrade` Works
+{@a upgrading-with-ngupgrade}
+## Обновление с `ngUpgrade` 
 
-Regardless of whether you choose `downgradeModule()` or `UpgradeModule`, the basic principles of
-upgrading, the mental model behind hybrid apps, and how you use the {@link upgrade/static
-upgrade/static} utilities remain the same. For more information, see the
-[How `ngUpgrade` Works](guide/upgrade#how-ngupgrade-works) section of
-[Upgrading from AngularJS](guide/upgrade).
+С `ngUpgrade` библиотеке на Angular вы можете постепенно обновлять существующее приложение AngularJS
+создание гибридного приложения, в котором вы можете запускать обе платформы параллельно. В этих гибридных приложениях вы можете
+смешивать и сочетать компоненты и сервисы AngularJS и Angular и обеспечивать их бесперебойную работу.
+Это означает, что вам не нужно выполнять работу по обновлению сразу, поскольку существует естественное сосуществование
+между двумя рамками в течение переходного периода.
+
+
+{@a how-ngupgrade-works}
+### Как `ngUpgrade` Works
+
+Независимо от того, выберете ли вы `downgradeModule()` или `UpgradeModule`, основные принципы
+обновление, ментальная модель гибридных приложений и то, как вы используете {@link upgrade/static
+upgrade/static} коммунальные услуги остаются прежними. Для получения дополнительной информации см
+[Как `ngUpgrade` Works](guide/upgrade#how-ngupgrade-works)раздел
+[Обновление от AngularJS](guide/upgrade).
 
 <div class="alert is-helpful">
 
-  The [Change Detection](guide/upgrade#change-detection) section of
-  [Upgrading from AngularJS](guide/upgrade) only applies to apps that use `UpgradeModule`. Though
-  you handle change detection differently with `downgradeModule()`, which is the focus of this
-  guide, reading the [Change Detection](guide/upgrade#change-detection) section provides helpful
-  context for what follows.
+[Change Detection](guide/upgrade#change-detection)сечение
+  [Обновление с AngularJS](guide/upgrade)применяется только к приложениям, которые используют `UpgradeModule` . Хотя
+  вы обнаруживаете изменения по-разному с `downgradeModule()`, который находится в центре этого
+  Руководство, чтение [Обнаружение изменений](guide/upgrade#change-detection)раздела предоставляет полезную информацию
+  контекст для того, что следует.
 
 </div>
 
 
-#### Change Detection with `downgradeModule()`
+{@a change-detection-with-downgrademodule}
+#### Обнаружение изменений с `downgradeModule()` 
 
-As mentioned before, one of the key differences between `downgradeModule()` and `UpgradeModule` has
-to do with change detection and how it is propagated between the two frameworks.
+Как упоминалось ранее, одно из ключевых различий между `downgradeModule()` и `UpgradeModule` имеет
+делать с обнаружением изменений и как оно распространяется между двумя структурами.
 
-With `UpgradeModule`, the two change detection systems are tied together more tightly. Whenever
-something happens in the AngularJS part of the app, change detection is automatically triggered on
-the Angular part and vice versa. This is convenient as it ensures that neither framework misses an
-important change. Most of the time, though, these extra change detection runs are unnecessary.
+С `UpgradeModule`, две системы обнаружения изменений более тесно связаны между собой. Всякий раз, когда
+что-то происходит в части приложения AngularJS, автоматически включается обнаружение изменений
+Angular часть и наоборот. Это удобно, так как гарантирует, что ни одна структура не пропустит
+важное изменение. Однако в большинстве случаев эти дополнительные прогоны обнаружения изменений не нужны.
 
-`downgradeModule()`, on the other side, avoids explicitly triggering change detection unless it
-knows the other part of the app is interested in the changes. For example, if a downgraded component
-defines an `@Input()`, chances are that the app needs to be aware when that value changes. Thus,
-`downgradeComponent()` automatically triggers change detection on that component.
+ `downgradeModule()`, с другой стороны, избегает явного запуска обнаружения изменений, если это не так
+знает, что другая часть приложения заинтересована в изменениях. Например, если понижен компонент
+определяет `@Input()`, скорее всего, приложение должно знать об изменении этого значения. Таким образом,
+ `downgradeComponent()` автоматически запускает обнаружение изменений в этом компоненте.
 
-In most cases, though, the changes made locally in a particular component are of no interest to the
-rest of the app. For example, if the user clicks a button that submits a form, the component usually
-handles the result of this action. That being said, there _are_ cases where you want to propagate
-changes to some other part of the app that may be controlled by the other framework. In such cases,
-you are responsible for notifying the interested parties by manually triggering change detection.
+Однако в большинстве случаев изменения, вносимые локально в конкретный компонент, не представляют интереса для
+Остальная часть приложения. Например, если пользователь нажимает кнопку, которая отправляет форму, компонент обычно
+обрабатывает результат этого действия. При этом есть _are_ случаи, когда вы хотите размножаться
+изменения в другой части приложения, которая может контролироваться другой структурой. В таких случаях
+Вы несете ответственность за уведомление заинтересованных сторон путем ручного запуска обнаружения изменений.
 
-If you want a particular piece of code to trigger change detection in the AngularJS part of the app,
-you need to wrap it in
-[scope.$apply()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply). Similarly, for
-triggering change detection in Angular you would use {@link NgZone#run ngZone.run()}.
+Если вы хотите определенный кусок кода для обнаружения изменений триггера в AngularJS части приложения,
+Вы должны обернуть это
+[scope. $ apply ()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply). Точно так же для
+запуск обнаружения изменений в Angular, который вы бы использовали {@link NgZone#run ngZone.run()}.
 
-In many cases, a few extra change detection runs may not matter much. However, on larger or
-change-detection-heavy apps they can have a noticeable impact. By giving you more fine-grained
-control over the change detection propagation, `downgradeModule()` allows you to achieve better
-performance for your hybrid apps.
+Во многих случаях несколько дополнительных прогонов обнаружения изменений могут не иметь большого значения. Однако по большому или
+тяжелые приложения для обнаружения изменений могут оказать заметное влияние. Давая вам более мелкозернистый
+контроль за распространением обнаружения изменений, `downgradeModule()` позволяет добиться большего
+производительность для ваших гибридных приложений.
 
 
-## Using `downgradeModule()`
+{@a using-downgrademodule}
+## С помощью `downgradeModule()` 
 
-Both AngularJS and Angular have their own concept of modules to help organize an app into cohesive
-blocks of functionality.
+И AngularJS, и Angular имеют собственную концепцию модулей, помогающую объединить приложение в единое целое
+блоки функциональности.
 
-Their details are quite different in architecture and implementation. In AngularJS, you create a
-module by specifying its name and dependencies with
-[angular.module()](https://docs.angularjs.org/api/ng/function/angular.module). Then you can add
-assets using its various methods. In Angular, you create a class adorned with an {@link NgModule
-NgModule} decorator that describes assets in metadata.
+Их детали сильно отличаются по архитектуре и реализации. В AngularJS вы создаете
+модуль, указав его имя и зависимости с
+[angular.module ()](https://docs.angularjs.org/api/ng/function/angular.module). Тогда вы можете добавить
+активы, используя различные методы. В Angular вы создаете класс, украшенный символом {@link NgModule
+NgModule}декоратор, который описывает активы в метаданных.
 
-In a hybrid app you run both frameworks at the same time. This means that you need at least one
-module each from both AngularJS and Angular.
+В гибридном приложении вы запускаете обе платформы одновременно. Это означает, что вам нужен хотя бы один
+модуль каждый из обоих AngularJS и Angular.
 
-For the most part, you specify the modules in the same way you would for a regular app. Then, you
-use the `upgrade/static` helpers to let the two frameworks know about assets they can use from each
-other. This is known as "upgrading" and "downgrading".
+По большей части вы указываете модули так же, как для обычного приложения. Тогда ты
+использовать `upgrade/static` помощники чтобы сообщить двум фреймворкам об активах, которые они могут использовать из каждого
+Другой. Это известно как «обновление» и «понижение».
 
 <div class="alert is-helpful">
 
-  <b>Definitions:</b>
+  <b>Определения: </b>
 
-  - _Upgrading_: The act of making an AngularJS asset, such as a component or service, available to
-    the Angular part of the app.
-  - _Downgrading_: The act of making an Angular asset, such as a component or service, available to
-    the AngularJS part of the app.
+  - _Upgrading_: действие по обеспечению доступности ресурса AngularJS, такого как компонент или служба, для
+    Angular часть приложения.
+  - _Downgrading_: Активизация доступа к активу Angular, такому как компонент или услуга
+    AngularJS часть приложения.
 
 </div>
 
-An important part of inter-linking dependencies is linking the two main modules together. This is
-where `downgradeModule()` comes in. Use it to create an AngularJS module&mdash;one that you can use
-as a dependency in your main AngularJS module&mdash;that will bootstrap your main Angular module and
-kick off the Angular part of the hybrid app. In a sense, it "downgrades" an Angular module to an
-AngularJS module.
+Важной частью взаимосвязанных зависимостей является соединение двух основных модулей вместе. Это
+где `downgradeModule()` Входит . Используйте его для создания модуля AngularJS, который вы можете использовать
+в качестве зависимости в вашем основном модуле AngularJS, которая загрузит ваш основной модуль Angular и
+начать Angular часть гибридного приложения. В некотором смысле это «понижает» Angular модуль до
+Модуль AngularJS.
 
-There are a few things to note, though:
+Есть несколько вещей, чтобы отметить, однако:
 
-1. You don't pass the Angular module directly to `downgradeModule()`. All `downgradeModule()` needs
-   is a "recipe", for example, a factory function, to create an instance for your module.
+1. Вы не передаете Angular модуль напрямую `downgradeModule()` . Все `downgradeModule()` необходимо
+   это «рецепт», например, фабричная функция, чтобы создать экземпляр для вашего модуля.
 
-2. The Angular module is not instantiated until the app actually needs it.
+2. Модуль Angular не создается, пока приложение действительно не нуждается в нем.
 
-The following is an example of how you can use `downgradeModule()` to link the two modules.
+Ниже приведен пример того, как вы можете использовать `downgradeModule()` чтобы связать два модуля.
 
 ```ts
 // Import `downgradeModule()`.
@@ -144,27 +150,28 @@ angular.module('mainAngularJsModule', [
 ```
 
 
-#### Specifying a factory for the Angular module
+{@a specifying-a-factory-for-the-angular-module}
+#### Указание фабрики для Angular модуля
 
-As mentioned earlier, `downgradeModule()` needs to know how to instantiate the Angular module. It
-needs a recipe. You define that recipe by providing a factory function that can create an instance
-of the Angular module. `downgradeModule()` accepts two types of factory functions:
+Как упоминалось ранее, `downgradeModule()` должен знать, как создать экземпляр модуля Angular. Это
+нужен рецепт. Вы определяете этот рецепт, предоставляя фабричную функцию, которая может создать экземпляр
+Angular модуль. `downgradeModule()` принимает два типа фабричных функций:
 
-1. `NgModuleFactory`
-2. `(extraProviders: StaticProvider[]) => Promise<NgModuleRef>`
+1. `NgModuleFactory` 
+2. `(extraProviders: StaticProvider[]) => Promise<NgModuleRef>` 
 
-When you pass an `NgModuleFactory`, `downgradeModule()` uses it to instantiate the module using
-{@link platformBrowser platformBrowser}'s {@link PlatformRef#bootstrapModuleFactory
-bootstrapModuleFactory()}, which is compatible with ahead-of-time (AOT) compilation. AOT compilation
-helps make your apps load faster. For more about AOT and how to create an `NgModuleFactory`, see the
-[Ahead-of-Time Compilation](guide/aot-compiler) guide.
+Когда вы передаете `NgModuleFactory`, `downgradeModule()` использует его для создания экземпляра модуля с помощью
+{@link platformBrowser platformBrowser}х {@link PlatformRef#bootstrapModuleFactory
+bootstrapModuleFactory()}, который совместим с опережающей (AOT) компиляцией. AOT сборник
+помогает быстрее загружать ваши приложения. Подробнее о AOT и о том, как создать `NgModuleFactory`, см
+[Ahead-о-компиляция](guide/aot-compiler)руководство.
 
-Alternatively, you can pass a plain function, which is expected to return a promise resolving to an
-{@link NgModuleRef NgModuleRef} (i.e. an instance of your Angular module). The function is called
-with an array of extra {@link StaticProvider Providers} that are expected to be available on the
-returned `NgModuleRef`'s {@link Injector Injector}. For example, if you are using {@link
-platformBrowser platformBrowser} or {@link platformBrowserDynamic platformBrowserDynamic}, you can
-pass the `extraProviders` array to them:
+Кроме того, вы можете передать простую функцию, которая, как ожидается, вернет обещание, разрешающее в
+{@link NgModuleRef NgModuleRef}(т.е. экземпляр вашего Angular модуля). Функция называется
+с массивом дополнительных, {@link StaticProvider Providers}которые, как ожидается, будут доступны на
+возвращенный `NgModuleRef` «s {@link Injector Injector}. Например, если вы используете {@link
+platformBrowser platformBrowser} или {@link platformBrowserDynamic platformBrowserDynamic}, вы можете
+пройти `extraProviders` массив к ним:
 
 ```ts
 const bootstrapFn = (extraProviders: StaticProvider[]) => {
@@ -178,55 +185,57 @@ const bootstrapFn = (extraProviders: StaticProvider[]) => {
 };
 ```
 
-Using an `NgModuleFactory` requires less boilerplate and is a good default option as it supports AOT
-out-of-the-box. Using a custom function requires slightly more code, but gives you greater
-flexibility.
+Используя `NgModuleFactory` требует меньшего количества шаблонов и является хорошим вариантом по умолчанию, поскольку он поддерживает AOT
+вне коробки. Использование пользовательской функции требует немного больше кода, но дает вам больше
+гибкость.
 
 
-#### Instantiating the Angular module on-demand
+{@a instantiating-the-angular-module-on-demand}
+#### Создание Angular модуля по запросу
 
-Another key difference between `downgradeModule()` and `UpgradeModule` is that the latter requires
-you to instantiate both the AngularJS and Angular modules up-front. This means that you have to pay
-the cost of instantiating the Angular part of the app, even if you don't use any Angular assets
-until later. `downgradeModule()` is again less aggressive. It will only instantiate the Angular part
-when it is required for the first time; that is, as soon as it needs to create a downgraded
-component.
+Еще одно ключевое отличие между `downgradeModule()` и `UpgradeModule` - это то, что требуется последнему
+Вы должны создать экземпляры модулей AngularJS и Angular заранее. Это означает, что вы должны заплатить
+стоимость создания Angular-части приложения, даже если вы не используете какие-либо ресурсы Angular
+пока позже `downgradeModule()` снова менее агрессивен. Это будет только создавать экземпляр Angular части
+когда это требуется в первый раз; то есть, как только нужно создать пониженную версию
+составная часть.
 
-You could go a step further and not even download the code for the Angular part of the app to the
-user's browser until it is needed. This is especially useful when you use Angular on parts of the
-hybrid app that are not necessary for the initial rendering or that the user doesn't reach.
-
-
-A few examples are:
-
-- You use Angular on specific routes only and you don't need it until/if a user visits such a route.
-- You use Angular for features that are only visible to specific types of users; for example,
-  logged-in users, administrators, or VIP members. You don't need to load Angular until a user is
-  authenticated.
-- You use Angular for a feature that is not critical for the initial rendering of the app and you
-  can afford a small delay in favor of better initial load performance.
+Вы можете пойти дальше и даже не загружать код для Angular части приложения в
+браузер пользователя, пока он не понадобится. Это особенно полезно, когда вы используете Angular на части
+гибридное приложение, которое не требуется для первоначального рендеринга или недоступно пользователю.
 
 
-### Bootstrapping with `downgradeModule()`
+Несколько примеров:
 
-As you might have guessed, you don't need to change anything in the way you bootstrap your existing
-AngularJS app. Unlike `UpgradeModule`&mdash;which requires some extra steps&mdash;
-`downgradeModule()` is able to take care of bootstrapping the Angular module, as long as you provide
-the recipe.
+- Вы используете Angular только на определенных маршрутах, и он вам не нужен, пока / или пользователь не посетит такой маршрут.
+- Вы используете Angular для функций, которые видны только определенным типам пользователей; например
+  вошедшие в систему пользователи, администраторы или VIP-члены. Вам не нужно загружать Angular, пока не появится пользователь
+  проверку подлинности.
+- Вы используете Angular для функции, которая не является критичной для начального рендеринга приложения и вас
+  может позволить себе небольшую задержку в пользу лучшей производительности начальной нагрузки.
 
-In order to start using any `upgrade/static` APIs, you still need to load the Angular framework as
-you would in a normal Angular app. You can see how this can be done with SystemJS by following the
-instructions in the [Upgrade Setup](guide/upgrade-setup "Setup for Upgrading from AngularJS") guide, selectively copying code from the
-[QuickStart github repository](https://github.com/angular/quickstart).
 
-You also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
-and add a mapping for the `@angular/upgrade/static` package:
+{@a bootstrapping-with-downgrademodule}
+### Начальная загрузка с `downgradeModule()` 
+
+Как вы уже догадались, вам не нужно ничего менять в том, как вы загружаете свое существующее
+AngularJS приложение. в отличие `UpgradeModule` который требует дополнительных шагов
+ `downgradeModule()` может позаботиться о начальной загрузке модуля Angular, если вы его предоставите
+рецепт.
+
+Для того, чтобы начать использовать любой `upgrade/static` API, вам все равно нужно загрузить Angular Framework как
+вы бы в нормальном приложении Angular. Вы можете увидеть, как это можно сделать с помощью SystemJS, следуя инструкциям
+инструкции в [Upgrade Setup](guide/upgrade-setup "Setup for Upgrading from AngularJS") руководстве, выборочно копируя код из
+[QuickStart Github хранилище](https://github.com/angular/quickstart).
+
+Вам также необходимо установить `@angular/upgrade` пакет через `npm install @angular/upgrade --save` 
+и добавьте отображение для `@angular/upgrade/static` пакет:
 
 <code-example header="system.config.js">
 '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
 </code-example>
 
-Next, create an `app.module.ts` file and add the following `NgModule` class:
+Затем создайте `app.module.ts` файл и добавьте следующее `NgModule` класс:
 
 <code-example header="app.module.ts">
 import { NgModule } from '@angular/core';
@@ -243,19 +252,19 @@ export class MainAngularModule {
 }
 </code-example>
 
-This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app
-must have. It also defines an empty `ngDoBootstrap()` method, to prevent the {@link Compiler
-Compiler} from returning errors. This is necessary because the module will not have a `bootstrap`
-declaration on its `NgModule` decorator.
+Это минимум `NgModule` Импорт `BrowserModule`, модуль каждого Angular-браузера
+должны быть. Он также определяет пустой `ngDoBootstrap()`, чтобы предотвратить {@link Compiler
+Compiler}от возврата ошибок. Это необходимо, потому что модуль не будет иметь `bootstrap` 
+декларация о `NgModule` декоратор.
 
 <div class="alert is-important">
 
-  You do not add a `bootstrap` declaration to the `NgModule` decorator since AngularJS owns the root
-  template of the app and `ngUpgrade` bootstraps the necessary components.
+  Вы не добавляете `bootstrap` декларация к `NgModule` Декоратор поскольку AngularJS владеет
+  шаблон приложения и `ngUpgrade` необходимые компоненты.
 
 </div>
 
-You can now link the AngularJS and Angular modules together using `downgradeModule()`.
+Теперь вы можете связать AngularJS и Angular модули вместе, используя `downgradeModule()`.
 
 <code-example header="app.module.ts">
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -272,53 +281,55 @@ angular.module('mainAngularJsModule', [
 ]);
 </code-example>
 
-The existing AngularJS code works as before _and_ you are ready to start adding Angular code.
+Существующий код AngularJS работает как и прежде, и вы готовы начать добавление кода Angular.
 
 
-### Using Components and Injectables
+{@a using-components-and-injectables}
+### Использование компонентов и инъекций
 
-The differences between `downgradeModule()` and `UpgradeModule` end here. The rest of the
-`upgrade/static` APIs and concepts work in the exact same way for both types of hybrid apps.
-See [Upgrading from AngularJS](guide/upgrade) to learn about:
+Различия между `downgradeModule()` и `UpgradeModule` заканчивается здесь. Остальным
+ `upgrade/static` API и концепции работают одинаково для обоих типов гибридных приложений.
+Смотрите [Обновление с AngularJS](guide/upgrade)чтобы узнать о:
 
-- [Using Angular Components from AngularJS Code](guide/upgrade#using-angular-components-from-angularjs-code).<br />
-  _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded
-  module each component belongs to, when calling `downgradeComponent()`._
-- [Using AngularJS Component Directives from Angular Code](guide/upgrade#using-angularjs-component-directives-from-angular-code).
-- [Projecting AngularJS Content into Angular Components](guide/upgrade#projecting-angularjs-content-into-angular-components).
-- [Transcluding Angular Content into AngularJS Component Directives](guide/upgrade#transcluding-angular-content-into-angularjs-component-directives).
-- [Making AngularJS Dependencies Injectable to Angular](guide/upgrade#making-angularjs-dependencies-injectable-to-angular).
-- [Making Angular Dependencies Injectable to AngularJS](guide/upgrade#making-angular-dependencies-injectable-to-angularjs).<br />
-  _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded
-  module each injectable belongs to, when calling `downgradeInjectable()`._
+- [Использование Angular компонентов из кода AngularJS](guide/upgrade#using-angular-components-from-angularjs-code). <br />
+  _ПРИМЕЧАНИЕ. Если вы понижаете класс нескольких модулей, вам нужно указать имя пониженного уровня
+  модуль, к которому принадлежит каждый компонент, при вызове `downgradeComponent()` ._
+- [Использование директив AngularJS от Angular Code](guide/upgrade#using-angularjs-component-directives-from-angular-code).
+- [Проецирование AngularJS содержания в Angular компоненты](guide/upgrade#projecting-angularjs-content-into-angular-components).
+- [Transcluding Angular Содержание в AngularJS компонентов директив](guide/upgrade#transcluding-angular-content-into-angularjs-component-directives).
+- [Изготовление AngularJS зависимости Инъекционного к угловому](guide/upgrade#making-angularjs-dependencies-injectable-to-angular).
+- [Изготовление Angular зависимости Инъекционного к AngularJS](guide/upgrade#making-angular-dependencies-injectable-to-angularjs). <br />
+  _ПРИМЕЧАНИЕ. Если вы понижаете класс нескольких модулей, вам нужно указать имя пониженного уровня
+  модуль, которому принадлежит каждый инъекционный, при вызове `downgradeInjectable()` ._
 
 <div class="alert is-important">
 
-  While it is possible to downgrade injectables, downgraded injectables will not be available until
-  the Angular module that provides them is instantiated. In order to be safe, you need to ensure
-  that the downgraded injectables are not used anywhere _outside_ the part of the app where it is
-  guaranteed that their module has been instantiated.
+  В то время как возможно понизить инъекционные препараты, понизившиеся инъецируемые не будут доступны до
+  Angular модуль, который обеспечивает их, создается. Для того, чтобы быть в безопасности, вы должны убедиться
+  что пониженные инъекционные препараты нигде не используются _outside_ часть приложения, где он находится
+  гарантировано, что их модуль был создан.
 
-  For example, it is _OK_ to use a downgraded service in an upgraded component that is only used
-  from a downgraded Angular component provided by the same Angular module as the injectable, but it
-  is _not OK_ to use it in an AngularJS component that may be used independently of Angular or use
-  it in a downgraded Angular component from a different module.
+  Например, _OK_ использовать устаревшую службу в обновленном компоненте, который используется только
+  от пониженного Angular компонента, предоставленного тем же Angular модулем, что и инъецируемый, но это
+  _не разрешено_ использовать его в компоненте AngularJS, который может использоваться независимо от Angular или использования
+  это в пониженном угловом компоненте из другого модуля.
 
 </div>
 
 
-## Using ahead-of-time compilation with hybrid apps
+{@a using-ahead-of-time-compilation-with-hybrid-apps}
+## Использование своевременной компиляции с гибридными приложениями
 
-You can take advantage of ahead-of-time (AOT) compilation in hybrid apps just like in any other
-Angular app. The setup for a hybrid app is mostly the same as described in the
-[Ahead-of-Time Compilation](guide/aot-compiler) guide save for differences in `index.html` and
-`main-aot.ts`.
+Вы можете воспользоваться преимуществом предварительной компиляции (AOT) в гибридных приложениях, как и в любых других
+Angular приложение. Настройка гибридного приложения в основном такая же, как описано в
+[Опережает время компиляции](guide/aot-compiler)руководство за исключением различий в `index.html` и
+ `main-aot.ts`.
 
-AOT needs to load any AngularJS files that are in the `<script>` tags in the AngularJS `index.html`.
-An easy way to copy them is to add each to the `copy-dist-files.js` file.
+AOT необходимо загрузить любые файлы AngularJS, которые находятся в `<script>` теги в AngularJS `index.html`.
+Простой способ скопировать их - добавить `copy-dist-files.js` файл.
 
-You also need to pass the generated `MainAngularModuleFactory` to `downgradeModule()` instead of the
-custom bootstrap function:
+Вам также нужно передать сгенерированный `MainAngularModuleFactory` to `downgradeModule()` вместо
+Пользовательская функция начальной загрузки:
 
 <code-example header="app/main-aot.ts">
 import { downgradeModule } from '@angular/upgrade/static';
@@ -331,28 +342,29 @@ angular.module('mainAngularJsModule', [
 ]);
 </code-example>
 
-And that is all you need to do to get the full benefit of AOT for hybrid Angular apps.
+И это все, что вам нужно сделать, чтобы получить все преимущества AOT для гибридных приложений Angular.
 
 
-## Conclusion
+{@a conclusion}
+## Заключение
 
-This page covered how to use the {@link upgrade/static upgrade/static} package to incrementally
-upgrade existing AngularJS apps at your own pace and without impeding further development of the app
-for the duration of the upgrade process.
+На этой странице рассказано, как использовать {@link upgrade/static upgrade/static}пакет для приращения
+обновите существующие приложения AngularJS в своем собственном темпе и не препятствуйте дальнейшему развитию приложения
+на время процесса обновления.
 
-Specifically, this guide showed how you can achieve better performance and greater flexibility in
-your hybrid apps by using {@link downgradeModule downgradeModule()} instead of {@link UpgradeModule
-UpgradeModule}.
+В частности, это руководство показало, как можно добиться лучшей производительности и большей гибкости в работе
+ваши гибридные приложения, используя {@link downgradeModule downgradeModule()}вместо {@link UpgradeModule
+UpgradeModule},
 
-To summarize, the key differentiating factors of `downgradeModule()` are:
+Подводя итог, основные дифференцирующие факторы `downgradeModule()` являются:
 
-1. It allows instantiating or even loading the Angular part lazily, which improves the initial
-   loading time. In some cases this may waive the cost of running a second framework altogether.
-2. It improves performance by avoiding unnecessary change detection runs while giving the developer
-   greater ability to customize.
-3. It does not require you to change how you bootstrap your AngularJS app.
+1. Это позволяет создавать или даже загружать Angular часть лениво, что улучшает начальную
+   время загрузки. В некоторых случаях это может полностью снизить стоимость запуска второго фреймворка.
+2. Улучшает производительность, избегая ненужных прогонов обнаружения изменений при предоставлении разработчику
+   больше возможностей для настройки.
+3. Вам не нужно менять способ загрузки приложения AngularJS.
 
-Using `downgradeModule()` is a good option for hybrid apps when you want to keep the AngularJS and
-Angular parts less coupled. You can still mix and match components and services from both
-frameworks, but you might need to manually propagate change detection. In return,
-`downgradeModule()` offers more control and better performance.
+С помощью `downgradeModule()` - хороший вариант для гибридных приложений, когда вы хотите сохранить AngularJS и
+Angular части менее сцеплены. Вы все еще можете смешивать и сочетать компоненты и услуги из обоих
+фреймворки, но вам может потребоваться распространять обнаружение изменений вручную. Взамен
+ `downgradeModule()` предлагает больше контроля и лучшую производительность.

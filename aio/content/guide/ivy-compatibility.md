@@ -1,94 +1,99 @@
-# Ivy compatibility guide
+{@a ivy-compatibility-guide}
+# Руководство по совместимости плюща
 
-The Angular team has worked hard to ensure Ivy is as backwards-compatible with the previous rendering engine ("View Engine") as possible.
-However, in rare cases, minor changes were necessary to ensure that the Angular's behavior was predictable and consistent, correcting issues in the View Engine implementation.
-In order to smooth the transition, we have provided [automated migrations](guide/updating-to-version-9#migrations) wherever possible so your application and library code is migrated automatically by the CLI.
-That said, some applications will likely need to apply some manual updates.
+Команда Angular усердно работала над тем, чтобы гарантировать, что Ivy максимально совместим с предыдущим механизмом рендеринга («View Engine»).
+Однако, в редких случаях, небольшие изменения были необходимы, чтобы гарантировать, что поведение Angular было предсказуемым и последовательным, исправляя проблемы в реализации View Engine.
+Чтобы сгладить переход, мы предусмотрели [автоматические миграции](guide/updating-to-version-9#migrations)везде, где это было возможно, чтобы код вашего приложения и библиотеки автоматически переносился с помощью CLI.
+Тем не менее, некоторые приложения, вероятно, должны будут применить некоторые обновления вручную.
 
 {@a debugging}
-## How to debug errors with Ivy
+{@a how-to-debug-errors-with-ivy}
+## Как отлаживать ошибки с помощью плюща
 
-In version 9, [a few deprecated APIs have been removed](guide/updating-to-version-9#removals) and there are a [few breaking changes](guide/updating-to-version-9#breaking-changes) unrelated to Ivy.
-If you're seeing errors after updating to version 9, you'll first want to rule those changes out.
+В версии 9 [некоторые устаревшие API были удалены](guide/updating-to-version-9#removals)и есть [несколько критических изменений](guide/updating-to-version-9#breaking-changes)не связанных с Ivy.
+Если после обновления до версии 9 вы видите ошибки, сначала нужно исключить эти изменения.
 
-To do so, temporarily [turn off Ivy](guide/ivy#opting-out-of-angular-ivy) in your `tsconfig.json` and re-start your app.
+Для этого временно [выключите плющ](guide/ivy#opting-out-of-angular-ivy)в вашем `tsconfig.json` и перезапустите ваше приложение.
 
-If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general version 9 guide](guide/updating-to-version-9). If you've opted into any of the stricter type-checking settings that are new with v9, you may also want to check out the [template type-checking guide](guide/template-typecheck).
+Если вы все еще видите ошибки, они не относятся только к Ivy. В этом случае вы можете обратиться к [общее руководство по версии 9](guide/updating-to-version-9). Если вы выбрали какие-либо из более строгих настроек проверки типов, которые появились в v9, вы также можете проверить [руководство по проверке типов шаблонов](guide/template-typecheck).
 
-If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.json` and review the list of expected changes below.
+Если ошибки исчезли, вернитесь к Ivy, удалив изменения в `tsconfig.json` и просмотрите список ожидаемых изменений ниже.
 
 {@a payload-size-debugging}
-### Payload size debugging
+{@a payload-size-debugging}
+### Отладка размера полезной нагрузки
 
-If you notice that the size of your application's main bundle has increased with Ivy, you may want to check the following:
+Если вы заметили, что размер основного пучка вашего приложения увеличился с Айви, вы можете проверить следующее:
 
-1. Verify that the components and `NgModules` that you want to be lazy loaded are only imported in lazy modules.
-Anything that you import outside lazy modules can end up in the main bundle.
-See more details in the original issue [here](https://github.com/angular/angular-cli/issues/16146#issuecomment-557559287).
+1. Убедитесь, что компоненты и `NgModules` которые вы хотите загружать с загрузкой, импортируются только в отложенные модули.
+Все, что вы импортируете вне ленивых модулей, может оказаться в основном комплекте.
+Подробности смотрите в оригинальном номере [здесь](https://github.com/angular/angular-cli/issues/16146#issuecomment-557559287).
 
-1. Check that imported libraries have been marked side-effect-free.
-If your app imports from shared libraries that are meant to be free from side effects, add "sideEffects": false to their `package.json`.
-This will ensure that the libraries will be properly tree-shaken if they are imported but not directly referenced.
-See more details in the original issue [here](https://github.com/angular/angular-cli/issues/16799#issuecomment-580912090).
+1. Убедитесь, что импортированные библиотеки помечены как свободные от побочных эффектов.
+Если ваше приложение импортирует из общих библиотек, которые не имеют побочных эффектов, добавьте «sideEffects»: false к их `package.json`.
+Это гарантирует, что библиотеки будут должным образом потрясены деревом, если они импортированы, но на них нет прямой ссылки.
+Подробности смотрите в оригинальном номере [здесь](https://github.com/angular/angular-cli/issues/16799#issuecomment-580912090).
 
-1. Projects not using Angular CLI will see a significant size regression unless they update their minifier settings and set compile-time constants `ngDevMode`, `ngI18nClosureMode` and `ngJitMode` to `false` (for Terser, please set these to `false` via [`global_defs` config option](https://terser.org/docs/api-reference.html#conditional-compilation)).
-Please note that these constants are not meant to be used by 3rd party library or application code as they are not part of our public api surface and might change in the future.
+1. Проекты, не использующие Angular CLI, увидят значительную регрессию размера, если они не обновят свои настройки минификаторов и не установят константы времени компиляции `ngDevMode`, `ngI18nClosureMode` и `ngJitMode` to `false` (для Terser, пожалуйста, установите их на `false` через [опция конфигурации `global_defs` ](https://terser.org/docs/api-reference.html#conditional-compilation)).
+Обратите внимание, что эти константы не предназначены для использования сторонней библиотекой или кодом приложения, поскольку они не являются частью нашей общедоступной API-интерфейса и могут измениться в будущем.
 
 
 {@a common-changes}
-### Changes you may see
+{@a changes-you-may-see}
+### Изменения, которые вы можете увидеть
 
-* By default, `@ContentChildren` queries will only search direct child nodes in the DOM hierarchy (previously, they would search any nesting level in the DOM as long as another directive wasn't matched above it). See further [details](guide/ivy-compatibility-examples#content-children-descendants).
+* По умолчанию, `@ContentChildren` Запросы будут искать только прямые дочерние узлы в иерархии DOM (ранее они поиск на любом уровне вложенности в DOM, если над ним не найдена другая директива). Смотрите далее [подробности](guide/ivy-compatibility-examples#content-children-descendants).
 
-* All classes that use Angular DI must have an Angular decorator like `@Directive()` or `@Injectable` (previously, undecorated classes were allowed in AOT mode only or if injection flags were used). See further [details](guide/ivy-compatibility-examples#undecorated-classes).
+* Все классы, которые используют Angular DI, должны иметь Angular-декоратор, такой как `@Directive()` или `@Injectable` (ранее недекорированные классы были разрешены только в режиме AOT или при использовании флагов внедрения). Смотрите далее [подробности](guide/ivy-compatibility-examples#undecorated-classes).
 
-* Unbound inputs for directives (e.g. name in `<my-comp name="">`) are now set upon creation of the view, before change detection runs (previously, all inputs were set during change detection).
+* Несвязанные входные данные для директив (например, имя в `<my-comp name="">`) теперь устанавливаются при создании представления перед запуском обнаружения изменений (ранее все входы были установлены при обнаружении изменений).
 
-* Static attributes set directly in the HTML of a template will override any conflicting host attributes set by directives or components (previously, static host attributes set by directives / components would override static template attributes if conflicting).
+* Статические атрибуты, установленные непосредственно в HTML шаблона, будут переопределять любые конфликтующие атрибуты хоста, установленные директивами или компонентами (ранее статические атрибуты хоста, установленные директивами / компонентами, переопределяли статические атрибуты шаблона в случае конфликта).
 
 {@a less-common-changes}
-### Less common changes
+{@a less-common-changes}
+### Менее распространенные изменения
 
-* Properties like `host` inside `@Component` and `@Directive` decorators can be inherited (previously, only properties with explicit field decorators like `@HostBinding` would be inherited).
+* Свойства как `host` внутри `@Component` и `@Directive` декораторы могут быть унаследованы (ранее, только свойства с явными полевыми декораторами, такими как `@HostBinding` будет наследоваться).
 
-* HammerJS support is opt-in through importing the `HammerModule` (previously, it was always included in production bundles regardless of whether the app used HammerJS).
+* Поддержка HammerJS осуществляется через импорт `HammerModule` (ранее он всегда включался в рабочие пакеты независимо от того, использовало ли приложение HammerJS).
 
-* `@ContentChild` and `@ContentChildren` queries will no longer be able to match their directive's own host node (previously, these queries would match the host node in addition to its content children).
+* `@ContentChild ` и ` @ContentChildren` Запросы больше не смогут соответствовать собственному узлу их директивы (ранее эти запросы соответствовали узлу узла в дополнение к его содержимого).
 
-* If a token is injected with the `@Host` or `@Self` flag, the module injector is not searched for that token (previously, tokens marked with these flags would still search at the module level).
+* Если токен введен с `@Host` или `@Self` Флаг, для инжектора модуля этот токен не ищется (ранее токены, помеченные этими флагами, все еще находились на уровне модуля).
 
-* When accessing multiple local refs with the same name in template bindings, the first is matched (previously, the last instance was matched).
+* При доступе к нескольким локальным ссылкам с одним и тем же именем в привязках к шаблону сопоставляется первый (ранее сопоставлялся последний экземпляр).
 
-* Directives that are used in an exported module (but not exported themselves) are exported publicly (previously, the compiler would automatically write a private, aliased export that it could use its global knowledge to resolve downstream).
+* Директивы, которые используются в экспортируемом модуле (но не экспортируются сами), экспортируются публично (ранее компилятор автоматически записывал частный экспорт с псевдонимом, чтобы он мог использовать свои глобальные знания для разрешения нисходящего потока).
 
-* Foreign functions or foreign constants in decorator metadata aren't statically resolvable (previously, you could import a constant or function from another compilation unit, like a library, and use that constant/function in your `@NgModule` definition).
+* Внешние функции или внешние константы в метаданных декоратора не могут быть статически разрешены (ранее вы могли импортировать константу или функцию из другого модуля компиляции, например из библиотеки, и использовать эту константу / функцию в своем `@NgModule` определение).
 
-* Forward references to directive inputs accessed through local refs are no longer supported by default. [details](guide/ivy-compatibility-examples#forward-refs-directive-inputs)
+* Прямые ссылки на входы директив, доступные через локальные ссылки, по умолчанию больше не поддерживаются.
 
-* If there is both an unbound class attribute and a `[class]` binding, the classes in the unbound attribute will also be added (previously, the class binding would overwrite classes in the unbound attribute).
+* Если есть и несвязанный атрибут класса и `[class]` привязка, классы в несвязанном атрибуте также будут добавлены (ранее привязка классов перезаписывала классы в несвязанном атрибуте).
 
-* It is now an error to assign values to template-only variables like `item` in `ngFor="let item of items"` (previously, the compiler would ignore these assignments).
+* Теперь ошибочно назначать значения переменным только для шаблона, таким как `item` в `ngFor="let item of items"` (ранее компилятор игнорировал эти назначения).
 
-* It's no longer possible to overwrite lifecycle hooks with mocks on directive instances for testing (instead, modify the lifecycle hook on the directive type itself).
+* Больше невозможно перезаписывать ловушки жизненного цикла при помощи макетов на экземплярах директив для тестирования (вместо этого измените ловушку жизненного цикла на самом типе директивы).
 
-* Special injection tokens (such as `TemplateRef` or `ViewContainerRef`) return a new instance whenever they are requested (previously, instances of special tokens were shared if requested on the same node). This primarily affects tests that do identity comparison of these objects.
+* Специальные токены для инъекций (такие как `TemplateRef` или `ViewContainerRef`) возвращает новый экземпляр всякий раз, когда они запрашиваются (ранее экземпляры специальных токенов передавались по запросу на том же узле). Это в первую очередь влияет на тесты, которые проводят сравнение идентичности этих объектов.
 
-* ICU parsing happens at runtime, so only text, HTML tags and text bindings are allowed inside ICU cases (previously, directives were also permitted inside ICUs).
+* Синтаксический анализ ICU происходит во время выполнения, поэтому в случаях ICU разрешен только текст, теги HTML и текстовые привязки (ранее директивы также разрешались внутри ICU).
 
-* Adding text bindings into i18n translations that are not present in the source template itself will throw a runtime error (previously, including extra bindings in translations was permitted).
+* Добавление текстовых привязок в переводы i18n, которых нет в самом исходном шаблоне, приведет к ошибке времени выполнения (ранее, включая дополнительные привязки в переводах, было разрешено).
 
-* Extra HTML tags in i18n translations that are not present in the source template itself will be rendered as plain text (previously, these tags would render as HTML).
+* Дополнительные теги HTML в переводах i18n, которых нет в самом исходном шаблоне, будут отображаться как обычный текст (ранее эти теги отображались как HTML).
 
-* Providers formatted as `{provide: X}` without a `useValue`, `useFactory`, `useExisting`, or `useClass` property are treated like `{provide: X, useClass: X}` (previously, it defaulted to `{provide: X, useValue: undefined}`).
+* Поставщики отформатированы как `{provide: X} ` без ` useValue `, ` useFactory `, ` useExisting ` или ` useClass` свойство обрабатывается как `{provide: X, useClass: X}` (ранее по умолчанию `{provide: X, useValue: undefined}`).
 
-* `DebugElement.attributes` returns `undefined` for attributes that were added and then subsequently removed (previously, attributes added and later removed would have a value of `null`).
+* `DebugElement.attributes ` возвращается ` undefined` для атрибутов, которые были добавлены, а затем впоследствии удалены (ранее атрибуты, добавленные, а затем удаленные, имели бы значение `null`).
 
-* `DebugElement.classes` returns `undefined` for classes that were added and then subsequently removed (previously, classes added and later removed would have a value of `false`).
+* `DebugElement.classes ` возвращается ` undefined` для классов, которые были добавлены, а затем удалены (ранее классы, добавленные, а затем удаленные, имели бы значение `false`)
 
-* If selecting the native `<option>` element in a `<select>` where the `<option>`s are created via `*ngFor`, use the `[selected]` property of an `<option>` instead of binding to the `[value]` property of the `<select>` element (previously, you could bind to either.) [details](guide/ivy-compatibility-examples#select-value-binding)
+* При выборе родного `<option>` элемент в `<select>` где `<option>` создаются через `*ngFor`, используйте `[selected]` свойство `<option>` вместо привязки к `[value]` свойство `<select>` элемент (ранее вы могли привязать к любому.) [подробнее](guide/ivy-compatibility-examples#select-value-binding)
 
-* Embedded views (such as ones created by `*ngFor`) are now inserted in front of anchor DOM comment node (e.g. `<!--ng-for-of-->`) rather than behind it as was the case previously.
-In most cases this does not have any impact on rendered DOM.
-In some cases (such as animations delaying the removal of an embedded view) any new embedded views will be inserted after the embedded view being animated away.
-This difference only last while the animation is active, and might alter the visual appearance of the animation.
-Once the animation is finished the resulting rendered DOM is identical to that rendered with View Engine.
+* Встроенные представления (например, созданные `*ngFor`) теперь вставляются перед узлом комментария DOM (например, `<!--ng-for-of-->`), а не за этим, как было ранее.
+В большинстве случаев это не оказывает никакого влияния на визуализированный DOM.
+В некоторых случаях (например, анимации, задерживающие удаление встроенного вида), любые новые встроенные виды будут вставлены после того, как встроенный вид будет удален.
+Эта разница сохраняется только в то время, когда анимация активна, и может изменить внешний вид анимации.
+Как только анимация закончится, полученная отрисованная модель DOM будет идентична визуализированной с помощью View Engine.

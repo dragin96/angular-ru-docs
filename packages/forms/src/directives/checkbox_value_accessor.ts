@@ -17,26 +17,26 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 };
 
 /**
- * @description
- * A `ControlValueAccessor` for writing a value and listening to changes on a checkbox input
- * element.
+ *  @description
+ *  A `ControlValueAccessor`для записи значения и прослушивания изменений на входефлажка.
+ * элемент.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using a checkbox with a reactive form.
+ *  ### Используя флажок с реактивной формой.
  *
- * The following example shows how to use a checkbox with a reactive form.
+ * В следующем примере показано, как использовать флажок с реактивной формой.
  *
- * ```ts
- * const rememberLoginControl = new FormControl();
- * ```
+ *  ```ts
+ *  const rememberLoginControl = new FormControl();
+ *  ```
  *
- * ```
- * <input type="checkbox" [formControl]="rememberLoginControl">
- * ```
+ *  ```
+ *  <input type="checkbox" [formControl]="rememberLoginControl">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

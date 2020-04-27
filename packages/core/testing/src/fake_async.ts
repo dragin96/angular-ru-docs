@@ -11,8 +11,8 @@ const _Zone: any = typeof Zone !== 'undefined' ? Zone : null;
 const fakeAsyncTestModule = _Zone && _Zone[_Zone.__symbol__('fakeAsyncTest')];
 
 /**
- * Clears out the shared fake async zone for a test.
- * To be called in a global `beforeEach`.
+ * Удаляет общую ложную асинхронную зону для теста.
+ * Дляв глобальном `beforeEach``beforeEach`.
  *
  * @publicApi
  */
@@ -25,21 +25,21 @@ export function resetFakeAsyncZone(): void {
 }
 
 /**
- * Wraps a function to be executed in the fakeAsync zone:
- * - microtasks are manually executed by calling `flushMicrotasks()`,
- * - timers are synchronous, `tick()` simulates the asynchronous passage of time.
+ * Обертка функция должна быть выполнена в зонеfakeAsync:.
+ * - microtasks вручную выполняется путем вызова `flushMicrotasks()`,
+ * - таймеры синхронны, `tick()` имитирует асинхронный ход времени.
  *
- * If there are any pending timers at the end of the function, an exception will be thrown.
+ * Если в конце функции есть ожидающие таймеры, будет сгенерировано исключение.
  *
- * Can be used to wrap inject() calls.
+ * Может использоваться для переноса вызовов inject ().
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/testing/ts/fake_async.ts region='basic'}
+ *  {@example core/testing/ts/fake_async.ts region='basic'}
  *
- * @param fn
- * @returns The function wrapped to be executed in the fakeAsync zone
+ *  @param фин
+ *  @returns Функция упакована для выполнения в зоне fakeAsync
  *
  * @publicApi
  */
@@ -52,52 +52,52 @@ export function fakeAsync(fn: Function): (...args: any[]) => any {
 }
 
 /**
- * Simulates the asynchronous passage of time for the timers in the fakeAsync zone.
+ * Имитирует асинхронное течение времени для таймеров в зоне fakeAsync.
  *
- * The microtasks queue is drained at the very start of this function and after any timer callback
- * has been executed.
+ * Очередь микрозадач очищается в самом начале этой функции и после любого обратного вызова таймера
+ * был выполнен
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/testing/ts/fake_async.ts region='basic'}
+ *  {@example core/testing/ts/fake_async.ts region='basic'}
  *
- * @param millis, the number of millisecond to advance the virtual timer
- * @param tickOptions, the options of tick with a flag called
- * processNewMacroTasksSynchronously, whether to invoke the new macroTasks, by default is
- * false, means the new macroTasks will be invoked
+ *  @param миллисекунда - количество миллисекунд, на которое продвигается виртуальный таймер
+ *  @param tickOptions, варианты галочки с вызываемым флагом
+ * processNewMacroTasksSynchronously, вызывать ли новые macroTasks, по умолчанию это
+ * false означает, что новые макрозадачи будут вызваны
  *
- * For example,
+ * Например,.
  *
- * it ('test with nested setTimeout', fakeAsync(() => {
- *   let nestedTimeoutInvoked = false;
- *   function funcWithNestedTimeout() {
- *     setTimeout(() => {
- *       nestedTimeoutInvoked = true;
- *     });
- *   };
- *   setTimeout(funcWithNestedTimeout);
- *   tick();
- *   expect(nestedTimeoutInvoked).toBe(true);
+ * it ('test with nested setTimeout', fakeAsync (() => {
+ * let nestedTimeoutInvoked = false;
+ * function funcWithNestedTimeout () {
+ * setTimeout (() => {
+ * nestedTimeoutInvoked = true;
+ * });
+ * };
+ * SetTimeout (funcWithNestedTimeout);
+ * поставить галочку();
+ * ожидать (nestedTimeoutInvoked) .toBe (истина);
  * }));
  *
- * in this case, we have a nested timeout (new macroTask), when we tick, both the
- * funcWithNestedTimeout and the nested timeout both will be invoked.
+ * в этом случае у нас есть вложенный тайм-аут (новый macroTask), когда мы ставим галочку, оба
+ * FuncWithNestedTimeout и вложенный тайм-аут будут вызваны оба.
  *
- * it ('test with nested setTimeout', fakeAsync(() => {
- *   let nestedTimeoutInvoked = false;
- *   function funcWithNestedTimeout() {
- *     setTimeout(() => {
- *       nestedTimeoutInvoked = true;
- *     });
- *   };
- *   setTimeout(funcWithNestedTimeout);
- *   tick(0, {processNewMacroTasksSynchronously: false});
- *   expect(nestedTimeoutInvoked).toBe(false);
+ * it ('test with nested setTimeout', fakeAsync (() => {
+ * let nestedTimeoutInvoked = false;
+ * function funcWithNestedTimeout () {
+ * setTimeout (() => {
+ * nestedTimeoutInvoked = true;
+ * });
+ * };
+ * SetTimeout (funcWithNestedTimeout);
+ * галочка (0, {processNewMacroTasksSynchronously: false});
+ * ожидать (nestedTimeoutInvoked) .toBe (ложь);
  * }));
  *
- * if we pass the tickOptions with processNewMacroTasksSynchronously to be false, the nested timeout
- * will not be invoked.
+ * если мы передаем tickOptions с processNewMacroTasksSynchronously, чтобы быть ложным, вложенный тайм-аут
+ * не будет вызван.
  *
  *
  * @publicApi
@@ -114,12 +114,12 @@ export function tick(
 }
 
 /**
- * Simulates the asynchronous passage of time for the timers in the fakeAsync zone by
- * draining the macrotask queue until it is empty. The returned value is the milliseconds
- * of time that would have been elapsed.
+ * Имитирует асинхронное прохождение времени для таймеров в зоне fakeAsync
+ * опустошение очереди макросов до тех пор, пока она не станет пустой. Возвращаемое значение - миллисекунды
+ * времени, которое прошло бы.
  *
- * @param maxTurns
- * @returns The simulated time elapsed, in millis.
+ *  @param maxTurns
+ *  @returns Имитированное время в миллис.
  *
  * @publicApi
  */
@@ -132,7 +132,7 @@ export function flush(maxTurns?: number): number {
 }
 
 /**
- * Discard all remaining periodic tasks.
+ * Откажитесь от всех оставшихся периодических задач.
  *
  * @publicApi
  */
@@ -145,7 +145,7 @@ export function discardPeriodicTasks(): void {
 }
 
 /**
- * Flush any pending microtasks.
+ * Сбросьте любые ожидающие выполнения микрозадачи.
  *
  * @publicApi
  */

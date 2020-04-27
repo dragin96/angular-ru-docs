@@ -49,10 +49,10 @@ export class DummyResourceLoader extends ResourceLoader {
 }
 
 /**
- * An implementation of a `LanguageServiceHost` for a TypeScript project.
+ * Реализация `LanguageServiceHost` для проекта TypeScript.
  *
- * The `TypeScriptServiceHost` implements the Angular `LanguageServiceHost` using
- * the TypeScript language services.
+ * В `TypeScriptServiceHost` реализует Angular `LanguageServiceHost` использованием.
+ * языковые службы TypeScript.
  *
  * @publicApi
  */

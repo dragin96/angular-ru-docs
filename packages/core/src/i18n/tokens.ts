@@ -9,138 +9,138 @@
 import {InjectionToken} from '../di/injection_token';
 
 /**
- * Provide this token to set the locale of your application.
- * It is used for i18n extraction, by i18n pipes (DatePipe, I18nPluralPipe, CurrencyPipe,
- * DecimalPipe and PercentPipe) and by ICU expressions.
+ * Предоставьте этот токен, чтобы установить язык вашего приложения.
+ * Он используется для извлечения i18n, по i18n труб (DatePipe, I18nPluralPipe,CurrencyPipe,.
+ * DecimalPipe и PercentPipe) и выражениями ICU.
  *
- * See the [i18n guide](guide/i18n#setting-up-locale) for more information.
+ * См.[Руководство i18n](guide/i18n#setting-up-locale)для получения дополнительной информации.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import { LOCALE_ID } from '@angular/core';
- * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
- * import { AppModule } from './app/app.module';
+ *  ```typescript
+ *  import { LOCALE_ID } from '@angular/core';
+ *  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+ *  import { AppModule } from './app/app.module';
  *
- * platformBrowserDynamic().bootstrapModule(AppModule, {
- *   providers: [{provide: LOCALE_ID, useValue: 'en-US' }]
- * });
- * ```
+ *  platformBrowserDynamic().bootstrapModule(AppModule, {
+ *    providers: [{provide: LOCALE_ID, useValue: 'en-US' }]
+ *  });
+ *  ```
  *
  * @publicApi
  */
 export const LOCALE_ID = new InjectionToken<string>('LocaleId');
 
 /**
- * Provide this token to set the default currency code your application uses for
- * CurrencyPipe when there is no currency code passed into it. This is only used by
- * CurrencyPipe and has no relation to locale currency. Defaults to USD if not configured.
+ * Предоставьте этот токен, чтобы установить код валюты по умолчанию, для которого ваше приложение использует
+ * CurrencyPipe, когда в него не передан код валюты. Это используетсятолько.
+ * CurrencyPipe и не имеет отношения к национальной валюте. По умолчанию USD, если не настроен.
  *
- * See the [i18n guide](guide/i18n#setting-up-locale) for more information.
+ * См.[Руководство i18n](guide/i18n#setting-up-locale)для получения дополнительной информации.
  *
- * <div class="alert is-helpful">
+ *  <div class="alert is-helpful">
  *
- * **Deprecation notice:**
+ * Устаревшиеизвещение:.
  *
- * The default currency code is currently always `USD` but this is deprecated from v9.
+ * Код валюты по умолчанию в настоящее время всегда `USD` но это не рекомендуется с v9.
  *
- * **In v10 the default currency code will be taken from the current locale.**
+ * В версии 10 код валюты по умолчанию будет взят из текущей локали.
  *
- * If you need the previous behavior then set it by creating a `DEFAULT_CURRENCY_CODE` provider in
- * your application `NgModule`:
+ * Если вам нужно предыдущее поведение, установите его, создав `DEFAULT_CURRENCY_CODE` провайдерав
+ * приложение `NgModule` NgModule:.
  *
- * ```ts
- * {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}
- * ```
+ *  ```ts
+ *  {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}
+ *  ```
  *
- * </div>
+ *  </div>
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
- * import { AppModule } from './app/app.module';
+ *  ```typescript
+ *  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+ *  import { AppModule } from './app/app.module';
  *
- * platformBrowserDynamic().bootstrapModule(AppModule, {
- *   providers: [{provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }]
- * });
- * ```
+ *  platformBrowserDynamic().bootstrapModule(AppModule, {
+ *    providers: [{provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }]
+ *  });
+ *  ```
  *
  * @publicApi
  */
 export const DEFAULT_CURRENCY_CODE = new InjectionToken<string>('DefaultCurrencyCode');
 
 /**
- * Use this token at bootstrap to provide the content of your translation file (`xtb`,
- * `xlf` or `xlf2`) when you want to translate your application in another language.
+ * Используйте этот маркер в загрузчикечтобы обеспечить содержание вашего файла перевода ( `xtb` XTB,.
+ *  `xlf `или` xlf2`xlf2)когда вы хотите перевести приложение на другом языке.
  *
- * See the [i18n guide](guide/i18n#merge) for more information.
+ * См.[Руководство i18n](guide/i18n#merge)для получения дополнительной информации.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import { TRANSLATIONS } from '@angular/core';
- * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
- * import { AppModule } from './app/app.module';
+ *  ```typescript
+ *  import { TRANSLATIONS } from '@angular/core';
+ *  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+ *  import { AppModule } from './app/app.module';
  *
- * // content of your translation file
- * const translations = '....';
+ *  // content of your translation file
+ *  const translations = '....';
  *
- * platformBrowserDynamic().bootstrapModule(AppModule, {
- *   providers: [{provide: TRANSLATIONS, useValue: translations }]
- * });
- * ```
+ *  platformBrowserDynamic().bootstrapModule(AppModule, {
+ *    providers: [{provide: TRANSLATIONS, useValue: translations }]
+ *  });
+ *  ```
  *
  * @publicApi
  */
 export const TRANSLATIONS = new InjectionToken<string>('Translations');
 
 /**
- * Provide this token at bootstrap to set the format of your {@link TRANSLATIONS}: `xtb`,
- * `xlf` or `xlf2`.
+ * Предоставьте этот токен в начальной загрузке, чтобы установить формат вашего{@link TRANSLATIONS}: `xtb` XTB,.
+ *  `xlf `или` xlf2`xlf2.
  *
- * See the [i18n guide](guide/i18n#merge) for more information.
+ * См.[Руководство i18n](guide/i18n#merge)для получения дополнительной информации.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import { TRANSLATIONS_FORMAT } from '@angular/core';
- * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
- * import { AppModule } from './app/app.module';
+ *  ```typescript
+ *  import { TRANSLATIONS_FORMAT } from '@angular/core';
+ *  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+ *  import { AppModule } from './app/app.module';
  *
- * platformBrowserDynamic().bootstrapModule(AppModule, {
- *   providers: [{provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }]
- * });
- * ```
+ *  platformBrowserDynamic().bootstrapModule(AppModule, {
+ *    providers: [{provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }]
+ *  });
+ *  ```
  *
  * @publicApi
  */
 export const TRANSLATIONS_FORMAT = new InjectionToken<string>('TranslationsFormat');
 
 /**
- * Use this enum at bootstrap as an option of `bootstrapModule` to define the strategy
- * that the compiler should use in case of missing translations:
- * - Error: throw if you have missing translations.
- * - Warning (default): show a warning in the console and/or shell.
- * - Ignore: do nothing.
+ * Используйте это перечисление в bootstrap как опцию `bootstrapModule` для определения стратегии
+ * что компилятор должен использовать в случае отсутствияперевода:.
+ * - Ошибка: выбросить, если у вас отсутствуют переводы.
+ * - Предупреждение (по умолчанию): показывать предупреждение в консоли и / или оболочке.
+ * - Игнорировать: ничего не делать.
  *
- * See the [i18n guide](guide/i18n#missing-translation) for more information.
+ * См.[Руководство i18n](guide/i18n#missing-translation)для получения дополнительной информации.
  *
- * @usageNotes
- * ### Example
- * ```typescript
- * import { MissingTranslationStrategy } from '@angular/core';
- * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
- * import { AppModule } from './app/app.module';
+ *  @usageNotes
+ *  ### Пример
+ *  ```typescript
+ *  import { MissingTranslationStrategy } from '@angular/core';
+ *  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+ *  import { AppModule } from './app/app.module';
  *
- * platformBrowserDynamic().bootstrapModule(AppModule, {
- *   missingTranslation: MissingTranslationStrategy.Error
- * });
- * ```
+ *  platformBrowserDynamic().bootstrapModule(AppModule, {
+ *    missingTranslation: MissingTranslationStrategy.Error
+ *  });
+ *  ```
  *
  * @publicApi
  */

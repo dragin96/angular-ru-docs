@@ -14,10 +14,10 @@ import {NgControl} from './ng_control';
 
 
 /**
- * @description
- * An interface implemented by `FormGroupDirective` and `NgForm` directives.
+ *  @description
+ * Интерфейс, реализованный с `FormGroupDirective``FormGroupDirective` и `NgForm`.
  *
- * Only used by the `ReactiveFormsModule` and `FormsModule`.
+ * Используется только `ReactiveFormsModule` и `FormsModule` FormsModule.
  *
  * @publicApi
  */

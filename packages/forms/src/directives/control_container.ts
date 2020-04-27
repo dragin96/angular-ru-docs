@@ -11,9 +11,9 @@ import {Form} from './form_interface';
 
 
 /**
- * @description
- * A base class for directives that contain multiple registered instances of `NgControl`.
- * Only used by the forms module.
+ *  @description
+ * Базовый класс для директив, которые содержат несколько зарегистрированных экземпляров `NgControl`.
+ * Используется только модулем форм.
  *
  * @publicApi
  */

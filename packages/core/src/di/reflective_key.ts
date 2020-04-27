@@ -11,21 +11,21 @@ import {resolveForwardRef} from './forward_ref';
 
 
 /**
- * A unique object used for retrieving items from the {@link ReflectiveInjector}.
+ * Уникальный объект, используемый для извлечения элементов из{@link ReflectiveInjector},
  *
- * Keys have:
- * - a system-wide unique `id`.
- * - a `token`.
+ * Клавишиимеют:.
+ * - общесистемный уникальный `id`.
+ * - это `token` маркер.
  *
- * `Key` is used internally by {@link ReflectiveInjector} because its system-wide unique `id` allows
- * the
- * injector to store created objects in a more efficient way.
+ *  `Key`используется внутри{@link ReflectiveInjector}потому что его общесистемный уникальный `id` позволяет
+ *  the
+ * Инжектор для более эффективного хранения созданных объектов.
  *
- * `Key` should not be created directly. {@link ReflectiveInjector} creates keys automatically when
- * resolving
- * providers.
+ *  `Key`не должен создаваться напрямую.{@link ReflectiveInjector}создает ключи автоматически, когда
+ * разрешения.
+ * провайдеры.
  *
- * @deprecated No replacement
+ *  @deprecated Без замены
  * @publicApi
  */
 export class ReflectiveKey {

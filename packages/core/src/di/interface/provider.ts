@@ -9,8 +9,8 @@
 import {Type} from '../../interface/type';
 
 /**
- * Configures the `Injector` to return a value for a token.
- * Base for `ValueProvider` decorator.
+ * Конфигурирует `Injector` возвращать значение для маркеров.
+ * База для `ValueProvider` декоратор.
  *
  * @publicApi
  */
@@ -22,18 +22,18 @@ export interface ValueSansProvider {
 }
 
 /**
- * Configures the `Injector` to return a value for a token.
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ * Конфигурирует `Injector` возвращать значение для маркеров.
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example core/di/ts/provider_spec.ts region='ValueProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='ValueProvider'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -51,8 +51,8 @@ export interface ValueProvider extends ValueSansProvider {
 }
 
 /**
- * Configures the `Injector` to return an instance of `useClass` for a token.
- * Base for `StaticClassProvider` decorator.
+ * Настраивает `Injector` для возврата экземпляра` `useClass` для токена.
+ * База для `StaticClassProvider` декоратор.
  *
  * @publicApi
  */
@@ -71,20 +71,20 @@ export interface StaticClassSansProvider {
 }
 
 /**
- * Configures the `Injector` to return an instance of `useClass` for a token.
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ * Настраивает `Injector` для возврата экземпляра` `useClass` для токена.
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@example core/di/ts/provider_spec.ts region='StaticClassProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='StaticClassProvider'}
  *
- * Note that following two providers are not equal:
+ * Обратите вниманиечто следующие два провайдера неравен:.
  *
- * {@example core/di/ts/provider_spec.ts region='StaticClassProviderDifference'}
+ *  {@example core/di/ts/provider_spec.ts region='StaticClassProviderDifference'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -102,16 +102,16 @@ export interface StaticClassProvider extends StaticClassSansProvider {
 }
 
 /**
- * Configures the `Injector` to return an instance of a token.
+ * Конфигурирует `Injector` вернуть экземпляр маркера.
  *
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ```ts
- * @Injectable(SomeModule, {deps: []})
- * class MyService {}
- * ```
+ *  ```ts
+ *  @Injectable(SomeModule, {deps: []})
+ *  class MyService {}
+ *  ```
  *
  * @publicApi
  */
@@ -123,17 +123,17 @@ export interface ConstructorSansProvider {
 }
 
 /**
- * Configures the `Injector` to return an instance of a token.
+ * Конфигурирует `Injector` вернуть экземпляр маркера.
  *
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@example core/di/ts/provider_spec.ts region='ConstructorProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='ConstructorProvider'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -151,10 +151,10 @@ export interface ConstructorProvider extends ConstructorSansProvider {
 }
 
 /**
- * Configures the `Injector` to return a value of another `useExisting` token.
+ * Конфигурирует `Injector` для возвращения значения другого `useExisting` маркер.
  *
- * @see `ExistingProvider`
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see `ExistingProvider`
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
  * @publicApi
  */
@@ -166,17 +166,17 @@ export interface ExistingSansProvider {
 }
 
 /**
- * Configures the `Injector` to return a value of another `useExisting` token.
+ * Конфигурирует `Injector` для возвращения значения другого `useExisting` маркер.
  *
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@example core/di/ts/provider_spec.ts region='ExistingProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='ExistingProvider'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -194,10 +194,10 @@ export interface ExistingProvider extends ExistingSansProvider {
 }
 
 /**
- * Configures the `Injector` to return a value by invoking a `useFactory` function.
+ * Конфигурирует `Injector` для возвращения значения путем вызова `useFactory` функцию useFactory.
  *
- * @see `FactoryProvider`
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see `FactoryProvider` `FactoryProvider`
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
  * @publicApi
  */
@@ -216,20 +216,20 @@ export interface FactorySansProvider {
 }
 
 /**
- * Configures the `Injector` to return a value by invoking a `useFactory` function.
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ * Конфигурирует `Injector` для возвращения значения путем вызова `useFactory` функцию useFactory.
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@example core/di/ts/provider_spec.ts region='FactoryProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='FactoryProvider'}
  *
- * Dependencies can also be marked as optional:
+ * Зависимости могут быть помечены какнеобязательные:.
  *
- * {@example core/di/ts/provider_spec.ts region='FactoryProviderOptionalDeps'}
+ *  {@example core/di/ts/provider_spec.ts region='FactoryProviderOptionalDeps'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -247,11 +247,11 @@ export interface FactoryProvider extends FactorySansProvider {
 }
 
 /**
- * Describes how an `Injector` should be configured as static (that is, without reflection).
- * A static provider provides tokens to an injector for various types of dependencies.
+ * Описываеткак `Injector` должен быть сконфигурирован как статический (то есть, без отражения).
+ * Статический провайдер предоставляет токены инжектору для различных типов зависимостей.
  *
- * @see [Injector.create()](/api/core/Injector#create).
- * @see ["Dependency Injection Guide"](guide/dependency-injection-providers).
+ *  @see [Injector.create ()](/api/core/Injector#create).
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection-providers).
  *
  * @publicApi
  */
@@ -260,26 +260,23 @@ export type StaticProvider =
 
 
 /**
- * Configures the `Injector` to return an instance of `Type` when `Type' is used as the token.
+ * Конфигурирует `Injector` вернуть экземпляр `Type` когда`Type' is used as the token...Create an instance by invoking the `новый` operator and supplying additional arguments..This form is a short form of `TypeProvider`;
  *
- * Create an instance by invoking the `new` operator and supplying additional arguments.
- * This form is a short form of `TypeProvider`;
+ * Для получения дополнительной информации см.[«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * For more details, see the ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @usageNotes
  *
- * @usageNotes
- *
- * {@example core/di/ts/provider_spec.ts region='TypeProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='TypeProvider'}
  *
  * @publicApi
  */
 export interface TypeProvider extends Type<any> {}
 
 /**
- * Configures the `Injector` to return a value by invoking a `useClass` function.
- * Base for `ClassProvider` decorator.
+ * Конфигурирует `Injector` для возвращения значения путем вызова `useClass` функцию useClass.
+ * База для `ClassProvider` декоратор.
  *
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
  * @publicApi
  */
@@ -291,20 +288,20 @@ export interface ClassSansProvider {
 }
 
 /**
- * Configures the `Injector` to return an instance of `useClass` for a token.
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ * Настраивает `Injector` для возврата экземпляра` `useClass` для токена.
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@example core/di/ts/provider_spec.ts region='ClassProvider'}
+ *  {@example core/di/ts/provider_spec.ts region='ClassProvider'}
  *
- * Note that following two providers are not equal:
+ * Обратите вниманиечто следующие два провайдера неравен:.
  *
- * {@example core/di/ts/provider_spec.ts region='ClassProviderDifference'}
+ *  {@example core/di/ts/provider_spec.ts region='ClassProviderDifference'}
  *
- * ### Multi-value example
+ *  ### Многозначный пример
  *
- * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+ *  {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
  *
  * @publicApi
  */
@@ -322,10 +319,10 @@ export interface ClassProvider extends ClassSansProvider {
 }
 
 /**
- * Describes how the `Injector` should be configured.
- * @see ["Dependency Injection Guide"](guide/dependency-injection).
+ * Описываеткак `Injector` должен быть сконфигурирован.
+ *  @see [«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *
- * @see `StaticProvider`
+ *  @see `StaticProvider`
  *
  * @publicApi
  */

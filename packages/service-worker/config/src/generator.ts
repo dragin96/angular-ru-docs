@@ -19,7 +19,7 @@ const DEFAULT_NAVIGATION_URLS = [
 ];
 
 /**
- * Consumes service worker configuration files and processes them into control files.
+ * Использует файлы конфигурации работника сервиса и обрабатывает их в управляющие файлы.
  *
  * @publicApi
  */

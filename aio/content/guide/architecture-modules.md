@@ -1,39 +1,42 @@
-# Introduction to modules
+{@a introduction-to-modules}
+# Введение в модули
 
-Angular apps are modular and Angular has its own modularity system called *NgModules*.
-NgModules are containers for a cohesive block of code dedicated to an application domain, a workflow, or a closely related set of capabilities. They can contain components, service providers, and other code files whose scope is defined by the containing NgModule. They can import functionality that is exported from other NgModules, and export selected functionality for use by other NgModules.
+Приложения Angular являются модульными, и Angular имеет собственную систему модульности, которая называется *NgModules*.
+NgModules - это контейнеры для связного блока кода, предназначенного для домена приложения, рабочего процесса или тесно связанного набора возможностей. Они могут содержать компоненты, поставщиков услуг и другие файлы кода, область действия которых определяется содержащим NgModule. Они могут импортировать функциональные возможности, экспортируемые из других NgModules, и экспортировать выбранные функциональные возможности для использования другими NgModules.
 
-Every Angular app has at least one NgModule class, [the *root module*](guide/bootstrapping), which is conventionally named `AppModule` and resides in a file named `app.module.ts`. You launch your app by *bootstrapping* the root NgModule.
+Каждое приложение Angular имеет по крайней мере один класс NgModule [* корневой модуль*](guide/bootstrapping), который обычно называется `AppModule` и находится в файле с именем `app.module.ts` . Вы запускаете приложение с помощью *самонастройки* корневой NgModule.
 
-While a small application might have only one NgModule, most apps have many more *feature modules*. The *root* NgModule for an app is so named because it can include child NgModules in a hierarchy of any depth.
+Хотя в небольшом приложении может быть только один модуль NgModule, в большинстве приложений имеется гораздо больше *функциональных модулей*. *Корень* NgModule для приложения назван так потому, что он может включать в себя дочерние NgModules в иерархии любой глубины.
 
-## NgModule metadata
+{@a ngmodule-metadata}
+## Метаданные NgModule
 
-An NgModule is defined by a class decorated with `@NgModule()`. The `@NgModule()` decorator is a function that takes a single metadata object, whose properties describe the module. The most important properties are as follows.
+NgModule определяется классом, украшенным `@NgModule()` . `@NgModule()` - это функция, которая принимает один объект метаданных, свойства которого описывают модуль. Наиболее важные свойства заключаются в следующем.
 
-* `declarations`: The [components](guide/architecture-components), *directives*, and *pipes* that belong to this NgModule.
+* `declarations` : [компоненты](guide/architecture-components),*директивы *и*каналы, * которые принадлежат этому NgModule.
 
-* `exports`: The subset of declarations that should be visible and usable in the *component templates* of other NgModules.
+* `exports` : подмножество объявлений, которые должны быть видны и использоваться в*шаблонах компонентов * других NgModules.
 
-* `imports`: Other modules whose exported classes are needed by component templates declared in *this* NgModule.
+* `imports` : Другие модули, чьи экспортированные классы необходимы шаблонам компонентов, объявленным в*этом * NgModule.
 
-* `providers`: Creators of [services](guide/architecture-services) that this NgModule contributes to the global collection of services; they become accessible in all parts of the app. (You can also specify providers at the component level, which is often preferred.)
+* `providers` : создатели [услуг](guide/architecture-services)которые этот NgModule вносит в глобальный набор услуг; они становятся доступными во всех частях приложения. (Вы можете также указать поставщиков на компонентном уровне, который часто является предпочтительным.)
 
-* `bootstrap`: The main application view, called the *root component*, which hosts all other app views. Only the *root NgModule* should set the `bootstrap` property.
+* `bootstrap` : основное представление приложения, называемое*корневым компонентом *, в котором размещены все остальные представления приложения. Только*корневой NgModule * должен установить `bootstrap` свойство.
 
-Here's a simple root NgModule definition.
+Вот простое определение корневого NgModule.
 
 <code-example path="architecture/src/app/mini-app.ts" region="module" header="src/app/app.module.ts"></code-example>
 
 <div class="alert is-helpful">
 
-  `AppComponent` is included in the `exports` list here for illustration; it isn't actually necessary in this example. A root NgModule has no reason to *export* anything because other modules don't need to *import* the root NgModule.
+   `AppComponent` включен в `exports` список здесь для иллюстрации; это на самом деле не нужно в этом примере. У корневого NgModule нет причин *экспортировать* что-либо, потому что другим модулям не нужно *импортировать* корневой NgModule.
 
 </div>
 
-## NgModules and components
+{@a ngmodules-and-components}
+## NgМодули и компоненты
 
-NgModules provide a *compilation context* for their components. A root NgModule always has a root component that is created during bootstrap, but any NgModule can include any number of additional components, which can be loaded through the router or created through the template. The components that belong to an NgModule share a compilation context.
+NgModules предоставляют *контекст компиляции* для своих компонентов. Корневой NgModule всегда имеет корневой компонент, который создается во время начальной загрузки, но любой NgModule может включать любое количество дополнительных компонентов, которые можно загрузить через маршрутизатор или создать с помощью шаблона. Компоненты, которые принадлежат NgModule, имеют общий контекст компиляции.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/compilation-context.png" alt="Component compilation context" class="left">
@@ -41,7 +44,7 @@ NgModules provide a *compilation context* for their components. A root NgModule 
 
 <br class="clear">
 
-A component and its template together define a *view*. A component can contain a *view hierarchy*, which allows you to define arbitrarily complex areas of the screen that can be created, modified, and destroyed as a unit. A view hierarchy can mix views defined in components that belong to different NgModules. This is often the case, especially for UI libraries.
+Компонент и его шаблон вместе определяют *представление*. Компонент может содержать *иерархию представлений*, которая позволяет вам определять произвольно сложные области экрана, которые можно создавать, изменять и уничтожать как единое целое. Иерархия представления может смешивать представления, определенные в компонентах, которые принадлежат различным модулям NgModules. Это часто имеет место, особенно для библиотек пользовательского интерфейса.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/view-hierarchy.png" alt="View hierarchy" class="left">
@@ -49,56 +52,58 @@ A component and its template together define a *view*. A component can contain a
 
 <br class="clear">
 
-When you create a component, it's associated directly with a single view, called the *host view*. The host view can be the root of a view hierarchy, which can contain *embedded views*, which are in turn the host views of other components. Those components can be in the same NgModule, or can be imported from other NgModules. Views in the tree can be nested to any depth.
+Когда вы создаете компонент, он напрямую связывается с одним представлением, которое называется представлением *хоста*. Хост-представление может быть корнем иерархии представлений, которая может содержать *встроенные представления.*, которые в свою очередь являются хост-представлениями других компонентов. Эти компоненты могут быть в том же NgModule или могут быть импортированы из других NgModules. Представления в дереве могут быть вложены на любую глубину.
 
 <div class="alert is-helpful">
 
-**Note:** The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data.
+**Примечание**. Иерархическая структура представлений является ключевым фактором в том, как Angular обнаруживает и реагирует на изменения в DOM и данных приложения.
 
 </div>
 
-## NgModules and JavaScript modules
+{@a ngmodules-and-javascript-modules}
+## NgModules и модули JavaScript
 
-The NgModule system is different from and unrelated to the JavaScript (ES2015) module system for managing collections of JavaScript objects. These are *complementary* module systems that you can use together to write your apps.
+Система NgModule отличается от системы модулей JavaScript (ES2015) для управления коллекциями объектов JavaScript и не связана с ней. Это *дополнительные* модульные системы, которые вы можете использовать вместе для написания своих приложений.
 
-In JavaScript each *file* is a module and all objects defined in the file belong to that module.
-The module declares some objects to be public by marking them with the `export` key word.
-Other JavaScript modules use *import statements* to access public objects from other modules.
+В JavaScript каждый *файл* является модулем, и все объекты, определенные в файле, принадлежат этому модулю.
+Модуль объявляет некоторые объекты публичными, помечая их `export` ключевое слово.
+Другие модули JavaScript используют *операторы импорта* для доступа к публичным объектам из других модулей.
 
 <code-example path="architecture/src/app/app.module.ts" region="imports"></code-example>
 
 <code-example path="architecture/src/app/app.module.ts" region="export"></code-example>
 
 <div class="alert is-helpful">
-  <a href="http://exploringjs.com/es6/ch_modules.html">Learn more about the JavaScript module system on the web.</a>
+  <a href="http://exploringjs.com/es6/ch_modules.html">Узнайте больше о модульной системе JavaScript в Интернете. </a>
 </div>
 
-## Angular libraries
+{@a angular-libraries}
+## Angular библиотеки
 
 <img src="generated/images/guide/architecture/library-module.png" alt="Component" class="left">
 
-Angular loads as a collection of JavaScript modules. You can think of them as library modules. Each Angular library name begins with the `@angular` prefix. Install them with the node package manager `npm` and import parts of them with JavaScript `import` statements.
+Angular нагрузки как набор модулей JavaScript. Вы можете думать о них как о библиотечных модулях. Каждое имя библиотеки Angular начинается с `@angular` префикс. Установите их с помощью менеджера пакетов узла `npm` и импортировать их части с помощью JavaScript `import` заявления.
 
 <br class="clear">
 
-For example, import Angular's `Component` decorator from the `@angular/core` library like this.
+Например, импортировать Angular's `Component` декоратор от `@angular/core` Библиотека такая.
 
 <code-example path="architecture/src/app/app.component.ts" region="import"></code-example>
 
-You also import NgModules from Angular *libraries* using JavaScript import statements.
-For example, the following code imports the `BrowserModule` NgModule from the `platform-browser` library.
+Вы также импортируете NgModules из Angular, *библиотек* используя операторы импорта JavaScript.
+Например, следующий код импортирует `BrowserModule` NgModule из `platform-browser` библиотека.
 
 <code-example path="architecture/src/app/mini-app.ts" region="import-browser-module"></code-example>
 
-In the example of the simple root module above, the application module needs material from within
-`BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
+В приведенном выше примере простого корневого модуля для модуля приложения необходим материал изнутри
+ `BrowserModule` . Чтобы получить доступ к этому материалу, добавьте его в `@NgModule` метаданные `imports` как это.
 
 <code-example path="architecture/src/app/mini-app.ts" region="ngmodule-imports"></code-example>
 
-In this way you're using the Angular and JavaScript module systems *together*. Although it's easy to confuse the two systems, which share the common vocabulary of "imports" and "exports", you will become familiar with the different contexts in which they are used.
+Таким образом, вы используете модульные системы Angular и JavaScript *вместе*. Хотя легко спутать две системы, которые имеют общий словарь «импорт» и «экспорт», вы познакомитесь с различными контекстами, в которых они используются.
 
 <div class="alert is-helpful">
 
-  Learn more from the [NgModules](guide/ngmodules) guide.
+  Узнайте больше из руководства [NgModules](guide/ngmodules).
 
 </div>

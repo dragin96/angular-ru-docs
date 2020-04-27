@@ -262,7 +262,7 @@ try {
 }
 
 /**
- * @deprecated Use `setAngularJSGlobal` instead.
+ *  @deprecated используйте `setAngularJSGlobal``setAngularJSGlobal` этого.
  *
  * @publicApi
  */
@@ -271,7 +271,7 @@ export function setAngularLib(ng: any): void {
 }
 
 /**
- * @deprecated Use `getAngularJSGlobal` instead.
+ *  @deprecated используйте `getAngularJSGlobal``getAngularJSGlobal` этого.
  *
  * @publicApi
  */
@@ -280,9 +280,9 @@ export function getAngularLib(): any {
 }
 
 /**
- * Resets the AngularJS global.
+ * Сбрасывает глобальный AngularJS.
  *
- * Used when AngularJS is loaded lazily, and not available on `window`.
+ * Используется, когда AngularJS загружен лениво и недоступен в `window`.
  *
  * @publicApi
  */
@@ -291,7 +291,7 @@ export function setAngularJSGlobal(ng: any): void {
 }
 
 /**
- * Returns the current AngularJS global.
+ * Возвращает текущий глобальный AngularJS.
  *
  * @publicApi
  */

@@ -16,7 +16,7 @@ import * as ng from './types';
 import {TypeScriptServiceHost} from './typescript_host';
 
 /**
- * Create an instance of an Angular `LanguageService`.
+ * Создайте экземпляр Angular `LanguageService`.
  *
  * @publicApi
  */

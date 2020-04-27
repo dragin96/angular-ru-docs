@@ -82,6 +82,9 @@ upgrade-phonecat-2-hybrid/aot/**/*
 # styleguide
 !styleguide/src/systemjs.custom.js
 
+# universal
+!universal/webpack.server.config.js
+
 # stackblitz
 *stackblitz.no-link.html
 

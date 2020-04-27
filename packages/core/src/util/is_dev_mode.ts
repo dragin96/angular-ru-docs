@@ -18,10 +18,10 @@ let _runModeLocked: boolean = false;
 
 
 /**
- * Returns whether Angular is in development mode. After called once,
- * the value is locked and won't change any more.
+ * Возвращает, находится ли Angular в режиме разработки. После того, как позвонил один раз
+ * значение заблокировано и больше не изменится.
  *
- * By default, this is true, unless a user calls `enableProdMode` before calling this.
+ * По умолчанию это верно, если пользователь не вызывает `enableProdMode` перед вызовом этого.
  *
  * @publicApi
  */
@@ -31,12 +31,12 @@ export function isDevMode(): boolean {
 }
 
 /**
- * Disable Angular's development mode, which turns off assertions and other
- * checks within the framework.
+ * Отключить режим разработки Angular, который отключает утверждения и прочее
+ * проверяет в рамках.
  *
- * One important assertion this disables verifies that a change detection pass
- * does not result in additional changes to any bindings (also known as
- * unidirectional data flow).
+ * Одно важное утверждение, которое это отключает, подтверждает, что проход обнаружения изменений
+ * не приводит к дополнительным изменениям в каких-либо привязках (также известный как
+ * однонаправленный поток данных).
  *
  * @publicApi
  */

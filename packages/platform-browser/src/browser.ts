@@ -50,9 +50,9 @@ const BROWSER_SANITIZATION_PROVIDERS__PRE_R3__: StaticProvider[] = [
 export const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 
 /**
- * @security Replacing built-in sanitization providers exposes the application to XSS risks.
- * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ *  @security Замена встроенных поставщиков услуг по очистке подвергает приложение риску XSS.
+ * Данные, контролируемые злоумышленниками, представленные неанизированным провайдером, могут раскрыть вашу
+ * применение к рискам XSS. Для получения более подробной информации см.[Руководство по безопасности](http://g.co/ng/security).
  * @publicApi
  */
 export const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PRE_R3__;
@@ -89,11 +89,11 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
 ];
 
 /**
- * Exports required infrastructure for all Angular apps.
- * Included by default in all Angular apps created with the CLI
- * `new` command.
- * Re-exports `CommonModule` and `ApplicationModule`, making their
- * exports and providers available to all apps.
+ * Экспортирует необходимую инфраструктуру для всех приложений Angular.
+ * Включено по умолчанию во все приложения Angular, созданные с помощью CLI
+ *  `new`команда.
+ * Реэкспорт `CommonModule` и `ApplicationModule` ApplicationModule,делаетих.
+ * Экспорт и поставщики доступны для всех приложений.
  *
  * @publicApi
  */

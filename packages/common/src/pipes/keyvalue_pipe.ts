@@ -13,8 +13,8 @@ function makeKeyValuePair<K, V>(key: K, value: V): KeyValue<K, V> {
 }
 
 /**
- * A key value pair.
- * Usually used to represent the key value pairs from a Map or Object.
+ * Пара ключ-значение.
+ * Обычно используется для представления пар ключ-значение из карты или объекта.
  *
  * @publicApi
  */
@@ -24,22 +24,22 @@ export interface KeyValue<K, V> {
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Transforms Object or Map into an array of key value pairs.
+ * Преобразует объект или карту в массив пар ключ-значение.
  *
- * The output array will be ordered by keys.
- * By default the comparator will be by Unicode point value.
- * You can optionally pass a compareFn if your keys are complex types.
+ * Выходной массив будет упорядочен по ключам.
+ * По умолчанию компаратор будет по значению Unicode.
+ * Вы можете при желании передать CompareFn, если ваши ключи являются сложными типами.
  *
- * @usageNotes
- * ### Examples
+ *  @usageNotes
+ *  ### Примеры
  *
- * This examples show how an Object or a Map can be iterated by ngFor with the use of this keyvalue
- * pipe.
+ * В этих примерах показано, как объект или карта могут быть итерированы ngFor с использованием этого ключевого значения
+ * труба.
  *
- * {@example common/pipes/ts/keyvalue_pipe.ts region='KeyValuePipe'}
+ *  {@example common/pipes/ts/keyvalue_pipe.ts region='KeyValuePipe'}
  *
  * @publicApi
  */

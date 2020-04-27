@@ -21,14 +21,14 @@ import {BrowserXhr} from './browser_xhr';
 const XSSI_PREFIX = /^\)\]\}',?\n/;
 
 /**
- * Creates connections using `XMLHttpRequest`. Given a fully-qualified
- * request, an `XHRConnection` will immediately create an `XMLHttpRequest` object and send the
- * request.
+ * Создает соединения, используя `XMLHttpRequest` . Учитывая полностью квалифицированным
+ * запрос, `XHRConnection` немедленно создать `XMLHttpRequest` объектиотправить.
+ * запрос.
  *
- * This class would typically not be created or interacted with directly inside applications, though
- * the {@link MockConnection} may be interacted with in tests.
+ * Этот класс обычно не создается и не взаимодействует непосредственно с приложениями
+ *  the {@link MockConnection}может взаимодействовать в тестах.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class XHRConnection implements Connection {
@@ -181,15 +181,15 @@ export class XHRConnection implements Connection {
 }
 
 /**
- * `XSRFConfiguration` sets up Cross Site Request Forgery (XSRF) protection for the application
- * using a cookie. See https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
- * for more information on XSRF.
+ *  `XSRFConfiguration`устанавливает для приложения защиту от подделки межсайтовых запросов (XSRF)
+ * используя куки. См. Https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
+ * для получения дополнительной информации о XSRF.
  *
- * Applications can configure custom cookie and header names by binding an instance of this class
- * with different `cookieName` and `headerName` values. See the main HTTP documentation for more
- * details.
+ * Приложения могут настраивать собственные имена файлов cookie и заголовков, связывая экземпляр этого класса
+ * с различными `cookieName` и `headerName` значений HeaderName. Смотрите основную документацию HTTP для получения дополнительной информации
+ * подробности.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class CookieXSRFStrategy implements XSRFStrategy {
@@ -205,31 +205,31 @@ export class CookieXSRFStrategy implements XSRFStrategy {
 }
 
 /**
- * Creates {@link XHRConnection} instances.
+ * Создает{@link XHRConnection}экземпляров.
  *
- * This class would typically not be used by end users, but could be
- * overridden if a different backend implementation should be used,
- * such as in a node backend.
+ * Этот класс обычно не будет использоваться конечными пользователями, но может быть
+ * переопределяетсяесли другая реализация бэкенд следуетиспользовать.
+ * например, в бэкэнде узла.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * import {Http, MyNodeBackend, HTTP_PROVIDERS, BaseRequestOptions} from '@angular/http';
- * @Component({
- *   viewProviders: [
- *     HTTP_PROVIDERS,
- *     {provide: Http, useFactory: (backend, options) => {
- *       return new Http(backend, options);
- *     }, deps: [MyNodeBackend, BaseRequestOptions]}]
- * })
- * class MyComponent {
- *   constructor(http:Http) {
- *     http.request('people.json').subscribe(res => this.people = res.json());
- *   }
- * }
- * ```
- * @deprecated see https://angular.io/guide/http
+ *  ```
+ *  import {Http, MyNodeBackend, HTTP_PROVIDERS, BaseRequestOptions} from '@angular/http';
+ *  @Component({
+ *    viewProviders: [
+ *      HTTP_PROVIDERS,
+ *      {provide: Http, useFactory: (backend, options) => {
+ *        return new Http(backend, options);
+ *      }, deps: [MyNodeBackend, BaseRequestOptions]}]
+ *  })
+ *  class MyComponent {
+ *    constructor(http:Http) {
+ *      http.request('people.json').subscribe(res => this.people = res.json());
+ *    }
+ *  }
+ *  ```
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

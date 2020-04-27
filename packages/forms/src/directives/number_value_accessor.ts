@@ -17,27 +17,27 @@ export const NUMBER_VALUE_ACCESSOR: any = {
 };
 
 /**
- * @description
- * The `ControlValueAccessor` for writing a number value and listening to number input changes.
- * The value accessor is used by the `FormControlDirective`, `FormControlName`, and  `NgModel`
- * directives.
+ *  @description
+ *  The `ControlValueAccessor`для записи значения числа и прослушивания ввода числа изменений.
+ * Метод доступа к значениям используется `FormControlDirective` , `FormControlName` и `NgModel`
+ * директивы.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using a number input with a reactive form.
+ *  ### Использование числового ввода с реактивной формой.
  *
- * The following example shows how to use a number input with a reactive form.
+ * В следующем примере показано, как использовать числовой ввод с реактивной формой.
  *
- * ```ts
- * const totalCountControl = new FormControl();
- * ```
+ *  ```ts
+ *  const totalCountControl = new FormControl();
+ *  ```
  *
- * ```
- * <input type="number" [formControl]="totalCountControl">
- * ```
+ *  ```
+ *  <input type="number" [formControl]="totalCountControl">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

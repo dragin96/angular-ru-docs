@@ -23,10 +23,10 @@ const DEFAULT_PORTS: {[key: string]: number} = {
 };
 
 /**
- * Location service that provides a drop-in replacement for the $location service
- * provided in AngularJS.
+ * Служба определения местоположения, которая обеспечивает замену для службы $ location
+ * предоставляется в AngularJS.
  *
- * @see [Using the Angular Unified Location Service](guide/upgrade#using-the-unified-angular-location-service)
+ *  @see [Использование службы унифицированных Angular координат](guide/upgrade#using-the-unified-angular-location-service)
  *
  * @publicApi
  */
@@ -705,8 +705,8 @@ export class $locationShim {
 }
 
 /**
- * The factory function used to create an instance of the `$locationShim` in Angular,
- * and provides an API-compatiable `$locationProvider` for AngularJS.
+ * Функция завода используется для создания экземпляра из `$locationShim` вAngular,.
+ * и предоставляет совместимый с API `$locationProvider` для AngularJS.
  *
  * @publicApi
  */

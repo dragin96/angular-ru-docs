@@ -64,7 +64,7 @@ export const SERVER_RENDER_PROVIDERS: Provider[] = [
 ];
 
 /**
- * The ng module for the server.
+ * Модуль ng для сервера.
  *
  * @publicApi
  */
@@ -97,7 +97,7 @@ export const platformServer: (extraProviders?: StaticProvider[]|undefined) => Pl
     createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
- * The server platform that supports the runtime compiler.
+ * Платформа сервера, которая поддерживает компилятор времени выполнения.
  *
  * @publicApi
  */

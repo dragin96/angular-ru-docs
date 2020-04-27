@@ -24,50 +24,50 @@ export const formGroupNameProvider: any = {
 };
 
 /**
- * @description
+ *  @description
  *
- * Syncs a nested `FormGroup` to a DOM element.
+ * Синхронизирует вложенную `FormGroup` с элементом DOM.
  *
- * This directive can only be used with a parent `FormGroupDirective`.
+ * Эта директива может использоваться только с родительской `FormGroupDirective`.
  *
- * It accepts the string name of the nested `FormGroup` to link, and
- * looks for a `FormGroup` registered with that name in the parent
- * `FormGroup` instance you passed into `FormGroupDirective`.
+ * Он принимает имя строки вложенной формы `FormGroup` для ссылки, и
+ * ищет `FormGroup` зарегистрированную с таким именем в родительском
+ *  `FormGroup` `FormGroup` экземплярвы передали `FormGroupDirective`.
  *
- * Use nested form groups to validate a sub-group of a
- * form separately from the rest or to group the values of certain
- * controls into their own nested object.
+ * Используйте вложенные группы форм для проверки подгруппы a
+ * формировать отдельно от остальных или группировать значения определенных
+ * контролирует в свой собственный вложенный объект.
  *
- * @see [Reactive Forms Guide](guide/reactive-forms)
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Access the group by name
+ *  ### Доступ к группе по имени
  *
- * The following example uses the {@link AbstractControl#get get} method to access the
- * associated `FormGroup`
+ * В следующем примере используется{@link AbstractControl#get get}метод доступа к
+ * связанный `FormGroup`
  *
- * ```ts
- *   this.form.get('name');
- * ```
+ *  ```ts
+ *    this.form.get('name');
+ *  ```
  *
- * ### Access individual controls in the group
+ *  ### Доступ к отдельным элементам управления в группе
  *
- * The following example uses the {@link AbstractControl#get get} method to access
- * individual controls within the group using dot syntax.
+ * В следующем примере используется{@link AbstractControl#get get}метод доступа
+ * отдельные элементы управления в группе с использованием точечного синтаксиса.
  *
- * ```ts
- *   this.form.get('name.first');
- * ```
+ *  ```ts
+ *    this.form.get('name.first');
+ *  ```
  *
- * ### Register a nested `FormGroup`.
+ *  ### Зарегистрируйте вложенную `FormGroup`.
  *
- * The following example registers a nested *name* `FormGroup` within an existing `FormGroup`,
- * and provides methods to retrieve the nested `FormGroup` and individual controls.
+ * Следующий пример регистрирует nestedname `FormGroup` пределах существующего `FormGroup` FormGroup,.
+ * и предоставляет методы для извлечения вложенной формы `FormGroup` и отдельных элементов управления.
  *
- * {@example forms/ts/nestedFormGroup/nested_form_group_example.ts region='Component'}
+ *  {@example forms/ts/nestedFormGroup/nested_form_group_example.ts region='Component'}
  *
- * @ngModule ReactiveFormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({selector: '[formGroupName]', providers: [formGroupNameProvider]})
@@ -108,27 +108,27 @@ export const formArrayNameProvider: any = {
 };
 
 /**
- * @description
+ *  @description
  *
- * Syncs a nested `FormArray` to a DOM element.
+ * Синхронизирует вложенный `FormArray` с элементом DOM.
  *
- * This directive is designed to be used with a parent `FormGroupDirective` (selector:
- * `[formGroup]`).
+ * Эта директива предназначена для использования с родителем `FormGroupDirective` (селектор:.
+ *  `[formGroup]`).
  *
- * It accepts the string name of the nested `FormArray` you want to link, and
- * will look for a `FormArray` registered with that name in the parent
- * `FormGroup` instance you passed into `FormGroupDirective`.
+ * Он принимает имя строки вложенного `FormArray` вы хотите связать, и
+ * будет искать `FormArray` зарегистрирован с этим именем вродителях.
+ *  `FormGroup` `FormGroup` экземплярвы передали `FormGroupDirective`.
  *
- * @see [Reactive Forms Guide](guide/reactive-forms)
- * @see `AbstractControl`
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
+ *  @see `AbstractControl`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example forms/ts/nestedFormArray/nested_form_array_example.ts region='Component'}
+ *  {@example forms/ts/nestedFormArray/nested_form_array_example.ts region='Component'}
  *
- * @ngModule ReactiveFormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({selector: '[formArrayName]', providers: [formArrayNameProvider]})

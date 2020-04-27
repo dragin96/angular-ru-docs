@@ -14,9 +14,9 @@ import {HttpClientTestingBackend} from './backend';
 
 
 /**
- * Configures `HttpClientTestingBackend` as the `HttpBackend` used by `HttpClient`.
+ * Настраивает `HttpClientTestingBackend` качестве `HttpBackend` используемые `HttpClient` HttpClient.
  *
- * Inject `HttpTestingController` to expect and flush requests in your tests.
+ * Вводят `HttpTestingController` ожидать и флеш запросов в ваших тестах.
  *
  * @publicApi
  */

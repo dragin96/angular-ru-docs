@@ -1,54 +1,58 @@
-# Lazy-loading feature modules
+{@a lazy-loading-feature-modules}
+# Ленивые загрузочные функциональные модули
 
-## High level view
+{@a high-level-view}
+## Высокий уровень просмотра
 
-By default, NgModules are eagerly loaded, which means that as soon as the app loads, so do all the NgModules, whether or not they are immediately necessary. For large apps with lots of routes, consider lazy loading&mdash;a design pattern that loads NgModules as needed. Lazy loading helps keep initial
-bundle sizes smaller, which in turn helps decrease load times.
+По умолчанию NgModules загружаются с нетерпением, а это означает, что как только приложение загружается, так же поступают все NgModules, независимо от того, нужны ли они немедленно. Для больших приложений с большим количеством маршрутов рассмотрите ленивую загрузку - шаблон проектирования, который загружает NgModules по мере необходимости. Ленивая загрузка помогает сохранить начальную
+Размеры пачки меньше, что, в свою очередь, помогает уменьшить время загрузки.
 
-For the final sample app with two lazy-loaded modules that this page describes, see the
-<live-example></live-example>.
+Последний пример приложения с двумя загруженными модулями, описанный на этой странице, см
+<live-example></live-example>,
 
-There are two main steps to setting up a lazy-loaded feature module:
+Есть два основных шага для настройки ленивого загруженного модуля функции:
 
-1. Create the feature module with the CLI, using the `--route` flag.
-1. Configure the routes.
+1. Создайте функциональный модуль с помощью интерфейса командной строки, используя `--route` флаг.
+1. Настройте маршруты.
 
-## Set up an app
+{@a set-up-an-app}
+## Настройте приложение
 
-If you don’t already have an app, you can follow the steps below to
-create one with the CLI. If you already have an app, skip to
-[Configure the routes](#config-routes). Enter the following command
-where `customer-app` is the name of your app:
+Если у вас еще нет приложения, вы можете выполнить следующие шаги, чтобы
+создать один с CLI. Если у вас уже есть приложение, перейдите к
+[Настроить маршруты](#config-routes). Введите следующую команду
+где `customer-app` это имя вашего приложения:
 
 <code-example language="bash">
 ng new customer-app --routing
 </code-example>
 
-This creates an app called `customer-app` and the `--routing` flag
-generates a file called `app-routing.module.ts`, which is one of
-the files you need for setting up lazy loading for your feature module.
-Navigate into the project by issuing the command `cd customer-app`.
+Это создает приложение под названием `customer-app` и `--routing` флаг
+генерирует файл с именем `app-routing.module.ts`, который является одним из
+файлы, необходимые для настройки отложенной загрузки вашего функционального модуля.
+Перейдите в проект, введя команду `cd customer-app`.
 
 <div class="alert is-helpful">
 
-The `--routing` option requires Angular/CLI version 8.1 or higher.
-See [Keeping Up to Date](guide/updating).
+ `--routing` требует Angular / CLI версии 8.1 или выше.
+Смотрите [в курсе](guide/updating).
 
 </div>
 
-## Create a feature module with routing
+{@a create-a-feature-module-with-routing}
+## Создать функциональный модуль с маршрутизацией
 
-Next, you’ll need a feature module with a component to route to.
-To make one, enter the following command in the terminal, where `customers` is the name of the feature module. The path for loading the `customers` feature modules is also `customers` because it is specified with the `--route` option:
+Далее вам понадобится функциональный модуль с компонентом для маршрутизации.
+Чтобы сделать это, введите следующую команду в терминале, где `customers` это название функционального модуля. Путь для загрузки `customers` модули также `customers` потому что это указано с `--route` вариант:
 
 <code-example language="bash">
 ng generate module customers --route customers --module app.module
 </code-example>
 
-This creates a `customers` folder with the new lazy-loadable module `CustomersModule` defined in the `customers.module.ts` file. The command automatically declares the `CustomersComponent` inside the new feature module.
+Это создает `customers` папка с новым загружаемым модулем `CustomersModule` определенный в `customers.module.ts` файл . Команда автоматически объявляет `CustomersComponent` внутри нового функционального модуля.
 
-Because the new module is meant to be lazy-loaded, the command does NOT add a reference to the new feature module in the application's root module file, `app.module.ts`.
-Instead, it adds the declared route, `customers` to the `routes` array declared in the module provided as the `--module` option.
+Поскольку новый модуль предназначен для загрузки с отложенным доступом, команда НЕ добавляет ссылку на новый функциональный модуль в файл корневого модуля приложения, `app.module.ts`.
+Вместо этого он добавляет заявленный маршрут, `customers` к `routes` массив объявленный в модуле, указанном как `--module` опция.
 
 <code-example
   header="src/app/app-routing.module.ts"
@@ -56,19 +60,20 @@ Instead, it adds the declared route, `customers` to the `routes` array declared 
   region="routes-customers">
 </code-example>
 
-Notice that the lazy-loading syntax uses `loadChildren` followed by a function that uses the browser's built-in `import('...')` syntax for dynamic imports.
-The import path is the relative path to the module.
+Обратите внимание, что синтаксис с отложенной загрузкой использует `loadChildren` сопровождается функцией, которая использует встроенный в браузер `import('...')` синтаксис для динамического импорта.
+Путь импорта - это относительный путь к модулю.
 
-### Add another feature module
+{@a add-another-feature-module}
+### Добавьте еще один функциональный модуль
 
-Use the same command to create a second lazy-loaded feature module with routing, along with its stub component.
+Используйте ту же команду, чтобы создать второй ленивый функциональный модуль с маршрутизацией вместе с компонентом-заглушкой.
 
 <code-example language="bash">
 ng generate module orders --route orders --module app.module
 </code-example>
 
-This creates a new folder called `orders` containing the `OrdersModule` and `OrdersRoutingModule`, along with the new `OrdersComponent` source files.
-The `orders` route, specified with the `--route` option, is added to the `routes` array inside the `app-routing.module.ts` file, using the lazy-loading syntax.
+Это создает новую папку с именем `orders` содержащие `OrdersModule` и `OrdersRoutingModule` вместе с новым `OrdersComponent` исходные файлы.
+ `orders` маршрут, указанный с помощью `--route` добавляется к `routes` массив внутри `app-routing.module.ts` файл, используя синтаксис загрузки.
 
 <code-example
   header="src/app/app-routing.module.ts"
@@ -76,74 +81,78 @@ The `orders` route, specified with the `--route` option, is added to the `routes
   region="routes-customers-orders">
 </code-example>
 
-## Set up the UI
+{@a set-up-the-ui}
+## Настройте пользовательский интерфейс
 
-Though you can type the URL into the address bar, a navigation UI is easier for the user and more common.
-Replace the default placeholder markup in `app.component.html` with a custom nav
-so you can easily navigate to your modules in the browser:
+Хотя вы можете ввести URL-адрес в адресную строку, пользовательский интерфейс навигации проще для пользователя и более распространен.
+Замените стандартную разметку-заполнитель в `app.component.html` с пользовательской навигацией
+так что вы можете легко перейти к вашим модулям в браузере:
 
 
 <code-example path="lazy-loading-ngmodules/src/app/app.component.html" header="app.component.html" region="app-component-template" header="src/app/app.component.html"></code-example>
 
 
-To see your app in the browser so far, enter the following command in the terminal window:
+Чтобы увидеть приложение в браузере до сих пор, введите следующую команду в окне терминала:
 
 <code-example language="bash">
 ng serve
 </code-example>
 
-Then go to `localhost:4200` where you should see “customer-app” and three buttons.
+Затем перейдите к `localhost:4200` где вы должны увидеть «клиентское приложение» и три кнопки.
 
 <div class="lightbox">
   <img src="generated/images/guide/lazy-loading-ngmodules/three-buttons.png" width="300" alt="three buttons in the browser">
 </div>
 
-These buttons work, because the CLI automatically added the routes to the feature modules to the `routes` array in `app.module.ts`.
+Эти кнопки работают, потому что CLI автоматически добавляет маршруты к функциональным модулям в `routes` массив в `app.module.ts`.
 
 {@a config-routes}
 
-## Imports and route configuration
+{@a imports-and-route-configuration}
+## Импорт и конфигурация маршрута
 
-The CLI automatically added each feature module to the routes map at the application level.
-Finish this off by adding the default route. In the `app-routing.module.ts` file, update the `routes` array with the following:
+CLI автоматически добавляет каждый функциональный модуль в карту маршрутов на уровне приложения.
+Завершите это, добавив маршрут по умолчанию. в `app-routing.module.ts` файл, обновите `routes` массив со следующим:
 
 <code-example path="lazy-loading-ngmodules/src/app/app-routing.module.ts" id="app-routing.module.ts" region="const-routes" header="src/app/app-routing.module.ts"></code-example>
 
-The first two paths are the routes to the `CustomersModule` and the `OrdersModule`.
-The final entry defines a default route. The empty path matches everything that doesn't match an earlier path.
+Первые два пути - это маршруты к `CustomersModule` и `OrdersModule`.
+Последняя запись определяет маршрут по умолчанию. Пустой путь соответствует всему, что не соответствует более раннему пути.
 
 
-### Inside the feature module
+{@a inside-the-feature-module}
+### Внутри функционального модуля
 
-Next, take a look at the `customers.module.ts` file. If you’re using the CLI and following the steps outlined in this page, you don’t have to do anything here.
+Далее взгляните на `customers.module.ts` файл . Если вы используете CLI и выполняете действия, описанные на этой странице, вам не нужно ничего делать здесь.
 
 <code-example path="lazy-loading-ngmodules/src/app/customers/customers.module.ts" id="customers.module.ts" region="customers-module" header="src/app/customers/customers.module.ts"></code-example>
 
-The `customers.module.ts` file imports the `customers-routing.module.ts` and `customers.component.ts` files. `CustomersRoutingModule` is listed in the `@NgModule` `imports` array giving `CustomersModule` access to its own routing module. `CustomersComponent` is in the `declarations` array, which means `CustomersComponent` belongs to the `CustomersModule`.
+ `customers.module.ts` Файл импортирует `customers-routing.module.ts` и `customers.component.ts` Файлы . `CustomersRoutingModule` указан в `@NgModule` `imports ` массивов ` CustomersModule` доступ к собственному модулю маршрутизации. `CustomersComponent` находится в `declarations` массив, что означает `CustomersComponent` принадлежит к `CustomersModule`.
 
 
-The `app-routing.module.ts` then imports the feature module, `customers.module.ts` using JavaScript's dynamic import.
+ `app-routing.module.ts` импортирует функциональный модуль, `customers.module.ts` используя динамический импорт JavaScript.
 
-The feature-specific route definition file `customers-routing.module.ts` imports its own feature component defined in the `customers.component.ts` file, along with the other JavaScript import statements. It then maps the empty path to the `CustomersComponent`.
+Файл определения маршрута для конкретной функции `customers-routing.module.ts` импортирует свой собственный компонент, определенный в `customers.component.ts` файл вместе с другими операторами импорта JavaScript. Затем он отображает пустой путь к `CustomersComponent`.
 
 <code-example path="lazy-loading-ngmodules/src/app/customers/customers-routing.module.ts" id="customers-routing.module.ts" region="customers-routing-module" header="src/app/customers/customers-routing.module.ts"></code-example>
 
-The `path` here is set to an empty string because the path in `AppRoutingModule` is already set to `customers`, so this route in the `CustomersRoutingModule`, is already within the `customers` context. Every route in this routing module is a child route.
+ `path` здесь установлен в пустую строку, потому что путь в `AppRoutingModule` уже установлен в `customers`, так что этот маршрут в `CustomersRoutingModule`, уже находится в пределах `customers` контекст . Каждый маршрут в этом модуле маршрутизации является дочерним маршрутом.
 
-The other feature module's routing module is configured similarly.
+Модуль маршрутизации другого функционального модуля настроен аналогично.
 
 <code-example path="lazy-loading-ngmodules/src/app/orders/orders-routing.module.ts" id="orders-routing.module.ts" region="orders-routing-module-detail" header="src/app/orders/orders-routing.module.ts (excerpt)"></code-example>
 
-## Confirm it’s working
+{@a confirm-it’s-working}
+## Подтвердите, что это работает
 
-You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Shift+j` on a PC and go to the Network Tab.
+Вы можете проверить, действительно ли модуль загружается с помощью инструментов разработчика Chrome. В Chrome откройте инструменты разработчика, нажав `Cmd+Option+i` на Mac или `Ctrl+Shift+j` на ПК и перейдите на вкладку Сеть.
 
 <div class="lightbox">
   <img src="generated/images/guide/lazy-loading-ngmodules/network-tab.png" width="600" alt="lazy loaded modules diagram">
 </div>
 
 
-Click on the Orders or Customers button. If you see a chunk appear, everything is wired up properly and the feature module is being lazy loaded. A chunk should appear for Orders and for Customers but will only appear once for each.
+Нажмите на кнопку Заказы или Клиенты. Если вы видите чанк, все подключено правильно, и функциональный модуль загружается с отложенным доступом. Блок должен отображаться для заказов и для клиентов, но будет появляться только один раз для каждого.
 
 
 <div class="lightbox">
@@ -151,37 +160,39 @@ Click on the Orders or Customers button. If you see a chunk appear, everything i
 </div>
 
 
-To see it again, or to test after working in the project, clear everything out by clicking the circle with a line through it in the upper left of the Network Tab:
+Для того, чтобы увидеть его снова, или к испытанию после работы в проекте, все ясно, нажав на круг с линией, проходящей через него в верхней левой части вкладки Сеть:
 
 <div class="lightbox">
   <img src="generated/images/guide/lazy-loading-ngmodules/clear.gif" width="200" alt="lazy loaded modules diagram">
 </div>
 
 
-Then reload with `Cmd+r` or `Ctrl+r`, depending on your platform.
+Затем перезагрузите с `Cmd+r` или `Ctrl+r`, в зависимости от вашей платформы.
 
-## `forRoot()` and `forChild()`
+{@a forroot-and-forchild}
+## `forRoot()` и `forChild()` 
 
-You might have noticed that the CLI adds `RouterModule.forRoot(routes)` to the `AppRoutingModule` `imports` array.
-This lets Angular know that the `AppRoutingModule` is a routing module and `forRoot()` specifies that this is the root routing module.
-It configures all the routes you pass to it, gives you access to the router directives, and registers the `Router` service.
-Use `forRoot()` only once in the application, inside the `AppRoutingModule`.
+Вы могли заметить, что CLI добавляет `RouterModule.forRoot(routes)` к `AppRoutingModule` `imports` массив.
+Это позволяет Angular знать, что `AppRoutingModule` является модулем маршрутизации и `forRoot()` указывает, что это корневой модуль маршрутизации.
+Он настраивает все маршруты, которые вы передаете ему, дает вам доступ к директивам маршрутизатора и регистрирует `Router` Сервис.
+использование `forRoot()` только один раз в приложении, внутри `AppRoutingModule`.
 
-The CLI also adds `RouterModule.forChild(routes)` to feature routing modules.
-This way, Angular knows that the route list is only responsible for providing additional routes and is intended for feature modules.
-You can use `forChild()` in multiple modules.
+CLI также добавляет `RouterModule.forChild(routes)` чтобы показать модули маршрутизации.
+Таким образом, Angular знает, что список маршрутов отвечает только за предоставление дополнительных маршрутов и предназначен для функциональных модулей.
+Ты можешь использовать `forChild()` в нескольких модулях.
 
-The `forRoot()` method takes care of the *global* injector configuration for the Router.
-The `forChild()` method has no injector configuration. It uses directives such as `RouterOutlet` and `RouterLink`.
-For more information, see the [`forRoot()` pattern](guide/singleton-services#forRoot) section of the [Singleton Services](guide/singleton-services) guide.
+ `forRoot()` заботится о *глобальной* конфигурации инжектора для маршрутизатора.
+ `forChild()` не имеет конфигурации инжектора. Он использует такие директивы, как `RouterOutlet` и `RouterLink`.
+Для получения дополнительной информации см. [Раздел `forRoot ()` pattern](guide/singleton-services#forRoot)руководства [Singleton Services](guide/singleton-services).
 
 <hr>
 
-## More on NgModules and routing
+{@a more-on-ngmodules-and-routing}
+## Подробнее о модулях Ng и маршрутизации
 
-You may also be interested in the following:
-* [Routing and Navigation](guide/router).
-* [Providers](guide/providers).
-* [Types of Feature Modules](guide/module-types).
-* [Route-level code-splitting in Angular](https://web.dev/route-level-code-splitting-in-angular/)
-* [Route preloading strategies in Angular](https://web.dev/route-preloading-in-angular/)
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Маршрутизация и навигация](guide/router).
+* [Провайдеры](guide/providers).
+* [Типы функциональных модулей](guide/module-types).
+* [Разделение кода на уровне маршрута в Angular](https://web.dev/route-level-code-splitting-in-angular/)
+* [Стратегия предварительной загрузки маршрута в Angular](https://web.dev/route-preloading-in-angular/)

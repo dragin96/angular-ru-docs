@@ -10,56 +10,56 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
 
 
 /**
- * Instantiates a single {@link Component} type and inserts its Host View into current View.
- * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
+ * Создает один{@link Component}введите и вставьте его Host View в текущий View.
+ *  `NgComponentOutlet`обеспечивает декларативный подход для создания динамических компонентов.
  *
- * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
- * any existing component will get destroyed.
+ *  `NgComponentOutlet`требует тип компонента, если установлено ложное значение, представление очистится и
+ * любой существующий компонент будет уничтожен.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Fine tune control
+ *  ### Точная настройка
  *
- * You can control the component creation process by using the following optional attributes:
+ * Вы можете контролировать процесс создания компоненты с помощью следующих дополнительныхатрибутов:.
  *
- * * `ngComponentOutletInjector`: Optional custom {@link Injector} that will be used as parent for
- * the Component. Defaults to the injector of the current view container.
+ *  `ngComponentOutletInjector`: необязательный пользовательский{@link Injector}это будет использоваться в качестве родителя для
+ * Компонент. По умолчанию используется инжектор контейнера текущего представления.
  *
- * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
- * section of the component, if exists.
+ *  `ngComponentOutletContent`: необязательный список проектируемых узлов для вставки в контент
+ * раздел компонента, если существует.
  *
- * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
- * module, then load a component from that module.
+ *  `ngComponentOutletNgModuleFactory`: Необязательная фабрика модулей, позволяющая динамически загружать другие
+ * модуль, а затем загрузить компонент из этого модуля.
  *
- * ### Syntax
+ *  ### Синтаксис.
  *
- * Simple
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression"></ng-container>
- * ```
+ * Простой.
+ *  ```
+ *  <ng-containerngComponentOutlet="componentTypeExpression"></ng-container>
+ *  ```
  *
- * Customized injector/content
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression;
- *                                   injector: injectorExpression;
- *                                   content: contentNodesExpression;">
- * </ng-container>
- * ```
+ * Индивидуальный инжектор / контент
+ *  ```
+ *  <ng-containerngComponentOutlet="componentTypeExpression;
+ *                                    injector: injectorExpression;
+ *                                    content: contentNodesExpression;">
+ *  </ng-container>
+ *  ```
  *
- * Customized ngModuleFactory
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression;
- *                                   ngModuleFactory: moduleFactory;">
- * </ng-container>
- * ```
+ * Индивидуальный ngModuleFactory
+ *  ```
+ *  <ng-containerngComponentOutlet="componentTypeExpression;
+ *                                    ngModuleFactory: moduleFactory;">
+ *  </ng-container>
+ *  ```
  *
- * ### A simple example
+ *  ### Простойпример.
  *
- * {@example common/ngComponentOutlet/ts/module.ts region='SimpleExample'}
+ *  {@example common/ngComponentOutlet/ts/module.ts region='SimpleExample'}
  *
- * A more complete example with additional options:
+ * Более полный пример с дополнительнымиопциями:.
  *
- * {@example common/ngComponentOutlet/ts/module.ts region='CompleteExample'}
+ *  {@example common/ngComponentOutlet/ts/module.ts region='CompleteExample'}
  *
  * @publicApi
  * @ngModule CommonModule

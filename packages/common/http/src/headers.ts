@@ -13,9 +13,9 @@ interface Update {
 }
 
 /**
- * Represents the header configuration options for an HTTP request.
- * Instances are immutable. Modifying methods return a cloned
- * instance with the change. The original object is never changed.
+ * Представляет параметры конфигурации заголовка для HTTP-запроса.
+ * Экземпляры неизменны. Модифицирующие методы возвращают клонированный
+ * экземпляр с изменением. Оригинальный объект никогда не изменяется.
  *
  * @publicApi
  */

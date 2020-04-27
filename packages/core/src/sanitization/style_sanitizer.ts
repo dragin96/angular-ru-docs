@@ -105,17 +105,17 @@ export function _sanitizeStyle(value: string): string {
 
 
 /**
- * A series of flags to instruct a style sanitizer to either validate
- * or sanitize a value.
+ * Серия флагов, чтобы дать команду дезинфицирующему средству для проверки
+ * или дезинфицировать стоимость.
  *
- * Because sanitization is dependent on the style property (i.e. style
- * sanitization for `width` is much different than for `background-image`)
- * the sanitization function (e.g. `StyleSanitizerFn`) needs to check a
- * property value first before it actually sanitizes any values.
+ * Потому что санитарная обработка зависит от свойства стиля (то есть стиля)
+ * санитарная обработка для `width` сильно отличается от `background-image``background-image` )
+ * функция(например, `StyleSanitizerFn``StyleSanitizerFn`) должна проверить a
+ * Значение свойства сначала, прежде чем оно фактически дезинфицирует любые значения.
  *
- * This enum exist to allow a style sanitization function to either only
- * do validation (check the property to see whether a value will be
- * sanitized or not) or to sanitize the value (or both).
+ * Это перечисление существует, чтобы разрешить только функцию очистки стиля
+ * сделать проверку (проверьте свойство, чтобы увидеть, будет ли значение
+ * продезинфицировать или нет) или санировать значение (или оба).
  *
  * @publicApi
  */

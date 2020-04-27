@@ -8,13 +8,13 @@
 import {scheduleMicroTask} from '../util';
 
 /**
- * Provides programmatic control of a reusable animation sequence,
- * built using the `build()` method of `AnimationBuilder`. The `build()` method
- * returns a factory, whose `create()` method instantiates and initializes this interface.
+ * Обеспечивает программный контроль многоразовой анимационной последовательности
+ * построен с использованием метода `build()` из `AnimationBuilder` . `build()` метод.
+ * возвращает фабрику, чей `create()` методсоздает и инициализирует этот интерфейс.
  *
- * @see `AnimationBuilder`
- * @see `AnimationFactory`
- * @see `animate()`
+ *  @see `AnimationBuilder`
+ *  @see `AnimationFactory`
+ *  @see `animate()`
  *
  * @publicApi
  */
@@ -107,13 +107,13 @@ export interface AnimationPlayer {
 }
 
 /**
- * An empty programmatic controller for reusable animations.
- * Used internally when animations are disabled, to avoid
- * checking for the null case when an animation player is expected.
+ * Пустой программный контроллер для многоразовых анимаций.
+ * Используется внутри, когда анимация отключена, чтобы избежать
+ * проверка на нулевой случай, когда ожидается проигрыватель анимации.
  *
- * @see `animate()`
- * @see `AnimationPlayer`
- * @see `GroupPlayer`
+ *  @see `animate()`
+ *  @see `AnimationPlayer`
+ *  @see `GroupPlayer`
  *
  * @publicApi
  */

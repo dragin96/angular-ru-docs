@@ -1,38 +1,42 @@
-# Reusable animations
+{@a reusable-animations}
+# Многоразовые анимации
 
-#### Prerequisites
+{@a prerequisites}
+#### Предпосылки
 
-A basic understanding of the following concepts:
+Базовое понимание следующих понятий:
 
-* [Introduction to Angular animations](guide/animations)
-* [Transition and triggers](guide/transition-and-triggers)
+* [Введение в Angular анимацию](guide/animations)
+* [Переход и триггеры](guide/transition-and-triggers)
 
 <hr>
 
-The [AnimationOptions](https://angular.io/api/animations/AnimationOptions) interface in Angular animations enables you to create animations that you can reuse across different components.
+Интерфейс [AnimationOptions](https://angular.io/api/animations/AnimationOptions)в Angular-анимациях позволяет создавать анимации, которые можно повторно использовать в различных компонентах.
 
-## Creating reusable animations
+{@a creating-reusable-animations}
+## Создание многоразовых анимаций
 
-To create a reusable animation, use the [`animation()`](https://angular.io/api/animations/animation) method to define an animation in a separate `.ts` file and declare this animation definition as a `const` export variable. You can then import and reuse this animation in any of your app components using the [`useAnimation()`](https://angular.io/api/animations/useAnimation) API.
+Чтобы создать многоразовую анимацию, используйте [ `animation ()` ](https://angular.io/api/animations/animation) способ определить анимацию в отдельном  `.ts` файл и объявить это определение анимации как  `const`  переменная экспорта. Затем вы можете импортировать и повторно использовать эту анимацию в любом из компонентов приложения, используя [ `useAnimation ()` ](https://angular.io/api/animations/useAnimation)API.
 
 <code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="reusable" language="typescript"></code-example>
 
-In the above code snippet, `transAnimation` is made reusable by declaring it as an export variable.
+В приведенном фрагменте кода,  `transAnimation`  делается многоразовым, объявляя его как переменную экспорта.
 
 <div class="alert is-helpful">
 
-**Note:** The `height`, `opacity`, `backgroundColor`, and `time` inputs are replaced during runtime.
+**Примечание:**  `height `, ` opacity `, ` backgroundColor ` и ` time` входы заменяются во время выполнения.
 </div>
 
-You can import the reusable `transAnimation` variable in your component class and reuse it using the `useAnimation()` method as shown below.
+Вы можете импортировать многоразовые  `transAnimation`  переменная в вашем классе компонентов и повторно использовать ее, используя  `useAnimation()`  как показано ниже.
 
 <code-example path="animations/src/app/open-close.component.3.ts" header="src/app/open-close.component.ts" region="reusable" language="typescript"></code-example>
 
-## More on Angular animations
+{@a more-on-angular-animations}
+## Подробнее об Angular анимации
 
-You may also be interested in the following:
+Вы также можете быть заинтересованы в следующих ситуациях :
 
-* [Introduction to Angular animations](guide/animations)
-* [Transition and triggers](guide/transition-and-triggers)
-* [Complex animation Sequences](guide/complex-animation-sequences)
-* [Route transition animations](guide/route-animations)
+* [Введение в Angular анимацию](guide/animations)
+* [Переход и триггеры](guide/transition-and-triggers)
+* [Сложные анимационные последовательности](guide/complex-animation-sequences)
+* [Анимация перехода маршрута](guide/route-animations)

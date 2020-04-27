@@ -9,10 +9,10 @@
 import {ɵregisterLocaleData} from '@angular/core';
 
 /**
- * Register global data to be used internally by Angular. See the
- * ["I18n guide"](guide/i18n#i18n-pipes) to know how to import additional locale data.
+ * Зарегистрируйте глобальные данные для внутреннего использования Angular. Смотрите
+ *  [«Руководство по I18n»](guide/i18n#i18n-pipes)чтобы узнать, как импортировать дополнительные данные локали.
  *
- * The signature registerLocaleData(data: any, extraData?: any) is deprecated since v5.1
+ * Сигнатура registerLocaleData (data: any, extraData ?: any) устарела с версии 5.1
  *
  * @publicApi
  */

@@ -19,7 +19,7 @@ import {ViewEncapsulation} from './view';
 
 
 /**
- * Type of the Directive decorator / constructor function.
+ * Тип Директивы декоратор / конструктор функции.
  * @publicApi
  */
 export interface DirectiveDecorator {
@@ -77,9 +77,9 @@ export interface DirectiveDecorator {
 }
 
 /**
- * Directive decorator and metadata.
+ * Директива декоратора и метаданных.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export interface Directive {
@@ -291,7 +291,7 @@ export interface Directive {
 }
 
 /**
- * Type of the Directive metadata.
+ * Тип метаданных Директивы.
  *
  * @publicApi
  */
@@ -300,7 +300,7 @@ export const Directive: DirectiveDecorator = makeDecorator(
     (type: Type<any>, meta: Directive) => SWITCH_COMPILE_DIRECTIVE(type, meta));
 
 /**
- * Component decorator interface
+ * Компонент декоратора интерфейса
  *
  * @publicApi
  */
@@ -449,7 +449,7 @@ export interface ComponentDecorator {
 }
 
 /**
- * Supplies configuration metadata for an Angular component.
+ * Предоставляет метаданные конфигурации для Angular компонента.
  *
  * @publicApi
  */
@@ -556,9 +556,9 @@ export interface Component extends Directive {
 }
 
 /**
- * Component decorator and metadata.
+ * Компонент декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Component: ComponentDecorator = makeDecorator(
@@ -567,7 +567,7 @@ export const Component: ComponentDecorator = makeDecorator(
     (type: Type<any>, meta: Component) => SWITCH_COMPILE_COMPONENT(type, meta));
 
 /**
- * Type of the Pipe decorator / constructor function.
+ * Тип функции Pipe декоратор / конструктор.
  *
  * @publicApi
  */
@@ -602,7 +602,7 @@ export interface PipeDecorator {
 }
 
 /**
- * Type of the Pipe metadata.
+ * Тип метаданных трубы.
  *
  * @publicApi
  */
@@ -628,7 +628,7 @@ export interface Pipe {
 }
 
 /**
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Pipe: PipeDecorator = makeDecorator(
@@ -690,7 +690,7 @@ export interface InputDecorator {
 }
 
 /**
- * Type of metadata for an `Input` property.
+ * Тип метаданных для `Input``Input`.
  *
  * @publicApi
  */
@@ -702,14 +702,14 @@ export interface Input {
 }
 
 /**
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Input: InputDecorator =
     makePropDecorator('Input', (bindingPropertyName?: string) => ({bindingPropertyName}));
 
 /**
- * Type of the Output decorator / constructor function.
+ * Тип выходной декоратора / функции конструктора.
  *
  * @publicApi
  */
@@ -735,7 +735,7 @@ export interface OutputDecorator {
 }
 
 /**
- * Type of the Output metadata.
+ * Тип выходных метаданных.
  *
  * @publicApi
  */
@@ -747,7 +747,7 @@ export interface Output {
 }
 
 /**
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Output: OutputDecorator =
@@ -756,7 +756,7 @@ export const Output: OutputDecorator =
 
 
 /**
- * Type of the HostBinding decorator / constructor function.
+ * Тип функции декоратора / конструктора HostBinding.
  *
  * @publicApi
  */
@@ -795,7 +795,7 @@ export interface HostBindingDecorator {
 }
 
 /**
- * Type of the HostBinding metadata.
+ * Тип метаданных HostBinding.
  *
  * @publicApi
  */
@@ -807,7 +807,7 @@ export interface HostBinding {
 }
 
 /**
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const HostBinding: HostBindingDecorator =
@@ -815,7 +815,7 @@ export const HostBinding: HostBindingDecorator =
 
 
 /**
- * Type of the HostListener decorator / constructor function.
+ * Тип функции декоратора / конструктора HostListener.
  *
  * @publicApi
  */
@@ -829,7 +829,7 @@ export interface HostListenerDecorator {
 }
 
 /**
- * Type of the HostListener metadata.
+ * Тип метаданных HostListener.
  *
  * @publicApi
  */
@@ -845,59 +845,59 @@ export interface HostListener {
 }
 
 /**
- * Decorator that binds a DOM event to a host listener and supplies configuration metadata.
- * Angular invokes the supplied handler method when the host element emits the specified event,
- * and updates the bound element with the result.
+ * Декоратор, который связывает событие DOM с прослушивателем хоста и предоставляет метаданные конфигурации.
+ * Angular вызывает поставляемый метод обработчикакогда хост элемент испускает указанноесобытие,.
+ * и обновляет связанный элемент с результатом.
  *
- * If the handler method returns false, applies `preventDefault` on the bound element.
+ * Если метод-обработчик возвращает false, применяет `preventDefault` к связанному элементу.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following example declares a directive
- * that attaches a click listener to a button and counts clicks.
+ * В следующем примере объявляется директива
+ * который прикрепляет прослушиватель кликов к кнопке и считает клики.
  *
- * ```ts
- * @Directive({selector: 'button[counting]'})
- * class CountClicks {
- *   numberOfClicks = 0;
+ *  ```ts
+ *  @Directive({selector: 'button[counting]'})
+ *  class CountClicks {
+ *    numberOfClicks = 0;
  *
- *   @HostListener('click', ['$event.target'])
- *   onClick(btn) {
- *     console.log('button', btn, 'number of clicks:', this.numberOfClicks++);
+ *    @HostListener('click', ['$event.target'])
+ *    onClick(btn) {
+ *      console.log('button', btn, 'number of clicks:', this.numberOfClicks++);
+ *   }
  *  }
- * }
  *
- * @Component({
- *   selector: 'app',
- *   template: '<button counting>Increment</button>',
- * })
- * class App {}
+ *  @Component({
+ *    selector: 'app',
+ *    template: '<button counting>Increment</button>',
+ *  })
+ *  class App {}
  *
- * ```
+ *  ```
  *
- * The following example registers another DOM event handler that listens for key-press events.
- * ``` ts
- * import { HostListener, Component } from "@angular/core";
+ * В следующем примере регистрируется другой обработчик событий DOM, который прослушивает события нажатия клавиш.
+ *  ``` ts
+ *  import { HostListener, Component } from "@angular/core";
  *
- * @Component({
- *   selector: 'app',
- *   template: `<h1>Hello, you have pressed keys {{counter}} number of times!</h1> Press any key to
- * increment the counter.
- *   <button (click)="resetCounter()">Reset Counter</button>`
- * })
- * class AppComponent {
- *   counter = 0;
- *   @HostListener('window:keydown', ['$event'])
- *   handleKeyDown(event: KeyboardEvent) {
- *     this.counter++;
- *   }
- *   resetCounter() {
- *     this.counter = 0;
- *   }
- * }
- * ```
+ *  @Component({
+ *    selector: 'app',
+ *    template: `<h1>Hello, you have pressed keys {{counter}} number of times!</h1> Press any key to
+ *  increment the counter.
+ *    <button (click)="resetCounter()">Reset Counter</button>`
+ *  })
+ *  class AppComponent {
+ *    counter = 0;
+ *    @HostListener('window:keydown', ['$event'])
+ *    handleKeyDown(event: KeyboardEvent) {
+ *      this.counter++;
+ *    }
+ *    resetCounter() {
+ *      this.counter = 0;
+ *    }
+ *  }
+ *  ```
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const HostListener: HostListenerDecorator =

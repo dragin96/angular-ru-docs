@@ -29,25 +29,25 @@ export const formControlBinding: any = {
 };
 
 /**
- * @description
- * Synchronizes a standalone `FormControl` instance to a form control element.
+ *  @description
+ * Синхронизирует автономный `FormControl` экземплярс элементом управления формой.
  *
- * Note that support for using the `ngModel` input property and `ngModelChange` event with reactive
- * form directives was deprecated in Angular v6 and is scheduled for removal in
- * a future version of Angular.
- * For details, see [Deprecated features](guide/deprecations#ngmodel-with-reactive-forms).
+ * Обратите вниманиечто поддержкапомощью `ngModel` ввода свойстваи `ngModelChange` события среактивным.
+ * Директивы формы устарели в Angular v6 и планируется удалить в
+ * будущая версия Angular.
+ * Подробнее см.[Устаревшие функции](guide/deprecations#ngmodel-with-reactive-forms).
  *
- * @see [Reactive Forms Guide](guide/reactive-forms)
- * @see `FormControl`
- * @see `AbstractControl`
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
+ *  @see `FormControl`
+ *  @see `AbstractControl`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following example shows how to register a standalone control and set its value.
+ * В следующем примере показано, как зарегистрировать автономный элемент управления и установить его значение.
  *
- * {@example forms/ts/simpleFormControl/simple_form_control_example.ts region='Component'}
+ *  {@example forms/ts/simpleFormControl/simple_form_control_example.ts region='Component'}
  *
- * @ngModule ReactiveFormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({selector: '[formControl]', providers: [formControlBinding], exportAs: 'ngForm'})

@@ -1,41 +1,43 @@
-# Navigate the component tree with DI
+{@a navigate-the-component-tree-with-di}
+# Перемещайтесь по дереву компонентов с помощью DI
 
-Application components often need to share information.
-You can often use loosely coupled techniques for sharing information,
-such as data binding and service sharing,
-but sometimes it makes sense for one component to have a direct reference to another component.
-You need a direct reference, for instance, to access values or call methods on that component.
+Прикладные компоненты часто должны обмениваться информацией.
+Вы часто можете использовать слабосвязанные методы для обмена информацией
+такие как привязка данных и совместное использование услуг
+но иногда для одного компонента имеет смысл иметь прямую ссылку на другой компонент.
+Например, вам нужна прямая ссылка для доступа к значениям или вызову методов этого компонента.
 
-Obtaining a component reference is a bit tricky in Angular.
-Angular components themselves do not have a tree that you can
-inspect or navigate programmatically. The parent-child relationship is indirect,
-established through the components' [view objects](guide/glossary#view).
+Получение ссылки на компонент немного сложно в Angular.
+Сами Angular компоненты не имеют дерева, которое вы можете
+проверять или перемещаться программно. Родительско-дочерние отношения являются косвенными,
+устанавливается через компоненты [просмотр объектов](guide/glossary#view).
 
-Each component has a *host view*, and can have additional *embedded views*.
-An embedded view in component A is the
-host view of component B, which can in turn have embedded view.
-This means that there is a [view hierarchy](guide/glossary#view-hierarchy) for each component,
-of which that component's host view is the root.
+Каждый компонент имеет представление *хоста*и может иметь дополнительные *встроенные представления*.
+Встроенный вид в компоненте A является
+представление хоста компонента B, который, в свою очередь, может иметь встроенное представление.
+Это означает, что существует [вид иерархии](guide/glossary#view-hierarchy)для каждого компонента,
+из которых представление узла этого компонента является корнем.
 
-There is an API for navigating *down* the view hierarchy.
-Check out `Query`, `QueryList`, `ViewChildren`, and `ContentChildren`
-in the [API Reference](api/).
+Существует API для навигации *по* иерархии представлений.
+Проверять, выписываться  `Query`, `QueryList`, `ViewChildren`, и  `ContentChildren` 
+в [Справочник по API](api/).
 
-There is no public API for acquiring a parent reference.
-However, because every component instance is added to an injector's container,
-you can use Angular dependency injection to reach a parent component.
+Нет общедоступного API для получения родительской ссылки.
+Тем не менее, поскольку каждый экземпляр компонента добавляется в контейнер инжектора, в
+Вы можете использовать внедрение зависимостей Angular для достижения родительского компонента.
 
-This section describes some techniques for doing that.
+В этом разделе описываются некоторые методы для этого.
 
 {@a find-parent}
 {@a known-parent}
 
 
-### Find a parent component of known type
+{@a find-a-parent-component-of-known-type}
+### Найти родительский компонент известного типа
 
-You use standard class injection to acquire a parent component whose type you know.
+Вы используете инъекцию стандартного класса, чтобы получить родительский компонент, тип которого вы знаете.
 
-In the following example, the parent `AlexComponent` has several children including a `CathyComponent`:
+В следующем примере родитель  `AlexComponent` имеет несколько детей, включая  `CathyComponent`  :
 
 {@a alex}
 
@@ -44,88 +46,90 @@ In the following example, the parent `AlexComponent` has several children includ
 
 
 
-*Cathy* reports whether or not she has access to *Alex*
-after injecting an `AlexComponent` into her constructor:
+*Кэти* сообщает, есть ли у нее доступ к *Алексу*
+после введения  `AlexComponent`  в ее конструктор:
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" header="parent-finder.component.ts (CathyComponent)"></code-example>
 
 
 
-Notice that even though the [@Optional](guide/dependency-injection-in-action#optional) qualifier
-is there for safety,
-the <live-example name="dependency-injection-in-action"></live-example>
-confirms that the `alex` parameter is set.
+Обратите внимание, что, хотя [@Optional](guide/dependency-injection-in-action#optional)квалификатор
+там для безопасности
+<live-example name="dependency-injection-in-action"></live-example>
+подтверждает, что  `alex`  Параметр установлен.
 
 
 {@a base-parent}
 
 
-### Unable to find a parent by its base class
+{@a unable-to-find-a-parent-by-its-base-class}
+### Невозможно найти родителя по его базовому классу
 
-What if you *don't* know the concrete parent component class?
+Что если вы *не* знаете конкретный класс родительских компонентов?
 
-A re-usable component might be a child of multiple components.
-Imagine a component for rendering breaking news about a financial instrument.
-For business reasons, this news component makes frequent calls
-directly into its parent instrument as changing market data streams by.
+Повторно используемый компонент может быть дочерним для нескольких компонентов.
+Представьте себе компонент для рендеринга последних новостей о финансовом инструменте.
+По деловым причинам этот компонент новостей часто звонит
+непосредственно в его родительский инструмент, как изменение рыночных потоков данных.
 
-The app probably defines more than a dozen financial instrument components.
-If you're lucky, they all implement the same base class
-whose API your `NewsComponent` understands.
+Приложение, вероятно, определяет более десятка компонентов финансовых инструментов.
+Если вам повезет, все они реализуют один и тот же базовый класс
+чей API твой  `NewsComponent`  понимает.
 
 
 <div class="alert is-helpful">
 
 
 
-Looking for components that implement an interface would be better.
-That's not possible because TypeScript interfaces disappear
-from the transpiled JavaScript, which doesn't support interfaces.
-There's no artifact to look for.
+Поиск компонентов, которые реализуют интерфейс, был бы лучше.
+Это невозможно, потому что интерфейсы TypeScript исчезают
+из переданного JavaScript, который не поддерживает интерфейсы.
+Там нет артефакт для поиска.
 
 </div>
 
 
 
-This isn't necessarily good design.
-This example is examining *whether a component can
-inject its parent via the parent's base class*.
+Это не обязательно хороший дизайн.
+В этом примере рассматривается *, может ли компонент
+внедрить своего родителя через базовый класс родителя *.
 
-The sample's `CraigComponent` explores this question. [Looking back](#alex),
-you see that the `Alex` component *extends* (*inherits*) from a class named `Base`.
+Образец  `CraigComponent`  исследует этот вопрос. [Оглядываясь назад](#alex),
+Вы видите, что  `Alex`  Компонент *расширяет* ( *наследует*) от класса с именем  `Base`.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (Alex class signature)"></code-example>
 
 
 
-The `CraigComponent` tries to inject `Base` into its `alex` constructor parameter and reports if it succeeded.
+ `CraigComponent` пытается ввести  `Base`  в его  `alex`  Параметр конструктора и сообщает, если это удалось.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="craig" header="parent-finder.component.ts (CraigComponent)"></code-example>
 
 
 
-Unfortunately, this doesn't work.
-The <live-example name="dependency-injection-in-action"></live-example>
-confirms that the `alex` parameter is null.
-*You cannot inject a parent by its base class.*
+К сожалению, это не работает.
+<live-example name="dependency-injection-in-action"></live-example>
+подтверждает, что  `alex`  Параметр равен нулю.
+*Вы не можете внедрить родителя по его базовому классу.*
 
 
 
 {@a class-interface-parent}
 
 
-### Find a parent by its class interface
+{@a find-a-parent-by-its-class-interface}
+### Найдите родителя по его интерфейсу класса
 
-You can find a parent component with a [class interface](guide/dependency-injection-in-action#class-interface).
+Вы можете найти родительский компонент с [интерфейс класса](guide/dependency-injection-in-action#class-interface).
 
-The parent must cooperate by providing an *alias* to itself in the name of a class interface token.
+Родитель должен сотрудничать, предоставляя себе *псевдоним* в имени токена интерфейса класса.
 
-Recall that Angular always adds a component instance to its own injector;
-that's why you could inject *Alex* into *Cathy* [earlier](#known-parent).
+Напомним, что Angular всегда добавляет экземпляр компонента в свой собственный инжектор;
+вот почему вы можете ввести *Алекс* в *Кэти* [ранее](#known-parent).
 
-Write an [*alias provider*](guide/dependency-injection-in-action#useexisting)&mdash;a `provide` object literal with a `useExisting`
-definition&mdash;that creates an *alternative* way to inject the same component instance
-and add that provider to the `providers` array of the `@Component()` metadata for the `AlexComponent`.
+Написать [* псевдоним провайдера*](guide/dependency-injection-in-action#useexisting)—a  `provide`  объектный литерал с  `useExisting` 
+определение - это создает *альтернативный* способ внедрить тот же экземпляр компонента
+и добавьте этого провайдера в  `providers`  массив  `@Component()` метаданные для  `AlexComponent`.
 
 {@a alex-providers}
 
@@ -133,17 +137,17 @@ and add that provider to the `providers` array of the `@Component()` metadata fo
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
 
 
-[Parent](#parent-token) is the provider's class interface token.
-The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the circular reference you just created by having the `AlexComponent` refer to itself.
+[Родитель](#parent-token)- токен интерфейса класса провайдера.
+[* ForwardRef*](guide/dependency-injection-in-action#forwardref)нарушает циклическую ссылку вы только что созданный за счет того,  `AlexComponent`  ссылается на себя.
 
-*Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter,
-the same way you've done it before.
+*Кэрол*, третий из *Алекса*дочерних компонентов, вводит родителя в его  `parent`  параметр
+так же, как вы делали это раньше.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" header="parent-finder.component.ts (CarolComponent class)"></code-example>
 
 
 
-Here's *Alex* and family in action.
+Вот *Алекс* и семья в действии.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
@@ -154,25 +158,26 @@ Here's *Alex* and family in action.
 {@a parent-tree}
 
 
-### Find a parent in a tree with _@SkipSelf()_
+{@a find-a-parent-in-a-tree-with-@skipself}
+### Найдите родителя в дереве с помощью _@ SkipSelf () _
 
-Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*.
-Both *Alice* and *Barry* implement the `Parent` class interface.
+Представьте себе одну ветвь иерархии компонентов: *Алиса* -> *Барри* -> *Кэрол*.
+И *Алиса,* и *Барри* реализуют  `Parent`  Интерфейс класса.
 
-*Barry* is the problem. He needs to reach his parent, *Alice*, and also be a parent to *Carol*.
-That means he must both *inject* the `Parent` class interface to get *Alice* and
-*provide* a `Parent` to satisfy *Carol*.
+*Барри* это проблема. Ему нужно связаться с его родителем, *Алисой*, а также быть родителем для *Кэрол*.
+Это означает, что он должен как *инъекционные*  `Parent` Интерфейс класса, чтобы получить*Алису * и
+*обеспечить*  `Parent` чтобы удовлетворить*Кэрол *.
 
-Here's *Barry*.
+Вот *Барри*.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" header="parent-finder.component.ts (BarryComponent)"></code-example>
 
 
 
-*Barry*'s `providers` array looks just like [*Alex*'s](#alex-providers).
-If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](#provideparent).
+*Barry's*  `providers`  массив выглядит так же, как [* Alex*](#alex-providers).
+Если вы собираетесь продолжать писать [* псевдонимы провайдеров*](guide/dependency-injection-in-action#useexisting)как это, вы должны создать [вспомогательную функцию](#provideparent).
 
-For now, focus on *Barry*'s constructor.
+А пока сосредоточимся на конструкторе *Барри*.
 
 <code-tabs>
 
@@ -187,18 +192,18 @@ For now, focus on *Barry*'s constructor.
 </code-tabs>
 
 
-It's identical to *Carol*'s constructor except for the additional `@SkipSelf` decorator.
+Он идентичен конструктору *Кэрол*, за исключением дополнительного  `@SkipSelf`  декоратор.
 
-`@SkipSelf` is essential for two reasons:
+ `@SkipSelf` имеет важное значение по двум причинам:
 
-1. It tells the injector to start its search for a `Parent` dependency in a component *above* itself,
-which *is* what parent means.
+1. Он говорит инжектору начать поиск  `Parent`  зависимость в компоненте *над* собой
+который *является* какой родитель средства.
 
-2. Angular throws a cyclic dependency error if you omit the `@SkipSelf` decorator.
+2. Angular выдает ошибку циклической зависимости, если вы опустите  `@SkipSelf`  декоратор.
 
-  `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
+   `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)` 
 
-Here's *Alice*, *Barry*, and family in action.
+Вот *Алиса*, *Барри*и семья в действии.
 
 
 <div class="lightbox">
@@ -208,28 +213,29 @@ Here's *Alice*, *Barry*, and family in action.
 {@a parent-token}
 
 
-###  Parent class interface
-You [learned earlier](guide/dependency-injection-in-action#class-interface) that a class interface is an abstract class used as an interface rather than as a base class.
+{@a parent-class-interface}
+###  Интерфейс родительского класса
+Вы [узнали ранее](guide/dependency-injection-in-action#class-interface)что интерфейс класса - это абстрактный класс, используемый как интерфейс, а не как базовый класс.
 
-The example defines a `Parent` class interface.
+Пример определяет  `Parent`  Интерфейс класса.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="parent" header="parent-finder.component.ts (Parent class-interface)"></code-example>
 
 
 
-The `Parent` class interface defines a `name` property with a type declaration but *no implementation*.
-The `name` property is the only member of a parent component that a child component can call.
-Such a narrow interface helps decouple the child component class from its parent components.
+ `Parent` Интерфейс класса определяет  `name`  Свойство с объявлением типа, но *без реализации*.
+ `name` Свойство является единственным членом родительского компонента, который может вызвать дочерний компонент.
+Такой узкий интерфейс помогает отделить класс дочерних компонентов от его родительских компонентов.
 
-A component that could serve as a parent *should* implement the class interface as the `AliceComponent` does.
+Компонент, который мог бы служить родителем, *должен* реализовывать интерфейс класса как  `AliceComponent`  делает.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-class-signature" header="parent-finder.component.ts (AliceComponent class signature)"></code-example>
 
 
 
-Doing so adds clarity to the code. But it's not technically necessary.
-Although `AlexComponent` has a `name` property, as required by its `Base` class,
-its class signature doesn't mention `Parent`.
+Это добавляет ясности к коду. Но это не технически необходимо.
+Хотя  `AlexComponent`  имеет  `name`  свойства, как того требует его  `Base`  класс
+его подпись класса не упоминает  `Parent`.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (AlexComponent class signature)"></code-example>
 
@@ -239,8 +245,8 @@ its class signature doesn't mention `Parent`.
 
 
 
-`AlexComponent` *should* implement `Parent` as a matter of proper style.
-It doesn't in this example *only* to demonstrate that the code will compile and run without the interface.
+ `AlexComponent`  *должен* реализовать  `Parent`  как должный стиль.
+Это не в этом примере *только* для демонстрации того, что код будет компилироваться и работать без интерфейса.
 
 
 </div>
@@ -250,30 +256,31 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 {@a provideparent}
 
 
-### `provideParent()` helper function
+{@a provideparent-helper-function}
+###  `provideParent()` вспомогательная функция
 
-Writing variations of the same parent *alias provider* gets old quickly,
-especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-in-action#forwardref).
+Написание вариантов одного и того же родительского *провайдера псевдонимов* быстро устареет
+особенно этот ужасный глоток с [* forwardRef*](guide/dependency-injection-in-action#forwardref).
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
-You can extract that logic into a helper function like the following.
+Вы можете извлечь эту логику в вспомогательную функцию, как показано ниже.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-the-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
-Now you can add a simpler, more meaningful parent provider to your components.
+Теперь вы можете добавить более простой и значимый родительский поставщик в ваши компоненты.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 
-You can do better. The current version of the helper function can only alias the `Parent` class interface.
-The application might have a variety of parent types, each with its own class interface token.
+Ты можешь лучше. Текущая версия вспомогательной функции может использовать только псевдоним  `Parent`  Интерфейс класса.
+Приложение может иметь множество родительских типов, каждый из которых имеет свой собственный токен интерфейса класса.
 
-Here's a revised version that defaults to `parent` but also accepts an optional second parameter for a different parent class interface.
+Вот пересмотренная версия, которая по умолчанию  `parent`  но также принимает необязательный второй параметр для интерфейса другого родительского класса.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 
-And here's how you could use it with a different parent type.
+А вот как вы можете использовать его с другим родительским типом.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>

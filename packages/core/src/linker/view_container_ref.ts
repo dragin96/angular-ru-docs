@@ -18,17 +18,17 @@ import {EmbeddedViewRef, ViewRef} from './view_ref';
 
 
 /**
- * Represents a container where one or more views can be attached to a component.
+ * Представляет контейнер, в котором одно или несколько представлений могут быть присоединены к компоненту.
  *
- * Can contain *host views* (created by instantiating a
- * component with the `createComponent()` method), and *embedded views*
- * (created by instantiating a `TemplateRef` with the `createEmbeddedView()` method).
+ * Может содержать хост-представления (созданные путем создания экземпляра a
+ * компонент с `createComponent()` ) и встроенными представлениями
+ * (создается путем создания экземпляра `TemplateRef` с помощью `createEmbeddedView()` ).
  *
- * A view container instance can contain other view containers,
- * creating a [view hierarchy](guide/glossary#view-tree).
+ * Экземпляр контейнера представления может содержать другие контейнеры представления
+ * создание[просмотр иерархии](guide/glossary#view-tree).
  *
- * @see `ComponentRef`
- * @see `EmbeddedViewRef`
+ *  @see `ComponentRef`
+ *  @see `EmbeddedViewRef`
  *
  * @publicApi
  */

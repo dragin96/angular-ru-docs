@@ -17,7 +17,7 @@ export type Glob = string;
 export type Duration = string;
 
 /**
- * A top-level Angular Service Worker configuration object.
+ * Объект конфигурации Angular Service Worker верхнего уровня.
  *
  * @publicApi
  */
@@ -30,7 +30,7 @@ export interface Config {
 }
 
 /**
- * Configuration for a particular group of assets.
+ * Конфигурация для определенной группы активов.
  *
  * @publicApi
  */
@@ -42,7 +42,7 @@ export interface AssetGroup {
 }
 
 /**
- * Configuration for a particular group of dynamic URLs.
+ * Конфигурация для определенной группы динамических URL.
  *
  * @publicApi
  */

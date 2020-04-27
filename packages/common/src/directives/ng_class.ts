@@ -10,30 +10,30 @@ import {Directive, DoCheck, ElementRef, Input, IterableChanges, IterableDiffer, 
 type NgClassSupportedTypes = string[]|Set<string>|{[klass: string]: any}|null|undefined;
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @usageNotes
- * ```
- *     <some-element [ngClass]="'first second'">...</some-element>
+ *  @usageNotes
+ *  ```
+ *      <some-element [ngClass]="'first second'">...</some-element>
  *
- *     <some-element [ngClass]="['first', 'second']">...</some-element>
+ *      <some-element [ngClass]="['first', 'second']">...</some-element>
  *
- *     <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
+ *      <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
  *
- *     <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
+ *      <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
  *
- *     <some-element [ngClass]="{'class1 class2 class3' : true}">...</some-element>
- * ```
+ *      <some-element [ngClass]="{'class1 class2 class3' : true}">...</some-element>
+ *  ```
  *
- * @description
+ *  @description
  *
- * Adds and removes CSS classes on an HTML element.
+ * Добавляет и удаляет классы CSS для элемента HTML.
  *
- * The CSS classes are updated as follows, depending on the type of the expression evaluation:
- * - `string` - the CSS classes listed in the string (space delimited) are added,
- * - `Array` - the CSS classes declared as Array elements are added,
- * - `Object` - keys are CSS classes that get added when the expression given in the value
- *              evaluates to a truthy value, otherwise they are removed.
+ * Классы CSS обновляются следующим,зависимости от типа оценкивыражения:.
+ * - `string` - классы CSSперечисленные в строке (пробел)добавляют.
+ * - `Array` - добавлены CSS-классы, объявленные как элементы Array
+ * - `Object` - ключи - это классы CSS, которые добавляются, когда выражение указано в значении
+ * оценивается как истинное значение, в противном случае они удаляются.
  *
  * @publicApi
  */

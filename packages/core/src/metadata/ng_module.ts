@@ -80,13 +80,13 @@ export interface NgModuleDef<T> {
 }
 
 /**
- * A wrapper around an NgModule that associates it with the providers.
+ * Обертка вокруг NgModule, которая связывает его с провайдерами.
  *
- * @param T the module type. In Ivy applications, this must be explicitly
- * provided.
+ *  @param T тип модуля. В приложениях Ivy это должно быть явно
+ * при условии.
  *
- * Note that using ModuleWithProviders without a generic type is deprecated.
- * The generic will become required in a future version of Angular.
+ * Обратите внимание, что использование ModuleWithProviders без универсального типа не рекомендуется.
+ * Универсальный станет обязательным в будущей версии Angular.
  *
  * @publicApi
  */
@@ -98,7 +98,7 @@ export interface ModuleWithProviders<
 
 
 /**
- * Type of the NgModule decorator / constructor function.
+ * Тип функции декоратора / конструктора NgModule.
  *
  * @publicApi
  */
@@ -111,7 +111,7 @@ export interface NgModuleDecorator {
 }
 
 /**
- * Type of the NgModule metadata.
+ * Тип метаданных NgModule.
  *
  * @publicApi
  */
@@ -307,7 +307,7 @@ export interface NgModule {
 }
 
 /**
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const NgModule: NgModuleDecorator = makeDecorator(
@@ -326,22 +326,22 @@ export const NgModule: NgModuleDecorator = makeDecorator(
     (type: Type<any>, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
 
 /**
- * @description
- * Hook for manual bootstrapping of the application instead of using bootstrap array in @NgModule
- * annotation.
+ *  @description
+ * Хук для ручной загрузки приложения вместо использования массива начальной загрузки в @NgModule
+ * аннотаций.
  *
- * Reference to the current application is provided as a parameter.
+ * Ссылка на текущее приложение предоставляется в качестве параметра.
  *
- * See ["Bootstrapping"](guide/bootstrapping) and ["Entry components"](guide/entry-components).
+ * Смотрите[«Начальная загрузка»](guide/bootstrapping)и[«Входные компоненты»](guide/entry-components).
  *
- * @usageNotes
- * ```typescript
- * class AppModule implements DoBootstrap {
- *   ngDoBootstrap(appRef: ApplicationRef) {
- *     appRef.bootstrap(AppComponent); // Or some other component
- *   }
- * }
- * ```
+ *  @usageNotes
+ *  ```typescript
+ *  class AppModule implements DoBootstrap {
+ *    ngDoBootstrap(appRef: ApplicationRef) {
+ *      appRef.bootstrap(AppComponent); // Or some other component
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */

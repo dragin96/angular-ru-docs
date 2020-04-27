@@ -14,8 +14,8 @@ import {LoadChildren, LoadedRouterConfig, Route, standardizeConfig} from './conf
 import {flatten, wrapIntoObservable} from './utils/collection';
 
 /**
- * The [DI token](guide/glossary/#di-token) for a router configuration.
- * @see `ROUTES`
+ *  The [(DI маркер)](guide/glossary/#di-token)для конфигурации маршрутизатора.
+ *  @see `ROUTES`
  * @publicApi
  */
 export const ROUTES = new InjectionToken<Route[][]>('ROUTES');

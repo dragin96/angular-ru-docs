@@ -10,35 +10,35 @@ import {Route} from './config';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
 
 /**
- * Identifies the call or event that triggered a navigation.
+ * Определяет вызов или событие, которое вызвало навигацию.
  *
- * * 'imperative': Triggered by `router.navigateByUrl()` or `router.navigate()`.
- * * 'popstate' : Triggered by a `popstate` event.
- * * 'hashchange'-: Triggered by a `hashchange` event.
+ * 'обязательно': запускается с помощью `router.navigateByUrl()` или `router.navigate()`.
+ * 'popstate': `popstate` событием.
+ * 'hashchange': `hashchange` событием.
  *
  * @publicApi
  */
 export type NavigationTrigger = 'imperative'|'popstate'|'hashchange';
 
 /**
- * Base for events the router goes through, as opposed to events tied to a specific
- * route. Fired one time for any given navigation.
+ * База для событий, через которые проходит маршрутизатор, в отличие от событий, привязанных к конкретному
+ * маршрут. Запускается один раз за любую навигацию.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ```ts
- * class MyService {
- *   constructor(public router: Router, logger: Logger) {
- *     router.events.pipe(
- *       filter(e => e instanceof RouterEvent)
- *     ).subscribe(e => {
- *       logger.log(e.id, e.url);
- *     });
- *   }
- * }
- * ```
+ *  ```ts
+ *  class MyService {
+ *    constructor(public router: Router, logger: Logger) {
+ *      router.events.pipe(
+ *        filter(e => e instanceof RouterEvent)
+ *      ).subscribe(e => {
+ *        logger.log(e.id, e.url);
+ *      });
+ *    }
+ *  }
+ *  ```
  *
- * @see `Event`
+ *  @see `Event`
  * @publicApi
  */
 export class RouterEvent {
@@ -50,7 +50,7 @@ export class RouterEvent {
 }
 
 /**
- * An event triggered when a navigation starts.
+ * Событие, запускаемое при запуске навигации.
  *
  * @publicApi
  */
@@ -102,7 +102,7 @@ export class NavigationStart extends RouterEvent {
 }
 
 /**
- * An event triggered when a navigation ends successfully.
+ * Событие срабатывает, когда навигация завершается успешно.
  *
  * @publicApi
  */
@@ -125,10 +125,10 @@ export class NavigationEnd extends RouterEvent {
 }
 
 /**
- * An event triggered when a navigation is canceled, directly or indirectly.
+ * Событие, вызванное отменой навигации, прямо или косвенно.
  *
- * This can happen when a [route guard](guide/router#milestone-5-route-guards)
- * returns `false` or initiates a redirect by returning a `UrlTree`.
+ * Это может произойти, когда[маршрутная охрана](guide/router#milestone-5-route-guards)
+ * возвращает `false` или инициирует перенаправление, возвращая `UrlTree`.
  *
  * @publicApi
  */
@@ -150,7 +150,7 @@ export class NavigationCancel extends RouterEvent {
 }
 
 /**
- * An event triggered when a navigation fails due to an unexpected error.
+ * Событие, вызванное ошибкой навигации из-за непредвиденной ошибки.
  *
  * @publicApi
  */
@@ -172,7 +172,7 @@ export class NavigationError extends RouterEvent {
 }
 
 /**
- *An event triggered when routes are recognized.
+ * Событие срабатывает при распознавании маршрутов.
  *
  * @publicApi
  */
@@ -197,7 +197,7 @@ export class RoutesRecognized extends RouterEvent {
 }
 
 /**
- * An event triggered at the start of the Guard phase of routing.
+ * Событие, инициированное в начале фазы защиты маршрутизации.
  *
  * @publicApi
  */
@@ -221,7 +221,7 @@ export class GuardsCheckStart extends RouterEvent {
 }
 
 /**
- * An event triggered at the end of the Guard phase of routing.
+ * Событие сработало в конце фазы маршрутизации Guard.
  *
  * @publicApi
  */
@@ -247,10 +247,10 @@ export class GuardsCheckEnd extends RouterEvent {
 }
 
 /**
- * An event triggered at the the start of the Resolve phase of routing.
+ * Событие, инициированное в начале фазы разрешения маршрутизации.
  *
- * Runs in the "resolve" phase whether or not there is anything to resolve.
- * In future, may change to only run when there are things to be resolved.
+ * Запускается в фазе «разрешения» независимо от того, есть ли что-либо для разрешения.
+ * В будущем может измениться только на запуск, когда есть вещи, которые необходимо решить.
  *
  * @publicApi
  */
@@ -274,8 +274,8 @@ export class ResolveStart extends RouterEvent {
 }
 
 /**
- * An event triggered at the end of the Resolve phase of routing.
- * @see `ResolveStart`.
+ * Событие, инициированное в конце фазы разрешения маршрутизации.
+ *  @see `ResolveStart`.
  *
  * @publicApi
  */
@@ -299,7 +299,7 @@ export class ResolveEnd extends RouterEvent {
 }
 
 /**
- * An event triggered before lazy loading a route configuration.
+ * Событие сработало перед ленивой загрузкой конфигурации маршрута.
  *
  * @publicApi
  */
@@ -313,7 +313,7 @@ export class RouteConfigLoadStart {
 }
 
 /**
- * An event triggered when a route has been lazy loaded.
+ * Событие срабатывает, когда маршрут загружен с отложенным доступом.
  *
  * @publicApi
  */
@@ -327,10 +327,10 @@ export class RouteConfigLoadEnd {
 }
 
 /**
- * An event triggered at the start of the child-activation
- * part of the Resolve phase of routing.
- * @see  `ChildActivationEnd`
- * @see `ResolveStart`
+ * Событие, инициированное в начале дочерней активации
+ * часть решающей фазы маршрутизации.
+ *  @see`ChildActivationEnd`
+ *  @see `ResolveStart`
  *
  * @publicApi
  */
@@ -345,10 +345,10 @@ export class ChildActivationStart {
 }
 
 /**
- * An event triggered at the end of the child-activation part
- * of the Resolve phase of routing.
- * @see `ChildActivationStart`
- * @see `ResolveStart` *
+ * Событие, вызванное в конце части активации ребенка
+ * Разрешить фазу маршрутизации.
+ *  @see `ChildActivationStart`
+ *  @see `ResolveStart`
  * @publicApi
  */
 export class ChildActivationEnd {
@@ -362,10 +362,9 @@ export class ChildActivationEnd {
 }
 
 /**
- * An event triggered at the start of the activation part
- * of the Resolve phase of routing.
- * @see ActivationEnd`
- * @see `ResolveStart`
+ * Событие, инициированное в начале активационной части
+ * Разрешить фазу маршрутизации.
+ *  @see ActivationEnd`.@see `ResolveStart`
  *
  * @publicApi
  */
@@ -380,10 +379,10 @@ export class ActivationStart {
 }
 
 /**
- * An event triggered at the end of the activation part
- * of the Resolve phase of routing.
- * @see `ActivationStart`
- * @see `ResolveStart`
+ * Событие, вызванное в конце части активации
+ * Разрешить фазу маршрутизации.
+ *  @see `ActivationStart`
+ *  @see `ResolveStart`
  *
  * @publicApi
  */
@@ -398,7 +397,7 @@ export class ActivationEnd {
 }
 
 /**
- * An event triggered by scrolling.
+ * Событие, вызванное прокруткой.
  *
  * @publicApi
  */
@@ -420,24 +419,24 @@ export class Scroll {
 }
 
 /**
- * Router events that allow you to track the lifecycle of the router.
+ * События маршрутизатора, которые позволяют отслеживать жизненный цикл маршрутизатора.
  *
- * The sequence of router events is as follows:
+ * Последовательность событий маршрутизатора следующая
  *
- * - `NavigationStart`,
- * - `RouteConfigLoadStart`,
- * - `RouteConfigLoadEnd`,
- * - `RoutesRecognized`,
- * - `GuardsCheckStart`,
- * - `ChildActivationStart`,
- * - `ActivationStart`,
- * - `GuardsCheckEnd`,
- * - `ResolveStart`,
- * - `ResolveEnd`,
+ * - `NavigationStart` NavigationStart,.
+ * - `RouteConfigLoadStart` RouteConfigLoadStart,.
+ * - `RouteConfigLoadEnd` RouteConfigLoadEnd,.
+ * - `RoutesRecognized` RoutesRecognized,.
+ * - `GuardsCheckStart` GuardsCheckStart,.
+ * - `ChildActivationStart` ChildActivationStart,.
+ * - `ActivationStart` ActivationStart,.
+ * - `GuardsCheckEnd` GuardsCheckEnd,.
+ * - `ResolveStart` ResolveStart,.
+ * - `ResolveEnd` ResolveEnd,.
  * - `ActivationEnd`
  * - `ChildActivationEnd`
- * - `NavigationEnd`,
- * - `NavigationCancel`,
+ * - `NavigationEnd` NavigationEnd,.
+ * - `NavigationCancel` NavigationCancel,.
  * - `NavigationError`
  * - `Scroll`
  *

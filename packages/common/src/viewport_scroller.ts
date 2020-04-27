@@ -13,7 +13,7 @@ import {DOCUMENT} from './dom_tokens';
 
 
 /**
- * Defines a scroll position manager. Implemented by `BrowserViewportScroller`.
+ * Определяет менеджер положения прокрутки. Реализуется `BrowserViewportScroller`.
  *
  * @publicApi
  */

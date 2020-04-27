@@ -11,7 +11,7 @@ import {DefaultKeyValueDifferFactory} from './default_keyvalue_differ';
 
 
 /**
- * A differ that tracks changes made to an object over time.
+ * Отличается тем, что отслеживает изменения, внесенные в объект с течением времени.
  *
  * @publicApi
  */
@@ -38,8 +38,8 @@ export interface KeyValueDiffer<K, V> {
 }
 
 /**
- * An object describing the changes in the `Map` or `{[k:string]: string}` since last time
- * `KeyValueDiffer#diff()` was invoked.
+ * Объектописывающий изменения в `Map` или`{[k:string]: string}`так какпоследнийраз.
+ *  `KeyValueDiffer#diff()`был вызван.
  *
  * @publicApi
  */
@@ -73,7 +73,7 @@ export interface KeyValueChanges<K, V> {
 }
 
 /**
- * Record representing the item change information.
+ * Запись, представляющая информацию об изменении элемента.
  *
  * @publicApi
  */
@@ -95,7 +95,7 @@ export interface KeyValueChangeRecord<K, V> {
 }
 
 /**
- * Provides a factory for {@link KeyValueDiffer}.
+ * Обеспечивает фабрику для{@link KeyValueDiffer},
  *
  * @publicApi
  */
@@ -112,7 +112,7 @@ export interface KeyValueDifferFactory {
 }
 
 /**
- * A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
+ * Хранилище различных картографических стратегий, используемых NgClass, NgStyle и другими.
  *
  * @publicApi
  */

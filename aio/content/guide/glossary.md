@@ -1,12 +1,13 @@
-# Glossary
+{@a glossary}
+# Глоссарий
 
-Angular has its own vocabulary.
-Most Angular terms are common English words or computing terms
-that have a specific meaning within the Angular system.
+Angular имеет свой словарный запас.
+Большинство Angular терминов являются общими английскими словами или компьютерными терминами
+которые имеют особое значение в Angular системе.
 
-This glossary lists the most prominent terms
-and a few less familiar ones with unusual or
-unexpected definitions.
+В этом глоссарии перечислены наиболее важные термины
+и несколько менее знакомых с необычным или
+неожиданные определения.
 
 [A](#A) [B](#B) [C](#C) [D](#D) [E](#E) [F](#F) [G](#G) [H](#H) [I](#I)
 [J](#J) [K](#K) [L](#L) [M](#M) [N](#N) [O](#O) [P](#P) [Q](#Q) [R](#R)
@@ -17,55 +18,60 @@ unexpected definitions.
 {@a aot}
 
 
-## ahead-of-time (AOT) compilation
+{@a ahead-of-time-aot-compilation}
+## опережающая (AOT) компиляция
 
-The Angular ahead-of-time (AOT) compiler converts Angular HTML and TypeScript code
-into efficient JavaScript code during the build phase, before the browser downloads
-and runs that code.
-This is the best compilation mode for production environments, with decreased load time and increased performance compared to [just-in-time (JIT) compilation](#jit).
+Компилятор Angular заблаговременно (AOT) преобразует код Angular HTML и TypeScript
+в эффективный код JavaScript на этапе сборки, до загрузки браузера
+и запускает этот код.
+Это лучший режим компиляции для производственной среды, с уменьшением времени загрузки и увеличения производительности по сравнению с [точно в срок (JIT) компиляции](#jit).
 
-By compiling your application using the `ngc` command-line tool, you can bootstrap directly to a module factory, so you don't need to include the Angular compiler in your JavaScript bundle.
+Составляя ваше приложение, используя `ngc` командной строки, вы можете загрузить непосредственно на фабрику модулей, так что вам не нужно включать компилятор Angular в ваш пакет JavaScript.
 
 {@a angular-element}
 
-## Angular element
+{@a angular-element}
+## Angular элемент
 
-An Angular [component](#component) packaged as a [custom element](#custom-element).
+Angular [компонент](#component)упакован как [пользовательский элемент](#custom-element).
 
-Learn more in [Angular Elements Overview](guide/elements).
+Узнайте больше в [Angular обзор элементов](guide/elements).
 
 {@a annotation}
 
-## annotation
+{@a annotation}
+## аннотация
 
-A structure that provides metadata for a class. See [decorator](#decorator).
+Структура, которая предоставляет метаданные для класса. Смотрите [декоратор](#decorator).
 
 {@a app-shell}
 
+{@a app-shell}
 ## app-shell
 
-App shell is a way to render a portion of your application via a route at build time.
-This gives users a meaningful first paint of your application that appears quickly because the browser can render static HTML and CSS without the need to initialize JavaScript.
+Оболочка приложения - это способ визуализации части вашего приложения через маршрут во время сборки.
+Это дает пользователям осмысленную первую картину вашего приложения, которая появляется быстро, потому что браузер может отображать статический HTML и CSS без необходимости инициализации JavaScript.
 
-Learn more in [The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell).
+Узнайте больше в [Модель оболочки приложения](https://developers.google.com/web/fundamentals/architecture/app-shell).
 
-You can use the Angular CLI to [generate](cli/generate#appshell) an app shell.
-This can improve the user experience by quickly launching a static rendered page (a skeleton common to all pages) while the browser downloads the full client version and switches to it automatically after the code loads.
+Вы можете использовать Angular CLI для [создания](cli/generate#appshell)оболочки приложения.
+Это может улучшить взаимодействие с пользователем за счет быстрого запуска статической визуализированной страницы (скелет, общий для всех страниц), пока браузер загружает полную версию клиента и автоматически переключается на нее после загрузки кода.
 
-See also [Service Worker and PWA](guide/service-worker-intro).
+Смотрите также [Сервисный работник и PWA](guide/service-worker-intro).
 {@a architect}
 
-## Architect
+{@a architect}
+## Архитектор
 
-The tool that the CLI uses to perform complex tasks such as compilation and test running, according to a provided configuration.
-Architect is a shell that runs a [builder](#builder) (defined in an [npm package](#npm-package)) with a given [target configuration](#target).
+Инструмент, который CLI использует для выполнения сложных задач, таких как компиляция и запуск теста, в соответствии с предоставленной конфигурацией.
+Architect - это оболочка, которая запускает [builder](#builder)(определенный в [пакет npm](#npm-package)) с заданным [целевая конфигурация](#target).
 
-In the [workspace configuration file](guide/workspace-config#project-tool-configuration-options), an "architect" section provides configuration options for Architect builders.
+В разделе [файл конфигурации рабочей области](guide/workspace-config#project-tool-configuration-options)раздел «Architect» предоставляет параметры конфигурации для разработчиков Architect.
 
-For example, a built-in builder for linting is defined in the package `@angular-devkit/build_angular:tslint`, which uses the [TSLint](https://palantir.github.io/tslint/) tool to perform linting, with a configuration specified in a `tslint.json` file.
+Например, встроенный конструктор для линтинга определяется в пакете `@angular-devkit/build_angular:tslint`, который использует [TSLint](https://palantir.github.io/tslint/)инструмент для выполнения линтинга с конфигурацией, указанной в `tslint.json` файл.
 
-Use the [CLI command `ng run`](cli/run) to invoke a builder by specifying a [target configuration](#target) associated with that builder.
-Integrators can add builders to enable tools and workflows to run through the Angular CLI. For example, a custom builder can replace the third-party tools used by the built-in implementations for CLI commands such as `ng build` or `ng test`.
+Используйте [команда CLI `ng run` ](cli/run)чтобы вызвать компоновщик, указав [целевую конфигурацию](#target)связанную с этим компоновщиком.
+Интеграторы могут добавлять сборщики, чтобы инструменты и рабочие процессы могли проходить через Angular CLI. Например, пользовательский конструктор может заменить сторонние инструменты, используемые встроенными реализациями для команд консоли, таких как `ng build ` или ` ng test`.
 
 {@a attribute-directive}
 
@@ -73,51 +79,55 @@ Integrators can add builders to enable tools and workflows to run through the An
 {@a attribute-directives}
 
 
-## attribute directives
+{@a attribute-directives}
+## директивы атрибутов
 
-A category of [directive](#directive) that can listen to and modify the behavior of
-other HTML elements, attributes, properties, and components. They are usually represented
-as HTML attributes, hence the name.
+Категория [директива](#directive)которая может слушать и изменять поведение
+другие элементы HTML, атрибуты, свойства и компоненты. Они обычно представлены
+как атрибуты HTML, отсюда и название.
 
-Learn more in [Attribute Directives](guide/attribute-directives).
+Узнайте больше в [Директивы атрибутов](guide/attribute-directives).
 
 
 {@a B}
 
 {@a binding}
 
-## binding
+{@a binding}
+## связывание
 
-Generally, the practice of setting a variable or property to a data value.
-Within Angular, typically refers to [data binding](#data-binding),
-which coordinates DOM object properties with data object properties.
+Как правило, практика установки переменной или свойства для значения данных.
+В угловатый, как правило, относится к [привязки данных](#data-binding),
+который координирует свойства объекта DOM со свойствами объекта данных.
 
-Sometimes refers to a [dependency-injection](#dependency-injection) binding
-between a [token](#token) and a dependency [provider](#provider).
+Иногда относится к [зависимость-инъекция](#dependency-injection)привязке
+между [токеном](#token)и зависимостью [провайдером](#provider).
 
 {@a bootstrap}
 
-## bootstrap
+{@a bootstrap}
+## самозагрузки
 
-A way to initialize and launch an app or system.
+Способ инициализации и запуска приложения или системы.
 
-In Angular, an app's root NgModule (`AppModule`) has a `bootstrap` property that identifies the app's top-level [components](#component).
-During the bootstrap process, Angular creates and inserts these components into the `index.html` host web page.
-You can bootstrap multiple apps in the same `index.html`. Each app contains its own components.
+В Angular, корень приложения NgModule (`AppModule`) имеет `bootstrap` Свойство которое определяет верхний уровень приложения [компоненты](#component).
+В процессе начальной загрузки Angular создает и вставляет эти компоненты в `index.html` веб-страница хоста.
+Вы можете загрузить несколько приложений в одном `index.html` . Каждое приложение содержит свои собственные компоненты.
 
-Learn more in [Bootstrapping](guide/bootstrapping).
+Узнайте больше в [Bootstrapping](guide/bootstrapping).
 
 {@a builder}
 
-## builder
+{@a builder}
+## строитель
 
-A function that uses the [Architect](#architect) API to perform a complex process such as "build" or "test".
-The builder code is defined in an [npm package](#npm-package).
+Функция, которая использует [Architect](#architect)API для выполнения сложного процесса, такого как «сборка» или «тестирование».
+Код компоновщика определен в [пакет npm](#npm-package).
 
-For example, [BrowserBuilder](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/build_angular/src/browser) runs a [webpack](https://webpack.js.org/) build for a browser target and [KarmaBuilder](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/build_angular/src/karma) starts the Karma server and runs a webpack build for unit tests.
+Например, [BrowserBuilder](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/build_angular/src/browser)выполняет [сборку webpack](https://webpack.js.org/)для цели браузера и [KarmaBuilder](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/build_angular/src/karma)запускает сервер Karma и запускает сборку веб-пакета для модульных тестов.
 
-The [CLI command `ng run`](cli/run) invokes a builder with a specific [target configuration](#target).
-The [workspace configuration](guide/workspace-config) file, `angular.json`, contains default configurations for built-in builders.
+Команда [CLI `ng run` сборщик](cli/run)вызывает с определенной [целевой конфигурацией](#target).
+[Рабочая область конфигурации](guide/workspace-config)файла, `angular.json`, содержит конфигурации по умолчанию для встроенных сборщиков.
 
 {@a C}
 
@@ -126,300 +136,324 @@ The [workspace configuration](guide/workspace-config) file, `angular.json`, cont
 {@a camelcase}
 {@a kebab-case}
 
-## case types
+{@a case-types}
+## типы случаев
 
-Angular uses capitalization conventions to distinguish the names of various types, as described in the [naming guidelines section](guide/styleguide#02-01) of the Style Guide. Here's a summary of the case types:
+Angular виды использования капитализацией конвенции различать имена различных типов, как описано в [руководящие принципы именования раздела](guide/styleguide#02-01)Руководства Style. Вот краткое описание типов случаев:
 
-* camelCase : Symbols, properties, methods, pipe names, non-component directive selectors, constants.
-Standard or lower camel case uses lowercase on the first letter of the item. For example, "selectedHero".
+* camelCase: символы, свойства, методы, имена каналов, некомпонентные селекторы директив, константы.
+Стандартный или нижний верблюжий регистр использует строчные буквы на первой букве предмета. Например, «selectedHero».
 
-* UpperCamelCase (or PascalCase): Class names, including classes that define components, interfaces, NgModules, directives, and pipes,
-Upper camel case uses uppercase on the first letter of the item. For example, "HeroListComponent".
+* UpperCamelCase (или PascalCase): Имена классов, в том числе классов, которые определяют компоненты, интерфейсы, NgModules, директивы, и трубы,
+Верхний регистр верблюда использует верхний регистр на первой букве предмета. Например, «HeroListComponent».
 
-* dash-case (or "kebab-case"): Descriptive part of file names, component selectors. For example, "app-hero-list".
+* dash-case (или "kebab-case") : описательная часть имен файлов, селекторы компонентов. Например, «app-hero-list».
 
-* underscore_case (or "snake_case"): Not typically used in Angular. Snake case uses words connected with underscores.
-For example, "convert_link_mode".
+* underscore_case (или "snake_case") : обычно не используется в Angular. В случае со змеей используются слова, связанные с подчеркиванием.
+Например, "convert_link_mode".
 
-* UPPER_UNDERSCORE_CASE (or UPPER_SNAKE_CASE, or SCREAMING_SNAKE_CASE): Traditional for constants (acceptable, but prefer camelCase).
-Upper snake case uses words in all capital letters connected with underscores. For example, "FIX_ME".
+* UPPER_UNDERSCORE_CASE (или UPPER_SNAKE_CASE, или SCREAMING_SNAKE_CASE): традиционный для констант (приемлемый, но предпочитает camelCase).
+Верхний регистр змеи использует слова во всех заглавных буквах, связанных с подчеркиванием. Например, «FIX_ME».
 
 {@a change-detection}
 
-## change detection
+{@a change-detection}
+## обнаружение изменений
 
-The mechanism by which the Angular framework synchronizes the state of an application's UI with the state of the data.
-The change detector checks the current state of the data model whenever it runs, and maintains it as the previous state to compare on the next iteration.
+Механизм, с помощью которого платформа Angular синхронизирует состояние пользовательского интерфейса приложения с состоянием данных.
+Детектор изменений проверяет текущее состояние модели данных при каждом ее запуске и сохраняет ее как предыдущее состояние для сравнения на следующей итерации.
 
-As the application logic updates component data, values that are bound to DOM properties in the view can change.
-The change detector is responsible for updating the view to reflect the current data model.
-Similarly, the user can interact with the UI, causing events that change the state of the data model.
-These events can trigger change detection.
+Поскольку логика приложения обновляет данные компонента, значения, связанные со свойствами DOM в представлении, могут изменяться.
+Детектор изменений отвечает за обновление представления для отображения текущей модели данных.
+Точно так же пользователь может взаимодействовать с пользовательским интерфейсом, вызывая события, которые изменяют состояние модели данных.
+Эти события могут вызвать обнаружение изменений.
 
-Using the default ("CheckAlways") change-detection strategy, the change detector goes through the [view hierarchy](#view-tree) on each VM turn to check every [data-bound property](#data-binding) in the template. In the first phase, it compares the current state of the dependent data with the previous state, and collects changes.
-In the second phase, it updates the page DOM to reflect any new data values.
+Используя стратегию обнаружения изменений по умолчанию («CheckAlways»), детектор изменений проходит через [просмотр иерархии](#view-tree)на каждом повороте виртуальной машины, чтобы проверить каждое [привязанное к данным свойство](#data-binding)в шаблоне. На первом этапе он сравнивает текущее состояние зависимых данных с предыдущим состоянием и собирает изменения.
+На втором этапе обновляется страница DOM для отображения любых новых значений данных.
 
-If you set the `OnPush` ("CheckOnce") change-detection strategy, the change detector runs only when [explicitly invoked] (api/core/ChangeDetectorRef), or when it is triggered by an `Input` reference change or event handler. This typically improves performance. For more information, see [Optimize Angular's change detection](https://web.dev/faster-angular-change-detection/).
+Если вы установите `OnPush` стратегии обнаружения изменений («CheckOnce») детектор изменений запускается только при [явном вызове] (api / core / ChangeDetectorRef) или при его активации `Input` Изменение ссылки на или обработчик события. Это обычно улучшает производительность. Для получения дополнительной информации см. [Оптимизация обнаружения изменений Angular](https://web.dev/faster-angular-change-detection/).
 
 {@a class-decorator}
 
-## class decorator
+{@a class-decorator}
+## класс декоратора
 
-A [decorator](#decorator) that appears immediately before a class definition, which declares the class to be of the given type, and provides metadata suitable to the type.
+[Декоратор](#decorator)который появляется непосредственно перед определением класса, который объявляет класс, чтобы быть данным типа, а также предоставляет метаданные, подходящих к типу.
 
-The following decorators can declare Angular class types:
-* `@Component()`
-* `@Directive()`
-* `@Pipe()`
-* `@Injectable()`
-* `@NgModule()`
+Следующие декораторы могут объявить Angular типы класса:
+* `@Component()` 
+* `@Directive()` 
+* `@Pipe()` 
+* `@Injectable()` 
+* `@NgModule()` 
 
 
 {@a class-field-decorator}
 
-## class field decorator
+{@a class-field-decorator}
+## декоратор поля класса
 
-A [decorator](#decorator) statement immediately before a field in a class definition that declares the type of that field. Some examples are `@Input` and `@Output`.
+[Декоратор](#decorator)заявление непосредственно перед полем в определении класса, объявляющий тип этого поля. Некоторые примеры `@Input` и `@Output`.
 
 {@a collection}
 
-## collection
+{@a collection}
+## коллекция
 
-In Angular, a set of related [schematics](#schematic) collected in an [npm package](#npm-package).
+В Angular набор связанных [схем](#schematic)собранных в [пакет npm](#npm-package).
 
 {@a cli}
 
-## command-line interface (CLI)
+{@a command-line-interface-cli}
+## интерфейс командной строки (CLI)
 
-The [Angular CLI](cli) is a command-line tool for managing the Angular development cycle. Use it to create the initial filesystem scaffolding for a [workspace](#workspace) or [project](#project), and to run [schematics](#schematic) that add and modify code for initial generic versions of various elements. The CLI supports all stages of the development cycle, including building, testing, bundling, and deployment.
+[Angular CLI](cli)представляет собой инструмент командной строки для управления Angular циклом разработки. С его помощью можно создать исходную файловую систему строительных лесов для [рабочее пространство](#workspace)или [проект](#project), а также для запуска [схемы](#schematic)которые добавляют и модифицируют код для исходных общих версий различных элементов. CLI поддерживает все этапы цикла разработки, включая сборку, тестирование, пакетирование и развертывание.
 
-* To begin using the CLI for a new project, see [Local Environment Setup](guide/setup-local "Setting up for Local Development").
-* To learn more about the full capabilities of the CLI, see the [CLI command reference](cli).
+* Чтобы начать использовать CLI для нового проекта, см. [Настройка локальной среды](guide/setup-local "Setting up for Local Development").
+* Чтобы узнать больше о полных возможностях CLI, см. [Справочник по командам CLI](cli).
 
-See also [Schematics CLI](#schematics-cli).
+Смотрите также [Schematics CLI](#schematics-cli).
 
 {@a component}
 
-## component
+{@a component}
+## компонент
 
-A class with the `@Component()` [decorator](#decorator) that associates it with a companion [template](#template). Together, the component class and template define a [view](#view).
-A component is a special type of [directive](#directive).
-The `@Component()` decorator extends the `@Directive()` decorator with template-oriented features.
+Класс с `@Component()` [декоратор](#decorator)который связывает его с компаньоном [шаблоном](#template). Вместе компонент и шаблон определяют [представление](#view).
+Компонент - это особый тип [директива](#directive).
+ `@Component() ` расширяет ` @Directive()` с шаблонно-ориентированными функциями.
 
-An Angular component class is responsible for exposing data and handling most of the view's display and user-interaction logic through [data binding](#data-binding).
+Класс компонента Angular отвечает за предоставление данных и обработку большей части отображения представления и логики взаимодействия с пользователем через [привязку данных](#data-binding).
 
-Read more about component classes, templates, and views in [Introduction to Angular concepts](guide/architecture).
+Подробнее о компонентах, шаблонах и представлениях см. В разделе [Обзор архитектуры](guide/architecture).
 
-## configuration
+{@a configuration}
+## конфигурации
 
-See  [workspace configuration](#cli-config)
+Смотрите [настройка рабочего пространства](#cli-config)
 
 
 {@a custom-element}
 
-## custom element
+{@a custom-element}
+## пользовательский элемент
 
-A web platform feature, currently supported by most browsers and available in other browsers through polyfills (see [Browser support](guide/browser-support)).
+Функция веб-платформы, которая в настоящее время поддерживается большинством браузеров и доступна в других браузерах через полифиллы (см. браузеров [Поддержка](guide/browser-support)).
 
-The custom element feature extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code. A custom element (also called a *web component*) is recognized by a browser when it's added to the [CustomElementRegistry](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry).
+Функция пользовательских элементов расширяет HTML, позволяя вам определять тег, содержимое которого создается и контролируется кодом JavaScript. Пользовательский элемент (также называемый *веб-компонентом*) распознается браузером при его добавлении в [CustomElementRegistry](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry).
 
-You can use the API to transform an Angular component so that it can be registered with the browser and used in any HTML that you add directly to the DOM within an Angular app. The custom element tag inserts the component's view, with change-detection and data-binding functionality, into content that would otherwise be displayed without Angular processing.
+Вы можете использовать API для преобразования компонента Angular, чтобы его можно было зарегистрировать в браузере и использовать в любом HTML, который вы добавляете непосредственно в DOM в приложении Angular. Пользовательский тег элемента вставляет представление компонента с функциями обнаружения изменений и привязки данных в контент, который в противном случае отображался бы без Angular обработки.
 
-See [Angular element](#angular-element).
+Смотрите [Angular элемент](#angular-element).
 
-See also [dynamic component loading](#dynamic-components).
+Смотрите также [динамическая загрузка компонентов](#dynamic-components).
 
 
 {@a D}
 
 {@a data-binding}
 
-## data binding
+{@a data-binding}
+## привязка данных
 
-A process that allows apps to display data values to a user and respond to user
-actions (such as clicks, touches, and keystrokes).
+Процесс, который позволяет приложениям отображать значения данных пользователю и отвечать пользователю
+действия (такие как щелчки, касания и нажатия клавиш).
 
-In data binding, you declare the relationship between an HTML widget and a data source
-and let the framework handle the details.
-Data binding is an alternative to manually pushing application data values into HTML, attaching
-event listeners, pulling changed values from the screen, and
-updating application data values.
+При связывании данных вы объявляете связь между HTML-виджетом и источником данных
+и позвольте структуре обращаться с деталями.
+Привязка данных является альтернативой ручному вводу значений данных приложения в HTML
+прослушиватели событий, извлечение измененных значений с экрана и др
+обновление значений данных приложения.
 
-Read about the following forms of binding in [Template Syntax](guide/template-syntax):
+Читайте о следующих форм связывания в [Шаблон синтаксиса](guide/template-syntax):
 
- * [Interpolation](guide/template-syntax#interpolation)
- * [Property binding](guide/template-syntax#property-binding)
- * [Event binding](guide/template-syntax#event-binding)
- * [Attribute binding](guide/template-syntax#attribute-binding)
- * [Class binding](guide/template-syntax#class-binding)
- * [Style binding](guide/template-syntax#style-binding)
- * [Two-way data binding with ngModel](guide/template-syntax#ngModel)
+ * [Интерполяция](guide/template-syntax#interpolation)
+ * [Недвижимость обязательна](guide/template-syntax#property-binding)
+ * [Событие привязки](guide/template-syntax#event-binding)
+ * [Привязка атрибутов](guide/template-syntax#attribute-binding)
+ * [Класс привязки](guide/template-syntax#class-binding)
+ * [Стиль привязки](guide/template-syntax#style-binding)
+ * [Двустороннее связывание данных с ngModel](guide/template-syntax#ngModel)
 
 {@a declarable}
 
-## declarable
+{@a declarable}
+## объявлению
 
-A class type that you can add to the `declarations` list of an [NgModule](#ngmodule).
-You can declare [components](#component), [directives](#directive), and [pipes](#pipe).
+Тип класса, который вы можете добавить к `declarations` список [NgModule](#ngmodule).
+Вы можете объявить [компоненты](#component), [директивы](#directive)и [трубы](#pipe).
 
-Don't declare the following:
-* A class that's already declared in another NgModule
-* An array of directives imported from another package. For example, don't declare `FORMS_DIRECTIVES` from `@angular/forms`
-* NgModule classes
-* Service classes
-* Non-Angular classes and objects, such as strings, numbers, functions, entity models, configurations, business logic, and helper classes
+Не заявить следующее:
+* Класс, который уже объявлен в другом NgModule
+* Массив директив, импортированных из другого пакета. Например, не объявляйте `FORMS_DIRECTIVES` от `@angular/forms` 
+* Классы NgModule
+* Классы обслуживания
+* Неангулярные классы и объекты, такие как строки, числа, функции, модели сущностей, конфигурации, бизнес-логика и вспомогательные классы
 
 
 {@a decorator}
 
 {@a decoration}
 
-## decorator | decoration
+{@a decorator-|-decoration}
+## декоратор | украшение
 
-A function that modifies a class or property definition. Decorators (also called *annotations*) are an experimental (stage 2) [JavaScript language feature](https://github.com/wycats/javascript-decorators).
-TypeScript adds support for decorators.
+Функция, которая изменяет определение класса или свойства. Декораторы (также называемые *аннотациями*) являются экспериментальными (этап 2) [функция языка JavaScript](https://github.com/wycats/javascript-decorators).
+TypeScript добавляет поддержку для декораторов.
 
-Angular defines decorators that attach metadata to classes or properties
-so that it knows what those classes or properties mean and how they should work.
+Angular определяет декораторы, которые прикрепляют метаданные к классам или свойствам
+чтобы он знал, что означают эти классы или свойства и как они должны работать.
 
-See [class decorator](#class-decorator), [class field decorator](#class-field-decorator).
+Смотрите [декоратор класса](#class-decorator), [декоратор поля класса](#class-field-decorator).
 
 {@a di}
 
 {@a dependency-injection}
 
-## dependency injection (DI)
+{@a dependency-injection-di}
+## внедрение зависимости (DI)
 
-A design pattern and mechanism for creating and delivering some parts of an application (dependencies) to other parts of an application that require them.
+Шаблон проектирования и механизм для создания и доставки некоторых частей приложения (зависимостей) в другие части приложения, которые в них нуждаются.
 
-In Angular, dependencies are typically services, but they also can be values, such as strings or functions.
-An [injector](#injector) for an app (created automatically during bootstrap) instantiates dependencies when needed, using a configured [provider](#provider) of the service or value.
+В Angular зависимости обычно являются сервисами, но они также могут быть значениями, такими как строки или функции.
+[Инжектор](#injector)для приложения (созданного автоматически во время начальной загрузки) инстанцирует зависимости, когда это необходимо, с помощью настроенного [поставщика](#provider)обслуживания или стоимости.
 
-Learn more in [Dependency Injection in Angular](guide/dependency-injection).
+Узнайте больше в [Инъекция зависимости в Angular](guide/dependency-injection).
 
 {@a di-token}
 
-## DI token
+{@a di-token}
+## ДИ токен
 
-A lookup token associated with a dependency [provider](#provider), for use with the [dependency injection](#di) system.
+Маркер поиска, связанный с зависимостью [провайдером](#provider), для использования с [внедрение зависимости)](#di)система.
 
 {@a differential-loading}
 
-## differential loading
+{@a differential-loading}
+## дифференциальная нагрузка
 
-A build technique that creates two bundles for an application. One smaller bundle is for modern browsers. A second, larger bundle allows the application to run correctly in older browsers (such as IE11) that do not support all modern browser APIs.
+Техника сборки, которая создает два пакета для приложения. Один меньший пакет предназначен для современных браузеров. Второй, больший пакет позволяет приложению корректно работать в старых браузерах (таких как IE11), которые не поддерживают все современные API браузеров.
 
-For more information, see the [Deployment](guide/deployment#differential-loading) guide.
+Для получения дополнительной информации см. [Развертывание](guide/deployment#differential-loading)Руководство.
 
 
 {@a directive}
 {@a directives}
 
-## directive
+{@a directive}
+## директивы
 
-A class that can modify the structure of the DOM or modify attributes in the DOM and component data model. A directive class definition is immediately preceded by a `@Directive()` [decorator](#decorator) that supplies metadata.
+Класс, который может изменять структуру DOM или изменять атрибуты в DOM и модели данных компонента. Определению директивного класса непосредственно предшествует `@Directive()` [декоратор](#decorator)который предоставляет метаданные.
 
-A directive class is usually associated with an HTML element or attribute, and that element or attribute is often referred to as the directive itself. When Angular finds a directive in an HTML [template](#template), it creates the matching directive class instance and gives the instance control over that portion of the browser DOM.
+Класс директивы обычно связан с элементом или атрибутом HTML, и этот элемент или атрибут часто называют самой директивой. Когда Angular находит директиву в HTML [шаблон](#template), он создает соответствующий экземпляр класса директивы и предоставляет экземпляру контроль над этой частью DOM браузера.
 
-There are three categories of directive:
-* [Components](#component) use `@Component()` (an extension of `@Directive()`) to associate a template with a class.
+Есть три категории директивы:
+* [Компоненты](#component)использовать `@Component()` (расширение `@Directive()` ), чтобы связать шаблон с классом.
 
-* [Attribute directives](#attribute-directive) modify behavior and appearance of page elements.
+* [Директивы атрибутов](#attribute-directive)изменяют поведение и внешний вид элементов страницы.
 
-* [Structural directives](#structural-directive) modify the structure of the DOM.
+* [Структурные директивы](#structural-directive)изменяют структуру DOM.
 
-Angular supplies a number of built-in directives that begin with the `ng` prefix.
-You can also create new directives to implement your own functionality.
-You associate a *selector* (an HTML tag such as `<my-directive>`) with a custom directive, thereby extending the [template syntax](guide/template-syntax) that you can use in your apps.
+Angular предоставляет ряд встроенных директив, которые начинаются с `ng` префикс.
+Вы также можете создавать новые директивы для реализации своих собственных функций.
+Вы связываете *селектор* (тег HTML, такой как `<my-directive>`) с пользовательской директивой, тем самым расширяя [шаблонный синтаксис](guide/template-syntax)который вы можете использовать в своих приложениях.
 
 {@a dom}
 
-## domain-specific language (DSL)
+{@a domain-specific-language-dsl}
+## предметно-ориентированный язык (DSL)
 
-A special-purpose library or API; see [Domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language).
-Angular extends TypeScript with domain-specific languages for a number of domains relevant to Angular apps, defined in NgModules such as [animations](guide/animations), [forms](guide/forms), and [routing and navigation](guide/router).
+Специализированная библиотека или API; см. [предметно-ориентированный язык](https://en.wikipedia.org/wiki/Domain-specific_language).
+Angular расширяет TypeScript с помощью доменных языков для ряда доменов, относящихся к приложениям Angular, определенных в NgModules, таких как [анимация](guide/animations), [формы](guide/forms)и [маршрутизация и навигация](guide/router).
 
 {@a dynamic-components}
 
-## dynamic component loading
+{@a dynamic-component-loading}
+## динамическая загрузка компонентов
 
-A technique for adding a component to the DOM at run time. Requires that you exclude the component from compilation and then connect it to Angular's change-detection and event-handling framework when you add it to the DOM.
+Методика добавления компонента в DOM во время выполнения. Требуется исключить компонент из компиляции, а затем подключить его к среде обнаружения изменений и обработки событий Angular при добавлении его в DOM.
 
-See also [custom element](#custom-element), which provides an easier path with the same result.
+Смотрите также [пользовательский элемент](#custom-element), который обеспечивает более простой путь с тем же результатом.
 
 
 {@a E}
 
 {@a eager-loading}
 
-## eager loading
+{@a eager-loading}
+## нетерпеливая загрузка
 
-NgModules or components that are loaded on launch are called eager-loaded, to distinguish them from those
-that are loaded at run time (lazy-loaded).
-See [lazy loading](#lazy-load).
+NgModules или компоненты, которые загружаются при запуске, называются загруженными, чтобы отличать их от тех
+которые загружаются во время выполнения (ленивый загружен).
+Смотрите [ленивая загрузка](#lazy-load).
 
 
 {@a ecma}
 
+{@a ecmascript}
 ## ECMAScript
 
-The [official JavaScript language specification](https://en.wikipedia.org/wiki/ECMAScript).
+[Официальная спецификация языка JavaScript](https://en.wikipedia.org/wiki/ECMAScript).
 
-Not all browsers support the latest ECMAScript standard, but you can use a [transpiler](#transpile) (like [TypeScript](#typescript)) to write code using the latest features, which will then be transpiled to code that runs on versions that are supported by browsers.
+Не все браузеры поддерживают последний стандарт ECMAScript, но вы можете использовать [транспортер](#transpile)(например, [TypeScript](#typescript)) для написания кода с использованием новейших функций, который затем будет перенесен в код, который работает в версиях, поддерживаемых браузерами.
 
-To learn more, see [Browser Support](guide/browser-support).
+Чтобы узнать больше, смотрите[Поддержка браузера](guide/browser-support).
 
 
 {@a element}
 
-## element
+{@a element}
+## элемент
 
-Angular defines an `ElementRef` class to wrap render-specific native UI elements.
-In most cases, this allows you to use Angular templates and data binding to access DOM elements
-without reference to the native element.
+Angular определяет `ElementRef` Класс для переноса специфичных для визуализации элементов пользовательского интерфейса.
+В большинстве случаев это позволяет использовать шаблоны Angular и привязку данных для доступа к элементам DOM
+без ссылки на родной элемент.
 
-The documentation generally refers to *elements* (`ElementRef` instances), as distinct from  *DOM elements*
-(which can be accessed directly if necessary).
+Документация обычно относится к *элементам* (`ElementRef`), в отличие от *элементов DOM*
+(который может быть доступен напрямую, если это необходимо).
 
-Compare to [custom element](#custom-element).
+Сравните с [пользовательский элемент](#custom-element).
 
 {@a entry-point}
 
-## entry point
+{@a entry-point}
+## точка входа
 
-A [JavaScript module](#module) that is intended to be imported by a user of [an
-npm package](guide/npm-packages). An entry-point module typically re-exports
-symbols from other internal modules. A package can contain multiple
-entry points. For example, the `@angular/core` package has two entry-point
-modules, which can be imported using the module names `@angular/core` and
-`@angular/core/testing`.
+[Модуль JavaScript](#module)который предназначен для импортироваться пользователем [с. НПМ пакета](guide/npm-packages). Модуль точки входа обычно реэкспортирует
+символы из других внутренних модулей. Пакет может содержать несколько
+точки входа Например, `@angular/core` пакета есть две точки входа
+модули, которые можно импортировать, используя имена модулей `@angular/core` и
+ `@angular/core/testing`.
 
 {@a F}
 
 {@a form-control}
 
-## form control
+{@a form-control}
+## контроль формы
 
-A instance of `FormControl`, which is a fundamental building block for Angular forms. Together with `FormGroup` and `FormArray`, tracks the value, validation, and status of a form input element.
+Экземпляр `FormControl`, который является фундаментальным строительным блоком для Angular форм. Вместе с `FormGroup` и `FormArray`, отслеживает значение, проверку и состояние элемента ввода формы.
 
-Read more forms in the [Introduction to forms in Angular](guide/forms-overview).
+Читайте больше форм в [Введение в формы в Angular](guide/forms-overview).
 
 {@a form-model}
 
-## form model
+{@a form-model}
+## модель формы
 
-The "source of truth" for the value and validation status of a form input element at a given point in time. When using [reactive forms](#reactive-forms), the form model is created explicitly in the component class. When using [template-driven forms](#template-driven-forms), the form model is implicitly created by directives.
+«Источник правды» для значения и статуса проверки элемента ввода формы в данный момент времени. При использовании [реактивных форм](#reactive-forms)модель формы создается явно в классе компонента. При использовании [управляемых шаблоном форм](#template-driven-forms)модель формы неявно создается директивами.
 
-Learn more about reactive and template-driven forms in the [Introduction to forms in Angular](guide/forms-overview).
+Узнайте больше о реактивных и шаблонно-управляемых формах в [Введение в формы в Angular](guide/forms-overview).
 
 {@a form-validation}
 
-## form validation
+{@a form-validation}
+## проверка формы
 
-A check that runs when form values change and reports whether the given values are correct and complete, according to the defined constraints. Reactive forms apply [validator functions](guide/form-validation#adding-to-reactive-forms). Template-driven forms use [validator directives](guide/form-validation#adding-to-template-driven-forms).
+Проверка, которая запускается при изменении значений формы и сообщает о правильности и полноте заданных значений в соответствии с заданными ограничениями. Применяются реактивные формы [функции валидатора](guide/form-validation#adding-to-reactive-forms). Использование форм на основе шаблонов [директивы валидатора](guide/form-validation#adding-to-template-driven-forms).
 
 
-To learn more, see [Form Validation](guide/form-validation).
+Чтобы узнать больше, см. [Проверка формы](guide/form-validation).
 
 {@a G}
 
@@ -431,93 +465,101 @@ To learn more, see [Form Validation](guide/form-validation).
 
 {@a immutability}
 
-## immutability
+{@a immutability}
+## неизменность
 
-The ability to alter the state of a value after its creation. [Reactive forms](#reactive-forms) perform immutable changes in that
-each change to the data model produces a new data model rather than modifying the existing one. [Template-driven forms](#template-driven-forms) perform mutable changes with `NgModel` and [two-way data binding](#data-binding) to modify the existing data model in place.
+Возможность изменять состояние значения после его создания. [Реактивные формы](#reactive-forms)выполняют неизменные изменения в этом
+каждое изменение модели данных создает новую модель данных, а не изменяет существующую. [Шаблонно-управляемые формы](#template-driven-forms)выполняют изменяемые изменения с `NgModel` и [двусторонняя привязка данных](#data-binding)для изменения существующей модели данных на месте.
 
 {@a injectable}
 
-## injectable
+{@a injectable}
+## инъекционный
 
-An Angular class or other definition that provides a dependency using the [dependency injection](#di) mechanism. An injectable [service](#service) class must be marked by the `@Injectable()` [decorator](#decorator). Other items, such as constant values, can also be injectable.
+Класс Angular или другое определение, которое обеспечивает зависимость с помощью [внедрения зависимости](#di)механизма . Инъецируемый [сервисный](#service)класс должен быть помечен `@Injectable()` [декоратор](#decorator). Другие элементы, такие как постоянные значения, также могут быть введены.
 
 {@a injector}
 
-## injector
+{@a injector}
+## инжектор
 
-An object in the Angular [dependency-injection](#dependency-injection) system
-that can find a named dependency in its cache or create a dependency
-using a configured [provider](#provider).
-Injectors are created for NgModules automatically as part of the bootstrap process
-and are inherited through the component hierarchy.
+Объект в Angular [зависимости впрыск](#dependency-injection)системе
+который может найти именованную зависимость в своем кеше или создать зависимость
+используя настроенный [провайдер](#provider).
+Инжекторы создаются для NgModules автоматически как часть процесса начальной загрузки
+и наследуются через иерархию компонентов.
 
-* An injector provides a singleton instance of a dependency, and can inject this same instance in multiple components.
+* Инжектор предоставляет единственный экземпляр зависимости и может внедрить этот же экземпляр в несколько компонентов.
 
-* A hierarchy of injectors at the NgModule and component level can provide different instances of a dependency to their own components and child components.
+* Иерархия инжекторов на уровне NgModule и компонентов может предоставлять разные экземпляры зависимости для своих собственных компонентов и дочерних компонентов.
 
-* You can configure injectors with different providers that can provide different implementations of the same dependency.
+* Можно настроить инжекторы с разными поставщиками, которые могут предоставлять разные реализации одной и той же зависимости.
 
-Learn more about the injector hierarchy in [Hierarchical Dependency Injectors](guide/hierarchical-dependency-injection).
+Узнайте больше об иерархии инжекторов в [Инъекторы иерархической зависимости](guide/hierarchical-dependency-injection).
 
 {@a input}
 
-## input
+{@a input}
+## вход
 
-When defining a [directive](#directive), the `@Input()` decorator on a directive property
-makes that property available as a *target* of a [property binding](guide/template-syntax#property-binding).
-Data values flow into an input property from the data source identified
-in the [template expression](#template-expression) to the right of the equal sign.
+При определении [директива](#directive), `@Input()` для свойства директивы
+делает это свойство доступно в качестве *мишени* в виде [имущества связывания](guide/template-syntax#property-binding).
+Значения данных поступают во входное свойство из идентифицированного источника данных
+в [шаблонное выражение](#template-expression)справа от знака равенства.
 
-To learn more, see [input and output properties](guide/template-syntax#inputs-outputs).
+Чтобы узнать больше, см. [Свойства ввода и вывода](guide/template-syntax#inputs-outputs).
 
 {@a interpolation}
 
-## interpolation
+{@a interpolation}
+## интерполяция
 
-A form of property [data binding](#data-binding) in which a [template expression](#template-expression) between double-curly braces renders as text.
-That text can be concatenated with neighboring text before it is assigned to an element property
-or displayed between element tags, as in this example.
+Форма собственности [привязка данных](#data-binding)в которой[шаблонное выражение](#template-expression)между двойными фигурными скобками отображается как текст.
+Этот текст можно объединить с соседним текстом, прежде чем он будет присвоен свойству элемента
+или отображается между тегами элемента, как в этом примере.
 
 ```html
 <label>My current hero is {{hero.name}}</label>
 ```
 
 
-Read more about [interpolation](guide/template-syntax#interpolation) in [Template Syntax](guide/template-syntax).
+Подробнее о читайте [интерполяции](guide/template-syntax#interpolation)в [Синтаксис шаблона](guide/template-syntax).
 
 {@a ivy}
 
-## Ivy
+{@a ivy}
+## Айви
 
-Ivy is the code name for Angular's [next-generation compilation and rendering pipeline](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
-With the version 9 release of Angular, the new compiler and runtime instructions are used by default instead of the older compiler and runtime, known as [View Engine](#ve).
+Ivy - это кодовое имя для Angular [конвейер компиляции и рендеринга следующего поколения](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
+В версии Angular версии 9 новые инструкции компилятора и среды выполнения используются по умолчанию вместо старых компилятора и среды выполнения, известных как [View Engine](#ve).
 
-See [Angular Ivy](guide/ivy).
+Смотри [Angular плющ](guide/ivy),
 
 
 {@a J}
 
 {@a javascript}
 
+{@a javascript}
 ## JavaScript
 
-See [ECMAScript](#ecma), [TypeScript](#typescript).
+Смотрите [ECMAScript](#ecma), [TypeScript](#typescript).
 
 
 {@a jit}
 
 
-## just-in-time (JIT) compilation
+{@a just-in-time-jit-compilation}
+## Компиляция точно в срок (JIT)
 
-The Angular just-in-time (JIT) compiler converts your Angular HTML and TypeScript code into
-efficient JavaScript code at run time, as part of bootstrapping.
+JIT-компилятор Angular преобразует ваш HTML-код и код TypeScript в Angular
+эффективный код JavaScript во время выполнения, как часть начальной загрузки.
 
-JIT compilation is the default (as opposed to AOT compilation) when you run Angular's `ng build` and `ng serve` CLI commands, and is a good choice during development.
-JIT mode is strongly discouraged for production use
-because it results in large application payloads that hinder the bootstrap performance.
+JIT-компиляция используется по умолчанию (в отличие от AOT-компиляции), когда вы запускаете Angular `ng build ` и ` ng serve` команды CLI и является хорошим выбором при разработке.
+Режим JIT настоятельно не рекомендуется для производственного использования
+потому что это приводит к большим нагрузкам приложения, которые снижают производительность начальной загрузки.
 
-Compare to [ahead-of-time (AOT) compilation](#aot).
+Сравните с [опережающей (AOT) компиляцией](#aot).
 
 
 {@a K}
@@ -527,188 +569,203 @@ Compare to [ahead-of-time (AOT) compilation](#aot).
 
 {@a lazy-load}
 
-## lazy loading
+{@a lazy-loading}
+## ленивая загрузка
 
-A process that speeds up application load time by splitting the application into multiple bundles and loading them on demand.
-For example, dependencies can be lazy loaded as needed&mdash;as opposed to [eager-loaded](#eager-loading) modules that are required by the root module and are thus loaded on launch.
+Процесс, который ускоряет время загрузки приложения, разделяя приложение на несколько пакетов и загружая их по требованию.
+Например, зависимости могут быть лениво загружены по мере необходимости - в отличие от[загруженные](#eager-loading)модули, которые требуются корневому модулю и, таким образом, загружаются при запуске.
 
-The [router](#router) makes use of lazy loading to load child views only when the parent view is activated.
-Similarly, you can build custom elements that can be loaded into an Angular app when needed.
+В [маршрутизатор](#router)использует отложенную загрузку с видом нагрузки ребенка только тогда, когда родительский вид активируется.
+Точно так же вы можете создавать пользовательские элементы, которые при необходимости могут быть загружены в приложение Angular.
 
 {@a library}
 
-## library
+{@a library}
+## библиотека
 
-In Angular, a [project](#project) that provides functionality that can be included in other Angular apps.
-A library isn't a complete Angular app and can't run independently.
-(To add re-usable Angular functionality to non-Angular web apps, you can use Angular [custom elements](#angular-element).)
+В Angular, [проект](#project)который предоставляет функциональные возможности, которые могут быть включены в другие приложения Angular.
+Библиотека не является полноценным приложением Angular и не может работать независимо.
+(Чтобы добавить многократно используемые функции Angular в не-Angular веб-приложения, вы можете использовать Angular [пользовательские элементы](#angular-element).)
 
-* Library developers can use the [Angular CLI](#cli) to `generate` scaffolding for a new library in an existing [workspace](#workspace), and can publish a library as an `npm` package.
+* Разработчики библиотеки могут использовать [Angular CLI](#cli)для `generate` леса для новой библиотеки в существующей [рабочей области](#workspace)и может публиковать библиотеку как `npm` Пакет.
 
-* Application developers can use the [Angular CLI](#cli) to `add` a published library for use with an application in the same [workspace](#workspace).
+* Разработчики приложений могут использовать [Angular CLI](#cli)для `add` опубликованную библиотеку для использования с приложением в том же [рабочее пространство](#workspace).
 
-See also [schematic](#schematic).
+Смотрите также [схема](#schematic).
 
 {@a lifecycle-hook}
 
-## lifecycle hook
+{@a lifecycle-hook}
+## жизненный цикл крюка
 
-An interface that allows you to tap into the lifecycle of [directives](#directive) and [components](#component) as they are created, updated, and destroyed.
+Интерфейс, который позволяет вам использовать жизненный цикл [директив](#directive)и [компонентов](#component)мере их создания, обновления и уничтожения.
 
-Each interface has a single hook method whose name is the interface name prefixed with `ng`.
-For example, the `OnInit` interface has a hook method named `ngOnInit`.
+Каждый интерфейс имеет единственный метод подключения, именем которого является имя интерфейса с префиксом `ng`.
+Например, `OnInit` интерфейсе есть метод ловушки `ngOnInit`.
 
-Angular calls these hook methods in the following order:
+Angular вызовы этих методы хуки в следующем порядке:
 
-* `ngOnChanges`: When an [input](#input)/[output](#output) binding value changes.
-* `ngOnInit`: After the first `ngOnChanges`.
-* `ngDoCheck`: Developer's custom change detection.
-* `ngAfterContentInit`: After component content initialized.
-* `ngAfterContentChecked`: After every check of component content.
-* `ngAfterViewInit`: After a component's views are initialized.
-* `ngAfterViewChecked`: After every check of a component's views.
-* `ngOnDestroy`: Just before the directive is destroyed.
+* `ngOnChanges` : при [входной](#input)/ [выходной](#output)изменении значения привязки.
+* `ngOnInit` : после первого `ngOnChanges`.
+* `ngDoCheck` : обнаружение пользовательских изменений для разработчика.
+* `ngAfterContentInit` : после инициализации содержимого компонента.
+* `ngAfterContentChecked` : после каждой проверки содержимого компонента.
+* `ngAfterViewInit` : после инициализации представлений компонента.
+* `ngAfterViewChecked` : после каждой проверки представлений компонента.
+* `ngOnDestroy` : до уничтожения директивы.
 
-To learn more, see [Lifecycle Hooks](guide/lifecycle-hooks).
+Чтобы узнать больше, см. [Lifecycle Hooks](guide/lifecycle-hooks).
 
 
 {@a M}
 
 {@a module}
 
-## module
+{@a module}
+## модуль
 
-In general, a module collects a block of code dedicated to a single purpose. Angular uses standard JavaScript modules and also defines an Angular module, `NgModule`.
+В общем, модуль собирает блок кода, предназначенный для одной цели. Angular использует стандартные модули JavaScript, а также определяет модуль Angular, `NgModule`.
 
-In JavaScript (ECMAScript), each file is a module and all objects defined in the file belong to that module. Objects can exported, making them public, and public objects can be imported for use by other modules.
+В JavaScript (ECMAScript) каждый файл является модулем, и все объекты, определенные в файле, принадлежат этому модулю. Объекты можно экспортировать, делая их общедоступными, а общедоступные объекты можно импортировать для использования другими модулями.
 
-Angular ships as a collection of JavaScript modules (also called libraries). Each Angular library name begins with the `@angular` prefix. Install Angular libraries with the [npm package manager](https://docs.npmjs.com/getting-started/what-is-npm) and import parts of them with JavaScript `import` declarations.
+Angular поставляется как коллекция модулей JavaScript (также называемых библиотеками). Каждое имя библиотеки Angular начинается с `@angular` префикс. Установите Angular библиотеки с помощью [менеджер пакетов npm](https://docs.npmjs.com/getting-started/what-is-npm)и импортируйте их части с помощью JavaScript `import` декларации.
 
-Compare to [NgModule](#ngmodule).
+Сравните с [NgModule](#ngmodule).
 
 
 {@a N}
 
 {@a ngcc}
 
-## ngcc
+{@a ngcc}
+## нгкк
 
-Angular compatibility compiler.
-If you build your app using [Ivy](#ivy), but it depends on libraries have not been compiled with Ivy, the CLI uses `ngcc` to automatically update the dependent libraries to use Ivy.
+Компилятор Angular совместимости.
+Если вы создаете свое приложение с использованием [Ivy](#ivy), но это зависит от того, какие библиотеки не были скомпилированы с Ivy, CLI использует `ngcc` для автоматического обновления зависимых библиотек для использования Ivy.
 
 
 {@a ngmodule}
 
+{@a ngmodule}
 ## NgModule
 
-A class definition preceded by the `@NgModule()` [decorator](#decorator), which declares and serves as a manifest for a block of code dedicated to an application domain, a workflow, or a closely related set of capabilities.
+Определение класса, которому предшествует `@NgModule()` [декоратор](#decorator), который объявляет и служит манифестом для блока кода, выделенного для домена приложения, рабочего процесса или тесно связанного набора возможностей.
 
-Like a [JavaScript module](#module), an NgModule can export functionality for use by other NgModules and import public functionality from other NgModules.
-The metadata for an NgModule class collects components, directives, and pipes that the application uses along with the list of imports and exports. See also [declarable](#declarable).
+Как и [модуль JavaScript](#module), NgModule может экспортировать функциональные возможности для использования другими NgModules и импортировать открытые функциональные возможности из других NgModules.
+Метаданные для класса NgModule собирают компоненты, директивы и каналы, которые приложение использует вместе со списком импорта и экспорта. Смотрите также [декларируемый](#declarable).
 
-NgModules are typically named after the file in which the exported thing is defined. For example, the Angular [DatePipe](api/common/DatePipe) class belongs to a feature module named `date_pipe` in the file `date_pipe.ts`. You import them from an Angular [scoped package](#scoped-package) such as `@angular/core`.
+NgModules обычно называют в честь файла, в котором определяется экспортируемая вещь. Например, Angular [DatePipe](api/common/DatePipe)класс принадлежит функциональному модулю с именем `date_pipe` в файле `date_pipe.ts` . Вы импортируете их из Angular [пакета с областью действия](#scoped-package)такого как `@angular/core`.
 
-Every Angular application has a root module. By convention, the class is called `AppModule` and resides in a file named `app.module.ts`.
+Каждое приложение Angular имеет корневой модуль. По соглашению класс называется `AppModule` и находится в файле с именем `app.module.ts`.
 
-To learn more, see [NgModules](guide/ngmodules).
+Чтобы узнать больше, см. [NgModules](guide/ngmodules).
 
 {@a npm-package}
 
-## npm package
+{@a npm-package}
+## Пакет Npm
 
-The [npm package manager](https://docs.npmjs.com/getting-started/what-is-npm) is used to distribute and load Angular modules and libraries.
+[NPM менеджер пакетов](https://docs.npmjs.com/getting-started/what-is-npm)используется для распределения нагрузки и Angular модули и библиотеки.
 
-Learn more about how Angular uses [Npm Packages](guide/npm-packages).
+Узнайте больше о том, как Angular использует [пакеты Npm](guide/npm-packages).
 
 {@a O}
 
 {@a observable}
 
-## observable
+{@a observable}
+## наблюдаемым
 
-A producer of multiple values, which it pushes to [subscribers](#subscriber). Used for asynchronous event handling throughout Angular. You execute an observable by subscribing to it with its `subscribe()` method, passing callbacks for notifications of new values, errors, or completion.
+Производитель множества значений, к которым он стремится [подписчики](#subscriber), Используется для асинхронной обработки событий по всему Angular. Вы выполняете наблюдаемое, подписавшись на него `subscribe()` Метод, передающий обратные вызовы для уведомлений о новых значениях, ошибках или завершении.
 
-Observables can deliver single or multiple values of any type to subscribers, either synchronously (as a function delivers a value to its caller) or on a schedule. A subscriber receives notification of new values as they are produced and notification of either normal completion or error completion.
+Наблюдаемые могут доставлять подписчикам одно или несколько значений любого типа либо синхронно (так как функция доставляет значение вызывающей стороне), либо по расписанию. Подписчик получает уведомление о новых значениях по мере их появления и уведомление о нормальном завершении или завершении ошибки.
 
-Angular uses a third-party library called [Reactive Extensions (RxJS)](http://reactivex.io/rxjs/).
+Angular использует стороннюю библиотеку [Reactive Extensions (RxJS)](http://reactivex.io/rxjs/).
 
-To learn more, see [Observables](guide/observables).
+Чтобы узнать больше, смотрите [Observables](guide/observables).
 
 
 {@a observer}
 
-## observer
+{@a observer}
+## наблюдатель
 
-An object passed to the `subscribe()` method for an [observable](#observable). The object defines the callbacks for the [subscriber](#subscriber).
+Объект передан `subscribe()` Метод для [наблюдаемого](#observable). Объект определяет обратные вызовы для [подписчика](#subscriber).
 
 {@a output}
 
-## output
+{@a output}
+## вывод
 
-When defining a [directive](#directive), the `@Output{}` decorator on a directive property
-makes that property available as a *target* of [event binding](guide/template-syntax#event-binding).
-Events stream *out* of this property to the receiver identified
-in the [template expression](#template-expression) to the right of the equal sign.
+При определении [директива](#directive), `@Output{}` для свойства директивы
+делает это свойство доступно в качестве *мишени* из [связывания событий](guide/template-syntax#event-binding).
+События *выходят* из этого свойства на указанный получатель
+в [шаблонное выражение](#template-expression)справа от знака равенства.
 
-To learn more, see [Input and Output Properties](guide/template-syntax#inputs-outputs).
+Чтобы узнать больше, см. [Свойства ввода и вывода](guide/template-syntax#inputs-outputs).
 
 
 {@a P}
 
 {@a pipe}
 
-## pipe
+{@a pipe}
+## труба
 
-A class which is preceded by the `@Pipe{}` decorator and which defines a function that transforms input values to output values for display in a [view](#view). Angular defines various pipes, and you can define new pipes.
+Класс, которому предшествует `@Pipe{}` который определяет функцию, которая преобразует входные значения в выходные значения для отображения в [представлении](#view). Angular определяет различные трубы, и вы можете определить новые трубы.
 
-To learn more, see [Pipes](guide/pipes).
+Чтобы узнать больше, см. [Трубы](guide/pipes).
 
 {@a platform}
 
-## platform
+{@a platform}
+## платформы
 
-In Angular terminology, a platform is the context in which an Angular application runs.
-The most common platform for Angular applications is a web browser, but it can also be an operating system for a mobile device, or a web server.
+В терминологии Angular платформа - это контекст, в котором запускается приложение Angular.
+Наиболее распространенной платформой для приложений Angular является веб-браузер, но он также может быть операционной системой для мобильного устройства или веб-сервером.
 
-Support for the various Angular run-time platforms is provided by the `@angular/platform-*` packages. These packages allow applications that make use of `@angular/core` and `@angular/common` to execute in different environments by providing implementation for gathering user input and rendering UIs for the given platform. Isolating platform-specific functionality allows the developer to make platform-independent use of the rest of the framework.
+Поддержка различных рабочих платформ Angular обеспечивается `@angular/platform-*` пакеты. Эти пакеты позволяют приложениям, которые используют `@angular/core` и `@angular/common` для выполнения в различных средах, предоставляя реализацию для сбора пользовательского ввода и визуализации пользовательских интерфейсов для данной платформы. Выделение функциональности, специфичной для платформы, позволяет разработчику независимо от платформы использовать остальную часть платформы.
 
-* When running in a web browser, [`BrowserModule`](api/platform-browser/BrowserModule) is imported from the `platform-browser` package, and supports services that simplify security and event processing, and allows applications to access browser-specific features, such as interpreting keyboard input and controlling the title of the document being displayed. All applications running in the browser use the same platform service.
+* При запуске в веб-браузере [ `BrowserModule` ](api/platform-browser/BrowserModule)импортируется из `platform-browser` пакет и поддерживает службы, которые упрощают безопасность и обработку событий, а также позволяют приложениям получать доступ к специфическим для браузера функциям, таким как интерпретация ввода с клавиатуры и управление заголовком отображаемого документа. Все приложения, работающие в браузере, используют один и тот же сервис платформы.
 
-* When [server-side rendering](#server-side-rendering) (SSR) is used, the [`platform-server`](api/platform-server) package provides web server implementations of the `DOM`, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
+* Когда используется [рендеринг на стороне сервера](#server-side-rendering)(SSR), [platform-server"](api/platform-server)пакет предоставляет реализации веб-сервера `DOM`, `XMLHttpRequest` и другие низкоуровневые функции, которые не зависят от браузера.
 
 {@a polyfill}
 
-## polyfill
+{@a polyfill}
+## полифилл
 
-An [npm package](guide/npm-packages) that plugs gaps in a browser's JavaScript implementation.
-See [Browser Support](guide/browser-support) for polyfills that support particular functionality for particular platforms.
+[НПМ пакет](guide/npm-packages)который подключается пробелы в реализации JavaScript браузера.
+См. [Поддержка браузера](guide/browser-support)для полифилов, которые поддерживают определенные функции для определенных платформ.
 
 {@a project}
 
-## project
+{@a project}
+## проект
 
-In the Angular CLI, a standalone application or [library](#library) that can be created or modified by a CLI command.
+В Angular CLI - автономное приложение или [библиотека](#library)которые могут быть созданы или изменены командой CLI.
 
-A project, as generated by the [`ng new`](cli/new), contains the set of source files, resources, and configuration files that you need to develop and test the application using the CLI. Projects can also be created with the `ng generate application` and `ng generate library` commands.
+Проект, сгенерированный [ `ng new` ](cli/new), содержит набор исходных файлов, ресурсов и файлов конфигурации, которые необходимы для разработки и тестирования приложения с использованием CLI. Проекты также могут быть созданы с `ng generate application ` и ` ng generate library` команды.
 
-For more information, see [Project File Structure](guide/file-structure).
+Для получения дополнительной информации см. [Структура файла проекта](guide/file-structure).
 
-The [`angular.json`](guide/workspace-config) file configures all projects in a [workspace](#workspace).
+[ `Angular.json` ](guide/workspace-config)файл настраивает все проекты в [рабочем пространстве](#workspace).
 
 {@a provider}
 
-## provider
+{@a provider}
+## провайдер
 
-An object that implements one of the [`Provider`](api/core/Provider) interfaces. A provider object defines how to obtain an injectable dependency associated with a [DI token](#token).
-An [injector](#injector) uses the provider to create a new instance of a dependency
-for a class that requires it.
+Объект, который реализует один из [ `Provider` ](api/core/Provider)интерфейсов. Объект провайдера определяет, как получить инъецируемую зависимость, связанную с [токеном DI](#token).
+Ан [инжектор](#injector)использует провайдера для создания нового экземпляра зависимости
+для класса, который требует этого.
 
-Angular registers its own providers with every injector, for services that Angular defines.
-You can register your own providers for services that your app needs.
+Angular регистрирует своих поставщиков с каждым инжектором для услуг, которые определяет Angular.
+Вы можете зарегистрировать своих поставщиков услуг, которые нужны вашему приложению.
 
-See also [service](#service), [dependency injection](#di).
+Смотрите также [сервис](#service), [внедрение зависимости](#di).
 
-Learn more in [Dependency Injection](guide/dependency-injection).
+Узнайте больше в [Dependency Injection](guide/dependency-injection).
 
 
 {@a Q}
@@ -717,93 +774,101 @@ Learn more in [Dependency Injection](guide/dependency-injection).
 
 {@a reactive-forms}
 
-## reactive forms
+{@a reactive-forms}
+## реактивные формы
 
-A framework for building Angular forms through code in a component.
-The alternative is a [template-driven form](#template-driven-forms).
+Фреймворк для создания Angular форм с помощью кода в компоненте.
+Альтернативой является [управляемая шаблоном форма](#template-driven-forms).
 
-When using reactive forms:
+При использовании реактивных форм:
 
-* The "source of truth", the form model, is defined in the component class.
-* Validation is set up through validation functions rather than valdation directives.
-* Each control is explicitly created in the component class by creating a `FormControl` instance manually or with `FormBuilder`.
-* The template input elements do *not* use `ngModel`.
-* The associated Angular directives are prefixed with `form`, such as `formControl`, `formGroup`, and `formControlName`.
+* «Источник истины», модель формы, определяется в классе компонентов.
+* Валидация устанавливается с помощью функций валидации, а не директив валидации.
+* Каждый элемент управления явно создается в классе компонента путем создания `FormControl` вручную или с `FormBuilder`.
+* Элементы ввода шаблона*не * используют `ngModel`.
+* Связанные Angular директивы имеют префикс `form`, такая как `formControl`, `formGroup`, и `formControlName`.
 
-The alternative is a template-driven form. For an introduction and comparison of both forms approaches, see [Introduction to Angular Forms](guide/forms-overview).
+Альтернативой является шаблонно-управляемая форма. Для ознакомления и сравнения подходов обеих форм см. [Введение в Angular формы](guide/forms-overview).
 
 {@a router}
 {@a router-module}
 
-## router
+{@a router}
+## маршрутизатор
 
-A tool that configures and implements navigation among states and [views](#view) within an Angular app.
+Инструмент, который настраивает и реализует навигацию между состояниями и [представлениями](#view)в приложении Angular.
 
-The `Router` module is an [NgModule](#ngmodule) that provides the necessary service providers and directives for navigating through application views. A [routing component](#routing-component) is one that imports the `Router` module and whose template contains a `RouterOutlet` element where it can display views produced by the router.
+ `Router` Модуль - это [NgModule](#ngmodule)который предоставляет необходимые поставщики услуг и директивы для навигации по представлениям приложений. [Маршрутизации компонент](#routing-component)является тот, который импортирует `Router` Модуль и чей шаблон содержит `RouterOutlet` Элемент где он может отображать представления, созданные маршрутизатором.
 
-The router defines navigation among views on a single page, as opposed to navigation among pages. It interprets URL-like links to determine which views to create or destroy, and which components to load or unload. It allows you to take advantage of [lazy loading](#lazy-load) in your Angular apps.
+Маршрутизатор определяет навигацию между представлениями на одной странице, в отличие от навигации по страницам. Он интерпретирует URL-подобные ссылки, чтобы определить, какие представления создавать или уничтожать, а также какие компоненты загружать или выгружать. Это позволяет вам использовать [ленивая загрузка](#lazy-load)в ваших приложениях Angular.
 
-To learn more, see [Routing and Navigation](guide/router).
+Чтобы узнать больше, см. [Маршрутизация и навигация](guide/router).
 
 {@a router-outlet}
 
-## router outlet
+{@a router-outlet}
+## розетка роутера
 
-A [directive](#directive) that acts as a placeholder in a routing component's template. Angular dynamically renders the template based on the current router state.
+A [директива](#directive)это действует как заполнитель в шаблоне компонента маршрутизации. Angular динамически отображает шаблон в зависимости от текущего состояния маршрутизатора.
 
 {@a router-component}
 
-## routing component
+{@a routing-component}
+## компонент маршрутизации
 
-An Angular [component](#component) with a `RouterOutlet` directive in its template that displays views based on router navigations.
+Angular [компонент](#component)с `RouterOutlet` Директива в своем шаблоне, которая отображает представления, основанные на навигациях маршрутизатора.
 
-For more information, see [Routing and Navigation](guide/router).
+Для получения дополнительной информации см. [Маршрутизация и навигация](guide/router).
 
 {@a rule}
 
-## rule
+{@a rule}
+## править
 
-In [schematics](#schematic), a function that operates on a [file tree](#file-tree) to create, delete, or modify files in a specific manner.
+В [схемы](#schematic)- функция, которая работает с [деревом файлов](#file-tree)для создания, удаления или изменения файлов определенным образом.
 
 {@a S}
 
 {@a schematic}
 
-## schematic
+{@a schematic}
+## схема
 
-A scaffolding library that defines how to generate or transform a programming project by creating, modifying, refactoring, or moving files and code.
-A schematic defines [rules](#rule) that operate on a virtual file system called a [tree](#file-tree).
+Библиотека скаффолдинга, которая определяет, как генерировать или преобразовывать программный проект путем создания, изменения, рефакторинга или перемещения файлов и кода.
+Схема определяет [правила](#rule)которые работают в виртуальной файловой системе, называемой [деревом](#file-tree).
 
-The [Angular CLI](#cli) uses schematics to generate and modify [Angular projects](#project) and parts of projects.
+[Angular CLI](#cli)использует схемы для создания и редактирования [Angular проектов](#project)и части проектов.
 
-* Angular provides a set of schematics for use with the CLI. See the [Angular CLI command reference](cli). The [`ng add`](cli/add) command runs schematics as part of adding a library to your project. The [`ng generate`](cli/generate) command runs schematics to create apps, libraries, and Angular code constructs.
+* Angular предоставляет набор схем для использования с CLI. См. [Справочник по Angular командам CLI](cli). The [ `ng add` ](cli/add)команда запускает схемы как часть добавления библиотеки в ваш проект. Команда [ `ng generate` ](cli/generate)запускает схемы для создания приложений, библиотек и конструкций кода Angular.
 
-* [Library](#library) developers can create schematics that enable the Angular CLI to add and update their published libraries, and to generate artifacts the library defines.
-Add these schematics to the npm package that you use to publish and share your library.
+* [библиотеки](#library)Разработчики могут создавать схемы, которые позволяют Angular CLI добавлять и обновлять свои опубликованные библиотеки, а также генерировать артефакты, определяемые библиотекой.
+Добавьте эти схемы в пакет npm, который вы используете для публикации и публикации своей библиотеки.
 
-For more information, see [Schematics](guide/schematics) and [Integrating Libraries with the CLI](guide/creating-libraries#integrating-with-the-cli).
+Для получения дополнительной информации см. [Схемы](guide/schematics)и [Интеграция библиотек с CLI](guide/creating-libraries#integrating-with-the-cli).
 
 {@a schematics-cli}
 
-## Schematics CLI
+{@a schematics-cli}
+## Схемы CLI
 
-Schematics come with their own command-line tool.
-Using Node 6.9 or above, install the Schematics CLI globally:
+Схемы поставляются с собственным инструментом командной строки.
+Использование узла 6.9 или выше, установите CLI схемные глобально:
 
 <code-example language="bash">
 npm install -g @angular-devkit/schematics-cli
 </code-example>
 
-This installs the `schematics` executable, which you can use to create a new schematics [collection](#collection) with an initial named schematic. The collection folder is a workspace for schematics. You can also use the `schematics` command to add a new schematic to an existing collection, or extend an existing schematic.
+Это устанавливает `schematics` Исполняемый файл, который можно использовать для создания новой схемы [коллекции](#collection)с исходным именем схема. Папка коллекции - это рабочее пространство для схем. Вы также можете использовать `schematics` команда для добавления новой схемы в существующую коллекцию или расширения существующей схемы.
 
 {@a scoped-package}
 
-## scoped package
+{@a scoped-package}
+## Scoped пакет
 
-A way to group related [npm packages](guide/npm-packages).
-NgModules are delivered within scoped packages whose names begin with the Angular *scope name* `@angular`. For example, `@angular/core`, `@angular/common`, `@angular/forms`, and `@angular/router`.
+Способ группировки связанных [npm пакетов](guide/npm-packages).
+Модули Ng поставляются в пакетах с определенной, имена которых начинаются с имени Angular *областью области* `@angular` . Например, `@angular/core`, `@angular/common`, `@angular/forms` и `@angular/router`.
 
-Import a scoped package in the same way that you import a normal package.
+Импортируйте пакет с той же областью, что и обычный пакет.
 
 <code-example path="architecture/src/app/app.component.ts" header="architecture/src/app/app.component.ts (import)" region="import">
 
@@ -811,219 +876,238 @@ Import a scoped package in the same way that you import a normal package.
 
 {@a server-side-rendering}
 
-## server-side rendering
+{@a server-side-rendering}
+## рендеринг на стороне сервера
 
-A technique that generates static application pages on the server, and can generate and serve those pages in response to requests from browsers.
-It can also pre-generate pages as HTML files that you serve later.
+Техника, которая генерирует статические страницы приложения на сервере и может генерировать и обслуживать эти страницы в ответ на запросы браузеров.
+Он также может предварительно генерировать страницы в виде HTML-файлов, которые вы обслуживаете позже.
 
-This technique can improve performance on mobile and low-powered devices and improve the user experience by showing a static first page quickly while the client-side app is loading.
-The static version can also make your app more visible to web crawlers.
+Этот метод может повысить производительность на мобильных и маломощных устройствах и улучшить взаимодействие с пользователем, быстро показывая статическую первую страницу во время загрузки клиентского приложения.
+Статическая версия также может сделать ваше приложение более заметным для веб-сканеров.
 
-You can easily prepare an app for server-side rendering by using the [CLI](#cli) to run the [Angular Universal](#universal) tool, using the `@nguniversal/express-engine` [schematic](#schematic).
+Вы можете легко подготовить приложение для рендеринга на стороне сервера, используя [CLI](#cli)для запуска [Angular Universal](#universal)инструмента, используя `@nguniversal/express-engine` [схема](#schematic).
 
 
 {@a service}
 
-## service
+{@a service}
+## сервис
 
-In Angular, a class with the [@Injectable()](#injectable) decorator that encapsulates non-UI logic and code that can be reused across an application.
-Angular distinguishes components from services to increase modularity and reusability.
+В Angular - класс с [@Injectable ()](#injectable)декоратором который инкапсулирует логику и код, не связанные с пользовательским интерфейсом, которые можно повторно использовать в приложении.
+Angular отличает компоненты от сервисов для повышения модульности и возможности повторного использования.
 
-The `@Injectable()` metadata allows the service class to be used with the [dependency injection](#di) mechanism.
-The injectable class is instantiated by a [provider](#provider).
-[Injectors](#injector) maintain lists of providers and use them to provide service instances when they are required by components or other services.
+ `@Injectable()` позволяют использовать класс обслуживания с [внедрение зависимости](#di)механизмом.
+Инъецируемый класс создается экземпляром [провайдером](#provider).
+[Инъекторы](#injector)ведут списки поставщиков и используют их для предоставления экземпляров сервисов, когда они требуются компонентами или другими сервисами.
 
-To learn more, see [Introduction to Services and Dependency Injection](guide/architecture-services).
+Чтобы узнать больше, см. [Введение в службы и внедрение зависимостей](guide/architecture-services).
 
 {@a structural-directive}
 {@a structural-directives}
 
-## structural directives
+{@a structural-directives}
+## структурные директивы
 
-A category of [directive](#directive) that is responsible for shaping HTML layout by modifying the DOM&mdashthat is, adding, removing, or manipulating elements and their children.
+Категория[директива](#directive)которая отвечает за формирование HTML-макета путем изменения DOM - добавления, удаления или манипулирования элементами и их дочерними элементами.
 
-To learn more, see [Structural Directives](guide/structural-directives).
+Чтобы узнать больше, см. [Структурные директивы](guide/structural-directives).
 
 {@a subscriber}
 
-## subscriber
+{@a subscriber}
+## абонент
 
-A function that defines how to obtain or generate values or messages to be published. This function is executed when a consumer calls the `subscribe()` method of an [observable](#observable).
+Функция, которая определяет, как получать или генерировать значения или сообщения для публикации. Эта функция выполняется, когда потребитель вызывает `subscribe()` Метод [наблюдаемый](#observable).
 
-The act of subscribing to an observable triggers its execution, associates callbacks with it, and creates a `Subscription` object that lets you unsubscribe.
+Подписка на наблюдаемое запускает его выполнение, связывает с ним обратные вызовы и создает `Subscription` Объект который позволяет вам отписаться.
 
-The `subscribe()` method takes a JavaScript object (called an [observer](#observer)) with up to three callbacks, one for each type of notification that an observable can deliver:
+ `subscribe()` метод принимает объект JavaScript (называемый [наблюдатель](#observer)) с точностью до трех обратных вызовов, по одному для каждого типа уведомления о том, что наблюдаемый может поставить:
 
-* The `next` notification sends a value such as a number, a string, or an object.
-* The `error` notification sends a JavaScript Error or exception.
-* The `complete` notification doesn't send a value, but the handler is called when the call completes. Scheduled values can continue to be returned after the call completes.
+* `next` уведомлении отправляется значение, например число, строка или объект.
+* `error` Уведомление отправляет JavaScript Ошибка или исключение.
+* `complete` уведомление не отправляет значение, но обработчик вызывается после завершения вызова. Запланированные значения могут продолжать возвращаться после завершения вызова.
 
 {@a T}
 
 {@a target}
 
-## target
+{@a target}
+## цель
 
-A buildable or runnable subset of a [project](#project), configured as an object in the [workspace configuration file](guide/workspace-config#project-tool-configuration-options), and executed by an [Architect](#architect) [builder](#builder).
+Встраиваемое или запускаемое подмножество [проект](#project), настроенное как объект в [файл конфигурации рабочей области](guide/workspace-config#project-tool-configuration-options)и выполненное [Архитектор](#architect) [строитель](#builder).
 
-In the `angular.json` file, each project has an "architect" section that contains targets which configure builders. Some of these targets correspond to [CLI commands](#cli), such as `build`, `serve`, `test`, and `lint`.
+в `angular.json` файле каждый проект имеет раздел «architect», содержащий цели, которые настраивают сборщики. Некоторые из этих целей соответствуют [командам CLI](#cli), таким как `build`, `serve`, `test`, и `lint`.
 
-For example, the Architect builder invoked by the `ng build` command to compile a project uses a particular build tool, and has a default configuration whose values can be overridden on the command line. The `build` target also defines an alternate configuration for a "production" build, that can be invoked with the `--prod` flag on the `build` command.
+Например, Архитектор-строитель вызывается `ng build` Команда для компиляции проекта использует определенный инструмент сборки и имеет конфигурацию по умолчанию, значения которой могут быть переопределены в командной строке. `build` Цель также определяет альтернативную конфигурацию для «производственной» сборки, которая может быть вызвана с помощью `--prod` флаг на `build` команду.
 
-The Architect tool provides a set of builders. The [`ng new` command](cli/new) provides a set of targets for the initial application project. The [`ng generate application`](cli/generate#application) and [`ng generate library`](cli/generate#library) commands provide a set of targets for each new [project](#project). These targets, their options and configurations, can be customized to meet the needs of your project. For example, you may want to add a "staging" or "testing" configuration to a project's "build" target.
+Инструмент Архитектор предоставляет набор строителей. Команда [ `ng new` ](cli/new)предоставляет набор целей для начального проекта приложения. [ `Нг генерировать application` ](cli/generate#application)и [ ` нг генерировать library` ](cli/generate#library)команды обеспечивают набор задач для каждого нового [проект](#project). Эти цели, их параметры и конфигурации могут быть настроены в соответствии с потребностями вашего проекта. Например, вы можете добавить «промежуточную» или «тестовую» конфигурацию к цели «сборки» проекта.
 
-You can also define a custom builder, and add a target to the project configuration that uses your custom builder. You can then run the target using the [`ng run`](cli/run) CLI command.
+Вы также можете определить пользовательского компоновщика и добавить цель в конфигурацию проекта, которая использует ваш компоновщик. Затем вы можете запустить цель, используя команду [ `ng run` ](cli/run)CLI.
 
 {@a template}
 
-## template
+{@a template}
+## шаблон
 
-Code that defines how to render a component's [view](#view).
+Код, связанный с компонентом, который определяет, как визуализировать компонент [представление](#view).
 
-A template combines straight HTML with Angular [data-binding](#data-binding) syntax, [directives](#directive),
-and [template expressions](#template-expression) (logical constructs).
-The Angular elements insert or calculate values that modify the HTML elements before the page is displayed. Learn more about Angular template language in the [Template Syntax](guide/template-syntax) guide.
+Шаблон сочетает в себе прямой HTML с Angular [привязками данных](#data-binding)синтаксисом, [директивы](#directive),
+и [шаблонные выражения](#template-expression)(логические конструкции).
+Элементы Angular вставляют или вычисляют значения, которые изменяют элементы HTML, до отображения страницы.
 
-A template is associated with a [component class](#component) through the `@Component()` [decorator](#decorator). The template code can be provided inline, as the value of the `template` property, or in a separate HTML file linked through the `templateUrl` property.
+Шаблон связан с [компонентным](#component)классом через `@Component()` [декоратор](#decorator). HTML может быть предоставлен встроенным, как значение `template` свойство или в отдельном HTML-файле, связанном через `templateUrl` свойство.
 
-Additional templates, represented by `TemplateRef` objects, can define alternative or *embedded* views, which can be referenced from multiple components.
+Дополнительные шаблоны, представленные `TemplateRef` Объекты могут определять альтернативные или *встроенные* представления, на которые можно ссылаться из нескольких компонентов.
 
 {@a template-driven-forms}
 
-## template-driven forms
+{@a template-driven-forms}
+## управляемые шаблоном формы
 
-A format for building Angular forms using HTML forms and input elements in the view.
-The alternative format uses the [reactive forms](#reactive-forms) framework.
+Формат для создания Angular форм с использованием HTML-форм и элементов ввода в представлении.
+В альтернативном формате используется структура [реактивные формы](#reactive-forms).
 
-When using template-driven forms:
+При использовании форм на основе шаблонов:
 
-* The "source of truth" is the template. The validation is defined using attributes on the individual input elements.
-* [Two-way binding](#data-binding) with `ngModel` keeps the component model synchronized with the user's entry into the input elements.
-* Behind the scenes, Angular creates a new control for each input element, provided you have set up a `name` attribute and two-way binding for each input.
-* The associated Angular directives are prefixed with `ng` such as `ngForm`, `ngModel`, and `ngModelGroup`.
+* «Истиной истины» является шаблон. Проверка определяется с использованием атрибутов на отдельных элементах ввода.
+* [Двухстороннее связывание](#data-binding)с `ngModel` поддерживает синхронизацию модели компонента с входом пользователя в элементы ввода.
+* За кулисами Angular создает новый элемент управления для каждого элемента ввода, если вы настроили `name` атрибут и двусторонняя привязка для каждого входа.
+* Связанные Angular директивы имеют префикс `ng` такие как `ngForm`, `ngModel` и `ngModelGroup`.
 
-The alternative is a reactive form. For an introduction and comparison of both forms approaches, see [Introduction to Angular Forms](guide/forms-overview).
+Альтернатива - реактивная форма. Для ознакомления и сравнения подходов обеих форм см. [Введение в Angular формы](guide/forms-overview).
 
 {@a template-expression}
 
-## template expression
+{@a template-expression}
+## шаблонное выражение
 
-A TypeScript-like syntax that Angular evaluates within a [data binding](#data-binding).
+TypeScript-подобный синтаксис, который Angular оценивает внутри [привязка данных](#data-binding).
 
-Read about how to write template expressions in  [Template expressions](guide/template-syntax#template-expressions).
+Прочтите о том, как написать шаблонные выражения в [Шаблонные выражения](guide/template-syntax#template-expressions).
 
 {@a token}
 
-## token
+{@a token}
+## маркер
 
-An opaque identifier used for efficient table lookup. In Angular, a [DI token](#di-token) is used to find [providers](#provider) of dependencies in the [dependency injection](#di) system.
+Непрозрачный идентификатор, используемый для эффективного поиска в таблице. В Angular [токен DI](#di-token)используется для поиска [поставщиков](#provider)зависимостей в системе [внедрение зависимостей](#di).
 
 {@a transpile}
 
+{@a transpile}
 ## transpile
 
-The translation process that transforms one version of JavaScript to another version; for example, down-leveling ES2015 to the older ES5 version.
+Процесс перевода, который преобразует одну версию JavaScript в другую версию; например, понижение уровня ES2015 до более старой версии ES5.
 
 {@a file-tree}
 
-## tree
+{@a tree}
+## дерево
 
-In [schematics](#schematic), a virtual file system represented by the `Tree` class.
-Schematic [rules](#rule) take a tree object as input, operate on them, and return a new tree object.
+В [схема](#schematic)виртуальная файловая система, представленная `Tree` Класс.
+Схемы [правила](#rule)принимают объект дерева в качестве входных данных, оперируют ими и возвращают новый объект дерева.
 
 {@a typescript}
 
+{@a typescript}
 ## TypeScript
 
-A programming language based on JavaScript that is notable for its optional typing system.
-TypeScript provides compile-time type checking and strong tooling support (such as
-code completion, refactoring, inline documentation, and intelligent search).
-Many code editors and IDEs support TypeScript either natively or with plug-ins.
+Язык программирования, основанный на JavaScript, который отличается необязательной системой набора текста.
+Машинопись обеспечивает время компиляции проверку типов и сильную поддержку оснастки (например
+Автозавершения кода, рефакторинг, рядные документации, и интеллектуальный поиск).
+Многие редакторы кода и IDE поддерживают TypeScript как изначально, так и с помощью плагинов.
 
-TypeScript is the preferred language for Angular development.
-Read more about TypeScript at [typescriptlang.org](http://www.typescriptlang.org/).
+TypeScript является предпочтительным языком для разработки Angular.
+Узнайте больше о TypeScript на [typescriptlang.org](http://www.typescriptlang.org/).
 
 
 {@a U}
 
 {@a universal}
 
-## Universal
+{@a universal}
+## Универсальный
 
-A tool for implementing [server-side rendering](#server-side-rendering) of an Angular application.
-When integrated with an app, Universal generates and serves static pages on the server in response to requests from browsers.
-The initial static page serves as a fast-loading placeholder while the full application is being prepared for normal execution in the browser.
+Инструмент для реализации [рендеринга на стороне сервера](#server-side-rendering)приложения Angular.
+При интеграции с приложением Universal генерирует и обслуживает статические страницы на сервере в ответ на запросы браузеров.
+Начальная статическая страница служит быстро загружаемой меткой-заполнителем, пока полное приложение готовится к нормальному выполнению в браузере.
 
-To learn more, see [Angular Universal: server-side rendering](guide/universal).
+Чтобы узнать больше, смотрите [Angular Universal: рендеринг на стороне сервера](guide/universal).
 
 {@a V}
 
 {@a view}
 
-## view
+{@a view}
+## смотреть
 
-The smallest grouping of display elements that can be created and destroyed together.
-Angular renders a view under the control of one or more [directives](#directive).
+Наименьшая группировка элементов отображения, которые можно создавать и уничтожать вместе.
+Angular делает вид под контролем одного или нескольких [директивы](#directive),
+особенно [компонент](#component)директивы и их сопутствующие [шаблоны](#template).
 
-A [component](#component) class and its associated [template](#template) define a view.
-A view is specifically represented by a `ViewRef` instance associated with a component.
-A view that belongs immediately to a component is called a *host view*.
-Views are typically collected into [view hierarchies](#view-tree). 
+Вид конкретно представлен `ViewRef` связанный с компонентом.
+Представление, которое принадлежит компоненту, называется представлением *хоста*.
+Представления, как правило, собираются в [просмотр иерархий](#view-tree).
 
-Properties of elements in a view can change dynamically, in response to user actions;
-the structure (number and order) of elements in a view can't.
-You can change the structure of elements by inserting, moving, or removing nested views within their view containers.
+Свойства элементов в представлении могут изменяться динамически в ответ на действия пользователя;
+структура (количество и порядок) элементов в представлении не может.
+Вы можете изменить структуру элементов, вставляя, перемещая или удаляя вложенные представления в их контейнерах представлений.
 
-View hierarchies can be loaded and unloaded dynamically as the user navigates through the application, typically under the control of a [router](#router).
+Иерархии представлений могут загружаться и выгружаться динамически, когда пользователь перемещается по приложению, как правило, под управлением[роутер](#router).
 
 {@a ve}
 
-## View Engine
+{@a view-engine}
+## Просмотр двигателя
 
-The compilation and rendering pipeline used by Angular before version 9. Compare [Ivy](#ivy).
+Конвейер компиляции и рендеринга, используемый Angular до версии 9. Сравнение [Ivy](#ivy).
 
 
 {@a view-tree}
 
-## view hierarchy
+{@a view-hierarchy}
+## Посмотреть иерархию
 
-A tree of related views that can be acted on as a unit. The root view is a component's *host view*. A host view can be the root of a tree of *embedded views*, collected in a *view container* (`ViewContainerRef`) attached to an anchor element in the hosting component. The view hierarchy is a key part of Angular [change detection](#change-detection).
+Дерево связанных видов, которые можно использовать как единое целое. Корневое представление - это представление компонента *узла*. Хост-представление может быть корнем дерева *встроенных представлений*, собранных в *контейнере представлений* (`ViewContainerRef`), прикрепленный к элементу привязки в компоненте хостинга. Иерархия представления является ключевой частью Angular [обнаружение изменений](#change-detection).
 
-The view hierarchy doesn't imply a component hierarchy. Views that are embedded in the context of a particular hierarchy can be host views of other components. Those components can be in the same NgModule as the hosting component, or belong to other NgModules.
+Иерархия представления не подразумевает иерархию компонентов. Представления, встроенные в контекст конкретной иерархии, могут быть представлениями узлов других компонентов. Эти компоненты могут находиться в том же NgModule, что и хост-компонент, или принадлежать другим NgModules.
 
 {@a W}
 {@a web-component}
 
-## web component
+{@a web-component}
+## веб-компонент
 
-See [custom element](#custom-element).
+Смотрите [пользовательский элемент](#custom-element).
 
 {@a workspace}
 
-## workspace
+{@a workspace}
+## рабочее пространство
 
-A collection of Angular [projects](#project) (that is, applications and libraries) powered by the [Angular CLI] (#cli) that are typically co-located in a single source-control repository (such as [git](https://git-scm.com/)).
+Коллекция Angular [проекты](#project)(то есть приложений и библиотек) на основе [Angular CLI] ( #cli), которые обычно размещаются в одном репозитории управления исходным кодом (например, [git](https://git-scm.com/)).
 
-The [CLI](#cli) [`ng new` command](cli/new) creates a file system directory (the "workspace root").
-In the workspace root, it also creates the workspace [configuration file](#configuration) (`angular.json`) and, by default, an initial application project with the same name.
+[CLI](#cli) [ `нг new` команда](cli/new)создает каталог файловой системы («Рабочая область корневого»).
+В корне рабочей области также создается рабочая область [файл конфигурации](#configuration)(`angular.json`) и, по умолчанию, первоначальный проект приложения с тем же именем.
 
-Commands that create or operate on apps and libraries (such as `add` and `generate`) must be executed from within a workspace folder.
+Команды, которые создают или работают с приложениями и библиотеками (такими как `add` и `generate`) должен быть выполнен из папки рабочей области.
 
-For more information, see [Workspace Configuration](guide/workspace-config).
+Для получения дополнительной информации см. [Настройка рабочей области](guide/workspace-config).
 
 {@a cli-config}
 
 {@a config}
 
-## workspace configuration
+{@a workspace-configuration}
+## конфигурация рабочего пространства
 
-A file named `angular.json` at the root level of an Angular [workspace](#workspace) provides workspace-wide and project-specific configuration defaults for build and development tools that are provided by or integrated with the [Angular CLI](#cli).
+Файл с именем `angular.json` на корневом уровне Angular [рабочей области](#workspace)предоставляет настройки конфигурации по умолчанию для всей рабочей области и для проекта для инструментов сборки и разработки, которые предоставляются или интегрированы с [Angular CLI](#cli).
 
-For more information, see [Workspace Configuration](guide/workspace-config).
+Для получения дополнительной информации см. [Настройка рабочей области](guide/workspace-config).
 
-Additional project-specific configuration files are used by tools, such as `package.json` for the [npm package manager](#npm-package), `tsconfig.json` for [TypeScript transpilation](#transpile), and `tslint.json` for [TSLint](https://palantir.github.io/tslint/).
+Дополнительные специфичные для проекта файлы конфигурации используются такими инструментами, как `package.json` для [менеджер пакетов npm](#npm-package), `tsconfig.json` для [перенос TypeScript](#transpile)и `tslint.json` для [TSLint](https://palantir.github.io/tslint/).
 
-For more information, see [Workspace and Project File Structure](guide/file-structure).
+Для получения дополнительной информации см. [Рабочая область и структура файла проекта](guide/file-structure).
 
 {@a X}
 
@@ -1036,11 +1120,11 @@ For more information, see [Workspace and Project File Structure](guide/file-stru
 
 ## zone
 
-An execution context for a set of asynchronous tasks. Useful for debugging, profiling, and testing apps that include asynchronous operations such as event processing, promises, and calls to remote servers.
+Контекст выполнения для набора асинхронных задач. Полезно для отладки, профилирования и тестирования приложений, которые включают асинхронные операции, такие как обработка событий, обещания и вызовы на удаленные серверы.
 
-An Angular app runs in a zone where it can respond to asynchronous events by checking for data changes and updating the information it displays by resolving [data bindings](#data-binding).
+Приложение Angular работает в зоне, где оно может реагировать на асинхронные события, проверяя изменения данных и обновляя отображаемую информацию путем разрешения [привязки данных](#data-binding).
 
-A zone client can take action before and after an async operation completes.
+Клиент зоны может выполнить действие до и после завершения асинхронной операции.
 
-Learn more about zones in this
-[Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U).
+Узнайте больше о зонах в этом
+[Брайан Форд видео](https://www.youtube.com/watch?v=3IqtmUscE_U).

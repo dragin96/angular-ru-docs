@@ -14,9 +14,9 @@ import {NgElementStrategy, NgElementStrategyFactory} from './element-strategy';
 import {createCustomEvent, getComponentInputs, getDefaultAttributeToPropertyInputs} from './utils';
 
 /**
- * Prototype for a class constructor based on an Angular component
- * that can be used for custom element registration. Implemented and returned
- * by the {@link createCustomElement createCustomElement() function}.
+ * Прототип для конструктора класса на основе компонента Angular
+ * это можно использовать для регистрации пользовательских элементов. Реализовано и возвращено
+ * посредством{@link createCustomElement createCustomElement() function},
  *
  * @publicApi
  */
@@ -35,7 +35,7 @@ export interface NgElementConstructor<P> {
 }
 
 /**
- * Implements the functionality needed for a custom element.
+ * Реализует функциональность, необходимую для пользовательского элемента.
  *
  * @publicApi
  */
@@ -73,9 +73,9 @@ export abstract class NgElement extends HTMLElement {
 }
 
 /**
- * Additional type information that can be added to the NgElement class,
- * for properties that are added based
- * on the inputs and methods of the underlying component.
+ * Дополнительная информация о типе, которая может быть добавлена в класс NgElement
+ * для свойств, которые добавляются на основе
+ * на входы и методы базового компонента.
  *
  * @publicApi
  */
@@ -84,9 +84,9 @@ export type WithProperties<P> = {
 };
 
 /**
- * A configuration that initializes an NgElementConstructor with the
- * dependencies and strategy it needs to transform a component into
- * a custom element class.
+ * Конфигурация, которая инициализирует NgElementConstructor с помощью
+ * зависимости и стратегию, в которую он должен превратить компонент
+ * класс пользовательских элементов.
  *
  * @publicApi
  */
@@ -103,22 +103,22 @@ export interface NgElementConfig {
 }
 
 /**
- *  @description Creates a custom element class based on an Angular component.
+ *   @description Создает пользовательский класс элементов на основе компонента Angular.
  *
- * Builds a class that encapsulates the functionality of the provided component and
- * uses the configuration information to provide more context to the class.
- * Takes the component factory's inputs and outputs to convert them to the proper
- * custom element API and add hooks to input changes.
+ * Создает класс, который инкапсулирует функциональность предоставленного компонента и
+ * использует информацию о конфигурации, чтобы предоставить больше контекста классу.
+ * Принимает входные и выходные данные фабрики компонентов, чтобы преобразовать их в правильные
+ * Пользовательский элемент API и добавить хуки для ввода изменений.
  *
- * The configuration's injector is the initial injector set on the class,
- * and used by default for each created instance.This behavior can be overridden with the
- * static property to affect all newly created instances, or as a constructor argument for
- * one-off creations.
+ * Инжектор конфигурации - это начальный инжектор, установленный в классе
+ * и используется по умолчанию для каждого созданного экземпляра. Это поведение может быть переопределено с помощью
+ * статическое свойство, влияющее на все вновь создаваемые экземпляры, или как аргумент конструктора для
+ * одноразовые творения.
  *
- * @param component The component to transform.
- * @param config A configuration that provides initialization information to the created class.
- * @returns The custom-element construction class, which can be registered with
- * a browser's `CustomElementRegistry`.
+ *  @param компонент Компонент для преобразования.
+ *  @param config Конфигурация, которая предоставляет информацию об инициализации для созданного класса.
+ *  @returns Класс конструкции нестандартного элемента, который можно зарегистрировать в
+ * броузера `CustomElementRegistry` CustomElementRegistry.
  *
  * @publicApi
  */

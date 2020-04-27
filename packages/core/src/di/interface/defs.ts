@@ -13,16 +13,16 @@ import {ClassProvider, ConstructorProvider, ExistingProvider, FactoryProvider, S
 
 
 /**
- * Information about how a type or `InjectionToken` interfaces with the DI system.
+ * Информация о том, как тип или `InjectionToken` взаимодействует с системой DI.
  *
- * At a minimum, this includes a `factory` which defines how to create the given type `T`, possibly
- * requesting injection of other types if necessary.
+ * Как минимум, это включает `factory` которая определяет, как создать данный `T` , возможно
+ * запрашивая инъекцию других типов при необходимости.
  *
- * Optionally, a `providedIn` parameter specifies that the given type belongs to a particular
- * `InjectorDef`, `NgModule`, or a special scope (e.g. `'root'`). A value of `null` indicates
- * that the injectable does not belong to any scope.
+ * желанию, `providedIn` параметр указываетчто данный тип относится кконкретному.
+ *  `InjectorDef `,` NgModule`или специальная область (например, `'root'`). Значение `null` указывает
+ * что инъекция не относится к какой-либо области.
  *
- * NOTE: This is a private type and should not be exported
+ * ПРИМЕЧАНИЕ. Это частный тип, который не следует экспортировать
  *
  * @publicApi
  */
@@ -56,14 +56,14 @@ export interface ɵɵInjectableDef<T> {
 }
 
 /**
- * Information about the providers to be included in an `Injector` as well as how the given type
- * which carries the information should be created by the DI system.
+ * Информация о поставщиках, которые будут включены в `Injector` а также о том, как данный тип
+ * которая несет информацию, должна быть создана системой DI.
  *
- * An `InjectorDef` can import other types which have `InjectorDefs`, forming a deep nested
- * structure of providers with a defined priority (identically to how `NgModule`s also have
- * an import/dependency structure).
+ *  An `InjectorDef`может импортировать другие типыкоторые имеют `InjectorDefs` InjectorDefs, образуя глубокийвложен.
+ * Структура поставщиков с определенным приоритетом (идентично томукак `NgModule` ытакже.
+ * структура импорта / зависимости).
  *
- * NOTE: This is a private type and should not be exported
+ * ПРИМЕЧАНИЕ. Это частный тип, который не следует экспортировать
  *
  * @publicApi
  */
@@ -79,10 +79,10 @@ export interface ɵɵInjectorDef<T> {
 }
 
 /**
- * A `Type` which has an `InjectableDef` static field.
+ *  A `Type`который имеет `InjectableDef` статическое поле.
  *
- * `InjectableDefType`s contain their own Dependency Injection metadata and are usable in an
- * `InjectorDef`-based `StaticInjector.
+ *  `InjectableDefType`содержат свои собственные метаданные внедрения зависимостей и могут использоваться в
+ *  `InjectorDef `based`StaticInjector.
  *
  * @publicApi
  */
@@ -94,9 +94,9 @@ export interface InjectableType<T> extends Type<T> {
 }
 
 /**
- * A type which has an `InjectorDef` static field.
+ * Тип со `InjectorDef` статическим полем.
  *
- * `InjectorDefTypes` can be used to configure a `StaticInjector`.
+ *  `InjectorDefTypes`можно использовать для настройки `StaticInjector`.
  *
  * @publicApi
  */
@@ -151,29 +151,29 @@ export function ɵɵdefineInjectable<T>(opts: {
 }
 
 /**
- * @deprecated in v8, delete after v10. This API should be used only be generated code, and that
- * code should now use ɵɵdefineInjectable instead.
+ *  @deprecated в v8 удалите после v10. Этот API должен использоваться только для генерируемого кода, и того
+ * код должен теперь использовать ɵɵdefineInjectable вместо этого.
  * @publicApi
  */
 export const defineInjectable = ɵɵdefineInjectable;
 
 /**
- * Construct an `InjectorDef` which configures an injector.
+ * Построить `InjectorDef` который конфигурирует инжектор.
  *
- * This should be assigned to a static injector def (`ɵinj`) field on a type, which will then be an
- * `InjectorType`.
+ * Это должно быть присвоеностатического инжектора def ( `ɵinj` полю) для типа, который затем будет
+ *  `InjectorType`.
  *
- * Options:
+ * Варианты:.
  *
- * * `factory`: an `InjectorType` is an instantiable type, so a zero argument `factory` function to
- *   create the type must be provided. If that factory function needs to inject arguments, it can
- *   use the `inject` function.
- * * `providers`: an optional array of providers to add to the injector. Each provider must
- *   either have a factory or point to a type which has a `ɵprov` static property (the
- *   type must be an `InjectableType`).
- * * `imports`: an optional array of imports of other `InjectorType`s or `InjectorTypeWithModule`s
- *   whose providers will also be added to the injector. Locally provided types will override
- *   providers from imports.
+ *  `factory `завод:` InjectorType`является инстанциируемый типа, так нулевой аргумент `factory` функциив.
+ * создать тип должен быть предоставлен. Если этой фабричной функции нужно ввести аргументы, она может
+ * используйте `inject``inject`.
+ *  `providers`: необязательный массив провайдеров, добавляемых в инжектор. Каждый провайдер должен
+ * либо иметь фабрику, либо указывать на тип, который имеет `ɵprov` статическое свойство(
+ * тип должен быть `InjectableType`).
+ *  `imports`импорт: дополнительный массив импорта другого `InjectorType` с или `InjectorTypeWithModule` с.
+ * чьи поставщики также будут добавлены в инжектор. Локально предоставленные типы будут переопределены
+ * поставщики из импорта.
  *
  * @publicApi
  */

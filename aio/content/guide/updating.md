@@ -1,70 +1,77 @@
-# Keeping your Angular projects up-to-date
+{@a keeping-your-angular-projects-up-to-date}
+# Поддержание ваших Angular проектов в актуальном состоянии
 
-Just like Web and the entire web ecosystem, Angular is continuously improving. Angular balances continuous improvement with a strong focus on stability and making updates easy. Keeping your Angular app up-to-date enables you to take advantage of leading-edge new features, as well as optimizations and bug fixes.
+Angular, как и Интернет, и вся веб-экосистема, постоянно совершенствуется. Angular балансировка непрерывного улучшения с упором на стабильность и упрощение обновлений. Поддержание актуальности вашего приложения Angular позволяет использовать новейшие функции, а также оптимизации и исправления ошибок.
 
-This document contains information and resources to help you keep your Angular apps and libraries up-to-date.
+Этот документ содержит информацию и ресурсы, которые помогут вам поддерживать актуальность ваших приложений и библиотек Angular.
 
-For information about our versioning policy and practices&mdash;including
-support and deprecation practices, as well as the release schedule&mdash;see [Angular versioning and releases](guide/releases "Angular versioning and releases").
+Для получения информации о нашей политике и практиках управления версиями, в том числе
+методы поддержки и устаревания, а также расписание выпуска - см. [Версионное управление версиями и выпуски](guide/releases "Angular versioning and releases"),
 
 
 <div class="alert is-helpful">
 
-If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
+Если вы в настоящее время используете AngularJS, см. [Обновление с AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ - имя для всех v 1.x версий Angular.
 
 </div>
 
 
 {@a announce}
-## Getting notified of new releases
+{@a getting-notified-of-new-releases}
+## Получение уведомлений о новых выпусках
 
-To be notified when new releases are available, follow [@angular](https://twitter.com/angular "@angular on Twitter") on Twitter or subscribe to the [Angular blog](https://blog.angular.io "Angular blog").
+Чтобы получать уведомления о появлении новых выпусков, за [следите @angular](https://twitter.com/angular "@angular on Twitter") в Twitter или подписывайтесь на [Angular блог](https://blog.angular.io "Angular blog").
 
 {@a learn}
-## Learning about new features
+{@a learning-about-new-features}
+## Узнав о новых возможностях
 
-What's new? What's changed? We share the most important things you need to know on the Angular blog in [release announcements]( https://blog.angular.io/tagged/release%20notes "Angular blog - release announcements").
+Какие новости? Что изменилось? Мы делимся самыми важными вещами, которые вы должны знать в блоге Angular [объявления о выпуске]( https://blog.angular.io/tagged/release%20notes "Angular blog - release announcements").
 
-To review a complete list of changes, organized by version, see the [Angular change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
+Чтобы просмотреть полный список изменений, упорядоченных по версии, см. [Angular журнал изменений](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
 
 
 {@a checking-version-app}
-## Checking your version of Angular
+{@a checking-your-version-of-angular}
+## Проверка вашей версии Angular
 
-To check your app's version of Angular: From within your project directory, use the `ng version` command.
+Чтобы проверить версию Angular для вашего приложения: в каталоге вашего проекта используйте `ng version` команды.
 
 
 {@a checking-version-angular}
-## Finding the current version of Angular
+{@a finding-the-current-version-of-angular}
+## Нахождение текущей версии Angular
 
-The most recent stable released version of Angular appears in the [Angular documentation](https://angular.io/docs "Angular documentation") at the bottom of the left side navigation. For example, `stable (v5.2.9)`.
+Самая последняя стабильная версия Angular представлена ​​в [Angular документации](https://angular.io/docs "Angular documentation") в нижней части левой боковой панели. Например, `stable (v5.2.9)`.
 
-You can also find the most current version of Angular by using the CLI command [`ng update`](cli/update). By default, [`ng update`](cli/update)(without additional arguments) lists the updates that are available to you.
+Вы также можете найти самую версию Angular с помощью команды CLI [последнюю `ng update` ](cli/update). По умолчанию [ `ng update` ](cli/update)(без дополнительных аргументов) перечисляет доступные вам обновления.
 
 
 {@a updating}
-## Updating your environment and apps
+{@a updating-your-environment-and-apps}
+## Обновление вашей среды и приложений
 
-To make updating easy, we provide complete instructions in the interactive [Angular Update Guide](https://update.angular.io/ "Angular Update Guide").
+Чтобы упростить обновление, мы предоставляем полные инструкции в интерактивном [руководстве Angular Update Guide](https://update.angular.io/ "Angular Update Guide").
 
-The Angular Update Guide provides customized update instructions, based on the current and target versions that you specify. It includes basic and advanced update paths, to match the complexity of your applications. It also includes troubleshooting information and any recommended manual changes to help you get the most out of the new release.
+Angular руководство по обновлению содержит настраиваемые инструкции по обновлению на основе текущей и целевой версий, которые вы укажете. Он включает базовые и расширенные пути обновления, соответствующие сложности ваших приложений. Он также включает информацию об устранении неполадок и любые рекомендуемые изменения вручную, чтобы помочь вам получить максимальную отдачу от новой версии.
 
-For simple updates, the CLI command [`ng update`](cli/update) is all you need. Without additional arguments, [`ng update`](cli/update) lists the updates that are available to you and provides recommended steps to update your application to the most current version.
+Для простых обновлений это команда CLI [ `ng update` ](cli/update)все, что вам нужно - . Без дополнительных аргументов [ `ng update` ](cli/update)перечисляет доступные вам обновления и предлагает рекомендуемые шаги для обновления вашего приложения до самой последней версии.
 
-[Angular Versioning and Releases](guide/releases#versioning "Angular Release Practices, Versioning") describes the level of change that you can expect based a release's version number. It also describes supported update paths.
+[Angular управление версиями и релизы](guide/releases#versioning "Angular Release Practices, Versioning") описывает уровень изменений, который вы можете ожидать на основе номера версии выпуска. Также описаны поддерживаемые пути обновления.
 
 
 {@a resources}
-## Resource summary
+{@a resource-summary}
+## Резюме ресурса
 
-* Release announcements: [Angular blog - release announcements](https://blog.angular.io/tagged/release%20notes "Angular blog announcements about recent releases")
+* Анонсы релизов: [Angular blog - анонсы релизов](https://blog.angular.io/tagged/release%20notes "Angular blog announcements about recent releases")
 
-* Release announcements (older): [Angular blog - announcements about releases prior to August 2017](https://blog.angularjs.org/search?q=available&by-date=true "Angular blog announcements about releases prior to August 2017")
+* Объявления о выпуске (более старые): [Angular блог - объявления о выпусках до августа 2017 года](https://blog.angularjs.org/search?q=available&by-date=true "Angular blog announcements about releases prior to August 2017")
 
-* Release details: [Angular change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")
+* Детали выпуска: [Angular журнал изменений](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")
 
-* Update instructions: [Angular Update Guide](https://update.angular.io/ "Angular Update Guide")
+* Инструкция по обновлению: [Angular Update Guide](https://update.angular.io/ "Angular Update Guide")
 
-* Update command reference: [Angular CLI `ng update` command reference](cli/update)
+* Обновить ссылку на команду: [Angular CLI `ng update` ссылка на команду](cli/update)
 
-* Versioning, release, support, and deprecation practices: [Angular versioning and releases](guide/releases "Angular versioning and releases")
+* Методы, поддержкой и устареванием [управления версиями, выпусками Angular управление версиями и выпуски](guide/releases "Angular versioning and releases")

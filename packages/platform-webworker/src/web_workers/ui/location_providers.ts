@@ -18,8 +18,8 @@ import {MessageBasedPlatformLocation} from './platform_location';
 
 
 /**
- * A list of {@link Provider}s. To use the router in a Worker enabled application you must
- * include these providers when setting up the render thread.
+ * Список{@link Provider}s. Чтобы использовать маршрутизатор в приложении с поддержкой Worker, необходимо
+ * включите этих провайдеров при настройке потока рендеринга.
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10
  */

@@ -16,14 +16,14 @@ import {SwPush} from './push';
 import {SwUpdate} from './update';
 
 /**
- * Token that can be used to provide options for `ServiceWorkerModule` outside of
- * `ServiceWorkerModule.register()`.
+ * Токен, который можно использовать для предоставления параметров для `ServiceWorkerModule` за пределами
+ *  `ServiceWorkerModule.register()`.
  *
- * You can use this token to define a provider that generates the registration options at runtime,
- * for example via a function call:
+ * Вы можете использовать этот токен для определения провайдера, который генерирует параметры регистрации во время выполнения
+ * напримерпосредством вызовафункции:.
  *
- * {@example service-worker/registration-options/module.ts region="registration-options"
- *     header="app.module.ts"}
+ *  {@example service-worker/registration-options/module.ts region="registration-options"
+ *      header="app.module.ts"}
  *
  * @publicApi
  */

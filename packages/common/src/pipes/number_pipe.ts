@@ -14,37 +14,37 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Transforms a number into a string,
- * formatted according to locale rules that determine group sizing and
- * separator, decimal-point character, and other locale-specific
- * configurations.
+ * Преобразует число в строку
+ * отформатирован в соответствии с правилами локали, которые определяют размер группы и
+ * разделитель, символ десятичной точки и другие специфичные для локали
+ * конфигурации.
  *
- * If no parameters are specified, the function rounds off to the nearest value using this
- * [rounding method](https://en.wikibooks.org/wiki/Arithmetic/Rounding).
- * The behavior differs from that of the JavaScript ```Math.round()``` function.
- * In the following case for example, the pipe rounds down where
- * ```Math.round()``` rounds up:
+ * Если параметры не указаны, функция округляется до ближайшего значения, используя это
+ *  [метод округления](https://en.wikibooks.org/wiki/Arithmetic/Rounding).
+ * Поведение отличается от поведения JavaScript`` `Math.round()` ``функция.
+ * Например, в следующем случае труба округляется вниз, где
+ *  `` `Math.round()` ``округляет:.
  *
- * ```html
- * -2.5 | number:'1.0-0'
- * > -3
- * Math.round(-2.5)
- * > -2
- * ```
+ *  ```html
+ *  -2.5 | number:'1.0-0'
+ *  > -3
+ *  Math.round(-2.5)
+ *  > -2
+ *  ```
  *
- * @see `formatNumber()`
+ *  @see `formatNumber()`
  *
- * @usageNotes
- * The following code shows how the pipe transforms numbers
- * into text strings, according to various format specifications,
- * where the caller's default locale is `en-US`.
+ *  @usageNotes
+ * Следующий код показывает, как канал преобразует числа
+ * в текстовые строки, в соответствии с различными спецификациями формата
+ * где локаль звонящего по умолчанию - `en-US`.
  *
- * ### Example
+ *  ### Пример
  *
- * <code-example path="common/pipes/ts/number_pipe.ts" region='NumberPipe'></code-example>
+ *  <code-example path="common/pipes/ts/number_pipe.ts" region='NumberPipe'></code-example>
  *
  * @publicApi
  */
@@ -82,22 +82,22 @@ export class DecimalPipe implements PipeTransform {
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Transforms a number to a percentage
- * string, formatted according to locale rules that determine group sizing and
- * separator, decimal-point character, and other locale-specific
- * configurations.
+ * Преобразует число в процент
+ * строка, отформатированная в соответствии с правилами локали, которые определяют размер группы и
+ * разделитель, символ десятичной точки и другие специфичные для локали
+ * конфигурации.
  *
- * @see `formatPercent()`
+ *  @see `formatPercent()`
  *
- * @usageNotes
- * The following code shows how the pipe transforms numbers
- * into text strings, according to various format specifications,
- * where the caller's default locale is `en-US`.
+ *  @usageNotes
+ * Следующий код показывает, как канал преобразует числа
+ * в текстовые строки, в соответствии с различными спецификациями формата
+ * где локаль звонящего по умолчанию - `en-US`.
  *
- * <code-example path="common/pipes/ts/percent_pipe.ts" region='PercentPipe'></code-example>
+ *  <code-example path="common/pipes/ts/percent_pipe.ts" region='PercentPipe'></code-example>
  *
  * @publicApi
  */
@@ -134,42 +134,42 @@ export class PercentPipe implements PipeTransform {
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Transforms a number to a currency string, formatted according to locale rules
- * that determine group sizing and separator, decimal-point character,
- * and other locale-specific configurations.
+ * Преобразует число в строку валюты, отформатированную в соответствии с правилами локали
+ * которые определяют группу размеров и разделитель, десятичнойточки,.
+ * и другие специфичные для локали конфигурации.
  *
- * {@a currency-code-deprecation}
- * <div class="alert is-helpful">
+ *  {@a currency-code-deprecation}
+ *  <div class="alert is-helpful">
  *
- * **Deprecation notice:**
+ * Устаревшиеизвещение:.
  *
- * The default currency code is currently always `USD` but this is deprecated from v9.
+ * Код валюты по умолчанию в настоящее время всегда `USD` но это не рекомендуется с v9.
  *
- * **In v11 the default currency code will be taken from the current locale identified by
- * the `LOCAL_ID` token. See the [i18n guide](guide/i18n#setting-up-the-locale-of-your-app) for
- * more information.**
+ * В версии 11 код валюты по умолчанию будет взят из текущей локали, обозначенной
+ *  the `LOCAL_ID`маркер. См.[Руководство i18n](guide/i18n#setting-up-the-locale-of-your-app)для
+ * больше информации.
  *
- * If you need the previous behavior then set it by creating a `DEFAULT_CURRENCY_CODE` provider in
- * your application `NgModule`:
+ * Если вам нужно предыдущее поведение, установите его, создав `DEFAULT_CURRENCY_CODE` провайдерав
+ * приложение `NgModule` NgModule:.
  *
- * ```ts
- * {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}
- * ```
+ *  ```ts
+ *  {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}
+ *  ```
  *
- * </div>
+ *  </div>
  *
- * @see `getCurrencySymbol()`
- * @see `formatCurrency()`
+ *  @see `getCurrencySymbol()`
+ *  @see `formatCurrency()`
  *
- * @usageNotes
- * The following code shows how the pipe transforms numbers
- * into text strings, according to various format specifications,
- * where the caller's default locale is `en-US`.
+ *  @usageNotes
+ * Следующий код показывает, как канал преобразует числа
+ * в текстовые строки, в соответствии с различными спецификациями формата
+ * где локаль звонящего по умолчанию - `en-US`.
  *
- * <code-example path="common/pipes/ts/currency_pipe.ts" region='CurrencyPipe'></code-example>
+ *  <code-example path="common/pipes/ts/currency_pipe.ts" region='CurrencyPipe'></code-example>
  *
  * @publicApi
  */

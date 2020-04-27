@@ -1,52 +1,54 @@
-# Ahead-of-time (AOT) compilation
+{@a ahead-of-time-aot-compilation}
+# Опережающая (AOT) компиляция
 
-An Angular application consists mainly of components and their HTML templates. Because the components and templates provided by Angular cannot be understood by the browser directly, Angular applications require a compilation process before they can run in a browser.
+Приложение Angular состоит в основном из компонентов и их HTML-шаблонов. Поскольку компоненты и шаблоны, предоставляемые Angular, не могут быть поняты браузером напрямую, приложения Angular требуют процесса компиляции, прежде чем они смогут работать в браузере.
 
-The Angular [ahead-of-time (AOT) compiler](guide/glossary#aot) converts your Angular HTML and TypeScript code into efficient JavaScript code during the build phase _before_ the browser downloads and runs that code. Compiling your application during the build process provides a faster rendering in the browser.
+Angular [опережающий по времени (AOT) компилятор](guide/glossary#aot)преобразует ваш код Angular HTML и TypeScript в эффективный код JavaScript на этапе сборки, прежде чем браузер загрузит и запустит этот код. Компиляция приложения во время процесса сборки обеспечивает более быструю визуализацию в браузере.
 
-This guide explains how to specify metadata and apply available compiler options to compile your applications efficiently using the AOT compiler.
+В этом руководстве объясняется, как указывать метаданные и применять доступные параметры компилятора для эффективной компиляции ваших приложений с использованием компилятора AOT.
 
 <div class="alert is-helpful">
 
-  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular compiler</a> at AngularConnect 2016.
+Смотрите, как автор компилятора Тобиас Бош объясняет Angular-компилятор на AngularConnect 2016
 
 </div>
 
 {@a why-aot}
 
-Here are some reasons you might want to use AOT.
+Вот несколько причин, по которым вы можете использовать AOT.
 
-* *Faster rendering*
-   With AOT, the browser downloads a pre-compiled version of the application.
-   The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
+* *Более быстрый рендеринг*
+   С помощью AOT браузер загружает предварительно скомпилированную версию приложения.
+   Браузер загружает исполняемый код, чтобы он мог визуализировать приложение немедленно, не дожидаясь его компиляции.
 
-* *Fewer asynchronous requests*
-   The compiler _inlines_ external HTML templates and CSS style sheets within the application JavaScript,
-   eliminating separate ajax requests for those source files.
+* *Меньше асинхронных запросов*
+   Компилятор _inlines_ внешние шаблоны HTML и таблицы стилей CSS в приложении JavaScript
+   устранение отдельных запросов AJAX для этих исходных файлов.
 
-* *Smaller Angular framework download size*
-   There's no need to download the Angular compiler if the app is already compiled.
-   The compiler is roughly half of Angular itself, so omitting it dramatically reduces the application payload.
+* *Меньший Angular размер загрузки*
+   Нет необходимости загружать компилятор Angular, если приложение уже скомпилировано.
+   Компилятор составляет примерно половину самого Angular, поэтому его пропуск значительно снижает полезную нагрузку приложения.
 
-* *Detect template errors earlier*
-   The AOT compiler detects and reports template binding errors during the build step
-   before users can see them.
+* *Обнаружение ошибок шаблона ранее*
+   Компилятор AOT обнаруживает и сообщает об ошибках привязки шаблона на этапе сборки
+   прежде чем пользователи смогут их увидеть.
 
-* *Better security*
-   AOT compiles HTML templates and components into JavaScript files long before they are served to the client.
-   With no templates to read and no risky client-side HTML or JavaScript evaluation,
-   there are fewer opportunities for injection attacks.
+* *Лучшая безопасность*
+   AOT компилирует HTML-шаблоны и компоненты в файлы JavaScript задолго до того, как они будут переданы клиенту.
+   Отсутствие шаблонов для чтения и рискованная оценка HTML или JavaScript на стороне клиента
+   Есть меньше возможностей для инъекционных атак.
 
 {@a overview}
 
-## Choosing a compiler
+{@a choosing-a-compiler}
+## Выбор компилятора
 
-Angular offers two ways to compile your application:
+Angular предлагает два способа компиляции приложения:
 
-* **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime.
-* **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
+* **_Just-in-Time_ (JIT)**, который компилирует ваше приложение в браузере во время выполнения.
+* **_Ahead-of-Time_ (AOT)**, которая компилирует ваше приложение во время сборки.
 
-JIT compilation is the default when you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve)  (build and serve locally) CLI commands:
+JIT-компиляция используется по умолчанию при запуске [ `нг build` ](cli/build)(сборка только) или [ ` нг serve` ](cli/serve) (сборка и служит локально) команды CLI:
 
 <code-example language="sh" class="code-shell">
   ng build
@@ -55,7 +57,7 @@ JIT compilation is the default when you run the [`ng build`](cli/build) (build o
 
 {@a compile}
 
-For AOT compilation, include the `--aot` option with the `ng build` or `ng serve` command:
+Для компиляции AOT, включите `--aot` вариант с `ng build ` или ` ng serve` команды:
 
 <code-example language="sh" class="code-shell">
   ng build --aot
@@ -64,19 +66,20 @@ For AOT compilation, include the `--aot` option with the `ng build` or `ng serve
 
 <div class="alert is-helpful">
 
-The `ng build` command with the `--prod` meta-flag (`ng build --prod`) compiles with AOT by default.
+ `ng build` Команда с `--prod` meta-flag (`ng build --prod`) компилируется с AOT по умолчанию.
 
-See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
+См. [Справочник по командам CLI](cli)и [Создание и обслуживание приложений Angular](guide/build)для получения дополнительной информации.
 
 </div>
 
-## How AOT works
+{@a how-aot-works}
+## Как работает AOT
 
-The Angular AOT compiler extracts **metadata** to interpret the parts of the application that Angular is supposed to manage.
-You can specify the metadata explicitly in **decorators** such as `@Component()` and `@Input()`, or implicitly in the constructor declarations of the decorated classes.
-The metadata tells Angular how to construct instances of your application classes and interact with them at runtime.
+Компилятор Angular AOT извлекает **метаданные** для интерпретации частей приложения, которыми должен управлять Angular.
+Вы можете указать метаданные явно в **декораторах,** таких как `@Component()` и `@Input()` или неявно в объявлениях конструктора декорированных классов.
+Метаданные сообщают Angular, как создавать экземпляры классов вашего приложения и взаимодействовать с ними во время выполнения.
 
-In the following example, the `@Component()` metadata object and the class constructor tell Angular how to create and display an instance of `TypicalComponent`.
+В следующем примере `@Component()` метаданных и конструктор класса сообщают Angular, как создавать и отображать экземпляр `TypicalComponent`.
 
 ```typescript
 @Component({
@@ -85,67 +88,72 @@ In the following example, the `@Component()` metadata object and the class const
 )}
 export class TypicalComponent {
   @Input() data: TypicalData;
-  constructor(private someService: SomeService) { ... }
+  constructor(private someService: SomeService) {... }
 }
 ```
 
-The Angular compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
-When it needs to create a `TypicalComponent` instance, Angular calls the factory, which produces a new visual element, bound to a new instance of the component class with its injected dependency.
+Компилятор Angular извлекает метаданные _once_ и генерирует _factory_ для `TypicalComponent`.
+Когда нужно создать `TypicalComponent`, Angular вызывает фабрику, которая создает новый визуальный элемент, связанный с новым экземпляром класса компонента с его внедренной зависимостью.
 
-### Compilation phases
+{@a compilation-phases}
+### Этапы компиляции
 
-There are three phases of AOT compilation.
-* Phase 1 is *code analysis*.
-   In this phase, the TypeScript compiler and  *AOT collector* create a representation of the source. The collector does not attempt to interpret the metadata it collects. It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
+Есть три этапа компиляции AOT.
+* Этап 1 -*анализ кода *.
+   На этом этапе компилятор TypeScript и *сборщик AOT* создают представление источника. Сборщик не пытается интерпретировать метаданные, которые он собирает. Он представляет метаданные как можно лучше и записывает ошибки, когда обнаруживает нарушение синтаксиса метаданных.
 
-* Phase 2 is *code generation*.
-    In this phase, the compiler's `StaticReflector` interprets the metadata collected in phase 1, performs additional validation of the metadata, and throws an error if it detects a metadata restriction violation.
+* Этап 2 -*генерация кода *.
+    На этом этапе компилятор `StaticReflector` интерпретирует метаданные, собранные на этапе 1, выполняет дополнительную проверку метаданных и выдает ошибку, если обнаруживает нарушение ограничения метаданных.
 
-* Phase 3 is *template type checking*.
-   In this optional phase, the Angular *template compiler* uses the TypeScript compiler to validate the binding expressions in templates. You can enable this phase explicitly by setting the `fullTemplateTypeCheck` configuration option; see [Angular compiler options](guide/angular-compiler-options).
+* Этап 3 -*проверка типа шаблона *.
+   На этом необязательном этапе Angular *компилятор шаблонов* использует компилятор TypeScript для проверки выражений привязки в шаблонах. Вы можете включить эту фазу явно, установив `fullTemplateTypeCheck` конфигурации ; см. [Опции Angular компилятора](guide/angular-compiler-options).
 
 
-### Metadata restrictions
+{@a metadata-restrictions}
+### Метаданные ограничения
 
-You write metadata in a _subset_ of TypeScript that must conform to the following general constraints:
+Вы пишете метаданные в _subset_ машинописного текста, который должен соответствовать следующим общим ограничениям:
 
-* Limit [expression syntax](#expression-syntax) to the supported subset of JavaScript.
-* Only reference exported symbols after [code folding](#code-folding).
-* Only call [functions supported](#supported-functions) by the compiler.
-* Decorated and data-bound class members must be public.
+* Ограничение [синтаксис выражения](#expression-syntax)поддерживаемым подмножеством JavaScript.
+* Только ссылки на экспортируемые символы после [свертывание кода](#code-folding).
+* Только вызов [функции поддерживаются](#supported-functions)компилятором.
+* Украшенные и привязанные к данным члены класса должны быть открытыми.
 
-For additional guidelines and instructions on preparing an application for AOT compilation, see [Angular: Writing AOT-friendly applications](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f).
+Дополнительные указания и инструкции по подготовке приложения для компиляции AOT см. В разделе [Angular: Написание приложений, дружественных к AOT](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f).
 
 <div class="alert is-helpful">
 
-Errors in AOT compilation commonly occur because of metadata that does not conform to the compiler's requirements (as described more fully below).
-For help in understanding and resolving these problems, see [AOT Metadata Errors](guide/aot-metadata-errors).
+Ошибки в компиляции AOT обычно возникают из-за метаданных, которые не соответствуют требованиям компилятора (как более подробно описано ниже).
+Для получения справки по пониманию и решению этих проблем см. [Ошибки метаданных AOT](guide/aot-metadata-errors).
 
 </div>
 
-### Configuring AOT compilation
+{@a configuring-aot-compilation}
+### Настройка компиляции AOT
 
-You can provide options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration) that control the compilation process. See [Angular compiler options](guide/angular-compiler-options) for a complete list of available options.
+Вы можете предоставить варианты в `tsconfig.json` [файл конфигурации TypeScript](guide/typescript-configuration), управляющий процессом компиляции. Смотрите [Опции Angular компилятора](guide/angular-compiler-options)для полного списка доступных опций.
 
-## Phase 1: Code analysis
+{@a phase-1-code-analysis}
+## Этап 1: Анализ кода
 
-The TypeScript compiler does some of the analytic work of the first phase. It emits the `.d.ts` _type definition files_ with type information that the AOT compiler needs to generate application code.
-At the same time, the AOT **collector** analyzes the metadata recorded in the Angular decorators and outputs metadata information in **`.metadata.json`** files, one per `.d.ts` file.
+Компилятор TypeScript выполняет некоторую аналитическую работу первого этапа. Испускает `.d.ts` _type определения files_ с информацией о типе, которая нужна компилятору AOT для генерации кода приложения.
+В то же время AOT **сборщик** анализирует метаданные, записанные в Angular декораторах, и выводит информацию метаданных в** `.metadata.json`** файлы, по одному на `.d.ts` файл
 
-You can think of `.metadata.json` as a diagram of the overall structure of a decorator's metadata, represented as an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+Вы можете думать о `.metadata.json` как диаграмма общей структуры метаданных декоратора, представленная в виде [абстрактного синтаксического дерева (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
 <div class="alert is-helpful">
 
 Angular's [schema.ts](https://github.com/angular/angular/blob/master/packages/compiler-cli/src/metadata/schema.ts)
-describes the JSON format as a collection of TypeScript interfaces.
+описывает формат JSON как набор интерфейсов TypeScript.
 
 </div>
 
 {@a expression-syntax}
-### Expression syntax limitations
+{@a expression-syntax-limitations}
+### Ограничения синтаксиса выражения
 
-The AOT collector only understands a subset of JavaScript.
-Define metadata objects with the following limited syntax:
+Сборщик AOT понимает только часть JavaScript.
+Определение метаданных объектов со следующим ограниченным синтаксисом:
 
 <style>
   td, th {vertical-align: top}
@@ -153,118 +161,119 @@ Define metadata objects with the following limited syntax:
 
 <table>
   <tr>
-    <th>Syntax</th>
-    <th>Example</th>
+    <th>Синтаксис </th>
+    <th>Пример </th>
   </tr>
   <tr>
-    <td>Literal object </td>
+    <td>Буквальный объект </td>
     <td><code>{cherry: true, apple: true, mincemeat: false}</code></td>
   </tr>
   <tr>
-    <td>Literal array  </td>
+    <td>Литеральный массив </td>
     <td><code>['cherries', 'flour', 'sugar']</code></td>
   </tr>
   <tr>
-    <td>Spread in literal array</td>
-    <td><code>['apples', 'flour', ...the_rest]</code></td>
+    <td>Распространение в буквальном массиве </td>
+    <td><code>['apples', 'flour',...the_rest]</code></td>
   </tr>
    <tr>
-    <td>Calls</td>
+    <td>Звонки </td>
     <td><code>bake(ingredients)</code></td>
   </tr>
    <tr>
-    <td>New</td>
+    <td>Новый </td>
     <td><code>new Oven()</code></td>
   </tr>
    <tr>
-    <td>Property access</td>
+    <td>Доступ к недвижимости </td>
     <td><code>pie.slice</code></td>
   </tr>
    <tr>
-    <td>Array index</td>
+    <td>Индекс массива </td>
     <td><code>ingredients[0]</code></td>
   </tr>
    <tr>
-    <td>Identity reference</td>
+    <td>Ссылка на личность </td>
     <td><code>Component</code></td>
   </tr>
    <tr>
-    <td>A template string</td>
-    <td><code>`pie is ${multiplier} times better than cake`</code></td>
+    <td>Строка шаблона </td>
+    <td><code> `pie is ${multiplier} times better than cake` </code></td>
    <tr>
-    <td>Literal string</td>
+    <td>Литеральная строка</td>
     <td><code>pi</code></td>
   </tr>
    <tr>
-    <td>Literal number</td>
+    <td>Буквенный номер </td>
     <td><code>3.14153265</code></td>
   </tr>
    <tr>
-    <td>Literal boolean</td>
+    <td>Буквально логическое </td>
     <td><code>true</code></td>
   </tr>
    <tr>
-    <td>Literal null</td>
+    <td>Буквальное нуль </td>
     <td><code>null</code></td>
   </tr>
    <tr>
-    <td>Supported prefix operator </td>
+    <td>Поддерживается префикс оператора </td>
     <td><code>!cake</code></td>
   </tr>
    <tr>
-    <td>Supported binary operator </td>
+    <td>Поддерживается бинарный оператор </td>
     <td><code>a+b</code></td>
   </tr>
    <tr>
-    <td>Conditional operator</td>
+    <td>Условный оператор </td>
     <td><code>a ? b : c</code></td>
   </tr>
    <tr>
-    <td>Parentheses</td>
+    <td>Скобки </td>
     <td><code>(a+b)</code></td>
   </tr>
 </table>
 
 
-If an expression uses unsupported syntax, the collector writes an error node to the `.metadata.json` file.
-The compiler later reports the error if it needs that piece of metadata to generate the application code.
+Если выражение использует неподдерживаемый синтаксис, сборщик записывает узел ошибки в `.metadata.json` Файл.
+Позднее компилятор сообщает об ошибке, если ему нужен этот фрагмент метаданных для генерации кода приложения.
 
 <div class="alert is-helpful">
 
- If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in the TypeScript configuration file, `tsconfig.json`.
+Если хочешь `ngc` сообщать о синтаксических ошибках немедленно, а не производить `.metadata.json` файл с ошибками, установите `strictMetadataEmit` опция в файле конфигурации TypeScript, `tsconfig.json`.
 
 ```
   "angularCompilerOptions": {
-   ...
+  ...
    "strictMetadataEmit" : true
  }
  ```
 
-Angular libraries have this option to ensure that all Angular `.metadata.json` files are clean and it is a best practice to do the same when building your own libraries.
+Angular библиотеки имеют эту опцию, чтобы гарантировать, что все Angular `.metadata.json` Файлы чистые, и рекомендуется делать то же самое при создании собственных библиотек.
 
 </div>
 
 {@a function-expression}
 {@a arrow-functions}
-### No arrow functions
+{@a no-arrow-functions}
+### Нет стрелка функции
 
-The AOT compiler does not support [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)
-and [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), also called _lambda_ functions.
+Компилятор AOT не поддерживает [выражения функций](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)
+и [функции стрелок](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), также называемые функциями _lambda_.
 
-Consider the following component decorator:
+Рассмотрим следующий компонент декоратора:
 
 ```typescript
 @Component({
-  ...
+ ...
   providers: [{provide: server, useFactory: () => new Server()}]
 })
 ```
 
-The AOT collector does not support the arrow function, `() => new Server()`, in a metadata expression.
-It generates an error node in place of the function.
-When the compiler later interprets this node, it reports an error that invites you to turn the arrow function into an _exported function_.
+Коллектор AOT не поддерживает функцию стрелки, `() => new Server()`, в выражении метаданных.
+Он генерирует узел ошибки вместо функции.
+Когда компилятор позже интерпретирует этот узел, он сообщает об ошибке, которая предлагает вам превратить функцию стрелки в _exported function_.
 
-You can fix the error by converting to this:
+Вы можете исправить ошибку путем преобразования этого:
 
 ```typescript
 export function serverFactory() {
@@ -272,28 +281,29 @@ export function serverFactory() {
 }
 
 @Component({
-  ...
+ ...
   providers: [{provide: server, useFactory: serverFactory}]
 })
 ```
 
-In version 5 and later, the compiler automatically performs this rewriting while emitting the `.js` file.
+В версии 5 и более поздних, компилятор автоматически выполняет эту перезапись, испуская `.js` файл
 
 {@a exported-symbols}
 {@a code-folding}
-### Code folding
+{@a code-folding}
+### Код сворачивается
 
-The compiler can only resolve references to **_exported_** symbols.
-The collector, however, can evaluate an expression during collection and record the result in the `.metadata.json`, rather than the original expression.
-This allows you to make limited use of non-exported symbols within expressions.
+Компилятор может разрешать ссылки только на **_exported_** символы.
+Коллектор, однако, может оценить выражение во время сбора и записать результат в `.metadata.json`, а не оригинальное выражение.
+Это позволяет вам ограниченно использовать неэкспортированные символы в выражениях.
 
-For example, the collector can evaluate the expression `1 + 2 + 3 + 4` and replace it with the result, `10`.
-This process is called _folding_. An expression that can be reduced in this manner is _foldable_.
+Например, сборщик может оценить выражение `1 + 2 + 3 + 4` и заменить его результатом, `10`.
+Этот процесс называется _folding_. Выражение, которое может быть уменьшено таким образом, является _foldable_.
 
 {@a var-declaration}
-The collector can evaluate references to module-local `const` declarations and initialized `var` and `let` declarations, effectively removing them from the `.metadata.json` file.
+Коллекционер может оценить ссылки на локальный модуль `const` объявления и инициализированные `var` и `let` объявления, эффективно удаляя их из `.metadata.json` Файл.
 
-Consider the following component definition:
+Рассмотрим следующий компонент определения:
 
 ```typescript
 const template = '<div>{{hero.name}}</div>';
@@ -307,9 +317,9 @@ export class HeroComponent {
 }
 ```
 
-The compiler could not refer to the `template` constant because it isn't exported.
-The collector, however, can fold the `template` constant into the metadata definition by in-lining its contents.
-The effect is the same as if you had written:
+Компилятор не может ссылаться на `template` константа потому что она не экспортируется.
+Коллектор, однако, может сложить `template` константа в определение метаданных путем включения его содержимого.
+Эффект такой же, как если бы вы написали:
 
 ```typescript
 @Component({
@@ -321,9 +331,9 @@ export class HeroComponent {
 }
 ```
 
-There is no longer a reference to `template` and, therefore, nothing to trouble the compiler when it later interprets the _collector's_ output in `.metadata.json`.
+Больше нет ссылки на `template` и, следовательно, ничего не беспокоит компилятор, когда он позже интерпретирует вывод _collector's_ в `.metadata.json`.
 
-You can take this example a step further by including the `template` constant in another expression:
+Вы можете сделать этот пример еще дальше, включив `template` постоянны в другое выражение:
 
 ```typescript
 const template = '<div>{{hero.name}}</div>';
@@ -337,15 +347,16 @@ export class HeroComponent {
 }
 ```
 
-The collector reduces this expression to its equivalent _folded_ string:
+Коллектор уменьшает это выражение его эквивалентную строку _folded_:
 
 ```
 '<div>{{hero.name}}</div><div>{{hero.title}}</div>'
 ```
 
-#### Foldable syntax
+{@a foldable-syntax}
+#### Складной синтаксис
 
-The following table describes which expressions the collector can and cannot fold:
+В следующей таблице описаны выражения коллектор может и не может сложить:
 
 <style>
   td, th {vertical-align: top}
@@ -353,101 +364,103 @@ The following table describes which expressions the collector can and cannot fol
 
 <table>
   <tr>
-    <th>Syntax</th>
-    <th>Foldable</th>
+    <th>Синтаксис </th>
+    <th>Складная </th>
   </tr>
   <tr>
-    <td>Literal object </td>
-    <td>yes</td>
+    <td>Буквальный объект </td>
+    <td>да </td>
   </tr>
   <tr>
-    <td>Literal array  </td>
-    <td>yes</td>
+    <td>Литеральный массив </td>
+    <td>да </td>
   </tr>
   <tr>
-    <td>Spread in literal array</td>
-    <td>no</td>
+    <td>Распространение в буквальном массиве </td>
+    <td>нет </td>
   </tr>
    <tr>
-    <td>Calls</td>
-    <td>no</td>
+    <td>Звонки </td>
+    <td>нет </td>
   </tr>
    <tr>
-    <td>New</td>
-    <td>no</td>
+    <td>Новый </td>
+    <td>нет </td>
   </tr>
    <tr>
-    <td>Property access</td>
-    <td>yes, if target is foldable</td>
+    <td>Доступ к недвижимости </td>
+    <td>да, если цель складная </td>
   </tr>
    <tr>
-    <td>Array index</td>
-    <td> yes, if target and index are foldable</td>
+    <td>Индекс массива </td>
+    <td>да, если цель и индекс складываются </td>
   </tr>
    <tr>
-    <td>Identity reference</td>
-    <td>yes, if it is a reference to a local</td>
+    <td>Ссылка на личность </td>
+    <td>да, если это ссылка на местный </td>
   </tr>
    <tr>
-    <td>A template with no substitutions</td>
-    <td>yes</td>
+    <td>Шаблон без замен </td>
+    <td>да </td>
   </tr>
    <tr>
-    <td>A template with substitutions</td>
-    <td>yes, if the substitutions are foldable</td>
+    <td>Шаблон с подстановками </td>
+    <td>да, если замены складываются </td>
   </tr>
    <tr>
-    <td>Literal string</td>
-    <td>yes</td>
+    <td>Литеральная строка </td>
+    <td>да </td>
   </tr>
    <tr>
-    <td>Literal number</td>
-    <td>yes</td>
+    <td>Буквенный номер </td>
+    <td>да </td>
   </tr>
    <tr>
-    <td>Literal boolean</td>
-    <td>yes</td>
+    <td>Буквально логическое </td>
+    <td>да </td>
   </tr>
    <tr>
-    <td>Literal null</td>
-    <td>yes</td>
+    <td>Буквальное нуль </td>
+    <td>да </td>
   </tr>
    <tr>
-    <td>Supported prefix operator </td>
-    <td>yes, if operand is foldable</td>
+    <td>Поддерживается префикс оператора </td>
+    <td>да, если операнд является складным </td>
   </tr>
    <tr>
-    <td>Supported binary operator </td>
-    <td>yes, if both left and right are foldable</td>
+    <td>Поддерживается бинарный оператор </td>
+    <td>да, если слева и справа являются складными </td>
   </tr>
    <tr>
-    <td>Conditional operator</td>
-    <td>yes, if condition is foldable </td>
+    <td>Условный оператор </td>
+    <td>да, если условие складывается </td>
   </tr>
    <tr>
-    <td>Parentheses</td>
-    <td>yes, if the expression is foldable</td>
+    <td>Скобки </td>
+    <td>да, если выражение складывается </td>
   </tr>
 </table>
 
 
-If an expression is not foldable, the collector writes it to `.metadata.json` as an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) for the compiler to resolve.
+Если выражение не является складным, сборщик записывает его в `.metadata.json` как [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree)для разрешения компилятором.
 
 
-## Phase 2: code generation
+{@a phase-2-code-generation}
+## Этап 2: генерация кода
 
-The collector makes no attempt to understand the metadata that it collects and outputs to `.metadata.json`.
-It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
-It's the compiler's job to interpret the `.metadata.json` in the code generation phase.
+Сборщик не пытается понять метаданные, которые он собирает и выводит на `.metadata.json`.
+Он представляет метаданные как можно лучше и записывает ошибки, когда обнаруживает нарушение синтаксиса метаданных.
+Работа компилятора заключается в интерпретации `.metadata.json` на этапе генерации кода.
 
-The compiler understands all syntax forms that the collector supports, but it may reject _syntactically_ correct metadata if the _semantics_ violate compiler rules.
+Компилятор понимает все синтаксические формы, которые поддерживает сборщик, но он может отклонить _синтаксически_ правильные метаданные, если _semantics_ нарушает правила компилятора.
 
-### Public symbols
+{@a public-symbols}
+### Публичные символы
 
-The compiler can only reference _exported symbols_.
+Компилятор может ссылаться только на _экспортированные символы_.
 
-* Decorated component class members must be public. You cannot make an `@Input()` property private or protected.
-* Data bound properties must also be public.
+* Декорированные компоненты класса должны быть открытыми. Вы не можете сделать `@Input()` частное или защищенное.
+* Свойства, связанные с данными, также должны быть открытыми.
 
 ```typescript
 // BAD CODE - title is private
@@ -462,32 +475,34 @@ export class AppComponent {
 
 {@a supported-functions}
 
-### Supported classes and functions
+{@a supported-classes-and-functions}
+### Поддерживаемые классы и функции
 
-The collector can represent a function call or object creation with `new` as long as the syntax is valid.
-The compiler, however, can later refuse to generate a call to a _particular_ function or creation of a _particular_ object.
+Сборщик может представлять вызов функции или создание объекта с `new` пока синтаксис действителен.
+Однако позже компилятор может отказаться генерировать вызов функции _particular_ или создание объекта _particular_.
 
-The compiler can only create instances of certain classes, supports only core decorators, and only supports calls to macros (functions or static methods) that return expressions.
-* New instances
+Компилятор может создавать только экземпляры определенных классов, поддерживает только основные декораторы и поддерживает только вызовы макросов (функций или статических методов), которые возвращают выражения.
+* Новые экземпляры
 
-   The compiler only allows metadata that create instances of the class `InjectionToken` from `@angular/core`.
+   Компилятор допускает только метаданные, которые создают экземпляры класса `InjectionToken` из `@angular/core`.
 
-* Supported decorators
+* Поддерживаются декораторы
 
-   The compiler only supports metadata for the [Angular decorators in the `@angular/core` module](api/core#decorators).
+   Компилятор поддерживает только метаданные для [Angular декораторы в модуле `@ angular / core` ](api/core#decorators).
 
-* Function calls
+* Вызовы функций
 
-   Factory functions must be exported, named functions.
-   The AOT compiler does not support lambda expressions ("arrow functions") for factory functions.
+   Фабричные функции должны быть экспортированы, именованные функции.
+   Компилятор AOT не поддерживает лямбда-выражения («функции стрелок») для заводских функций.
 
 {@a function-calls}
-### Functions and static method calls
+{@a functions-and-static-method-calls}
+### Функции и вызовы статических методов
 
-The collector accepts any function or static method that contains a single `return` statement.
-The compiler, however, only supports macros in the form of functions or static methods that return an *expression*.
+Сборщик принимает любую функцию или статический метод, который содержит один `return` заявления
+Однако компилятор поддерживает только макросы в форме функций или статических методов, которые возвращают *выражение*.
 
-For example, consider the following function:
+Например, рассмотрим следующую функцию:
 
 ```typescript
 export function wrapInArray<T>(value: T): T[] {
@@ -495,9 +510,9 @@ export function wrapInArray<T>(value: T): T[] {
 }
 ```
 
-You can call the `wrapInArray` in a metadata definition because it returns the value of an expression that conforms to the compiler's restrictive JavaScript subset.
+Вы можете позвонить `wrapInArray` в определении метаданных, потому что он возвращает значение выражения, которое соответствует ограничительному подмножеству JavaScript компилятора.
 
-You might use  `wrapInArray()` like this:
+Вы могли бы использовать `wrapInArray()` как это:
 
 ```typescript
 @NgModule({
@@ -506,7 +521,7 @@ You might use  `wrapInArray()` like this:
 export class TypicalModule {}
 ```
 
-The compiler treats this usage as if you had written:
+Компилятор обрабатывает это использование, как если бы вы написали:
 
 ```typescript
 @NgModule({
@@ -514,19 +529,20 @@ The compiler treats this usage as if you had written:
 })
 export class TypicalModule {}
 ```
-The Angular [`RouterModule`](api/router/RouterModule) exports two macro static methods, `forRoot` and `forChild`, to help declare root and child routes.
-Review the [source code](https://github.com/angular/angular/blob/master/packages/router/src/router_module.ts#L139 "RouterModule.forRoot source code")
-for these methods to see how macros can simplify configuration of complex [NgModules](guide/ngmodules).
+Angular [ `RouterModule` макростатических](api/router/RouterModule)экспортирует два метода, `forRoot` и `forChild`, чтобы помочь объявить корневые и дочерние маршруты.
+Просмотрите [исходный код](https://github.com/angular/angular/blob/master/packages/router/src/router_module.ts#L139 "RouterModule.forRoot source code")
+для этих методов, чтобы увидеть, как макросы могут упростить настройку сложных [NgModules](guide/ngmodules).
 
 {@a metadata-rewriting}
 
-### Metadata rewriting
+{@a metadata-rewriting}
+### Переписывание метаданных
 
-The compiler treats object literals containing the fields `useClass`, `useValue`, `useFactory`, and `data` specially, converting the expression initializing one of these fields into an exported variable that replaces the expression.
-This process of rewriting these expressions removes all the restrictions on what can be in them because
-the compiler doesn't need to know the expression's value&mdash;it just needs to be able to generate a reference to the value.
+Компилятор обрабатывает литералы объекта, содержащие поля `useClass`, `useValue`, `useFactory` и `data` специально для, преобразуя выражение, инициализирующее одно из этих полей, в экспортируемую переменную, которая заменяет выражение.
+Этот процесс переписывания этих выражений снимает все ограничения на то, что может быть в них, потому что
+компилятору не нужно знать значение выражения - ему просто нужно иметь возможность генерировать ссылку на значение.
 
-You might write something like:
+Вы могли бы написать что - то вроде:
 
 ```typescript
 class TypicalServer {
@@ -539,8 +555,8 @@ class TypicalServer {
 export class TypicalModule {}
 ```
 
-Without rewriting, this would be invalid because lambdas are not supported and `TypicalServer` is not exported.
-To allow this, the compiler automatically rewrites this to something like:
+Без переписывания это было бы недопустимо, потому что лямбды не поддерживаются и `TypicalServer` не экспортируется.
+Чтобы разрешить это, компилятор автоматически переписывает это что - то вроде:
 
 ```typescript
 class TypicalServer {
@@ -555,39 +571,40 @@ export const ɵ0 = () => new TypicalServer();
 export class TypicalModule {}
 ```
 
-This allows the compiler to generate a reference to `ɵ0` in the factory without having to know what the value of `ɵ0` contains.
+Это позволяет компилятору генерировать ссылку на `ɵ0` заводе, не зная, какова стоимость `ɵ0` содержит.
 
-The compiler does the rewriting during the emit of the `.js` file.
-It does not, however, rewrite the `.d.ts` file, so TypeScript doesn't recognize it as being an export. and it does not interfere with the ES module's exported API.
+Компилятор выполняет переписывание во время передачи `.js` файл
+Это, однако, не переписывает `.d.ts` файл, поэтому TypeScript не распознает его как экспорт. и это не мешает экспортированному API модуля ES.
 
 
 {@a binding-expression-validation}
-## Phase 3: Template type checking
+{@a phase-3-template-type-checking}
+## Этап 3: проверка типа шаблона
 
-One of the Angular compiler's most helpful features is the ability to type-check expressions within templates, and catch any errors before they cause crashes at runtime.
-In the template type-checking phase, the Angular template compiler uses the TypeScript compiler to validate the binding expressions in templates.
+Одна из наиболее полезных функций компилятора Angular - это возможность проверять выражения в шаблонах и обнаруживать любые ошибки, прежде чем они вызовут сбои во время выполнения.
+На этапе проверки типа шаблона компилятор шаблона Angular использует компилятор TypeScript для проверки выражений привязки в шаблонах.
 
-Enable this phase explicitly by adding the compiler option `"fullTemplateTypeCheck"` in the `"angularCompilerOptions"` of the project's `tsconfig.json`
-(see [Angular Compiler Options](guide/angular-compiler-options)).
+Включите этот этап явно, добавив опцию компилятора `"fullTemplateTypeCheck"` в `"angularCompilerOptions"` проекта `tsconfig.json` 
+(см. [Параметры Angular компилятора](guide/angular-compiler-options)).
 
 <div class="alert is-helpful">
 
-In [Angular Ivy](guide/ivy), the template type checker has been completely rewritten to be more capable as well as stricter, meaning it can catch a variety of new errors that the previous type checker would not detect.
+В [Angular Ivy](guide/ivy)средство проверки типов шаблонов было полностью переписано, чтобы сделать его более функциональным и более строгим, что означает, что он может отловить множество новых ошибок, которые предыдущая программа проверки типов не обнаружит.
 
-As a result, templates that previously compiled under View Engine can fail type checking under Ivy. This can happen because Ivy's stricter checking catches genuine errors, or because application code is not typed correctly, or because the application uses libraries in which typings are inaccurate or not specific enough.
+В результате шаблоны, ранее скомпилированные в View Engine, могут не проходить проверку типов в Ivy. Это может произойти, потому что более строгая проверка Ivy ловит подлинные ошибки, или потому что код приложения набран неправильно, или потому что приложение использует библиотеки, в которых типизация неточна или недостаточно конкретна.
 
-This stricter type checking is not enabled by default in version 9, but can be enabled by setting the `strictTemplates` configuration option.
-We do expect to make strict type checking the default in the future.
+Эта более строгая проверка типов не включена по умолчанию в версии 9, но ее можно включить, установив `strictTemplates` конфигурации.
+Мы ожидаем сделать строгую проверку типов по умолчанию в будущем.
 
 <!-- For more information about type-checking options, and about improvements to template type checking in version 9 and above, see [Template type checking](guide/template-type-checking). -->
 
 </div>
 
-Template validation produces error messages when a type error is detected in a template binding
-expression, similar to how type errors are reported by the TypeScript compiler against code in a `.ts`
-file.
+Проверка шаблона выдает сообщения об ошибках, когда в привязке шаблона обнаружена ошибка типа
+выражение, аналогично тому, как ошибки типа сообщаются компилятором TypeScript против кода в `.ts` 
+файл.
 
-For example, consider the following component:
+Например, рассмотрим следующий компонент:
 
 ```typescript
   @Component({
@@ -599,32 +616,33 @@ For example, consider the following component:
   }
 ```
 
-This produces the following error:
+Это производит следующее сообщение об ошибке:
 
 ```
   my.component.ts.MyComponent.html(1,1): : Property 'addresss' does not exist on type 'Person'. Did you mean 'address'?
  ```
 
-The file name reported in the error message, `my.component.ts.MyComponent.html`, is a synthetic file
-generated by the template compiler that holds contents of the `MyComponent` class template.
-The compiler never writes this file to disk.
-The line and column numbers are relative to the template string in the `@Component` annotation of the class, `MyComponent` in this case.
-If a component uses `templateUrl` instead of `template`, the errors are reported in the HTML file referenced by the `templateUrl` instead of a synthetic file.
+Имя файла, указанное в сообщении об ошибке, `my.component.ts.MyComponent.html`, это синтетический файл
+генерируется компилятором шаблона, который содержит содержимое `MyComponent` класса.
+Компилятор никогда не записывает этот файл на диск.
+Номера строк и столбцов относятся к строке шаблона в `@Component` аннотация класса, `MyComponent` в этом случае.
+Если компонент использует `templateUrl` вместо `template`, ошибки сообщаются в файле HTML, на который ссылается `templateUrl` вместо синтетического файла.
 
-The error location is the beginning of the text node that contains the interpolation expression with the error.
-If the error is in an attribute binding such as `[value]="person.address.street"`, the error
-location is the location of the attribute that contains the error.
+Расположение ошибки - это начало текстового узла, который содержит выражение интерполяции с ошибкой.
+Если ошибка в привязке атрибута, такой как `[value]="person.address.street"`, ошибка
+location - это местоположение атрибута, содержащего ошибку.
 
-The validation uses the TypeScript type checker and the options supplied to the TypeScript compiler to control how detailed the type validation is.
-For example, if the `strictTypeChecks` is specified, the error
-```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'```
-is reported as well as the above error message.
+При проверке используется средство проверки типов TypeScript и параметры, предоставляемые компилятору TypeScript, для управления подробностью проверки типа.
+Например, если `strictTypeChecks` указан, ошибка
+`` `my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'` ``
+сообщается, а также выше сообщение об ошибке.
 
-### Type narrowing
+{@a type-narrowing}
+### Типа сужения
 
-The expression used in an `ngIf` directive is used to narrow type unions in the Angular
-template compiler, the same way the `if` expression does in TypeScript.
-For example, to avoid `Object is possibly 'undefined'` error in the template above, modify it to only emit the interpolation if the value of `person` is initialized as shown below:
+Выражение, используемое в `ngIf` Директива используется для сужения типов в Angular
+компилятор шаблона, так же, как `if` выражение делает в TypeScript.
+Например, чтобы избежать `Object is possibly 'undefined'` ошибкой в ​​приведенном выше шаблоне, измените его так, чтобы он испускал интерполяцию только в том случае, если значение `person` инициализируется, как показано ниже:
 
 ```typescript
   @Component({
@@ -636,25 +654,27 @@ For example, to avoid `Object is possibly 'undefined'` error in the template abo
   }
 ```
 
-Using `*ngIf` allows the TypeScript compiler to infer that the `person` used in the binding expression will never be `undefined`.
+С помощью `*ngIf` позволяет компилятору TypeScript сделать вывод, что `person` используемый в выражении связывания никогда не будет `undefined`.
 
-#### Custom `ngIf` like directives
+{@a custom-ngif-like-directives}
+#### изготовленный на заказ `ngIf` нравятся директивы
 
-Directives that behave like `*ngIf` can declare that they want the same treatment by including a static member marker that is a signal to the template compiler to treat them like `*ngIf`. This static member for `*ngIf` is:
+Директивы, которые ведут себя как `*ngIf` может объявить, что они хотят одинаковую обработку, включив статический маркер-член, который является сигналом для компилятора шаблона, чтобы он воспринимал их как `*ngIf` . Этот статический член для `*ngIf` является:
 
 ```typescript
     public static ngIfUseIfTypeGuard: void;
 ```
 
-This declares that the input property `ngIf` of the `NgIf` directive should be treated as a guard to the use of its template, implying that the template will only be instantiated if the `ngIf` input property is true.
+Это объявляет, что свойство ввода `ngIf` из `NgIf` Директива должна рассматриваться как защита от использования ее шаблона, подразумевая, что шаблон будет создан только в том случае, если `ngIf` свойство ввода имеет значение true.
 
 
-### Non-null type assertion operator
+{@a non-null-type-assertion-operator}
+### Оператор утверждения ненулевого типа
 
-Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator) to suppress the `Object is possibly 'undefined'` error when it is inconvenient to use `*ngIf` or when some constraint in the component ensures that the expression is always non-null when the binding expression is interpolated.
+Используйте [оператор утверждения не нулевого типа](guide/template-syntax#non-null-assertion-operator)чтобы подавить `Object is possibly 'undefined'` ошибкой, когда его неудобно использовать `*ngIf` или когда какое-либо ограничение в компоненте гарантирует, что выражение всегда будет ненулевым, когда выражение привязки интерполируется.
 
-In the following example, the `person` and `address` properties are always set together, implying that `address` is always non-null if `person` is non-null.
-There is no convenient way to describe this constraint to TypeScript and the template compiler, but the error is suppressed in the example by using `address!.street`.
+В следующем примере `person` и `address` свойства всегда устанавливаются вместе, подразумевая, что `address` всегда ненулевой, если `person` ненулевой
+Нет удобного способа описать это ограничение для TypeScript и компилятора шаблонов, но ошибка в этом примере подавляется с помощью `address!.street`.
 
 ```typescript
   @Component({
@@ -672,9 +692,9 @@ There is no convenient way to describe this constraint to TypeScript and the tem
   }
 ```
 
-The non-null assertion operator should be used sparingly as refactoring of the component might break this constraint.
+Оператор ненулевого утверждения следует использовать с осторожностью, поскольку рефакторинг компонента может нарушить это ограничение.
 
-In this example it is recommended to include the checking of `address` in the `*ngIf` as shown below:
+В этом примере рекомендуется включить проверку `address` в `*ngIf` как показано ниже:
 
 ```typescript
   @Component({

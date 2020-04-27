@@ -11,10 +11,10 @@ import {EventEmitter, NgZone} from '@angular/core';
 
 
 /**
- * Message Bus is a low level API used to communicate between the UI and the background.
- * Communication is based on a channel abstraction. Messages published in a
- * given channel to one MessageBusSink are received on the same channel
- * by the corresponding MessageBusSource.
+ * Шина сообщений - это низкоуровневый API, используемый для связи между пользовательским интерфейсом и фоном.
+ * Коммуникация основана на абстракции канала. Сообщения, опубликованные в
+ * данный канал для одного MessageBusSink принимается по тому же каналу
+ * по соответствующему MessageBusSource.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

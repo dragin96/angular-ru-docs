@@ -9,10 +9,10 @@
 import {InjectionToken} from '@angular/core';
 
 /**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ * Токен DI, представляющий основной контекст рендеринга. В браузере это DOM Document.
  *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application in a Web Worker).
+ * Примечание. Документ может быть недоступен в контексте приложения при применении и рендеринге
+ * Контексты не совпадают (например, при запуске приложения в Web Worker).
  *
  * @publicApi
  */

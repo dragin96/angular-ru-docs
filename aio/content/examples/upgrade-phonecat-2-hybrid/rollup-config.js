@@ -1,11 +1,11 @@
 // #docregion
 import nodeResolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify'
+import commonjs    from 'rollup-plugin-commonjs';
+import uglify      from 'rollup-plugin-uglify'
 
 //paths are relative to the execution path
 export default {
-  input: 'app/main.js',
+  input: 'app/main-aot.js',
   output: {
     file: 'aot/dist/build.js', // output a single application bundle
     format: 'iife',

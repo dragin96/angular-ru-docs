@@ -46,7 +46,7 @@ export function getPluralCategory(
 }
 
 /**
- * Returns the plural case based on the locale
+ * Возвращает регистр множественного числа в зависимости от локали
  *
  * @publicApi
  */

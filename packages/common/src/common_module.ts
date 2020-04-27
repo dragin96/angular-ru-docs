@@ -15,15 +15,15 @@ import {COMMON_PIPES} from './pipes/index';
 // Note: This does not contain the location providers,
 // as they need some platform specific implementations to work.
 /**
- * Exports all the basic Angular directives and pipes,
- * such as `NgIf`, `NgForOf`, `DecimalPipe`, and so on.
- * Re-exported by `BrowserModule`, which is included automatically in the root
- * `AppModule` when you create a new app with the CLI `new` command.
+ * Экспортирует все основные Angular директивы и трубы
+ * такие как `NgIf` , `NgForOf` , `DecimalPipe` и так далее.
+ * Реэкспортируется с помощью `BrowserModule` , который автоматически включается в корень
+ *  `AppModule`при создании нового приложения с помощью команды CLI `new`.
  *
- * * The `providers` options configure the NgModule's injector to provide
- * localization dependencies to members.
- * * The `exports` options make the declared directives and pipes available for import
- * by other NgModules.
+ * Опция `providers` настраивает инжектор NgModule для предоставления
+ * зависимости локализации для участников.
+ * В `exports` вариантыделают заявленные директивы и трубы дляимпорта.
+ * другими NgModules.
  *
  * @publicApi
  */

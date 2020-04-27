@@ -28,41 +28,41 @@ class Bindings {
 }
 
 /**
- * @description
+ *  @description
  *
- * A helper class that allows an AngularJS component to be used from Angular.
+ * Вспомогательный класс, который позволяет использовать компонент AngularJS из Angular.
  *
- * *Part of the [upgrade/static](api?query=upgrade%2Fstatic)
- * library for hybrid upgrade apps that support AOT compilation.*
+ * Часть[апгрейд / статика](api?query=upgrade%2Fstatic)
+ * библиотека для гибридных приложений обновления, которые поддерживают компиляцию AOT.
  *
- * This helper class should be used as a base class for creating Angular directives
- * that wrap AngularJS components that need to be "upgraded".
+ * Этот вспомогательный класс следует использовать в качестве базового класса для создания директив Angular
+ * это обернуть компоненты AngularJS, которые должны быть "обновлены".
  *
- * @usageNotes
- * ### Examples
+ *  @usageNotes
+ *  ### Примеры
  *
- * Let's assume that you have an AngularJS component called `ng1Hero` that needs
- * to be made available in Angular templates.
+ * Предположим, у вас есть компонент AngularJS с именем `ng1Hero` который необходим
+ * быть доступным в Angular шаблонах.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-hero"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng1-hero"}
  *
- * We must create a `Directive` that will make this AngularJS component
- * available inside Angular templates.
+ * Мы должны создать `Directive` которая создаст этот компонент AngularJS
+ * доступны внутри Angular шаблонов.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper"}
+ *  {@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper"}
  *
- * In this example you can see that we must derive from the `UpgradeComponent`
- * base class but also provide an {@link Directive `@Directive`} decorator. This is
- * because the AOT compiler requires that this information is statically available at
- * compile time.
+ * В этом примере вы можете видеть, что мы должны быть производными от `UpgradeComponent`
+ * базовый класс, но и обеспечить{@link Directive `@Directive`}декоратор.Это.
+ * потому что компилятор AOT требует, чтобы эта информация была статически доступна на
+ * время компиляции.
  *
- * Note that we must do the following:
- * * specify the directive's selector (`ng1-hero`)
- * * specify all inputs and outputs that the AngularJS component expects
- * * derive from `UpgradeComponent`
- * * call the base class from the constructor, passing
- *   * the AngularJS name of the component (`ng1Hero`)
- *   * the `ElementRef` and `Injector` for the component wrapper
+ * Обратите вниманиечто мы должны сделатьследующее:.
+ * указать селектор директивы (`ng1-hero`)
+ * укажите все входы и выходы, которые ожидает компонент AngularJS
+ * происходит от `UpgradeComponent`
+ * вызывать базовый класс из конструктора, передавая
+ * AngularJS-имя компонента (`ng1Hero`)
+ *  the `ElementRef `и` Injector`для компонентаобертки.
  *
  * @publicApi
  */

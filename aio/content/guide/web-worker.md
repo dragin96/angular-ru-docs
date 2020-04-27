@@ -1,39 +1,28 @@
-# Background processing using web workers
+{@a using-web-workers-with-angular-cli}
+# Использование веб-работников с Angular CLI
 
-[Web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) allow you to run CPU-intensive computations in a background thread,
-freeing the main thread to update the user interface.
-If you find your application performs a lot of computations, such as generating CAD drawings or doing heavy geometrical calculations, using web workers can help increase your application's performance.
+[Веб-работники](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)позволяют запускать интенсивные вычисления в фоновом потоке, освобождая основной поток для обновления пользовательского интерфейса.
 
-<div class="alert is-helpful">
+Если вы обнаружите, что ваше приложение перестает отвечать на запросы при обработке данных, вам могут помочь веб-работники.
 
-The CLI does not support running Angular itself in a web worker.
+{@a adding-a-web-worker}
+## Добавление веб-работника
 
-</div>
+Вы можете добавить веб-работника в любом месте вашего приложения. Если файл, который содержит ваши дорогие вычисления  `src/app/app.component.ts`, вы можете добавить веб-работника, используя `ng generate web-worker app`.
 
-## Adding a web worker
+Выполнение этой команды:
 
-To add a web worker to an existing project, use the Angular CLI `ng generate` command.
-
-`ng generate web-worker` *location*
-
-You can add a web worker anywhere in your application.
-For example, to add a web worker to the root component, `src/app/app.component.ts`, run the following command.
-
-`ng generate web-worker app`
-
-The command performs the following actions.
-
-- Configures your project to use web workers, if it isn't already.
-- Adds the following scaffold code to `src/app/app.worker.ts` to  receive messages.
+- настройте свой проект на использование веб-работников, если это еще не сделано.
+- добавлять  `src/app/app.worker.ts`  с scaffolded кодом для получения сообщений:
 
   <code-example language="typescript" header="src/app/app.worker.ts">
   addEventListener('message', ({ data }) => {
-    const response = `worker response to ${data}`;
+    const response =  `worker response to ${data}` ;
     postMessage(response);
   });
  </code-example>
 
-- Adds the following scaffold code to `src/app/app.component.ts` to use the worker.
+- добавить код лесов в  `src/app/app.component.ts`  использовать работник:
 
   <code-example language="typescript" header="src/app/app.component.ts">
   if (typeof Worker !== 'undefined') {
@@ -49,10 +38,12 @@ The command performs the following actions.
   }
   </code-example>
 
-After you generate this initial scaffold, you must refactor your code to use the web worker by sending messages to and from the worker.
+После первоначального создания леса вам потребуется реорганизовать свой код, чтобы использовать веб-работника, отправляя сообщения в и из него.
 
-<div class="alert is-important">
+{@a caveats}
+## Предостережения
 
-Some environments or platforms, such as `@angular/platform-server` used in [Server-side Rendering](guide/universal), don't support web workers. To ensure that your application will work in these environments, you must provide a fallback mechanism to perform the computations that the worker would otherwise perform.
+Есть две важные вещи, которые нужно иметь в виду при использовании веб - рабочих проектов Angular:
 
-</div>
+- Некоторые среды или платформы, такие как  `@angular/platform-server`  используемый в [рендеринг на стороне сервера](guide/universal), не поддерживает веб-работников. Вы должны предоставить резервный механизм для выполнения вычислений, которые рабочий будет выполнять, чтобы ваше приложение работало в этих средах.
+- Сам по себе Angular в веб-приложении через [запуск ** @ angular / platform-webworker**](api/platform-webworker)еще не поддерживается в Angular CLI.

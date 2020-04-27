@@ -9,48 +9,48 @@ import {AnimationMetadata, AnimationOptions} from './animation_metadata';
 import {AnimationPlayer} from './players/animation_player';
 
 /**
- * An injectable service that produces an animation sequence programmatically within an
- * Angular component or directive.
- * Provided by the `BrowserAnimationsModule` or `NoopAnimationsModule`.
+ * Инъецируемый сервис, который программно создает последовательность анимации в
+ * Angular компонент или директива.
+ * Предоставляется `BrowserAnimationsModule` или `NoopAnimationsModule`.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * To use this service, add it to your component or directive as a dependency.
- * The service is instantiated along with your component.
+ * Чтобы использовать этот сервис, добавьте его в свой компонент или директиву в качестве зависимости.
+ * Служба создается вместе с вашим компонентом.
  *
- * Apps do not typically need to create their own animation players, but if you
- * do need to, follow these steps:
+ * Приложения, как правило, не нуждаются в создании собственных проигрывателей анимации, но, если вы
+ * сделать необходимость, выполните следующиедействия:.
  *
- * 1. Use the `build()` method to create a programmatic animation using the
- * `animate()` function. The method returns an `AnimationFactory` instance.
+ *  1. Используйте метод `build()` для создания программной анимации с использованием
+ *  `animate()`функция. Метод возвращает `AnimationFactory` экземпляр.
  *
- * 2. Use the factory object to create an `AnimationPlayer` and attach it to a DOM element.
+ * 2. Используйте фабричный объект, чтобы создать `AnimationPlayer` и прикрепить его к элементу DOM.
  *
- * 3. Use the player object to control the animation programmatically.
+ * 3. Используйте объект проигрывателя для программного управления анимацией.
  *
- * For example:
+ * Например:.
  *
- * ```ts
- * // import the service from BrowserAnimationsModule
- * import {AnimationBuilder} from '@angular/animations';
- * // require the service as a dependency
- * class MyCmp {
- *   constructor(private _builder: AnimationBuilder) {}
+ *  ```ts
+ *  // import the service from BrowserAnimationsModule
+ *  import {AnimationBuilder} from '@angular/animations';
+ *  // require the service as a dependency
+ *  class MyCmp {
+ *    constructor(private _builder: AnimationBuilder) {}
  *
- *   makeAnimation(element: any) {
- *     // first define a reusable animation
- *     const myAnimation = this._builder.build([
- *       style({ width: 0 }),
- *       animate(1000, style({ width: '100px' }))
- *     ]);
+ *    makeAnimation(element: any) {
+ *      // first define a reusable animation
+ *      const myAnimation = this._builder.build([
+ *        style({ width: 0 }),
+ *        animate(1000, style({ width: '100px' }))
+ *      ]);
  *
- *     // use the returned factory object to create a player
- *     const player = myAnimation.create(element);
+ *      // use the returned factory object to create a player
+ *      const player = myAnimation.create(element);
  *
- *     player.play();
- *   }
- * }
- * ```
+ *      player.play();
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -65,7 +65,7 @@ export abstract class AnimationBuilder {
 }
 
 /**
- * A factory object returned from the `AnimationBuilder`.`build()` method.
+ * Фабричный объект, возвращенный из `AnimationBuilder` . `build()` метод.
  *
  * @publicApi
  */

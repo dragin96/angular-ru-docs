@@ -7,33 +7,33 @@
  */
 
 /**
- * Polyfill for [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), as
- * specified in the [Fetch Spec](https://fetch.spec.whatwg.org/#headers-class).
+ * Polyfill для[Заголовки](https://developer.mozilla.org/en-US/docs/Web/API/Headers/Headers), а
+ * указано в[Fetch Spec](https://fetch.spec.whatwg.org/#headers-class).
  *
- * The only known difference between this `Headers` implementation and the spec is the
- * lack of an `entries` method.
+ * Единственная известная разница между реализацией `Headers` и спецификацией - это
+ * Отсутствие `entries``entries`.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * import {Headers} from '@angular/http';
+ *  ```
+ *  import {Headers} from '@angular/http';
  *
- * var firstHeaders = new Headers();
- * firstHeaders.append('Content-Type', 'image/jpeg');
- * console.log(firstHeaders.get('Content-Type')) //'image/jpeg'
+ *  var firstHeaders = new Headers();
+ *  firstHeaders.append('Content-Type', 'image/jpeg');
+ *  console.log(firstHeaders.get('Content-Type')) //'image/jpeg'
  *
- * // Create headers from Plain Old JavaScript Object
- * var secondHeaders = new Headers({
- *   'X-My-Custom-Header': 'Angular'
- * });
- * console.log(secondHeaders.get('X-My-Custom-Header')); //'Angular'
+ *  // Create headers from Plain Old JavaScript Object
+ *  var secondHeaders = new Headers({
+ *    'X-My-Custom-Header': 'Angular'
+ *  });
+ *  console.log(secondHeaders.get('X-My-Custom-Header')); //'Angular'
  *
- * var thirdHeaders = new Headers(secondHeaders);
- * console.log(thirdHeaders.get('X-My-Custom-Header')); //'Angular'
- * ```
+ *  var thirdHeaders = new Headers(secondHeaders);
+ *  console.log(thirdHeaders.get('X-My-Custom-Header')); //'Angular'
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class Headers {

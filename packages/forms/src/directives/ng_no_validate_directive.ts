@@ -9,17 +9,17 @@
 import {Directive} from '@angular/core';
 
 /**
- * @description
+ *  @description
  *
- * Adds `novalidate` attribute to all forms by default.
+ * добавляет `novalidate``novalidate` По умолчаниюко всем формам.
  *
- * `novalidate` is used to disable browser's native form validation.
+ *  `novalidate`используется для отключения проверки родной формы браузера.
  *
- * If you want to use native validation with Angular forms, just add `ngNativeValidate` attribute:
+ * Если вы хотите использовать встроенную проверку с угловатыми формами, просто добавьте `ngNativeValidate` атрибутngNativeValidate:.
  *
- * ```
- * <form ngNativeValidate></form>
- * ```
+ *  ```
+ *  <form ngNativeValidate></form>
+ *  ```
  *
  * @publicApi
  * @ngModule ReactiveFormsModule

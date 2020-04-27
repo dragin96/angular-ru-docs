@@ -1,21 +1,23 @@
+{@a angular-ivy}
 # Angular Ivy
 
-Ivy is the code name for Angular's [next-generation compilation and rendering pipeline](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
-With the version 9 release of Angular, the new compiler and runtime instructions are used by default instead of the older compiler and runtime, known as View Engine.
+Ivy - это кодовое имя для Angular [конвейер компиляции и рендеринга следующего поколения](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
+В версии Angular версии 9 новые инструкции компилятора и среды выполнения используются по умолчанию вместо старых компилятора и среды выполнения, известных как View Engine.
 
 <div class="alert is-helpful">
 
-Learn more about the [Compiler](https://www.youtube.com/watch?v=anphffaCZrQ) and [Runtime](https://www.youtube.com/watch?v=S0o-4yc2n-8) in these videos from our team.
+Узнайте больше о [Compiler](https://www.youtube.com/watch?v=anphffaCZrQ)и [Runtime](https://www.youtube.com/watch?v=S0o-4yc2n-8)в этих видео от нашей команды.
 
 
 </div>
 
 {@a aot-and-ivy}
-## AOT and Ivy
+{@a aot-and-ivy}
+## АОТ и Айви
 
-AOT compilation with Ivy is faster and should be used by default.
-In the `angular.json` workspace configuration file, set the default build options for your project to always use AOT compilation.
-When using application internationalization (i18n) with Ivy, [translation merging](guide/i18n#merge) also requires the use of AOT compilation.
+Компиляция AOT с Ivy быстрее и должна использоваться по умолчанию.
+в `angular.json` конфигурации рабочей области, задайте параметры сборки по умолчанию для вашего проекта, чтобы всегда использовать компиляцию AOT.
+При использовании интернационализации приложений (i18n) с Ivy [слияние переводов](guide/i18n#merge)также требуется использование компиляции AOT.
 
 <code-example language="json" header="angular.json">
 
@@ -35,29 +37,32 @@ When using application internationalization (i18n) with Ivy, [translation mergin
 }
 </code-example>
 
-## Ivy and libraries
+{@a ivy-and-libraries}
+## Плющ и библиотеки
 
-Ivy applications can be built with libraries that were created with the View Engine compiler.
-This compatibility is provided by a tool known as the Angular compatibility compiler (`ngcc`).
-CLI commands run `ngcc` as needed when performing an Angular build.
+Приложения Ivy можно создавать с помощью библиотек, созданных с помощью компилятора View Engine.
+Эта совместимость обеспечивается инструментом, известным как компилятор Angular совместимости (`ngcc`).
+Команды CLI работают `ngcc` мере необходимости при выполнении Angular сборки.
 
-For more information on how to publish libraries see [Publishing your Library](guide/creating-libraries#publishing-your-library).
+Для получения дополнительной информации о том, как публиковать библиотеки, см. [Публикация вашей библиотеки](guide/creating-libraries#publishing-your-library).
 
 {@a maintaining-library-compatibility}
-### Maintaining library compatibility
+{@a maintaining-library-compatibility}
+### Поддержание совместимости библиотеки
 
-If you are a library author, you should keep using the View Engine compiler as of version 9.
-By having all libraries continue to use View Engine, you will maintain compatibility with default v9 applications that use Ivy, as well as with applications that have opted to continue using View Engine.
+Если вы являетесь автором библиотеки, вы должны продолжать использовать компилятор View Engine начиная с версии 9
+Если все библиотеки будут продолжать использовать View Engine, вы будете поддерживать совместимость с приложениями v9 по умолчанию, которые используют Ivy, а также с приложениями, которые решили продолжать использовать View Engine.
 
-See the [Creating Libraries](guide/creating-libraries) guide for more on how to compile or bundle your Angular library.
-When you use the tools integrated into the Angular CLI or `ng-packagr`, your library will always be built the right way automatically.
+Смотрите [Создание библиотек](guide/creating-libraries)руководство для получения дополнительной информации о том, как скомпилировать или связать вашу библиотеку Angular.
+Когда вы используете инструменты, интегрированные в Angular CLI или `ng-packagr`, ваша библиотека всегда будет правильно построена.
 
 {@a ivy-and-universal-app-shell}
-## Ivy and Universal/App shell
-In version 9, the server builder which is used for [App shell](guide/app-shell) and [Angular Universal](guide/universal) has the `bundleDependencies` option enabled by default.
-If you opt-out of bundling dependencies you will need to run the standalone Angular compatibility compiler (`ngcc`). This is needed because otherwise Node will be unable to resolve the Ivy version of the packages.
+{@a ivy-and-universal/app-shell}
+## Ivy и Universal / App оболочка
+В версии 9 построитель сервера, который используется для [оболочка приложения](guide/app-shell)и [Angular универсальная](guide/universal)имеет `bundleDependencies` включена по умолчанию.
+Если вы отказываетесь от связывания зависимостей, вам необходимо запустить автономный компилятор Angular совместимости (`ngcc`). Это необходимо, потому что в противном случае Node не сможет разрешить версию пакетов Ivy.
 
-You can run `ngcc` after each installation of node_modules by adding a `postinstall` [npm script](https://docs.npmjs.com/misc/scripts):
+Вы можете запустить `ngcc` после каждой установки node_modules, добавив `postinstall` [НПЙ сценарий](https://docs.npmjs.com/misc/scripts):
 
 <code-example language="json" header="package.json">
 {
@@ -69,28 +74,29 @@ You can run `ngcc` after each installation of node_modules by adding a `postinst
 
 <div class="alert is-important">
 
- * The `postinstall` script will run on every installation of `node_modules`, including those performed by `ng update` and `ng add`.
- * Don't use `--create-ivy-entry-points` as this will cause Node not to resolve the Ivy version of the packages correctly.
- 
+ * `postinstall` скрипт будет запускаться при каждой установке `node_modules`, в том числе выполненные `ng update ` и ` ng add`.
+ * Не использовать `--create-ivy-entry-points` поскольку это приведет к тому, что Node не сможет правильно разрешить версию пакетов Ivy.
+
 </div>
 
 {@a opting-out-of-angular-ivy}
-## Opting out of Ivy in version 9
+{@a opting-out-of-ivy-in-version-9}
+## Отказ от плюща в версии 9
 
-In version 9, Ivy is the default.
-For compatibility with current workflows during the update process, you can choose to opt out of Ivy and continue using the previous compiler, View Engine.
+В версии 9 Ivy используется по умолчанию.
+Для совместимости с текущими рабочими процессами в процессе обновления вы можете отказаться от Ivy и продолжить использовать предыдущий компилятор View Engine.
 
 <div class="alert is-helpful">
 
-Before disabling Ivy, check out the debugging recommendations in the [Ivy Compatibility Guide](guide/ivy-compatibility#debugging).
+Прежде чем отключить Ivy, ознакомьтесь с рекомендациями по отладке в [Руководстве по совместимости Ivy](guide/ivy-compatibility#debugging).
 
 </div>
 
-To opt out of Ivy, change the `angularCompilerOptions` in your project's TypeScript configuration, most commonly located at `tsconfig.app.json` at the root of the workspace.
+Чтобы отказаться от плюща, измените `angularCompilerOptions` в конфигурации TypeScript вашего проекта, чаще всего расположенный в `tsconfig.app.json` в корне рабочей области.
 
-The value of the `enableIvy` flag is set to `true` by default, as of version 9.
+Значение `enableIvy` флаг установлен в `true` по умолчанию, начиная с версии 9
 
-The following example shows how to set the `enableIvy` option to `false` in order to opt out of Ivy.
+В следующем примере показано, как установить `enableIvy` опция для `false` для того, чтобы отказаться от плюща.
 
 <code-example language="json" header="tsconfig.app.json">
 {
@@ -114,15 +120,15 @@ The following example shows how to set the `enableIvy` option to `false` in orde
 
 <div class="alert is-important">
 
-If you disable Ivy, you might also want to reconsider whether to make AOT compilation the default for your application development, as described [above](#aot-and-ivy).
+Если вы отключите Ivy, вы также можете пересмотреть вопрос о том, следует ли делать компиляцию AOT по умолчанию для разработки приложений, как описано [выше](#aot-and-ivy).
 
-To revert the compiler default, set the build option `aot: false` in the `angular.json` configuration file.
+Чтобы восстановить компилятор по умолчанию, установите опцию сборки `aot: false ` в ` angular.json` конфигурации.
 
 </div>
 
-If you disable Ivy and the project uses internationalization, you can also remove the `@angular/localize` runtime component from the project's polyfills file located be default at `src/polyfills.ts`.
+Если вы отключили Ivy и в проекте используется интернационализация, вы также можете удалить `@angular/localize` времени выполнения из файла polyfills проекта, расположенный по умолчанию в `src/polyfills.ts`.
 
-To remove, delete the `import '@angular/localize/init';` line from the polyfills file.
+Чтобы удалить, удалите `import '@angular/localize/init';` строка из файла polyfills.
 
 <code-example language="typescript" header="polyfills.ts">
 /***************************************************************************************************
@@ -132,14 +138,15 @@ import '@angular/localize/init';
 </code-example>
 
 {@a using-ssr-without-angular-ivy}
-### Using SSR without Ivy
+{@a using-ssr-without-ivy}
+### Использование SSR без плюща
 
-If you opt out of Ivy and your application uses  [Angular Universal](guide/universal) to render Angular applications on the server, you must also change the way the server performs bootstrapping.
+Если вы отказываетесь от Ivy и ваше приложение использует [Angular Universal](guide/universal)для рендеринга приложений Angular на сервере, вы также должны изменить способ загрузки сервера.
 
-The following example shows how you modify the `server.ts` file to provide the `AppServerModuleNgFactory` as the bootstrap module.
+В следующем примере показано, как изменить `server.ts` файл для предоставления `AppServerModuleNgFactory` в качестве модуля начальной загрузки.
 
-* Import `AppServerModuleNgFactory` from the `app.server.module.ngfactory` virtual file.
-* Set `bootstrap: AppServerModuleNgFactory` in the `ngExpressEngine` call.
+* Импортировать `AppServerModuleNgFactory` из `app.server.module.ngfactory` виртуальный файл.
+* Задавать `bootstrap: AppServerModuleNgFactory ` в ` ngExpressEngine`.
 
 <code-example language="typescript" header="server.ts">
 import 'zone.js/dist/zone-node';

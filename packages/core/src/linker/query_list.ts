@@ -17,28 +17,28 @@ function symbolIterator<T>(this: QueryList<T>): Iterator<T> {
 }
 
 /**
- * An unmodifiable list of items that Angular keeps up to date when the state
- * of the application changes.
+ * Неизменяемый список предметов, который Angular постоянно обновляет, когда состояние
+ * изменения приложения.
  *
- * The type of object that {@link ViewChildren}, {@link ContentChildren}, and {@link QueryList}
- * provide.
+ * Тип объекта, который{@link ViewChildren},{@link ContentChildren}, а также{@link QueryList}
+ * предоставлять.
  *
- * Implements an iterable interface, therefore it can be used in both ES6
- * javascript `for (var i of items)` loops as well as in Angular templates with
- * `*ngFor="let i of myList"`.
+ * Реализует итеративный интерфейс, поэтому его можно использовать как в ES6
+ * javascript`for (var i of items)`циклы, а также в Angular шаблонах с
+ *  `ngFor="let i of myList"`.
  *
- * Changes can be observed by subscribing to the changes `Observable`.
+ * Изменения можно наблюдать, подписавшись на изменения `Observable`.
  *
- * NOTE: In the future this class will implement an `Observable` interface.
+ * ПРИМЕЧАНИЕ. В будущем этот класс будет реализовывать `Observable` интерфейс.
  *
- * @usageNotes
- * ### Example
- * ```typescript
- * @Component({...})
- * class Container {
- *   @ViewChildren(Item) items:QueryList<Item>;
- * }
- * ```
+ *  @usageNotes
+ *  ### Пример
+ *  ```typescript
+ *  @Component({...})
+ *  class Container {
+ *    @ViewChildren(Item) items:QueryList<Item>;
+ *  }
+ *  ```
  *
  * @publicApi
  */

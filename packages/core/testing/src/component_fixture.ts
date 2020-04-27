@@ -10,7 +10,7 @@ import {ChangeDetectorRef, ComponentRef, DebugElement, ElementRef, getDebugNode,
 
 
 /**
- * Fixture for debugging and testing a component.
+ * Крепеж для отладки и тестирования компонента.
  *
  * @publicApi
  */

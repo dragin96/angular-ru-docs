@@ -11,7 +11,7 @@ import {makeParamDecorator} from '../util/decorators';
 
 
 /**
- * Type of the Inject decorator / constructor function.
+ * Тип функции Inject декоратор / конструктор.
  *
  * @publicApi
  */
@@ -37,7 +37,7 @@ export interface InjectDecorator {
 }
 
 /**
- * Type of the Inject metadata.
+ * Тип метаданных Inject.
  *
  * @publicApi
  */
@@ -49,16 +49,16 @@ export interface Inject {
 }
 
 /**
- * Inject decorator and metadata.
+ * Внедрить декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Inject: InjectDecorator = makeParamDecorator('Inject', (token: any) => ({token}));
 
 
 /**
- * Type of the Optional decorator / constructor function.
+ * Тип Необязательной функции декоратор / конструктор.
  *
  * @publicApi
  */
@@ -86,22 +86,22 @@ export interface OptionalDecorator {
 }
 
 /**
- * Type of the Optional metadata.
+ * Тип Необязательных метаданных.
  *
  * @publicApi
  */
 export interface Optional {}
 
 /**
- * Optional decorator and metadata.
+ * Необязательный декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Optional: OptionalDecorator = makeParamDecorator('Optional');
 
 /**
- * Type of the Self decorator / constructor function.
+ * Тип функции Self декоратор / конструктор.
  *
  * @publicApi
  */
@@ -132,23 +132,23 @@ export interface SelfDecorator {
 }
 
 /**
- * Type of the Self metadata.
+ * Тип метаданных Self.
  *
  * @publicApi
  */
 export interface Self {}
 
 /**
- * Self decorator and metadata.
+ * Сам декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Self: SelfDecorator = makeParamDecorator('Self');
 
 
 /**
- * Type of the SkipSelf decorator / constructor function.
+ * Тип функции декоратора / конструктора SkipSelf.
  *
  * @publicApi
  */
@@ -179,22 +179,22 @@ export interface SkipSelfDecorator {
 }
 
 /**
- * Type of the SkipSelf metadata.
+ * Тип метаданных SkipSelf.
  *
  * @publicApi
  */
 export interface SkipSelf {}
 
 /**
- * SkipSelf decorator and metadata.
+ * SkipSelf декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const SkipSelf: SkipSelfDecorator = makeParamDecorator('SkipSelf');
 
 /**
- * Type of the Host decorator / constructor function.
+ * Тип функции Host декоратор / конструктор.
  *
  * @publicApi
  */
@@ -219,23 +219,23 @@ export interface HostDecorator {
 }
 
 /**
- * Type of the Host metadata.
+ * Тип метаданных хоста.
  *
  * @publicApi
  */
 export interface Host {}
 
 /**
- * Host decorator and metadata.
+ * Хост декоратор и метаданные.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Host: HostDecorator = makeParamDecorator('Host');
 
 
 /**
- * Type of the Attribute decorator / constructor function.
+ * Тип Атрибута декоратор / функция конструктора.
  *
  * @publicApi
  */
@@ -266,7 +266,7 @@ export interface AttributeDecorator {
 }
 
 /**
- * Type of the Attribute metadata.
+ * Тип метаданных Атрибута.
  *
  * @publicApi
  */
@@ -278,9 +278,9 @@ export interface Attribute {
 }
 
 /**
- * Attribute decorator and metadata.
+ * Атрибут декоратора и метаданных.
  *
- * @Annotation
+ *  @Annotation
  * @publicApi
  */
 export const Attribute: AttributeDecorator =

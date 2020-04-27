@@ -26,67 +26,67 @@ export const formDirectiveProvider: any = {
 const resolvedPromise = (() => Promise.resolve(null))();
 
 /**
- * @description
- * Creates a top-level `FormGroup` instance and binds it to a form
- * to track aggregate form value and validation status.
+ *  @description
+ * Создает верхний уровень `FormGroup` экземпляри связывает егоформу.
+ * отслеживать совокупное значение формы и статус проверки.
  *
- * As soon as you import the `FormsModule`, this directive becomes active by default on
- * all `<form>` tags.  You don't need to add a special selector.
+ * Как только вы импортируете `FormsModule` , эта директива становится активной по умолчанию
+ * все `<form>` теги. Вам не нужно добавлять специальный селектор.
  *
- * You optionally export the directive into a local template variable using `ngForm` as the key
- * (ex: `#myForm="ngForm"`). This is optional, but useful.  Many properties from the underlying
- * `FormGroup` instance are duplicated on the directive itself, so a reference to it
- * gives you access to the aggregate value and validity status of the form, as well as
- * user interaction properties like `dirty` and `touched`.
+ * Вы можете экспортировать директиву в локальную переменную шаблона, используя `ngForm` в качестве ключа
+ * (ex: `#myForm="ngForm"`). Это необязательно, но полезно. Многие свойства из базового
+ *  `FormGroup`дублируется в самой директиве, поэтому ссылка на нее
+ * дает вам доступ к совокупному значению и статусу действительности формы, а также
+ * свойства взаимодействия с пользователем, такие как `dirty` и `touched`.
  *
- * To register child controls with the form, use `NgModel` with a `name`
- * attribute. You may use `NgModelGroup` to create sub-groups within the form.
+ * Для регистрации дочерних элементов с формой, используйте `NgModel` с `name`
+ * атрибут. Вы можете использовать `NgModelGroup` создать подгруппы в форме.
  *
- * If necessary, listen to the directive's `ngSubmit` event to be notified when the user has
- * triggered a form submission. The `ngSubmit` event emits the original form
- * submission event.
+ * Если необходимо, прослушайтедирективы `ngSubmit` событиекоторое будет уведомлено, когда пользователь получит
+ * вызвал отправку формы. `ngSubmit` событие излучает первоначальнуюформу.
+ * событие представления.
  *
- * In template driven forms, all `<form>` tags are automatically tagged as `NgForm`.
- * To import the `FormsModule` but skip its usage in some forms,
- * for example, to use native HTML5 validation, add the `ngNoForm` and the `<form>`
- * tags won't create an `NgForm` directive. In reactive forms, using `ngNoForm` is
- * unnecessary because the `<form>` tags are inert. In that case, you would
- * refrain from using the `formGroup` directive.
+ * В основе шаблонов форм, все `<form>` тегиавтоматически помечаются как `NgForm` NgForm.
+ * Чтобы импортировать `FormsModule` но пропустить его использование в некоторыхформах.
+ * например, использовать встроенную проверку HTML5, добавьте `ngNoForm` и `<form>`
+ * теги не будут создавать `NgForm` директиву. В реактивных формах, используя `ngNoForm` есть
+ * не нужно, потому что `<form>` тегиинертны. В этом случае вы бы
+ * воздерживаться от использования `formGroup` директивы formGroup.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Listening for form submission
+ *  ### Прослушивание для подачи формы
  *
- * The following example shows how to capture the form values from the "ngSubmit" event.
+ * В следующем примере показано, как получить значения формы из события «ngSubmit».
  *
- * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
+ *  {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
- * ### Setting the update options
+ *  ### Настройка параметров обновления
  *
- * The following example shows you how to change the "updateOn" option from its default using
+ * В следующем примере показано, как изменить параметр «updateOn» по умолчанию с помощью
  * ngFormOptions.
  *
- * ```html
- * <form [ngFormOptions]="{updateOn: 'blur'}">
- *    <input name="one" ngModel>  <!-- this ngModel will update on blur -->
- * </form>
- * ```
+ *  ```html
+ *  <form [ngFormOptions]="{updateOn: 'blur'}">
+ *     <input name="one" ngModel><!-- this ngModel will update on blur -->
+ *  </form>
+ *  ```
  *
- * ### Native DOM validation UI
+ *  ### Родной интерфейс проверки DOM
  *
- * In order to prevent the native DOM form validation UI from interfering with Angular's form
- * validation, Angular automatically adds the `novalidate` attribute on any `<form>` whenever
- * `FormModule` or `ReactiveFormModule` are imported into the application.
- * If you want to explicitly enable native DOM validation UI with Angular forms, you can add the
- * `ngNativeValidate` attribute to the `<form>` element:
+ * Чтобы пользовательский интерфейс проверки формы DOM не мешал форме Angular
+ * проверка, Angular автоматически добавляет `novalidate` атрибут любого `<form>` всякийраз.
+ *  `FormModule `или` ReactiveFormModule`импортируются в приложение.
+ * Если вы хотите явно включить собственный пользовательский интерфейс проверки DOM с Angularи формами, вы можете добавить
+ *  `ngNativeValidate `атрибутв` <form>`элементаформы:.
  *
- * ```html
- * <form ngNativeValidate>
- *   ...
- * </form>
- * ```
+ *  ```html
+ *  <form ngNativeValidate>
+ *    ...
+ *  </form>
+ *  ```
  *
- * @ngModule FormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

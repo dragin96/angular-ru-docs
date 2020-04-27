@@ -1,136 +1,142 @@
-# Introduction to components and templates
+{@a introduction-to-components}
+# Введение в компоненты
 
-A *component* controls a patch of screen called a [*view*](guide/glossary#view "Definition of view").
-For example, individual components define and control each of the following views from the [Tour of Heroes tutorial](tutorial):
+А *компонент* управления патч экрана называется *вид*.
+Например, отдельные компоненты определяют и контролируют каждый из следующих представлений из [Учебное пособие](tutorial):
 
-* The app root with the navigation links.
-* The list of heroes.
-* The hero editor.
+* Корень приложения с навигационными ссылками.
+* Список героев.
+* Редактор героев.
 
-You define a component's application logic&mdash;what it does to support the view&mdash;inside a class.
-The class interacts with the view through an API of properties and methods.
+Вы определяете логику приложения компонента - что он делает для поддержки представления - внутри класса.
+Класс взаимодействует с представлением через API свойств и методов.
 
-For example, `HeroListComponent` has a `heroes` property that holds an array of heroes.
-Its `selectHero()` method sets a `selectedHero` property when the user clicks to choose a hero from that list.
-The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor.
-The service is provided to the component through the dependency injection system.
+Например,  `HeroListComponent`  имеет  `heroes`  свойство которое содержит множество героев.
+это  `selectHero()`  устанавливает  `selectedHero`  свойство когда пользователь щелкает, чтобы выбрать героя из этого списка.
+Компонент получает героев из службы, которая является TypeScript [свойство параметра](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties)в конструкторе.
+Услуга предоставляется компоненту через систему внедрения зависимостей.
 
 <code-example path="architecture/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts (class)" region="class"></code-example>
 
-Angular creates, updates, and destroys components as the user moves through the application. Your app can take action at each moment in this lifecycle through optional [lifecycle hooks](guide/lifecycle-hooks), like `ngOnInit()`.
+Angular создает, обновляет и уничтожает компоненты при перемещении пользователя по приложению. Ваше приложение может действовать в каждый момент этого жизненного цикла с помощью дополнительных [хуков жизненного цикла](guide/lifecycle-hooks), таких как  `ngOnInit()`.
 
-## Component metadata
+{@a component-metadata}
+## Компоненты метаданных
 
 <img src="generated/images/guide/architecture/metadata.png" alt="Metadata" class="left">
 
-The `@Component` decorator identifies the class immediately below it as a component class, and specifies its metadata. In the example code below, you can see that `HeroListComponent` is just a class, with no special Angular notation or syntax at all. It's not a component until you mark it as one with the `@Component` decorator.
+ `@Component` Декоратор идентифицирует класс, находящийся непосредственно под ним, как класс компонента, и определяет его метаданные. В приведенном ниже примере кода вы можете видеть, что  `HeroListComponent`  - это просто класс без каких-либо специальных Angular обозначений или синтаксиса. Это не компонент, пока вы не отметите его как один с  `@Component`  декоратор.
 
-The metadata for a component tells Angular where to get the major building blocks that it needs to create and present the component and its view. In particular, it associates a *template* with the component, either directly with inline code, or by reference. Together, the component and its template describe a *view*.
+Метаданные для компонента сообщают Angular, где взять основные строительные блоки, необходимые для создания и представления компонента и его представления. В частности, он связывает *шаблон* с компонентом, либо непосредственно со встроенным кодом, либо по ссылке. Вместе компонент и его шаблон описывают *представление*.
 
-In addition to containing or pointing to the template, the `@Component` metadata configures, for example, how the component can be referenced in HTML and what services it requires.
+В дополнение к содержанию или указанию на шаблон,  `@Component`  Метаданные настраивают, например, как можно ссылаться на компонент в HTML и какие сервисы ему требуются.
 
-Here's an example of basic metadata for `HeroListComponent`.
+Вот пример основных метаданных для  `HeroListComponent`.
 
 <code-example path="architecture/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts (metadata)" region="metadata"></code-example>
 
-This example shows some of the most useful `@Component` configuration options:
+Этот пример показывает некоторые из самых полезных  `@Component`  параметры конфигурации:
 
-* `selector`: A CSS selector that tells Angular to create and insert an instance of this component wherever it finds the corresponding tag in template HTML. For example, if an app's HTML contains `<app-hero-list></app-hero-list>`, then
-Angular inserts an instance of the `HeroListComponent` view between those tags.
+*  `selector` : CSS, который указывает Angular создавать и вставлять экземпляр этого компонента, где бы он ни находил соответствующий тег в шаблоне HTML. Например, если HTML-код приложения содержит  `<app-hero-list></app-hero-list>`, тогда
+Angular вставки экземпляра  `HeroListComponent`  вид между этими тегами.
 
-* `templateUrl`: The module-relative address of this component's HTML template. Alternatively, you can provide the HTML template inline, as the value of the `template` property. This template defines the component's *host view*.
+*  `templateUrl` : относительный к модулю адрес HTML-шаблона этого компонента. Кроме того, вы можете предоставить встроенный шаблон HTML в качестве значения  `template`  свойство. Этот шаблон определяет представление компонента*узла *.
 
-* `providers`: An array of [providers](guide/glossary#provider) for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.
+*  `providers` : массив [провайдеров](guide/glossary#provider)для услуг, которые требуются компоненту. В примере это говорит Angular, как обеспечить  `HeroService`  который конструктор компонента использует для отображения списка героев.
 
 
-## Templates and views
+{@a templates-and-views}
+## Шаблоны и просмотры
 
 <img src="generated/images/guide/architecture/template.png" alt="Template" class="left">
 
-You define a component's view with its companion template. A template is a form of HTML that tells Angular how to render the component.
+Вы определяете вид компонента с его сопутствующим шаблоном. Шаблон - это форма HTML, которая сообщает Angular, как визуализировать компонент.
 
-Views are typically arranged hierarchically, allowing you to modify or show and hide entire UI sections or pages as a unit. The template immediately associated with a component defines that component's *host view*. The component can also define a *view hierarchy*, which contains *embedded views*, hosted by other components.
+Представления обычно располагаются иерархически, что позволяет вам изменять или показывать и скрывать целые разделы или страницы пользовательского интерфейса как единое целое. Шаблон, непосредственно связанный с компонентом, определяет представление этого компонента *узла*. Компонент также может определять *иерархию представлений*, которая содержит *встроенные представления*, размещенные другими компонентами.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/component-tree.png" alt="Component tree" class="left">
 </div>
 
-A view hierarchy can include views from components in the same NgModule, but it also can (and often does) include views from components that are defined in different NgModules.
+Иерархия представлений может включать представления от компонентов в одном и том же модуле NgModule, но она также может (и часто включает) представления от компонентов, определенных в разных модулях NgModule.
 
-## Template syntax
+{@a template-syntax}
+## Синтаксис шаблона
 
-A template looks like regular HTML, except that it also contains Angular [template syntax](guide/template-syntax), which alters the HTML based on your app's logic and the state of app and DOM data. Your template can use *data binding* to coordinate the app and DOM data, *pipes* to transform data before it is displayed, and *directives* to apply app logic to what gets displayed.
+Шаблон выглядит как обычный HTML, за исключением того, что он также содержит Angular [синтаксис шаблона](guide/template-syntax), который изменяет HTML на основе логики вашего приложения и состояния приложения и данных DOM. Ваш шаблон может использовать *привязку данных* для координации данных приложения и DOM, *каналы* для преобразования данных перед их отображением и *директивы* применять логику приложения к тому, что отображается.
 
-For example, here is a template for the Tutorial's `HeroListComponent`.
+Например, вот шаблон для учебника  `HeroListComponent`.
 
 <code-example path="architecture/src/app/hero-list.component.html" header="src/app/hero-list.component.html"></code-example>
 
-This template uses typical HTML elements like `<h2>` and  `<p>`, and also includes Angular template-syntax elements,  `*ngFor`, `{{hero.name}}`, `(click)`, `[hero]`, and `<app-hero-detail>`. The template-syntax elements tell Angular how to render the HTML to the screen, using program logic and data.
+Этот шаблон использует типичные элементы HTML, такие как  `<h2>`  и   `<p>`, а также включает в себя Angular шаблон-синтаксические элементы,   `*ngFor `, ` {{hero.name}} `, ` (click) `, ` [hero] ` и ` <app-hero-detail>` . Элементы шаблона-синтаксиса сообщают Angular, как визуализировать HTML-код на экране, используя логику программы и данные.
 
-* The `*ngFor` directive tells Angular to iterate over a list.
-* `{{hero.name}}`, `(click)`, and `[hero]` bind program data to and from the DOM, responding to user input. See more about [data binding](#data-binding) below.
-* The `<app-hero-detail>` tag in the example is an element that represents a new component, `HeroDetailComponent`.
-`HeroDetailComponent` (code not shown) defines the hero-detail child view of `HeroListComponent`.
-Notice how custom components like this mix seamlessly with native HTML in the same layouts.
+*  `*ngFor` Директива указывает Angular перебирать список.
+*  `{{hero.name}} `, ` (click) ` и ` [hero]` связывает данные программы с DOM и обратно, реагируя на ввод пользователя. Подробнее о [привязка данных](#data-binding)см. Ниже.
+*  `<app-hero-detail>` Тег в этом примере представляет собой элемент, представляющий новый компонент,  `HeroDetailComponent`.
+ `HeroDetailComponent` (код не показан) определяет детальное представление детали героя  `HeroListComponent`.
+Обратите внимание, как такие компоненты легко сочетаются с собственным HTML в тех же макетах.
 
-### Data binding
+{@a data-binding}
+### Привязка данных
 
-Without a framework, you would be responsible for pushing data values into the HTML controls and turning user responses into actions and value updates. Writing such push and pull logic by hand is tedious, error-prone, and a nightmare to read, as any experienced front-end JavaScript programmer can attest.
+Без каркаса вы были бы ответственны за вставку значений данных в элементы управления HTML и превращение пользовательских ответов в действия и обновления значений. Написание такой логики push и pull вручную утомительно, подвержено ошибкам и является кошмаром для чтения, что может подтвердить любой опытный программист JavaScript.
 
-Angular supports *two-way data binding*, a mechanism for coordinating the parts of a template with the parts of a component. Add binding markup to the template HTML to tell Angular how to connect both sides.
+Angular поддерживает *двустороннюю привязку данных*, механизм для координации частей шаблона с частями компонента. Добавьте разметку привязки в шаблон HTML, чтобы сообщить Angular, как соединить обе стороны.
 
-The following diagram shows the four forms of data binding markup. Each form has a direction: to the DOM, from the DOM, or both.
+На следующем рисунке показаны четыре формы разметки привязки данных. У каждой формы есть направление: к DOM, от DOM или к обоим.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/databinding.png" alt="Data Binding" class="left">
 </div>
 
-This example from the `HeroListComponent` template uses three of these forms.
+Этот пример из  `HeroListComponent`  Шаблон использует три из этих форм.
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (binding)" region="binding"></code-example>
 
-* The `{{hero.name}}` [*interpolation*](guide/displaying-data#interpolation)
-displays the component's `hero.name` property value within the `<li>` element.
+*  `{{hero.name}}`  [* интерполяция*](guide/displaying-data#interpolation)
+отображает компонент  `hero.name`  свойства пределах  `<li>`  элемент.
 
-* The `[hero]` [*property binding*](guide/template-syntax#property-binding) passes the value of
-`selectedHero` from the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.
+*  `[hero]`  [* привязка свойства*](guide/template-syntax#property-binding)передает значение
+ `selectedHero` от родителя  `HeroListComponent`  к  `hero`  собственности ребенка  `HeroDetailComponent`.
 
-* The `(click)` [*event binding*](guide/user-input#binding-to-user-input-events) calls the component's `selectHero` method when the user clicks a hero's name.
+*  `(click)`  [* привязка события*](guide/user-input#binding-to-user-input-events)вызывает компонент  `selectHero`  Метод когда пользователь щелкает имя героя.
 
-Two-way data binding (used mainly in [template-driven forms](guide/forms))
-combines property and event binding in a single notation.
-Here's an example from the `HeroDetailComponent` template that uses two-way data binding with the `ngModel` directive.
+Двустороннее связывание данных (используется главным образом в [управляемых шаблонами формах](guide/forms))
+объединяет привязку свойства и события в одной записи.
+Вот пример из  `HeroDetailComponent`  Шаблон который использует двустороннее связывание данных с  `ngModel`  Директива.
 
 <code-example path="architecture/src/app/hero-detail.component.html" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
 
-In two-way binding, a data property value flows to the input box from the component as with property binding.
-The user's changes also flow back to the component, resetting the property to the latest value,
-as with event binding.
+При двусторонней привязке значение свойства данных поступает в поле ввода из компонента, как и при привязке свойства.
+Изменения пользователя также возвращаются к компоненту, возвращая свойству последнее значение
+как с привязкой событий.
 
-Angular processes *all* data bindings once for each JavaScript event cycle,
-from the root of the application component tree through all child components.
+Angular обрабатывает *все* привязки данных один раз для каждого цикла событий JavaScript
+из корня дерева компонентов приложения через все дочерние компоненты.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/component-databinding.png" alt="Data Binding" class="left">
 </div>
 
-Data binding plays an important role in communication between a template and its component, and is also important for communication between parent and child components.
+Связывание данных играет важную роль в коммуникации между шаблоном и его компонентом, а также важно для связи между родительским и дочерним компонентами.
 
 <div class="lightbox">
   <img src="generated/images/guide/architecture/parent-child-binding.png" alt="Parent/Child binding" class="left">
 </div>
 
-### Pipes
+{@a pipes}
+### Трубы
 
-Angular pipes let you declare display-value transformations in your template HTML. A class with the `@Pipe` decorator defines a function that transforms input values to output values for display in a view.
+Angular каналы позволяют объявлять преобразования отображаемого значения в шаблоне HTML. Класс с  `@Pipe`  Декоратор определяет функцию, которая преобразует входные значения в выходные значения для отображения в виде.
 
-Angular defines various pipes, such as the [date](https://angular.io/api/common/DatePipe) pipe and [currency](https://angular.io/api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](https://angular.io/api?type=pipe). You can also define new pipes.
+Angular определяет различные трубы, такие как [дата](https://angular.io/api/common/DatePipe)труба и [валюта](https://angular.io/api/common/CurrencyPipe)труба; полный список см. в разделе [Pipes API list](https://angular.io/api?type=pipe). Вы также можете определить новые трубы.
 
-To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe).
+Чтобы указать преобразование значения в шаблоне HTML, используйте [оператор канала (|)](https://angular.io/guide/template-syntax#pipe).
 
-`{{interpolated_value | pipe_name}}`
+ `{{interpolated_value | pipe_name}}` 
 
-You can chain pipes, sending the output of one pipe function to be transformed by another pipe function. A pipe can also take arguments that control how it performs its transformation. For example, you can pass the desired format to the `date` pipe.
+Вы можете связать конвейеры, отправив выходные данные одной функции конвейера для преобразования другой функцией конвейера. Канал также может принимать аргументы, управляющие тем, как он выполняет свое преобразование. Например, вы можете передать желаемый формат  `date`  трубы.
 
 ```
   <!-- Default format: output 'Jun 15, 2015'-->
@@ -143,48 +149,51 @@ You can chain pipes, sending the output of one pipe function to be transformed b
   <p>The time is {{today | date:'shortTime'}}</p>
 ```
 
-### Directives
+{@a directives}
+### Директивы
 
 <img src="generated/images/guide/architecture/directive.png" alt="Directives" class="left">
 
-Angular templates are *dynamic*. When Angular renders them, it transforms the DOM according to the instructions given by *directives*. A directive is a class with a `@Directive()` decorator.
+Angular шаблоны являются *динамическими*. Когда Angular отображает их, он преобразует DOM в соответствии с инструкциями, данными *директивами*. Директива - это класс с  `@Directive()`  декоратор.
 
-A component is technically a directive.
-However, components are so distinctive and central to Angular applications that Angular
-defines the `@Component()` decorator, which extends the `@Directive()` decorator with
-template-oriented features.
+Технически компонент является директивой.
+Тем не менее, компоненты настолько характерны и имеют ключевое значение для приложений Angular, что Angular
+определяет  `@Component()`  декоратор, который расширяет  `@Directive()`  оформитель с
+шаблонно-ориентированные функции.
 
-In addition to components, there are two other kinds of directives:  *structural* and *attribute*.
-Angular defines a number of directives of both kinds, and you can define your own using the  `@Directive()` decorator.
+В дополнение к компонентам, есть два других вида директив:   *структурные* и *атрибутные*.
+Angular определяет несколько директив обоих типов, и вы можете определить свои собственные, используя   `@Directive()` декоратор.
 
-Just as for components, the metadata for a directive associates the decorated class with a `selector` element that you use to insert it into HTML. In templates, directives typically appear within an element tag as attributes, either by name or as the target of an assignment or a binding.
+Как и для компонентов, метаданные для директивы связывают декорированный класс с  `selector`  элемент, который вы используете, чтобы вставить его в HTML. В шаблонах директивы обычно отображаются в теге элемента в виде атрибутов, либо по имени, либо в качестве цели назначения или привязки.
 
-#### Structural directives
+{@a structural-directives}
+#### Структурные директивы
 
-*Structural directives* alter layout by adding, removing, and replacing elements in the DOM.
-The example template uses two built-in structural directives to add application logic to how the view is rendered.
+*Структурные директивы* изменяют макет, добавляя, удаляя и заменяя элементы в DOM.
+В шаблоне примера используются две встроенные структурные директивы для добавления логики приложения в способ визуализации представления.
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>
 
-* [`*ngFor`](guide/displaying-data#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
-* [`*ngIf`](guide/displaying-data#ngIf) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
+* [ `* ngFor` ](guide/displaying-data#ngFor)является итеративным; это говорит Angular, чтобы искоренить один  `<li>`  за героя в  `heroes`  список.
+* [ `* ngIf` ](guide/displaying-data#ngIf)является условным; это включает в себя  `HeroDetail`  Компонент только если выбранный герой существует.
 
-#### Attribute directives
+{@a attribute-directives}
+#### Атрибут директивы
 
-*Attribute directives* alter the appearance or behavior of an existing element.
-In templates they look like regular HTML attributes, hence the name.
+*Директивы атрибутов* изменяют внешний вид или поведение существующего элемента.
+В шаблонах они выглядят как обычные атрибуты HTML, отсюда и название.
 
-The `ngModel` directive, which implements two-way data binding, is an example of an attribute directive. `ngModel` modifies the behavior of an existing element (typically `<input>`) by setting its display value property and responding to change events.
+ `ngModel` Директива, которая реализует двустороннее связывание данных, является примером директивы атрибута.  `ngModel`  изменяет поведение существующего элемента (обычно  `<input>`) путем установки его свойства отображаемого значения и реагирования на изменения событий.
 
 <code-example path="architecture/src/app/hero-detail.component.html" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
 
-Angular has more pre-defined directives that either alter the layout structure
-(for example, [ngSwitch](guide/template-syntax#ngSwitch))
-or modify aspects of DOM elements and components
-(for example, [ngStyle](guide/template-syntax#ngStyle) and [ngClass](guide/template-syntax#ngClass)).
+Angular имеет больше предопределенных директив, которые либо изменяют структуру макета
+(например, [ngSwitch](guide/template-syntax#ngSwitch))
+или изменить аспекты элементов и компонентов DOM
+(например, [ngStyle](guide/template-syntax#ngStyle)и [ngClass](guide/template-syntax#ngClass)).
 
 <div class="alert is-helpful">
 
-Learn more in the [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives) guides.
+Узнайте больше в руководствах [Директивы об атрибутах](guide/attribute-directives)и [Структурные директивы](guide/structural-directives).
 
 </div>

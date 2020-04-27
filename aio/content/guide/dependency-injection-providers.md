@@ -1,36 +1,38 @@
-# Dependency providers
+{@a dependency-providers}
+# Поставщики зависимостей
 
-A dependency [provider](guide/glossary#provider) configures an injector
-with a [DI token](guide/glossary#di-token),
-which that injector uses to provide the concrete, runtime version of a dependency value.
-The injector relies on the provider configuration to create instances of the dependencies
-that it injects into components, directives, pipes, and other services.
+Зависимость [поставщик](guide/glossary#provider)настраивает инжектор
+с [знаком DI](guide/glossary#di-token),
+который этот инжектор использует для предоставления конкретной версии значения зависимости во время выполнения.
+Инжектор полагается на конфигурацию провайдера для создания экземпляров зависимостей
+что он внедряется в компоненты, директивы, каналы и другие службы.
 
-You must configure an injector with a provider, or it won't know how to create the dependency.
-The most obvious way for an injector to create an instance of a service class is with the class itself.
-If you specify the service class itself as the provider token, the default behavior is for the injector to instantiate that class with `new`.
+Вы должны настроить инжектор с поставщиком, или он не будет знать, как создать зависимость.
+Самый очевидный способ для инжектора создать экземпляр класса обслуживания - это сам класс.
+Если вы указываете сам класс обслуживания в качестве маркера провайдера, то по умолчанию поведение инжектора создает экземпляр этого класса с помощью `new`.
 
-In the following typical example, the `Logger` class itself provides a `Logger` instance.
+В следующем типичном примере `Logger` Сам класс обеспечивает `Logger` экземпляр.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
 
-You can, however, configure an injector with an alternative provider,
-in order to deliver some other object that provides the needed logging functionality.
-For instance:
-* You can provide a substitute class.
+Однако вы можете настроить инжектор с альтернативным поставщиком
+для того, чтобы доставить какой-то другой объект, который обеспечивает необходимую функциональность регистрации.
+Например:
+* Вы можете предоставить замещающий класс.
 
-* You can provide a logger-like object.
+* Вы можете предоставить похожий на логгер объект.
 
-* Your provider can call a logger factory function.
+* Ваш провайдер может вызвать функцию фабрики регистратора.
 
 {@a provide}
 
-## The `Provider` object literal
+{@a the-provider-object-literal}
+## `Provider` объекта литерал
 
-The class-provider syntax is a shorthand expression that expands
-into a provider configuration, defined by the [`Provider` interface](api/core/Provider).
-The following code snippets shows how a class that is given as the `providers` value is expanded into a full provider object.
+Синтаксис поставщика классов - это сокращенное выражение, которое расширяется
+в конфигурацию провайдера, определяемую [интерфейс `Provider` ](api/core/Provider).
+В следующем фрагменте кода показано, как класс, заданный как `providers` Значение раскрывается в полный объект провайдера.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
@@ -38,101 +40,106 @@ The following code snippets shows how a class that is given as the `providers` v
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-3" >
 </code-example>
 
-The expanded provider configuration is an object literal with two properties.
+Расширенная конфигурация провайдера - это литерал объекта с двумя свойствами.
 
-* The `provide` property holds the [token](guide/dependency-injection#token)
-that serves as the key for both locating a dependency value and configuring the injector.
+* `provide` свойство содержит [токен](guide/dependency-injection#token)
+это служит ключом как для определения значения зависимости, так и для настройки инжектора.
 
-* The second property is a provider definition object, which tells the injector how to create the dependency value.
-The provider-definition key can be `useClass`, as in the example.
-It can also be `useExisting`, `useValue`, or `useFactory`.
-Each of these keys provides a different type of dependency, as discussed below.
+* Второе свойство - это объект определения провайдера, который сообщает инжектору, как создать значение зависимости.
+Ключ определения провайдера может быть `useClass`, как в примере.
+Это также может быть `useExisting`, `useValue` или `useFactory`.
+Каждый из этих ключей обеспечивает свой тип зависимости, как описано ниже.
 
 
 {@a class-provider}
 
-## Alternative class providers
+{@a alternative-class-providers}
+## Поставщики альтернативного класса
 
-Different classes can provide the same service.
-For example, the following code tells the injector
-to return a `BetterLogger` instance when the component asks for a logger
-using the `Logger` token.
+Разные классы могут предоставлять одну и ту же услугу.
+Например, следующий код сообщает инжектор
+вернуть `BetterLogger` когда компонент запрашивает регистратор
+с использованием `Logger`.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-4" >
 </code-example>
 
 {@a class-provider-dependencies}
 
-### Class providers with dependencies
+{@a class-providers-with-dependencies}
+### Класс провайдеров с зависимостями
 
-Another class, `EvenBetterLogger`, might display the user name in the log message.
-This logger gets the user from an injected `UserService` instance.
+Другой класс, `EvenBetterLogger`, может отображать имя пользователя в сообщении журнала.
+Этот регистратор получает пользователя от введенного `UserService`.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="EvenBetterLogger"></code-example>
 
-The injector needs providers for both this new logging service and its dependent `UserService`. Configure this alternative logger with the `useClass` provider-definition key, like `BetterLogger`. The following array specifies both providers in the `providers` metadata option of the parent module or component.
+Инжектор нуждается в поставщиках для этой новой службы регистрации и ее зависимых `UserService` . Настройте этот альтернативный регистратор с помощью `useClass` определения провайдера, например `BetterLogger` . В следующем массиве указаны оба поставщика в `providers` опция метаданных родительского модуля или компонента.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"></code-example>
 
 {@a aliased-class-providers}
 
-### Aliased class providers
+{@a aliased-class-providers}
+### Псевдоним класса провайдеров
 
-Suppose an old component depends upon the `OldLogger` class.
-`OldLogger` has the same interface as `NewLogger`, but for some reason
-you can't update the old component to use it.
+Предположим, старый компонент зависит от `OldLogger` Класс.
+ `OldLogger` имеет тот же интерфейс, что и `NewLogger`, но по какой-то причине
+Вы не можете обновить старый компонент, чтобы использовать его.
 
-When the old component logs a message with `OldLogger`,
-you want the singleton instance of `NewLogger` to handle it instead.
-In this case, the dependency injector should inject that singleton instance
-when a component asks for either the new or the old logger.
-`OldLogger` should be an *alias* for `NewLogger`.
+Когда старый компонент регистрирует сообщение с `OldLogger`,
+Вы хотите экземпляр синглтона `NewLogger` для обработки этого вместо.
+В этом случае инжектор зависимостей должен внедрить этот единственный экземпляр
+когда компонент запрашивает новый или старый регистратор.
+ `OldLogger` должен быть *псевдонимом* для `NewLogger`.
 
-If you try to alias `OldLogger` to `NewLogger` with `useClass`, you end up with two different `NewLogger` instances in your app.
+Если вы пытаетесь псевдоним `OldLogger` для `NewLogger` с `useClass`, вы получите два разных `NewLogger` в вашем приложении.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6a"></code-example>
 
-To make sure there is only one instance of `NewLogger`, alias `OldLogger` with the `useExisting` option.
+Чтобы убедиться, что есть только один экземпляр `NewLogger`, псевдоним `OldLogger` с `useExisting` опция.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6b"></code-example>
 
 {@a value-provider}
 
-## Value providers
+{@a value-providers}
+## Значение провайдеров
 
-Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class.
-To inject an object you have already created,
-configure the injector with the `useValue` option
+Иногда проще предоставить готовый объект, чем попросить инжектора создать его из класса.
+Для того, чтобы придать уже созданный объект,
+настроить инжектор с `useValue` опция
 
-The following code defines a variable that creates such an object to play the logger role.
+Следующий код определяет переменную, которая создает такой объект, чтобы играть роль регистратора.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="silent-logger"></code-example>
 
-The following provider object uses the `useValue` key to associate the variable with the `Logger` token.
+Следующий объект провайдера использует `useValue` ключ чтобы связать переменную с `Logger`.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-7"></code-example>
 
 {@a non-class-dependencies}
 
-### Non-class dependencies
+{@a non-class-dependencies}
+### Неклассовые зависимости
 
-Not all dependencies are classes.
-Sometimes you want to inject a string, function, or object.
+Не все зависимости являются классами.
+Иногда вы хотите ввести строку, функцию или объект.
 
-Apps often define configuration objects with lots of small facts,
-like the title of the application or the address of a web API endpoint.
-These configuration objects aren't always instances of a class.
-They can be object literals, as shown in the following example.
+Приложения часто определяют объекты конфигурации с множеством мелких фактов
+например, название приложения или адрес конечной точки веб-API.
+Эти объекты конфигурации не всегда являются экземплярами класса.
+Они могут быть объектными литералами, как показано в следующем примере.
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="config" header="src/app/app.config.ts (excerpt)"></code-example>
 
 {@a interface-not-valid-token}
 
-**TypeScript interfaces are not valid tokens**
+**Интерфейсы TypeScript не являются допустимыми токенами**
 
-The `HERO_DI_CONFIG` constant conforms to the `AppConfig` interface.
-Unfortunately, you cannot use a TypeScript interface as a token.
-In TypeScript, an interface is a design-time artifact, and doesn't have a runtime representation (token) that the DI framework can use.
+ `HERO_DI_CONFIG ` соответствует ` AppConfig` Интерфейс.
+К сожалению, вы не можете использовать интерфейс TypeScript в качестве токена.
+В TypeScript интерфейс является артефактом времени разработки и не имеет представления (токена) времени выполнения, которое может использовать инфраструктура DI.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9-interface"></code-example>
 
@@ -140,38 +147,38 @@ In TypeScript, an interface is a design-time artifact, and doesn't have a runtim
 
 <div class="alert is-helpful">
 
-This might seem strange if you're used to dependency injection in strongly typed languages where an interface is the preferred dependency lookup key.
-However, JavaScript, doesn't have interfaces, so when TypeScript is transpiled to JavaScript, the interface disappears.
-There is no interface type information left for Angular to find at runtime.
+Это может показаться странным, если вы привыкли к внедрению зависимостей в строго типизированных языках, где интерфейс является предпочтительным ключом поиска зависимостей.
+Однако JavaScript не имеет интерфейсов, поэтому, когда TypeScript переносится в JavaScript, интерфейс исчезает.
+Для Angular не осталось информации о типе интерфейса для поиска во время выполнения.
 
 </div>
 
-One alternative is to provide and inject the configuration object in an NgModule like `AppModule`.
+Одна из альтернатив - предоставить и внедрить объект конфигурации в NgModule, например `AppModule`.
 
 <code-example path="dependency-injection/src/app/app.module.ts" region="providers" header="src/app/app.module.ts (providers)"></code-example>
 
-Another solution to choosing a provider token for non-class dependencies is
-to define and use an `InjectionToken` object.
-The following example shows how to define such a token.
+Другое решение для выбора токена провайдера для внеклассных зависимостей
+определить и использовать `InjectionToken` объект.
+В следующем примере показано, как определить такой токен.
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="token" header="src/app/app.config.ts"></code-example>
 
-The type parameter, while optional, conveys the dependency's type to developers and tooling.
-The token description is another developer aid.
+Параметр type, хотя и является необязательным, передает тип зависимости разработчикам и инструментам.
+Описание токена - еще одна помощь для разработчиков.
 
-Register the dependency provider using the `InjectionToken` object:
+Зарегистрируйте поставщика зависимостей, используя `InjectionToken` объект:
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"></code-example>
 
-Now you can inject the configuration object into any constructor that needs it, with
-the help of an `@Inject()` parameter decorator.
+Теперь вы можете добавить объект конфигурации в любой конструктор, которому он нужен, с помощью
+помощь `@Inject()` параметр декоратор.
 
 <code-example path="dependency-injection/src/app/app.component.2.ts" region="ctor" header="src/app/app.component.ts"></code-example>
 
 <div class="alert is-helpful">
 
-Although the `AppConfig` interface plays no role in dependency injection,
-it supports typing of the configuration object within the class.
+Хотя `AppConfig` Интерфейс не играет роли в внедрении зависимостей
+он поддерживает типирование объекта конфигурации в классе.
 
 </div>
 
@@ -179,57 +186,57 @@ it supports typing of the configuration object within the class.
 {@a factory-provider}
 {@a factory-providers}
 
-## Factory providers
+## Фабрика провайдеров
 
-Sometimes you need to create a dependent value dynamically,
-based on information you won't have until run time.
-For example, you might need information that changes repeatedly in the course of the browser session.
-Also, your injectable service might not have independent access to the source of the information.
+Иногда вам нужно динамически создать зависимое значение
+на основе информации, которую вы не будете иметь до времени выполнения.
+Например, вам может потребоваться информация, которая неоднократно изменяется в ходе сеанса браузера.
+Кроме того, ваша инъекционная служба может не иметь независимого доступа к источнику информации.
 
-In cases like this you can use a *factory provider*.
-Factory providers can also be useful when creating an instance of a dependency from
-a third-party library that wasn't designed to work with DI.
+В таких случаях вы можете использовать*заводской провайдер*.
+Поставщики фабрики также могут быть полезны при создании экземпляра зависимости от
+сторонняя библиотека, не предназначенная для работы с DI.
 
-For example, suppose `HeroService` must hide *secret* heroes from normal users.
-Only authorized users should see secret heroes.
+Например, предположим, `HeroService` должен скрывать *секретных* героев от обычных пользователей.
+Только авторизованные пользователи должны видеть секретных героев.
 
-Like  `EvenBetterLogger`, `HeroService` needs to know if the user is authorized to see secret heroes.
-That authorization can change during the course of a single application session,
-as when you log in a different user.
+подобно `EvenBetterLogger `, ` HeroService` должен знать, авторизован ли пользователь для просмотра секретных героев.
+Эта авторизация может измениться в течение одного сеанса приложения
+как при входе в систему другого пользователя.
 
-Let's say you don't want to inject `UserService` directly into `HeroService`, because you don't want to complicate that service with security-sensitive information.
-`HeroService` won't have direct access to the user information to decide
-who is authorized and who isn't.
+Допустим, вы не хотите вводить `UserService` непосредственно в `HeroService`, потому что вы не хотите усложнять этот сервис конфиденциальной информацией.
+ `HeroService` не будет иметь прямого доступа к пользовательской информации для принятия решения
+кто уполномочен, а кто нет.
 
-To resolve this, we give the `HeroService` constructor a boolean flag to control display of secret heroes.
+Чтобы решить эту проблему, мы даем `HeroService` конструктор логический флаг для управления отображением секретных героев.
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.ts" region="internals" header="src/app/heroes/hero.service.ts (excerpt)"></code-example>
 
-You can inject `Logger`, but you can't inject the  `isAuthorized` flag. Instead, you can use a factory provider to create a new logger instance for `HeroService`.
+Вы можете ввести `Logger`, но вы не можете ввести `isAuthorized` флаг. Вместо этого вы можете использовать поставщика фабрики для создания нового экземпляра регистратора для `HeroService`.
 
-A factory provider needs a factory function.
+Фабричный поставщик нуждается в заводской функции.
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="factory" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
-Although `HeroService` has no access to `UserService`, the factory function does.
-You inject both `Logger` and `UserService` into the factory provider
-and let the injector pass them along to the factory function.
+Хотя `HeroService` не имеет доступа к `UserService`, заводская функция делает.
+Вы вводите оба `Logger` и `UserService` в заводской провайдер
+и пусть инжектор передает их на заводские функции.
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
-* The `useFactory` field tells Angular that the provider is a factory function whose implementation is `heroServiceFactory`.
+* `useFactory` сообщает Angular, что поставщик является фабричной функцией, реализация которой `heroServiceFactory`.
 
-* The `deps` property is an array of [provider tokens](guide/dependency-injection#token).
-The `Logger` and `UserService` classes serve as tokens for their own class providers.
-The injector resolves these tokens and injects the corresponding services into the matching factory function parameters.
+* `deps` Свойство является массивом [токенов провайдера](guide/dependency-injection#token).
+ `Logger ` и ` UserService` служат токенами для их собственных поставщиков классов.
+Инжектор разрешает эти токены и внедряет соответствующие сервисы в соответствующие параметры фабричной функции.
 
-Notice that you captured the factory provider in an exported variable, `heroServiceProvider`.
-This extra step makes the factory provider reusable.
-You can configure a provider of `HeroService` with this variable wherever you need it.
-In this sample, you need it only in `HeroesComponent`,
-where `heroServiceProvider` replaces `HeroService` in the metadata `providers` array.
+Обратите внимание, что вы захватили провайдера фабрики в экспортируемой переменной, `heroServiceProvider`.
+Этот дополнительный шаг делает поставщика фабрики многоразовым.
+Вы можете настроить поставщика `HeroService` с этой переменной, где вам это нужно.
+В этом примере он нужен только в `HeroesComponent`,
+где `heroServiceProvider` заменяет `HeroService` в метаданных `providers` массив.
 
-The following shows the new and the old implementations side-by-side.
+Ниже показаны новые и старые реализации бок о бок.
 
 <code-tabs>
 
@@ -241,98 +248,101 @@ The following shows the new and the old implementations side-by-side.
 
 </code-tabs>
 
-## Predefined tokens and multiple providers
+{@a predefined-tokens-and-multiple-providers}
+## Предопределенные токены и несколько провайдеров
 
-Angular provides a number of built-in injection-token constants that you can use to customize the behavior of
-various systems.
+Angular предоставляет ряд встроенных констант токенов инъекций, которые вы можете использовать для настройки поведения
+различные системы.
 
-For example, you can use the following built-in tokens as hooks into the framework’s bootstrapping and initialization process.
-A provider object can associate any of these injection tokens with one or more callback functions that take app-specific initialization actions.
+Например, вы можете использовать следующие встроенные токены в качестве хуков в процессе начальной загрузки и инициализации фреймворка.
+Объект провайдера может связать любой из этих маркеров внедрения с одной или несколькими функциями обратного вызова, которые выполняют действия по инициализации для конкретного приложения.
 
-* [PLATFORM_INITIALIZER](api/core/PLATFORM_INITIALIZER): Callback is invoked when a platform is initialized.
+* [PLATFORM_INITIALIZER](api/core/PLATFORM_INITIALIZER): обратный вызов вызывается при инициализации платформы.
 
-* [APP_BOOTSTRAP_LISTENER](api/core/APP_BOOTSTRAP_LISTENER): Callback is invoked for each component that is bootstrapped. The handler function receives the ComponentRef instance of the bootstrapped component.
+* [APP_BOOTSTRAP_LISTENER вызов](api/core/APP_BOOTSTRAP_LISTENER): обратный вызывается для каждого загружаемого компонента. Функция-обработчик получает экземпляр ComponentRef загрузочного компонента.
 
-* [APP_INITIALIZER](api/core/APP_INITIALIZER): Callback is invoked before an app is initialized. All registered initializers can optionally return a Promise. All initializer functions that return Promises must be resolved before the application is bootstrapped. If one of the initializers fails to resolves, the application is not bootstrapped.
+* [APP_INITIALIZER](api/core/APP_INITIALIZER): Обратный вызов вызывается до инициализации приложения. Все зарегистрированные инициализаторы могут при желании вернуть Обещание. Все функции инициализатора, которые возвращают Promises, должны быть разрешены до загрузки приложения. Если один из инициализаторов не удается разрешить, приложение не загружается.
 
-The provider object can have a third option, `multi: true`, which you can use with `APP_INITIALIZER`
-to register multiple handlers for the provide event.
+У объекта провайдера может быть третий вариант, `multi: true`, который вы можете использовать с `APP_INITIALIZER` 
+зарегистрировать несколько обработчиков для события предоставления.
 
-For example, when bootstrapping an application, you can register many initializers using the same token.
+Например, при начальной загрузке приложения вы можете зарегистрировать множество инициализаторов, используя один и тот же токен.
 
 ```
 export const APP_TOKENS = [
- { provide: PLATFORM_INITIALIZER, useFactory: platformInitialized, multi: true    },
+ { provide: PLATFORM_INITIALIZER, useFactory: platformInitialized, multi: true },
  { provide: APP_INITIALIZER, useFactory: delayBootstrapping, multi: true },
  { provide: APP_BOOTSTRAP_LISTENER, useFactory: appBootstrapped, multi: true },
 ];
 ```
 
-Multiple providers can be associated with a single token in other areas as well.
-For example, you can register a custom form validator using the built-in [NG_VALIDATORS](api/forms/NG_VALIDATORS) token,
-and provide multiple instances of a given validator provider by using the `multi: true` property in the provider object.
-Angular adds your custom validators to the existing collection.
+Несколько провайдеров могут быть связаны с одним токеном и в других областях.
+Например, вы можете зарегистрировать пользовательский валидатор форм с помощью встроенного [NG_VALIDATORS](api/forms/NG_VALIDATORS)маркер,
+и предоставить несколько экземпляров данного поставщика валидатора с помощью `multi: true` Свойство в объекте провайдера.
+Angular добавляет ваши пользовательские валидаторы в существующую коллекцию.
 
-The Router also makes use of multiple providers associated with a single token.
-When you provide multiple sets of routes using [RouterModule.forRoot](api/router/RouterModule#forroot)
-and [RouterModule.forChild](api/router/RouterModule#forchild) in a single module,
-the [ROUTES](api/router/ROUTES) token combines all the different provided sets of routes into a single value.
+Маршрутизатор также использует несколько провайдеров, связанных с одним токеном.
+Когда вы предоставляете несколько наборов маршрутов, используя [RouterModule.forRoot](api/router/RouterModule#forroot)
+и [RouterModule.forChild](api/router/RouterModule#forchild)в одном модуле
+в [МАРШРУТЫ](api/router/ROUTES)лексем сочетает в себе все различные предлагаемые наборы маршрутов в одно значение.
 
 <div class="alert is-helpful">
 
-Search for [Constants in API documentation](api?type=const) to find more built-in tokens.
+Искать [Константы в документации API)](api?type=const)чтобы найти больше встроенных токенов.
 
 </div>
 
 {@a tree-shakable-provider}
 {@a tree-shakable-providers}
 
-## Tree-shakable providers
+{@a tree-shakable-providers}
+## Поставщики, работающие на деревьях
 
-Tree shaking refers to a compiler option that removes code from the final bundle if the app doesn't reference that code.
-When providers are tree-shakable, the Angular compiler removes the associated
-services from the final output when it determines that your application doesn't use those services.
-This significantly reduces the size of your bundles.
+Встряхивание дерева относится к параметру компилятора, который удаляет код из окончательного пакета, если приложение не ссылается на этот код.
+Когда провайдеры могут перемещаться по деревьям, Angular компилятор удаляет связанные
+сервисы из окончательного вывода, когда он определяет, что ваше приложение не использует эти сервисы.
+Это значительно уменьшает размер ваших связок.
 
 <div class="alert is-helpful">
 
-Ideally, if an application isn't injecting a service, Angular shouldn't include it in the final output.
-However, Angular has to be able to identify at build time whether the app will require the service or not.
-Because it's always possible to inject a service directly using `injector.get(Service)`,
-Angular can't identify all of the places in your code where this injection could happen,
-so it has no choice but to include the service in the injector.
-Thus, services in the NgModule `providers` array or at component level are not tree-shakable.
+В идеале, если приложение не внедряет службу, Angular не должен включать ее в окончательный вывод.
+Тем не менее, Angular должен уметь определять во время сборки, будет ли приложение нуждаться в услуге или нет.
+Потому что всегда можно ввести сервис напрямую, используя `injector.get(Service)`,
+Angular не может идентифицировать все места в вашем коде, где может произойти эта инъекция
+так что у него нет другого выбора, кроме как включить сервис в инжектор.
+Таким образом, сервисы в NgModule `providers` Массив или на уровне компонентов не может быть преобразован в дерево.
 
 </div>
 
-The following example of non-tree-shakable providers in Angular configures a service provider for the injector of an NgModule.
+В следующем примере провайдеров без возможности обмена дерева в Angular настраивается поставщик услуг для инжектора модуля NgModule.
 
-<code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts"></code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts" header="src/app/tree-shaking/service-and-modules.ts"></code-example>
 
-You can then import this module into your application module
-to make the service available for injection in your app,
-as in the following example.
+Затем вы можете импортировать этот модуль в модуль приложения
+сделать сервис доступным для инъекций в вашем приложении
+как в следующем примере.
 
-<code-example path="dependency-injection/src/app/tree-shaking/app.module.ts"  header="src/app/tree-shaking/app.modules.ts"></code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/app.module.ts" header="src/app/tree-shaking/app.modules.ts"></code-example>
 
-When `ngc` runs, it compiles `AppModule` into a module factory, which contains definitions for all the providers declared in all the modules it includes. At runtime, this factory becomes an injector that instantiates these services.
+когда `ngc` работает, он компилирует `AppModule` в фабрику модулей, которая содержит определения для всех провайдеров, объявленных во всех модулях, которые он включает. Во время выполнения эта фабрика становится инжектором, который создает эти службы.
 
-Tree-shaking doesn't work here because Angular can't decide to exclude one chunk of code (the provider definition for the service within the module factory) based on whether another chunk of code (the service class) is used. To make services tree-shakable, the information about how to construct an instance of the service (the provider definition) needs to be a part of the service class itself.
+Тряска дерева здесь не работает, потому что Angular не может решить исключить один кусок кода (определение поставщика для сервиса в фабрике модулей) на основе того, используется ли другой кусок кода (класс обслуживания). Чтобы сделать службы доступными для дерева, информация о том, как создать экземпляр службы (определение поставщика), должна быть частью самого класса службы.
 
-### Creating tree-shakable providers
+{@a creating-tree-shakable-providers}
+### Создание древовидных провайдеров
 
-You can make a provider tree-shakable by specifying it in the `@Injectable()` decorator on the service itself, rather than in the metadata for the NgModule or component that depends on the service.
+Вы можете сделать провайдера доступным для дерева, указав его в `@Injectable()` на самом сервисе, а не в метаданных для NgModule или компонента, который зависит от сервиса.
 
-The following example shows the tree-shakable equivalent to the `ServiceModule` example above.
+В следующем примере показан древовидный эквивалент `ServiceModule` Пример выше.
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.ts"  header="src/app/tree-shaking/service.ts"></code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts" header="src/app/tree-shaking/service.ts"></code-example>
 
-The service can be instantiated by configuring a factory function, as in the following example.
+Службу можно создать, настроив заводскую функцию, как показано в следующем примере.
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.0.ts"  header="src/app/tree-shaking/service.0.ts"></code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service.0.ts" header="src/app/tree-shaking/service.0.ts"></code-example>
 
 <div class="alert is-helpful">
 
-To override a tree-shakable provider, configure the injector of a specific NgModule or component with another provider, using the `providers: []` array syntax of the `@NgModule()` or `@Component()` decorator.
+Чтобы переопределить поставщика с возможностью ветвления дерева, настройте инжектор определенного модуля NgModule или компонента с другим поставщиком, используя `providers: []` синтаксис массива `@NgModule()` или `@Component()` декоратор.
 
 </div>

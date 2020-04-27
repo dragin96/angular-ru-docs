@@ -28,37 +28,37 @@ export const controlNameBinding: any = {
 };
 
 /**
- * @description
- * Syncs a `FormControl` in an existing `FormGroup` to a form control
- * element by name.
+ *  @description
+ * Синхронизирует `FormControl` в существующей `FormGroup` суправления формы
+ * элемент по имени.
  *
- * @see [Reactive Forms Guide](guide/reactive-forms)
- * @see `FormControl`
- * @see `AbstractControl`
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
+ *  @see `FormControl`
+ *  @see `AbstractControl`
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Register `FormControl` within a group
+ *  ### Зарегистрируйте `FormControl` в группе
  *
- * The following example shows how to register multiple form controls within a form group
- * and set their value.
+ * В следующем примере показано, как зарегистрировать несколько элементов управления формы в группе форм
+ * и установить их значение.
  *
- * {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
+ *  {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
  *
- * To see `formControlName` examples with different form control types, see:
+ * Чтобы увидеть `formControlName` примерыс различными типами управления формы,см.
  *
- * * Radio buttons: `RadioControlValueAccessor`
- * * Selects: `SelectControlValueAccessor`
+ * : `RadioControlValueAccessor``RadioControlValueAccessor`
+ * Выбирает: `SelectControlValueAccessor`
  *
- * ### Use with ngModel is deprecated
+ *  ### Использование с ngModel не рекомендуется
  *
- * Support for using the `ngModel` input property and `ngModelChange` event with reactive
- * form directives has been deprecated in Angular v6 and is scheduled for removal in
- * a future version of Angular.
+ * Поддержкапомощью `ngModel` ввода свойстваи `ngModelChange` события среактивным.
+ * Директивы формы устарели в Angular v6 и планируется удалить в
+ * будущая версия Angular.
  *
- * For details, see [Deprecated features](guide/deprecations#ngmodel-with-reactive-forms).
+ * Подробнее см.[Устаревшие функции](guide/deprecations#ngmodel-with-reactive-forms).
  *
- * @ngModule ReactiveFormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({selector: '[formControlName]', providers: [controlNameBinding]})

@@ -53,7 +53,7 @@ export function setupWebWorker(): void {
 }
 
 /**
- * The ng module for the worker app side.
+ * Модуль ng для рабочей стороны приложения.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

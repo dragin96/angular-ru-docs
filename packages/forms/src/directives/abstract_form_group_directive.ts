@@ -18,8 +18,8 @@ import {AsyncValidatorFn, ValidatorFn} from './validators';
 
 
 /**
- * @description
- * A base class for code shared between the `NgModelGroup` and `FormGroupName` directives.
+ *  @description
+ * Базовый класс для кода, совместно используемого `NgModelGroup` и `FormGroupName``FormGroupName`.
  *
  * @publicApi
  */

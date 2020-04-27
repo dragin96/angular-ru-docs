@@ -1,85 +1,93 @@
-# Providing dependencies in modules
+{@a providers}
+# Провайдеры
 
-A provider is an instruction to the [Dependency Injection](/guide/dependency-injection) system on how to obtain a value for a dependency. Most of the time, these dependencies are services that you create and provide.
+Поставщик - это инструкция для системы [внедрение зависимостей](/guide/dependency-injection)о том, как получить значение для зависимости. В большинстве случаев эти зависимости являются услугами, которые вы создаете и предоставляете.
 
-For the final sample app using the provider that this page describes,
-see the <live-example></live-example>.
+Для окончательного примера приложения с использованием провайдера, описанного на этой странице
+увидеть <live-example></live-example>.
 
-## Providing a service
+{@a providing-a-service}
+## Предоставление услуги
 
-If you already have an app that was created with the [Angular CLI](cli), you can create a service using the [`ng generate`](cli/generate) CLI command in the root project directory. Replace _User_ with the name of your service.
+Если у вас уже есть приложение, которое было создано с помощью [Angular CLI](cli), вы можете создать службу, используя [` ` ng generate` ](cli/generate)Команда CLI в корневом каталоге проекта. Замените _User_ на название вашего сервиса.
 
 ```sh
 ng generate service User
 ```
 
-This command creates the following `UserService` skeleton:
+Эта команда создает следующее `UserService` скелет:
 
-<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts"></code-example>
+<code-example path="providers/src/app/user.service.0.ts" header="src/app/user.service.ts"></code-example>
 
-You can now inject `UserService` anywhere in your application.
+Теперь вы можете ввести `UserService` любом месте вашего приложения.
 
-The service itself is a class that the CLI generated and that's decorated with `@Injectable()`. By default, this decorator has a `providedIn` property, which creates a provider for the service. In this case, `providedIn: 'root'` specifies that Angular should provide the service in the root injector.
+Сам сервис - это класс, сгенерированный CLI и `@Injectable()` . По умолчанию этот декоратор имеет `providedIn` свойство, которое создает провайдера для сервиса. В этом случае, `providedIn: 'root'` указывает, что Angular должен предоставлять сервис в корневом инжекторе.
 
 
-## Provider scope
+{@a provider-scope}
+## Объем провайдера
 
-When you add a service provider to the root application injector, it’s available throughout the app. Additionally, these providers are also available to all the classes in the app as long they have the lookup token.
+Когда вы добавляете поставщика услуг в инжектор корневого приложения, он становится доступным во всем приложении. Кроме того, эти поставщики также доступны для всех классов в приложении, если у них есть токен поиска.
 
-You should always provide your service in the root injector unless there is a case where you want the service to be available only if the consumer imports a particular `@NgModule`.
+Вы должны всегда предоставлять свою услугу в корневом инжекторе, если только вы не хотите, чтобы эта служба была доступна, только если потребитель импортирует определенный `@NgModule`.
 
-## `providedIn` and NgModules
+{@a providedin-and-ngmodules}
+## `providedIn` и NgModules
 
-It's also possible to specify that a service should be provided in a particular `@NgModule`. For example, if you don't want `UserService` to be available to applications unless they import a `UserModule` you've created, you can specify that the service should be provided in the module:
+Также можно указать, что услуга должна предоставляться в определенном `@NgModule` . Например, если вы не хотите `UserService` будет доступен для приложений, если они не импортируют `UserModule` вы создали, вы можете указать, что служба должна быть предусмотрена в модуле:
 
-<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.ts"></code-example>
+<code-example path="providers/src/app/user.service.1.ts" header="src/app/user.service.ts"></code-example>
 
-The example above shows the preferred way to provide a service in a module. This method is preferred because it enables tree-shaking of the service if nothing injects it. If it's not possible to specify in the service which module should provide it, you can also declare a provider for the service within the module:
+В приведенном выше примере показан предпочтительный способ предоставления услуги в модуле. Этот метод предпочтителен, потому что он позволяет трясти службу в дереве, если ее не внедряют. Если это не представляется возможным указать в службе, модуль должен обеспечить его, вы можете также объявить поставщик для службы в модуле:
 
-<code-example path="providers/src/app/user.module.ts"  header="src/app/user.module.ts"></code-example>
+<code-example path="providers/src/app/user.module.ts" header="src/app/user.module.ts"></code-example>
 
-## Limiting provider scope by lazy loading modules
+{@a limiting-provider-scope-by-lazy-loading-modules}
+## Ограничение возможностей провайдера ленивой загрузкой модулей
 
-In the basic CLI-generated app, modules are eagerly loaded which means that they are all loaded when the app launches. Angular uses an injector system to make things available between modules. In an eagerly loaded app, the root application injector makes all of the providers in all of the modules available throughout the app.
+В базовом приложении, сгенерированном CLI, модули загружаются с нетерпением, что означает, что все они загружаются при запуске приложения. Angular использует систему инжекторов, чтобы сделать вещи доступными между модулями. В загружаемом приложении с добавлением корневых приложений все поставщики во всех модулях доступны во всем приложении.
 
-This behavior necessarily changes when you use lazy loading. Lazy loading is when you load modules only when you need them; for example, when routing. They aren’t loaded right away like with eagerly loaded modules. This means that any services listed in their provider arrays aren’t available because the root injector doesn’t know about these modules.
+Это поведение обязательно меняется, когда вы используете ленивую загрузку. Ленивая загрузка - это когда вы загружаете модули только тогда, когда они вам нужны; например, при маршрутизации. Они загружаются не сразу, как в случае загруженных модулей. Это означает, что любые сервисы, перечисленные в их массивах провайдеров, недоступны, поскольку корневой инжектор не знает об этих модулях.
 
 <!-- KW--Make diagram here -->
 <!-- KW--per Misko: not clear if the lazy modules are siblings or grand-children. They are both depending on router structure. -->
-When the Angular router lazy-loads a module, it creates a new injector. This injector is a child of the root application injector. Imagine a tree of injectors; there is a single root injector and then a child injector for each lazy loaded module. The router adds all of the providers from the root injector to the child injector. When the router creates a component within the lazy-loaded context, Angular prefers service instances created from these providers to the service instances of the application root injector.
+Когда Angular маршрутизатор лениво загружает модуль, он создает новый инжектор. Этот инжектор является дочерним для инжектора корневого приложения. Представьте себе дерево инжекторов; Существует один корневой инжектор, а затем дочерний инжектор для каждого лениво загруженного модуля. Маршрутизатор добавляет всех поставщиков от корневого инжектора к дочернему инжектору. Когда маршрутизатор создает компонент в лениво загруженном контексте, Angular предпочитает экземпляры службы, созданные из этих поставщиков, экземплярам службы корневого инжектора приложения.
 
-Any component created within a lazy loaded module’s context, such as by router navigation, gets the local instance of the service, not the instance in the root application injector. Components in external modules continue to receive the instance created for the application root.
+Любой компонент, созданный в контексте лениво загруженного модуля, например, с помощью навигации по маршрутизатору, получает локальный экземпляр службы, а не экземпляр в инжекторе корневого приложения. Компоненты во внешних модулях продолжают получать экземпляр, созданный для корня приложения.
 
-Though you can provide services by lazy loading modules, not all services can be lazy loaded. For instance, some modules only work in the root module, such as the Router. The Router works with the global location object in the browser.
+Хотя вы можете предоставлять услуги с помощью отложенной загрузки модулей, не все службы могут загружаться с отложенной загрузкой. Например, некоторые модули работают только в корневом модуле, например, в маршрутизаторе. Маршрутизатор работает с глобальным объектом местоположения в браузере.
 
 
-## Limiting provider scope with components
+{@a limiting-provider-scope-with-components}
+## Ограничение объема провайдера с компонентами
 
-Another way to limit provider scope is by adding the service you want to limit to the component’s
-`providers` array. Component providers and NgModule providers are independent of each other. This
-method is helpful when you want to eagerly load a module that needs a service all to itself.
-Providing a service in the component limits the service only to that component (other components in
-the same module can’t access it).
+Другой способ ограничить область действия поставщика - добавить службу, которую вы хотите ограничить, к компоненту
+ `providers` массив . Поставщики компонентов и поставщики NgModule не зависят друг от друга. Это
+Метод полезен, когда вы хотите загружать модуль, которому нужен только сервис.
+Предоставление услуги в компоненте ограничивает службу только к тому, что компонент (другие компоненты
+Тот же модуль не может получить доступ к нему).
 
 <code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts"></code-example>
 
 
-## Providing services in modules vs. components
+{@a providing-services-in-modules-vs.-components}
+## Предоставление услуг в модулях против компонентов
 
-Generally, provide services the whole app needs in the root module and scope services by providing them in lazy loaded modules.
+Как правило, предоставьте сервисы, необходимые для всего приложения в корневом модуле, и предоставьте сервисы в виде лениво загруженных модулей.
 
-The router works at the root level so if you put providers in a component, even `AppComponent`, lazy loaded modules, which rely on the router, can’t see them.
+Маршрутизатор работает на корневом уровне, поэтому, если вы поместите провайдеров в компонент, даже `AppComponent`, лениво загруженные модули, которые зависят от маршрутизатора, не могут их видеть.
 
 <!-- KW--Make a diagram here -->
-Register a provider with a component when you must limit a service instance to a component and its component tree, that is, its child components. For example, a user editing component, `UserEditorComponent`, that needs a private copy of a caching `UserService` should register the `UserService` with the `UserEditorComponent`. Then each new instance of the `UserEditorComponent` gets its own cached service instance.
+Зарегистрируйте поставщика с компонентом, если необходимо ограничить экземпляр службы компонентом и его деревом компонентов, то есть его дочерними компонентами. Например, пользовательский компонент редактирования, `UserEditorComponent`, который нуждается в закрытой копии кэширования `UserService` должен зарегистрировать `UserService` с `UserEditorComponent` . Затем каждый новый экземпляр `UserEditorComponent` получает свой собственный кэшированный экземпляр службы.
 
 
 <hr>
 
-## More on NgModules
+{@a more-on-ngmodules}
+## Больше на NgModules
 
-You may also be interested in:
-* [Singleton Services](guide/singleton-services), which elaborates on the concepts covered on this page.
-* [Lazy Loading Modules](guide/lazy-loading-ngmodules).
-* [Tree-shakable Providers](guide/dependency-injection-providers#tree-shakable-providers).
+Вы также можете быть заинтересованы в:
+* [Singleton Services](guide/singleton-services), которая развивает концепции, описанные на этой странице.
+* [Ленивые загрузочные модули](guide/lazy-loading-ngmodules).
+* [Поставщики деревьев](guide/dependency-injection-providers#tree-shakable-providers).
 * [NgModule FAQ](guide/ngmodule-faq).

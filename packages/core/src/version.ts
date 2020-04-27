@@ -7,7 +7,7 @@
  */
 
 /**
- * @description Represents the version of Angular
+ *  @description Представляет версию Angular
  *
  * @publicApi
  */

@@ -8,8 +8,8 @@
 
 
 /**
- * The strategy that the default change detector uses to detect changes.
- * When set, takes effect the next time change detection is triggered.
+ * Стратегия, которую детектор изменений по умолчанию использует для обнаружения изменений.
+ * Когда установлено, вступает в силу при следующем обнаружении изменений.
  *
  * @publicApi
  */

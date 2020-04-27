@@ -18,96 +18,96 @@ import {UrlTree} from '../url_tree';
 
 
 /**
- * @description
+ *  @description
  *
- * Lets you link to specific routes in your app.
+ * Позволяет вам ссылаться на конкретные маршруты в вашем приложении.
  *
- * Consider the following route configuration:
- * `[{ path: 'user/:name', component: UserCmp }]`.
- * When linking to this `user/:name` route, you use the `RouterLink` directive.
+ * Рассмотрим следующую конфигурациюмаршрута:.
+ *  `[{ path: 'user/:name', component: UserCmp }]`.
+ * При связывании с этим `user/:name` route вы используете `RouterLink` директиву.
  *
- * If the link is static, you can use the directive as follows:
- * `<a routerLink="/user/bob">link to user component</a>`
+ * Если ссылка является статической, вы можете использовать директиву следующим:.
+ *  `<a routerLink="/user/bob">link to user component</a>`
  *
- * If you use dynamic values to generate the link, you can pass an array of path
- * segments, followed by the params for each segment.
+ * Если вы используете динамические значения для генерации ссылки, вы можете передать массив пути
+ * сегменты, за которыми следуют параметры для каждого сегмента.
  *
- * For instance `['/team', teamId, 'user', userName, {details: true}]`
- * means that we want to generate a link to `/team/11/user/bob;details=true`.
+ * Например,`['/team', teamId, 'user', userName, {details: true}]`
+ * означает, что мы хотим сгенерировать ссылку на `/team/11/user/bob;details=true`.
  *
- * Multiple static segments can be merged into one
- * (e.g., `['/team/11/user', userName, {details: true}]`).
+ * Несколько статических сегментов могут быть объединены в один
+ * (например,`['/team/11/user', userName, {details: true}]`).
  *
- * The first segment name can be prepended with `/`, `./`, or `../`:
- * * If the first segment begins with `/`, the router will look up the route from the root of the
- *   app.
- * * If the first segment begins with `./`, or doesn't begin with a slash, the router will
- *   instead look in the children of the current activated route.
- * * And if the first segment begins with `../`, the router will go up one level.
+ * Имя первого сегмента может начинаться с `/` , `./` или `../` :
+ * Если первый сегмент начинается с `/` , маршрутизатор будет искать маршрут от корня
+ * приложение.
+ * Если первый сегмент начинается с `./` или не начинается с косой черты, маршрутизатор будет
+ * вместо этого посмотрите на детей текущего активированного маршрута.
+ * И если первый сегмент начинается с `../` , маршрутизатор поднимется на один уровень вверх.
  *
- * You can set query params and fragment as follows:
+ * Вы можете установить параметры запроса и фрагмент следующим:.
  *
- * ```
- * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">
- *   link to user component
- * </a>
- * ```
- * RouterLink will use these to generate this link: `/user/bob#education?debug=true`.
+ *  ```
+ *  <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">
+ *    link to user component
+ *  </a>
+ *  ```
+ * RouterLink будет использовать их для генерации этой ссылки: `/user/bob#education?debug=true`.
  *
- * (Deprecated in v4.0.0 use `queryParamsHandling` instead) You can also tell the
- * directive to preserve the current query params and fragment:
+ * (Устаревшее в v4.0.0 используйте `queryParamsHandling` вместо). Вы также можете указать
+ * директивачтобы сохранить текущие параметры запроса ифрагмент:.
  *
- * ```
- * <a [routerLink]="['/user/bob']" preserveQueryParams preserveFragment>
- *   link to user component
- * </a>
- * ```
+ *  ```
+ *  <a [routerLink]="['/user/bob']" preserveQueryParams preserveFragment>
+ *    link to user component
+ *  </a>
+ *  ```
  *
- * You can tell the directive how to handle queryParams. Available options are:
- *  - `'merge'`: merge the queryParams into the current queryParams
- *  - `'preserve'`: preserve the current queryParams
- *  - default/`''`: use the queryParams only
+ * Вы можете указать директиве, как обрабатывать queryParams. Возможныварианты:.
+ * - `'merge'` : объединить queryParams с текущим queryParams
+ * - `'preserve'` : сохранить текущие параметры запроса
+ * - по умолчанию / `''` : используйте только queryParams
  *
- * Same options for {@link NavigationExtras#queryParamsHandling
- * NavigationExtras#queryParamsHandling}.
+ * Те же варианты для{@link NavigationExtras#queryParamsHandling
+ *  NavigationExtras#queryParamsHandling},
  *
- * ```
- * <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" queryParamsHandling="merge">
- *   link to user component
- * </a>
- * ```
+ *  ```
+ *  <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" queryParamsHandling="merge">
+ *    link to user component
+ *  </a>
+ *  ```
  *
- * You can provide a `state` value to be persisted to the browser's History.state
- * property (See https://developer.mozilla.org/en-US/docs/Web/API/History#Properties). It's
- * used as follows:
+ * Вы можете предоставить `state``state` для сохранения в History.state браузера
+ * свойство (см. https://developer.mozilla.org/en-US/docs/Web/API/History#Свойства).Это.
+ * используется следующим:.
  *
- * ```
- * <a [routerLink]="['/user/bob']" [state]="{tracingId: 123}">
- *   link to user component
- * </a>
- * ```
+ *  ```
+ *  <a [routerLink]="['/user/bob']" [state]="{tracingId: 123}">
+ *    link to user component
+ *  </a>
+ *  ```
  *
- * And later the value can be read from the router through `router.getCurrentNavigation`.
- * For example, to capture the `tracingId` above during the `NavigationStart` event:
+ * И позже значение может быть считано из маршрутизатора через `router.getCurrentNavigation`.
+ * Например, чтобы захватить `tracingId` вышетечение `NavigationStart` события:.
  *
- * ```
- * // Get NavigationStart events
- * router.events.pipe(filter(e => e instanceof NavigationStart)).subscribe(e => {
- *   const navigation = router.getCurrentNavigation();
- *   tracingService.trace({id: navigation.extras.state.tracingId});
- * });
- * ```
+ *  ```
+ *  // Get NavigationStart events
+ *  router.events.pipe(filter(e => e instanceof NavigationStart)).subscribe(e => {
+ *    const navigation = router.getCurrentNavigation();
+ *    tracingService.trace({id: navigation.extras.state.tracingId});
+ *  });
+ *  ```
  *
- * The router link directive always treats the provided input as a delta to the current url.
+ * Директива ссылки на маршрутизатор всегда обрабатывает предоставленный ввод как дельту текущего URL.
  *
- * For instance, if the current url is `/user/(box//aux:team)`.
+ * Например, если текущий URL-адрес `/user/(box//aux:team)`.
  *
- * Then the following link `<a [routerLink]="['/user/jim']">Jim</a>` will generate the link
- * `/user/(jim//aux:team)`.
+ * Затем следующая ссылка`<a [routerLink]="['/user/jim']">Jim</a>`создаст ссылку
+ *  `/user/(jim//aux:team)`.
  *
- * See {@link Router#createUrlTree createUrlTree} for more information.
+ * Видеть{@link Router#createUrlTree createUrlTree}за дополнительной информацией.
  *
- * @ngModule RouterModule
+ *  @ngModule RouterModule
  *
  * @publicApi
  */
@@ -182,13 +182,13 @@ export class RouterLink {
 }
 
 /**
- * @description
+ *  @description
  *
- * Lets you link to specific routes in your app.
+ * Позволяет вам ссылаться на конкретные маршруты в вашем приложении.
  *
- * See `RouterLink` for more information.
+ * См. `RouterLink` для получения дополнительной информации.
  *
- * @ngModule RouterModule
+ *  @ngModule RouterModule
  *
  * @publicApi
  */

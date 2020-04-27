@@ -1,36 +1,39 @@
-# Authoring schematics
+{@a authoring-schematics}
+# Авторские схемы
 
-You can create your own schematics to operate on Angular projects.
-Library developers typically package schematics with their libraries in order to integrate them with the Angular CLI.
-You can also create stand-alone schematics to manipulate the files and constructs in Angular applications as a way of customizing them for your development environment and making them conform to your standards and constraints.
-Schematics can be chained, running other schematics to perform complex operations.
+Вы можете создавать свои собственные схемы для работы над проектами Angular.
+Разработчики библиотек обычно объединяют схемы со своими библиотеками, чтобы интегрировать их с Angular CLI.
+Вы также можете создавать автономные схемы для управления файлами и конструкциями в приложениях Angular, чтобы настроить их для своей среды разработки и привести их в соответствие с вашими стандартами и ограничениями.
+Схемы могут быть связаны, используя другие схемы для выполнения сложных операций.
 
-Manipulating the code in an application has the potential to be both very powerful and correspondingly dangerous.
-For example, creating a file that already exists would be an error, and if it was applied immediately, it would discard all the other changes applied so far.
-The Angular Schematics tooling guards against side effects and errors by creating a virtual file system.
-A schematic describes a pipeline of transformations that can be applied to the virtual file system.
-When a schematic runs, the transformations are recorded in memory, and only applied in the real file system once they're confirmed to be valid.
+Управление кодом в приложении может быть очень мощным и, соответственно, опасным.
+Например, создание файла, который уже существует, будет ошибкой, и если он будет применен немедленно, он отменит все остальные изменения, примененные до сих пор.
+Инструменты Angular Schematics защищают от побочных эффектов и ошибок, создавая виртуальную файловую систему.
+Схема описывает конвейер преобразований, которые можно применить к виртуальной файловой системе.
+Когда схема выполняется, преобразования записываются в память и применяются в реальной файловой системе только после подтверждения их правильности.
 
-## Schematics concepts
+{@a schematics-concepts}
+## Схематические понятия
 
-The public API for schematics defines classes that represent the basic concepts.
+Открытый API для схем определяет классы, которые представляют основные понятия.
 
-* The virtual file system is represented by a `Tree`.   The `Tree` data structure contains a *base* (a set of files that already exists) and a *staging area* (a list of changes to be applied to the base).
-When making modifications, you don't actually change the base, but add those modifications to the staging area.
+* Виртуальная файловая система представлена  `Tree` .  `Tree` структура данных содержит*базу * (набор файлов, который уже существует) и*промежуточную область * (список изменений, которые должны быть применены к базе).
+При внесении изменений вы фактически не меняете базу, а добавляете эти модификации в область подготовки.
 
-* A `Rule` object defines a function that takes a `Tree`, applies transformations, and returns a new `Tree`. The main file for a schematic, `index.ts`, defines a set of rules that implement the schematic's logic.
+*  `Rule` Объект определяет функцию, которая принимает  `Tree`, применяет преобразования и возвращает новый  `Tree`  . Основной файл для схемы,  `index.ts`, определяет набор правил, которые реализуют логику схемы.
 
-* A transformation is represented by an `Action`. There are four action types: `Create`, `Rename`, `Overwrite`, and `Delete`.
+* Преобразование представлено  `Action`  . Есть четыре типа действий:  `Create`, `Rename`, `Overwrite`  и  `Delete`.
 
-* Each schematic runs in a context, represented by a `SchematicContext` object.
+* Каждая схема работает в контексте, представленном  `SchematicContext`  Объект.
 
-The context object passed into a rule provides access to utility functions and metadata that the schematic may need to work with, including a logging API to help with debugging.
-The context also defines a *merge strategy* that determines how changes are merged from the staged tree into the base tree. A change can be accepted or ignored, or throw an exception.
+Объект контекста, переданный в правило, обеспечивает доступ к служебным функциям и метаданным, с которыми может потребоваться работа схемы, включая API ведения журнала для помощи в отладке.
+Контекст также определяет *стратегию слияния,* которая определяет, как изменения объединяются из поэтапного дерева в базовое дерево. Изменение может быть принято или проигнорировано, или выдать исключение.
 
-### Defining rules and actions
+{@a defining-rules-and-actions}
+### Определение правил и действий
 
-When you create a new blank schematic with the [Schematics CLI](#cli), the generated entry function is a *rule factory*.
-A `RuleFactory` object defines a higher-order function that creates a `Rule`.
+Когда вы создаете новую пустую схему с помощью [Schematics CLI](#cli), сгенерированная функция ввода является *фабрикой правил*.
+ `RuleFactory` Объект определяет функцию высшего порядка, которая создает  `Rule`.
 
 <code-example language="TypeScript" header="index.ts">
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
@@ -44,10 +47,10 @@ export function helloWorld(_options: any): Rule {
 }
 </code-example>
 
-Your rules can make changes to your projects by calling external tools and implementing logic.
-You need a rule, for example, to define how a template in the schematic is to be merged into the hosting project.
+Ваши правила могут вносить изменения в ваши проекты, вызывая внешние инструменты и реализуя логику.
+Например, вам нужно правило, чтобы определить, как шаблон схемы должен быть объединен с хост-проектом.
 
-Rules can make use of utilities provided with the `@schematics/angular` package. Look for helper functions for working with modules, dependencies, TypeScript, AST, JSON, Angular CLI workspaces and projects, and more.
+Правила могут использовать утилиты, предоставляемые с  `@schematics/angular`  пакет. Ищите вспомогательные функции для работы с модулями, зависимостями, TypeScript, AST, JSON, рабочими пространствами и проектами Angular CLI и многим другим.
 
 <code-example language="TypeScript" header="index.ts">
 
@@ -63,14 +66,15 @@ import {
 
 </code-example>
 
-### Defining input options with a schema and interfaces
+{@a defining-input-options-with-a-schema-and-interfaces}
+### Определение параметров ввода со схемой и интерфейсами
 
-Rules can collect option values from the caller and inject them into templates.
-The options available to your rules, with their allowed values and defaults, are defined in the schematic's JSON schema file, `<schematic>/schema.json`.
-You can define variable or enumerated data types for the schema using TypeScript interfaces.
+Правила могут собирать значения параметров из вызывающей стороны и вставлять их в шаблоны.
+Параметры, доступные для ваших правил, с их допустимыми значениями и значениями по умолчанию, определены в файле схемы JSON схемы,  `<schematic>/schema.json`.
+Вы можете определить переменные или перечисляемые типы данных для схемы, используя интерфейсы TypeScript.
 
-The schema defines the types and default values of variables used in the schematic.
-For example, the hypothetical "Hello World" schematic might have the following schema.
+Схема определяет типы и значения переменных по умолчанию, используемые в схеме.
+Например, гипотетическая схема «Hello World» может иметь следующую схему.
 
 <code-example language="json" header="src/hello-world/schema.json">
 
@@ -89,18 +93,19 @@ For example, the hypothetical "Hello World" schematic might have the following s
 </code-example>
 
 
-You can see examples of schema files for the Angular CLI command schematics in [`@schematics/angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/schematics/angular/application/schema.json).
+Вы можете увидеть примеры файлов схемы для схем команд Angular CLI в [ `@ schematics / angular` ](https://github.com/angular/angular-cli/blob/7.0.x/packages/schematics/angular/application/schema.json).
 
-### Schematic prompts
+{@a schematic-prompts}
+### Схематические подсказки
 
-Schematic *prompts* introduce user interaction into schematic execution.
-You can configure schematic options to display a customizable question to the user.
-The prompts are displayed before the execution of the schematic, which then uses the response as the value for the option.
-This allows users to direct the operation of the schematic without requiring in-depth knowledge of the full spectrum of available options.
+Схематические *подсказки* вводят взаимодействие пользователя в схематическое исполнение.
+Вы можете настроить параметры схемы для отображения настраиваемого вопроса пользователю.
+Подсказки отображаются перед выполнением схемы, которая затем использует ответ в качестве значения параметра.
+Это позволяет пользователям управлять работой схемы, не требуя глубокого знания всего спектра доступных опций.
 
-The "Hello World" schematic might, for example, ask the user for their name, and display that name in place of the default name "world". To define such a prompt, add an `x-prompt` property to the schema for the `name` variable.
+Схема «Hello World» может, например, запрашивать у пользователя его имя и отображать это имя вместо имени по умолчанию «world». Чтобы определить такую ​​подсказку, добавьте  `x-prompt`  Свойство для схемы для  `name`  переменная
 
-Similarly, you can add a prompt to allow the user to decide whether the schematic will use color when executing its hello action. The schema with both prompts would be as follows.
+Точно так же вы можете добавить приглашение, позволяющее пользователю решать, будет ли схема использовать цвет при выполнении своего действия приветствия. Схема с обоими запросами будет выглядеть следующим образом.
 
 <code-example language="json" header="src/hello-world/schema.json">
 
@@ -120,35 +125,36 @@ Similarly, you can add a prompt to allow the user to decide whether the schemati
 }
 </code-example>
 
-#### Prompt short-form syntax
+{@a prompt-short-form-syntax}
+#### Подскажите краткий синтаксис
 
-These examples use a shorthand form of the prompt syntax, supplying only the text of the question.
-In most cases, this is all that is required.
-Notice however, that the two prompts expect different types of input.
-When using the shorthand form, the most appropriate type is automatically selected based on the property's schema.
-In the example, the `name` prompt uses the `input` type because it it is a string property.
-The `useColor` prompt uses a `confirmation` type because it is a Boolean property.
-In this case, "yes" corresponds to `true` and "no" corresponds to `false`.
+В этих примерах используется сокращенная форма синтаксиса приглашения, содержащая только текст вопроса.
+В большинстве случаев это все, что требуется.
+Однако обратите внимание, что эти два запроса ожидают разные типы ввода.
+При использовании сокращенной формы наиболее подходящий тип выбирается автоматически на основе схемы свойства.
+В примере  `name`  подсказка использует  `input`  тип потому что это строковое свойство.
+ `useColor` подсказка использует  `confirmation`  тип потому что это логическое свойство.
+В этом случае «да» соответствует  `true`  и "нет" соответствует  `false`.
 
-There are three supported input types.
+Есть три поддерживаемых типа ввода.
 
-| Input type | Description |
-| :----------- | :-------------------|
-| confirmation | A yes or no question; ideal for Boolean options. |
-| input | Textual input; ideal for string or number options. |
-| list | A predefined set of allowed values. |
+| Тип входа | Описание |
+| : ----------- | : ------------------- |
+| подтверждение | Да или нет вопрос; идеально подходит для булевых опций. |
+| вход | Текстовый ввод; идеально подходит для строк или чисел. |
+| список | Предопределенный набор допустимых значений. |
 
-In the short form, the type is inferred from the property's type and constraints.
+В краткой форме тип выводится из типа свойства и ограничений.
 
-| Property Schema |	Prompt Type |
-| :--------------- | :------------- |
-| "type": "boolean" |	confirmation ("yes"=`true`, "no"=`false`) |
-| "type": "string"  |	input |
-| "type": "number"  |	input (only valid numbers accepted) |
-| "type": "integer" |	input (only valid numbers accepted) |
-| "enum": [...]   	| list 	(enum members become list selections) |
+| Схема недвижимости | Тип подсказки |
+| : --------------- | : ------------- |
+| "type": "boolean" | подтверждение («да» =  `true`, "нет" =  `false`) |
+| "тип": "строка" | вход |
+| "тип": "номер" | ввод (принимаются только действительные числа) |
+| "тип": "целое число" | ввод (принимаются только действительные числа) |
+| "enum": [...] | список (члены перечисления становятся списком выбора) |
 
-In the following example, the property takes an enumerated value, so the schematic automatically chooses the list type, and creates a menu from the possible values.
+В следующем примере свойство принимает перечисляемое значение, поэтому схема автоматически выбирает тип списка и создает меню из возможных значений.
 
 <code-example language="json" header="schema.json">
 
@@ -168,24 +174,25 @@ In the following example, the property takes an enumerated value, so the schemat
 
 </code-example>
 
-The prompt runtime automatically validates the provided response against the constraints provided in the JSON schema.
-If the value is not acceptable, the user is prompted for a new value.
-This ensures that any values passed to the schematic meet the expectations of the schematic's implementation, so that you do not need to add additional checks within the schematic's code.
+Среда выполнения приглашения автоматически проверяет предоставленный ответ на соответствие ограничениям, указанным в схеме JSON.
+Если значение недопустимо, пользователю предлагается ввести новое значение.
+Это гарантирует, что любые значения, переданные в схему, соответствуют ожиданиям реализации схемы, поэтому вам не нужно добавлять дополнительные проверки в код схемы.
 
-#### Prompt long-form syntax
+{@a prompt-long-form-syntax}
+#### Подскажите длинный синтаксис
 
-The `x-prompt` field syntax supports a long form for cases where you require additional customization and control over the prompt.
-In this form, the `x-prompt` field value is a JSON object with subfields that customize the behavior of the prompt.
+ `x-prompt` Синтаксис поля поддерживает длинную форму для случаев, когда вам требуется дополнительная настройка и контроль над приглашением.
+В этой форме  `x-prompt`  Значение поля - это объект JSON с подполями, которые настраивают поведение приглашения.
 
-| Field |	Data Value |
-| :----------- | :------ |
-| type    | `confirmation`, `input`, or `list` (selected automatically in short form) |
-| message |	string (required) |
-| items   |	string and/or label/value object pair (only valid with type `list`) |
+| Поле | Значение данных |
+| : ----------- | : ------ |
+| тип |  `confirmation`, `input`  или  `list`  (выбирается автоматически в краткой форме) |
+| сообщение | строка (обязательно) |
+| предметы | пара строк и / или меток / значений (действует только с типом  `list`) |
 
-The following example of the long form is from the JSON schema for the schematic that the CLI uses to [generate applications](https://github.com/angular/angular-cli/blob/ba8a6ea59983bb52a6f1e66d105c5a77517f062e/packages/schematics/angular/application/schema.json#L56).
-It defines the prompt that allows users to choose which style preprocessor they want to use for the application being created.
-By using the long form, the schematic can provide more explicit formatting of the menu choices.
+Следующий пример длинной формы взят из схемы JSON для схемы, которую CLI использует для [генерации приложений](https://github.com/angular/angular-cli/blob/ba8a6ea59983bb52a6f1e66d105c5a77517f062e/packages/schematics/angular/application/schema.json#L56).
+Он определяет приглашение, которое позволяет пользователям выбирать, какой препроцессор стиля они хотят использовать для создаваемого приложения.
+Используя длинную форму, схема может обеспечить более явное форматирование пунктов меню.
 
 <code-example language="json" header="package/schematics/angular/application/schema.json">
 
@@ -214,11 +221,12 @@ By using the long form, the schematic can provide more explicit formatting of th
     },
 </code-example>
 
-#### x-prompt schema
+{@a x-prompt-schema}
+#### Схема х-подсказки
 
-The JSON schema that defines a schematic's options supports extensions to allow the declarative definition of prompts and their respective behavior.
-No additional logic or changes are required to the code of a schematic to support the prompts.
-The following JSON schema is a complete description of the long-form syntax for the `x-prompt` field.
+Схема JSON, которая определяет параметры схемы, поддерживает расширения, позволяющие декларативное определение приглашений и их соответствующего поведения.
+Никакой дополнительной логики или изменений в коде схемы для поддержки подсказок не требуется.
+Следующая схема JSON представляет собой полное описание синтаксиса длинной формы для  `x-prompt`  поле.
 
 <code-example language="json" header="x-prompt schema">
 
@@ -256,79 +264,84 @@ The following JSON schema is a complete description of the long-form syntax for 
 
 {@a cli}
 
-## Schematics CLI
+{@a schematics-cli}
+## Схемы CLI
 
-Schematics come with their own command-line tool.
-Using Node 6.9 or above, install the Schematics command line tool globally:
+Схемы поставляются с собственным инструментом командной строки.
+Использование узла 6.9 или выше, установите средство командной строки схемной глобально:
 
 <code-example language="bash">
 npm install -g @angular-devkit/schematics-cli
 </code-example>
 
-This installs the `schematics` executable, which you can use to create a new schematics collection in its own project folder, add a new schematic to an existing collection, or extend an existing schematic.
+Это устанавливает  `schematics`  Исполняемый файл, который можно использовать для создания новой коллекции схем в собственной папке проекта, добавления новой схемы в существующую коллекцию или расширения существующей схемы.
 
-In the following sections, we will create a new schematics collection using the CLI in order to introduce the files and file structure, and some of the basic concepts.
+В следующих разделах мы создадим новую коллекцию схем с использованием интерфейса командной строки, чтобы представить файлы и структуру файлов, а также некоторые основные понятия.
 
-The most common use of schematics, however, is to integrate an Angular library with the Angular CLI.
-You can do this by creating the schematic files directly within the library project in an Angular workspace, without using the Schematics CLI.
-See [Schematics for Libraries](guide/schematics-for-libraries).
+Однако наиболее распространенным использованием схем является интеграция Angular-библиотеки с Angular CLI.
+Это можно сделать, создав файлы схемы непосредственно в проекте библиотеки в рабочей области Angular без использования интерфейса командной строки Schematics.
+Смотрите [Схемы для библиотек](guide/schematics-for-libraries).
 
-### Creating a schematics collection
+{@a creating-a-schematics-collection}
+### Создание коллекции схем
 
-The following command creates a new schematic named `hello-world` in a new project folder of the same name.
+Следующая команда создает новую схему с именем  `hello-world`  в новой папке проекта с тем же именем.
 
 <code-example language="bash">
 schematics blank --name=hello-world
 </code-example>
 
-The `blank` schematic is provided by the Schematics CLI. The command creates a new project folder (the root folder for the collection) and an initial named schematic in the collection.
+ `blank` схема предоставляется CLI Schematics. Команда создает новую папку проекта (корневую папку для коллекции) и исходное имя схемы в коллекции.
 
-Go to the collection folder, install your npm dependencies, and open your new collection in your favorite editor to see the generated files. For example, if you are using VSCode:
+Перейдите в папку коллекции, установите зависимости npm и откройте новую коллекцию в своем любимом редакторе, чтобы увидеть созданные файлы. Например, если вы используете VSCode:
 
 <code-example language="bash">
 cd hello-world
 npm install
 npm run build
-code .
+code.
 </code-example>
 
-The initial schematic gets the same name as the project folder, and is generated in `src/hello-world`.
-You can add related schematics to this collection, and modify the generated skeleton code to define your schematic's functionality.
-Each schematic name must be unique within the collection.
+Исходная схема получает то же имя, что и папка проекта, и создается в  `src/hello-world`.
+Вы можете добавить связанные схемы в эту коллекцию и изменить сгенерированный код скелета, чтобы определить функциональность вашей схемы.
+Каждое имя схемы должно быть уникальным в коллекции.
 
-### Running a schematic
+{@a running-a-schematic}
+### Запущена схема
 
-Use the `schematics` command to run a named schematic.
-Provide the path to the project folder, the schematic name, and any mandatory options, in the following format.
+Использовать  `schematics`  команда для запуска именованной схемы.
+Укажите путь к папке проекта, имя схемы и все обязательные параметры в следующем формате.
 
 <code-example language="bash">
 schematics &lt;path-to-schematics-project&gt;:&lt;schematics-name&gt; --&lt;required-option&gt;=&lt;value&gt;
 </code-example>
 
-The path can be absolute or relative to the current working directory where the command is executed.
-For example, to run the schematic we just generated (which has no required options), use the following command.
+Путь может быть абсолютным или относительным к текущему рабочему каталогу, в котором выполняется команда.
+Например, чтобы запустить только что созданную схему (у которой нет обязательных параметров), используйте следующую команду.
 
 <code-example language="bash">
 schematics .:hello-world
 </code-example>
 
-### Adding a schematic to a collection
+{@a adding-a-schematic-to-a-collection}
+### Добавление схемы в коллекцию
 
-To add a schematic to an existing collection, use the same command you use to start a new schematics project, but run the command inside the project folder.
+Чтобы добавить схему в существующую коллекцию, используйте ту же команду, которую вы использовали для запуска нового проекта схемы, но выполните команду внутри папки проекта.
 
 <code-example language="bash">
 cd hello-world
 schematics blank --name=goodbye-world
 </code-example>
 
-The command generates the new named schematic inside your collection, with a main `index.ts` file and its associated test spec.
-It also adds the name, description, and factory function for the new schematic to the collection's schema in the `collection.json` file.
+Команда генерирует новую именованную схему внутри вашей коллекции с основным  `index.ts`  Файл и связанные с ним тестовые спецификации.
+Он также добавляет имя, описание и фабричную функцию для новой схемы в схему коллекции в  `collection.json`  файл.
 
-## Collection contents
+{@a collection-contents}
+## Содержание коллекции
 
-The top level of the root project folder for a collection contains configuration files, a `node_modules` folder, and a `src/` folder.
-The `src/` folder contains subfolders for named schematics in the collection, and a schema, `collection.json`, which describes the collected schematics.
-Each schematic is created with a name, description, and factory function.
+Верхний уровень корневой папки проекта для коллекции содержит файлы конфигурации,  `node_modules`  папка и  `src/`  папка.
+ `src/` папка содержит подпапки для именованных схем в коллекции и схему,  `collection.json`, который описывает собранные схемы.
+Каждая схема создается с именем, описанием и заводской функцией.
 
 <code-example language="none">
 {
@@ -343,35 +356,36 @@ Each schematic is created with a name, description, and factory function.
 }
 </code-example>
 
-* The `$schema` property specifies the schema that the CLI uses for validation.
-* The `schematics` property lists named schematics that belong to this collection.
-   Each schematic has a plain-text description, and points to the generated entry function in the main file.
-* The `factory` property points to the generated entry function. In this example, you invoke the `hello-world` schematic by calling the `helloWorld()` factory function.
-* The optional  `schema` property points to a JSON schema file that defines the command-line options available to the schematic.
-* The optional `aliases` array specifies one or more strings that can be used to invoke the schematic.
-   For example, the schematic for the Angular CLI “generate” command has an alias “g”, allowing you to use the command `ng g`.
+*  `$schema` Свойство указывает схему, которую CLI использует для проверки.
+*  `schematics` списки свойств именами схем, которые принадлежат этой коллекции.
+   Каждая схема имеет текстовое описание и указывает на сгенерированную функцию ввода в главном файле.
+*  `factory` свойство указывает на сгенерированную функцию входа. В этом примере вы вызываете  `hello-world`  схема, позвонив  `helloWorld()`  фабричная функция.
+* Необязательный   `schema` свойство указывает на файл схемы JSON, который определяет параметры командной строки, доступные для схемы.
+* Необязательный  `aliases`  массиве указывается одна или несколько строк, которые можно использовать для вызова схемы.
+   Например, схема команды Angular CLI «генерировать» имеет псевдоним «g», что позволяет использовать команду `ng g`.
 
-### Named schematics
+{@a named-schematics}
+### Именованные схемы
 
-When you use the Schematics CLI to create a blank schematics project, the new blank schematic is the first member of the collection, and has the same name as the collection.
-When you add a new named schematic to this collection, it is automatically added to the  `collection.json`  schema.
+Когда вы используете CLI Schematics для создания пустого проекта схемы, новая пустая схема является первым членом коллекции и имеет то же имя, что и коллекция.
+Когда вы добавляете новую именованную схему в эту коллекцию, она автоматически добавляется в   `collection.json`   схема.
 
-In addition to the name and description, each schematic has a `factory` property that identifies the schematic’s entry point.
-In the example, you invoke the schematic's defined functionality by calling the `helloWorld()` function in the main file,  `hello-world/index.ts`.
+В дополнение к названию и описанию каждая схема имеет  `factory`  свойство, которое идентифицирует точку входа схемы.
+В этом примере вы вызываете определенные функциональные возможности схемы, вызывая  `helloWorld()`  функция в главном файле,   `hello-world/index.ts`.
 
 <div class="lightbox">
   <img src="generated/images/guide/schematics/collection-files.gif" alt="overview">
 </div>
 
-Each named schematic in the collection has the following main parts.
+Каждая именованная схема в коллекции имеет следующие основные части.
 
 | | |
 | :------------- | :-------------------------------------------|
-| `index.ts`     | Code that defines the transformation logic for a named schematic.  |
-| `schema.json`  | Schematic variable definition. |
-| `schema.d.ts`  | Schematic variables.  |
-| `files/`       | Optional component/template files to replicate. |
+|  `index.ts`       | Код, который определяет логику преобразования для именованной схемы. |
+|  `schema.json`    | Схематическое определение переменных. |
+|  `schema.d.ts`    | Схематические переменные. |
+|  `files/`         | Необязательные файлы компонентов / шаблонов для репликации. |
 
-It is possible for a schematic to provide all of its logic in the `index.ts` file, without additional templates.
-You can create dynamic schematics for Angular, however, by providing components and templates in the `files/` folder, like those in standalone Angular projects.
-The logic in the index file configures these templates by defining rules that inject data and modify variables.
+Схема может предоставить всю свою логику в  `index.ts`  Файл, без дополнительных шаблонов.
+Однако вы можете создавать динамические схемы для Angular, предоставляя компоненты и шаблоны в  `files/`  папка, как в автономных проектах Angular.
+Логика в файле индекса настраивает эти шаблоны, определяя правила, которые вводят данные и изменяют переменные.

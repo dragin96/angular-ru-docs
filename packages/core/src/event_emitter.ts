@@ -11,54 +11,54 @@
 import {Subject, Subscription} from 'rxjs';
 
 /**
- * Use in components with the `@Output` directive to emit custom events
- * synchronously or asynchronously, and register handlers for those events
- * by subscribing to an instance.
+ * Используйте в компонентах с `@Output` директивойдляпользовательских событий
+ * синхронно или асинхронно, и зарегистрируйте обработчики для этих событий
+ * подписавшись на экземпляр.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * Extends
- * [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)
- * for Angular by adding the `emit()` method.
+ * Удлиняет
+ *  [RxJS `Тема`](https://rxjs.dev/api/index/class/Subject)
+ * для Angular путем добавления `emit()` метода.
  *
- * In the following example, a component defines two output properties
- * that create event emitters. When the title is clicked, the emitter
- * emits an open or close event to toggle the current visibility state.
+ * В следующем примере компонент определяет два выходных свойства
+ * которые создают источники событий. Когда заголовок кликается, эмиттер
+ * испускает событие открытия или закрытия для переключения текущего состояния видимости.
  *
- * ```html
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
+ *  ```html
+ *  @Component({
+ *    selector: 'zippy',
+ *    template: `
+ *    <div class="zippy">
+ *      <div (click)="toggle()">Toggle</div>
+ *      <div [hidden]="!visible">
+ *        <ng-content></ng-content>
+ *      </div>
+ *   </div>`})
+ *  export class Zippy {
+ *    visible: boolean = true;
+ *    @Output() open: EventEmitter<any> = new EventEmitter();
+ *    @Output() close: EventEmitter<any> = new EventEmitter();
  *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
+ *    toggle() {
+ *      this.visible = !this.visible;
+ *      if (this.visible) {
+ *        this.open.emit(null);
+ *      } else {
+ *        this.close.emit(null);
+ *      }
+ *    }
+ *  }
+ *  ```
  *
- * Access the event object with the `$event` argument passed to the output event
- * handler:
+ * Получите доступ к объекту события с помощью `$event` аргументапереданного в выходное событие
+ * Обработчик:.
  *
- * ```html
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
+ *  ```html
+ *  <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+ *  ```
  *
- * @see [Observables in Angular](guide/observables-in-angular)
+ *  @see [Наблюдаемые в Angular](guide/observables-in-angular)
  * @publicApi
  */
 export class EventEmitter<T extends any> extends Subject<T> {

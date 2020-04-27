@@ -17,9 +17,9 @@ import {RouterConfigLoader} from './router_config_loader';
 
 
 /**
- * @description
+ *  @description
  *
- * Provides a preloading strategy.
+ * Предоставляет стратегию предварительной загрузки.
  *
  * @publicApi
  */
@@ -28,13 +28,13 @@ export abstract class PreloadingStrategy {
 }
 
 /**
- * @description
+ *  @description
  *
- * Provides a preloading strategy that preloads all modules as quickly as possible.
+ * Предоставляет стратегию предварительной загрузки, которая максимально быстро загружает все модули.
  *
- * ```
- * RouteModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
- * ```
+ *  ```
+ *  RouteModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
+ *  ```
  *
  * @publicApi
  */
@@ -45,11 +45,11 @@ export class PreloadAllModules implements PreloadingStrategy {
 }
 
 /**
- * @description
+ *  @description
  *
- * Provides a preloading strategy that does not preload any modules.
+ * Предоставляет стратегию предварительной загрузки, которая не предусматривает предварительной загрузки модулей.
  *
- * This strategy is enabled by default.
+ * Эта стратегия включена по умолчанию.
  *
  * @publicApi
  */
@@ -60,14 +60,14 @@ export class NoPreloading implements PreloadingStrategy {
 }
 
 /**
- * The preloader optimistically loads all router configurations to
- * make navigations into lazily-loaded sections of the application faster.
+ * Предварительный загрузчик оптимистично загружает все конфигурации маршрутизатора в
+ * сделать навигацию в лениво загруженных разделах приложения быстрее.
  *
- * The preloader runs in the background. When the router bootstraps, the preloader
- * starts listening to all navigation events. After every such event, the preloader
- * will check if any configurations can be loaded lazily.
+ * Прелоадер работает в фоновом режиме. Когда роутер загрузится, начальный загрузчик
+ * начинает слушать все навигационные события. После каждого такого события прелоадер
+ * проверим, можно ли загружать какие-либо конфигурации лениво.
  *
- * If a route is protected by `canLoad` guards, the preloaded will not load it.
+ * Если маршрут защищен `canLoad``canLoad` , предварительно загруженный не загрузит его.
  *
  * @publicApi
  */

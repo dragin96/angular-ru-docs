@@ -14,31 +14,31 @@ import {ChildrenOutletContexts, ExtraOptions, NoPreloading, PreloadingStrategy, 
 
 
 /**
- * @description
+ *  @description
  *
- * Allows to simulate the loading of ng modules in tests.
+ * Позволяет моделировать загрузку модулей ng в тестах.
  *
- * ```
- * const loader = TestBed.inject(NgModuleFactoryLoader);
+ *  ```
+ *  const loader = TestBed.inject(NgModuleFactoryLoader);
  *
- * @Component({template: 'lazy-loaded'})
- * class LazyLoadedComponent {}
- * @NgModule({
- *   declarations: [LazyLoadedComponent],
- *   imports: [RouterModule.forChild([{path: 'loaded', component: LazyLoadedComponent}])]
- * })
+ *  @Component({template: 'lazy-loaded'})
+ *  class LazyLoadedComponent {}
+ *  @NgModule({
+ *    declarations: [LazyLoadedComponent],
+ *    imports: [RouterModule.forChild([{path: 'loaded', component: LazyLoadedComponent}])]
+ *  })
  *
- * class LoadedModule {}
+ *  class LoadedModule {}
  *
- * // sets up stubbedModules
- * loader.stubbedModules = {lazyModule: LoadedModule};
+ *  // sets up stubbedModules
+ *  loader.stubbedModules = {lazyModule: LoadedModule};
  *
- * router.resetConfig([
- *   {path: 'lazy', loadChildren: 'lazyModule'},
- * ]);
+ *  router.resetConfig([
+ *    {path: 'lazy', loadChildren: 'lazyModule'},
+ *  ]);
  *
- * router.navigateByUrl('/lazy/loaded');
- * ```
+ *  router.navigateByUrl('/lazy/loaded');
+ *  ```
  *
  * @publicApi
  */
@@ -86,7 +86,7 @@ function isUrlHandlingStrategy(opts: ExtraOptions|
 }
 
 /**
- * Router setup factory function used for testing.
+ * Для тестирования используется заводская функция настройки маршрутизатора.
  *
  * @publicApi
  */
@@ -96,10 +96,10 @@ export function setupTestingRouter(
     opts?: ExtraOptions, urlHandlingStrategy?: UrlHandlingStrategy): Router;
 
 /**
- * Router setup factory function used for testing.
+ * Для тестирования используется заводская функция настройки маршрутизатора.
  *
- * @deprecated As of v5.2. The 2nd-to-last argument should be `ExtraOptions`, not
- * `UrlHandlingStrategy`
+ *  @deprecated Начиная с v5.2. Второй-последний аргумент должен быть `ExtraOptions` , а не
+ *  `UrlHandlingStrategy`
  * @publicApi
  */
 export function setupTestingRouter(
@@ -108,7 +108,7 @@ export function setupTestingRouter(
     urlHandlingStrategy?: UrlHandlingStrategy): Router;
 
 /**
- * Router setup factory function used for testing.
+ * Для тестирования используется заводская функция настройки маршрутизатора.
  *
  * @publicApi
  */
@@ -142,28 +142,28 @@ export function setupTestingRouter(
 }
 
 /**
- * @description
+ *  @description
  *
- * Sets up the router to be used for testing.
+ * Устанавливает маршрутизатор, который будет использоваться для тестирования.
  *
- * The modules sets up the router to be used for testing.
- * It provides spy implementations of `Location`, `LocationStrategy`, and {@link
+ * Модули настраивают маршрутизатор, который будет использоваться для тестирования.
+ * Он предоставляет шпионские реализации `Location` , `LocationStrategy` и {@link
  * NgModuleFactoryLoader}.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * beforeEach(() => {
- *   TestBed.configureTestModule({
- *     imports: [
- *       RouterTestingModule.withRoutes(
- *         [{path: '', component: BlankCmp}, {path: 'simple', component: SimpleCmp}]
- *       )
- *     ]
- *   });
- * });
- * ```
+ *  ```
+ *  beforeEach(() => {
+ *    TestBed.configureTestModule({
+ *      imports: [
+ *        RouterTestingModule.withRoutes(
+ *          [{path: '', component: BlankCmp}, {path: 'simple', component: SimpleCmp}]
+ *      )
+ *      ]
+ *    });
+ *  });
+ *  ```
  *
  * @publicApi
  */

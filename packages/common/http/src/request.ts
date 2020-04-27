@@ -66,12 +66,12 @@ function isFormData(value: any): value is FormData {
 }
 
 /**
- * An outgoing HTTP request with an optional typed body.
+ * Исходящий HTTP-запрос с необязательным типизированным телом.
  *
- * `HttpRequest` represents an outgoing request, including URL, method,
- * headers, body, and other request configuration options. Instances should be
- * assumed to be immutable. To modify a `HttpRequest`, the `clone`
- * method should be used.
+ *  `HttpRequest`представляет исходящий запрос,том числе URL,метод,.
+ * заголовки, тело и другие параметры конфигурации запроса. Экземпляры должны быть
+ * предполагается неизменным. Чтобы изменить `HttpRequest` HttpRequest, в `clone`
+ * метод должен быть использован.
  *
  * @publicApi
  */

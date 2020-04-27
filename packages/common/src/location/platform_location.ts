@@ -11,24 +11,24 @@ import {getDOM} from '../dom_adapter';
 import {DOCUMENT} from '../dom_tokens';
 
 /**
- * This class should not be used directly by an application developer. Instead, use
- * {@link Location}.
+ * Этот класс не должен использоваться непосредственно разработчиком приложения. Вместо этого используйте
+ *  {@link Location},
  *
- * `PlatformLocation` encapsulates all calls to DOM apis, which allows the Router to be platform
- * agnostic.
- * This means that we can have different implementation of `PlatformLocation` for the different
- * platforms that angular supports. For example, `@angular/platform-browser` provides an
- * implementation specific to the browser environment, while `@angular/platform-webworker` provides
- * one suitable for use with web workers.
+ *  `PlatformLocation`инкапсулирует все вызовы API DOM, что позволяет маршрутизатору быть платформой
+ * агностик.
+ * Это означает, что у нас может быть разная реализация `PlatformLocation` для разных
+ * платформы, которые поддерживают Angular. Например, `@angular/platform-browser` предоставляет
+ * реализация, специфичная для среды браузера, в то время как `@angular/platform-webworker` предоставляет
+ * один подходит для использования с веб-работниками.
  *
- * The `PlatformLocation` class is used directly by all implementations of {@link LocationStrategy}
- * when they need to interact with the DOM apis like pushState, popState, etc...
+ *  The `PlatformLocation`классиспользуется непосредственно всеми реализациями{@link LocationStrategy}
+ * когда им нужно взаимодействовать с API-интерфейсом DOM, например pushState, popState и т
  *
- * {@link LocationStrategy} in turn is used by the {@link Location} service which is used directly
- * by the {@link Router} in order to navigate between routes. Since all interactions between {@link
+ *  {@link LocationStrategy}в свою очередь используется{@link Location}сервис, который используется напрямую
+ * посредством{@link Router}для того, чтобы перемещаться между маршрутами. Поскольку все взаимодействия между {@link
  * Router} /
- * {@link Location} / {@link LocationStrategy} and DOM apis flow through the `PlatformLocation`
- * class they are all platform independent.
+ *  {@link Location}/{@link LocationStrategy}и DOM APIs потока через `PlatformLocation`
+ * Все они независимы от платформы.
  *
  * @publicApi
  */
@@ -66,7 +66,7 @@ export function useBrowserPlatformLocation() {
 
 /**
  * @description
- * Indicates when a location is initialized.
+ * Указывает, когда местоположение инициализируется.
  *
  * @publicApi
  */
@@ -74,7 +74,7 @@ export const LOCATION_INITIALIZED = new InjectionToken<Promise<any>>('Location I
 
 /**
  * @description
- * A serializable version of the event from `onPopState` or `onHashChange`
+ * Сериализуемая версия события из `onPopState` или `onHashChange`
  *
  * @publicApi
  */

@@ -1,115 +1,121 @@
-# Workspace and project file structure
+{@a workspace-and-project-file-structure}
+# Рабочая область и структура файла проекта
 
-You develop applications in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise a standalone application or a shareable library.
+Вы разрабатываете приложения в контексте Angular [рабочая область](guide/glossary#workspace). Рабочая область содержит файлы для одного или нескольких [проектов](guide/glossary#project). Проект - это набор файлов, которые составляют отдельное приложение или разделяемую библиотеку.
 
-The Angular CLI `ng new` command creates a workspace.
+Angular CLI `ng new` команда создает рабочее пространство.
 
 <code-example language="bash">
 ng new &lt;my-project&gt;
 </code-example>
 
-When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root-level application named *my-project*.
-The workspace root folder contains various support and configuration files, and a README file with generated descriptive text that you can customize.
+Когда вы запускаете эту команду, CLI устанавливает необходимые пакеты Angular npm и другие зависимости в новом рабочем пространстве с приложением корневого уровня под названием *my-project*.
+Корневая папка рабочей области содержит различные файлы поддержки и конфигурации, а также файл README с сгенерированным описательным текстом, который вы можете настроить.
 
-By default, `ng new` creates an initial skeleton application at the root level of the workspace, along with its end-to-end tests.
-The skeleton is for a simple Welcome application that is ready to run and easy to modify.
-The root-level application has the same name as the workspace, and the source files reside in the `src/` subfolder of the workspace.
+По умолчанию, `ng new` создает начальное каркасное приложение на корневом уровне рабочего пространства вместе с его сквозными тестами.
+Скелет предназначен для простого приложения Welcome, готового к запуску и легко модифицируемого.
+Приложение корневого уровня имеет то же имя, что и рабочее пространство, а исходные файлы находятся в  `src/`  рабочей области.
 
-This default behavior is suitable for a typical "multi-repo" development style where each application resides in its own workspace.
-Beginners and intermediate users are encouraged to use `ng new` to create a separate workspace for each application.
+Такое поведение по умолчанию подходит для типичного стиля разработки с несколькими репо, когда каждое приложение находится в своей собственной рабочей области.
+Начинающим и промежуточным пользователям рекомендуется использовать `ng new` для создания отдельной рабочей области для каждого приложения.
 
-Angular also supports workspaces with [multiple projects](#multiple-projects).
-This type of development environment is suitable for advanced users who are developing [shareable libraries](guide/glossary#library),
-and for enterprises that use a "monorepo" development style, with a single repository and global configuration for all Angular projects.
+Angular также поддерживает рабочие пространства с [несколько проектов](#multiple-projects).
+Этот тип среды разработки подходит для продвинутых пользователей, которые разрабатывают [разделяемые библиотеки](guide/glossary#library),
+и для предприятий, которые используют стиль разработки «monorepo», с единым хранилищем и глобальной конфигурацией для всех проектов Angular.
 
-To set up a monorepo workspace, you should skip the creating the root application.
-See [Setting up for a multi-project workspace](#multiple-projects) below.
+Чтобы настроить рабочее пространство monorepo, необходимо пропустить создание корневого приложения.
+См. [Настройка для многопроектного рабочего пространства](#multiple-projects)ниже.
 
-## Workspace configuration files
+{@a workspace-configuration-files}
+## Конфигурационные файлы рабочей области
 
-All projects within a workspace share a [CLI configuration context](guide/workspace-config).
-The top level of the workspace contains workspace-wide configuration files, configuration files for the root-level application, and subfolders for the root-level application source and test files.
+Все проекты в рабочей области совместно используют [контекст конфигурации CLI](guide/workspace-config).
+Верхний уровень рабочей области содержит файлы конфигурации всей рабочей области, файлы конфигурации для приложения корневого уровня и подпапки для исходного кода приложения приложения и файлов тестирования.
 
-| WORKSPACE CONFIG FILES    | PURPOSE |
-| :--------------------- | :------------------------------------------|
-| `.editorconfig`        | Configuration for code editors. See [EditorConfig](https://editorconfig.org/). |
-| `.gitignore`           | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. |
-| `README.md`            | Introductory documentation for the root app. |
-| `angular.json`         | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). |
-| `package.json`          | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file. |
-| `package-lock.json`     | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. |
-| `src/`                  | Source files for the root-level application project. |
-| `node_modules/`         | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects. |
-| `tsconfig.json`         | Default [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace. |
-| `tslint.json`           | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace. |
+| РАБОЧИЕ КОСМИЧЕСКИЕ ФАЙЛЫ | ЦЕЛЬ |
+| : --------------------- | : ------------------------------------------ |
+|  `.editorconfig`          | Конфигурация для редакторов кода. Смотрите [EditorConfig](https://editorconfig.org/). |
+|  `.gitignore`             | Определяет намеренно не отслеживаемые файлы, которые [Git](https://git-scm.com/)должен игнорировать. |
+|  `README.md`              | Вводная документация для корневого приложения. |
+|  `angular.json`           | Параметры конфигурации CLI по умолчанию для всех проектов в рабочей области, включая параметры конфигурации для инструментов сборки, обслуживания и тестирования, которые использует CLI, например [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/)и [Protractor](http://www.protractortest.org/). Для получения дополнительной информации см. [Конфигурация Angular рабочего пространства](guide/workspace-config). |
+|  `package.json`            | Конфигурации [зависимости пакета npm](guide/npm-packages), доступные для всех проектов в рабочей области. Смотрите [документация по npm](https://docs.npmjs.com/files/package.json)конкретный формат и содержание этого файла. |
+|  `package-lock.json`       | Предоставляет информацию о версии для всех пакетов, установленных в  `node_modules`  клиентом npm. Смотрите [документация npm](https://docs.npmjs.com/files/package-lock.json)для деталей. Если вы используете клиент пряжи, этот файл будет [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/)вместо этого. |
+|  `src/`                    | Исходные файлы для проекта приложения корневого уровня. |
+|  `node_modules/`           | Предоставляет [пакеты npm](guide/npm-packages)всему рабочему пространству. Рабочее пространство шириной  `node_modules`  Зависимости видны всем проектам. |
+|  `tsconfig.json`           | умолчанию [TypeScript](https://www.typescriptlang.org/)Конфигурация по для проектов в рабочей области. |
+|  `tslint.json`             | умолчанию [TSLint](https://palantir.github.io/tslint/)Конфигурация по для проектов в рабочей области. |
 
 
-## Application project files
+{@a application-project-files}
+## Файлы проекта приложения
 
-By default, the CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new application skeleton in a `src/` folder at the top level of the workspace.
-A newly generated application contains source files for a root module, with a root component and template.
+По умолчанию команда CLI `ng new my-app` создает папку рабочей области с именем «my-app» и создает новый скелет приложения в  `src/`  папка на верхнем уровне рабочей области.
+Вновь созданное приложение содержит исходные файлы для корневого модуля, с корневым компонентом и шаблоном.
 
-When the workspace file structure is in place, you can use the `ng generate` command on the command line to add functionality and data to the application.
-This initial root-level application is the *default app* for CLI commands (unless you change the default after creating [additional apps](#multiple-projects)).
+Когда структура файла рабочей области установлена, вы можете использовать `ng generate` Команда в командной строке добавляет функциональность и данные в приложение.
+Это начальное приложение корневого уровня является приложением по *умолчанию* для команд консоли (если вы не измените настройки по умолчанию после создания [дополнительные приложения](#multiple-projects)).
 
 <div class="alert is-helpful">
 
-   Besides using the CLI on the command line, you can also use an interactive development environment like [Angular Console](https://angularconsole.com/), or manipulate files directly in the app's source folder and configuration files.
+   Помимо использования CLI в командной строке, вы также можете использовать интерактивную среду разработки, такую ​​как [Angular Console](https://angularconsole.com/), или манипулировать файлами непосредственно в исходной папке приложения и файлах конфигурации.
 
 </div>
 
-For a single-application workspace, the `src/` subfolder of the workspace contains the source files (application logic, data, and assets) for the root application.
-For a multi-project workspace, additional projects in the `projects/` folder contain a `project-name/src/` subfolder with the same structure.
+Для рабочего пространства с одним приложением  `src/`  рабочей области содержит исходные файлы (логику приложения, данные и ресурсы) для корневого приложения.
+Для многопроектного рабочего пространства дополнительные проекты в  `projects/`  папка содержит  `project-name/src/`  подпапка с той же структурой.
 
-### Application source files
+{@a application-source-files}
+### Исходные файлы приложения
 
-Files at the top level of `src/` support testing and running your application. Subfolders contain the application source and application-specific configuration.
+Файлы на верхнем уровне  `src/`  тестирование поддержки и запуск вашего приложения. Подпапки содержат исходный код приложения и конфигурацию приложения.
 
-| APP SUPPORT FILES    | PURPOSE |
-| :--------------------- | :------------------------------------------|
-| `app/`                 | Contains the component files in which your application logic and data are defined. See details [below](#app-src). |
-| `assets/`              | Contains image and other asset files to be copied as-is when you build your application. |
-| `environments/`        | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations. |
-| `favicon.ico`          | An icon to use for this application in the bookmark bar. |
-| `index.html`           | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or` <link>` tags here manually. |
-| `main.ts`              | The main entry point for your application. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
-| `polyfills.ts`         | Provides polyfill scripts for browser support. |
-| `styles.sass`          | Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project. |
-| `test.ts`              | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file. |
+| ФАЙЛЫ ПОДДЕРЖКИ ПРИЛОЖЕНИЙ | ЦЕЛЬ |
+| : --------------------- | : ------------------------------------------ |
+|  `app/`                   | Содержит файлы компонентов, в которых определены логика и данные вашего приложения. Смотрите подробности [ниже](#app-src). |
+|  `assets/`                | Содержит изображения и другие файлы ресурсов, которые будут скопированы как есть при создании приложения. |
+|  `environments/`          | Содержит параметры конфигурации сборки для определенных целевых сред. По умолчанию существует неназванная стандартная среда разработки и производственная среда («prod»). Вы можете определить дополнительные конфигурации целевой среды. |
+|  `favicon.ico`            | Значок для использования в этом приложении на панели закладок. |
+|  `index.html`             | Основная HTML-страница, которая обслуживается, когда кто-то посещает ваш сайт. CLI автоматически добавляет все файлы JavaScript и CSS при создании приложения, поэтому вам обычно не нужно добавлять какие-либо  `<script>`  или ` <link>` теги здесь вручную. |
+|  `main.ts`                | Основная точка входа для вашего приложения. Компилирует приложение с помощью [JIT-компилятора](https://angular.io/guide/glossary#jit)и загружает корневой модуль приложения (AppModule) для запуска в браузере. Вы также можете использовать [AOT-компилятор](https://angular.io/guide/aot-compiler)без изменения какого-либо кода, добавив  `--aot`  флаг для CLI  `build`  и  `serve`  команды. |
+|  `polyfills.ts`           | Предоставляет сценарии polyfill для поддержки браузера. |
+|  `styles.sass`            | Перечисляет CSS-файлы, которые предоставляют стили для проекта. Расширение отражает стиль препроцессора, который вы настроили для проекта. |
+|  `test.ts`                | Основная точка входа для ваших юнит-тестов, с некоторой специфичной для Angular конфигурацией. Вам обычно не нужно редактировать этот файл. |
 
 {@a app-src}
 
-Inside the `src/` folder, the `app/` folder contains your project's logic and data.
-Angular components, templates, and styles go here.
+Внутри  `src/`  папка,  `app/`  папка содержит логику вашего проекта и данные.
+Здесь находятся Angular компоненты, шаблоны и стили.
 
-| `src/app/` FILES | PURPOSE |
-| :-------------------------- | :------------------------------------------|
-| `app/app.component.ts`      | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your application. |
-| `app/app.component.html`    | Defines the HTML template associated with the root `AppComponent`. |
-| `app/app.component.css`     | Defines the base CSS stylesheet for the root `AppComponent`. |
-| `app/app.component.spec.ts` | Defines a unit test for the root `AppComponent`. |
-| `app/app.module.ts`         | Defines the root module, named `AppModule`, that tells Angular how to assemble the application. Initially declares only the `AppComponent`. As you add more components to the app, they must be declared here. |
+|  `src/app/`  ФАЙЛЫ | ЦЕЛЬ |
+| : -------------------------- | : ------------------------------------------ |
+|  `app/app.component.ts`        | Определяет логику для корневого компонента приложения с именем  `AppComponent`  . Представление, связанное с этим корневым компонентом, становится корнем [иерархия представления](guide/glossary#view-hierarchy)при добавлении компонентов и служб в приложение. |
+|  `app/app.component.html`      | Определяет шаблон HTML, связанный с корнем  `AppComponent`  . |
+|  `app/app.component.css`       | Определяет базовую таблицу стилей CSS для корня  `AppComponent`  . |
+|  `app/app.component.spec.ts`  | Определяет юнит-тест для рута  `AppComponent`  . |
+|  `app/app.module.ts`           | Определяет корневой модуль с именем  `AppModule`, который сообщает Angular, как собрать приложение. Первоначально объявляет только  `AppComponent`  . Когда вы добавляете больше компонентов в приложение, они должны быть объявлены здесь. |
 
-### Application configuration files
+{@a application-configuration-files}
+### Файлы конфигурации приложения
 
-The application-specific configuration files for the root application reside at the workspace root level.
-For a multi-project workspace, project-specific configuration files are in the project root, under `projects/project-name/`.
+Специфичные для приложения файлы конфигурации для корневого приложения находятся на корневом уровне рабочей области.
+Для многопроектного рабочего пространства специфичные для проекта файлы конфигурации находятся в корневом каталоге проекта, в разделе  `projects/project-name/`.
 
-Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.json`, and project-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
+Специфичные для проекта [TypeScript](https://www.typescriptlang.org/)файлы конфигурации наследуются от всей рабочей области  `tsconfig.json`  и конкретного проекта [TSLint](https://palantir.github.io/tslint/)файлы конфигурации для наследуются от всей рабочей области  `tslint.json`.
 
-| APPLICATION-SPECIFIC CONFIG FILES    | PURPOSE |
-| :--------------------- | :------------------------------------------|
-| `.browserslistrc`       | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserslist on GitHub](https://github.com/browserslist/browserslist) for more information.  |
-| `karma.conf.js`      | Application-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration. |
-| `tsconfig.app.json`    | Application-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration) and [Angular Compiler Options](guide/angular-compiler-options). |
-| `tsconfig.spec.json`   | [TypeScript](https://www.typescriptlang.org/) configuration for the application tests. See [TypeScript Configuration](guide/typescript-configuration). |
-| `tslint.json`          | Application-specific [TSLint](https://palantir.github.io/tslint/) configuration. |
+| КОНКРЕТНЫЕ ФАЙЛЫ КОНФИГ. ЦЕЛЬ |
+| : --------------------- | : ------------------------------------------ |
+|  `browserslist`           | Настраивает совместное использование целевых браузеров и версий Node.js между различными интерфейсными инструментами. Смотрите [Browserslist на GitHub](https://github.com/browserslist/browserslist)для получения дополнительной информации. |
+|  `karma.conf.js`        | конкретного приложения [Карма](https://karma-runner.github.io/2.0/config/configuration-file.html)Конфигурация для . |
+|  `tsconfig.app.json`      | конкретного приложения [TypeScript](https://www.typescriptlang.org/)Конфигурация для, включая параметры компилятора шаблонов TypeScript и Angular. Смотрите [Конфигурация TypeScript](guide/typescript-configuration)и [Опции Angular компилятора](guide/angular-compiler-options). |
+|  `tsconfig.spec.json`     | [TypeScript](https://www.typescriptlang.org/)конфигурация для тестов приложения. Смотрите [Конфигурация TypeScript](guide/typescript-configuration). |
+|  `tslint.json`            | конкретного приложения [TSLint](https://palantir.github.io/tslint/)Конфигурация для . |
 
-### End-to-end test files
+{@a end-to-end-test-files}
+### Сквозные тестовые файлы
 
-An `e2e/` folder at the top level contains source files for a set of end-to-end tests that correspond to the root-level application, along with test-specific configuration files.
+ `e2e/` Папка на верхнем уровне содержит исходные файлы для набора тестов, которые соответствуют приложению корневого уровня, а также файлы конфигурации для конкретных тестов.
 
-For a multi-project workspace, application-specific end-to-end tests are in the project root, under `projects/project-name/e2e/`.
+Для многопроектного рабочего пространства сквозные тесты для конкретных приложений находятся в корневом каталоге проекта, в разделе  `projects/project-name/e2e/`.
 
 <code-example language="none">
   e2e/
@@ -122,31 +128,34 @@ For a multi-project workspace, application-specific end-to-end tests are in the 
 
 {@a multiple-projects}
 
-## Multiple projects
+{@a multiple-projects}
+## Несколько проектов
 
-A multi-project workspace is suitable for an enterprise that uses a single repository and global configuration for all Angular projects (the "monorepo" model). A multi-project workspace also supports library development.
+Многопроектное рабочее пространство подходит для предприятия, которое использует единый репозиторий и глобальную конфигурацию для всех проектов Angular (модель «monorepo»). Многопроектное рабочее пространство также поддерживает разработку библиотек.
 
-### Setting up for a multi-project workspace
+{@a setting-up-for-a-multi-project-workspace}
+### Настройка для многопроектного рабочего пространства
 
-If you intend to have multiple projects in a workspace, you can skip the initial application generation when you create the workspace, and give the workspace a unique name.
-The following command creates a workspace with all of the workspace-wide configuration files, but no root-level application.
+Если вы собираетесь создать несколько проектов в рабочей области, вы можете пропустить первоначальную генерацию приложения при создании рабочей области и дать рабочему пространству уникальное имя.
+Следующая команда создает рабочую область со всеми файлами конфигурации всей рабочей области, но без приложения корневого уровня.
 
 <code-example language="bash">
 ng new my-workspace --createApplication="false"
 </code-example>
 
-You can then generate apps and libraries with names that are unique within the workspace.
+Затем вы можете создавать приложения и библиотеки с уникальными именами в рабочей области.
 
 <code-example language="bash">
 cd my-workspace
 ng generate application my-first-app
 </code-example>
 
-### Multiple project file structure
+{@a multiple-project-file-structure}
+### Структура файла с несколькими проектами
 
-The first explicitly generated application goes into the `projects/` folder along with all other projects in the workspace.
-Newly generated libraries are also added under `projects/`.
-When you create projects this way, the file structure of the workspace is entirely consistent with the structure of the [workspace configuration file](guide/workspace-config), `angular.json`.
+Первое явно сгенерированное приложение переходит в  `projects/`  папка вместе со всеми остальными проектами в рабочей области.
+Вновь созданные библиотеки также добавляются в  `projects/`.
+Когда вы создаете проекты таким образом, файловая структура рабочей области полностью соответствует структуре [файл конфигурации рабочей области](guide/workspace-config),  `angular.json`.
 
 <code-example language="none">
 my-workspace/
@@ -163,22 +172,23 @@ my-workspace/
       src/        --source and support files for library)
 </code-example>
 
-## Library project files
+{@a library-project-files}
+## Файлы проекта библиотеки
 
-When you generate a library using the CLI (with a command such as `ng generate library my-lib`), the generated files go into the projects/ folder of the workspace. For more information about creating your own libraries, see  [Creating Libraries](https://angular.io/guide/creating-libraries).
+Когда вы генерируете библиотеку, используя CLI (с помощью команды, такой как `ng generate library my-lib`), сгенерированные файлы перейдут в папку projects / рабочей области. Для получения дополнительной информации о создании ваших собственных библиотек см.   [Создание библиотек](https://angular.io/guide/creating-libraries).
 
-Libraries (unlike applications and their associated e2e projects) have their own `package.json` configuration files.
+Библиотеки (в отличие от приложений и связанных с ними проектов e2e) имеют свои  `package.json`  Конфигурационные файлы.
 
-Under the `projects/` folder, the `my-lib` folder contains your library code.
+Под  `projects/`  папка,  `my-lib`  Папка содержит код вашей библиотеки.
 
-| LIBRARY SOURCE FILES | PURPOSE                                                                      |
-| :------------------- | :----------------------------------------------------------------------------|
-| `src/lib`           |  Contains your library project's logic and data. Like an application project, a library project can contain components, services, modules, directives, and pipes.                                                            |
-| `src/test.ts`       | The main entry point for your unit tests, with some library-specific configuration. You don't typically need to edit this file.                                                                                            |
-| `src/public-api.ts`  | Specifies all files that are exported from your library.                                                                                                                                                                     |
-| `karma.conf.js`      | Library-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration.                                                                                                                   |
-| `ng-package.json`    | Configuration file used by [ng-packagr](https://github.com/ng-packagr/ng-packagr) for building your library.                                                                                                                 |
-| `package.json`       | Configures [npm package dependencies](guide/npm-packages) that are required for this library.                                                                                                                                |
-| `tsconfig.lib.json`  | Library-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration).            |
-| `tsconfig.spec.json` | [TypeScript](https://www.typescriptlang.org/) configuration for the library tests. See [TypeScript Configuration](guide/typescript-configuration).                                                                     |
-| `tslint.json`        | Library-specific [TSLint](https://palantir.github.io/tslint/) configuration. |
+| ФАЙЛЫ ИСТОЧНИКОВ БИБЛИОТЕКИ | ЦЕЛЬ |
+| : ------------------- | : ------------------------------------------------- --------------------------- |
+|  `src/lib`             | Содержит логику и данные проекта вашей библиотеки. Как и проект приложения, проект библиотеки может содержать компоненты, службы, модули, директивы и каналы. |
+|  `src/test.ts`         | Основная точка входа для ваших модульных тестов с некоторой специфичной для библиотеки конфигурацией. Вам обычно не нужно редактировать этот файл. |
+|  `src/public-api.ts`    | Указывает все файлы, которые экспортируются из вашей библиотеки. |
+|  `karma.conf.js`        | Специфичная для библиотеки [карма](https://karma-runner.github.io/2.0/config/configuration-file.html)конфигурация. |
+|  `ng-package.json`      | Файл конфигурации, используемый [ng-packagr](https://github.com/ng-packagr/ng-packagr)для сборки вашей библиотеки. |
+|  `package.json`         | Конфигурации [зависимости пакета npm](guide/npm-packages), необходимые для этой библиотеки. |
+|  `tsconfig.lib.json`    | библиотеки [TypeScript](https://www.typescriptlang.org/)Конфигурация, включая параметры компилятора шаблонов TypeScript и Angular. Смотрите [Конфигурация TypeScript](guide/typescript-configuration). |
+|  `tsconfig.spec.json`  | [TypeScript](https://www.typescriptlang.org/)конфигурация для библиотечных тестов. Смотрите [Конфигурация TypeScript](guide/typescript-configuration). |
+|  `tslint.json`          | библиотеки [TSLint](https://palantir.github.io/tslint/)Конфигурация . |

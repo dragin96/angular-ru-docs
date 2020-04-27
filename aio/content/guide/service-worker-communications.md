@@ -1,69 +1,76 @@
-# Service worker communication
+{@a service-worker-communication}
+# Сервисный работник связи
 
-Importing `ServiceWorkerModule` into your `AppModule` doesn't just register the service worker, it also provides a few services you can use to interact with the service worker and control the caching of your app.
+Импорт  `ServiceWorkerModule`  в ваш  `AppModule`  не только регистрирует работника сервиса, но и предоставляет несколько сервисов, которые вы можете использовать для взаимодействия с работником сервиса и управления кэшированием вашего приложения.
 
-#### Prerequisites
+{@a prerequisites}
+#### Предпосылки
 
-A basic understanding of the following:
-* [Getting Started with Service Workers](guide/service-worker-getting-started).
+Основное понимание следующего:
+* [Начало работы с сервисными работниками](guide/service-worker-getting-started).
 
 <hr />
 
 
-## `SwUpdate` service
+{@a swupdate-service}
+##  `SwUpdate` обслуживание
 
-The `SwUpdate` service gives you access to events that indicate when the service worker has discovered an available update for your app or when it has activated such an update&mdash;meaning it is now serving content from that update to your app.
+ `SwUpdate` предоставляет вам доступ к событиям, которые указывают, когда работник службы обнаружил доступное обновление для вашего приложения или когда он активировал такое обновление, то есть теперь он передает контент из этого обновления в ваше приложение.
 
-The `SwUpdate` service supports four separate operations:
-* Getting notified of *available* updates. These are new versions of the app to be loaded if the page is refreshed.
-* Getting notified of update *activation*. This is when the service worker starts serving a new version of the app immediately.
-* Asking the service worker to check the server for new updates.
-* Asking the service worker to activate the latest version of the app for the current tab.
+ `SwUpdate` служба поддерживает четыре отдельных операций:
+* Получение уведомлений о*доступных * обновлениях. Это новые версии приложения, которые будут загружаться при обновлении страницы.
+* Получение уведомления об обновления*активации *. Это когда сервисный работник начинает обслуживать новую версию приложения немедленно.
+* Попросив работника сервиса проверить сервер на наличие новых обновлений.
+* Попросить работника сервиса активировать последнюю версию приложения для текущей вкладки.
 
-### Available and activated updates
+{@a available-and-activated-updates}
+### Доступные и активированные обновления
 
-The two update events, `available` and `activated`, are `Observable` properties of `SwUpdate`:
+Два события обновления,  `available`  и  `activated`, являются  `Observable`  свойства  `SwUpdate`  :
 
 <code-example path="service-worker-getting-started/src/app/log-update.service.ts" header="log-update.service.ts" region="sw-update"></code-example>
 
 
-You can use these events to notify the user of a pending update or to refresh their pages when the code they are running is out of date.
+Вы можете использовать эти события, чтобы уведомить пользователя об ожидающем обновлении или обновить его страницы, когда выполняемый ими код устарел.
 
-### Checking for updates
+{@a checking-for-updates}
+### Проверка обновлений
 
-It's possible to ask the service worker to check if any updates have been deployed to the server. You might choose to do this if you have a site that changes frequently or want updates to happen on a schedule.
+Можно попросить работника сервиса проверить, были ли какие-либо обновления развернуты на сервере. Вы можете сделать это, если у вас часто меняется сайт или вы хотите, чтобы обновления происходили по расписанию.
 
-Do this with the `checkForUpdate()` method:
+Сделайте это с  `checkForUpdate()`  Метод:
 
 <code-example path="service-worker-getting-started/src/app/check-for-update.service.ts" header="check-for-update.service.ts"></code-example>
 
 
-This method returns a `Promise` which indicates that the update check has completed successfully, though it does not indicate whether an update was discovered as a result of the check. Even if one is found, the service worker must still successfully download the changed files, which can fail. If successful, the `available` event will indicate availability of a new version of the app.
+Этот метод возвращает  `Promise`  которое указывает, что проверка обновления успешно завершена, но не указывает, было ли обнаружено обновление в результате проверки. Даже если такой файл найден, работнику службы все равно нужно успешно загрузить измененные файлы, что может привести к сбою. В случае успеха  `available`  событие будет указывать на наличие новой версии приложения.
 
 <div class="alert is-important">
 
-In order to avoid negatively affecting the initial rendering, `ServiceWorkerModule` will by default
-wait for the app to stabilize, before registering the ServiceWorker script. Constantly polling for
-updates, e.g. with `interval()`, will prevent the app from stabilizing and the ServiceWorker
-script will never be registered with the browser.
+Чтобы избежать негативного влияния на начальный рендеринг,  `ServiceWorkerModule`  будет по умолчанию
+дождитесь стабилизации приложения перед регистрацией скрипта ServiceWorker. Постоянно опрашиваю
+обновления, например, с  `interval()`, будет препятствовать стабилизации приложения и ServiceWorker
+скрипт никогда не будет зарегистрирован в браузере.
 
-You can avoid that by waiting for the app to stabilize first, before starting to poll for updates
-(as shown in the example above).
+Вы можете избежать этого, подождав, пока приложение стабилизируется, прежде чем начинать поиск обновлений
+(как показано в примере выше).
 
-Note that this is true for any kind of polling done by your application.
-Check the {@link ApplicationRef#isStable isStable} documentation for more information.
+Обратите внимание, что это верно для любого вида опроса, выполняемого вашим приложением.
+Проверьте {@link ApplicationRef#isStable isStable}документацию для получения дополнительной информации.
 
 </div>
 
-### Forcing update activation
+{@a forcing-update-activation}
+### Принудительная активация обновления
 
-If the current tab needs to be updated to the latest app version immediately, it can ask to do so with the `activateUpdate()` method:
+Если текущая вкладка должна быть обновлена ​​до последней версии приложения, она может попросить сделать это с помощью  `activateUpdate()`  Метод:
 
 <code-example path="service-worker-getting-started/src/app/prompt-update.service.ts" header="prompt-update.service.ts" region="sw-activate"></code-example>
 
-Doing this could break lazy-loading into currently running apps, especially if the lazy-loaded chunks use filenames with hashes, which change every version.
+Это может нарушить отложенную загрузку приложений, запущенных в данный момент, особенно если загруженные фрагменты используют имена файлов с хэшами, которые меняют каждую версию.
 
-## More on Angular service workers
+{@a more-on-angular-service-workers}
+## Больше на Angular сервисных рабочих
 
-You may also be interested in the following:
-* [Service Worker in Production](guide/service-worker-devops).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Сервисный работник на производстве](guide/service-worker-devops).

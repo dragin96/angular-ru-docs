@@ -1,10 +1,11 @@
-# Sharing modules
+{@a sharing-modules}
+# Совместное использование модулей
 
-Creating shared modules allows you to organize and streamline your code. You can put commonly
-used directives, pipes, and components into one module and then import just that module wherever
-you need it in other parts of your app.
+Создание общих модулей позволяет вам организовать и оптимизировать ваш код. Вы можете поставить обычно
+используемые директивы, каналы и компоненты в один модуль, а затем импортировать только этот модуль куда угодно
+вам это нужно в других частях вашего приложения.
 
-Consider the following module from an imaginary app:
+Рассмотрим следующий модуль из воображаемого приложения:
 
 
 ```typescript
@@ -24,39 +25,41 @@ import { OrdersPipe } from './orders.pipe';
 export class SharedModule { }
 ```
 
-Note the following:
+Обратите внимание на следующее:
 
-* It imports the `CommonModule` because the module's component needs common directives.
-* It declares and exports the utility pipe, directive, and component classes.
-* It re-exports the `CommonModule` and `FormsModule`.
+* Импортирует  `CommonModule`  потому что компонент модуля нуждается в общих директивах.
+* Он объявляет и экспортирует служебные каналы, директивы и классы компонентов.
+* Реэкспортирует  `CommonModule`  и  `FormsModule`.
 
-By re-exporting `CommonModule` and `FormsModule`, any other module that imports this
-`SharedModule`, gets access to directives like `NgIf` and `NgFor` from `CommonModule`
-and can bind to component properties with `[(ngModel)]`, a directive in the `FormsModule`.
+Реэкспортом  `CommonModule`  и  `FormsModule`, любой другой модуль, который импортирует это
+ `SharedModule`, получает доступ к директивам, таким как  `NgIf`  и  `NgFor`  от  `CommonModule` 
+и может связываться со свойствами компонентов с  `[(ngModel)]`, директива в  `FormsModule`.
 
-Even though the components declared by `SharedModule` might not bind
-with `[(ngModel)]` and there may be no need for `SharedModule`
-to import `FormsModule`, `SharedModule` can still export
-`FormsModule` without listing it among its `imports`. This
-way, you can give other modules access to `FormsModule` without
-having to import it directly into the `@NgModule` decorator.
+Даже если компоненты объявлены  `SharedModule`  может не связываться
+с  `[(ngModel)]`  и может не понадобиться  `SharedModule` 
+импортировать  `FormsModule`, `SharedModule`  еще можно экспортировать
+ `FormsModule` без включения его в список  `imports`  . Это
+Кстати, вы можете дать другим модулям доступ к  `FormsModule`  без
+придется импортировать его непосредственно в  `@NgModule`  decorator.
 
-### Using components vs services from other modules
+{@a using-components-vs-services-from-other-modules}
+### Использование компонентов против служб из других модулей
 
-There is an important distinction between using another module's component and
-using a service from another module. Import modules when you want to use
-directives, pipes, and components. Importing a module with services means that you will have a new instance of that service, which typically is not what you need (typically one wants to reuse an existing service). Use module imports to control service instantiation.
+Существует важное различие между использованием компонента другого модуля и
+используя сервис из другого модуля. Импортируйте модули, когда вы хотите использовать
+директивы, трубы и компоненты. Импорт модуля со службами означает, что у вас будет новый экземпляр этой службы, который обычно не является тем, что вам нужно (обычно требуется повторно использовать существующую службу). Используйте импорт модулей для управления реализацией сервисов.
 
-The most common way to get a hold of shared services is through Angular
-[dependency injection](guide/dependency-injection), rather than through the module system (importing a module will result in a new service instance, which is not a typical usage).
+Наиболее распространенный способ получить доступ к общим службам - через Angular
+[внедрение зависимости](guide/dependency-injection), а не через систему модулей (импорт модуля приведет к появлению нового экземпляра службы, что не является типичным использованием).
 
-To read about sharing services, see [Providers](guide/providers).
+Чтобы прочитать об общих службах, см. [Поставщики](guide/providers).
 
 
 <hr />
 
-## More on NgModules
+{@a more-on-ngmodules}
+## Больше на NgModules
 
-You may also be interested in the following:
-* [Providers](guide/providers).
-* [Types of Feature Modules](guide/module-types).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Провайдеры](guide/providers).
+* [Типы функциональных модулей](guide/module-types).

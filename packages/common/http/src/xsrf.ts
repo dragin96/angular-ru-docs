@@ -19,7 +19,7 @@ export const XSRF_COOKIE_NAME = new InjectionToken<string>('XSRF_COOKIE_NAME');
 export const XSRF_HEADER_NAME = new InjectionToken<string>('XSRF_HEADER_NAME');
 
 /**
- * Retrieves the current XSRF token to use with the next outgoing request.
+ * Извлекает текущий токен XSRF для использования со следующим исходящим запросом.
  *
  * @publicApi
  */

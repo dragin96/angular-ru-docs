@@ -1,21 +1,22 @@
-# Displaying data in views
+{@a displaying-data-in-views}
+# Отображение данных в представлениях
 
-Angular [components](guide/glossary#component) form the data structure of your application.
-The HTML [template](guide/glossary#template) associated with a component provides the means to display that data in the context of a web page.
-Together, a component's class and template form a [view](guide/glossary#view) of your application data.
+Angular [компоненты](guide/glossary#component)формируют структуру данных вашего приложения.
+HTML [шаблон](guide/glossary#template)связанный с компонентом, предоставляет средства для отображения этих данных в контексте веб-страницы.
+Вместе класс компонента и шаблон образуют [представление](guide/glossary#view)данных вашего приложения.
 
-The process of combining data values with their representation on the page is called [data binding](guide/glossary#data-binding).
-You display your data to a user (and collect data from the user) by *binding* controls in the HTML template to the data properties of the component class.
+Процесс объединения значений данных с их представлением на странице называется [привязка данных](guide/glossary#data-binding).
+Вы отображаете свои данные для пользователя (и собираете данные от пользователя) с помощью*привязка* элементов управления в шаблоне HTML к свойствам данных класса компонента.
 
-In addition, you can add logic to the template by including [directives](guide/glossary#directive), which tell Angular how to modify the page as it is rendered.
+Кроме того, вы можете добавить логику в шаблон, включив [директивы](guide/glossary#directive), которые сообщают Angular, как изменять страницу при ее визуализации.
 
-Angular defines a *template language* that expands HTML notation with syntax that allows you to define various kinds of data binding and logical directives.
-When the page is rendered, Angular interprets the template syntax to update the HTML according to your logic and current data state.
-Before you read the complete [template syntax guide](guide/template-syntax), the exercises on this page give you a quick demonstration of how template syntax works.
+Angular определяет *язык шаблонов,* который расширяет нотацию HTML синтаксисом, который позволяет вам определять различные виды привязки данных и логические директивы.
+Когда страница отображается, Angular интерпретирует синтаксис шаблона, чтобы обновить HTML в соответствии с вашей логикой и текущим состоянием данных.
+Прежде чем читать полностью [руководство по синтаксису шаблона](guide/template-syntax)упражнения на этой странице быстро продемонстрируют, как работает синтаксис шаблона.
 
-In this demo, you'll create a component with a list of heroes.
-You'll display the list of hero names and conditionally show a message below the list.
-The final UI looks like this:
+В этой демонстрации вы создадите компонент со списком героев.
+Вы отобразите список имен героев и условно отобразите сообщение под списком.
+Окончательный пользовательский интерфейс выглядит следующим образом :
 
 <div class="lightbox">
   <img src="generated/images/guide/displaying-data/final.png" alt="Final UI">
@@ -23,90 +24,92 @@ The final UI looks like this:
 
 <div class="alert is-helpful">
 
-The <live-example></live-example> demonstrates all of the syntax and code snippets described in this page.
+<live-example></live-example>Демонстрирует все синтаксические и фрагменты кода, описанные на этой странице.
 
 </div>
 
 {@a interpolation}
 
-## Showing component properties with interpolation
-The easiest way to display a component property is to bind the property name through interpolation.
-With interpolation, you put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
+{@a showing-component-properties-with-interpolation}
+## Отображение свойств компонента с интерполяцией
+Самый простой способ отобразить свойство компонента - связать имя свойства с помощью интерполяции.
+При интерполяции вы помещаете имя свойства в шаблон представления, заключенное в двойные фигурные скобки:  `{{myHero}}`.
 
-Use the CLI command [`ng new displaying-data`](cli/new) to create a workspace and app named `displaying-data`.
+Используйте команду CLI [ `ng new displaying-data` ](cli/new)для создания рабочей области и приложения с именем  `displaying-data`.
 
-Delete the <code>app.component.html</code> file. It is not needed for this example.
+Удалить <code>app.component.html</code>файл. Это не нужно для этого примера.
 
-Then modify the <code>app.component.ts</code> file by
-changing the template and the body of the component.
+Затем измените <code>app.component.ts</code>файл с помощью
+изменение шаблона и тела компонента.
 
-When you're done, it should look like this:
+Когда вы закончите, это должно выглядеть следующим образом :
 
 <code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts"></code-example>
 
-You added two properties to the formerly empty component: `title` and `myHero`.
+Вы добавили два свойства в ранее пустой компонент:  `title`  и  `myHero`.
 
-The template displays the two component properties using double curly brace
-interpolation:
+Шаблон отображает свойства двух компонентов, используя двойные фигурные скобки
+интерполяция
 
 <code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 <div class="alert is-helpful">
 
-The template is a multi-line string within ECMAScript 2015 backticks (<code>\`</code>).
-The backtick (<code>\`</code>)&mdash;which is *not* the same character as a single
-quote (`'`)&mdash;allows you to compose a string over several lines, which makes the
-HTML more readable.
+Шаблон представляет собой многострочные строки в пределах ECMAScript 2015 обратных кавычек ( <code>\`</code>).
+The backtick (<code>\`</code>) -Какое это *не* тот же самый характера, как один
+цитата (`'`) - позволяет вам составить строку из нескольких строк, что делает
+HTML более читабелен.
 
 </div>
 
-Angular automatically pulls the value of the `title` and `myHero` properties from the component and
-inserts those values into the browser. Angular updates the display
-when these properties change.
+Angular автоматически вытягивает значение  `title`  и  `myHero`  свойства из компонента и
+вставляет эти значения в браузер. Angular обновляет дисплей
+когда эти свойства меняются.
 
 <div class="alert is-helpful">
 
-More precisely, the redisplay occurs after some kind of asynchronous event related to
-the view, such as a keystroke, a timer completion, or a response to an HTTP request.
+Точнее, повторное отображение происходит после некоторого асинхронного события, связанного с
+представление, такое как нажатие клавиши, завершение таймера или ответ на запрос HTTP.
 
 </div>
 
-Notice that you don't call **new** to create an instance of the `AppComponent` class.
-Angular is creating an instance for you. How?
+Обратите внимание, что вы не вызываете **new** для создания экземпляра  `AppComponent`  Класс.
+Angular создает для вас экземпляр. Как?
 
-The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
-That element is a placeholder in the body of your `index.html` file:
+CSS  `selector`  в  `@Component`  decorator указывает элемент с именем  `<app-root>`.
+Этот элемент является заполнителем в теле вашего  `index.html`  файл:
 
 <code-example path="displaying-data/src/index.html" header="src/index.html (body)" region="body"></code-example>
 
-When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angular looks for a `<app-root>`
-in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
-inside the `<app-root>` tag.
+Когда вы загрузитесь с  `AppComponent`  Класс (in <code>main.ts</code>), Angular ищет  `<app-root>` 
+в  `index.html`, находит его, создает экземпляр  `AppComponent`  и отображает его
+внутри  `<app-root>`  тег.
 
-Now run the app. It should display the title and hero name:
+Теперь запустите приложение. Он должен показывать название и героя имя:
 
 <div class="lightbox">
   <img src="generated/images/guide/displaying-data/title-and-hero.png" alt="Title and Hero">
 </div>
 
-The next few sections review some of the coding choices in the app.
+В следующих нескольких разделах рассматриваются некоторые варианты кодирования в приложении.
 
 
-## Choosing the template source
+{@a choosing-the-template-source}
+## Выбор источника шаблона
 
-The `@Component` metadata tells Angular where to find the component's template.
-You can store your component's template in one of two places.
+ `@Component` Метаданные Angular, где найти шаблон компонента.
+Вы можете хранить шаблон вашего компонента в одном из двух мест.
 
-* You can define the template *inline* using the `template` property of the `@Component` decorator. An inline template is useful for a small demo or test.
-* Alternatively, you can define the template in a separate HTML file and link to that file in the `templateUrl` property of the `@Component` decorator. This configuration is typical for anything more complex than a small test or demo, and is the default when you generate a new component.
+* Вы можете определить шаблон,*встроенный * используя  `template`  свойство  `@Component` декоратор. Встроенный шаблон полезен для небольшой демонстрации или теста.
+* Кроме того, вы можете определить шаблон в отдельном файле HTML и связать этот файл в  `templateUrl`  свойство  `@Component` декоратор. Эта конфигурация типична для чего-либо более сложного, чем небольшой тест или демонстрация, и используется по умолчанию при создании нового компонента.
 
-In either style, the template data bindings have the same access to the component's properties.
-Here the app uses inline HTML because the template is small and the demo is simpler without the additional HTML file.
+В любом стиле привязки данных шаблона имеют одинаковый доступ к свойствам компонента.
+Здесь приложение использует встроенный HTML, потому что шаблон маленький, а демонстрационная версия проще без дополнительного HTML-файла.
 
 <div class="alert is-helpful">
 
-  By default, the Angular CLI command [`ng generate component`](cli/generate) generates components with a template file.
-  You can override that by adding the "-t" (short for `inlineTemplate=true`) option:
+  По умолчанию команда Angular CLI [ `ng generate component` ](cli/generate)генерирует компоненты с файлом шаблона.
+  Вы можете переопределить это, добавив "-t" (сокращение от  `inlineTemplate=true`) вариант:
 
   <code-example hideCopy language="sh" class="code-shell">
     ng generate component hero -t
@@ -115,138 +118,143 @@ Here the app uses inline HTML because the template is small and the demo is simp
 </div>
 
 
-## Initialization
+{@a initialization}
+## Инициализация
 
-The following example uses variable assignment to initialize the components.
+В следующем примере используется присвоение переменной для инициализации компонентов.
 
 <code-example path="displaying-data/src/app/app-ctor.component.1.ts" region="class"></code-example>
 
- You could instead declare and initialize the properties using a constructor.
- This app uses more terse "variable assignment" style simply for brevity.
+Вместо этого вы можете объявить и инициализировать свойства с помощью конструктора.
+Это приложение использует более краткий стиль «назначения переменных» просто для краткости.
 
 
 {@a ngFor}
 
-## Add logic to loop through data
+{@a add-logic-to-loop-through-data}
+## Добавьте логику для циклического прохождения данных
 
-The `*ngFor` directive (predefined by Angular) lets you loop through data. The following example uses the directive to show all of the values in an array property.
+ `*ngFor` Директива (предопределенная Angular) позволяет вам проходить через данные. В следующем примере директива используется для отображения всех значений в свойстве массива.
 
-To display a list of heroes, begin by adding an array of hero names to the component and redefine `myHero` to be the first name in the array.
+Чтобы отобразить список героев, начните с добавления массива имен героев в компонент и переопределите  `myHero`  будет первым именем в массиве.
 
 
 <code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (class)" region="class"></code-example>
 
 
-Now use the Angular `ngFor` directive in the template to display each item in the `heroes` list.
+Теперь используйте Angular  `ngFor`  директива в шаблоне для отображения каждого элемента в  `heroes`  список.
 
 
 <code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 
-This UI uses the HTML unordered list with `<ul>` and `<li>` tags. The `*ngFor`
-in the `<li>` element is the Angular "repeater" directive.
-It marks that `<li>` element (and its children) as the "repeater template":
+Этот интерфейс использует неупорядоченный список HTML с  `<ul>`  и  `<li>`  теги .  `*ngFor` 
+в  `<li>`  Элемент - это Angular директива повторителя.
+Это отмечает, что  `<li>`  элемент (и его потомки) в качестве «шаблона ретранслятора»:
 
 
 <code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (li)" region="li"></code-example>
 
 <div class="alert is-important">
 
-Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
-Read more about `ngFor` and `*` in the [ngFor section](guide/template-syntax#ngfor) of the [Template Syntax](guide/template-syntax) page.
+Не забудьте указать звездочку (\ *) в  `*ngFor`  . Это неотъемлемая часть синтаксиса.
+Узнайте больше о  `ngFor`  и  `*`  В [раздел ngFor](guide/template-syntax#ngfor)из [Шаблон синтаксиса](guide/template-syntax)страницы.
 
 </div>
 
-Notice the `hero` in the `ngFor` double-quoted instruction;
-it is an example of a template input variable. Read
-more about template input variables in the [microsyntax](guide/template-syntax#microsyntax) section of
-the [Template Syntax](guide/template-syntax) page.
+Обратите внимание на  `hero`  в  `ngFor`  двойных кавычках;
+это пример входной переменной шаблона. Читать
+больше о входных переменных шаблона в [microsyntax](guide/template-syntax#microsyntax)секции
+[Шаблон синтаксис](guide/template-syntax)страница.
 
-Angular duplicates the `<li>` for each item in the list, setting the `hero` variable
-to the item (the hero) in the current iteration. Angular uses that variable as the
-context for the interpolation in the double curly braces.
+Angular дубликат  `<li>`  для каждого элемента в списке, установив  `hero`  переменный
+к предмету (герою) в текущей итерации. Angular использует эту переменную в качестве
+контекст для интерполяции в двойных фигурных скобках.
 
 <div class="alert is-helpful">
 
-In this case, `ngFor` is displaying an array, but `ngFor` can
-repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) object.
+В этом случае,  `ngFor`  отображает массив, но  `ngFor`  банки
+Повторите элементы для любого [повторяемого](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)объекта.
 
 </div>
 
-Now the heroes appear in an unordered list.
+Теперь герои появляются в неупорядоченном списке.
 
 <div class="lightbox">
   <img src="generated/images/guide/displaying-data/hero-names-list.png" alt="After ngfor">
 </div>
 
 
-## Creating a class for the data
+{@a creating-a-class-for-the-data}
+## Создание класса для данных
 
-The app's code defines the data directly inside the component, which isn't best practice.
-In a simple demo, however, it's fine.
+Код приложения определяет данные непосредственно внутри компонента, что не является лучшей практикой.
+Однако в простой демонстрации это нормально.
 
-At the moment, the binding is to an array of strings.
-In real applications, most bindings are to more specialized objects.
+На данный момент, привязка к массиву строк.
+В реальных приложениях большинство привязок относятся к более специализированным объектам.
 
-To convert this binding to use specialized objects, turn the array
-of hero names into an array of `Hero` objects. For that you'll need a `Hero` class:
+Чтобы преобразовать эту привязку для использования специализированных объектов, включите массив
+имен героев в массив  `Hero`  Объекты . Для этого вам понадобится  `Hero`  класс:
 
 <code-example language="sh" class="code-shell">
   ng generate class hero
 </code-example>
 
-This command creates the following code.
+Эта команда создает следующий код.
 
 
 <code-example path="displaying-data/src/app/hero.ts" header="src/app/hero.ts"></code-example>
 
-You've defined a class with a constructor and two properties: `id` and `name`.
+Вы определили класс с конструктором и двумя свойствами:  `id`  и  `name`.
 
-It might not look like the class has properties, but it does.
-The declaration of the constructor parameters takes advantage of a TypeScript shortcut.
+Может показаться, что у класса нет свойств, но это так.
+Объявление параметров конструктора использует преимущество ярлыка TypeScript.
 
-Consider the first parameter:
+Рассмотрим первый параметр:
 
 
 <code-example path="displaying-data/src/app/hero.ts" header="src/app/hero.ts (id)" region="id"></code-example>
 
-That brief syntax does a lot:
+Этот краткий синтаксис многое делает
 
-* Declares a constructor parameter and its type.
-* Declares a public property of the same name.
-* Initializes that property with the corresponding argument when creating an instance of the class.
+* Объявляет параметр конструктора и его тип.
+* Объявляет публичную собственность с таким же названием.
+* Инициализирует это свойство с соответствующим аргументом при создании экземпляра класса.
 
 
-### Using the Hero class
+{@a using-the-hero-class}
+### Использование класса героя
 
-After importing the `Hero` class, the `AppComponent.heroes` property can return a _typed_ array
-of `Hero` objects:
+После импорта  `Hero ` класс, ` AppComponent.heroes` может возвращать массив _typed_
+из  `Hero`  объектов:
 
 
 <code-example path="displaying-data/src/app/app.component.3.ts" header="src/app/app.component.ts (heroes)" region="heroes"></code-example>
 
 
 
-Next, update the template.
-At the moment it displays the hero's `id` and `name`.
-Fix that to display only the hero's `name` property.
+Далее обновите шаблон.
+На данный момент он показывает героя  `id`  и  `name`.
+Исправьте это, чтобы отобразить только героя  `name`  собственности.
 
 
 <code-example path="displaying-data/src/app/app.component.3.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 
-The display looks the same, but the code is clearer.
+Дисплей выглядит так же, но код понятнее.
 
 {@a ngIf}
 
-## Conditional display with NgIf
+{@a conditional-display-with-ngif}
+## Условное отображение с NgIf
 
-Sometimes an app needs to display a view or a portion of a view only under specific circumstances.
+Иногда приложение должно отображать представление или часть представления только при определенных обстоятельствах.
 
-Let's change the example to display a message if there are more than three heroes.
+Давайте изменим пример, чтобы отобразить сообщение, если есть более трех героев.
 
-The Angular `ngIf` directive inserts or removes an element based on a _truthy/falsy_ condition.
-To see it in action, add the following paragraph at the bottom of the template:
+Angular  `ngIf`  Директива вставляет или удаляет элемент на основе условия _truthy / falsy_.
+Для того, чтобы увидеть его в действии, добавьте следующий пункт в нижней части шаблона:
 
 
 <code-example path="displaying-data/src/app/app.component.ts" header="src/app/app.component.ts (message)" region="message"></code-example>
@@ -254,42 +262,43 @@ To see it in action, add the following paragraph at the bottom of the template:
 
 <div class="alert is-important">
 
-Don't forget the leading asterisk (\*) in `*ngIf`. It is an essential part of the syntax.
-Read more about `ngIf` and `*` in the [ngIf section](guide/template-syntax#ngIf) of the [Template Syntax](guide/template-syntax) page.
+Не забудьте указать звездочку (\ *) в  `*ngIf`  . Это неотъемлемая часть синтаксиса.
+Узнайте больше о  `ngIf`  и  `*`  В [раздел ngIf](guide/template-syntax#ngIf)из [Шаблон синтаксиса](guide/template-syntax)страницы.
 
 </div>
 
 
-The template expression inside the double quotes,
-`*ngIf="heroes.length > 3"`, looks and behaves much like TypeScript.
-When the component's list of heroes has more than three items, Angular adds the paragraph
-to the DOM and the message appears.
-If there are three or fewer items, Angular omits the paragraph, so no message appears.
+Выражение шаблона внутри двойных кавычек
+ `*ngIf="heroes.length > 3"`, выглядит и ведет себя так же, как TypeScript.
+Если в списке героев компонента более трех элементов, Angular добавляет абзац
+в DOM, и сообщение появляется.
+Если есть три или меньше элементов, Angular пропускает абзац, поэтому сообщение не появляется.
 
-For more information, see [template expressions](guide/template-syntax#template-expressions).
+Для получения дополнительной информации см. [Выражения шаблона](guide/template-syntax#template-expressions).
 
 
 <div class="alert is-helpful">
 
-Angular isn't showing and hiding the message. It is adding and removing the paragraph element from the DOM. That improves performance, especially in larger projects when conditionally including or excluding
-big chunks of HTML with many data bindings.
+Angular не показывает и не скрывает сообщение. Это добавление и удаление элемента абзаца из DOM. Это повышает производительность, особенно в более крупных проектах, когда они условно включены или исключены
+большие куски HTML со многими привязками данных.
 
 </div>
 
-Try it out. Because the array has four items, the message should appear.
-Go back into <code>app.component.ts</code> and delete or comment out one of the elements from the heroes array.
-The browser should refresh automatically and the message should disappear.
+Попробуйте это. Поскольку массив состоит из четырех элементов, сообщение должно появиться.
+Вернитесь <code>app.component.ts</code>и удалите или закомментируйте один из элементов из массива героев.
+Браузер должен автоматически обновиться, и сообщение должно исчезнуть.
 
 
-## Summary
-Now you know how to use:
+{@a summary}
+## Резюме
+Теперь вы знаете, как использовать:
 
-* **Interpolation** with double curly braces to display a component property.
-* **ngFor** to display an array of items.
-* A TypeScript class to shape the **model data** for your component and display properties of that model.
-* **ngIf** to conditionally display a chunk of HTML based on a boolean expression.
+* **Интерполяция** с двойными фигурными скобками для отображения свойства компонента.
+* **ngFor** для отображения массива элементов.
+* Класс TypeScript для формирования**данных модели** для вашего компонента и отображения свойств этой модели.
+* **ngIf** условно отобразить фрагмент HTML на основе логического выражения.
 
-Here's the final code:
+Вот окончательный код:
 
 <code-tabs>
 

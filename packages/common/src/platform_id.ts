@@ -12,7 +12,7 @@ export const PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
 export const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
 
 /**
- * Returns whether a platform id represents a browser platform.
+ * Возвращает, представляет ли идентификатор платформы платформу браузера.
  * @publicApi
  */
 export function isPlatformBrowser(platformId: Object): boolean {
@@ -20,7 +20,7 @@ export function isPlatformBrowser(platformId: Object): boolean {
 }
 
 /**
- * Returns whether a platform id represents a server platform.
+ * Возвращает, представляет ли идентификатор платформы серверную платформу.
  * @publicApi
  */
 export function isPlatformServer(platformId: Object): boolean {
@@ -28,7 +28,7 @@ export function isPlatformServer(platformId: Object): boolean {
 }
 
 /**
- * Returns whether a platform id represents a web worker app platform.
+ * Возвращает, представляет ли идентификатор платформы платформу приложения веб-работника.
  * @publicApi
  */
 export function isPlatformWorkerApp(platformId: Object): boolean {
@@ -36,7 +36,7 @@ export function isPlatformWorkerApp(platformId: Object): boolean {
 }
 
 /**
- * Returns whether a platform id represents a web worker UI platform.
+ * Возвращает, представляет ли идентификатор платформы платформу пользовательского интерфейса веб-работника.
  * @publicApi
  */
 export function isPlatformWorkerUi(platformId: Object): boolean {

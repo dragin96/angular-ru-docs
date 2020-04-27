@@ -31,7 +31,7 @@ function getResponseUrl(xhr: any): string|null {
 }
 
 /**
- * A wrapper around the `XMLHttpRequest` constructor.
+ * Обертка вокруг `XMLHttpRequest` конструктора.
  *
  * @publicApi
  */
@@ -62,9 +62,9 @@ interface PartialResponse {
 }
 
 /**
- * Uses `XMLHttpRequest` to send requests to a backend server.
- * @see `HttpHandler`
- * @see `JsonpClientBackend`
+ * Использует `XMLHttpRequest` для отправки запросов на внутренний сервер.
+ *  @see `HttpHandler`
+ *  @see `JsonpClientBackend`
  *
  * @publicApi
  */

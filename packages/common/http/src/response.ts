@@ -9,7 +9,7 @@
 import {HttpHeaders} from './headers';
 
 /**
- * Type enumeration for the different kinds of `HttpEvent`.
+ * Перечисление типов для различных типов `HttpEvent`.
  *
  * @publicApi
  */
@@ -46,7 +46,7 @@ export enum HttpEventType {
 }
 
 /**
- * Base interface for progress events.
+ * Базовый интерфейс для событий прогресса.
  *
  * @publicApi
  */
@@ -69,7 +69,7 @@ export interface HttpProgressEvent {
 }
 
 /**
- * A download progress event.
+ * Событие прогресса загрузки.
  *
  * @publicApi
  */
@@ -85,7 +85,7 @@ export interface HttpDownloadProgressEvent extends HttpProgressEvent {
 }
 
 /**
- * An upload progress event.
+ * Событие прогресса загрузки.
  *
  * @publicApi
  */
@@ -94,9 +94,9 @@ export interface HttpUploadProgressEvent extends HttpProgressEvent {
 }
 
 /**
- * An event indicating that the request was sent to the server. Useful
- * when a request may be retried multiple times, to distinguish between
- * retries on the final event stream.
+ * Событие, указывающее, что запрос был отправлен на сервер.Полезно.
+ * когда запрос может быть повторен несколько раз, чтобы различать
+ * повторяет на последнем потоке событий.
  *
  * @publicApi
  */
@@ -105,10 +105,10 @@ export interface HttpSentEvent {
 }
 
 /**
- * A user-defined event.
+ * Пользовательское событие.
  *
- * Grouping all custom events under this type ensures they will be handled
- * and forwarded by all implementations of interceptors.
+ * Группировка всех пользовательских событий под этим типом гарантирует, что они будут обработаны
+ * и перенаправлено всеми реализациями перехватчиков.
  *
  * @publicApi
  */
@@ -130,9 +130,9 @@ export interface HttpJsonParseError {
 }
 
 /**
- * Union type for all possible events on the response stream.
+ * Тип объединения для всех возможных событий в потоке ответов.
  *
- * Typed according to the expected type of the response.
+ * Печатается в соответствии с ожидаемым типом ответа.
  *
  * @publicApi
  */
@@ -140,7 +140,7 @@ export type HttpEvent<T> =
     HttpSentEvent|HttpHeaderResponse|HttpResponse<T>|HttpProgressEvent|HttpUserEvent<T>;
 
 /**
- * Base class for both `HttpResponse` and `HttpHeaderResponse`.
+ * Базовый класс для `HttpResponse` и `HttpHeaderResponse`.
  *
  * @publicApi
  */
@@ -205,11 +205,11 @@ export abstract class HttpResponseBase {
 }
 
 /**
- * A partial HTTP response which only includes the status and header data,
- * but no response body.
+ * Частичный HTTP-ответ, который включает только данные о состоянии и заголовке
+ * но нет ответа тела.
  *
- * `HttpHeaderResponse` is a `HttpEvent` available on the response
- * event stream, only when progress events are requested.
+ *  `HttpHeaderResponse `-` HttpEvent`доступный в ответе
+ * поток событий, только когда запрашиваются события прогресса.
  *
  * @publicApi
  */
@@ -246,11 +246,11 @@ export class HttpHeaderResponse extends HttpResponseBase {
 }
 
 /**
- * A full HTTP response, including a typed response body (which may be `null`
- * if one was not returned).
+ * Полный HTTP-ответ, включая типизированное тело ответа (которое может быть `null`
+ * если один не был возвращен).
  *
- * `HttpResponse` is a `HttpEvent` available on the response event
- * stream.
+ *  `HttpResponse `-` HttpEvent`доступный для события ответа
+ * поток.
  *
  * @publicApi
  */
@@ -304,15 +304,15 @@ export class HttpResponse<T> extends HttpResponseBase {
 }
 
 /**
- * A response that represents an error or failure, either from a
- * non-successful HTTP status, an error while executing the request,
- * or some other failure which occurred during the parsing of the response.
+ * Ответ, который представляет ошибку или сбой, либо от
+ * Неудачный статус HTTP, ошибка при выполнении запроса
+ * или какой-то другой сбой, который произошел во время анализа ответа.
  *
- * Any error returned on the `Observable` response stream will be
- * wrapped in an `HttpErrorResponse` to provide additional context about
- * the state of the HTTP layer when the error occurred. The error property
- * will contain either a wrapped Error object or the error response returned
- * from the server.
+ * Любая ошибка, возвращаемая в `Observable` ответном потокебудет
+ * обернутый в `HttpErrorResponse` чтобы предоставить дополнительный контекст о
+ * состояние уровня HTTP, когда произошла ошибка. Свойство ошибки
+ * будет содержать либо завернутый объект Error, либо возвращенный ответ об ошибке
+ * с сервера.
  *
  * @publicApi
  */

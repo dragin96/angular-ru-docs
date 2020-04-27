@@ -11,14 +11,14 @@ import {HttpRequest} from './request';
 import {HttpEvent} from './response';
 
 /**
- * Transforms an `HttpRequest` into a stream of `HttpEvent`s, one of which will likely be a
- * `HttpResponse`.
+ * Преобразует `HttpRequest` в поток `HttpEvent` , один из которых, вероятно, будет
+ *  `HttpResponse`.
  *
- * `HttpHandler` is injectable. When injected, the handler instance dispatches requests to the
- * first interceptor in the chain, which dispatches to the second, etc, eventually reaching the
- * `HttpBackend`.
+ *  `HttpHandler`инъекций. При внедрении экземпляр обработчика отправляет запросы в
+ * первый перехватчик в цепи, который отправляет на второй и т. д., в конечном итоге достигнув
+ *  `HttpBackend`.
  *
- * In an `HttpInterceptor`, the `HttpHandler` parameter is the next interceptor in the chain.
+ * В одном `HttpInterceptor` HttpInterceptor, то `HttpHandler` параметром является следующим перехватчиком в цепи.
  *
  * @publicApi
  */
@@ -27,12 +27,12 @@ export abstract class HttpHandler {
 }
 
 /**
- * A final `HttpHandler` which will dispatch the request via browser HTTP APIs to a backend.
+ * Финальный `HttpHandler` который отправит запрос через HTTP-API браузера в бэкэнд.
  *
- * Interceptors sit between the `HttpClient` interface and the `HttpBackend`.
+ * Перехватчики находятся между `HttpClient` интерфейсоми `HttpBackend`.
  *
- * When injected, `HttpBackend` dispatches requests directly to the backend, without going
- * through the interceptor chain.
+ * При `HttpBackend` отправляет запросы напрямую в бэкэнд, не идя
+ * через цепочку перехватчиков.
  *
  * @publicApi
  */

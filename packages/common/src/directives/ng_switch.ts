@@ -34,64 +34,64 @@ export class SwitchView {
 }
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @description
- * The `[ngSwitch]` directive on a container specifies an expression to match against.
- * The expressions to match are provided by `ngSwitchCase` directives on views within the container.
- * - Every view that matches is rendered.
- * - If there are no matches, a view with the `ngSwitchDefault` directive is rendered.
- * - Elements within the `[NgSwitch]` statement but outside of any `NgSwitchCase`
- * or `ngSwitchDefault` directive are preserved at the location.
+ *  @description
+ *  The `[ngSwitch]`директивана контейнере задает выражение для сопоставления.
+ * Соответствующие выражения предоставляются `ngSwitchCase` директивамидля представлений внутри контейнера.
+ * - Каждый вид, который соответствует, представлен.
+ * - Если совпадений нет, отображается представление с `ngSwitchDefault` директивой.
+ * - Элементы внутри `[NgSwitch]` но вне любого `NgSwitchCase`
+ * или `ngSwitchDefault` Директивасохраняется в этом месте.
  *
- * @usageNotes
- * Define a container element for the directive, and specify the switch expression
- * to match against as an attribute:
+ *  @usageNotes
+ * Определите элемент контейнера для директивы и укажите выражение switch
+ * в соответствии сатрибутом:.
  *
- * ```
- * <container-element [ngSwitch]="switch_expression">
- * ```
+ *  ```
+ *  <container-element [ngSwitch]="switch_expression">
+ *  ```
  *
- * Within the container, `*ngSwitchCase` statements specify the match expressions
- * as attributes. Include `*ngSwitchDefault` as the final case.
+ * Внутри контейнера `ngSwitchCase` определяют выражения соответствия
+ * в качестве атрибутов. Включите `ngSwitchDefault` в качестве окончательного.
  *
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *    <some-element *ngSwitchCase="match_expression_1">...</some-element>
- * ...
- *    <some-element *ngSwitchDefault>...</some-element>
- * </container-element>
- * ```
+ *  ```
+ *  <container-element [ngSwitch]="switch_expression">
+ *     <some-elementngSwitchCase="match_expression_1">...</some-element>
+ *  ...
+ *     <some-elementngSwitchDefault>...</some-element>
+ *  </container-element>
+ *  ```
  *
- * ### Usage Examples
+ *  ### Примеры использования
  *
- * The following example shows how to use more than one case to display the same view:
+ * Следующий пример показываеткак использовать больше чем один случайчтобы отобразитьтот жевид:.
  *
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *   <!-- the same view can be shown in more than one case -->
- *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *   <some-element *ngSwitchCase="match_expression_2">...</some-element>
- *   <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
- *   <!--default case when there are no matches -->
- *   <some-element *ngSwitchDefault>...</some-element>
- * </container-element>
- * ```
+ *  ```
+ *  <container-element [ngSwitch]="switch_expression">
+ *    <!-- the same view can be shown in more than one case -->
+ *    <some-elementngSwitchCase="match_expression_1">...</some-element>
+ *    <some-elementngSwitchCase="match_expression_2">...</some-element>
+ *    <some-other-elementngSwitchCase="match_expression_3">...</some-other-element>
+ *    <!--default case when there are no matches -->
+ *    <some-elementngSwitchDefault>...</some-element>
+ *  </container-element>
+ *  ```
  *
- * The following example shows how cases can be nested:
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *       <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *       <some-element *ngSwitchCase="match_expression_2">...</some-element>
- *       <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
- *       <ng-container *ngSwitchCase="match_expression_3">
- *         <!-- use a ng-container to group multiple root nodes -->
- *         <inner-element></inner-element>
- *         <inner-other-element></inner-other-element>
- *       </ng-container>
- *       <some-element *ngSwitchDefault>...</some-element>
- *     </container-element>
- * ```
+ * В следующем примере показанокак случаи могут бытьвложенными:.
+ *  ```
+ *  <container-element [ngSwitch]="switch_expression">
+ *        <some-elementngSwitchCase="match_expression_1">...</some-element>
+ *        <some-elementngSwitchCase="match_expression_2">...</some-element>
+ *        <some-other-elementngSwitchCase="match_expression_3">...</some-other-element>
+ *        <ng-containerngSwitchCase="match_expression_3">
+ *          <!-- use a ng-container to group multiple root nodes -->
+ *          <inner-element></inner-element>
+ *          <inner-other-element></inner-other-element>
+ *        </ng-container>
+ *        <some-elementngSwitchDefault>...</some-element>
+ *      </container-element>
+ *  ```
  *
  * @publicApi
  * @see `NgSwitchCase`
@@ -155,32 +155,32 @@ export class NgSwitch {
 }
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @description
- * Provides a switch case expression to match against an enclosing `ngSwitch` expression.
- * When the expressions match, the given `NgSwitchCase` template is rendered.
- * If multiple match expressions match the switch expression value, all of them are displayed.
+ *  @description
+ * Предоставляет выражение регистра переключателя для сопоставления с `ngSwitch` выражением.
+ * Когда выражения совпадают, данный `NgSwitchCase``NgSwitchCase` отображается.
+ * Если несколько выражений совпадения соответствуют значению выражения переключения, отображаются все из них.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * Within a switch container, `*ngSwitchCase` statements specify the match expressions
- * as attributes. Include `*ngSwitchDefault` as the final case.
+ * В контейнере переключателя `ngSwitchCase` определяют выражения соответствия
+ * в качестве атрибутов. Включите `ngSwitchDefault` в качестве окончательного.
  *
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *   ...
- *   <some-element *ngSwitchDefault>...</some-element>
- * </container-element>
- * ```
+ *  ```
+ *  <container-element [ngSwitch]="switch_expression">
+ *    <some-elementngSwitchCase="match_expression_1">...</some-element>
+ *    ...
+ *    <some-elementngSwitchDefault>...</some-element>
+ *  </container-element>
+ *  ```
  *
- * Each switch-case statement contains an in-line HTML template or template reference
- * that defines the subtree to be selected if the value of the match expression
- * matches the value of the switch expression.
+ * Каждый оператор switch-case содержит встроенный шаблон HTML или ссылку на шаблон
+ * это определяет поддерево, которое будет выбрано, если значение выражения соответствия
+ * соответствует значению выражения switch.
  *
- * Unlike JavaScript, which uses strict equality, Angular uses loose equality.
- * This means that the empty string, `""` matches 0.
+ * В отличие от JavaScript, который использует строгое равенство, Angular использует свободное равенство.
+ * Это означает, что пустая строка, `""` соответствует 0
  *
  * @publicApi
  * @see `NgSwitch`
@@ -211,13 +211,13 @@ export class NgSwitchCase implements DoCheck {
 }
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @description
+ *  @description
  *
- * Creates a view that is rendered when no `NgSwitchCase` expressions
- * match the `NgSwitch` expression.
- * This statement should be the final case in an `NgSwitch`.
+ * Создает представлениекоторое не визуализируетсякогда нет `NgSwitchCase` выражений
+ * соответствует `NgSwitch``NgSwitch`.
+ * Это утверждение должно быть последним случаем в `NgSwitch`.
  *
  * @publicApi
  * @see `NgSwitch`

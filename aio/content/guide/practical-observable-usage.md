@@ -1,23 +1,26 @@
-# Practical observable usage
+{@a practical-observable-usage}
+# Практическое наблюдаемое использование
 
-Here are some examples of domains in which observables are particularly useful.
+Вот несколько примеров областей, в которых наблюдаемые особенно полезны.
 
-## Type-ahead suggestions
+{@a type-ahead-suggestions}
+## Типовые предложения
 
-Observables can simplify the implementation of type-ahead suggestions. Typically, a type-ahead has to do a series of separate tasks:
+Наблюдаемые могут упростить реализацию предложений опережающего ввода. Как правило, опережающий должно сделать ряд отдельных задач:
 
-* Listen for data from an input.
-* Trim the value (remove whitespace) and make sure it’s a minimum length.
-* Debounce (so as not to send off API requests for every keystroke, but instead wait for a break in keystrokes).
-* Don’t send a request if the value stays the same (rapidly hit a character, then backspace, for instance).
-* Cancel ongoing AJAX requests if their results will be invalidated by the updated results.
+* Прослушайте данные от входа.
+* Обрежьте значение (удалите пробелы) и убедитесь, что это минимальная длина.
+* Дебадировать (чтобы не отправлять запросы API на каждое нажатие клавиши, а вместо этого ждать перерыва при нажатии клавиши).
+* Не отправляйте запрос, если значение остается прежним (например, быстрое нажатие на символ, затем возврат на одну позицию).
+* Отмените текущие запросы AJAX, если их результаты будут аннулированы обновленными результатами.
 
-Writing this in full JavaScript can be quite involved. With observables, you can use a simple series of RxJS operators:
+Написание этого в полном JavaScript может быть довольно сложным. С наблюдаемыми, вы можете использовать простые серии RxJS операторов:
 
 <code-example path="practical-observable-usage/src/typeahead.ts" header="Typeahead"></code-example>
 
-## Exponential backoff
+{@a exponential-backoff}
+## Экспоненциальный откат
 
-Exponential backoff is a technique in which you retry an API after failure, making the time in between retries longer after each consecutive failure, with a maximum number of retries after which the request is considered to have failed. This can be quite complex to implement with promises and other methods of tracking AJAX calls. With observables, it is very easy:
+Экспоненциальный откат - это метод, при котором вы повторяете API после сбоя, увеличивая время между повторными попытками после каждого последующего сбоя, с максимальным числом повторов, после которого запрос считается неудавшимся. Это может быть довольно сложно реализовать с помощью обещаний и других методов отслеживания вызовов AJAX. С наблюдаемыми это очень просто
 
 <code-example path="practical-observable-usage/src/backoff.ts" header="Exponential backoff"></code-example>

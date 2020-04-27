@@ -14,33 +14,32 @@ import {ResponseOptionsArgs} from './interfaces';
 
 
 /**
- * Creates a response options object to be optionally provided when instantiating a
- * {@link Response}.
+ * Создает объект параметров ответа, который может быть предоставлен при создании экземпляра
+ *  {@link Response},
  *
- * This class is based on the `ResponseInit` description in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#responseinit).
+ * Этот класс основан на `ResponseInit` описаниив[Fetch.Спец](https://fetch.spec.whatwg.org/#responseinit).
  *
- * All values are null by default. Typical defaults can be found in the
- * {@link BaseResponseOptions} class, which sub-classes `ResponseOptions`.
+ * Все значения по умолчанию являются нулевыми. Типичные значения по умолчанию можно найти в
+ *  {@link BaseResponseOptions}класс, который подклассов `ResponseOptions`.
  *
- * This class may be used in tests to build {@link Response Responses} for
- * mock responses (see {@link MockBackend}).
+ * Этот класс может быть использован в тестах для построения{@link Response Responses}для.
+ * ложные ответы (см.{@link MockBackend}).
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import {ResponseOptions, Response} from '@angular/http';
+ *  ```typescript
+ *  import {ResponseOptions, Response} from '@angular/http';
  *
- * var options = new ResponseOptions({
- *   body: '{"name":"Jeff"}'
- * });
- * var res = new Response(options);
+ *  var options = new ResponseOptions({
+ *    body: '{"name":"Jeff"}'
+ *  });
+ *  var res = new Response(options);
  *
- * console.log('res.json():', res.json()); // Object {name: "Jeff"}
- * ```
+ *  console.log('res.json():', res.json()); // Object {name: "Jeff"}
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class ResponseOptions {
@@ -116,51 +115,51 @@ export class ResponseOptions {
 }
 
 /**
- * Subclass of {@link ResponseOptions}, with default values.
+ * Подкласс{@link ResponseOptions}со значениями по умолчанию.
  *
- * Default values:
- *  * status: 200
- *  * headers: empty {@link Headers} object
+ * умолчаниюзначения:.
+ * статус: 200
+ * заголовки: пусто{@link Headers}объект
  *
- * This class could be extended and bound to the {@link ResponseOptions} class
- * when configuring an {@link Injector}, in order to override the default options
- * used by {@link Http} to create {@link Response Responses}.
+ * Этот класс может быть расширен и привязан к{@link ResponseOptions}класс.
+ * при настройке{@link Injector}, чтобы переопределить параметры по умолчанию
+ * использован{@link Http}создавать{@link Response Responses},
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import {provide} from '@angular/core';
- * import {bootstrap} from '@angular/platform-browser/browser';
- * import {HTTP_PROVIDERS, Headers, Http, BaseResponseOptions, ResponseOptions} from
- * '@angular/http';
- * import {App} from './myapp';
+ *  ```typescript
+ *  import {provide} from '@angular/core';
+ *  import {bootstrap} from '@angular/platform-browser/browser';
+ *  import {HTTP_PROVIDERS, Headers, Http, BaseResponseOptions, ResponseOptions} from
+ *  '@angular/http';
+ *  import {App} from './myapp';
  *
- * class MyOptions extends BaseResponseOptions {
- *   headers:Headers = new Headers({network: 'github'});
- * }
+ *  class MyOptions extends BaseResponseOptions {
+ *    headers:Headers = new Headers({network: 'github'});
+ *  }
  *
- * bootstrap(App, [HTTP_PROVIDERS, {provide: ResponseOptions, useClass: MyOptions}]);
- * ```
+ *  bootstrap(App, [HTTP_PROVIDERS, {provide: ResponseOptions, useClass: MyOptions}]);
+ *  ```
  *
- * The options could also be extended when manually creating a {@link Response}
- * object.
+ * Параметры также могут быть расширены при создании вручную{@link Response}
+ * объект.
  *
- * ### Example
+ *  ### Пример
  *
- * ```
- * import {BaseResponseOptions, Response} from '@angular/http';
+ *  ```
+ *  import {BaseResponseOptions, Response} from '@angular/http';
  *
- * var options = new BaseResponseOptions();
- * var res = new Response(options.merge({
- *   body: 'Angular',
- *   headers: new Headers({framework: 'angular'})
- * }));
- * console.log('res.headers.get("framework"):', res.headers.get('framework')); // angular
- * console.log('res.text():', res.text()); // Angular;
- * ```
+ *  var options = new BaseResponseOptions();
+ *  var res = new Response(options.merge({
+ *    body: 'Angular',
+ *    headers: new Headers({framework: 'angular'})
+ *  }));
+ *  console.log('res.headers.get("framework") :', res.headers.get('framework')); // angular
+ *  console.log('res.text():', res.text()); // Angular;
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

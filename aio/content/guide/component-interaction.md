@@ -1,9 +1,10 @@
-# Component interaction
+{@a component-interaction}
+# Взаимодействие компонентов
 
 {@a top}
 
-This cookbook contains recipes for common component communication scenarios
-in which two or more components share information.
+Эта кулинарная книга содержит рецепты общих сценариев взаимодействия компонентов
+в котором два или более компонентов обмениваются информацией.
 {@a toc}
 
 <!--
@@ -12,20 +13,21 @@ in which two or more components share information.
 
 * [Pass data from parent to child with input binding](guide/component-interaction#parent-to-child)
 * [Intercept input property changes with a setter](guide/component-interaction#parent-to-child-setter)
-* [Intercept input property changes with `ngOnChanges()`](guide/component-interaction#parent-to-child-on-changes)
-* [Parent calls an `@ViewChild()`](guide/component-interaction#parent-to-view-child)
+* [Intercept input property changes with `ngOnChanges()` ](guide/component-interaction#parent-to-child-on-changes)
+* [Parent calls an `@ViewChild()` ](guide/component-interaction#parent-to-view-child)
 * [Parent and children communicate via a service](guide/component-interaction#bidirectional-service)
 
 -->
 
-**See the <live-example name="component-interaction"></live-example>**.
+**Увидеть<live-example name="component-interaction">**,
 
 {@a parent-to-child}
 
-## Pass data from parent to child with input binding
+{@a pass-data-from-parent-to-child-with-input-binding}
+## Передача данных от родителя к потомку с привязкой ввода
 
-`HeroChildComponent` has two ***input properties***,
-typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs).
+ `HeroChildComponent` имеет два ***входных свойства***,
+как правило, украшен [@Input украшения](guide/template-syntax#inputs-outputs).
 
 
 <code-example path="component-interaction/src/app/hero-child.component.ts" header="component-interaction/src/app/hero-child.component.ts">
@@ -34,11 +36,11 @@ typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs
 
 
 
-The second `@Input` aliases the child component property name `masterName` as `'master'`.
+Секунда `@Input` псевдоним имени свойства дочернего компонента `masterName` as `'master'`.
 
-The `HeroParentComponent` nests the child `HeroChildComponent` inside an `*ngFor` repeater,
-binding its `master` string property to the child's `master` alias,
-and each iteration's `hero` instance to the child's `hero` property.
+ `HeroParentComponent ` ребенка ` HeroChildComponent ` внутри ` *ngFor` повторителя
+привязывая его `master` свойство строки для ребенка `master` псевдоним
+и каждая итерация `hero` пример ребенку `hero` собственность.
 
 
 <code-example path="component-interaction/src/app/hero-parent.component.ts" header="component-interaction/src/app/hero-parent.component.ts">
@@ -47,7 +49,7 @@ and each iteration's `hero` instance to the child's `hero` property.
 
 
 
-The running application displays three heroes:
+Работает приложение отображает три героя:
 
 
 <div class="lightbox">
@@ -56,9 +58,9 @@ The running application displays three heroes:
 
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-E2E test that all children were instantiated and displayed as expected:
+Е2Е тест, чтобы все дети были экземпляры и отображаются, как и ожидалось:
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -67,16 +69,17 @@ E2E test that all children were instantiated and displayed as expected:
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 {@a parent-to-child-setter}
 
-## Intercept input property changes with a setter
+{@a intercept-input-property-changes-with-a-setter}
+## Перехватывать изменения входных свойств с помощью установщика
 
-Use an input property setter to intercept and act upon a value from the parent.
+Используйте установщик входного свойства, чтобы перехватить и воздействовать на значение от родителя.
 
-The setter of the `name` input property in the child `NameChildComponent`
-trims the whitespace from a name and replaces an empty value with default text.
+Сеттер из `name` входного свойства в дочернем элементе `NameChildComponent` 
+удаляет пробелы из имени и заменяет пустое значение текстом по умолчанию.
 
 
 <code-example path="component-interaction/src/app/name-child.component.ts" header="component-interaction/src/app/name-child.component.ts">
@@ -85,7 +88,7 @@ trims the whitespace from a name and replaces an empty value with default text.
 
 
 
-Here's the `NameParentComponent` demonstrating name variations including a name with all spaces:
+Вот `NameParentComponent` демонстрирует изменения имен, включая имя со всеми пробелами:
 
 
 <code-example path="component-interaction/src/app/name-parent.component.ts" header="component-interaction/src/app/name-parent.component.ts">
@@ -100,9 +103,9 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-E2E tests of input property setter with empty and non-empty names:
+E2E тесты проверяют входную собственность сеттера с пустыми и не пустыми именами:
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-setter" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -111,27 +114,28 @@ E2E tests of input property setter with empty and non-empty names:
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 {@a parent-to-child-on-changes}
 
-## Intercept input property changes with *ngOnChanges()*
+{@a intercept-input-property-changes-with-*ngonchanges*}
+## Перехватывать изменения входных свойств с помощью *ngOnChanges ()*
 
-Detect and act upon changes to input property values with the `ngOnChanges()` method of the `OnChanges` lifecycle hook interface.
+Обнаруживать и воздействовать на изменения значений входных свойств с помощью `ngOnChanges() ` метода ` OnChanges` жизненного цикла.
 
 <div class="alert is-helpful">
 
 
 
-You may prefer this approach to the property setter when watching multiple, interacting input properties.
+Вы можете предпочесть этот подход установщику свойств при просмотре нескольких взаимодействующих входных свойств.
 
-Learn about `ngOnChanges()` in the [Lifecycle Hooks](guide/lifecycle-hooks) chapter.
+Узнать о `ngOnChanges()` в [Хуки жизненного цикла](guide/lifecycle-hooks)главе.
 
 </div>
 
 
 
-This `VersionChildComponent` detects changes to the `major` and `minor` input properties and composes a log message reporting these changes:
+Эта `VersionChildComponent` обнаруживает изменения в `major` и `minor` входные свойства и компонует сообщение журнала отчеты этих изменений:
 
 
 <code-example path="component-interaction/src/app/version-child.component.ts" header="component-interaction/src/app/version-child.component.ts">
@@ -140,7 +144,7 @@ This `VersionChildComponent` detects changes to the `major` and `minor` input pr
 
 
 
-The `VersionParentComponent` supplies the `minor` and `major` values and binds buttons to methods that change them.
+ `VersionParentComponent ` предоставляет ` minor ` и ` major` значения и привязывает кнопки к методам, которые их изменяют.
 
 
 <code-example path="component-interaction/src/app/version-parent.component.ts" header="component-interaction/src/app/version-parent.component.ts">
@@ -149,7 +153,7 @@ The `VersionParentComponent` supplies the `minor` and `major` values and binds b
 
 
 
-Here's the output of a button-pushing sequence:
+Вот вывод из последовательности кнопок толкания:
 
 
 <div class="lightbox">
@@ -158,10 +162,10 @@ Here's the output of a button-pushing sequence:
 
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-Test that ***both*** input properties are set initially and that button clicks trigger
-the expected `ngOnChanges` calls and values:
+Проверьте, что ***оба*** входных свойства установлены изначально, и что нажатия кнопки запускаются
+ожидаемый `ngOnChanges` вызовов и значение:
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-onchanges" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -170,18 +174,19 @@ the expected `ngOnChanges` calls and values:
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 {@a child-to-parent}
 
-## Parent listens for child event
+{@a parent-listens-for-child-event}
+## Родитель прислушивается к дочернему событию
 
-The child component exposes an `EventEmitter` property with which it `emits` events when something happens.
-The parent binds to that event property and reacts to those events.
+Дочерний компонент предоставляет `EventEmitter` Свойство с которым оно `emits` события, когда что-то происходит.
+Родитель связывается с этим свойством события и реагирует на эти события.
 
-The child's `EventEmitter` property is an ***output property***,
-  typically adorned with an [@Output decoration](guide/template-syntax#inputs-outputs)
-  as seen in this `VoterComponent`:
+Ребенок `EventEmitter` свойства является ***выходным свойством***,
+  как правило, украшен [@Output украшение](guide/template-syntax#inputs-outputs)
+  как видно из этого `VoterComponent` :
 
 
 <code-example path="component-interaction/src/app/voter.component.ts" header="component-interaction/src/app/voter.component.ts">
@@ -190,10 +195,10 @@ The child's `EventEmitter` property is an ***output property***,
 
 
 
-Clicking a button triggers emission of a `true` or `false`, the boolean *payload*.
+Нажатие на кнопку запускает эмиссию `true` или `false`, логическая *полезная нагрузка*.
 
-The parent `VoteTakerComponent` binds an event handler called `onVoted()` that responds to the child event
-payload `$event` and updates a counter.
+Родитель `VoteTakerComponent` связывает обработчик событий с именем `onVoted()` который отвечает на дочернее событие
+полезная нагрузка `$event` и обновляет счетчик.
 
 
 <code-example path="component-interaction/src/app/votetaker.component.ts" header="component-interaction/src/app/votetaker.component.ts">
@@ -202,8 +207,8 @@ payload `$event` and updates a counter.
 
 
 
-The framework passes the event argument&mdash;represented by `$event`&mdash;to the handler method,
-and the method processes it:
+Каркас передает аргумент события, представленный `$event` - в метод обработчика
+и метод обрабатывает его:
 
 
 <div class="lightbox">
@@ -212,9 +217,9 @@ and the method processes it:
 
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-Test that clicking the *Agree* and *Disagree* buttons update the appropriate counters:
+Проверьте, что нажав на *СОГЛАСНЫ* и не *согласные* кнопки обновить соответствующие счетчики:
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="child-to-parent" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -223,22 +228,23 @@ Test that clicking the *Agree* and *Disagree* buttons update the appropriate cou
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 
 
-## Parent interacts with child via *local variable*
+{@a parent-interacts-with-child-via-*local-variable*}
+## Родитель взаимодействует с ребенком через *локальную переменную*
 
-A parent component cannot use data binding to read child properties
-or invoke child methods. You can do both
-by creating a template reference variable for the child element
-and then reference that variable *within the parent template*
-as seen in the following example.
+Родительский компонент не может использовать привязку данных для чтения дочерних свойств.
+или вызвать дочерние методы. Вы можете сделать оба
+путем создания ссылочной переменной шаблона для дочернего элемента
+а затем сослаться на эту переменную *в родительском шаблоне*
+как видно в следующем примере.
 
 {@a countdown-timer-example}
-The following is a child `CountdownTimerComponent` that repeatedly counts down to zero and launches a rocket.
-It has `start` and `stop` methods that control the clock and it displays a
-countdown status message in its own template.
+Ниже ребенок `CountdownTimerComponent` который многократно отсчитывает до нуля и запускает ракету.
+Оно имеет `start` и `stop` методы, которые управляют часами, и это отображает
+сообщение о состоянии отсчета в своем собственном шаблоне.
 
 <code-example path="component-interaction/src/app/countdown-timer.component.ts" header="component-interaction/src/app/countdown-timer.component.ts">
 
@@ -246,7 +252,7 @@ countdown status message in its own template.
 
 
 
-The `CountdownLocalVarParentComponent` that hosts the timer component is as follows:
+ `CountdownLocalVarParentComponent` что хосты компонент таймер следующим образом :
 
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" header="component-interaction/src/app/countdown-parent.component.ts">
@@ -255,17 +261,17 @@ The `CountdownLocalVarParentComponent` that hosts the timer component is as foll
 
 
 
-The parent component cannot data bind to the child's
-`start` and `stop` methods nor to its `seconds` property.
+Родительский компонент не может привязывать данные к дочернему
+ `start ` и ` stop` методы, ни его `seconds` свойство.
 
-You can place a local variable, `#timer`, on the tag `<countdown-timer>` representing the child component.
-That gives you a reference to the child component and the ability to access
-*any of its properties or methods* from within the parent template.
+Вы можете разместить локальную переменную, `#timer`, на теге `<countdown-timer>` представляющий дочерний компонент.
+Это дает вам ссылку на дочерний компонент и возможность доступа
+*любые его свойства или методы* из родительского шаблона.
 
-This example wires parent buttons to the child's `start` and `stop` and
-uses interpolation to display the child's `seconds` property.
+Этот пример связывает родительские кнопки с дочерними `start` и `stop` и
+использует интерполяцию для отображения `seconds` свойство.
 
-Here we see the parent and child working together.
+Здесь мы видим, как родитель и ребенок работают вместе.
 
 
 <div class="lightbox">
@@ -277,11 +283,11 @@ Here we see the parent and child working together.
 {@a countdown-tests}
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-Test that the seconds displayed in the parent template
-match the seconds displayed in the child's status message.
-Test also that clicking the *Stop* button pauses the countdown timer:
+Проверьте, что секунды отображаются в родительском шаблоне
+сопоставьте секунды, отображаемые в сообщении о состоянии ребенка.
+Тест также, что при нажатии на *Stop* кнопки останавливает таймер обратного отсчета:
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="countdown-timer-tests" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -290,39 +296,40 @@ Test also that clicking the *Stop* button pauses the countdown timer:
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 {@a parent-to-view-child}
 
-## Parent calls an _@ViewChild()_
+{@a parent-calls-an-@viewchild}
+## Родитель вызывает _@ ViewChild () _
 
-The *local variable* approach is simple and easy. But it is limited because
-the parent-child wiring must be done entirely within the parent template.
-The parent component *itself* has no access to the child.
+*Локальная переменная* подход является простой и легкой. Но это ограничено, потому что
+Родительско-дочернее соединение должно быть полностью выполнено в родительском шаблоне.
+Сам родительский компонент *не* имеет доступа к дочернему.
 
-You can't use the *local variable* technique if an instance of the parent component *class*
-must read or write child component values or must call child component methods.
+Вы не можете использовать *локальную переменную* технику, если экземпляр родительского компонента *класса*
+должен читать или записывать значения дочерних компонентов или должен вызывать методы дочерних компонентов.
 
-When the parent component *class* requires that kind of access,
-***inject*** the child component into the parent as a *ViewChild*.
+Когда родительский компонент *класс* требует такого рода доступ
+***инъекционные*** дочерний компонент в родительский как*ViewChild *.
 
-The following example illustrates this technique with the same
-[Countdown Timer](guide/component-interaction#countdown-timer-example) example.
-Neither its appearance nor its behavior will change.
-The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-example) is the same as well.
+Следующий пример иллюстрирует эту технику с тем же
+[Таймер обратного отсчета](guide/component-interaction#countdown-timer-example)пример.
+Ни его внешний вид, ни его поведение не изменится.
+Дочерний [элемент CountdownTimerComponent](guide/component-interaction#countdown-timer-example)тоже самое.
 
 <div class="alert is-helpful">
 
 
 
-The switch from the *local variable* to the *ViewChild* technique
-is solely for the purpose of demonstration.
+Переход от *локальной переменной* к *ViewChild* технике
+исключительно для демонстрации.
 
 </div>
 
 
 
-Here is the parent, `CountdownViewChildParentComponent`:
+Вот родитель, `CountdownViewChildParentComponent` :
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="vc" header="component-interaction/src/app/countdown-parent.component.ts">
 
@@ -330,48 +337,49 @@ Here is the parent, `CountdownViewChildParentComponent`:
 
 
 
-It takes a bit more work to get the child view into the parent component *class*.
+Требуется немного больше работы, чтобы получить дочернее представление в родительского компонента *класс*.
 
-First, you have to import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
+Во-первых, вы должны импортировать ссылки на `ViewChild` декоратор и `AfterViewInit` жизненного цикла.
 
-Next, inject the child `CountdownTimerComponent` into the private `timerComponent` property
-via the `@ViewChild` property decoration.
+Далее вводите ребенку `CountdownTimerComponent` в частном `timerComponent` свойство
+через `@ViewChild` свойство украшения.
 
-The `#timer` local variable is gone from the component metadata.
-Instead, bind the buttons to the parent component's own `start` and `stop` methods and
-present the ticking seconds in an interpolation around the parent component's `seconds` method.
+ `#timer` переменная ушла из метаданных компонента.
+Вместо этого свяжите кнопки с собственным родительским компонентом `start` и `stop` методы и
+представить тикающие секунды в интерполяции вокруг родительского компонента `seconds` метод.
 
-These methods access the injected timer component directly.
+Эти методы напрямую обращаются к внедренному компоненту таймера.
 
-The `ngAfterViewInit()` lifecycle hook is an important wrinkle.
-The timer component isn't available until *after* Angular displays the parent view.
-So it displays `0` seconds initially.
+ `ngAfterViewInit()` жизненного цикла - важная проблема.
+Компонент таймера не доступен, пока *после* Angular дисплеев родительского вида.
+Так это отображает `0` секунд изначально.
 
-Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late*
-to update the parent view's display of the countdown seconds.
-Angular's unidirectional data flow rule prevents updating the parent view's
-in the same cycle. The app has to *wait one turn* before it can display the seconds.
+Тогда Angular вызывает `ngAfterViewInit` жизненного цикла когда уже *слишком поздно*
+обновить отображение родительского представления секунд отсчета.
+Правило однонаправленного потока данных Angular предотвращает обновление родительского представления
+в том же цикле. Приложение должно *подождать один ход,* прежде чем оно сможет отображать секунды.
 
-Use `setTimeout()` to wait one tick and then revise the `seconds()` method so
-that it takes future values from the timer component.
+использование `setTimeout()` чтобы подождать один тик, а затем пересмотреть `seconds()` метод так
+что он принимает будущие значения от компонента таймера.
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-Use [the same countdown timer tests](guide/component-interaction#countdown-tests) as before.
+Используйте [те же тесты таймера обратного отсчета](guide/component-interaction#countdown-tests)что и раньше.
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)
 
 {@a bidirectional-service}
 
-## Parent and children communicate via a service
+{@a parent-and-children-communicate-via-a-service}
+## Родитель и дети общаются через службу
 
-A parent component and its children share a service whose interface enables bi-directional communication
-*within the family*.
+Родительский компонент и его дочерние элементы совместно используют службу, интерфейс которой обеспечивает двунаправленную связь
+*в семье*.
 
-The scope of the service instance is the parent component and its children.
-Components outside this component subtree have no access to the service or their communications.
+Область действия экземпляра службы - родительский компонент и его дочерние элементы.
+Компоненты вне этого поддерева компонентов не имеют доступа к сервису или их связи.
 
-This `MissionService` connects the `MissionControlComponent` to multiple `AstronautComponent` children.
+Эта `MissionService` соединяет `MissionControlComponent` для нескольких `AstronautComponent` детей.
 
 
 <code-example path="component-interaction/src/app/mission.service.ts" header="component-interaction/src/app/mission.service.ts">
@@ -380,8 +388,8 @@ This `MissionService` connects the `MissionControlComponent` to multiple `Astron
 
 
 
-The `MissionControlComponent` both provides the instance of the service that it shares with its children
-(through the `providers` metadata array) and injects that instance into itself through its constructor:
+ `MissionControlComponent` обеспечивает экземпляр службы, которой он делится со своими
+(сквозь `providers` метаданных массивов) и впрыскивает этот экземпляр в себя через конструктор:
 
 
 <code-example path="component-interaction/src/app/missioncontrol.component.ts" header="component-interaction/src/app/missioncontrol.component.ts">
@@ -390,8 +398,8 @@ The `MissionControlComponent` both provides the instance of the service that it 
 
 
 
-The `AstronautComponent` also injects the service in its constructor.
-Each `AstronautComponent` is a child of the `MissionControlComponent` and therefore receives its parent's service instance:
+ `AstronautComponent` также внедряет сервис в своем конструкторе.
+каждый `AstronautComponent` - дитя `MissionControlComponent` поэтому и получает экземпляр службы своего родителя:
 
 
 <code-example path="component-interaction/src/app/astronaut.component.ts" header="component-interaction/src/app/astronaut.component.ts">
@@ -404,21 +412,21 @@ Each `AstronautComponent` is a child of the `MissionControlComponent` and theref
 
 
 
-Notice that this example captures the `subscription` and `unsubscribe()` when the `AstronautComponent` is destroyed.
-This is a memory-leak guard step. There is no actual risk in this app because the
-lifetime of a `AstronautComponent` is the same as the lifetime of the app itself.
-That *would not* always be true in a more complex application.
+Обратите внимание, что этот пример фиксирует `subscription` и `unsubscribe()` когда `AstronautComponent` уничтожен.
+Это шаг защиты от утечки памяти. Там нет фактического риска в этом приложении, потому что
+время жизни `AstronautComponent` - это то же самое, что и время жизни самого приложения.
+Это *не* всегда верно в более сложных приложениях.
 
-You don't add this guard to the `MissionControlComponent` because, as the parent,
-it controls the lifetime of the `MissionService`.
+Вы не добавляете эту охрану к `MissionControlComponent` потому что, как родитель,
+он контролирует время жизни `MissionService`.
 
 </div>
 
 
 
-The *History* log demonstrates that messages travel in both directions between
-the parent `MissionControlComponent` and the `AstronautComponent` children,
-facilitated by the service:
+Журнал *истории* показывает, что сообщения перемещаются в обоих направлениях
+родитель `MissionControlComponent` и `AstronautComponent` детей
+облегчается обслуживание:
 
 
 <div class="lightbox">
@@ -427,10 +435,10 @@ facilitated by the service:
 
 
 
-<h3 class="no-toc">Test it</h3>
+<h3 class="no-toc">Проверьте это </h3>
 
-Tests click buttons of both the parent `MissionControlComponent` and the `AstronautComponent` children
-and verify that the history meets expectations:
+Тесты нажимают на кнопки обоих родителей `MissionControlComponent` и `AstronautComponent` детей
+и убедитесь, что история соответствует ожиданиям
 
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="bidirectional-service" header="component-interaction/e2e/src/app.e2e-spec.ts">
@@ -439,4 +447,4 @@ and verify that the history meets expectations:
 
 
 
-[Back to top](guide/component-interaction#top)
+[Вернуться к началу](guide/component-interaction#top)

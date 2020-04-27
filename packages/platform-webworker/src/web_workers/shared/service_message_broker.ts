@@ -35,10 +35,10 @@ export class ServiceMessageBrokerFactory {
 }
 
 /**
- * Helper class for UIComponents that allows components to register methods.
- * If a registered method message is received from the broker on the worker,
- * the UIMessageBroker deserializes its arguments and calls the registered method.
- * If that method returns a promise, the UIMessageBroker returns the result to the worker.
+ * Вспомогательный класс для UIComponents, который позволяет компонентам регистрировать методы.
+ * Если зарегистрированное сообщение метода получило от брокера наработнике,.
+ * UIMessageBroker десериализует свои аргументы и вызывает зарегистрированный метод.
+ * Если этот метод возвращает обещание, UIMessageBroker возвращает результат работнику.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

@@ -41,23 +41,23 @@ enum TranslationType {
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Formats a date according to locale rules.
+ * Форматирует дату в соответствии с правилами локали.
  *
- * @param value The date to format, as a Date, or a number (milliseconds since UTC epoch)
- * or an [ISO date-time string](https://www.w3.org/TR/NOTE-datetime).
- * @param format The date-time components to include. See `DatePipe` for details.
- * @param locale A locale code for the locale format rules to use.
- * @param timezone The time zone. A time zone offset from GMT (such as `'+0430'`),
- * or a standard UTC/GMT or continental US time zone abbreviation.
- * If not specified, uses host system settings.
+ *  @param значение Дата для форматирования в виде даты или числа (миллисекунды с момента времени UTC)
+ * или[строка даты и времени ISO](https://www.w3.org/TR/NOTE-datetime).
+ *  @param Формат Компоненты даты и времени для включения. Смотрите `DatePipe` для деталей.
+ *  @param locale Код локали для используемых правил формата локали.
+ *  @param часовой пояс Часовой пояс. Временная зона смещение от GMT (например, `'+0430'` +0430),.
+ * или стандартное сокращение UTC / GMT или континентальный часовой пояс США.
+ * Если не указан, используются настройки хост-системы.
  *
- * @returns The formatted date string.
+ *  @returns Форматированная строка даты.
  *
- * @see `DatePipe`
- * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+ *  @see `DatePipe`
+ *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
  */

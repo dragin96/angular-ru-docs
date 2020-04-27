@@ -74,32 +74,32 @@ function containsSegmentGroupHelper(
 }
 
 /**
- * @description
+ *  @description
  *
- * Represents the parsed URL.
+ * Представляет проанализированный URL.
  *
- * Since a router state is a tree, and the URL is nothing but a serialized state, the URL is a
- * serialized tree.
- * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
+ * Поскольку состояние маршрутизатора - это дерево, а URL - это не что иное, как сериализованное состояние, URL - это
+ * сериализованное дерево.
+ * UrlTree - это структура данных, которая предоставляет множество возможностей для работы с URL-адресами
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * @Component({templateUrl:'template.html'})
- * class MyComponent {
- *   constructor(router: Router) {
- *     const tree: UrlTree =
- *       router.parseUrl('/team/33/(user/victor//support:help)?debug=true#fragment');
- *     const f = tree.fragment; // return 'fragment'
- *     const q = tree.queryParams; // returns {debug: 'true'}
- *     const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
- *     const s: UrlSegment[] = g.segments; // returns 2 segments 'team' and '33'
- *     g.children[PRIMARY_OUTLET].segments; // returns 2 segments 'user' and 'victor'
- *     g.children['support'].segments; // return 1 segment 'help'
- *   }
- * }
- * ```
+ *  ```
+ *  @Component({templateUrl:'template.html'})
+ *  class MyComponent {
+ *    constructor(router: Router) {
+ *      const tree: UrlTree =
+ *        router.parseUrl('/team/33/(user/victor//support:help)?debug=true#fragment');
+ *      const f = tree.fragment; // return 'fragment'
+ *      const q = tree.queryParams; // returns {debug: 'true'}
+ *      const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
+ *      const s: UrlSegment[] = g.segments; // returns 2 segments 'team' and '33'
+ *      g.children[PRIMARY_OUTLET].segments; // returns 2 segments 'user' and 'victor'
+ *      g.children['support'].segments; // return 1 segment 'help'
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -131,11 +131,11 @@ export class UrlTree {
 }
 
 /**
- * @description
+ *  @description
  *
- * Represents the parsed URL segment group.
+ * Представляет разобранную группу сегментов URL.
  *
- * See `UrlTree` for more information.
+ * Смотрите `UrlTree` для получения дополнительной информации.
  *
  * @publicApi
  */
@@ -175,28 +175,28 @@ export class UrlSegmentGroup {
 
 
 /**
- * @description
+ *  @description
  *
- * Represents a single URL segment.
+ * Представляет один сегмент URL.
  *
- * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
- * parameters associated with the segment.
+ * UrlSegment - это часть URL между двумя слешами. Он содержит путь и матрицу
+ * параметры, связанные с сегментом.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * @Component({templateUrl:'template.html'})
- * class MyComponent {
- *   constructor(router: Router) {
- *     const tree: UrlTree = router.parseUrl('/team;id=33');
- *     const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
- *     const s: UrlSegment[] = g.segments;
- *     s[0].path; // returns 'team'
- *     s[0].parameters; // returns {id: 33}
- *   }
- * }
- * ```
+ *  ```
+ *  @Component({templateUrl:'template.html'})
+ *  class MyComponent {
+ *    constructor(router: Router) {
+ *      const tree: UrlTree = router.parseUrl('/team;id=33');
+ *      const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
+ *      const s: UrlSegment[] = g.segments;
+ *      s[0].path; // returns 'team'
+ *      s[0].parameters; // returns {id: 33}
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -252,14 +252,14 @@ export function mapChildrenIntoArray<T>(
 
 
 /**
- * @description
+ *  @description
  *
- * Serializes and deserializes a URL string into a URL tree.
+ * Сериализует и десериализует строку URL в дерево URL.
  *
- * The url serialization strategy is customizable. You can
- * make all URLs case insensitive by providing a custom UrlSerializer.
+ * Стратегия сериализации URL-адреса настраивается. Выможете.
+ * сделайте все URL-адреса нечувствительными к регистру, предоставив пользовательский UrlSerializer.
  *
- * See `DefaultUrlSerializer` for an example of a URL serializer.
+ * Посмотрите `DefaultUrlSerializer` для примера сериализатора URL.
  *
  * @publicApi
  */
@@ -272,20 +272,20 @@ export abstract class UrlSerializer {
 }
 
 /**
- * @description
+ *  @description
  *
- * A default implementation of the `UrlSerializer`.
+ * Реализация по умолчанию `UrlSerializer`.
  *
- * Example URLs:
+ * ПримерыURL:.
  *
- * ```
- * /inbox/33(popup:compose)
- * /inbox/33;open=true/messages/44
- * ```
+ *  ```
+ *  /inbox/33(popup:compose)
+ *  /inbox/33;open=true/messages/44
+ *  ```
  *
- * DefaultUrlSerializer uses parentheses to serialize secondary segments (e.g., popup:compose), the
- * colon syntax to specify the outlet, and the ';parameter=value' syntax (e.g., open=true) to
- * specify route specific parameters.
+ * DefaultUrlSerializer использует круглые скобки для сериализации вторичных сегментов (например, всплывающее окно:составлении),то.
+ * синтаксис двоеточия для указания выхода и синтаксис '; параметр = значение' (например, open = true) для
+ * указать параметры маршрута.
  *
  * @publicApi
  */

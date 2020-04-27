@@ -76,14 +76,14 @@ export function jsonpCallbackContext(): Object {
 }
 
 /**
- * Configures XSRF protection support for outgoing requests.
+ * Настраивает поддержку защиты XSRF для исходящих запросов.
  *
- * For a server that supports a cookie-based XSRF protection system,
- * use directly to configure XSRF protection with the correct
- * cookie and header names.
+ * Для серверакоторый поддерживает кукиоснове системы защитыXSRF,.
+ * используйте непосредственно для настройки защиты XSRF с правильным
+ * имена файлов cookie и заголовков.
  *
- * If no names are supplied, the default cookie name is `XSRF-TOKEN`
- * and the default header name is `X-XSRF-TOKEN`.
+ * Если имена не указаны, именем файла cookie по умолчанию является `XSRF-TOKEN`
+ * и имя заголовка по умолчанию `X-XSRF-TOKEN`.
  *
  * @publicApi
  */
@@ -132,11 +132,11 @@ export class HttpClientXsrfModule {
 }
 
 /**
- * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
- * with supporting services for XSRF. Automatically imported by `HttpClientModule`.
+ * Настраивает[инжектор зависимости](guide/glossary#injector)для `HttpClient`
+ * с поддержкой услуг для XSRF. Автоматически импортируется `HttpClientModule`.
  *
- * You can add interceptors to the chain behind `HttpClient` by binding them to the
- * multiprovider for built-in [DI token](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
+ * Вы можете добавить перехватчики в цепочку за `HttpClient` их к
+ * мультипровер для встроенного[DI токен](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
  *
  * @publicApi
  */
@@ -167,13 +167,13 @@ export class HttpClientModule {
 }
 
 /**
- * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
- * with supporting services for JSONP.
- * Without this module, Jsonp requests reach the backend
- * with method JSONP, where they are rejected.
+ * Настраивает[инжектор зависимости](guide/glossary#injector)для `HttpClient`
+ * с поддержкой услуг для JSONP.
+ * Без этого модуля запросы Jsonp доходят до бэкэнда
+ * с методом JSONP, где они отклонены.
  *
- * You can add interceptors to the chain behind `HttpClient` by binding them to the
- * multiprovider for built-in [DI token](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
+ * Вы можете добавить перехватчики в цепочку за `HttpClient` их к
+ * мультипровер для встроенного[DI токен](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
  *
  * @publicApi
  */

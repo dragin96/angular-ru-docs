@@ -17,58 +17,58 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
 
 /**
  *
- * @description
+ *  @description
  *
- * Lets you add a CSS class to an element when the link's route becomes active.
+ * Позволяет добавить класс CSS к элементу, когда маршрут ссылки становится активным.
  *
- * This directive lets you add a CSS class to an element when the link's route
- * becomes active.
+ * Эта директива позволяет добавлять класс CSS к элементу при маршруте ссылки
+ * становится активным.
  *
- * Consider the following example:
+ * Рассмотрим следующийпример:.
  *
- * ```
- * <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
- * ```
+ *  ```
+ *  <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
+ *  ```
  *
- * When the url is either '/user' or '/user/bob', the active-link class will
- * be added to the `a` tag. If the url changes, the class will be removed.
+ * Если URL-адрес равен «/ user» или «/ user / bob», класс active-link будет иметь значение
+ * добавить в `a` тег. Если URL-адрес изменится, класс будет удален.
  *
- * You can set more than one class, as follows:
+ * Вы можете установить более одного класса, аименно:.
  *
- * ```
- * <a routerLink="/user/bob" routerLinkActive="class1 class2">Bob</a>
- * <a routerLink="/user/bob" [routerLinkActive]="['class1', 'class2']">Bob</a>
- * ```
+ *  ```
+ *  <a routerLink="/user/bob" routerLinkActive="class1 class2">Bob</a>
+ *  <a routerLink="/user/bob" [routerLinkActive]="['class1', 'class2']">Bob</a>
+ *  ```
  *
- * You can configure RouterLinkActive by passing `exact: true`. This will add the classes
- * only when the url matches the link exactly.
+ * Вы можете настроить RouterLinkActive, передавая`exact: true`. Это добавит классы
+ * только когда URL точно соответствует ссылке.
  *
- * ```
- * <a routerLink="/user/bob" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
- * true}">Bob</a>
- * ```
+ *  ```
+ *  <a routerLink="/user/bob" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+ *  true}">Bob</a>
+ *  ```
  *
- * You can assign the RouterLinkActive instance to a template variable and directly check
- * the `isActive` status.
- * ```
- * <a routerLink="/user/bob" routerLinkActive #rla="routerLinkActive">
- *   Bob {{ rla.isActive ? '(already open)' : ''}}
- * </a>
- * ```
+ * Вы можете назначить экземпляр RouterLinkActive переменной шаблона и напрямую проверить
+ *  the `isActive`статус.
+ *  ```
+ *  <a routerLink="/user/bob" routerLinkActive #rla="routerLinkActive">
+ *    Bob {{ rla.isActive ? '(already open)' : ''}}
+ *  </a>
+ *  ```
  *
- * Finally, you can apply the RouterLinkActive directive to an ancestor of a RouterLink.
+ * Наконец, вы можете применить директиву RouterLinkActive к предку RouterLink.
  *
- * ```
- * <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
- *   <a routerLink="/user/jim">Jim</a>
- *   <a routerLink="/user/bob">Bob</a>
- * </div>
- * ```
+ *  ```
+ *  <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+ *    <a routerLink="/user/jim">Jim</a>
+ *    <a routerLink="/user/bob">Bob</a>
+ *  </div>
+ *  ```
  *
- * This will set the active-link class on the div tag if the url is either '/user/jim' or
- * '/user/bob'.
+ * Это установит класс active-link для тега div, если URL является либо «/ user / jim», либо
+ * '/ пользователь / боб.
  *
- * @ngModule RouterModule
+ *  @ngModule RouterModule
  *
  * @publicApi
  */

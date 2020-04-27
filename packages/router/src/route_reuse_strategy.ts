@@ -13,12 +13,12 @@ import {ActivatedRoute, ActivatedRouteSnapshot} from './router_state';
 import {TreeNode} from './utils/tree';
 
 /**
- * @description
+ *  @description
  *
- * Represents the detached route tree.
+ * Представляет отдельное дерево маршрутов.
  *
- * This is an opaque value the router will give to a custom route reuse strategy
- * to store and retrieve later on.
+ * Это непрозрачное значение, которое маршрутизатор придаст стратегии повторного использования настраиваемого маршрута
+ * хранить и извлекать позже.
  *
  * @publicApi
  */
@@ -32,9 +32,9 @@ export type DetachedRouteHandleInternal = {
 };
 
 /**
- * @description
+ *  @description
  *
- * Provides a way to customize when activated routes get reused.
+ * Предоставляет способ настройки при повторном использовании активированных маршрутов.
  *
  * @publicApi
  */

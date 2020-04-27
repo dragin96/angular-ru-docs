@@ -769,8 +769,8 @@ export function removeDebugNodeFromIndex(node: DebugNode) {
 }
 
 /**
- * A boolean-valued function over a value, possibly including context information
- * regarding that value's position in an array.
+ * Булевозначная функция над значением, возможно, включающая контекстную информацию
+ * относительно позиции этого значения в массиве.
  *
  * @publicApi
  */

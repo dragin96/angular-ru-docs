@@ -10,14 +10,14 @@ import {injectElementRef as render3InjectElementRef} from '../render3/view_engin
 import {noop} from '../util/noop';
 
 /**
- * A wrapper around a native element inside of a View.
+ * Обертка вокруг нативного элемента внутри View.
  *
- * An `ElementRef` is backed by a render-specific element. In the browser, this is usually a DOM
- * element.
+ *  An `ElementRef`поддерживается элементом визуализации-специфического. В браузере это обычно DOM
+ * элемент.
  *
- * @security Permitting direct access to the DOM can make your application more vulnerable to
- * XSS attacks. Carefully review any use of `ElementRef` in your code. For more detail, see the
- * [Security Guide](http://g.co/ng/security).
+ *  @security Разрешение прямого доступа к DOM может сделать ваше приложение более уязвимым для
+ * XSS атаки. Внимательно рассмотрите любое использование `ElementRef` в вашем коде. Для более подробной информации смотрите
+ *  [Руководство по безопасности](http://g.co/ng/security).
  *
  * @publicApi
  */

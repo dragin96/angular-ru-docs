@@ -12,7 +12,7 @@ import {Inject, Injectable} from '@angular/core';
 import {serializeDocument} from './domino_adapter';
 
 /**
- * Representation of the current platform state.
+ * Представление текущего состояния платформы.
  *
  * @publicApi
  */

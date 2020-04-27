@@ -10,7 +10,7 @@ import {ɵgetDOM as getDOM} from '@angular/common';
 import {Inject, Injectable, InjectionToken, NgZone} from '@angular/core';
 
 /**
- * The injection token for the event-manager plug-in service.
+ * Токен впрыска для службы подключаемых модулей менеджера событий.
  *
  * @publicApi
  */
@@ -18,8 +18,8 @@ export const EVENT_MANAGER_PLUGINS =
     new InjectionToken<EventManagerPlugin[]>('EventManagerPlugins');
 
 /**
- * An injectable service that provides event management for Angular
- * through a browser plug-in.
+ * Инъецируемый сервис, который обеспечивает управление событиями для Angular
+ * через плагин браузера.
  *
  * @publicApi
  */

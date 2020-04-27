@@ -1,103 +1,110 @@
-# Observables compared to other techniques
+{@a observables-compared-to-other-techniques}
+# Наблюдаемые по сравнению с другими методами
 
-You can often use observables instead of promises to deliver values asynchronously. Similarly, observables can take the place of event handlers. Finally, because observables deliver multiple values, you can use them where you might otherwise build and operate on arrays.
+Вы часто можете использовать наблюдаемые вместо обещаний для доставки значений асинхронно. Аналогично, наблюдаемые могут заменить обработчики событий. Наконец, поскольку наблюдаемые предоставляют несколько значений, вы можете использовать их там, где в противном случае вы можете создавать массивы и работать с ними.
 
-Observables behave somewhat differently from the alternative techniques in each of these situations, but offer some significant advantages. Here are detailed comparisons of the differences.
+Наблюдаемые ведут себя несколько иначе, чем альтернативные методы в каждой из этих ситуаций, но предлагают некоторые существенные преимущества. Вот подробные сравнения различий.
 
-## Observables compared to promises
+{@a observables-compared-to-promises}
+## Наблюдаемые по сравнению с обещаниями
 
-Observables are often compared to promises. Here are some key differences:
+Наблюдаемые часто сравнивают с обещаниями. Вот некоторые ключевые отличия:
 
-* Observables are declarative; computation does not start until subscription. Promises execute immediately on creation. This makes observables useful for defining recipes that can be run whenever you need the result.
+* Наблюдаемые являются декларативными; расчет не начинается до подписки. Обещания выполняются немедленно при создании. Это делает наблюдаемые полезными для определения рецептов, которые можно запускать, когда вам нужен результат.
 
-* Observables provide many values. Promises provide one. This makes observables useful for getting multiple values over time.
+* Наблюдаемые дают много значений. Обещания дают один. Это делает наблюдаемые полезными для получения нескольких значений с течением времени.
 
-* Observables differentiate between chaining and subscription. Promises only have `.then()` clauses. This makes observables useful for creating complex transformation recipes to be used by other part of the system, without causing the work to be executed.
+* Наблюдаемые различают цепочку и подписку. Обещания только есть  `.then()`  предложения. Это делает наблюдаемые полезными для создания сложных рецептов преобразования, которые будут использоваться другой частью системы, без необходимости выполнения работы.
 
-* Observables `subscribe()` is responsible for handling errors. Promises push errors to the child promises. This makes observables useful for centralized and predictable error handling.
+* Наблюдаемые  `subscribe()`  отвечает за обработку ошибок. Обещания подталкивают к ошибкам ребенка. Это делает наблюдаемые полезными для централизованной и предсказуемой обработки ошибок.
 
 
-### Creation and subscription
+{@a creation-and-subscription}
+### Создание и подписка
 
-* Observables are not executed until a consumer subscribes. The `subscribe()` executes the defined behavior once, and it can be called again. Each subscription has its own computation. Resubscription causes recomputation of values.
+* Наблюдаемые не выполняются, пока потребитель не подпишется.  `subscribe()` выполняет определенное поведение один раз, и он может быть вызван снова. Каждая подписка имеет свои собственные вычисления. Повторная подписка вызывает пересчет значений.
 
-  <code-example 
-    path="comparing-observables/src/observables.ts" 
-    header="src/observables.ts (observable)" 
+  <code-example
+    path="comparing-observables/src/observables.ts"
+    header="src/observables.ts (observable)"
     region="observable">
   </code-example>
 
-* Promises execute immediately, and just once. The computation of the result is initiated when the promise is created. There is no way to restart work. All `then` clauses (subscriptions) share the same computation.
+* Обещания выполняются сразу и только один раз. Вычисление результата начинается при создании обещания. Нет возможности возобновить работу. Все  `then`  предложения (подписки) делят то же самое вычисление.
 
-  <code-example 
-    path="comparing-observables/src/promises.ts" 
+  <code-example
+    path="comparing-observables/src/promises.ts"
     header="src/promises.ts (promise)"
     region="promise">
   </code-example>
 
-### Chaining
+{@a chaining}
+### Цепной
 
-* Observables differentiate between transformation function such as a map and subscription. Only subscription activates the subscriber function to start computing the values.
+* Наблюдаемые различают функцию преобразования, такую ​​как карта и подписка. Только подписка активирует функцию подписчика, чтобы начать вычисление значений.
 
-  <code-example 
-    path="comparing-observables/src/observables.ts" 
-    header="src/observables.ts (chain)" 
+  <code-example
+    path="comparing-observables/src/observables.ts"
+    header="src/observables.ts (chain)"
     region="chain">
   </code-example>
 
-* Promises do not differentiate between the last `.then` clauses (equivalent to subscription) and intermediate `.then` clauses (equivalent to map).
+* Обещания не делают различий между последними  `.then`  пункты (эквивалент подписки) и промежуточные  `.then`  предложения (эквивалентно карте).
 
-  <code-example 
+  <code-example
     path="comparing-observables/src/promises.ts"
-    header="src/promises.ts (chain)" 
+    header="src/promises.ts (chain)"
     region="chain">
   </code-example>
 
-### Cancellation
+{@a cancellation}
+### Отмена
 
-* Observable subscriptions are cancellable. Unsubscribing removes the listener from receiving further values, and notifies the subscriber function to cancel work.
+* Наблюдаемые подписки отменяются. Отмена подписки удаляет слушателя от получения дальнейших значений и уведомляет функцию подписчика об отмене работы.
 
-  <code-example 
-    path="comparing-observables/src/observables.ts" 
-    header="src/observables.ts (unsubcribe)" 
+  <code-example
+    path="comparing-observables/src/observables.ts"
+    header="src/observables.ts (unsubcribe)"
     region="unsubscribe">
   </code-example>
 
-* Promises are not cancellable.
+* Обещания не подлежат отмене.
 
-### Error handling
+{@a error-handling}
+### Обработка ошибок
 
-* Observable execution errors are delivered to the subscriber's error handler, and the subscriber automatically unsubscribes from the observable.
+* Наблюдаемые ошибки выполнения доставляются в обработчик ошибок подписчика, и подписчик автоматически отписывается от наблюдаемого.
 
-  <code-example 
-    path="comparing-observables/src/observables.ts" 
+  <code-example
+    path="comparing-observables/src/observables.ts"
     header="src/observables.ts (error)"
     region="error">
   </code-example>
 
-* Promises push errors to the child promises.
+* Обещания подталкивают к ошибкам ребенка.
 
-  <code-example 
-    path="comparing-observables/src/promises.ts" 
+  <code-example
+    path="comparing-observables/src/promises.ts"
     header="src/promises.ts (error)"
     region="error">
   </code-example>
 
-### Cheat sheet
+{@a cheat-sheet}
+### Шпаргалка
 
-The following code snippets illustrate how the same kind of operation is defined using observables and promises.
+Следующие фрагменты кода иллюстрируют, как операции такого же типа определяются с помощью наблюдаемых и обещаний.
 
 <table>
   <thead>
     <tr>
-      <th>Operation</th>
-      <th>Observable</th>
-      <th>Promise</th>
+      <th>Операция </th>
+      <th>Наблюдаемое </th>
+      <th>Promise </th>
     </tr>
-  </thead>
+
   <tbody>
     <tr>
-      <td>Creation</td>
+      <td>Создание </td>
       <td>
         <pre>
 new Observable((observer) => {
@@ -112,12 +119,12 @@ new Promise((resolve, reject) => {
       </td>
     </tr>
     <tr>
-      <td>Transform</td>
+      <td>Transform </td>
       <td><pre>obs.pipe(map((value) => value * 2));</pre></td>
       <td><pre>promise.then((value) => value * 2);</pre></td>
     </tr>
     <tr>
-      <td>Subscribe</td>
+      <td>Подписка </td>
       <td>
         <pre>
 sub = obs.subscribe((value) => {
@@ -132,29 +139,30 @@ promise.then((value) => {
       </td>
     </tr>
     <tr>
-      <td>Unsubscribe</td>
+      <td>Отменить подписку </td>
       <td><pre>sub.unsubscribe();</pre></td>
-      <td>Implied by promise resolution.</td>
+      <td>Подразумевается обещание резолюции. </td>
     </tr>
   </tbody>
 </table>
 
-## Observables compared to events API
+{@a observables-compared-to-events-api}
+## Наблюдаемые по сравнению с API событий
 
-Observables are very similar to event handlers that use the events API. Both techniques define notification handlers, and use them to process multiple values delivered over time. Subscribing to an observable is equivalent to adding an event listener. One significant difference is that you can configure an observable to transform an event before passing the event to the handler.
+Observables очень похожи на обработчики событий, которые используют API событий. Оба метода определяют обработчики уведомлений и используют их для обработки нескольких значений, доставленных с течением времени. Подписка на наблюдаемое эквивалентно добавлению прослушивателя событий. Одно существенное отличие состоит в том, что вы можете настроить наблюдаемое для преобразования события перед передачей события в обработчик.
 
-Using observables to handle events and asynchronous operations can have the advantage of greater consistency in contexts such as HTTP requests.
+Использование наблюдаемых для обработки событий и асинхронных операций может иметь преимущество большей согласованности в таких контекстах, как HTTP-запросы.
 
-Here are some code samples that illustrate how the same kind of operation is defined using observables and the events API.
+Вот несколько примеров кода, которые иллюстрируют, как один и тот же тип операции определяется с помощью наблюдаемых и API событий.
 
 <table>
   <tr>
     <th></th>
-    <th>Observable</th>
-    <th>Events API</th>
+    <th>Наблюдаемое </th>
+    <th>API событий </th>
   </tr>
   <tr>
-    <td>Creation & cancellation</td>
+    <td>Создание и отмена </td>
     <td>
 <pre>// Setup
 let clicks$ = fromEvent(buttonEl, ‘click’);
@@ -176,7 +184,7 @@ button.removeEventListener(‘click’, handler);
     </td>
   </tr>
   <tr>
-    <td>Subscription</td>
+    <td>Подписка </td>
     <td>
 <pre>observable.subscribe(() => {
   // notification handlers here
@@ -189,13 +197,13 @@ button.removeEventListener(‘click’, handler);
     </td>
   </tr>
   <tr>
-    <td>Configuration</td>
-    <td>Listen for keystrokes, but provide a stream representing the value in the input.
+    <td>Конфигурация </td>
+    <td>Прослушайте нажатия клавиш, но предоставьте поток, представляющий значение на входе.
 <pre>fromEvent(inputEl, 'keydown').pipe(
   map(e => e.target.value)
 );</pre>
     </td>
-    <td>Does not support configuration.
+    <td>Не поддерживает настройку.
 <pre>element.addEventListener(eventName, (event) => {
   // Cannot change the passed Event into another
   // value before it gets to the handler
@@ -205,18 +213,19 @@ button.removeEventListener(‘click’, handler);
 </table>
 
 
-## Observables compared to arrays
+{@a observables-compared-to-arrays}
+## Наблюдаемые по сравнению с массивами
 
-An observable produces values over time. An array is created as a static set of values. In a sense, observables are asynchronous where arrays are synchronous. In the following examples, ➞ implies asynchronous value delivery.
+Наблюдаемое производит значения с течением времени. Массив создается как статический набор значений. В некотором смысле наблюдаемые являются асинхронными, когда массивы являются синхронными. В следующих примерах ➞ подразумевает асинхронную доставку значений.
 
 <table>
   <tr>
     <th></th>
-    <th>Observable</th>
-    <th>Array</th>
+    <th>Наблюдаемое </th>
+    <th>Массив </th>
   </tr>
   <tr>
-    <td>Given</td>
+    <td>Дано </td>
     <td>
       <pre>obs: ➞1➞2➞3➞5➞7</pre>
       <pre>obsB: ➞'a'➞'b'➞'c'</pre>

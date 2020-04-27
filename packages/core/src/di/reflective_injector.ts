@@ -19,40 +19,40 @@ import {ReflectiveDependency, ResolvedReflectiveFactory, ResolvedReflectiveProvi
 const UNDEFINED = {};
 
 /**
- * A ReflectiveDependency injection container used for instantiating objects and resolving
- * dependencies.
+ * Контейнер инъекции ReflectiveDependency, используемый для создания экземпляров объектов и их разрешения
+ * зависимостей.
  *
- * An `Injector` is a replacement for a `new` operator, which can automatically resolve the
- * constructor dependencies.
+ *  An `Injector`является заменой для `new` оператора, который может автоматическирешить.
+ * зависимости конструктора.
  *
- * In typical use, application code asks for the dependencies in the constructor and they are
- * resolved by the `Injector`.
+ * При обычном использовании код приложения запрашивает зависимости в конструкторе, и они есть
+ * разрешаются `Injector` Injector.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * The following example creates an `Injector` configured to create `Engine` and `Car`.
+ * Следующий пример создает `Injector` сконфигурирован для создания `Engine` и `Car` Car.
  *
- * ```typescript
- * @Injectable()
- * class Engine {
- * }
+ *  ```typescript
+ *  @Injectable()
+ *  class Engine {
+ *  }
  *
- * @Injectable()
- * class Car {
- *   constructor(public engine:Engine) {}
- * }
+ *  @Injectable()
+ *  class Car {
+ *    constructor(public engine:Engine) {}
+ *  }
  *
- * var injector = ReflectiveInjector.resolveAndCreate([Car, Engine]);
- * var car = injector.get(Car);
- * expect(car instanceof Car).toBe(true);
- * expect(car.engine instanceof Engine).toBe(true);
- * ```
+ *  var injector = ReflectiveInjector.resolveAndCreate([Car, Engine]);
+ *  var car = injector.get(Car);
+ *  expect(car instanceof Car).toBe(true);
+ *  expect(car.engine instanceof Engine).toBe(true);
+ *  ```
  *
- * Notice, we don't use the `new` operator because we explicitly want to have the `Injector`
- * resolve all of the object's dependencies automatically.
+ * Обратите внимание, мы не используем `new` операторапотому что мы явно хотим иметь `Injector`
+ * разрешить все зависимости объекта автоматически.
  *
- * @deprecated from v5 - slow and brings in a lot of code, Use `Injector.create` instead.
+ *  @deprecated с v5 - медленный и вводит много кода, используйте `Injector.create` вместо этого.
  * @publicApi
  */
 export abstract class ReflectiveInjector implements Injector {

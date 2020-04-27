@@ -1,15 +1,17 @@
-# Migration for missing `@Injectable()` decorators and incomplete provider definitions
+{@a migration-for-missing-@injectable-decorators-and-incomplete-provider-definitions}
+# Миграция пропавших без вести `@Injectable()` декораторы и неполные определения провайдеров
 
-### What does this schematic do?
+{@a what-does-this-schematic-do}
+### Что делает эта схема?
 
-  1. This schematic adds an `@Injectable()` decorator to classes which are provided in the
-     application but are not decorated.
-  2. The schematic updates providers which follow the `{provide: SomeToken}` pattern
-     to explicitly specify `useValue: undefined`.
+  1. Эта схема добавляет `@Injectable()` для классов, представленных в
+     приложение, но не оформлены.
+  2. Поставщики обновлений схемы, которые следуют `{provide: SomeToken}` шаблон
+     явно указать `useValue: undefined`.
 
-**Example for missing `@Injectable()`**
+**Пример пропавшего без вести `@Injectable()`**
 
-_Before migration:_
+_Перед миграцией: _
 ```typescript
 export class MyService {...}
 export class MyOtherService {...}
@@ -30,7 +32,7 @@ export class MyFifthClass {...}
 })
 ```
 
-_After migration:_
+_После миграции: _
 ```ts
 @Injectable()
 export class MyService {...}
@@ -43,13 +45,13 @@ export class MySixthClass {...}
 ...
 ```
 
-Note that `MyThirdClass`, `MyFourthClass` and `MyFifthClass` do not need to be decorated
-with `@Injectable()` because they are never instantiated, but just used as a [DI token][DI_TOKEN].
+Обратите внимание, что `MyThirdClass`, `MyFourthClass` и `MyFifthClass` не нужно украшать
+с `@Injectable()` потому что они никогда не создаются, а просто используются как [DI-токен] [DI_TOKEN].
 
-**Example for provider needing `useValue: undefined`**
+**Пример для провайдера, нуждающегося `useValue: undefined`**
 
-This example shows a provider following the `{provide: X}` pattern.
-The provider needs to be migrated to a more explicit definition where `useValue: undefined` is specified.
+В этом примере показан поставщик, следующий за `{provide: X}` шаблон.
+Поставщик должен быть перенесен в более четкое определение, где `useValue: undefined` определено.
 
 _Before migration_:
 ```typescript
@@ -60,18 +62,20 @@ _After migration_:
 {provide: MyToken, useValue: undefined}
 ```
 
-### Why is adding `@Injectable()` necessary?
+{@a why-is-adding-@injectable-necessary}
+### Почему добавляется `@Injectable()` необходимо?
 
-In our docs, we've always recommended adding `@Injectable()` decorators to any class that is provided or injected in your application.
-However, older versions of Angular did allow injection of a class without the decorator in certain cases, such as AOT mode.
-This means if you accidentally omitted the decorator, your application may have continued to work despite missing `@Injectable()` decorators in some places.
-This is problematic for future versions of Angular.
-Eventually, we plan to strictly require the decorator because doing so enables further optimization of both the compiler and the runtime.
-This schematic adds any `@Injectable()` decorators that may be missing to future-proof your app.
+В наших документах мы всегда рекомендуем добавлять `@Injectable()` для любого класса, который предоставляется или внедряется в вашем приложении.
+Однако более старые версии Angular допускали внедрение класса без декоратора в некоторых случаях, например в режиме AOT.
+Это означает, что если вы случайно пропустили декоратор, ваше приложение могло продолжать работать, несмотря на отсутствие `@Injectable()` декораторы в некоторых местах.
+Это проблематично для будущих версий Angular.
+В конце концов, мы планируем строго требовать декоратор, потому что это позволяет дополнительно оптимизировать как компилятор, так и среду выполнения.
+Эта схема добавляет любые `@Injectable()` декораторы, которые могут отсутствовать, чтобы ваше приложение в будущем.
 
-### Why is adding `useValue: undefined` necessary?
+{@a why-is-adding-usevalue-undefined-necessary}
+### Почему добавляется `useValue: undefined` необходимо?
 
-Consider the following pattern:
+Рассмотрим следующий шаблон:
 
 ```typescript
 @NgModule({
@@ -79,27 +83,29 @@ Consider the following pattern:
 })
 ```
 
-Providers using this pattern will behave as if they provide `MyService` as [DI token][DI_TOKEN]
-with the value of `undefined`.
-This is not the case in Ivy where such providers will be interpreted as if `useClass: MyService` is specified.
-This means that these providers will behave differently when updating to version 9 and above.
-To ensure that the provider behaves the same as before, the DI value should be explicitly set to `undefined`.
+Поставщики, использующие этот шаблон, будут вести себя так, как будто они предоставляют `MyService` как [DI-токен] [DI_TOKEN]
+со значением `undefined`.
+Это не тот случай в Ivy, где такие провайдеры будут интерпретироваться как `useClass: MyService`.
+Это означает, что эти поставщики будут вести себя по-разному при обновлении до версии 9 и выше.
+Чтобы убедиться, что поставщик ведет себя так же, как и раньше, значение DI должно быть явно установлено `undefined`.
 
-### When should I be adding `@Injectable()` decorators to classes?
+{@a when-should-i-be-adding-@injectable-decorators-to-classes}
+### Когда я должен добавить `@Injectable()` декораторы для классов?
 
-Any class that is provided must have an `@Injectable()` decorator.
-The decorator is necessary for the framework to properly create an instance of that class through DI.
+Любой класс, который предоставляется, должен иметь `@Injectable()` декоратор.
+Декоратор необходим для фреймворка для правильного создания экземпляра этого класса через DI.
 
-However, classes which are already decorated with `@Pipe`, `@Component` or `@Directive` do not need both decorators.
-The existing class decorator already instructs the compiler to generate the
-needed information.
+Тем не менее, классы, которые уже украшены `@Pipe`, `@Component` или `@Directive` не нужны оба декоратора.
+Существующий декоратор класса уже инструктирует компилятор генерировать
+нужна информация
 
-### Should I update my library?
+{@a should-i-update-my-library}
+### Должен ли я обновить свою библиотеку?
 
-Yes, if your library has any classes that are meant to be injected, they should be updated with the `@Injectable()` decorator.
-In a future version of Angular, a missing `@Injectable()` decorator will always throw an error.
+Да, если в вашей библиотеке есть какие-либо классы, предназначенные для внедрения, они должны быть обновлены с помощью `@Injectable()` декоратор.
+В будущей версии Angular отсутствует `@Injectable()` всегда будет ошибку.
 
-Additionally, providers in your library that follow the described `{provide: X}` pattern should be updated to specify an explicit value.
-Without explicit value, these providers can behave differently based on the Angular version in applications consuming your library.
+Кроме того, поставщики в вашей библиотеке, которые следуют описанному `{provide: X}` Шаблон должен быть обновлен, чтобы указать явное значение.
+Без явного значения эти поставщики могут вести себя по-разному в зависимости от версии Angular в приложениях, использующих вашу библиотеку.
 
-[DI_TOKEN]: guide/glossary#di-token
+[DI_TOKEN]: руководство / глоссарий #di-token

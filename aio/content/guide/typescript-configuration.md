@@ -1,34 +1,38 @@
-# TypeScript configuration
+{@a typescript-configuration}
+{@a typescript-configuration}
+# Конфигурация TypeScript
 
-TypeScript is a primary language for Angular application development.
-It is a superset of JavaScript with design-time support for type safety and tooling.
+TypeScript является основным языком для разработки приложений Angular.
+Это расширенный набор JavaScript с поддержкой времени разработки для обеспечения безопасности типов и инструментов.
 
-Browsers can't execute TypeScript directly.
-Typescript must be "transpiled" into JavaScript using the *tsc* compiler, which requires some configuration.
+Браузеры не могут выполнять TypeScript напрямую.
+Typescript должен быть «перенесен» в JavaScript с *помощью tsc* компилятора, что требует некоторой настройки.
 
-This page covers some aspects of TypeScript configuration and the TypeScript environment
-that are important to Angular developers, including details about the following files:
+На этой странице рассматриваются некоторые аспекты конфигурации TypeScript и среды TypeScript
+которые имеют важное значение для Angular разработчиков, включая информацию о следующих файлах:
 
-* [tsconfig.json](guide/typescript-configuration#tsconfig)&mdash;TypeScript compiler configuration.
-* [typings](guide/typescript-configuration#typings)&mdash;TypesScript declaration files.
+* [tsconfig.json](guide/typescript-configuration#tsconfig)—Конфигурация компилятора TypeScript.
+* [typings](guide/typescript-configuration#typings)файлы объявлений TypesScript.
 
 
 {@a tsconfig}
 
-## TypeScript configuration
+{@a typescript-configuration}
+{@a typescript-configuration}
+## Конфигурация TypeScript
 
-A TypeScript configuration file called `tsconfig.json` guides the compiler as it generates JavaScript files for a project.
-This file contains options and flags that are essential for Angular applications.
-Typically, the file is found at the [root level of the workspace](guide/file-structure).
+Файл конфигурации TypeScript называется `tsconfig.json` направляет компилятор, поскольку он генерирует файлы JavaScript для проекта.
+Этот файл содержит параметры и флаги, которые необходимы для приложений Angular.
+Как правило, файл находится на [корневой уровень рабочей области](guide/file-structure).
 
 <div class="alert is-helpful">
 
-For details about `tsconfig.json`, see the official
-[TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
+Подробнее о `tsconfig.json`, смотрите официальный
+[TypeScript вики](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
 
 </div>
 
-The initial `tsconfig.json` for an Angular app typically looks like the following example.
+Начальный `tsconfig.json` для приложения Angular обычно выглядит следующим образом.
 
 <code-example lang="json" header="tsconfig.json" linenums="false">
 {
@@ -53,7 +57,7 @@ The initial `tsconfig.json` for an Angular app typically looks like the followin
     ]
   },
   "angularCompilerOptions": {
-    "strictTemplates": true,
+    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }
 }
@@ -62,26 +66,29 @@ The initial `tsconfig.json` for an Angular app typically looks like the followin
 
 {@a noImplicitAny}
 
-### *noImplicitAny* and *suppressImplicitAnyIndexErrors*
 
-TypeScript developers disagree about whether the `noImplicitAny` flag should be `true` or `false`.
-There is no correct answer and you can change the flag later.
-But your choice now can make a difference in larger projects, so it merits discussion.
+{@a *noimplicitany*-and-*suppressimplicitanyindexerrors*}
+{@a *noimplicitany*-and-*suppressimplicitanyindexerrors*}
+### *noImplicitAny* и *suppressImplicitAnyIndexErrors*
 
-When the `noImplicitAny` flag is `false` (the default), and if
-the compiler cannot infer the variable type based on how it's used,
-the compiler silently defaults the type to `any`. That's what is meant by *implicit `any`*.
+Разработчики TypeScript не согласны с тем, `noImplicitAny` флаг должен быть `true` или `false`.
+Там нет правильного ответа, и вы можете изменить флаг позже.
+Но ваш выбор теперь может иметь значение в более крупных проектах, поэтому он заслуживает обсуждения.
 
-When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
-the type, it still generates the JavaScript files, but it also **reports an error**.
-Many seasoned developers prefer this stricter setting because type checking catches more
-unintentional errors at compile time.
+Когда `noImplicitAny` флаг `false` (по умолчанию), и если
+компилятор не может определить тип переменной в зависимости от того, как он используется
+компилятор по умолчанию устанавливает тип `any` . Вот что подразумевается под *неявным `any`*.
 
-You can set a variable's type to `any` even when the `noImplicitAny` flag is `true`.
+Когда `noImplicitAny` флаг `true` и компилятор TypeScript не может вывести
+типа, он все еще генерирует файлы JavaScript, но также **сообщает об ошибке**.
+Многие опытные разработчики предпочитают эту более строгую настройку, потому что проверка типов ловит больше
+непреднамеренные ошибки во время компиляции.
 
-When the `noImplicitAny` flag is `true`, you may get *implicit index errors* as well.
-Most developers feel that *this particular error* is more annoying than helpful.
-You can suppress them with the following additional flag:
+Вы можете установить тип переменной `any` даже когда `noImplicitAny` флаг `true`.
+
+Когда `noImplicitAny` флаг `true`, вы также можете получить *неявные ошибки индекса*.
+Большинство разработчиков считают, что *эта ошибка* скорее раздражает, чем помогает.
+Вы можете подавить их со следующим дополнительным флагом:
 
 <code-example>
 
@@ -91,61 +98,69 @@ You can suppress them with the following additional flag:
 
 <div class="alert is-helpful">
 
-For more information about how the TypeScript configuration affects compilation, see [Angular Compiler Options](guide/angular-compiler-options) and [Template Type Checking](guide/template-typecheck).
+Для получения дополнительной информации о том, как конфигурация TypeScript влияет на компиляцию, см. [Параметры Angular компилятора](guide/angular-compiler-options)и [Проверка типа шаблона](guide/template-typecheck).
 
 </div>
-
 
 {@a typings}
 
-## TypeScript typings
+{@a typescript-typings}
+{@a typescript-typings}
+## Машинопись
 
-Many JavaScript libraries, such as jQuery, the Jasmine testing library, and Angular,
-extend the JavaScript environment with features and syntax
-that the TypeScript compiler doesn't recognize natively.
-When the compiler doesn't recognize something, it throws an error.
+Многие библиотеки JavaScript, такие как JQuery, библиотека тестирования жасмина, и угловатые,
+расширить среду JavaScript с помощью функций и синтаксиса
+что компилятор TypeScript не распознает изначально.
+Когда компилятор не распознает что-либо, он выдает ошибку.
 
-Use [TypeScript type definition files](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)&mdash;`d.ts files`&mdash;to tell the compiler about the libraries you load.
+Использовать [файлы определения типа TypeScript](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)- `d.ts files` - чтобы сообщить компилятору о загружаемых вами библиотеках.
 
-TypeScript-aware editors leverage these same definition files to display type information about library features.
+Редакторы, поддерживающие TypeScript, используют эти же файлы определений для отображения информации о типах функций библиотеки.
 
-Many libraries include definition files in their npm packages where both the TypeScript compiler and editors
-can find them. Angular is one such library.
-The `node_modules/@angular/core/` folder of any Angular application contains several `d.ts` files that describe parts of Angular.
+Многие библиотеки включают файлы определений в свои пакеты npm, где есть и компилятор TypeScript, и редакторы
+могу их найти. Angular - одна из таких библиотек.
+ `node_modules/@angular/core/` любого приложения Angular содержит несколько `d.ts` файлы, которые описывают части Angular.
 
 <div class="alert is-helpful">
 
-You don't need to do anything to get *typings* files for library packages that include `d.ts` files.
-Angular packages include them already.
+Вам не нужно ничего делать, чтобы получить *наборов* файлы для библиотечных пакетов, которые включают `d.ts` файлы.
+Angular пакеты уже включают их.
 
 </div>
 
+{@a lib.d.ts}
+{@a lib.d.ts}
 ### lib.d.ts
 
-TypeScript includes a special declaration file called `lib.d.ts`. This file contains the ambient declarations for various common JavaScript constructs present in JavaScript runtimes and the DOM.
+TypeScript включает в себя специальный файл декларации под названием `lib.d.ts` . Этот файл содержит объявления окружения для различных общих конструкций JavaScript, присутствующих во время выполнения JavaScript и DOM.
 
-Based on the `--target`, TypeScript adds _additional_ ambient declarations
-like `Promise` if the target is `es6`.
+На основе `--target`, TypeScript добавляет _дополнительные_ окружающие объявления
+лайк `Promise` если цель `es6`.
 
-By default, the target is `es2015`. If you are targeting `es5`, you still have newer type declarations due to the list of declaration files included:
+По умолчанию целью является `es2015` . Если вы нацеливаетесь `es5`, у вас еще есть новые объявления типа из - за список файлов декларации включено:
 
 <code-example path="getting-started/tsconfig.0.json" header="tsconfig.json (lib excerpt)" region="lib"></code-example>
 
-### Installable typings files
+{@a installable-typings-files}
+{@a installable-typings-files}
+### Устанавливаемые наборы файлов
 
-Many libraries&mdash;jQuery, Jasmine, and Lodash among them&mdash;do *not* include `d.ts` files in their npm packages.
-Fortunately, either their authors or community contributors have created separate `d.ts` files for these libraries and
-published them in well-known locations.
+Многие библиотеки, среди которых jQuery, Jasmine и Lodash, *не* включают `d.ts` файлы в их пакетах npm.
+К счастью, либо их авторы, либо участники сообщества создали отдельные `d.ts` файлы для этих библиотек и
+опубликовал их в известных местах.
 
-You can install these typings via `npm` using the
-[`@types/*` scoped package](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
-and Typescript, starting at 2.0, automatically recognizes them.
+Вы можете установить эти наборы через `npm` с помощью
+[ `@ types / *` пакет с областью действия](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
+и Typescript, начиная с 2.0, автоматически распознает их.
 
-For instance, to install typings for `jasmine` you run `npm install @types/jasmine --save-dev`.
+Например, чтобы установить наборы для `jasmine` ты бежишь `npm install @types/jasmine --save-dev`.
 
 
 {@a target}
 
-### *target*
 
-By default, the target is `es2015`, which is supported only in modern browsers. You can configure the target to `es5` to specifically support legacy browsers. [Differential loading](guide/deployment#differential-loading) is also provided by the Angular CLI to support modern, and legacy browsers with separate bundles.
+{@a *target*}
+{@a *target*}
+### *цель*
+
+По умолчанию целью является `es2015`, который поддерживается только в современных браузерах. Вы можете настроить цель на `es5` специально поддерживать устаревшие браузеры. [Дифференциальная загрузка](guide/deployment#differential-loading)также предоставляется Angular CLI для поддержки современных и устаревших браузеров с отдельными комплектами.

@@ -24,7 +24,7 @@ export const platformBrowserDynamicTesting = createPlatformFactory(
     INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS);
 
 /**
- * NgModule for testing.
+ * NgModule для тестирования.
  *
  * @publicApi
  */

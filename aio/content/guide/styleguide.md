@@ -1,71 +1,77 @@
-# Angular coding style guide
+{@a angular-coding-style-guide}
+# Angular руководство по стилю кодирования
 
-Looking for an opinionated guide to Angular syntax, conventions, and application structure?
-Step right in!
-This style guide presents preferred conventions and, as importantly, explains why.
+Ищете авторитетное руководство по угловому синтаксису, соглашениям и структуре приложения?
+Шаг прямо в!
+Это руководство по стилю представляет предпочтительные соглашения и, что важно, объясняет почему.
 
 {@a toc}
 
-## Style vocabulary
+{@a style-vocabulary}
+## Словарный стиль
 
-Each guideline describes either a good or bad practice, and all have a consistent presentation.
+Каждое руководство описывает либо хорошую, либо плохую практику, и все они имеют последовательную презентацию.
 
-The wording of each guideline indicates how strong the recommendation is.
+Формулировка каждого руководства указывает, насколько сильна рекомендация.
 
 <div class="s-rule do">
 
-**Do** is one that should always be followed.
-_Always_ might be a bit too strong of a word.
-Guidelines that literally should always be followed are extremely rare.
-On the other hand, you need a really unusual case for breaking a *Do* guideline.
+**Делать** это то, что всегда должно следовать.
+_Всегда_ может быть слишком сильным словом.
+Руководящие принципы, которые буквально всегда должны соблюдаться, крайне редки.
+С другой стороны, вам нужен действительно необычный случай для ломать *Do* руководство.
 
 </div>
 
 <div class="s-rule consider">
 
-**Consider** guidelines should generally be followed.
-If you fully understand the meaning behind the guideline and have a good reason to deviate, then do so. Please strive to be consistent.
+**Рассмотрим** рекомендации, как правило, следует соблюдать.
+Если вы полностью понимаете смысл, лежащий в основе данного руководства, и у вас есть веская причина для отклонения, сделайте это. Пожалуйста, старайтесь быть последовательным.
 
 </div>
 
 <div class="s-rule avoid">
 
-**Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakable red header.
+**Избегать** указывает на то, что вы почти никогда не должны делать. Примеры кода, которых следует*избегать, * имеют безошибочный красный заголовок.
 
 </div>
 
 <div class="s-why">
 
-**Why?** gives reasons for following the previous recommendations.
+**Почему?** дает основания для следования предыдущим рекомендациям.
 
 </div>
 
-## File structure conventions
+{@a file-structure-conventions}
+## Соглашения о структуре файлов
 
-Some code examples display a file that has one or more similarly named companion files.
-For example, `hero.component.ts` and `hero.component.html`.
+В некоторых примерах кода отображается файл, содержащий один или несколько сопутствующих файлов с одинаковыми именами.
+Например,  `hero.component.ts`  и  `hero.component.html`.
 
-The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
+Руководство использует ярлык  `hero.component.ts|html|css|spec`  для представления этих различных файлов. Использование этого ярлыка делает файловые структуры этого руководства более удобными для чтения и более краткими.
 
 
 {@a single-responsibility}
 
-## Single responsibility
+{@a single-responsibility}
+## Единственная ответственность
 
-Apply the
-<a href="https://wikipedia.org/wiki/Single_responsibility_principle"><i>single responsibility principle</i> (SRP)</a>
-to all components, services, and other symbols.
-This helps make the app cleaner, easier to read and maintain, and more testable.
+Применить
+<a href="https://wikipedia.org/wiki/Single_responsibility_principle"><i>принцип единой ответственности </i>(SRP) </a>
+для всех компонентов, услуг и других символов.
+Это помогает сделать приложение более чистым, легким для чтения и обслуживания и более тестируемым.
 
 {@a 01-01}
 
-### Rule of One
+{@a rule-of-one}
+### Правило Одного
 
-#### Style 01-01
+{@a style-01-01}
+#### Стиль 01-01
 
 <div class="s-rule do">
 
-**Do** define one thing, such as a service or component, per file.
+**Делать** определите одну вещь, такую ​​как служба или компонент, для файла.
 
 
 </div>
@@ -76,7 +82,7 @@ This helps make the app cleaner, easier to read and maintain, and more testable.
 
 
 
-**Consider** limiting files to 400 lines of code.
+**Рассмотрим** ограничение файлов до 400 строк кода.
 
 
 </div>
@@ -87,8 +93,8 @@ This helps make the app cleaner, easier to read and maintain, and more testable.
 
 
 
-**Why?** One component per file makes it far easier to read, maintain, and avoid
-collisions with teams in source control.
+**Почему?** Один компонент на файл упрощает чтение, обслуживание и предотвращение
+столкновения с командами в системе контроля версий.
 
 
 </div>
@@ -99,7 +105,7 @@ collisions with teams in source control.
 
 
 
-**Why?** One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, or unwanted coupling with dependencies.
+**Почему?** Один компонент на файл позволяет избежать скрытых ошибок, которые часто возникают при объединении компонентов в файле, где они могут совместно использовать переменные, создавать нежелательные замыкания или нежелательную связь с зависимостями.
 
 
 </div>
@@ -110,17 +116,17 @@ collisions with teams in source control.
 
 
 
-**Why?** A single component can be the default export for its file which facilitates lazy loading with the router.
+**Почему?** Отдельный компонент может быть экспортом по умолчанию для его файла, что облегчает отложенную загрузку с маршрутизатором.
 
 </div>
 
 
 
-The key is to make the code more reusable, easier to read, and less mistake prone.
+Ключ состоит в том, чтобы сделать код более пригодным для повторного использования, более легким для чтения и менее подверженным ошибкам.
 
-The following *negative* example defines the `AppComponent`, bootstraps the app,
-defines the `Hero` model object, and loads heroes from the server all in the same file.
-*Don't do this*.
+Следующий *негативный* пример определяет  `AppComponent`, загружает приложение
+определяет  `Hero`  моделирует объект и загружает героев с сервера все в один файл.
+*Не делай этого*.
 
 
 <code-example path="styleguide/src/01-01/app/heroes/hero.component.avoid.ts" header="app/heroes/hero.component.ts">
@@ -129,8 +135,8 @@ defines the `Hero` model object, and loads heroes from the server all in the sam
 
 
 
-It is a better practice to redistribute the component and its
-supporting classes into their own, dedicated files.
+Лучше перераспределить компонент и его
+поддержка классов в свои собственные, выделенные файлы.
 
 
 <code-tabs>
@@ -167,22 +173,24 @@ supporting classes into their own, dedicated files.
 
 
 
-As the app grows, this rule becomes even more important.
-<a href="#toc">Back to top</a>
+По мере роста приложения это правило становится еще более важным.
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 01-02}
 
-### Small functions
+{@a small-functions}
+### Маленькие функции
 
-#### Style 01-02
+{@a style-01-02}
+#### Стиль 01-02
 
 
 <div class="s-rule do">
 
 
 
-**Do** define small functions
+**Do** определяют малые функции
 
 
 </div>
@@ -193,7 +201,7 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Consider** limiting to no more than 75 lines.
+**Рассмотрим** ограничение не более 75 строк.
 
 
 </div>
@@ -204,7 +212,7 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Why?** Small functions are easier to test, especially when they do one thing and serve one purpose.
+**Почему?** Маленькие функции легче тестировать, особенно когда они выполняют одну функцию и служат одной цели.
 
 
 </div>
@@ -215,7 +223,7 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Why?** Small functions promote reuse.
+**Почему?** Небольшие функции способствуют повторному использованию.
 
 
 </div>
@@ -226,7 +234,7 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Why?** Small functions are easier to read.
+**Почему?** Маленькие функции легче читать.
 
 
 </div>
@@ -237,7 +245,7 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Why?** Small functions are easier to maintain.
+**Почему?** Небольшие функции легче поддерживать.
 
 
 </div>
@@ -248,32 +256,35 @@ As the app grows, this rule becomes even more important.
 
 
 
-**Why?** Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
+**Почему?** Небольшие функции помогают избежать скрытых ошибок, которые идут с большими функциями, которые совместно используют переменные с внешней областью, создают нежелательные замыкания или нежелательное соединение с зависимостями.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Naming
+{@a naming}
+## Нейминг
 
-Naming conventions are hugely important to maintainability and readability. This guide recommends naming conventions for the file name and the symbol name.
+Соглашения об именах чрезвычайно важны для удобства обслуживания и читабельности. В этом руководстве рекомендуются соглашения об именах для имени файла и имени символа.
 
 
 
 {@a 02-01}
 
-### General Naming Guidelines
+{@a general-naming-guidelines}
+### Общие правила именования
 
-#### Style 02-01
+{@a style-02-01}
+#### Стиль 02-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** use consistent names for all symbols.
+**Do** использовать согласованные имена для всех символов.
 
 
 </div>
@@ -284,7 +295,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Do** follow a pattern that describes the symbol's feature then its type. The recommended pattern is `feature.type.ts`.
+**Как** следовать шаблону, который описывает функцию этого символа, то его тип. Рекомендуемый шаблон  `feature.type.ts`.
 
 
 </div>
@@ -295,7 +306,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. Consistency across a company provides tremendous efficiency.
+**Почему?** Соглашения об именах помогают обеспечить наглядный способ поиска контента. Согласованность в рамках проекта имеет жизненно важное значение. Согласованность с командой важна. Согласованность всей компании обеспечивает огромную эффективность.
 
 
 </div>
@@ -306,7 +317,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Why?** The naming conventions should simply help find desired code faster and make it easier to understand.
+**Почему?** Соглашения об именах должны просто помочь быстрее найти нужный код и сделать его более понятным.
 
 
 </div>
@@ -317,26 +328,28 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Why?** Names of folders and files should clearly convey their intent. For example, `app/heroes/hero-list.component.ts` may contain a component that manages a list of heroes.
+**Почему?** Названия папок и файлов должны четко отражать их намерения. Например,  `app/heroes/hero-list.component.ts`  может содержать компонент, который управляет списком героев.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-02}
 
-### Separate file names with dots and dashes
+{@a separate-file-names-with-dots-and-dashes}
+### Разделяйте имена файлов точками и тире
 
-#### Style 02-02
+{@a style-02-02}
+#### Стиль 02-02
 
 
 <div class="s-rule do">
 
 
 
-**Do** use dashes to separate words in the descriptive name.
+**Есть ли** использование дефис для разделения слов в описательном имени.
 
 
 </div>
@@ -347,7 +360,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Do** use dots to separate the descriptive name from the type.
+**Как** использовать точки, чтобы отделить описательное название от типа.
 
 
 </div>
@@ -358,7 +371,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Do** use consistent type names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
+**Как** использовать последовательные имена типов для всех компонентов следуя схему, которая описывает функцию компоненты, то его типа. Рекомендуемый шаблон  `feature.type.ts`.
 
 
 </div>
@@ -369,8 +382,8 @@ Naming conventions are hugely important to maintainability and readability. This
 
 
 
-**Do** use conventional type names including `.service`, `.component`, `.pipe`, `.module`, and `.directive`.
-Invent additional type names if you must but take care not to create too many.
+**Как** использовать обычные имена типов, включая  `.service`, `.component`, `.pipe`, `.module`, и  `.directive`.
+Придумайте дополнительные имена типов, если нужно, но старайтесь не создавать слишком много.
 
 
 </div>
@@ -381,7 +394,7 @@ Invent additional type names if you must but take care not to create too many.
 
 
 
-**Why?** Type names provide a consistent way to quickly identify what is in the file.
+**Почему?** Имена типов обеспечивают согласованный способ быстро определить, что находится в файле.
 
 
 </div>
@@ -392,7 +405,7 @@ Invent additional type names if you must but take care not to create too many.
 
 
 
-**Why?** Type names make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
+**Почему?** Имена типов облегчают поиск определенного типа файла с помощью редактора или методов нечеткого поиска в IDE.
 
 
 </div>
@@ -403,8 +416,8 @@ Invent additional type names if you must but take care not to create too many.
 
 
 
-**Why?** Unabbreviated type names such as `.service` are descriptive and unambiguous.
-Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
+**Почему?** Несокращенные имена типов, такие как  `.service` описательный и однозначный.
+Сокращения, такие как  `.srv`, `.svc`, и  `.serv`  может сбивать с толку.
 
 
 </div>
@@ -415,26 +428,28 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Why?** Type names provide pattern matching for any automated tasks.
+**Почему?** Имена типов обеспечивают сопоставление с образцом для любых автоматизированных задач.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-03}
 
-### Symbols and file names
+{@a symbols-and-file-names}
+### Символы и имена файлов
 
-#### Style 02-03
+{@a style-02-03}
+#### Стиль 02-03
 
 
 <div class="s-rule do">
 
 
 
-**Do** use consistent names for all assets named after what they represent.
+**Do** использовать согласованные имена для всех активов, им то, что они представляют.
 
 
 </div>
@@ -445,7 +460,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Do** use upper camel case for class names.
+**Как** использовать верхний регистр верблюжьего для имен классов.
 
 
 </div>
@@ -456,7 +471,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Do** match the name of the symbol to the name of the file.
+**Сопоставьте** имя символа с именем файла.
 
 
 </div>
@@ -467,8 +482,8 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Do** append the symbol name with the conventional suffix (such as `Component`,
-`Directive`, `Module`, `Pipe`, or `Service`) for a thing of that type.
+**Добавьте** имя символа с обычным суффиксом (например,  `Component`,
+ `Directive `, ` Module `, ` Pipe`, или  `Service`  ) для вещи такого типа.
 
 
 </div>
@@ -479,8 +494,8 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Do** give the filename the conventional suffix (such as `.component.ts`, `.directive.ts`,
-`.module.ts`, `.pipe.ts`, or `.service.ts`) for a file of that type.
+**Как** дать имя файла обычный суффикс (например,  `.component.ts`, `.directive.ts`,
+ `.module.ts `, ` .pipe.ts ` или ` .service.ts` ) для файла этого типа.
 
 </div>
 
@@ -490,8 +505,8 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 
 
-**Why?** Consistent conventions make it easy to quickly identify
-and reference assets of different types.
+**Почему?** Последовательные соглашения позволяют легко быстро определить
+и справочные активы разных типов.
 
 
 </div>
@@ -500,22 +515,22 @@ and reference assets of different types.
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Symbol Name
+      Символ Название
     </th>
 
     <th>
-      File Name
+      Имя файла
     </th>
 
   </tr>
@@ -676,20 +691,22 @@ and reference assets of different types.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-04}
 
-### Service names
+{@a service-names}
+### Сервисные имена
 
-#### Style 02-04
+{@a style-02-04}
+#### Стиль 02-04
 
 <div class="s-rule do">
 
 
 
-**Do** use consistent names for all services named after their feature.
+**Do** использовать согласованные имена для всех служб имени их функции.
 
 
 </div>
@@ -700,15 +717,15 @@ and reference assets of different types.
 
 
 
-**Do** suffix a service class name with `Service`.
-For example, something that gets data or heroes
-should be called a `DataService` or a `HeroService`.
+**Сделать** суффикс имени класса обслуживания с  `Service`.
+Например, что-то, что получает данные или герои
+следует назвать  `DataService`  или  `HeroService`.
 
-A few terms are unambiguously services. They typically
-indicate agency by ending in "-er". You may prefer to name
-a service that logs messages `Logger` rather than `LoggerService`.
-Decide if this exception is agreeable in your project.
-As always, strive for consistency.
+Несколько терминов однозначно являются услугами. Они типично
+указать агентство, оканчиваясь на "-er". Вы можете предпочесть имя
+сервис, который регистрирует сообщения  `Logger`  а не  `LoggerService`.
+Решите, является ли это исключение приемлемым в вашем проекте.
+Как всегда, стремиться к последовательности.
 
 
 </div>
@@ -719,7 +736,7 @@ As always, strive for consistency.
 
 
 
-**Why?** Provides a consistent way to quickly identify and reference services.
+**Почему?** Обеспечивает последовательный способ быстрой идентификации и справочных услуг.
 
 
 </div>
@@ -730,7 +747,7 @@ As always, strive for consistency.
 
 
 
-**Why?** Clear service names such as `Logger` do not require a suffix.
+**Почему?** Очистить названия сервисов, такие как  `Logger`  не требуется суффикс.
 
 
 </div>
@@ -741,7 +758,7 @@ As always, strive for consistency.
 
 
 
-**Why?** Service names such as `Credit` are nouns and require a suffix and should be named with a suffix when it is not obvious if it is a service or something else.
+**Почему?** Сервисные имена, такие как  `Credit`  являются существительными и требуют суффикса и должны быть названы суффиксом, когда не очевидно, является ли это службой или чем-то еще.
 
 
 </div>
@@ -750,22 +767,22 @@ As always, strive for consistency.
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Symbol Name
+      Символ Название
     </th>
 
     <th>
-      File Name
+      Имя файла
     </th>
 
   </tr>
@@ -784,7 +801,7 @@ As always, strive for consistency.
     <td>
 
 
-      hero-data.service.ts
+      герой-data.service.ts
     </td>
 
   </tr>
@@ -829,42 +846,44 @@ As always, strive for consistency.
 
 </table>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 02-05}
 
-### Bootstrapping
+{@a bootstrapping}
+### Самонастройки
 
-#### Style 02-05
+{@a style-02-05}
+#### Стиль 02-05
 
 
 <div class="s-rule do">
 
-**Do** put bootstrapping and platform logic for the app in a file named `main.ts`.
+**У** пут самонастройки и платформы логики приложения в файл с именем  `main.ts`.
 
 </div>
 
 <div class="s-rule do">
 
-**Do** include error handling in the bootstrapping logic.
+**Do** включает обработку ошибок в логике самонастройки.
 
 </div>
 
 <div class="s-rule avoid">
 
-**Avoid** putting app logic in `main.ts`. Instead, consider placing it in a component or service.
+**Избегайте использования** логики приложения  `main.ts`  . Вместо этого рассмотрите возможность размещения его в компоненте или услуге.
 
 </div>
 
 <div class="s-why">
 
-**Why?** Follows a consistent convention for the startup logic of an app.
+**Почему?** Следует последовательному соглашению для логики запуска приложения.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** Follows a familiar convention from other technology platforms.
+**Почему?** Следует знакомому соглашению от других технологических платформ.
 
 </div>
 
@@ -873,23 +892,25 @@ As always, strive for consistency.
 
 </code-example>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-02}
 
-### Component selectors
+{@a component-selectors}
+### Селекторы компонентов
 
-#### Style 05-02
+{@a style-05-02}
+#### Стиль 05-02
 
 <div class="s-rule do">
 
-**Do** use _dashed-case_ or _kebab-case_ for naming the element selectors of components.
+**Делать** используйте _dashed-case_ или _kebab-case_ для именования селекторов элементов компонентов.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** Keeps the element names consistent with the specification for [Custom Elements](https://www.w3.org/TR/custom-elements/).
+**Почему?** Сохраняет имена элементов в соответствии со спецификацией для [пользовательских элементов](https://www.w3.org/TR/custom-elements/).
 
 </div>
 
@@ -909,49 +930,51 @@ As always, strive for consistency.
 
 </code-tabs>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 02-07}
 
-### Component custom prefix
+{@a component-custom-prefix}
+### Пользовательский префикс компонента
 
-#### Style 02-07
+{@a style-02-07}
+#### Стиль 02-07
 
 
 <div class="s-rule do">
 
-**Do** use a hyphenated, lowercase element selector value; for example, `admin-users`.
+**Есть ли** использовать дефис, значение селектора в нижнем регистре элемента; например,  `admin-users`.
 
 </div>
 
 <div class="s-rule do">
 
-**Do** use a custom prefix for a component selector.
-For example, the prefix `toh` represents **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
+**Как** использовать пользовательский префикс для выбора компонентов.
+Например, префикс  `toh`  представляет **T**нашей**O**ф**H**eroes и приставки  `admin`  представляет область функций администратора.
 
 </div>
 
 <div class="s-rule do">
 
-**Do** use a prefix that identifies the feature area or the app itself.
+**Есть ли** использовать префикс, который идентифицирует области объектов или самого приложения.
 
 </div>
 
 <div class="s-why">
 
-**Why?** Prevents element name collisions with components in other apps and with native HTML elements.
+**Почему?** Предотвращает конфликты имен элементов с компонентами в других приложениях и с собственными элементами HTML.
 
 </div>
 
 <div class="s-why">
 
-**Why?** Makes it easier to promote and share the component in other apps.
+**Почему?** Упрощает продвижение и совместное использование компонента в других приложениях.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** Components are easy to identify in the DOM.
+**Почему?** Компоненты легко идентифицировать в DOM.
 
 </div>
 
@@ -971,48 +994,52 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 </code-example>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-06}
 
-### Directive selectors
+{@a directive-selectors}
+### Директивные селекторы
 
-#### Style 02-06
+{@a style-02-06}
+#### Стиль 02-06
 
 <div class="s-rule do">
 
-**Do** Use lower camel case for naming the selectors of directives.
+**Do** использовать нижний верблюжий корпус для обозначения селекторов директив.
 
 </div>
 
 <div class="s-why">
 
-**Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
+**Почему?** Сохраняет имена свойств, определенных в директивах, которые связаны с представлением, в соответствии с именами атрибутов.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** The Angular HTML parser is case sensitive and recognizes lower camel case.
+**Почему?** Анализатор Angular HTML чувствителен к регистру и распознает нижний регистр верблюда.
 
 </div>
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 02-08}
 
-### Directive custom prefix
+{@a directive-custom-prefix}
+### Директива пользовательского префикса
 
-#### Style 02-08
+{@a style-02-08}
+#### Стиль 02-08
 
 <div class="s-rule do">
 
 
 
-**Do** use a custom prefix for the selector of directives (e.g, the prefix `toh` from **T**our **o**f **H**eroes).
+**Как** использовать собственный префикс для выбора директив (например, префикс  `toh`  от**Т**наша**ö**F**H**eroes).
 
 
 </div>
@@ -1023,7 +1050,7 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 
 
-**Do** spell non-element selectors in lower camel case unless the selector is meant to match a native HTML attribute.
+**Как** пишутся без элементов селекторов в нижнем регистре верблюда, если селектор не предназначен, чтобы соответствовать родной атрибуту HTML.
 
 
 </div>
@@ -1034,7 +1061,7 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 
 
-**Why?** Prevents name collisions.
+**Почему?** Предотвращает конфликты имен.
 
 
 </div>
@@ -1045,7 +1072,7 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 
 
-**Why?** Directives are easily identified.
+**Почему?** Директивы легко идентифицируются.
 
 
 </div>
@@ -1066,24 +1093,26 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-09}
 
-### Pipe names
+{@a pipe-names}
+### Названия труб
 
-#### Style 02-09
+{@a style-02-09}
+#### Стиль 02-09
 
 <div class="s-rule do">
 
 
 
-**Do** use consistent names for all pipes, named after their feature.
-The pipe class name should use [UpperCamelCase](guide/glossary#case-types)
-(the general convention for class names),
-and the corresponding `name` string should use *lowerCamelCase*.
-The `name` string cannot use hyphens ("dash-case" or "kebab-case").
+**Do** использовать согласованные имена для всех труб, названных в честь их особенности.
+Имя класса канала следует использовать [UpperCamelCase](guide/glossary#case-types)
+(общее соглашение для имен классов)
+и соответствующий  `name` Строка должна использовать *lowerCamelCase*.
+ `name` Строка не может использовать дефисы ("случай тире" или "случай шашлыка").
 
 
 </div>
@@ -1094,7 +1123,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides a consistent way to quickly identify and reference pipes.
+**Почему?** Обеспечивает последовательный способ быстрой идентификации и ссылки на трубы.
 
 
 </div>
@@ -1103,22 +1132,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Symbol Name
+      Символ Название
     </th>
 
     <th>
-      File Name
+      Имя файла
     </th>
 
   </tr>
@@ -1165,20 +1194,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-10}
 
-### Unit test file names
+{@a unit-test-file-names}
+### Имена файлов модульного теста
 
-#### Style 02-10
+{@a style-02-10}
+#### Стиль 02-10
 
 <div class="s-rule do">
 
 
 
-**Do** name test specification files the same as the component they test.
+**Назовите** файлы спецификации теста так же, как компонент, который они тестируют.
 
 
 </div>
@@ -1189,7 +1220,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Do** name test specification files with a suffix of `.spec`.
+**Назовите** файлы спецификации теста с суффиксом  `.spec`.
 
 
 </div>
@@ -1200,7 +1231,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides a consistent way to quickly identify tests.
+**Почему?** Обеспечивает последовательный способ быстрой идентификации тестов.
 
 
 </div>
@@ -1211,7 +1242,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides pattern matching for [karma](http://karma-runner.github.io/) or other test runners.
+**Почему?** Обеспечивает сопоставление с образцом для [кармы](http://karma-runner.github.io/)или других участников теста.
 
 
 </div>
@@ -1222,22 +1253,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Test Type
+      Тип теста
     </th>
 
     <th>
-      File Names
+      Имена файлов
     </th>
 
   </tr>
@@ -1247,7 +1278,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
     <td>
 
 
-      Components
+      Компоненты
     </td>
 
     <td>
@@ -1267,7 +1298,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
     <td>
 
 
-      Services
+      Услуги
     </td>
 
     <td>
@@ -1287,7 +1318,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
     <td>
 
 
-      Pipes
+      Трубы
     </td>
 
     <td>
@@ -1304,20 +1335,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 02-11}
 
-### _End-to-End_ (E2E) test file names
+{@a end-to-end-e2e-test-file-names}
+### _End-to-End_ (E2E) тестовые имена файлов
 
-#### Style 02-11
+{@a style-02-11}
+#### Стиль 02-11
 
 <div class="s-rule do">
 
 
 
-**Do** name end-to-end test specification files after the feature they test with a suffix of `.e2e-spec`.
+**Назовите** файлы спецификации сквозного теста после функции, которую они тестируют, с суффиксом  `.e2e-spec`.
 
 
 </div>
@@ -1328,7 +1361,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides a consistent way to quickly identify end-to-end tests.
+**Почему?** Обеспечивает согласованный способ быстрой идентификации сквозных тестов.
 
 
 </div>
@@ -1339,7 +1372,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides pattern matching for test runners and build automation.
+**Почему?** Обеспечивает сопоставление с образцом для участников тестирования и автоматизации сборки.
 
 
 </div>
@@ -1352,22 +1385,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Test Type
+      Тип теста
     </th>
 
     <th>
-      File Names
+      Имена файлов
     </th>
 
   </tr>
@@ -1377,7 +1410,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
     <td>
 
 
-      End-to-End Tests
+      Сквозные тесты
     </td>
 
     <td>
@@ -1394,20 +1427,22 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 02-12}
 
-### Angular _NgModule_ names
+{@a angular-ngmodule-names}
+### Angular имена _NgModule_
 
-#### Style 02-12
+{@a style-02-12}
+#### Стиль 02-12
 
 
 <div class="s-rule do">
 
 
 
-**Do** append the symbol name with the suffix `Module`.
+**Добавьте** имя символа с суффиксом  `Module`.
 
 
 </div>
@@ -1418,7 +1453,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Do** give the file name the `.module.ts` extension.
+**Как** дать имя файла в  `.module.ts`  Расширение.
 
 
 </div>
@@ -1429,7 +1464,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Do** name the module after the feature and folder it resides in.
+**Назовите** модуль после имени функции и папки, в которой он находится
 
 
 </div>
@@ -1440,7 +1475,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Provides a consistent way to quickly identify and reference modules.
+**Почему?** Обеспечивает согласованный способ быстрой идентификации и ссылки на модули.
 
 
 </div>
@@ -1451,7 +1486,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Upper camel case is conventional for identifying objects that can be instantiated using a constructor.
+**Почему?** Верхний случай с верблюдом является обычным для идентификации объектов, которые могут быть созданы с помощью конструктора.
 
 
 </div>
@@ -1462,7 +1497,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** Easily identifies the module as the root of the same named feature.
+**Почему?** Легко идентифицирует модуль как корень одноименной функции.
 
 
 </div>
@@ -1473,7 +1508,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Do** suffix a _RoutingModule_ class name with `RoutingModule`.
+**Сделать** суффикс имени класса _RoutingModule_ с  `RoutingModule`.
 
 
 </div>
@@ -1484,7 +1519,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Do** end the filename of a _RoutingModule_ with `-routing.module.ts`.
+**Есть ли** конец имени файла в _RoutingModule_ с  `-routing.module.ts`.
 
 
 </div>
@@ -1495,8 +1530,8 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 
 
-**Why?** A `RoutingModule` is a module dedicated exclusively to configuring the Angular router.
-A consistent class and file name convention make these modules easy to spot and verify.
+**Почему?**  `RoutingModule` - это модуль, предназначенный исключительно для настройки Angular маршрутизатора.
+Согласованное соглашение между классами и именами файлов позволяет легко находить и проверять эти модули.
 
 </div>
 
@@ -1504,22 +1539,22 @@ A consistent class and file name convention make these modules easy to spot and 
 
 <table width="100%">
 
-  <col width="50%">
 
-  </col>
 
-  <col width="50%">
 
-  </col>
+
+
+
+
 
   <tr>
 
     <th>
-      Symbol Name
+      Символ Название
     </th>
 
     <th>
-      File Name
+      Имя файла
     </th>
 
   </tr>
@@ -1622,37 +1657,40 @@ A consistent class and file name convention make these modules easy to spot and 
 </table>
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Application structure and NgModules
+{@a application-structure-and-ngmodules}
+## Структура приложения и NgModules
 
-Have a near-term view of implementation and a long-term vision. Start small but keep in mind where the app is heading down the road.
+Имейте краткосрочный взгляд на реализацию и долгосрочное видение. Начните с малого, но имейте в виду, где приложение движется в будущем.
 
-All of the app's code goes in a folder named `src`.
-All feature areas are in their own folder, with their own NgModule.
+Весь код приложения находится в папке с именем  `src`.
+Все функциональные области находятся в отдельной папке с собственным NgModule.
 
-All content is one asset per file. Each component, service, and pipe is in its own file.
-All third party vendor scripts are stored in another folder and not in the `src` folder.
-You didn't write them and you don't want them cluttering `src`.
-Use the naming conventions for files in this guide.
-<a href="#toc">Back to top</a>
+Весь контент - один актив на файл. Каждый компонент, сервис и канал находятся в своем собственном файле.
+Все скрипты сторонних поставщиков хранятся в другой папке, а не в  `src`  папка.
+Вы не написали их, и вы не хотите, чтобы они загромождали  `src`.
+Используйте соглашения об именах файлов в этом руководстве.
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-01}
 
+{@a lift}
 ### _LIFT_
 
-#### Style 04-01
+{@a style-04-01}
+#### Стиль 04-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** structure the app such that you can **L**ocate code quickly,
-**I**dentify the code at a glance,
-keep the **F**lattest structure you can, and
-**T**ry to be DRY.
+**Есть ли** структурировать приложение такое, что вы можете**L**код ocate быстро
+**Я с**первого взгляда опишу код
+сохраните структуру **F**lattest, которую вы можете, и
+**Т**гу, чтобы быть сухим.
 
 
 </div>
@@ -1663,7 +1701,7 @@ keep the **F**lattest structure you can, and
 
 
 
-**Do** define the structure to follow these four basic guidelines, listed in order of importance.
+**Do** определяет структуру, чтобы следовать этим четырех основных принципов, перечисленных в порядке важности.
 
 
 </div>
@@ -1674,27 +1712,29 @@ keep the **F**lattest structure you can, and
 
 
 
-**Why?** LIFT provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly.
-To confirm your intuition about a particular structure, ask:
-_can I quickly open and start work in all of the related files for this feature_?
+**Почему?** LIFT обеспечивает согласованную структуру, которая хорошо масштабируется, является модульной и облегчает повышение эффективности разработки за счет быстрого поиска кода.
+Для подтверждения своей интуиции о конкретной структуре, спросите:
+_Могу ли я быстро открыть и начать работу со всеми соответствующими файлами для этой функции_?
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-02}
 
-### Locate
+{@a locate}
+### разместить
 
-#### Style 04-02
+{@a style-04-02}
+#### Стиль 04-02
 
 
 <div class="s-rule do">
 
 
 
-**Do** make locating code intuitive, simple, and fast.
+**Делайте** поиск кода интуитивно понятным, простым и быстрым.
 
 
 </div>
@@ -1705,28 +1745,30 @@ _can I quickly open and start work in all of the related files for this feature_
 
 
 
-**Why?** To work efficiently you must be able to find files quickly,
-especially when you do not know (or do not remember) the file _names_.
-Keeping related files near each other in an intuitive location saves time.
-A descriptive folder structure makes a world of difference to you and the people who come after you.
+**Почему?** Для эффективной работы вы должны быть в состоянии быстро найти файлы
+особенно когда вы не знаете (или не помните) файл _names_.
+Хранение связанных файлов рядом друг с другом в интуитивно понятном месте экономит время.
+Описательная структура папок имеет огромное значение для вас и людей, которые следуют за вами.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-03}
 
-### Identify
+{@a identify}
+### Определить
 
-#### Style 04-03
+{@a style-04-03}
+#### Стиль 04-03
 
 
 <div class="s-rule do">
 
 
 
-**Do** name the file such that you instantly know what it contains and represents.
+**Назовите** файл так, чтобы вы сразу знали, что он содержит и представляет.
 
 
 </div>
@@ -1737,7 +1779,7 @@ A descriptive folder structure makes a world of difference to you and the people
 
 
 
-**Do** be descriptive with file names and keep the contents of the file to exactly one component.
+**Будьте** понятны с именами файлов и сохраняйте содержимое файла только для одного компонента.
 
 
 </div>
@@ -1748,7 +1790,7 @@ A descriptive folder structure makes a world of difference to you and the people
 
 
 
-**Avoid** files with multiple components, multiple services, or a mixture.
+**Избегайте** файлы с несколькими компонентами, несколькими службами или смесью.
 
 
 </div>
@@ -1759,8 +1801,8 @@ A descriptive folder structure makes a world of difference to you and the people
 
 
 
-**Why?** Spend less time hunting and pecking for code, and become more efficient.
-Longer file names are far better than _short-but-obscure_ abbreviated names.
+**Почему?** Тратьте меньше времени на поиски кода и повышайте эффективность.
+Длинные имена файлов намного лучше, чем сокращенные, но короткие имена.
 
 
 </div>
@@ -1771,27 +1813,29 @@ Longer file names are far better than _short-but-obscure_ abbreviated names.
 
 
 
-It may be advantageous to deviate from the _one-thing-per-file_ rule when
-you have a set of small, closely-related features that are better discovered and understood
-in a single file than as multiple files. Be wary of this loophole.
+Может быть выгодно отклоняться от правила _one-thing-per-file_ когда
+у вас есть набор небольших тесно связанных функций, которые лучше обнаруживаются и понимаются
+в одном файле, чем в нескольких файлах. Остерегайтесь этой лазейки.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 04-04}
 
+{@a flat}
 ### Flat
 
-#### Style 04-04
+{@a style-04-04}
+#### Стиль 04-04
 
 <div class="s-rule do">
 
 
 
-**Do** keep a flat folder structure as long as possible.
+**Как** сохранить плоскую структуру папок как можно дольше.
 
 
 </div>
@@ -1802,7 +1846,7 @@ in a single file than as multiple files. Be wary of this loophole.
 
 
 
-**Consider** creating sub-folders when a folder reaches seven or more files.
+**Рассмотрите возможность** создания подпапок, когда папка достигает семи или более файлов.
 
 
 </div>
@@ -1813,7 +1857,7 @@ in a single file than as multiple files. Be wary of this loophole.
 
 
 
-**Consider** configuring the IDE to hide distracting, irrelevant files such as generated `.js` and `.js.map` files.
+**Рассмотрите возможность** настройки среды IDE, чтобы скрыть отвлекающие, не относящиеся к делу файлы, такие как сгенерированные  `.js`  и  `.js.map`  файлы.
 
 
 </div>
@@ -1824,34 +1868,36 @@ in a single file than as multiple files. Be wary of this loophole.
 
 
 
-**Why?** No one wants to search for a file through seven levels of folders.
-A flat structure is easy to scan.
+**Почему?** Никто не хочет искать файл по семи уровням папок.
+Плоская структура легко сканируется.
 
-On the other hand,
-<a href="https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two">psychologists believe</a>
-that humans start to struggle when the number of adjacent interesting things exceeds nine.
-So when a folder has ten or more files, it may be time to create subfolders.
+С другой стороны,
+<a href="https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two">психологи верят </a>
+что люди начинают бороться, когда количество соседних интересных вещей превышает девять.
+Поэтому, когда в папке содержится десять или более файлов, возможно, пора создавать подпапки.
 
-Base your decision on your comfort level.
-Use a flatter structure until there is an obvious value to creating a new folder.
+Основывайте свое решение на своем уровне комфорта.
+Используйте более плоскую структуру, пока не будет очевидной ценности для создания новой папки.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 04-05}
 
-### _T-DRY_ (Try to be _DRY_)
+{@a t-dry-try-to-be-dry}
+### _T-DRY_ (постарайтесь быть _DRY_)
 
-#### Style 04-05
+{@a style-04-05}
+#### Стиль 04-05
 
 <div class="s-rule do">
 
 
 
-**Do** be DRY (Don't Repeat Yourself).
+**Как** быть DRY (не повторяться).
 
 
 </div>
@@ -1862,7 +1908,7 @@ Use a flatter structure until there is an obvious value to creating a new folder
 
 
 
-**Avoid** being so DRY that you sacrifice readability.
+**Старайтесь не** быть настолько СУХИМ, что жертвуете читабельностью.
 
 
 </div>
@@ -1873,29 +1919,31 @@ Use a flatter structure until there is an obvious value to creating a new folder
 
 
 
-**Why?** Being DRY is important, but not crucial if it sacrifices the other elements of LIFT.
-That's why it's called _T-DRY_.
-For example, it's redundant to name a template `hero-view.component.html` because
-with the `.html` extension, it is obviously a view.
-But if something is not obvious or departs from a convention, then spell it out.
+**Почему?** Быть СУХИМым важно, но не важно, если оно жертвует другими элементами ЛИФТА.
+Вот почему это называется _T-DRY_.
+Например, излишне называть шаблон  `hero-view.component.html`  потому что
+с  `.html`  Расширение, это, очевидно, представление.
+Но если что-то неочевидно или отходит от условностей, то изложите это.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 04-06}
 
-### Overall structural guidelines
+{@a overall-structural-guidelines}
+### Общие структурные рекомендации
 
-#### Style 04-06
+{@a style-04-06}
+#### Стиль 04-06
 
 <div class="s-rule do">
 
 
 
-**Do** start small but keep in mind where the app is heading down the road.
+**Как** начать с малого, но имейте в виду, когда приложение движется вниз по дороге.
 
 
 </div>
@@ -1906,7 +1954,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 
 
-**Do** have a near term view of implementation and a long term vision.
+**Делать** иметь краткосрочный взгляд на реализацию и долгосрочное видение.
 
 
 </div>
@@ -1917,7 +1965,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 
 
-**Do** put all of the app's code in a folder named `src`.
+**Do** поставить все кода приложения в папку с именем  `src`.
 
 
 </div>
@@ -1928,7 +1976,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 
 
-**Consider** creating a folder for a component when it has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
+**Рассмотрите возможность** создания папки для компонента, когда у него есть несколько сопровождающих файлов (`.ts`, `.html`, `.css`  и  `.spec`).
 
 
 </div>
@@ -1939,7 +1987,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 
 
-**Why?** Helps keep the app structure small and easy to maintain in the early stages, while being easy to evolve as the app grows.
+**Почему?** Помогает сохранять структуру приложения небольшой и простой в обслуживании на ранних стадиях, а также легко развиваться по мере роста приложения.
 
 
 </div>
@@ -1950,7 +1998,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 
 
-**Why?** Components often have four files (e.g. `*.html`, `*.css`, `*.ts`, and `*.spec.ts`) and can clutter a folder quickly.
+**Почему?** Компоненты часто имеют четыре файла (например,  `*.html`, `*.css`, `*.ts`  и  `*.spec.ts`) и может быстро загромождать папку.
 
 
 </div>
@@ -1960,83 +2008,83 @@ But if something is not obvious or departs from a convention, then spell it out.
 {@a file-tree}
 
 
-Here is a compliant folder and file structure:
+Вот послушная папки и файлы структура:
 
 
 <div class='filetree'>
 
   <div class='file'>
-    &lt;project root&gt;
+    <корень проекта>
   </div>
 
   <div class='children'>
 
     <div class='file'>
-      src
+      ЦСИ
     </div>
 
     <div class='children'>
 
       <div class='file'>
-        app
+        приложение
       </div>
 
       <div class='children'>
 
         <div class='file'>
-          core
+          ядро
         </div>
 
         <div class='children'>
 
           <div class='file'>
-            exception.service.ts|spec.ts
+            exception.service.ts | spec.ts
           </div>
 
           <div class='file'>
-            user-profile.service.ts|spec.ts
+            пользовательский profile.service.ts | spec.ts
           </div>
 
         </div>
 
         <div class='file'>
-          heroes
+          герои
         </div>
 
         <div class='children'>
 
           <div class='file'>
-            hero
+            герой
           </div>
 
           <div class='children'>
 
             <div class='file'>
-              hero.component.ts|html|css|spec.ts
+              hero.component.ts | HTML | CSS | spec.ts
             </div>
 
           </div>
 
           <div class='file'>
-            hero-list
+            список героев
           </div>
 
           <div class='children'>
 
             <div class='file'>
-              hero-list.component.ts|html|css|spec.ts
+              герой-list.component.ts | HTML | CSS | spec.ts
             </div>
 
           </div>
 
           <div class='file'>
-            shared
+            общий
           </div>
 
           <div class='children'>
 
             <div class='file'>
-              hero-button.component.ts|html|css|spec.ts
+              герой-button.component.ts | HTML | CSS | spec.ts
             </div>
 
             <div class='file'>
@@ -2044,13 +2092,13 @@ Here is a compliant folder and file structure:
             </div>
 
             <div class='file'>
-              hero.service.ts|spec.ts
+              hero.service.ts | spec.ts
             </div>
 
           </div>
 
           <div class='file'>
-            heroes.component.ts|html|css|spec.ts
+            heroes.component.ts | HTML | CSS | spec.ts
           </div>
 
           <div class='file'>
@@ -2064,7 +2112,7 @@ Here is a compliant folder and file structure:
         </div>
 
         <div class='file'>
-          shared
+          поделился
         </div>
 
         <div class='children'>
@@ -2074,27 +2122,27 @@ Here is a compliant folder and file structure:
           </div>
 
           <div class='file'>
-            init-caps.pipe.ts|spec.ts
+            Инициализационные-caps.pipe.ts | spec.ts
           </div>
 
           <div class='file'>
-            filter-text.component.ts|spec.ts
+            фильтр-text.component.ts | spec.ts
           </div>
 
           <div class='file'>
-            filter-text.service.ts|spec.ts
+            фильтр-text.service.ts | spec.ts
           </div>
 
         </div>
 
         <div class='file'>
-          villains
+          злодеи
         </div>
 
         <div class='children'>
 
           <div class='file'>
-            villain
+            злодей
           </div>
 
           <div class='children'>
@@ -2106,7 +2154,7 @@ Here is a compliant folder and file structure:
           </div>
 
           <div class='file'>
-            villain-list
+            список злодеев
           </div>
 
           <div class='children'>
@@ -2118,7 +2166,7 @@ Here is a compliant folder and file structure:
           </div>
 
           <div class='file'>
-            shared
+            поделился
           </div>
 
           <div class='children'>
@@ -2130,7 +2178,7 @@ Here is a compliant folder and file structure:
           </div>
 
           <div class='file'>
-            villains.component.ts|html|css|spec.ts
+            villains.component.ts | HTML | CSS | spec.ts
           </div>
 
           <div class='file'>
@@ -2138,13 +2186,13 @@ Here is a compliant folder and file structure:
           </div>
 
           <div class='file'>
-            villains-routing.module.ts
+            злодеи-routing.module.ts
           </div>
 
         </div>
 
         <div class='file'>
-          app.component.ts|html|css|spec.ts
+          app.component.ts | HTML | CSS | spec.ts
         </div>
 
         <div class='file'>
@@ -2172,7 +2220,7 @@ Here is a compliant folder and file structure:
     </div>
 
     <div class='file'>
-      node_modules/...
+      node_modules / ...
     </div>
 
     <div class='file'>
@@ -2191,98 +2239,102 @@ Here is a compliant folder and file structure:
 
 
 
-While components in dedicated folders are widely preferred,
-another option for small apps is to keep components flat (not in a dedicated folder).
-This adds up to four files to the existing folder, but also reduces the folder nesting.
-Whatever you choose, be consistent.
+В то время как компоненты в выделенных папках широко предпочтены
+Другой вариант для небольших приложений - оставить компоненты плоскими (не в отдельной папке).
+Это добавляет до четырех файлов в существующую папку, но также уменьшает вложенность папки.
+Что бы вы ни выбрали, будьте последовательны.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-07}
 
-### _Folders-by-feature_ structure
+{@a folders-by-feature-structure}
+### Структура _Folders-by-feature_
 
-#### Style 04-07
+{@a style-04-07}
+#### Стиль 04-07
 
-
-<div class="s-rule do">
-
-**Do** create folders named for the feature area they represent.
-
-</div>
-
-<div class="s-why">
-
-**Why?** A developer can locate the code and identify what each file represents
-at a glance. The structure is as flat as it can be and there are no repetitive or redundant names.
-
-</div>
-
-<div class="s-why">
-
-**Why?** The LIFT guidelines are all covered.
-
-</div>
-
-<div class="s-why">
-
-**Why?** Helps reduce the app from becoming cluttered through organizing the
-content and keeping them aligned with the LIFT guidelines.
-
-</div>
-
-<div class="s-why">
-
-**Why?** When there are a lot of files, for example 10+,
-locating them is easier with a consistent folder structure
-and more difficult in a flat structure.
-
-</div>
 
 <div class="s-rule do">
 
-**Do** create an NgModule for each feature area.
+**Делать** создавать папки, названные для области функций, которую они представляют.
 
 </div>
 
 <div class="s-why">
 
-**Why?** NgModules make it easy to lazy load routable features.
+**Почему?** Разработчик может найти код и определить, что представляет собой каждый файл
+с одного взгляда. Структура настолько плоская, насколько это возможно, и в ней нет повторяющихся или избыточных имен.
+
+</div>
+
+<div class="s-why">
+
+**Почему?** Руководства LIFT все покрыты.
+
+</div>
+
+<div class="s-why">
+
+**Почему?** Помогает уменьшить загромождение приложения путем организации
+содержание и поддержание их в соответствие с руководящими принципами LIFT.
+
+</div>
+
+<div class="s-why">
+
+**Почему?** При наличии большого количества файлов, например 10+,
+найти их проще с последовательной структурой папок
+и сложнее в плоской конструкции.
+
+</div>
+
+<div class="s-rule do">
+
+**Как** создать NgModule для каждой области функций.
+
+</div>
+
+<div class="s-why">
+
+**Почему?** NgModules упрощают загрузку маршрутизируемых функций.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** NgModules make it easier to isolate, test, and reuse features.
+**Почему?** Модули Ng облегчают изоляцию, тестирование и повторное использование функций.
 
 </div>
 
 <div>
 
-  For more information, refer to <a href="#file-tree">this folder and file structure example.</a>
+  Для получения дополнительной информации обратитесь к <a href="#file-tree">этому примеру с папкой и структурой файла. </a>
 
 </div>
 
-<a href="#toc">Back to top
+<a href="#toc">Вернуться к началу
 
 </a>
 
 
 {@a 04-08}
 
-### App _root module_
+{@a app-root-module}
+### Приложение _root module_
 
-#### Style 04-08
+{@a style-04-08}
+#### Стиль 04-08
 
 <div class="s-rule do">
 
 
 
-**Do** create an NgModule in the app's root folder,
-for example, in `/src/app`.
+**Есть ли** создать NgModule в корневой папке приложения,
+например, в  `/src/app`.
 
 
 </div>
@@ -2293,7 +2345,7 @@ for example, in `/src/app`.
 
 
 
-**Why?** Every app requires at least one root NgModule.
+**Почему?** Каждое приложение требует как минимум один корневой NgModule.
 
 
 </div>
@@ -2304,7 +2356,7 @@ for example, in `/src/app`.
 
 
 
-**Consider** naming the root module `app.module.ts`.
+**Подумайте над** названием корневого модуля  `app.module.ts`.
 
 
 </div>
@@ -2315,7 +2367,7 @@ for example, in `/src/app`.
 
 
 
-**Why?** Makes it easier to locate and identify the root module.
+**Почему?** Облегчает поиск и идентификацию корневого модуля.
 
 
 </div>
@@ -2328,34 +2380,24 @@ for example, in `/src/app`.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 04-09}
 
-### Feature modules
+{@a feature-modules}
+### Функциональные модули
 
-#### Style 04-09
-
-
-<div class="s-rule do">
-
-
-
-**Do** create an NgModule for all distinct features in an application;
-for example, a `Heroes` feature.
-
-
-</div>
-
+{@a style-04-09}
+#### Стиль 04-09
 
 
 <div class="s-rule do">
 
 
 
-**Do** place the feature module in the same named folder as the feature area;
-for example, in `app/heroes`.
+**Есть ли** создать NgModule для всех различных функций в приложении;
+например,  `Heroes`  Особенность.
 
 
 </div>
@@ -2366,8 +2408,8 @@ for example, in `app/heroes`.
 
 
 
-**Do** name the feature module file reflecting the name of the feature area
-and folder; for example, `app/heroes/heroes.module.ts`.
+**Поместите** функциональный модуль в ту же именованную папку, что и область функций;
+например, в  `app/heroes`.
 
 
 </div>
@@ -2378,8 +2420,20 @@ and folder; for example, `app/heroes/heroes.module.ts`.
 
 
 
-**Do** name the feature module symbol reflecting the name of the feature
-area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `HeroesModule`.
+**Есть ли** имя файла модуль особенности, отражающее имя области признака
+и папка; например,  `app/heroes/heroes.module.ts`.
+
+
+</div>
+
+
+
+<div class="s-rule do">
+
+
+
+**Есть ли** имя символа модуля особенности, отражающее имя функции
+область, папка и файл; например,  `app/heroes/heroes.module.ts`  определяет  `HeroesModule`.
 
 
 </div>
@@ -2390,7 +2444,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module can expose or hide its implementation from other modules.
+**Почему?** Функциональный модуль может показывать или скрывать свою реализацию от других модулей.
 
 
 </div>
@@ -2401,7 +2455,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module identifies distinct sets of related components that comprise the feature area.
+**Почему?** Функциональный модуль идентифицирует отдельные наборы связанных компонентов, которые составляют функциональную область.
 
 
 </div>
@@ -2412,7 +2466,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module can easily be routed to both eagerly and lazily.
+**Почему?** Функциональный модуль может быть легко направлен как охотно, так и лениво.
 
 
 </div>
@@ -2423,7 +2477,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module defines clear boundaries between specific functionality and other application features.
+**Почему?** Функциональный модуль определяет четкие границы между конкретными функциями и другими функциями приложения.
 
 
 </div>
@@ -2434,7 +2488,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module helps clarify and make it easier to assign development responsibilities to different teams.
+**Почему?** Функциональный модуль помогает уточнить и упростить распределение обязанностей по разработке для разных групп.
 
 
 </div>
@@ -2445,26 +2499,28 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 
 
-**Why?** A feature module can easily be isolated for testing.
+**Почему?** Функциональный модуль может быть легко изолирован для тестирования.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-10}
 
-### Shared feature module
+{@a shared-feature-module}
+### Общий функциональный модуль
 
-#### Style 04-10
+{@a style-04-10}
+#### Стиль 04-10
 
 
 <div class="s-rule do">
 
 
 
-**Do** create a feature module named `SharedModule` in a `shared` folder;
-for example, `app/shared/shared.module.ts` defines `SharedModule`.
+**Как** создать модуль функции с именем  `SharedModule`  в  `shared`  папка;
+например,  `app/shared/shared.module.ts`  определяет  `SharedModule`.
 
 
 </div>
@@ -2475,8 +2531,8 @@ for example, `app/shared/shared.module.ts` defines `SharedModule`.
 
 
 
-**Do** declare components, directives, and pipes in a shared module when those
-items will be re-used and referenced by the components declared in other feature modules.
+**Есть ли** DECLARE компоненты, директива и трубы в общем модуле, когда те
+элементы будут использоваться повторно и на них будут ссылаться компоненты, объявленные в других функциональных модулях.
 
 
 </div>
@@ -2487,8 +2543,8 @@ items will be re-used and referenced by the components declared in other feature
 
 
 
-**Consider** using the name SharedModule when the contents of a shared
-module are referenced across the entire application.
+**Попробуйте** использовать имя SharedModule, когда содержимое общего ресурса
+на модуль ссылаются по всему приложению.
 
 
 </div>
@@ -2499,9 +2555,9 @@ module are referenced across the entire application.
 
 
 
-**Consider** _not_ providing services in shared modules. Services are usually
-singletons that are provided once for the entire application or
-in a particular feature module. There are exceptions, however. For example, in the sample code that follows, notice that the `SharedModule` provides `FilterTextService`. This is acceptable here because the service is stateless;that is, the consumers of the service aren't impacted by new instances.
+**Рассмотрим** _не_ предоставление услуг в общих модулях. Услуги обычно есть
+синглтоны, которые предоставляются один раз для всего приложения или
+в конкретном функциональном модуле. Однако есть исключения. Например, в следующем примере кода обратите внимание, что  `SharedModule`  предоставляет  `FilterTextService`  . Это приемлемо здесь, потому что сервис не имеет состояния, то есть на потребителей сервиса новые экземпляры не влияют.
 
 
 </div>
@@ -2512,8 +2568,8 @@ in a particular feature module. There are exceptions, however. For example, in t
 
 
 
-**Do** import all modules required by the assets in the `SharedModule`;
-for example, `CommonModule` and `FormsModule`.
+**Как** импортировать все модули, необходимые для активов в  `SharedModule`  ;
+например,  `CommonModule`  и  `FormsModule`.
 
 
 </div>
@@ -2524,9 +2580,9 @@ for example, `CommonModule` and `FormsModule`.
 
 
 
-**Why?** `SharedModule` will contain components, directives and pipes
-that may need features from another common module; for example,
-`ngFor` in `CommonModule`.
+**Почему?**  `SharedModule` будет содержать компоненты, директивы и каналы
+это может нуждаться в функциях из другого общего модуля; например
+ `ngFor ` in ` CommonModule`.
 
 
 </div>
@@ -2537,7 +2593,7 @@ that may need features from another common module; for example,
 
 
 
-**Do** declare all components, directives, and pipes in the `SharedModule`.
+**Есть ли** декларировать все компоненты, директивы, и трубы в  `SharedModule`.
 
 
 </div>
@@ -2548,7 +2604,7 @@ that may need features from another common module; for example,
 
 
 
-**Do** export all symbols from the `SharedModule` that other feature modules need to use.
+**Как** экспортировать все символы из  `SharedModule`  который нужно использовать другим функциональным модулям.
 
 
 </div>
@@ -2559,7 +2615,7 @@ that may need features from another common module; for example,
 
 
 
-**Why?** `SharedModule` exists to make commonly used components, directives and pipes available for use in the templates of components in many other modules.
+**Почему?**  `SharedModule` существует, чтобы сделать часто используемые компоненты, директивы и каналы доступными для использования в шаблонах компонентов во многих других модулях.
 
 
 </div>
@@ -2570,7 +2626,7 @@ that may need features from another common module; for example,
 
 
 
-**Avoid** specifying app-wide singleton providers in a `SharedModule`. Intentional singletons are OK. Take care.
+**Старайтесь не** указывать единого поставщика для всего приложения в  `SharedModule`  . Преднамеренные синглтоны в порядке. Береги себя.
 
 
 </div>
@@ -2581,7 +2637,7 @@ that may need features from another common module; for example,
 
 
 
-**Why?** A lazy loaded feature module that imports that shared module will make its own copy of the service and likely have undesirable results.
+**Почему?** Ленивый загруженный функциональный модуль, который импортирует этот общий модуль, создаст собственную копию службы и, вероятно, приведет к нежелательным результатам.
 
 
 </div>
@@ -2592,8 +2648,8 @@ that may need features from another common module; for example,
 
 
 
-**Why?** You don't want each module to have its own separate instance of singleton services.
-Yet there is a real danger of that happening if the `SharedModule` provides a service.
+**Почему?** Вы не хотите, чтобы у каждого модуля был свой отдельный экземпляр одноэлементных сервисов.
+Однако существует реальная опасность того, что это произойдет, если  `SharedModule`  предоставляет сервис.
 
 
 </div>
@@ -2603,19 +2659,19 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 <div class='filetree'>
 
   <div class='file'>
-    src
+    ЦСИ
   </div>
 
   <div class='children'>
 
     <div class='file'>
-      app
+      приложение
     </div>
 
     <div class='children'>
 
       <div class='file'>
-        shared
+        поделился
       </div>
 
       <div class='children'>
@@ -2625,21 +2681,21 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
         </div>
 
         <div class='file'>
-          init-caps.pipe.ts|spec.ts
+          Инициализационные-caps.pipe.ts | spec.ts
         </div>
 
         <div class='file'>
-          filter-text.component.ts|spec.ts
+          фильтр-text.component.ts | spec.ts
         </div>
 
         <div class='file'>
-          filter-text.service.ts|spec.ts
+          фильтр-text.service.ts | spec.ts
         </div>
 
       </div>
 
       <div class='file'>
-        app.component.ts|html|css|spec.ts
+        app.component.ts | HTML | CSS | spec.ts
       </div>
 
       <div class='file'>
@@ -2703,84 +2759,91 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-11}
 
-### Lazy Loaded folders
+{@a lazy-loaded-folders}
+### Ленивые загруженные папки
 
-#### Style 04-11
+{@a style-04-11}
+#### Стиль 04-11
 
-A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
+Отдельная функция приложения или рабочий процесс могут быть *отложены* или *загружены по требованию,* а не при запуске приложения.
 
 
 <div class="s-rule do">
 
-**Do** put the contents of lazy loaded features in a *lazy loaded folder*.
-A typical *lazy loaded folder* contains a *routing component*, its child components, and their related assets and modules.
+**Do** поместить содержимое ленивых нагруженных функций в*ленивой загруженной папке *.
+Типичная *папка с отложенной загрузкой* содержит *компонент маршрутизации*, его дочерние компоненты и связанные с ними ресурсы и модули.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** The folder makes it easy to identify and isolate the feature content.
+**Почему?** Папка позволяет легко идентифицировать и изолировать содержимое функции.
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 04-12}
 
-### Never directly import lazy loaded folders
+{@a never-directly-import-lazy-loaded-folders}
+### Никогда не импортируйте напрямую загруженные папки
 
-#### Style 04-12
+{@a style-04-12}
+#### Стиль 04-12
 
 
 <div class="s-rule avoid">
 
-**Avoid** allowing modules in sibling and parent folders to directly import a module in a *lazy loaded feature*.
+**Избегайте** позволяя модулям в дочерних и родительских папках напрямую импортировать модуль в режиме*отложенной загрузки *.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** Directly importing and using a module will load it immediately when the intention is to load it on demand.
+**Почему?** Непосредственный импорт и использование модуля загрузит его немедленно, когда предполагается загрузить его по требованию.
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
-## Components
+{@a components}
+## Компоненты
 
 {@a 05-03}
 
-### Components as elements
+{@a components-as-elements}
+### Компоненты как элементы
 
-#### Style 05-03
+{@a style-05-03}
+#### Стиль 05-03
 
 <div class="s-rule do">
 
-**Consider** giving components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
+**Подумайте над тем, чтобы** дать компонентам селектор _element_, а не селекторы _attribute_ или _class_.
 
 </div>
 
 <div class="s-why">
 
-**Why?** Components have templates containing HTML and optional Angular template syntax.
-They display content.
-Developers place components on the page as they would native HTML elements and web components.
+**Почему?** Компоненты имеют шаблоны, содержащие HTML и необязательный синтаксис шаблонов Angular.
+Они отображают контент.
+Разработчики размещают компоненты на странице так же, как исходные элементы HTML и веб-компоненты.
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** It is easier to recognize that a symbol is a component by looking at the template's html.
+**Почему?** Проще распознать, что символ является компонентом, посмотрев html шаблона.
 
 </div>
 
 <div class="alert is-helpful">
 
-There are a few cases where you give a component an attribute, such as when you want to augment a built-in element. For example, [Material Design](https://material.angular.io/components/button/overview) uses this technique with `<button mat-button>`. However, you wouldn't use this technique on a custom element.
+Есть несколько случаев, когда вы даете компоненту атрибут, например, когда вы хотите дополнить встроенный элемент. Например, [Материал Дизайн](https://material.angular.io/components/button/overview) использует эту технику с  `<button mat-button>` . Однако вы не будете использовать эту технику на пользовательском элементе.
 
 </div>
 
@@ -2806,18 +2869,20 @@ There are a few cases where you give a component an attribute, such as when you 
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-04}
 
-### Extract templates and styles to their own files
+{@a extract-templates-and-styles-to-their-own-files}
+### Извлекайте шаблоны и стили в свои файлы
 
-#### Style 05-04
+{@a style-05-04}
+#### Стиль 05-04
 
 
 <div class="s-rule do">
 
-**Do** extract templates and styles into a separate file, when more than 3 lines.
+**Делать** Извлекать шаблоны и стили в отдельный файл, когда более 3 строк.
 
 </div>
 
@@ -2825,7 +2890,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 <div class="s-rule do">
 
-**Do** name the template file `[component-name].component.html`, where [component-name] is the component name.
+**Есть ли** имя файла шаблона  `[component-name].component.html`, где [имя-компонента] - это имя компонента.
 
 </div>
 
@@ -2833,7 +2898,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 
 
-**Do** name the style file `[component-name].component.css`, where [component-name] is the component name.
+**Назовите** файл стиля  `[component-name].component.css`, где [имя-компонента] - это имя компонента.
 
 
 </div>
@@ -2844,7 +2909,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 
 
-**Do** specify _component-relative_ URLs, prefixed with `./`.
+**Выполните** указание _component-relative_ URL - адреса, с префиксом  `./`,
 
 
 </div>
@@ -2855,7 +2920,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 
 
-**Why?** Large, inline templates and styles obscure the component's purpose and implementation, reducing readability and maintainability.
+**Почему?** Большие встроенные шаблоны и стили скрывают назначение и реализацию компонента, снижая удобочитаемость и удобство обслуживания.
 
 
 </div>
@@ -2866,9 +2931,9 @@ There are a few cases where you give a component an attribute, such as when you 
 
 
 
-**Why?** In most editors, syntax hints and code snippets aren't available when developing inline templates and styles.
-The Angular TypeScript Language Service (forthcoming) promises to overcome this deficiency for HTML templates
-in those editors that support it; it won't help with CSS styles.
+**Почему?** В большинстве редакторов синтаксические подсказки и фрагменты кода недоступны при разработке встроенных шаблонов и стилей.
+Angular TypeScript Language Service (готовится к выпуску) обещает преодолеть этот недостаток для шаблонов HTML
+в тех редакторах, которые его поддерживают; это не поможет со стилями CSS.
 
 
 </div>
@@ -2879,7 +2944,7 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** A _component relative_ URL requires no change when you move the component files, as long as the files stay together.
+**Почему?** Относительный _компонентный URL-адрес не требует изменений при перемещении файлов компонентов, если они остаются вместе.
 
 
 </div>
@@ -2890,7 +2955,7 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** The `./` prefix is standard syntax for relative URLs; don't depend on Angular's current ability to do without that prefix.
+**Почему?**  `./` префикс - это стандартный синтаксис для относительных URL; не зависит от текущей способности Angular обойтись без этого префикса.
 
 
 
@@ -2924,21 +2989,23 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-12}
 
-### Decorate _input_ and _output_ properties
+{@a decorate-input-and-output-properties}
+### Украсьте свойства _input_ и _output_
 
-#### Style 05-12
+{@a style-05-12}
+#### Стиль 05-12
 
 
 <div class="s-rule do">
 
 
 
-**Do** use the `@Input()` and `@Output()` class decorators instead of the `inputs` and `outputs` properties of the
-`@Directive` and `@Component` metadata:
+**Как** использовать  `@Input()`  и  `@Output()`  класса вместо  `inputs`  и  `outputs`  свойства
+ `@Directive ` и ` @Component` метаданные:
 
 
 </div>
@@ -2949,7 +3016,7 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Consider** placing `@Input()` or `@Output()` on the same line as the property it decorates.
+**Рассмотреть вопрос о** размещении  `@Input()`  или  `@Output()`  в той же строке, что и свойство, которое оно украшает.
 
 
 </div>
@@ -2960,7 +3027,7 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** It is easier and more readable to identify which properties in a class are inputs or outputs.
+**Почему?** Легче и удобочитаемее определить, какие свойства в классе являются входными или выходными.
 
 
 </div>
@@ -2971,8 +3038,8 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** If you ever need to rename the property or event name associated with
-`@Input()` or `@Output()`, you can modify it in a single place.
+**Почему?** Если вам когда-либо понадобится переименовать свойство или имя события, связанного с
+ `@Input() ` или ` @Output()`, вы можете изменить его в одном месте.
 
 
 </div>
@@ -2983,7 +3050,7 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** The metadata declaration attached to the directive is shorter and thus more readable.
+**Почему?** Объявление метаданных, приложенное к директиве, короче и, следовательно, более читабельно.
 
 
 </div>
@@ -2994,8 +3061,8 @@ in those editors that support it; it won't help with CSS styles.
 
 
 
-**Why?** Placing the decorator on the same line _usually_ makes for shorter code and still easily identifies the property as an input or output.
-Put it on the line above when doing so is clearly more readable.
+**Почему?** Помещение декоратора в одну строку _usually_ делает для более короткого кода и все еще легко идентифицирует свойство как вход или выход.
+Поместите его в строку выше, когда это будет более читабельным.
 
 
 </div>
@@ -3016,21 +3083,23 @@ Put it on the line above when doing so is clearly more readable.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
 {@a 05-13}
 
-### Avoid aliasing _inputs_ and _outputs_
+{@a avoid-aliasing-inputs-and-outputs}
+### Избегайте псевдонимов _inputs_ и _outputs_
 
-#### Style 05-13
+{@a style-05-13}
+#### Стиль 05-13
 
 
 <div class="s-rule avoid">
 
 
 
-**Avoid** _input_ and _output_ aliases except when it serves an important purpose.
+**Избегайте** псевдонимов _input_ и _output_, кроме случаев, когда это служит важной цели.
 
 
 </div>
@@ -3041,7 +3110,7 @@ Put it on the line above when doing so is clearly more readable.
 
 
 
-**Why?** Two names for the same property (one private, one public) is inherently confusing.
+**Почему?** Два имени для одного и того же свойства (одно частное, одно публичное) по своей сути сбивают с толку.
 
 
 </div>
@@ -3052,8 +3121,8 @@ Put it on the line above when doing so is clearly more readable.
 
 
 
-**Why?** You should use an alias when the directive name is also an _input_ property,
-and the directive name doesn't describe the property.
+**Почему?** Вы должны использовать псевдоним, когда директива имя также _input_ собственность,
+и имя директивы не описывает свойство.
 
 
 </div>
@@ -3094,20 +3163,22 @@ and the directive name doesn't describe the property.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-14}
 
-### Member sequence
+{@a member-sequence}
+### Последовательность членов
 
-#### Style 05-14
+{@a style-05-14}
+#### Стиль 05-14
 
 
 <div class="s-rule do">
 
 
 
-**Do** place properties up top followed by methods.
+**Размещайте** свойства сверху, а затем методы.
 
 
 </div>
@@ -3118,7 +3189,7 @@ and the directive name doesn't describe the property.
 
 
 
-**Do** place private members after public members, alphabetized.
+**Поместите** частных членов после открытых членов в алфавитном порядке.
 
 
 </div>
@@ -3129,8 +3200,8 @@ and the directive name doesn't describe the property.
 
 
 
-**Why?** Placing members in a consistent sequence makes it easy to read and
-helps instantly identify which members of the component serve which purpose.
+**Почему?** Размещение членов в последовательной последовательности позволяет легко читать и
+помогает мгновенно определить, какие элементы компонента служат какой цели.
 
 
 </div>
@@ -3151,31 +3222,33 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-15}
 
-### Delegate complex component logic to services
+{@a delegate-complex-component-logic-to-services}
+### Делегировать сложную компонентную логику сервисам
 
-#### Style 05-15
-
-
-<div class="s-rule do">
-
-
-
-**Do** limit logic in a component to only that required for the view. All other logic should be delegated to services.
-
-
-</div>
-
+{@a style-05-15}
+#### Стиль 05-15
 
 
 <div class="s-rule do">
 
 
 
-**Do** move reusable logic to services and keep components simple and focused on their intended purpose.
+**Есть ли** предел логики в компоненте только, что требуется для просмотра. Вся остальная логика должна быть делегирована сервисам.
+
+
+</div>
+
+
+
+<div class="s-rule do">
+
+
+
+**Как** переместить многоразовую логику услуги и держать компоненты просты и направлено на их прямое назначении.
 
 
 </div>
@@ -3186,7 +3259,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Logic may be reused by multiple components when placed within a service and exposed via a function.
+**Почему?** Логика может быть повторно использована несколькими компонентами, если она размещена внутри службы и доступна через функцию.
 
 
 </div>
@@ -3197,7 +3270,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Logic in a service can more easily be isolated in a unit test, while the calling logic in the component can be easily mocked.
+**Почему?** Логика в сервисе может быть легче изолирована в модульном тесте, в то время как логика вызова в компоненте может быть легко смоделирована.
 
 
 </div>
@@ -3208,7 +3281,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Removes dependencies and hides implementation details from the component.
+**Почему?** Удаляет зависимости и скрывает детали реализации от компонента.
 
 
 </div>
@@ -3219,7 +3292,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Keeps the component slim, trim, and focused.
+**Почему?** Делает компонент тонким, аккуратным и сфокусированным.
 
 
 </div>
@@ -3240,20 +3313,22 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-16}
 
-### Don't prefix _output_ properties
+{@a dont-prefix-output-properties}
+### Не добавляйте префикс _output_ свойств
 
-#### Style 05-16
+{@a style-05-16}
+#### Стиль 05-16
 
 
 <div class="s-rule do">
 
 
 
-**Do** name events without the prefix `on`.
+**Называйте** события без префикса  `on`.
 
 
 </div>
@@ -3264,7 +3339,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Do** name event handler methods with the prefix `on` followed by the event name.
+**Делать** имена методов обработчиков событий с префиксом  `on`  следует имя события.
 
 
 </div>
@@ -3275,7 +3350,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** This is consistent with built-in events such as button clicks.
+**Почему?** Это согласуется со встроенными событиями, такими как нажатия кнопок.
 
 
 </div>
@@ -3286,7 +3361,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Angular allows for an [alternative syntax](guide/template-syntax#binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
+**Почему?** Angular допускает [альтернативный синтаксис](guide/template-syntax#binding-syntax)  `on-*` . Если само событие было префиксом  `on`  этом приведет к  `on-onEvent`  привязки.
 
 
 </div>
@@ -3323,20 +3398,22 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 05-17}
 
-### Put presentation logic in the component class
+{@a put-presentation-logic-in-the-component-class}
+### Поместите логику представления в класс компонента
 
-#### Style 05-17
+{@a style-05-17}
+#### Стиль 05-17
 
 
 <div class="s-rule do">
 
 
 
-**Do** put presentation logic in the component class, and not in the template.
+**Do** поместить логику представления в классе компоненты, а не в шаблоне.
 
 
 </div>
@@ -3347,7 +3424,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Logic will be contained in one place (the component class) instead of being spread in two places.
+**Почему?** Логика будет содержаться в одном месте (класс компонента), а не распространяться в двух местах.
 
 
 </div>
@@ -3358,7 +3435,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Keeping the component's presentation logic in the class instead of the template improves testability, maintainability, and reusability.
+**Почему?** Хранение логики представления компонента в классе вместо шаблона улучшает тестируемость, ремонтопригодность и возможность повторного использования.
 
 
 </div>
@@ -3379,23 +3456,26 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Directives
+{@a directives}
+## Директивы
 
 {@a 06-01}
 
-### Use directives to enhance an element
+{@a use-directives-to-enhance-an-element}
+### Используйте директивы для улучшения элемента
 
-#### Style 06-01
+{@a style-06-01}
+#### Стиль 06-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** use attribute directives when you have presentation logic without a template.
+**Есть** указания атрибутов использования, когда у вас есть логик представления без шаблона.
 
 
 </div>
@@ -3406,7 +3486,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** Attribute directives don't have an associated template.
+**Почему?** У директив атрибута нет связанного шаблона.
 
 
 </div>
@@ -3417,7 +3497,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** An element may have more than one attribute directive applied.
+**Почему?** К элементу может быть применено более одной директивы атрибута.
 
 
 </div>
@@ -3438,21 +3518,23 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 06-03}
 
-### _HostListener_/_HostBinding_ decorators versus _host_ metadata
+{@a hostlistener/hostbinding-decorators-versus-host-metadata}
+### _HostListener _ / _HostBinding_ декораторы против _host_ метаданных
 
-#### Style 06-03
+{@a style-06-03}
+#### Стиль 06-03
 
 
 <div class="s-rule consider">
 
 
 
-**Consider** preferring the `@HostListener` and `@HostBinding` to the
-`host` property of the `@Directive` and `@Component` decorators.
+**Рассмотреть вопрос о** предпочтении  `@HostListener`  и  `@HostBinding`  к
+ `host` свойство  `@Directive ` и ` @Component` декораторов.
 
 
 </div>
@@ -3463,7 +3545,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Do** be consistent in your choice.
+**Будьте** последовательны в своем выборе.
 
 
 </div>
@@ -3474,10 +3556,10 @@ helps instantly identify which members of the component serve which purpose.
 
 
 
-**Why?** The property associated with `@HostBinding` or the method associated with `@HostListener`
-can be modified only in a single place&mdash;in the directive's class.
-If you use the `host` metadata property, you must modify both the property/method declaration in the
-directive's class and the metadata in the decorator associated with the directive.
+**Почему?** Свойство, связанное с  `@HostBinding`  или метод, связанный с  `@HostListener` 
+может быть изменено только в одном месте - в классе директивы.
+Если вы используете  `host`  свойство метаданных, вы должны изменить оба объявления свойства / метода в
+класс директивы и метаданные в декораторе, связанные с директивой.
 
 
 </div>
@@ -3490,14 +3572,14 @@ directive's class and the metadata in the decorator associated with the directiv
 
 
 
-Compare with the less preferred `host` metadata alternative.
+Сравните с менее предпочтительным  `host`  альтернатива метаданных.
 
 
 <div class="s-why-last">
 
 
 
-**Why?** The `host` metadata is only one term to remember and doesn't require extra ES imports.
+**Почему?**  `host` метаданные - это только один термин, который нужно запомнить, и он не требует дополнительного импорта ES.
 
 
 </div>
@@ -3510,23 +3592,26 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Services
+{@a services}
+## Услуги
 
 {@a 07-01}
 
-### Services are singletons
+{@a services-are-singletons}
+### Услуги одиночные
 
-#### Style 07-01
+{@a style-07-01}
+#### Стиль 07-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** use services as singletons within the same injector. Use them for sharing data and functionality.
+**Есть ли** услуги использования в качестве одиночек в пределах одного инжектора. Используйте их для обмена данными и функциональностью.
 
 
 </div>
@@ -3537,7 +3622,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** Services are ideal for sharing methods across a feature area or an app.
+**Почему?** Сервисы идеально подходят для обмена методами в функциональной области или в приложении.
 
 
 </div>
@@ -3548,7 +3633,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** Services are ideal for sharing stateful in-memory data.
+**Почему?** Сервисы идеально подходят для обмена данными в оперативной памяти.
 
 
 </div>
@@ -3561,20 +3646,22 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 07-02}
 
-### Single responsibility
+{@a single-responsibility}
+### Единственная ответственность
 
-#### Style 07-02
+{@a style-07-02}
+#### Стиль 07-02
 
 
 <div class="s-rule do">
 
 
 
-**Do** create services with a single responsibility that is encapsulated by its context.
+**Создавайте** сервисы с единственной ответственностью, которая инкапсулирована их контекстом.
 
 
 </div>
@@ -3585,7 +3672,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Do** create a new service once the service begins to exceed that singular purpose.
+**Как** создать новую услугу, как только сервис начинает превышать эту особую цель.
 
 
 </div>
@@ -3596,7 +3683,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** When a service has multiple responsibilities, it becomes difficult to test.
+**Почему?** Когда служба имеет несколько обязанностей, это становится трудно проверить.
 
 
 </div>
@@ -3607,25 +3694,27 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** When a service has multiple responsibilities, every component or service that injects it now carries the weight of them all.
+**Почему?** Когда служба имеет несколько обязанностей, каждый компонент или служба, которая внедряет ее, теперь несет вес их всех.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 07-03}
 
-### Providing a service
+{@a providing-a-service}
+### Предоставление услуги
 
-#### Style 07-03
+{@a style-07-03}
+#### Стиль 07-03
 
 
 <div class="s-rule do">
 
 
 
-**Do** provide a service with the app root injector in the `@Injectable` decorator of the service.
+**Есть ли** предоставлять услуги с приложением корневого инжектора в  `@Injectable`  декоратор сервиса.
 
 
 </div>
@@ -3636,7 +3725,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** The Angular injector is hierarchical.
+**Почему?** Angular инжектор является иерархическим.
 
 
 </div>
@@ -3647,7 +3736,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** When you provide the service to a root injector, that instance of the service is shared and available in every class that needs the service. This is ideal when a service is sharing methods or state.
+**Почему?** Когда вы предоставляете сервис корневому инжектору, этот экземпляр сервиса является общим и доступным для каждого класса, который нуждается в сервисе. Это идеально, когда служба разделяет методы или состояние.
 
 
 
@@ -3659,7 +3748,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** When you register a service in the `@Injectable` decorator of the service, optimization tools such as those used by the [Angular CLI's](cli) production builds can perform tree shaking and remove services that aren't used by your app.
+**Почему?** Когда вы регистрируете услугу в  `@Injectable` декоратор сервиса, инструменты оптимизации, такие как те, которые используются в [Angular CLI](cli)производственных сборках могут выполнять встряхивание дерева и удалять сервисы, которые не используются вашим приложением.
 
 </div>
 
@@ -3669,7 +3758,7 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** This is not ideal when two different components need different instances of a service. In this scenario it would be better to provide the service at the component level that needs the new and separate instance.
+**Почему?** Это не идеально, когда два разных компонента нуждаются в разных экземплярах службы. В этом сценарии было бы лучше предоставлять услугу на уровне компонента, который нуждается в новом и отдельном экземпляре.
 
 
 </div>
@@ -3679,20 +3768,22 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a 07-04}
 
-### Use the @Injectable() class decorator
+{@a use-the-@injectable-class-decorator}
+### Используйте декоратор класса @Injectable ()
 
-#### Style 07-04
+{@a style-07-04}
+#### Стиль 07-04
 
 
 <div class="s-rule do">
 
 
 
-**Do** use the `@Injectable()` class decorator instead of the `@Inject` parameter decorator when using types as tokens for the dependencies of a service.
+**Как** использовать  `@Injectable()`  класса вместо  `@Inject`  параметров при использовании типов в качестве токенов для зависимостей сервиса.
 
 
 </div>
@@ -3703,8 +3794,8 @@ Compare with the less preferred `host` metadata alternative.
 
 
 
-**Why?** The Angular Dependency Injection (DI) mechanism resolves a service's own
-dependencies based on the declared types of that service's constructor parameters.
+**Почему?** Механизм Angular Dependency Injection (DI) разрешает собственный сервис
+зависимости, основанные на объявленных типах параметров конструктора этого сервиса.
 
 
 </div>
@@ -3715,7 +3806,7 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-**Why?** When a service accepts only dependencies associated with type tokens, the `@Injectable()` syntax is much less verbose compared to using `@Inject()` on each individual constructor parameter.
+**Почему?** Когда служба принимает только зависимости, связанные с токенами типа,  `@Injectable()`  гораздо менее многословен по сравнению с использованием  `@Inject()`  для каждого отдельного параметра конструктора.
 
 
 </div>
@@ -3736,23 +3827,26 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Data Services
+{@a data-services}
+## Службы данных
 
 {@a 08-01}
 
-### Talk to the server through a service
+{@a talk-to-the-server-through-a-service}
+### Поговорите с сервером через сервис
 
-#### Style 08-01
+{@a style-08-01}
+#### Стиль 08-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** refactor logic for making data operations and interacting with data to a service.
+**Делать** логика рефакторинга для выполнения операций с данными и взаимодействия с данными для службы.
 
 
 </div>
@@ -3763,7 +3857,7 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-**Do** make data services responsible for XHR calls, local storage, stashing in memory, or any other data operations.
+**Сделайте** службы данных ответственными за вызовы XHR, локальное хранилище, сохранение в памяти или любые другие операции с данными.
 
 
 </div>
@@ -3774,7 +3868,7 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-**Why?** The component's responsibility is for the presentation and gathering of information for the view. It should not care how it gets the data, just that it knows who to ask for it. Separating the data services moves the logic on how to get it to the data service, and lets the component be simpler and more focused on the view.
+**Почему?** Компонент несет ответственность за представление и сбор информации для просмотра. Его не должно волновать, как он получает данные, просто он знает, кого просить об этом. Разделение служб данных перемещает логику того, как доставить его в службу данных, и позволяет компоненту быть более простым и более сфокусированным на представлении.
 
 
 </div>
@@ -3785,7 +3879,7 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-**Why?** This makes it easier to test (mock or real) the data calls when testing a component that uses a data service.
+**Почему?** Это облегчает тестирование (ложное или реальное) вызовов данных при тестировании компонента, который использует службу данных.
 
 
 </div>
@@ -3796,38 +3890,41 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 
-**Why?** The details of data management, such as headers, HTTP methods,
-caching, error handling, and retry logic, are irrelevant to components
-and other data consumers.
+**Почему?** Детали управления данными, такие как заголовки, методы HTTP,
+Кэширование, обработка ошибок и логика повторных попыток не имеют отношения к компонентам
+и другие потребители данных.
 
-A data service encapsulates these details. It's easier to evolve these
-details inside the service without affecting its consumers. And it's
-easier to test the consumers with mock service implementations.
+Служба данных инкапсулирует эти детали. Проще развить это
+детали внутри сервиса, не влияющие на его потребителей. И это
+проще протестировать потребителей с помощью имитационных реализаций сервиса.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Lifecycle hooks
+{@a lifecycle-hooks}
+## Крючки жизненного цикла
 
-Use Lifecycle hooks to tap into important events exposed by Angular.
+Используйте ловушки жизненного цикла, чтобы использовать важные события, предоставляемые Angular.
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу</a>
 
 {@a 09-01}
 
-### Implement lifecycle hook interfaces
+{@a implement-lifecycle-hook-interfaces}
+### Реализация интерфейсов ловушек жизненного цикла
 
-#### Style 09-01
+{@a style-09-01}
+#### Стиль 09-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** implement the lifecycle hook interfaces.
+**Как** реализовать интерфейсы жизненного цикла крючков.
 
 
 </div>
@@ -3838,8 +3935,8 @@ Use Lifecycle hooks to tap into important events exposed by Angular.
 
 
 
-**Why?** Lifecycle interfaces prescribe typed method
-signatures. Use those signatures to flag spelling and syntax mistakes.
+**Почему?** Интерфейсы жизненного цикла предписывают типизированный метод
+подписи. Используйте эти подписи, чтобы пометить орфографические и синтаксические ошибки.
 
 
 </div>
@@ -3860,27 +3957,30 @@ signatures. Use those signatures to flag spelling and syntax mistakes.
 
 
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 
-## Appendix
+{@a appendix}
+## Приложение
 
-Useful tools and tips for Angular.
+Полезные инструменты и советы по Angular.
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a A-01}
 
+{@a codelyzer}
 ### Codelyzer
 
-#### Style A-01
+{@a style-a-01}
+#### Стиль А-01
 
 
 <div class="s-rule do">
 
 
 
-**Do** use [codelyzer](https://www.npmjs.com/package/codelyzer) to follow this guide.
+**Ли** использование [codelyzer](https://www.npmjs.com/package/codelyzer)чтобы следовать этому руководству.
 
 
 </div>
@@ -3891,25 +3991,27 @@ Useful tools and tips for Angular.
 
 
 
-**Consider** adjusting the rules in codelyzer to suit your needs.
+**Рассмотрите возможность** корректировки правил в codelyzer в соответствии с вашими потребностями.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>
 
 {@a A-02}
 
-### File templates and snippets
+{@a file-templates-and-snippets}
+### Шаблоны файлов и фрагменты
 
-#### Style A-02
+{@a style-a-02}
+#### Стиль А-02
 
 
 <div class="s-rule do">
 
 
 
-**Do** use file templates or snippets to help follow consistent styles and patterns. Here are templates and/or snippets for some of the web development editors and IDEs.
+**Есть** шаблоны использования файлов или фрагменты, чтобы помочь последующих последовательных стилей и моделей. Вот шаблоны и / или фрагменты для некоторых редакторов веб-разработки и IDE.
 
 
 </div>
@@ -3918,19 +4020,19 @@ Useful tools and tips for Angular.
 
 <div class="s-rule consider">
 
-**Consider** using [snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2) for [Visual Studio Code](https://code.visualstudio.com/) that follow these styles and guidelines.
+**Рассмотрите возможность** использования [фрагменты](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)для [кода Visual Studio](https://code.visualstudio.com/)которые следуют этим стилям и рекомендациям.
 
 <a href="https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2">
   <img src="generated/images/guide/styleguide/use-extension.gif" alt="Use Extension">
 </a>
 
-**Consider** using [snippets](https://atom.io/packages/angular-2-typescript-snippets) for [Atom](https://atom.io/) that follow these styles and guidelines.
+**Подумайте об** использовании [фрагментов](https://atom.io/packages/angular-2-typescript-snippets)для [Atom](https://atom.io/)которые следуют этим стилям и рекомендациям.
 
-**Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](http://www.sublimetext.com/) that follow these styles and guidelines.
+**Подумайте об** использовании [фрагментов](https://github.com/orizens/sublime-angular2-snippets)для [Sublime Text](http://www.sublimetext.com/)которые следуют этим стилям и рекомендациям.
 
-**Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](http://www.vim.org/) that follow these styles and guidelines.
+**Попробуйте** использовать [фрагменты](https://github.com/mhartington/vim-angular2-snippets)для [Vim](http://www.vim.org/)которые следуют этим стилям и рекомендациям.
 
 
 </div>
 
-<a href="#toc">Back to top</a>
+<a href="#toc">Вернуться к началу </a>

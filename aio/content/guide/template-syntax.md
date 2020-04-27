@@ -1,4 +1,5 @@
-# Template syntax
+{@a template-syntax}
+# Синтаксис шаблона
 
 <style>
   h4 {font-size: 17px !important; text-transform: none !important;}
@@ -6,210 +7,219 @@
   h4 .syntax { font-size: 100%; }
 </style>
 
-The Angular application manages what the user sees and can do, achieving this through the interaction of a component class instance (the *component*) and its user-facing template.
+Приложение Angular управляет тем, что пользователь видит и может делать, достигая этого посредством взаимодействия экземпляра класса компонента ( *компонента*) и его пользовательского шаблона.
 
-You may be familiar with the component/template duality from your experience with model-view-controller (MVC) or model-view-viewmodel (MVVM).
-In Angular, the component plays the part of the controller/viewmodel, and the template represents the view.
+Вы можете быть знакомы с двойственностью компонента / шаблона из своего опыта работы с моделью-видом-контроллером (MVC) или моделью-видом-видом-моделью (MVVM).
+В Angular компонент играет роль контроллера / модели представления, а шаблон представляет представление.
 
-This page is a comprehensive technical reference to the Angular template language.
-It explains basic principles of the template language and describes most of the syntax that you'll encounter elsewhere in the documentation.
+Эта страница является полным техническим справочником по языку шаблонов Angular.
+Он объясняет основные принципы языка шаблонов и описывает большую часть синтаксиса, с которым вы столкнетесь в других местах документации.
 
-Many code snippets illustrate the points and concepts, all of them available
-in the <live-example title="Template Syntax Live Code"></live-example>.
+Многие фрагменты кода иллюстрируют точки и концепции, все они доступны
+в <live-example title="Template Syntax Live Code"></live-example>.
 
 
 {@a html}
-## HTML in templates
+{@a html-in-templates}
+## HTML в шаблонах
 
-HTML is the language of the Angular template.
-Almost all HTML syntax is valid template syntax.
-The `<script>` element is a notable exception;
-it is forbidden, eliminating the risk of script injection attacks.
-In practice, `<script>` is ignored and a warning appears in the browser console.
-See the [Security](guide/security) page for details.
+HTML является языком Angular шаблона.
+Почти весь синтаксис HTML является допустимым синтаксисом шаблона.
+ `<script>` элемент является заметным исключением;
+Это запрещено, что исключает риск атак с использованием скриптов.
+На практике,  `<script>`  игнорируется, и в консоли браузера появляется предупреждение.
+Смотрите [Безопасность](guide/security)страницу для деталей.
 
-Some legal HTML doesn't make much sense in a template.
-The `<html>`, `<body>`, and `<base>` elements have no useful role.
-Pretty much everything else is fair game.
+Некоторый юридический HTML не имеет большого смысла в шаблоне.
+ `<html> `, ` <body> ` и ` <base>` элементы не имеют никакой полезной роли.
+Практически все остальное - честная игра.
 
-You can extend the HTML vocabulary of your templates with components and directives that appear as new elements and attributes.
-In the following sections, you'll learn how to get and set DOM (Document Object Model) values dynamically through data binding.
+Вы можете расширить словарный запас HTML ваших шаблонов с помощью компонентов и директив, которые появляются как новые элементы и атрибуты.
+В следующих разделах вы узнаете, как динамически получать и устанавливать значения DOM (Document Object Model) с помощью привязки данных.
 
-Begin with the first form of data binding&mdash;interpolation&mdash;to see how much richer template HTML can be.
+Начните с первой формы привязки данных - интерполяции - чтобы увидеть, насколько богатым может быть шаблон HTML.
 
 <hr/>
 
 {@a interpolation}
 
-## Interpolation and Template Expressions
+{@a interpolation-and-template-expressions}
+## Интерполяция и шаблонные выражения
 
-Interpolation allows you to incorporate calculated strings into the text
-between HTML element tags and within attribute assignments. Template
-expressions are what you use to calculate those strings.
+Интерполяция позволяет включать рассчитанные строки в текст
+между тегами HTML-элементов и в назначениях атрибутов. Шаблон
+Выражения - это то, что вы используете для вычисления этих строк.
 
-The interpolation <live-example></live-example> demonstrates all of
-the syntax and code snippets described in this section.
+Интерполяция <live-example></live-example>демонстрирует все
+синтаксис и фрагменты кода описаны в этом разделе.
 
-### Interpolation `{{...}}`
+{@a interpolation-{{...}}}
+### интерполирование  `{{...}}` 
 
-Interpolation refers to embedding expressions into marked up text.
-By default, interpolation uses as its delimiter the double curly braces, `{{` and `}}`.
+Интерполяция относится к встраиванию выражений в размеченный текст.
+По умолчанию интерполяция использует в качестве разделителя двойные фигурные скобки,  `{{`  и  `}}`.
 
-In the following snippet, `{{ currentCustomer }}` is an example of interpolation.
+В следующем фрагменте, `{{ currentCustomer }}` является примером интерполяции.
 
 <code-example path="interpolation/src/app/app.component.html" region="interpolation-example1" header="src/app/app.component.html"></code-example>
 
-The text between the braces is often the name of a component
-property. Angular replaces that name with the
-string value of the corresponding component property.
+Текст между фигурными скобками часто является именем компонента
+свойство. Angular заменяет это имя на
+строковое значение соответствующего свойства компонента.
 
 <code-example path="interpolation/src/app/app.component.html" region="component-property" header="src/app/app.component.html"></code-example>
 
-In the example above, Angular evaluates the `title` and `itemImageUrl` properties
-and fills in the blanks, first displaying some title text and then an image.
+В приведенном выше примере Angular оценивает  `title`  и  `itemImageUrl`  свойства
+и заполняет пробелы, сначала отображая текст заголовка, а затем изображение.
 
-More generally, the text between the braces is a **template expression**
-that Angular first **evaluates** and then **converts to a string**.
-The following interpolation illustrates the point by adding two numbers:
+В более общем смысле текст между фигурными скобками является **выражением шаблона**
+этот Angular сначала **вычисляет,** а затем**преобразует в строку**.
+Следующая интерполяция иллюстрирует точку, добавив два числа:
 
 <code-example path="interpolation/src/app/app.component.html" region="convert-string" header="src/app/app.component.html"></code-example>
 
-The expression can invoke methods of the host component such as `getVal()` in
-the following example:
+Выражение может вызывать методы компонента узла, такие как  `getVal()`  в
+следующий пример:
 
 <code-example path="interpolation/src/app/app.component.html" region="invoke-method" header="src/app/app.component.html"></code-example>
 
-Angular evaluates all expressions in double curly braces,
-converts the expression results to strings, and links them with neighboring literal strings. Finally,
-it assigns this composite interpolated result to an **element or directive property**.
+Angular вычисляет все выражения в двойных фигурных скобках
+преобразует результаты выражения в строки и связывает их с соседними литеральными строками. И, наконец,
+он присваивает этот составной интерполированный результат **элементу или свойству директивы**.
 
-You appear to be inserting the result between element tags and assigning it to attributes.
-However, interpolation is a special syntax that Angular converts into a *property binding*.
+Вы, кажется, вставляете результат между тегами элемента и присваиваете его атрибутам.
+Однако интерполяция - это специальный синтаксис, который Angular преобразует в *привязку свойства*.
 
 <div class="alert is-helpful">
 
-If you'd like to use something other than `{{` and `}}`, you can
-configure the interpolation delimiter via the
-[interpolation](api/core/Component#interpolation)
-option in the `Component` metadata.
+Если вы хотите использовать что-то кроме  `{{`  и  `}}`, вы можете
+настроить разделитель интерполяции через
+[интерполяция](api/core/Component#interpolation)
+вариант в  `Component`  метаданных.
 
 </div>
 
-### Template expressions
+{@a template-expressions}
+### Шаблонные выражения
 
-A template **expression** produces a value and appears within the double
-curly braces, `{{ }}`.
-Angular executes the expression and assigns it to a property of a binding target;
-the target could be an HTML element, a component, or a directive.
+шаблона **Выражение** создает значение и появляется внутри двойника
+фигурные скобки, `{{ }}`.
+Angular выполняет выражение и присваивает его свойству цели привязки;
+целью может быть элемент HTML, компонент или директива.
 
-The interpolation braces in `{{1 + 1}}` surround the template expression `1 + 1`.
-In the property binding,
-a template expression appears in quotes to the right of the&nbsp;`=` symbol as in `[property]="expression"`.
+Интерполяционные скобки в `{{1 + 1}}` окружают шаблонное выражение `1 + 1`.
+В собственности обязательна
+шаблонное выражение появляется в кавычках справа от  `=`  символ как в  `[property]="expression"`.
 
-In terms of syntax, template expressions are similar to JavaScript.
-Many JavaScript expressions are legal template expressions, with a few exceptions.
+С точки зрения синтаксиса, шаблонные выражения похожи на JavaScript.
+Многие выражения JavaScript являются допустимыми шаблонными выражениями, за некоторыми исключениями.
 
-You can't use JavaScript expressions that have or promote side effects,
-including:
+Вы не можете использовать выражения JavaScript, которые имеют или способствуют побочным эффектам
+в том числе:
 
-* Assignments (`=`, `+=`, `-=`, `...`)
-* Operators such as `new`, `typeof`, `instanceof`, etc.
-* Chaining expressions with <code>;</code> or <code>,</code>
-* The increment and decrement operators `++` and `--`
-* Some of the ES2015+ operators
+* Назначения (`=`, `+= `, ` -= `, ` ...`)
+* Операторы, такие как  `new`, `typeof`, `instanceof`  и т
+* Цепные выражения с <code>;</code>или <code>,</code>
+* Операторы увеличения и уменьшения  `++`  и  `--` 
+* Некоторые из операторов ES2015 +
 
-Other notable differences from JavaScript syntax include:
+Другие заметные отличия от синтаксиса JavaScript включают в себя:
 
-* No support for the bitwise operators such as `|` and `&`
-* New [template expression operators](guide/template-syntax#expression-operators), such as `|`, `?.` and `!`
+* Нет поддержки для побитовых операторов, таких как  `|`  и  `&` 
+* Новый [операторы выражения шаблона](guide/template-syntax#expression-operators), такие как  `|`, `?.`  и  `!` 
 
 
-### Expression context
+{@a expression-context}
+### Контекст выражения
 
-The *expression context* is typically the _component_ instance.
-In the following snippets, the `recommended` within double curly braces and the
-`itemImageUrl2` in quotes refer to properties of the `AppComponent`.
+*Контекст выражения ,* как правило, _component_ экземпляр.
+В следующих фрагментах  `recommended`  в двойных фигурных скобках и
+ `itemImageUrl2` в кавычках ссылается на свойства  `AppComponent`.
 
 <code-example path="interpolation/src/app/app.component.html" region="component-context" header="src/app/app.component.html"></code-example>
 
-An expression may also refer to properties of the _template's_ context
-such as a template input variable,
+Выражение также может ссылаться на свойства контекста _template's_
+такие как входные переменный шаблон
 <!-- link to built-in-directives#template-input-variables -->
-`let customer`, or a template reference variable, `#customerInput`.
+ `let customer` или переменная ссылки на шаблон,  `#customerInput`.
 <!-- link to guide/template-ref-variables -->
 
 <code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)"></code-example>
 
 <code-example path="interpolation/src/app/app.component.html" region="template-reference-variable" header="src/app/app.component.html (template reference variable)"></code-example>
 
-The context for terms in an expression is a blend of the _template variables_,
-the directive's _context_ object (if it has one), and the component's _members_.
-If you reference a name that belongs to more than one of these namespaces,
-the template variable name takes precedence, followed by a name in the directive's _context_,
-and, lastly, the component's member names.
+Контекст терминов в выражении представляет собой смесь из _template variables_,
+_context_ объект директивы (если он есть) и _members_ компонента.
+Если вы ссылаетесь на имя, которое принадлежит к более чем одной из этих пространств имен,
+имя переменной шаблона имеет приоритет, а затем имя в _context_ директивы, в
+и, наконец, имена членов компонента.
 
-The previous example presents such a name collision. The component has a `customer`
-property and the `*ngFor` defines a `customer` template variable.
+В предыдущем примере представлено такое столкновение имен. Компонент имеет  `customer` 
+собственность и  `*ngFor`  определяет  `customer`  переменная шаблона.
 
 <div class="alert is-helpful">
 
-The `customer` in `{{customer.name}}`
-refers to the template input variable, not the component's property.
+ `customer ` в ` {{customer.name}}` 
+ссылается на входную переменную шаблона, а не на свойство компонента.
 
-Template expressions cannot refer to anything in
-the global namespace, except `undefined`. They can't refer to
-`window` or `document`. Additionally, they
-can't call `console.log()` or `Math.max()` and they are restricted to referencing
-members of the expression context.
+Шаблонные выражения не могут ссылаться на что-либо в
+глобальное пространство имен, кроме  `undefined`  . Они не могут ссылаться на
+ `window ` или ` document` . Кроме того, они
+не могу позвонить  `console.log()`  или  `Math.max()`  и они ограничены ссылками
+члены контекста выражения.
 
 </div>
 
-### Expression guidelines
+{@a expression-guidelines}
+### Руководство по выражению
 
-When using template expressions follow these guidelines:
+При использовании выражений шаблона следовать этим правилам:
 
-* [Simplicity](guide/template-syntax#simplicity)
-* [Quick execution](guide/template-syntax#quick-execution)
-* [No visible side effects](guide/template-syntax#no-visible-side-effects)
+* [Простота](guide/template-syntax#simplicity)
+* [Быстрое исполнение](guide/template-syntax#quick-execution)
+* [Нет видимых побочных эффектов](guide/template-syntax#no-visible-side-effects)
 
-#### Simplicity
+{@a simplicity}
+#### Простота
 
-Although it's possible to write complex template expressions, it's a better
-practice to avoid them.
+Хотя можно писать сложные шаблонные выражения, это лучше
+практиковаться, чтобы избежать их.
 
-A property name or method call should be the norm, but an occasional Boolean negation, `!`, is OK.
-Otherwise, confine application and business logic to the component,
-where it is easier to develop and test.
+Имя свойства или вызов метода должны быть нормой, но случайное логическое отрицание,  `!`, все в порядке.
+В противном случае ограничьте приложение и бизнес-логику компонентом
+где легче разрабатывать и тестировать.
 
-#### Quick execution
+{@a quick-execution}
+#### Быстрое исполнение
 
-Angular executes template expressions after every change detection cycle.
-Change detection cycles are triggered by many asynchronous activities such as
-promise resolutions, HTTP results, timer events, key presses and mouse moves.
+Angular выполняет выражения шаблона после каждого цикла обнаружения изменений.
+Циклы обнаружения изменений запускаются многими асинхронными действиями, такими как
+разрешения обещаний, результаты HTTP, события таймера, нажатия клавиш и движения мыши.
 
-Expressions should finish quickly or the user experience may drag, especially on slower devices.
-Consider caching values when their computation is expensive.
+Выражения должны заканчиваться быстро, иначе пользовательский интерфейс может затянуться, особенно на медленных устройствах.
+Рассмотрим кэширование значений, когда их вычисление стоит дорого.
 
-#### No visible side effects
+{@a no-visible-side-effects}
+#### Нет видимых побочных эффектов
 
-A template expression should not change any application state other than the value of the
-target property.
+Выражение шаблона не должно изменять любое состояние приложения, кроме значения
+целевое свойство.
 
-This rule is essential to Angular's "unidirectional data flow" policy.
-You should never worry that reading a component value might change some other displayed value.
-The view should be stable throughout a single rendering pass.
+Это правило имеет важное значение для политики Angular «однонаправленный поток данных».
+Вы никогда не должны беспокоиться, что чтение значения компонента может изменить другое отображаемое значение.
+Представление должно быть стабильным в течение одного прохода рендеринга.
 
-An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is ideal because
-it is free of side effects and improves Angular's change detection performance.
-In Angular terms, an idempotent expression always returns
-*exactly the same thing* until one of its dependent values changes.
+[Идемпотентная](https://en.wikipedia.org/wiki/Idempotence)выражение является идеальным, поскольку
+он не имеет побочных эффектов и улучшает характеристики обнаружения изменений Angular.
+В Angular терминах идемпотентное выражение всегда возвращает
+*точно так же,* пока не изменится одно из его зависимых значений.
 
-Dependent values should not change during a single turn of the event loop.
-If an idempotent expression returns a string or a number, it returns the same string or number when called twice in a row. If the expression returns an object, including an `array`, it returns the same object *reference* when called twice in a row.
+Зависимые значения не должны изменяться в течение одного оборота цикла событий.
+Если идемпотентное выражение возвращает строку или число, оно возвращает ту же строку или число при вызове дважды в строке. Если выражение возвращает объект, включая  `array`, он возвращает одну и ту же объект *ссылку на* при вызове дважды в строке.
 
 <div class="alert is-helpful">
 
-There is one exception to this behavior that applies to `*ngFor`. `*ngFor` has `trackBy` functionality that can deal with referential inequality of objects when iterating over them. See [*ngFor with `trackBy`](guide/template-syntax#ngfor-with-trackby) for details.
+Есть одно исключение из этого поведения, которое относится к  `*ngFor`  .  `*ngFor`  имеет  `trackBy`  которая может справиться с неравенством объектов при итерации по ним. Смотрите [* ngFor с  `trackBy` ](guide/template-syntax#ngfor-with-trackby)для деталей.
 
 </div>
 
@@ -219,115 +229,119 @@ There is one exception to this behavior that applies to `*ngFor`. `*ngFor` has `
 
 {@a template-statements}
 
-## Template statements
+{@a template-statements}
+## Шаблон заявления
 
-A template **statement** responds to an **event** raised by a binding target
-such as an element, component, or directive.
-You'll see template statements in the [event binding](guide/template-syntax#event-binding) section,
-appearing in quotes to the right of the `=`&nbsp;symbol as in `(event)="statement"`.
+Шаблонный **оператор** отвечает на**событие**, вызванное целью привязки
+такой как элемент, компонент или директива.
+Вы увидите заявление шаблона в [обязательном событии](guide/template-syntax#event-binding)раздела
+появляются в кавычках справа от  `=`   символ как в  `(event)="statement"`.
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" header="src/app/app.component.html"></code-example>
 
-A template statement *has a side effect*.
-That's the whole point of an event.
-It's how you update application state from user action.
+Шаблон заявления *имеет побочный эффект*.
+Вот и весь смысл события.
+Это то, как вы обновляете состояние приложения от действий пользователя.
 
-Responding to events is the other side of Angular's "unidirectional data flow".
-You're free to change anything, anywhere, during this turn of the event loop.
+Реакция на события - это другая сторона «однонаправленного потока данных» Angular.
+Вы можете изменить что угодно и где угодно во время этого цикла цикла событий.
 
-Like template expressions, template *statements* use a language that looks like JavaScript.
-The template statement parser differs from the template expression parser and
-specifically supports both basic assignment (`=`) and chaining expressions with <code>;</code>.
+Как и выражения шаблонов, шаблонов *операторы* используют язык, похожий на JavaScript.
+Анализатор оператора шаблона отличается от синтаксического анализатора выражения шаблона и
+специально поддерживает оба основных назначения (`=`) и цепочки выражений с <code>;</code>.
 
-However, certain JavaScript and template expression syntax is not allowed:
+Тем не менее, некоторые JavaScript и синтаксис выражений шаблона не допускаются:
 
 * <code>new</code>
-* increment and decrement operators, `++` and `--`
-* operator assignment, such as `+=` and `-=`
-* the bitwise operators, such as `|` and `&`
-* the [pipe operator](guide/template-syntax#pipe)
+* операторы увеличения и уменьшения,  `++`  и  `--` 
+* назначение оператора, например  `+=`  и  `-=` 
+* побитовые операторы, такие как  `|`  и  `&` 
+* [оператор трубы](guide/template-syntax#pipe)
 
-### Statement context
+{@a statement-context}
+### Контекст заявления
 
-As with expressions, statements can refer only to what's in the statement context
-such as an event handling method of the component instance.
+Как и с выражениями, операторы могут ссылаться только на то, что находится в контексте оператора
+такой как метод обработки события экземпляра компонента.
 
-The *statement context* is typically the component instance.
-The *deleteHero* in `(click)="deleteHero()"` is a method of the data-bound component.
+*Контекста заявления ,* как правило, экземпляр компонента.
+*DeleteHero* в  `(click)="deleteHero()"`  - метод компонента с привязкой к данным.
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" header="src/app/app.component.html"></code-example>
 
-The statement context may also refer to properties of the template's own context.
-In the following examples, the template `$event` object,
-a [template input variable](guide/template-syntax#template-input-variable) (`let hero`),
-and a [template reference variable](guide/template-syntax#ref-vars) (`#heroForm`)
-are passed to an event handling method of the component.
+Контекст оператора также может ссылаться на свойства собственного контекста шаблона.
+В следующих примерах шаблон  `$event`  объект
+a [входная переменная шаблона](guide/template-syntax#template-input-variable)(`let hero`)
+и [ссылочная переменная шаблона](guide/template-syntax#ref-vars)(`#heroForm`)
+передаются в метод обработки событий компонента.
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-var-statement" header="src/app/app.component.html"></code-example>
 
-Template context names take precedence over component context names.
-In `deleteHero(hero)` above, the `hero` is the template input variable,
-not the component's `hero` property.
+Имена контекста шаблона имеют приоритет над именами контекста компонента.
+В  `deleteHero(hero)`  выше,  `hero`  является входной переменной шаблона
+не компонент  `hero`  собственность.
 
-### Statement guidelines
+{@a statement-guidelines}
+### Руководство по утверждению
 
-Template statements cannot refer to anything in the global namespace. They
-can't refer to `window` or `document`.
-They can't call `console.log` or `Math.max`.
+Шаблонные операторы не могут ссылаться на что-либо в глобальном пространстве имен. Они
+не может ссылаться на  `window`  или  `document`.
+Они не могут позвонить  `console.log`  или  `Math.max`.
 
-As with expressions, avoid writing complex template statements.
-A method call or simple property assignment should be the norm.
+Как и с выражениями, избегайте написания сложных шаблонных операторов.
+Вызов метода или простое присвоение свойства должны быть нормой.
 
 <hr/>
 
 {@a binding-syntax}
 
-## Binding syntax: an overview
+{@a binding-syntax-an-overview}
+## Обязательный синтаксис: обзор
 
-Data-binding is a mechanism for coordinating what users see, specifically
-with application data values.
-While you could push values to and pull values from HTML,
-the application is easier to write, read, and maintain if you turn these tasks over to a binding framework.
-You simply declare bindings between binding sources, target HTML elements, and let the framework do the rest.
+Привязка данных - это механизм для координации того, что видят пользователи, в частности
+со значениями данных приложения.
+В то время как вы можете выдвигать значения и извлекать значения из HTML
+Приложение легче писать, читать и обслуживать, если вы передадите эти задачи в среду связывания.
+Вы просто объявляете привязки между источниками привязки, целевыми элементами HTML и позволяете фреймворку делать все остальное.
 
-For a demonstration of the syntax and code snippets in this section, see the <live-example name="binding-syntax">binding syntax example</live-example>.
+Для демонстрации синтаксиса и фрагментов кода в этом разделе см. <live-example name="binding-syntax">Пример синтаксиса привязки </live-example>.
 
-Angular provides many kinds of data-binding. Binding types can be grouped into three categories distinguished by the direction of data flow:
+Angular предоставляет много видов привязки данных. Связывающие типы могут быть сгруппированы в три категории, различающихся по направлению потока данных:
 
-* From the _source-to-view_
-* From _view-to-source_
-* Two-way sequence: _view-to-source-to-view_
+* От _source-to-view_
+* От _view-to-source_
+* Двусторонняя последовательность: _view-to-source-to-view_
 
 <style>
   td, th {vertical-align: top}
 </style>
 
 <table width="100%">
-  <col width="30%">
-  </col>
-  <col width="50%">
-  </col>
-  <col width="20%">
-  </col>
+
+
+
+
+
+
   <tr>
     <th>
-      Type
+      Тип
     </th>
     <th>
-      Syntax
+      Синтаксис
     </th>
     <th>
-      Category
+      Категория
     </th>
 
   </tr>
   <tr>
      <td>
-      Interpolation<br>
-      Property<br>
-      Attribute<br>
-      Class<br>
-      Style
+      Интерполяция <br>
+      Недвижимость <br>
+      Атрибут <br>
+      Класс <br>
+      Стиль
     </td>
     <td>
 
@@ -340,11 +354,11 @@ Angular provides many kinds of data-binding. Binding types can be grouped into t
     </td>
 
     <td>
-      One-way<br>from data source<br>to view target
+      В одну сторону <br>от источника данных <br>для просмотра цели
     </td>
     <tr>
       <td>
-        Event
+        Событие
       </td>
       <td>
         <code-example>
@@ -354,12 +368,12 @@ Angular provides many kinds of data-binding. Binding types can be grouped into t
       </td>
 
       <td>
-        One-way<br>from view target<br>to data source
+        В одну сторону <br>от цели просмотра <br>к источнику данных
       </td>
     </tr>
     <tr>
       <td>
-        Two-way
+        Двухсторонний
       </td>
       <td>
         <code-example>
@@ -368,25 +382,26 @@ Angular provides many kinds of data-binding. Binding types can be grouped into t
         </code-example>
       </td>
       <td>
-        Two-way
+        Двухсторонний
       </td>
     </tr>
   </tr>
 </table>
 
-Binding types other than interpolation have a **target name** to the left of the equal sign, either surrounded by punctuation, `[]` or `()`,
-or preceded by a prefix: `bind-`, `on-`, `bindon-`.
+Типы привязки, отличные от интерполяции, имеют **целевое имя** слева от знака равенства, либо окруженные пунктуацией,  `[]`  или  `()`,
+или с префиксом:  `bind-`, `on-`, `bindon-`.
 
-The *target* of a binding is the property or event inside the binding punctuation: `[]`, `()` or `[()]`.
+*Мишень* из привязки является свойством или события внутри связывания пунктуации:  `[]`, `()`  или  `[()]`.
 
-Every public member of a **source** directive is automatically available for binding.
-You don't have to do anything special to access a directive member in a template expression or statement.
+Каждый открытый член **источника** директивы автоматически доступен для привязки.
+Вам не нужно делать ничего особенного, чтобы получить доступ к члену директивы в выражении шаблона или операторе.
 
 
-### Data-binding and HTML
+{@a data-binding-and-html}
+### Привязка данных и HTML
 
-In the normal course of HTML development, you create a visual structure with HTML elements, and
-you modify those elements by setting element attributes with string constants.
+В ходе обычной разработки HTML вы создаете визуальную структуру с элементами HTML и
+Вы изменяете эти элементы, устанавливая атрибуты элемента с помощью строковых констант.
 
 ```html
 <div class="special">Plain old HTML</div>
@@ -394,154 +409,158 @@ you modify those elements by setting element attributes with string constants.
 <button disabled>Save</button>
 ```
 
-With data-binding, you can control things like the state of a button:
+С помощью привязки данных-, вы можете контролировать то, как состояние кнопки:
 
 <code-example path="binding-syntax/src/app/app.component.html" region="disabled-button" header="src/app/app.component.html"></code-example>
 
-Notice that the binding is to the `disabled` property of the button's DOM element,
-**not** the attribute. This applies to data-binding in general. Data-binding works with *properties* of DOM elements, components, and directives, not HTML *attributes*.
+Обратите внимание, что привязка к  `disabled`  свойство DOM элемента данной кнопки,
+**не** атрибут. Это относится к привязке данных в целом. Привязка данных работает со*свойствами * элементов, компонентов и директив DOM, а не с HTML*атрибутами *.
 
 
-### HTML attribute vs. DOM property
+{@a html-attribute-vs.-dom-property}
+### Атрибут HTML и свойство DOM
 
-The distinction between an HTML attribute and a DOM property is key to understanding
-how Angular binding works. **Attributes are defined by HTML. Properties are accessed from DOM (Document Object Model) nodes.**
+Различие между атрибутом HTML и свойством DOM является ключом к пониманию
+как работает Angular привязка **Атрибуты определяются HTML. Доступ к свойствам осуществляется из узлов DOM (объектная модель документа).**
 
-* A few HTML attributes have 1:1 mapping to properties; for example, `id`.
+* Некоторые атрибуты HTML имеют отображение 1: 1 на свойства; например,  `id`.
 
-* Some HTML attributes don't have corresponding properties; for example, `aria-*`.
+* Некоторые атрибуты HTML не имеют соответствующих свойств; например,  `aria-*`.
 
-* Some DOM properties don't have corresponding attributes; for example, `textContent`.
+* Некоторые свойства DOM не имеют соответствующих атрибутов; например,  `textContent`.
 
-It is important to remember that *HTML attribute* and the *DOM property* are different things, even when they have the same name.
-In Angular, the only role of HTML attributes is to initialize element and directive state.
+Важно помнить, что *атрибут HTML* и *свойство DOM* - это разные вещи, даже если они имеют одинаковые имена.
+В Angular единственная роль атрибутов HTML заключается в инициализации элемента и состояния директивы.
 
-**Template binding works with *properties* and *events*, not *attributes*.**
+**Привязка шаблона работает со*свойствами * и*событиями *, а не с*атрибутами *.**
 
-When you write a data-binding, you're dealing exclusively with the *DOM properties* and *events* of the target object.
+Когда вы пишете привязку данных, вы имеете дело исключительно со *свойствами DOM* и *событиями* целевого объекта.
 
 <div class="alert is-helpful">
 
-This general rule can help you build a mental model of attributes and DOM properties:
-**Attributes initialize DOM properties and then they are done.
-Property values can change; attribute values can't.**
+Это общее правило может помочь вам построить ментальную модель атрибутов и свойств DOM:
+**Атрибуты инициализируют свойства DOM, а затем они завершаются.
+Значения свойств могут меняться; значения атрибута не могут.**
 
-There is one exception to this rule.
-Attributes can be changed by `setAttribute()`, which re-initializes corresponding DOM properties.
+Из этого правила есть одно исключение.
+Атрибуты могут быть изменены  `setAttribute()`, который повторно инициализирует соответствующие свойства DOM.
 
 </div>
 
-For more information, see the [MDN Interfaces documentation](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces) which has API docs for all the standard DOM elements and their properties.
-Comparing the [`<td>` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) attributes to the [`<td>` properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) provides a helpful example for differentiation.
-In particular, you can navigate from the attributes page to the properties via "DOM interface" link, and navigate the inheritance hierarchy up to `HTMLTableCellElement`.
+Для получения дополнительной информации см. [Документация по интерфейсам MDN](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces)которой есть документы API для всех стандартных элементов DOM и их свойств.
+Сравнение [` ` атрибутов](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td)атрибутов с [` ` свойствами](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement)предоставляет полезный пример для дифференциации.
+В частности, вы можете переходить от страницы атрибутов к свойствам через ссылку «Интерфейс DOM» и перемещаться по иерархии наследования до  `HTMLTableCellElement`.
 
 
-#### Example 1: an `<input>`
+{@a example-1-an-<input>}
+#### Пример 1:  `<input>` 
 
-When the browser renders `<input type="text" value="Sarah">`, it creates a
-corresponding DOM node with a `value` property initialized to "Sarah".
+Когда браузер рендерит `<input type="text" value="Sarah">`, он создает
+соответствующий узел DOM с  `value`  свойства инициализировано как "Сара".
 
 ```html
 <input type="text" value="Sarah">
 ```
 
-When the user enters "Sally" into the `<input>`, the DOM element `value` *property* becomes "Sally".
-However, if you look at the HTML attribute `value` using `input.getAttribute('value')`, you can see that the *attribute* remains unchanged&mdash;it returns "Sarah".
+Когда пользователь вводит "Салли" в  `<input>`, элемент DOM  `value`   *свойства* становится «Салли».
+Однако, если вы посмотрите на атрибут HTML  `value`  с использованием  `input.getAttribute('value')`, вы можете видеть, что *атрибут* остается неизменным - он возвращает "Sarah".
 
-The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
+Атрибут HTML  `value`  указывает *начальное* значение; ДОМ  `value`  свойства - это *текущая* стоимость.
 
-To see attributes versus DOM properties in a functioning app, see the <live-example name="binding-syntax"></live-example> especially for binding syntax.
+Чтобы увидеть атрибуты в сравнении со свойствами DOM в работающем приложении, смотрите <live-example name="binding-syntax"></live-example>раздел «Синтаксис привязки».
 
-#### Example 2: a disabled button
+{@a example-2-a-disabled-button}
+#### Пример 2: отключенная кнопка
 
-The `disabled` attribute is another example. A button's `disabled`
-*property* is `false` by default so the button is enabled.
+ `disabled` атрибут - другой пример. Кнопки  `disabled` 
+*недвижимость* является  `false`  по умолчанию, поэтому кнопка включена.
 
-When you add the `disabled` *attribute*, its presence alone
-initializes the button's `disabled` *property* to `true`
-so the button is disabled.
+Когда вы добавляете  `disabled`   *атрибут*, только его наличие
+инициализирует кнопку  `disabled`   *недвижимости* в  `true` 
+поэтому кнопка отключена.
 
 ```html
 <button disabled>Test Button</button>
 ```
 
-Adding and removing the `disabled` *attribute* disables and enables the button.
-However, the value of the *attribute* is irrelevant,
-which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
+Добавление и удаление  `disabled`   *Атрибут* отключает и включает кнопку.
+Тем не менее, значение *атрибута* не имеет значения,
+вот почему вы не можете включить кнопку, написав `<button disabled="false">Still Disabled</button>`.
 
-To control the state of the button, set the `disabled` *property*,
+Чтобы контролировать состояние кнопки, установите  `disabled`   *свойство*,
 
 <div class="alert is-helpful">
 
-Though you could technically set the `[attr.disabled]` attribute binding, the values are different in that the property binding requires to a boolean value, while its corresponding attribute binding relies on whether the value is `null` or not. Consider the following:
+Хотя вы могли бы технически установить  `[attr.disabled]`  атрибута, значения отличаются тем, что привязка свойства требует логического значения, в то время как соответствующая привязка атрибута зависит от того, является ли значение  `null`  или нет. Рассмотрим следующее:
 
 ```html
 <input [disabled]="condition ? true : false">
 <input [attr.disabled]="condition ? 'disabled' : null">
 ```
 
-Generally, use property binding over attribute binding as it is more intuitive (being a boolean value), has a shorter syntax, and is more performant.
+Как правило, используйте привязку свойства к привязке атрибута, так как она более интуитивна (является логическим значением), имеет более короткий синтаксис и более производительный.
 
 </div>
 
 
-To see the `disabled` button example in a functioning app, see the <live-example name="binding-syntax"></live-example> especially for binding syntax. This example shows you how to toggle the disabled property from the component.
+Чтобы увидеть  `disabled`  Пример кнопки в работающем приложении, смотрите <live-example name="binding-syntax"></live-example>синтаксис привязки. В этом примере показано, как переключить отключенное свойство из компонента.
 
-## Binding types and targets
+{@a binding-types-and-targets}
+## Обязательные типы и цели
 
-The **target of a data-binding** is something in the DOM.
-Depending on the binding type, the target can be a property (element, component, or directive),
-an event (element, component, or directive), or sometimes an attribute name.
-The following table summarizes the targets for the different binding types.
+**Мишень связывания данных** является то, что в DOM.
+В зависимости от типа связывания, цель может быть свойство (элемент, компонент или директива),
+событие (элемент, компонент или директива) или иногда имя атрибута.
+В следующей таблице приведены цели для разных типов привязки.
 
 <style>
   td, th {vertical-align: top}
 </style>
 
 <table width="100%">
-  <col width="10%">
-  </col>
-  <col width="15%">
-  </col>
-  <col width="75%">
-  </col>
+
+
+
+
+
+
   <tr>
     <th>
-      Type
+      Тип
     </th>
     <th>
       Target
     </th>
     <th>
-      Examples
+      Примеры
     </th>
   </tr>
   <tr>
     <td>
-      Property
+      Недвижимость
     </td>
     <td>
-      Element&nbsp;property<br>
-      Component&nbsp;property<br>
-      Directive&nbsp;property
+      Элемент собственности <br>
+      Свойство компонента <br>
+      Директива собственности
     </td>
     <td>
-      <code>src</code>, <code>hero</code>, and <code>ngClass</code> in the following:
+      <code>src</code>, <code>hero</code>И <code>ngClass</code>в следующем:
       <code-example path="template-syntax/src/app/app.component.html" region="property-binding-syntax-1"></code-example>
       <!-- For more information, see [Property Binding](guide/property-binding). -->
     </td>
   </tr>
   <tr>
     <td>
-      Event
+      Событие
     </td>
     <td>
-      Element&nbsp;event<br>
-      Component&nbsp;event<br>
-      Directive&nbsp;event
+      Элемент события <br>
+      Компонентное событие <br>
+      Директивное событие
     </td>
     <td>
-      <code>click</code>, <code>deleteRequest</code>, and <code>myClick</code> in the following:
+      <code>click</code>, <code>deleteRequest</code>И <code>myClick</code>в следующем:
       <code-example path="template-syntax/src/app/app.component.html" region="event-binding-syntax-1"></code-example>
       <!-- KW--Why don't these links work in the table? -->
       <!-- <div>For more information, see [Event Binding](guide/event-binding).</div> -->
@@ -549,10 +568,10 @@ The following table summarizes the targets for the different binding types.
   </tr>
   <tr>
     <td>
-      Two-way
+      Двухсторонний
     </td>
     <td>
-      Event and property
+      Событие и собственность
     </td>
     <td>
       <code-example path="template-syntax/src/app/app.component.html" region="2-way-binding-syntax-1"></code-example>
@@ -560,11 +579,11 @@ The following table summarizes the targets for the different binding types.
   </tr>
   <tr>
     <td>
-      Attribute
+      Атрибут
     </td>
     <td>
-      Attribute
-      (the&nbsp;exception)
+      Атрибут
+      (исключение)
     </td>
     <td>
       <code-example path="template-syntax/src/app/app.component.html" region="attribute-binding-syntax-1"></code-example>
@@ -572,10 +591,10 @@ The following table summarizes the targets for the different binding types.
   </tr>
   <tr>
     <td>
-      Class
+      Класс
     </td>
     <td>
-      <code>class</code> property
+      <code>class</code>недвижимость
     </td>
     <td>
       <code-example path="template-syntax/src/app/app.component.html" region="class-binding-syntax-1"></code-example>
@@ -583,10 +602,10 @@ The following table summarizes the targets for the different binding types.
   </tr>
   <tr>
     <td>
-      Style
+      Стиль
     </td>
     <td>
-      <code>style</code> property
+      <code>style</code>недвижимость
     </td>
     <td>
       <code-example path="template-syntax/src/app/app.component.html" region="style-binding-syntax-1"></code-example>
@@ -600,287 +619,301 @@ The following table summarizes the targets for the different binding types.
 
 {@a property-binding}
 
-## Property binding `[property]`
+{@a property-binding-[property]}
+## Привязка собственности  `[property]` 
 
-Use property binding to _set_ properties of target elements or
-directive `@Input()` decorators. For an example
-demonstrating all of the points in this section, see the
-<live-example name="property-binding">property binding example</live-example>.
+Использовать привязку свойств к _set_ свойствам целевых элементов или
+директива  `@Input()`  декораторы. Для примера
+демонстрируя все пункты в этом разделе, см
+<live-example name="property-binding">пример привязки свойства </live-example>.
 
-### One-way in
+{@a one-way-in}
+### Односторонний в
 
-Property binding flows a value in one direction,
-from a component's property into a target element property.
+Привязка свойств передает значение в одном направлении
+из свойства компонента в свойство целевого элемента.
 
-You can't use property
-binding to read or pull values out of target elements. Similarly, you cannot use
-property binding to call a method on the target element.
-If the element raises events, you can listen to them with an [event binding](guide/template-syntax#event-binding).
+Вы не можете использовать собственность
+привязка к чтению или извлечению значений из целевых элементов. Точно так же вы не можете использовать
+привязка свойства для вызова метода целевого элемента.
+Если элемент вызывает события, вы можете прослушивать их с помощью [привязки событий](guide/template-syntax#event-binding).
 
-If you must read a target element property or call one of its methods,
-see the API reference for [ViewChild](api/core/ViewChild) and
+Если вы должны прочитать элемент свойства целевого или вызвать один из его методов,
+см. ссылку на API для [ViewChild](api/core/ViewChild)и
 [ContentChild](api/core/ContentChild).
 
-### Examples
+{@a examples}
+### Примеры
 
-The most common property binding sets an element property to a component
-property value. An example is
-binding the `src` property of an image element to a component's `itemImageUrl` property:
+Наиболее распространенная привязка свойства устанавливает свойство элемента для компонента
+стоимость имущества. Пример есть
+связывание  `src`  Свойство элемента изображения для компонента  `itemImageUrl`  свойство:
 
 <code-example path="property-binding/src/app/app.component.html" region="property-binding" header="src/app/app.component.html"></code-example>
 
-Here's an example of binding to the `colSpan` property. Notice that it's not `colspan`,
-which is the attribute, spelled with a lowercase `s`.
+Вот пример привязки к  `colSpan`  свойство . Обратите внимание, что это не  `colspan`,
+который является атрибутом, пишется в нижнем регистре  `s`.
 
 <code-example path="property-binding/src/app/app.component.html" region="colSpan" header="src/app/app.component.html"></code-example>
 
-For more details, see the [MDN HTMLTableCellElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) documentation.
+Для получения дополнительной информации см. [MDN HTMLTableCellElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement)Документацию.
 
 <!-- Add link when Attribute Binding updates are merged:
-For more about `colSpan` and `colspan`, see (Attribute Binding)[guide/template-syntax]. -->
+For more about  `colSpan`  and  `colspan`, see (Attribute Binding)[guide/template-syntax]. -->
 
-Another example is disabling a button when the component says that it `isUnchanged`:
+Другой пример - отключение кнопки, когда компонент говорит, что это  `isUnchanged`  :
 
 <code-example path="property-binding/src/app/app.component.html" region="disabled-button" header="src/app/app.component.html"></code-example>
 
-Another is setting a property of a directive:
+Другой устанавливает свойство директивы:
 
 <code-example path="property-binding/src/app/app.component.html" region="class-binding" header="src/app/app.component.html"></code-example>
 
-Yet another is setting the model property of a custom component&mdash;a great way
-for parent and child components to communicate:
+Еще один способ - задать свойство модели пользовательского компонента - отличный способ
+для родительских и дочерних компонентов для связи:
 
 <code-example path="property-binding/src/app/app.component.html" region="model-property-binding" header="src/app/app.component.html"></code-example>
 
-### Binding targets
+{@a binding-targets}
+### Обязательные цели
 
-An element property between enclosing square brackets identifies the target property.
-The target property in the following code is the image element's `src` property.
+Свойство элемента, заключенное в квадратные скобки, идентифицирует целевое свойство.
+Свойство target в следующем коде является элементом image  `src`  свойство.
 
 <code-example path="property-binding/src/app/app.component.html" region="property-binding" header="src/app/app.component.html"></code-example>
 
-There's also the `bind-` prefix alternative:
+Там также  `bind-`  Приставка альтернатива:
 
 <code-example path="property-binding/src/app/app.component.html" region="bind-prefix" header="src/app/app.component.html"></code-example>
 
 
-In most cases, the target name is the name of a property, even
-when it appears to be the name of an attribute.
-So in this case, `src` is the name of the `<img>` element property.
+В большинстве случаев целевым именем является даже имя свойства
+когда это кажется именем атрибута.
+Так что в этом случае  `src`  это имя  `<img>`  свойство элемента.
 
-Element properties may be the more common targets,
-but Angular looks first to see if the name is a property of a known directive,
-as it is in the following example:
+Свойства элемента могут быть более распространенными целями
+но Angular выглядит первым, чтобы увидеть, если имя является собственностью известной директивы
+как это показано в следующем примере:
 
 <code-example path="property-binding/src/app/app.component.html" region="class-binding" header="src/app/app.component.html"></code-example>
 
-Technically, Angular is matching the name to a directive `@Input()`,
-one of the property names listed in the directive's `inputs` array
-or a property decorated with `@Input()`.
-Such inputs map to the directive's own properties.
+Технически Angular сопоставляет имя с директивой  `@Input()`,
+одно из имен свойств, перечисленных в директиве  `inputs`  массив
+или имущество, украшенное  `@Input()`.
+Такие входные данные соответствуют собственным свойствам директивы.
 
-If the name fails to match a property of a known directive or element, Angular reports an “unknown directive” error.
+Если имя не соответствует свойству известной директивы или элемента, Angular выдает «неизвестную директиву» ?? ошибка.
 
 <div class="alert is-helpful">
 
-Though the target name is usually the name of a property,
-there is an automatic attribute-to-property mapping in Angular for
-several common attributes. These include `class`/`className`, `innerHtml`/`innerHTML`, and
-`tabindex`/`tabIndex`.
+Хотя целевым именем обычно является имя свойства
+в Angular существует автоматическое сопоставление атрибута и свойства
+несколько общих атрибутов. Они включают  `class`  /  `className`, `innerHtml`  /  `innerHTML`, и
+ `tabindex ` / ` tabIndex`.
 
 </div>
 
 
-### Avoid side effects
+{@a avoid-side-effects}
+### Избегайте побочных эффектов
 
-Evaluation of a template expression should have no visible side effects.
-The expression language itself, or the way you write template expressions,
-helps to a certain extent;
-you can't assign a value to anything in a property binding expression
-nor use the increment and decrement operators.
+Оценка шаблона выражения не должна иметь видимых побочных эффектов.
+Сам язык выражений или способ написания шаблонных выражений
+помогает в определенной степени;
+Вы не можете присвоить значение чему-либо в выражении привязки свойства
+и не используйте операторы увеличения и уменьшения.
 
-For example, you could have an expression that invoked a property or method that had
-side effects. The expression could call something like `getFoo()` where only you
-know what `getFoo()` does. If `getFoo()` changes something
-and you happen to be binding to that something,
-Angular may or may not display the changed value. Angular may detect the
-change and throw a warning error.
-As a best practice, stick to properties and to methods that return
-values and avoid side effects.
+Например, вы могли бы иметь выражение, которое вызывало свойство или метод, которые имели
+побочные эффекты. Выражение может вызвать что-то вроде  `getFoo()`  где только ты
+Знаешь что  `getFoo()`  делает. Если  `getFoo()`  что-то меняет
+и вы случайно привязываетесь к этому чему-то
+Angular может отображать или не отображать измененное значение. Angular может обнаружить
+изменить и выбросить предупреждение об ошибке.
+Рекомендуется придерживаться свойств и методов, которые возвращаются
+значения и избежать побочных эффектов.
 
-### Return the proper type
+{@a return-the-proper-type}
+### Верните правильный тип
 
-The template expression should evaluate to the type of value
-that the target property expects.
-Return a string if the target property expects a string, a number if it
-expects a number, an object if it expects an object, and so on.
+Выражение шаблона должно соответствовать типу значения
+что ожидает целевое свойство.
+Возвращает строку, если целевое свойство ожидает строку, число, если оно
+ожидает число, объект, если он ожидает объект, и так далее.
 
-In the following example, the `childItem` property of the `ItemDetailComponent` expects a string, which is exactly what you're sending in the property binding:
+В следующем примере  `childItem`  свойство  `ItemDetailComponent` ожидает строку, которая является именно то, что вы отправляете в свойстве переплета
 
 <code-example path="property-binding/src/app/app.component.html" region="model-property-binding" header="src/app/app.component.html"></code-example>
 
-You can confirm this by looking in the `ItemDetailComponent` where the `@Input` type is set to a string:
+Вы можете подтвердить это, посмотрев в  `ItemDetailComponent`  где  `@Input`  типа устанавливается в строку:
 <code-example path="property-binding/src/app/item-detail/item-detail.component.ts" region="input-type" header="src/app/item-detail/item-detail.component.ts (setting the @Input() type)"></code-example>
 
-As you can see here, the `parentItem` in `AppComponent` is a string, which the `ItemDetailComponent` expects:
+Как вы можете видеть здесь,  `parentItem`  in  `AppComponent`  представляет собой строку, которая  `ItemDetailComponent`  ожидает:
 <code-example path="property-binding/src/app/app.component.ts" region="parent-data-type" header="src/app/app.component.ts"></code-example>
 
-#### Passing in an object
+{@a passing-in-an-object}
+#### Проходя в объекте
 
-The previous simple example showed passing in a string. To pass in an object,
-the syntax and thinking are the same.
+Предыдущий простой пример показал передачу в строке. Чтобы перейти в объект
+синтаксис и мышление одинаковы.
 
-In this scenario, `ItemListComponent` is nested within `AppComponent` and the `items` property expects an array of objects.
+В этом сценарии  `ItemListComponent`  вложен в  `AppComponent`  и  `items`  Свойство ожидает массив объектов.
 
 <code-example path="property-binding/src/app/app.component.html" region="pass-object" header="src/app/app.component.html"></code-example>
 
-The `items` property is declared in the `ItemListComponent` with a type of `Item` and decorated with `@Input()`:
+ `items` свойство объявлено в  `ItemListComponent`  с типом  `Item`  и украшен  `@Input()`  :
 
 <code-example path="property-binding/src/app/item-list/item-list.component.ts" region="item-input" header="src/app/item-list.component.ts"></code-example>
 
-In this sample app, an `Item` is an object that has two properties; an `id` and a `name`.
+В этом примере приложения  `Item`  - это объект, имеющий два свойства;  `id ` и ` name`.
 
 <code-example path="property-binding/src/app/item.ts" region="item-class" header="src/app/item.ts"></code-example>
 
-While a list of items exists in another file, `mock-items.ts`, you can
-specify a different item in `app.component.ts` so that the new item will render:
+Хотя список элементов существует в другом файле,  `mock-items.ts`, вы можете
+указать другой элемент в  `app.component.ts`  так, что новый пункт будет оказывать:
 
 <code-example path="property-binding/src/app/app.component.ts" region="pass-object" header="src/app.component.ts"></code-example>
 
-You just have to make sure, in this case, that you're supplying an array of objects because that's the type of `Item` and is what the nested component, `ItemListComponent`, expects.
+Вы просто должны убедиться, что в этом случае вы предоставляете массив объектов, потому что это тип  `Item`  и является вложенным компонентом,  `ItemListComponent`, ожидает.
 
-In this example, `AppComponent` specifies a different `item` object
-(`currentItems`) and passes it to the nested `ItemListComponent`. `ItemListComponent` was able to use `currentItems` because it matches what an `Item` object is according to `item.ts`. The `item.ts` file is where
-`ItemListComponent` gets its definition of an `item`.
+В этом примере  `AppComponent`  указывает другой  `item`  предмета
+(`currentItems`) и передает его вложенным  `ItemListComponent`  .  `ItemListComponent`  был в состоянии использовать  `currentItems`  потому что это соответствует тому, что  `Item`  объекта в соответствии с  `item.ts`  .  `item.ts` Файл находится где
+ `ItemListComponent` получает свое определение  `item`.
 
-### Remember the brackets
+{@a remember-the-brackets}
+### Помните скобки
 
-The brackets, `[]`, tell Angular to evaluate the template expression.
-If you omit the brackets, Angular treats the string as a constant
-and *initializes the target property* with that string:
+Скобки,  `[]`, скажите Angular для оценки выражения шаблона.
+Если вы опустите скобки, Angular обрабатывает строку как константу
+и *инициализирует свойство цели* с этой строкой:
 
 <code-example path="property-binding/src/app/app.component.html" region="no-evaluation" header="src/app.component.html"></code-example>
 
 
-Omitting the brackets will render the string
-`parentItem`, not the value of `parentItem`.
+Если пропустить скобки, будет отображена строка
+ `parentItem`, а не значение  `parentItem`.
 
-### One-time string initialization
+{@a one-time-string-initialization}
+### Однократная инициализация строки
 
-You *should* omit the brackets when all of the following are true:
+Вы *должны* опустить скобки, когда все следующие условия:
 
-* The target property accepts a string value.
-* The string is a fixed value that you can put directly into the template.
-* This initial value never changes.
+* Свойство target принимает строковое значение.
+* Строка является фиксированным значением, которое вы можете поместить непосредственно в шаблон.
+* Это начальное значение никогда не меняется.
 
-You routinely initialize attributes this way in standard HTML, and it works
-just as well for directive and component property initialization.
-The following example initializes the `prefix` property of the `StringInitComponent` to a fixed string,
-not a template expression. Angular sets it and forgets about it.
+Вы обычно инициализируете атрибуты таким образом в стандартном HTML, и это работает
+точно так же и для инициализации директив и свойств компонентов.
+Следующий пример инициализирует  `prefix`  свойство  `StringInitComponent` для фиксированной строки
+не шаблонное выражение. Angular устанавливает его и забывает об этом.
 
 <code-example path="property-binding/src/app/app.component.html" region="string-init" header="src/app/app.component.html"></code-example>
 
-The `[item]` binding, on the other hand, remains a live binding to the component's `currentItems` property.
+ `[item]` Привязка, с другой стороны, остается живой привязкой к компоненту  `currentItems`  свойство.
 
-### Property binding vs. interpolation
+{@a property-binding-vs.-interpolation}
+### Привязка свойств против интерполяции
 
-You often have a choice between interpolation and property binding.
-The following binding pairs do the same thing:
+У вас часто есть выбор между интерполяцией и привязкой свойства.
+Следующие связывающие пары делают то же самое:
 
 <code-example path="property-binding/src/app/app.component.html" region="property-binding-interpolation" header="src/app/app.component.html"></code-example>
 
-Interpolation is a convenient alternative to property binding in
-many cases. When rendering data values as strings, there is no
-technical reason to prefer one form to the other, though readability
-tends to favor interpolation. However, *when setting an element
-property to a non-string data value, you must use property binding*.
+Интерполяция является удобной альтернативой привязке свойств в
+много случаев. При отображении значений данных в виде строк, нет
+техническая причина предпочесть одну форму другой, хотя удобочитаемость
+стремится к интерполяции. Однако *при настройке элемента
+свойство к нестроковому значению данных, вы должны использовать привязку свойства *.
 
-### Content security
+{@a content-security}
+### Безопасность контента
 
-Imagine the following malicious content.
+Представьте себе следующий вредоносный контент.
 
 <code-example path="property-binding/src/app/app.component.ts" region="malicious-content" header="src/app/app.component.ts"></code-example>
 
-In the component template, the content might be used with interpolation:
+В шаблоне компоненты, содержание может быть использовано с интерполяцией:
 
 <code-example path="property-binding/src/app/app.component.html" region="malicious-interpolated" header="src/app/app.component.html"></code-example>
 
-Fortunately, Angular data binding is on alert for dangerous HTML. In the above case,
-the HTML displays as is, and the Javascript does not execute. Angular **does not**
-allow HTML with script tags to leak into the browser, neither with interpolation
-nor property binding.
+К счастью, привязка данных Angular находится в состоянии готовности к опасному HTML. В приведенном выше случае
+HTML-код отображается как есть, а Javascript не выполняется. Angular **нет**
+позволяют HTML с тегами сценария попадать в браузер, ни с интерполяцией
+ни собственность обязательна.
 
-In the following example, however, Angular [sanitizes](guide/security#sanitization-and-security-contexts)
-the values before displaying them.
+В следующем примере, однако, Angular [дезинфицирует](guide/security#sanitization-and-security-contexts)
+значения до их отображения.
 
 <code-example path="property-binding/src/app/app.component.html" region="malicious-content" header="src/app/app.component.html"></code-example>
 
-Interpolation handles the `<script>` tags differently than
-property binding but both approaches render the
-content harmlessly. The following is the browser output
-of the `evilTitle` examples.
+Интерполяция обрабатывает  `<script>`  тегов отличается от
+привязка свойства, но оба подхода делают
+содержание безвредно. Ниже приведен вывод браузера
+из  `evilTitle`  примеры.
 
 <code-example language="bash">
-"Template <script>alert("evil never sleeps")</script> Syntax" is the interpolated evil title.
-"Template alert("evil never sleeps")Syntax" is the property bound evil title.
+"Template <script>alert("evil never sleeps") </script> Syntax" is the interpolated evil title.
+"Template alert("evil never sleeps") Syntax" is the property bound evil title.
 </code-example>
 
 <hr/>
 {@a other-bindings}
 
-## Attribute, class, and style bindings
+{@a attribute-class-and-style-bindings}
+## Привязка атрибутов, классов и стилей
 
-The template syntax provides specialized one-way bindings for scenarios less well-suited to property binding.
+Синтаксис шаблона обеспечивает специализированные односторонние привязки для сценариев, менее подходящих для привязки свойств.
 
-To see attribute, class, and style bindings in a functioning app, see the <live-example name="attribute-binding"></live-example> especially for this section.
+Чтобы увидеть привязки атрибутов, классов и стилей в работающем приложении, смотрите <live-example name="attribute-binding"></live-example>раздел специально для этого раздела.
 
 
-### Attribute binding
+{@a attribute-binding}
+### Привязка атрибутов
 
-Set the value of an attribute directly with an **attribute binding**. This is the only exception to the rule that a binding sets a target property and the only binding that creates and sets an attribute.
+Установите значение атрибута напрямую с помощью **привязки атрибута**, Это единственное исключение из правила, согласно которому привязка устанавливает целевое свойство, и единственная привязка, которая создает и устанавливает атрибут.
 
-Usually, setting an element property with a [property binding](guide/template-syntax#property-binding)
-is preferable to setting the attribute with a string. However, sometimes
-there is no element property to bind, so attribute binding is the solution.
+Обычно, установка свойства элемента с помощью [привязки свойства](guide/template-syntax#property-binding)
+предпочтительнее устанавливать атрибут со строкой. Однако иногда
+не существует свойства элемента для привязки, поэтому атрибутное связывание является решением.
 
-Consider the [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) and
-[SVG](https://developer.mozilla.org/en-US/docs/Web/SVG). They are purely attributes, don't correspond to element properties, and don't set element properties. In these cases, there are no property targets to bind to.
+Рассмотрим [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)и
+[SVG](https://developer.mozilla.org/en-US/docs/Web/SVG). Они являются чисто атрибутами, не соответствуют свойствам элемента и не устанавливают свойства элемента. В этих случаях нет целевых объектов свойств для привязки.
 
-Attribute binding syntax resembles property binding, but
-instead of an element property between brackets, start with the prefix `attr`,
-followed by a dot (`.`), and the name of the attribute.
-You then set the attribute value, using an expression that resolves to a string,
-or remove the attribute when the expression resolves to `null`.
+Синтаксис привязки атрибута напоминает привязку свойства, но
+вместо свойства элемента в скобках начните с префикса  `attr`,
+сопровождаемый точкой (`.`) и имя атрибута.
+Затем установите значение атрибута, используя выражение, которое решает на строку,
+или удалите атрибут, когда выражение разрешается в  `null`.
 
-One of the primary use cases for attribute binding
-is to set ARIA attributes, as in this example:
+Один из основных вариантов использования для привязки атрибутов
+это набор атрибутов ARIA, как в этом примере:
 
 <code-example path="attribute-binding/src/app/app.component.html" region="attrib-binding-aria" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-#### `colspan` and `colSpan`
+{@a colspan-and-colspan}
+####  `colspan ` и ` colSpan` 
 
-Notice the difference between the `colspan` attribute and the `colSpan` property.
+Обратите внимание на разницу между  `colspan`  атрибут и тому  `colSpan`  свойство.
 
-If you wrote something like this:
+Если вы написали что - то вроде этого:
 
 <code-example language="html">
   &lt;tr&gt;&lt;td colspan="{{1 + 1}}"&gt;Three-Four&lt;/td&gt;&lt;/tr&gt;
 </code-example>
 
-You'd get this error:
+Вы бы получить эту ошибку:
 
 <code-example language="bash">
   Template parse errors:
   Can't bind to 'colspan' since it isn't a known native property
 </code-example>
 
-As the message says, the `<td>` element does not have a `colspan` property. This is true
-because `colspan` is an attribute&mdash;`colSpan`, with a capital `S`, is the
-corresponding property. Interpolation and property binding can set only *properties*, not attributes.
+Как говорится в сообщении,  `<td>`  Элемент не имеет  `colspan`  собственности. Это верно
+потому что  `colspan`  - это атрибут  `colSpan`, с большой буквы  `S`, это
+соответствующее свойство. Интерполяция и привязка свойств могут устанавливать только *свойства*, а не атрибуты.
 
-Instead, you'd use property binding and write it like this:
+Вместо этого нужно использовать свойство связывания и написать это так:
 
 <code-example path="attribute-binding/src/app/app.component.html" region="colSpan" header="src/app/app.component.html"></code-example>
 
@@ -889,64 +922,65 @@ Instead, you'd use property binding and write it like this:
 
 <hr/>
 
-### Class binding
+{@a class-binding}
+### Класс привязки
 
-Here's how to set the `class` attribute without a binding in plain HTML:
+Вот как установить  `class`  атрибут без привязки в виде обычного HTML:
 
 ```html
 <!-- standard class attribute setting -->
 <div class="foo bar">Some text</div>
 ```
 
-You can also add and remove CSS class names from an element's `class` attribute with a **class binding**.
+Вы также можете добавлять и удалять имена классов CSS из элемента  `class`  атрибута с **обязательным классом**.
 
-To create a single class binding, start with the prefix `class` followed by a dot (`.`) and the name of the CSS class (for example, `[class.foo]="hasFoo"`). 
-Angular adds the class when the bound expression is truthy, and it removes the class when the expression is falsy (with the exception of `undefined`, see [styling delegation](#styling-delegation)).
+Чтобы создать привязку одного класса, начните с префикса  `class`  за которым следует точка (`.`) и имя класса CSS (например,  `[class.foo]="hasFoo"`).
+Angular добавляет класс, когда связанное выражение истинно, и удаляет класс, когда выражение ложное (за исключением  `undefined`, см. [делегирование стиля](#styling-delegation)).
 
-To create a binding to multiple classes, use a generic `[class]` binding without the dot (for example, `[class]="classExpr"`).
-The expression can be a space-delimited string of class names, or you can format it as an object with class names as the keys and truthy/falsy expressions as the values. 
-With object format, Angular will add a class only if its associated value is truthy. 
+Чтобы создать привязку к нескольким классам, используйте общий  `[class]`  привязка без точки (например,  `[class]="classExpr"`).
+Выражение может быть строкой имен классов, разделенных пробелами, или вы можете отформатировать ее как объект с именами классов в качестве ключей и выражениями правдивости / ложности в качестве значений.
+С форматом объекта Angular добавит класс, только если его связанное значение истинно.
 
-It's important to note that with any object-like expression (`object`, `Array`, `Map`, `Set`, etc), the identity of the object must change for the class list to be updated.
-Updating the property without changing object identity will have no effect.
+Важно отметить, что с любым объектоподобным выражением (  `object`, `Array`, `Map`, `Set`  и т. Д.), Идентификатор объекта должен измениться для обновления списка классов.
+Обновление свойства без изменения идентичности объекта не будет иметь никакого эффекта.
 
-If there are multiple bindings to the same class name, conflicts are resolved using [styling precedence](#styling-precedence).
+Если существует несколько привязок к одному и тому же имени класса, конфликты разрешаются с помощью [приоритет стиля](#styling-precedence).
 
 <style>
   td, th {vertical-align: top}
 </style>
 
 <table width="100%">
-  <col width="15%">
-  </col>
-  <col width="20%">
-  </col>
-  <col width="35%">
-  </col>
-  <col width="30%">
-  </col>
+
+
+
+
+
+
+
+
   <tr>
     <th>
-      Binding Type
+      Тип привязки
     </th>
     <th>
-      Syntax
+      Синтаксис
     </th>
     <th>
-      Input Type
+      Тип входа
     </th>
     <th>
-      Example Input Values
+      Пример входных значений
     </th>
   </tr>
   <tr>
-    <td>Single class binding</td>
+    <td>Связывание одного класса </td>
     <td><code>[class.foo]="hasFoo"</code></td>
     <td><code>boolean | undefined | null</code></td>
     <td><code>true</code>, <code>false</code></td>
   </tr>
   <tr>
-    <td rowspan=3>Multi-class binding</td>
+    <td rowspan=3>Мультиклассовая привязка </td>
     <td rowspan=3><code>[class]="classExpr"</code></td>
     <td><code>string</code></td>
     <td><code>"my-class-1 my-class-2 my-class-3"</code></td>
@@ -956,92 +990,93 @@ If there are multiple bindings to the same class name, conflicts are resolved us
     <td><code>{foo: true, bar: false}</code></td>
   </tr>
   <tr>
-    <td><code>Array</code><<code>string</code>></td>
+    <td><code>Array</code>< <code>string</code>> </td>
     <td><code>['foo', 'bar']</code></td>
   </tr>
 </table>
 
 
-The [NgClass](#ngclass) directive can be used as an alternative to direct `[class]` bindings. 
-However, using the above class binding syntax without `NgClass` is preferred because due to improvements in class binding in Angular, `NgClass` no longer provides significant value, and might eventually be removed in the future.
+[NgClass](#ngclass)директива может быть использована в качестве альтернативы, чтобы направить  `[class]`  привязки.
+Однако, используя приведенный выше синтаксис привязки классов без  `NgClass`  предпочтительнее, потому что из-за улучшений в связывании классов в Angular,  `NgClass`  больше не обеспечивает значительную ценность и может в конечном итоге быть удалена в будущем.
 
 
 <hr/>
 
-### Style binding
+{@a style-binding}
+### Стиль привязки
 
-Here's how to set the `style` attribute without a binding in plain HTML:
+Вот как установить  `style`  атрибут без привязки в виде обычного HTML:
 
 ```html
 <!-- standard style attribute setting -->
 <div style="color: blue">Some text</div>
 ```
 
-You can also set styles dynamically with a **style binding**.
+Вы также можете динамически устанавливать стили с помощью **привязки стилей**.
 
-To create a single style binding, start with the prefix `style` followed by a dot (`.`) and the name of the CSS style property (for example, `[style.width]="width"`). 
-The property will be set to the value of the bound expression, which is normally a string.
-Optionally, you can add a unit extension like `em` or `%`, which requires a number type.
+Чтобы создать единую привязку стиля, начните с префикса  `style`  за которым следует точка (`.`) и имя свойства стиля CSS (например,  `[style.width]="width"`).
+Свойству будет присвоено значение связанного выражения, которое обычно является строкой.
+При желании вы можете добавить расширение модуля, как  `em`  или  `%`, для которого требуется тип числа.
 
 <div class="alert is-helpful">
 
-Note that a _style property_ name can be written in either
-[dash-case](guide/glossary#dash-case), as shown above, or
-[camelCase](guide/glossary#camelcase), such as `fontSize`.
+Обратите внимание, что имя свойства _style может быть записано в любом из них
+[тире](guide/glossary#dash-case), как показано выше, или
+[camelCase](guide/glossary#camelcase), такой как  `fontSize`.
 
 </div>
 
-If there are multiple styles you'd like to toggle, you can bind to the `[style]` property directly without the dot (for example, `[style]="styleExpr"`).
-The expression attached to the `[style]` binding is most often a string list of styles like `"width: 100px; height: 100px;"`. 
+Если есть несколько стилей, которые вы хотите переключить, вы можете привязать к  `[style]`  свойство напрямую без точки (например,  `[style]="styleExpr"`).
+Выражение прилагается к  `[style]`  привязка чаще всего представляет собой строковый список стилей, например `"width: 100px; height: 100px;"`,
 
-You can also format the expression as an object with style names as the keys and style values as the values, like `{width: '100px', height: '100px'}`. 
-It's important to note that with any object-like expression (`object`, `Array`, `Map`, `Set`, etc), the identity of the object must change for the class list to be updated.
-Updating the property without changing object identity will have no effect.
+Вы также можете отформатировать выражение как объект с именами стилей в качестве ключей и значениями стилей в качестве значений, например `{width: '100px', height: '100px'}`.
+Важно отметить, что с любым объектоподобным выражением (  `object`, `Array`, `Map`, `Set`  и т. Д.), Идентификатор объекта должен измениться для обновления списка классов.
+Обновление свойства без изменения идентичности объекта не будет иметь никакого эффекта.
 
-If there are multiple bindings to the same style property, conflicts are resolved using [styling precedence rules](#styling-precedence).
+Если имеется несколько привязок к одному и тому же свойству стиля, конфликты разрешаются с помощью [правила приоритета стиля](#styling-precedence).
 
 <style>
   td, th {vertical-align: top}
 </style>
 
 <table width="100%">
-  <col width="15%">
-  </col>
-  <col width="20%">
-  </col>
-  <col width="35%">
-  </col>
-  <col width="30%">
-  </col>
+
+
+
+
+
+
+
+
   <tr>
     <th>
-      Binding Type
+      Тип привязки
     </th>
     <th>
-      Syntax
+      Синтаксис
     </th>
     <th>
-      Input Type
+      Тип входа
     </th>
     <th>
-      Example Input Values
+      Пример входных значений
     </th>
   </tr>
   <tr>
-    <td>Single style binding</td>
+    <td>Единый стиль привязки </td>
     <td><code>[style.width]="width"</code></td>
     <td><code>string | undefined | null</code></td>
     <td><code>"100px"</code></td>
   </tr>
   <tr>
   <tr>
-    <td>Single style binding with units</td>
+    <td>Единый стиль привязки с единицами </td>
     <td><code>[style.width.px]="width"</code></td>
     <td><code>number | undefined | null</code></td>
     <td><code>100</code></td>
   </tr>
     <tr>
-    <td rowspan=3>Multi-style binding</td>
+    <td rowspan=3>Мульти-стиль привязки </td>
     <td rowspan=3><code>[style]="styleExpr"</code></td>
     <td><code>string</code></td>
     <td><code>"width: 100px; height: 100px"</code></td>
@@ -1051,160 +1086,166 @@ If there are multiple bindings to the same style property, conflicts are resolve
     <td><code>{width: '100px', height: '100px'}</code></td>
   </tr>
   <tr>
-    <td><code>Array</code><<code>string</code>></td>
+    <td><code>Array</code>< <code>string</code>> </td>
     <td><code>['width', '100px']</code></td>
   </tr>
 </table>
 
-The [NgStyle](#ngstyle) directive can be used as an alternative to direct `[style]` bindings. 
-However, using the above style binding syntax without `NgStyle` is preferred because due to improvements in style binding in Angular, `NgStyle` no longer provides significant value, and might eventually be removed in the future.
+[NgStyle](#ngstyle)директива может быть использована в качестве альтернативы, чтобы направить  `[style]`  привязки.
+Однако, используя приведенный выше синтаксис привязки стиля без  `NgStyle`  является предпочтительным, потому что из-за улучшений в привязке стилей в Angular,  `NgStyle`  больше не обеспечивает значительную ценность и может в конечном итоге быть удален в будущем.
 
 
 <hr/>
 
 {@a styling-precedence}
-### Styling Precedence
+{@a styling-precedence}
+### Приоритет стиля
 
-A single HTML element can have its CSS class list and style values bound to multiple sources (for example, host bindings from multiple directives).
+Один элемент HTML может иметь свой список классов CSS и значения стилей, привязанные к нескольким источникам (например, привязки хоста из нескольких директив).
 
-When there are multiple bindings to the same class name or style property, Angular uses a set of precedence rules to resolve conflicts and determine which classes or styles are ultimately applied to the element.
+При наличии нескольких привязок к одному и тому же имени класса или свойству стиля Angular использует набор правил приоритета для разрешения конфликтов и определения, какие классы или стили в конечном итоге применяются к элементу.
 
 <div class="alert is-helpful">
-<h4>Styling precedence (highest to lowest)</h4>
+<h4>Приоритет стиля (от высшего к низшему) </h4>
 
-1. Template bindings
-    1. Property binding (for example, `<div [class.foo]="hasFoo">` or `<div [style.color]="color">`)
-    1. Map binding (for example, `<div [class]="classExpr">` or `<div [style]="styleExpr">`)
-    1. Static value (for example, `<div class="foo">` or `<div style="color: blue">`) 
-1. Directive host bindings
-    1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
-    1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
-    1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)    
-1. Component host bindings
-    1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
-    1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
-    1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)    
+1. Шаблонные привязки
+    1. Свойство привязки (например,  `<div [class.foo]="hasFoo"> ` или ` <div [style.color]="color">`)
+    1. Привязка карты (например, `<div [class]="classExpr"> ` или ` <div [style]="styleExpr">`)
+    1. Статическое значение (например, `<div class="foo"> ` или ` <div style="color: blue">`)
+1. Директивные привязки хоста
+    1. Свойство привязки (например, `host: {'[class.foo]': 'hasFoo'} ` или ` host: {'[style.color]': 'color'}`)
+    1. Привязка карты (например, `host: {'[class]': 'classExpr'} ` или ` host: {'[style]': 'styleExpr'}`)
+    1. Статическое значение (например, `host: {'class': 'foo'} ` или ` host: {'style': 'color: blue'}`)
+1. Привязки хостов компонентов
+    1. Свойство привязки (например, `host: {'[class.foo]': 'hasFoo'} ` или ` host: {'[style.color]': 'color'}`)
+    1. Привязка карты (например, `host: {'[class]': 'classExpr'} ` или ` host: {'[style]': 'styleExpr'}`)
+    1. Статическое значение (например, `host: {'class': 'foo'} ` или ` host: {'style': 'color: blue'}`)
 
 </div>
 
-The more specific a class or style binding is, the higher its precedence.
+Чем конкретнее привязка класса или стиля, тем выше его приоритет.
 
-A binding to a specific class (for example, `[class.foo]`) will take precedence over a generic `[class]` binding, and a binding to a specific style (for example, `[style.bar]`) will take precedence over a generic `[style]` binding.
+Привязка к определенному классу (например,  `[class.foo]`) будет иметь приоритет над общим  `[class]`  привязка и привязка к определенному стилю (например,  `[style.bar]`) будет иметь приоритет над общим  `[style]`  обязательна.
 
 <code-example path="attribute-binding/src/app/app.component.html" region="basic-specificity" header="src/app/app.component.html"></code-example>
 
-Specificity rules also apply when it comes to bindings that originate from different sources. 
-It's possible for an element to have bindings in the template where it's declared, from host bindings on matched directives, and from host bindings on matched components.
+Правила специфичности также применяются, когда речь идет о привязках, которые происходят из разных источников.
+Элемент может иметь привязки в шаблоне, в котором он объявлен, из привязок хоста в соответствующих директивах и из привязок хоста в соответствующих компонентах.
 
-Template bindings are the most specific because they apply to the element directly and exclusively, so they have the highest precedence.
+Привязки шаблонов являются наиболее конкретными, поскольку они применяются к элементу напрямую и исключительно, поэтому они имеют наивысший приоритет.
 
-Directive host bindings are considered less specific because directives can be used in multiple locations, so they have a lower precedence than template bindings.
+Привязки хостов директив считаются менее конкретными, поскольку директивы могут использоваться в нескольких местах, поэтому они имеют более низкий приоритет, чем привязки шаблонов.
 
-Directives often augment component behavior, so host bindings from components have the lowest precedence. 
+Директивы часто улучшают поведение компонентов, поэтому привязки хостов от компонентов имеют наименьший приоритет.
 
 <code-example path="attribute-binding/src/app/app.component.html" region="source-specificity" header="src/app/app.component.html"></code-example>
 
-In addition, bindings take precedence over static attributes. 
+Кроме того, привязки имеют приоритет над статическими атрибутами.
 
-In the following case, `class` and `[class]` have similar specificity, but the `[class]` binding will take precedence because it is dynamic.
+В следующем случае  `class`  и  `[class]`  имеют сходную специфику, но  `[class]`  Привязка будет иметь приоритет, потому что она динамическая.
 
 <code-example path="attribute-binding/src/app/app.component.html" region="dynamic-priority" header="src/app/app.component.html"></code-example>
 
 {@a styling-delegation}
-### Delegating to styles with lower precedence
+{@a delegating-to-styles-with-lower-precedence}
+### Делегирование стилей с более низким приоритетом
 
-It is possible for higher precedence styles to "delegate" to lower precedence styles using `undefined` values.
-Whereas setting a style property to `null` ensures the style is removed, setting it to `undefined` will cause Angular to fall back to the next-highest precedence binding to that style.
+Для стилей с более высоким приоритетом можно «делегировать» стили с более низким приоритетом, используя  `undefined`  значения.
+Принимая во внимание, что установка свойства стиля  `null`  гарантирует, что стиль будет удален, установив его  `undefined`  приведет к тому, что Angular вернется к следующему наивысшему приоритету, привязанному к этому стилю.
 
-For example, consider the following template: 
+Например, рассмотрим следующий шаблон:
 
 <code-example path="attribute-binding/src/app/app.component.html" region="style-delegation" header="src/app/app.component.html"></code-example>
 
-Imagine that the `dirWithHostBinding` directive and the `comp-with-host-binding` component both have a `[style.width]` host binding.
-In that case, if `dirWithHostBinding` sets its binding to `undefined`, the `width` property will fall back to the value of the `comp-with-host-binding` host binding.
-However, if `dirWithHostBinding` sets its binding to `null`, the `width` property will be removed entirely.
+Представь, что  `dirWithHostBinding`  директива и  `comp-with-host-binding`  Компонент имеет  `[style.width]`  привязка хоста.
+В этом случае, если  `dirWithHostBinding`  устанавливает свою привязку к  `undefined`, `width`  свойство будет возвращаться к значению  `comp-with-host-binding`  хоста к.
+Однако если  `dirWithHostBinding`  устанавливает свою привязку к  `null`, `width`  Свойство будет полностью удалено.
 
 
 {@a event-binding}
 
-## Event binding `(event)`
+{@a event-binding-event}
+## Привязка к событию  `(event)` 
 
-Event binding allows you to listen for certain events such as
-keystrokes, mouse movements, clicks, and touches. For an example
-demonstrating all of the points in this section, see the <live-example name="event-binding">event binding example</live-example>.
+Привязка событий позволяет прослушивать определенные события, такие как
+нажатия клавиш, движения мыши, щелчки и касания. Для примера
+демонстрируя все пункты в этом разделе, см. <live-example name="event-binding">пример привязки события </live-example>.
 
-Angular event binding syntax consists of a **target event** name
-within parentheses on the left of an equal sign, and a quoted
-template statement on the right.
-The following event binding listens for the button's click events, calling
-the component's `onSave()` method whenever a click occurs:
+Синтаксис привязки Angular событий состоит из **целевого события** имени
+в скобках слева от знака равенства и кавычки
+Шаблон заявления справа.
+Следующая привязка событий прослушивает события нажатия кнопки, вызывая
+компоненты  `onSave()`  метод всякий раз, когда происходит щелчок:
 
 <div class="lightbox">
   <img src='generated/images/guide/template-syntax/syntax-diagram.svg' alt="Syntax diagram">
 </div>
 
-### Target event
+{@a target-event}
+### Целевое событие
 
-As above, the target is the button's click event.
+Как и выше, целью является событие нажатия кнопки.
 
 <code-example path="event-binding/src/app/app.component.html" region="event-binding-1" header="src/app/app.component.html"></code-example>
 
-Alternatively, use the `on-` prefix, known as the canonical form:
+В качестве альтернативы используйте  `on-`  префикс, известный как каноническая форма:
 
 <code-example path="event-binding/src/app/app.component.html" region="event-binding-2" header="src/app/app.component.html"></code-example>
 
-Element events may be the more common targets, but Angular looks first to see if the name matches an event property
-of a known directive, as it does in the following example:
+События элемента могут быть более распространенными целями, но Angular сначала смотрит, соответствует ли имя свойству события
+известная директива, как это происходит в следующем примере:
 
 <code-example path="event-binding/src/app/app.component.html" region="custom-directive" header="src/app/app.component.html"></code-example>
 
-If the name fails to match an element event or an output property of a known directive,
-Angular reports an “unknown directive” error.
+Если имя не совпадает событие элемента или выход свойство известной директивы
+Angular сообщает «неизвестную директиву» ?? ошибка.
 
 
-### *$event* and event handling statements
+{@a *$event*-and-event-handling-statements}
+### *$ event* и операторы обработки событий
 
-In an event binding, Angular sets up an event handler for the target event.
+В привязке события Angular устанавливает обработчик события для целевого события.
 
-When the event is raised, the handler executes the template statement.
-The template statement typically involves a receiver, which performs an action
-in response to the event, such as storing a value from the HTML control
-into a model.
+Когда событие вызывается, обработчик выполняет оператор шаблона.
+Шаблонный оператор обычно включает получателя, который выполняет действие
+в ответ на событие, например, сохранение значения из элемента управления HTML
+в модель.
 
-The binding conveys information about the event. This information can include data values such as an event object, string, or number named `$event`.
+Привязка передает информацию о событии. Эта информация может включать значения данных, такие как объект события, строка или число с именем  `$event`.
 
-The target event determines the shape of the `$event` object.
-If the target event is a native DOM element event, then `$event` is a
-[DOM event object](https://developer.mozilla.org/en-US/docs/Web/Events),
-with properties such as `target` and `target.value`.
+Целевое событие определяет форму  `$event`  объекта.
+Если целевое событие является собственным событием элемента DOM, то  `$event`  является
+[DOM - объект события](https://developer.mozilla.org/en-US/docs/Web/Events),
+с такими свойствами, как  `target`  и  `target.value`.
 
-Consider this example:
+Рассмотрим следующий пример:
 
 <code-example path="event-binding/src/app/app.component.html" region="event-binding-3" header="src/app/app.component.html"></code-example>
 
-This code sets the `<input>` `value` property by binding to the `name` property.
-To listen for changes to the value, the code binds to the `input`
-event of the `<input>` element.
-When the user makes changes, the `input` event is raised, and the binding executes
-the statement within a context that includes the DOM event object, `$event`.
+Этот код устанавливает  `<input>`    `value` свойства путем привязки к  `name`  собственности.
+Чтобы прослушать изменения значения, код привязывается к  `input` 
+событие  `<input>`  элемент.
+Когда пользователь вносит изменения,  `input`  событие возникает, и привязка выполняется
+оператор в контексте, который включает в себя объект события DOM,  `$event`.
 
-To update the `name` property, the changed text is retrieved by following the path `$event.target.value`.
+Чтобы обновить  `name`  свойство, измененный текст извлекается по пути  `$event.target.value`.
 
-If the event belongs to a directive&mdash;recall that components
-are directives&mdash;`$event` has whatever shape the directive produces.
+Если событие относится к директиве - вспомните эти компоненты
+директивы  `$event`  имеет любую форму, создаваемую директивой.
 
 
-### Custom events with `EventEmitter`
+{@a custom-events-with-eventemitter}
+### Пользовательские события с  `EventEmitter` 
 
-Directives typically raise custom events with an Angular [EventEmitter](api/core/EventEmitter).
-The directive creates an `EventEmitter` and exposes it as a property.
-The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload, which can be anything.
-Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
+Директивы обычно вызывают пользовательские события с Angular [EventEmitter](api/core/EventEmitter).
+Директива создает  `EventEmitter`  и выставляет его как свойство.
+Директива призывает  `EventEmitter.emit(payload)`  для запуска события, передавая полезную нагрузку сообщения, которая может быть чем угодно.
+Родительские директивы прослушивают событие, связываясь с этим свойством и получая доступ к полезной нагрузке через  `$event`  объекта.
 
-Consider an `ItemDetailComponent` that presents item information and responds to user actions.
-Although the `ItemDetailComponent` has a delete button, it doesn't know how to delete the hero. It can only raise an event reporting the user's delete request.
+Рассмотрим  `ItemDetailComponent`  который представляет информацию об элементе и отвечает на действия пользователя.
+Хотя  `ItemDetailComponent`  имеет кнопку удаления, он не знает, как удалить героя. Он может вызывать только событие, сообщающее о запросе пользователя на удаление.
 
-Here are the pertinent excerpts from that `ItemDetailComponent`:
+Вот соответствующие выдержки из этого  `ItemDetailComponent`  :
 
 
 <code-example path="event-binding/src/app/item-detail/item-detail.component.html" header="src/app/item-detail/item-detail.component.html (template)" region="line-through"></code-example>
@@ -1212,168 +1253,175 @@ Here are the pertinent excerpts from that `ItemDetailComponent`:
 <code-example path="event-binding/src/app/item-detail/item-detail.component.ts" header="src/app/item-detail/item-detail.component.ts (deleteRequest)" region="deleteRequest"></code-example>
 
 
-The component defines a `deleteRequest` property that returns an `EventEmitter`.
-When the user clicks *delete*, the component invokes the `delete()` method,
-telling the `EventEmitter` to emit an `Item` object.
+Компонент определяет  `deleteRequest`  свойство которое возвращает  `EventEmitter`.
+Когда пользователь нажимает *удалить*, компонент вызывает  `delete()`  метод
+говоря  `EventEmitter`  испустить  `Item`  предмета.
 
-Now imagine a hosting parent component that binds to the `deleteRequest` event
-of the `ItemDetailComponent`.
+Теперь представьте себе родительский компонент хостинга, который привязывается к  `deleteRequest`  событие
+из  `ItemDetailComponent`.
 
 <code-example path="event-binding/src/app/app.component.html" header="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component"></code-example>
 
-When the `deleteRequest` event fires, Angular calls the parent component's
-`deleteItem()` method, passing the *item-to-delete* (emitted by `ItemDetail`)
-in the `$event` variable.
+Когда  `deleteRequest`  Событие происходит, Angular вызывает родительский компонент
+ `deleteItem()`, передающий *элемент для удаления* (испускаемый  `ItemDetail`)
+в  `$event`  Переменная.
 
-### Template statements have side effects
+{@a template-statements-have-side-effects}
+### Шаблон заявления имеет побочные эффекты
 
-Though [template expressions](guide/template-syntax#template-expressions) shouldn't have [side effects](guide/template-syntax#avoid-side-effects), template
-statements usually do. The `deleteItem()` method does have
-a side effect: it deletes an item.
+Хотя [шаблонные выражения](guide/template-syntax#template-expressions)не должны иметь [побочные эффекты](guide/template-syntax#avoid-side-effects), шаблон
+заявления обычно делают.  `deleteItem()` имеет
+побочный эффект: удаляет элемент.
 
-Deleting an item updates the model, and depending on your code, triggers
-other changes including queries and saving to a remote server.
-These changes propagate through the system and ultimately display in this and other views.
+Удаление элемента обновляет модель и, в зависимости от вашего кода, запускает
+другие изменения, включая запросы и сохранение на удаленном сервере.
+Эти изменения распространяются через систему и в конечном итоге отображаются в этом и других представлениях.
 
 
 <hr/>
 
 {@a two-way}
 
-## Two-way binding `[(...)]`
+{@a two-way-binding-[...]}
+## Двухстороннее связывание  `[(...)]` 
 
-Two-way binding gives your app a way to share data between a component class and
-its template.
+Двусторонняя привязка дает вашему приложению возможность обмениваться данными между классом компонента и
+его шаблон.
 
-For a demonstration of the syntax and code snippets in this section, see the <live-example name="two-way-binding">two-way binding example</live-example>.
+Для демонстрации синтаксиса и фрагментов кода в этом разделе см. <live-example name="two-way-binding">Пример двустороннего связывания </live-example>.
 
-### Basics of two-way binding
+{@a basics-of-two-way-binding}
+### Основы двусторонней привязки
 
-Two-way binding does two things:
+Двустороннее связывание делает две вещи:
 
-1. Sets a specific element property.
-1. Listens for an element change event.
+1. Устанавливает конкретное свойство элемента.
+1. Прослушивает событие изменения элемента.
 
-Angular offers a special _two-way data binding_ syntax for this purpose, `[()]`.
-The `[()]` syntax combines the brackets
-of property binding, `[]`, with the parentheses of event binding, `()`.
+Для этой цели Angular предлагает специальный синтаксис _двухсторонней привязки данных_,  `[()]`.
+ `[()]` Синтаксис объединяет скобки
+привязки собственности,  `[]`, с круглыми скобками привязки события,  `()`.
 
 <div class="callout is-important">
 
 <header>
-  [( )] = banana in a box
+  [()] = банан в коробке
 </header>
 
-Visualize a *banana in a box* to remember that the parentheses go _inside_ the brackets.
+Визуализируйте *банан в коробке,* чтобы помнить, что скобки идут _inside_ скобки.
 
 </div>
 
-The `[()]` syntax is easy to demonstrate when the element has a settable
-property called `x` and a corresponding event named `xChange`.
-Here's a `SizerComponent` that fits this pattern.
-It has a `size` value property and a companion `sizeChange` event:
+ `[()]` Синтаксис легко продемонстрировать, когда элемент имеет настраиваемое значение
+свойство называется  `x`  и соответствующее событие с именем  `xChange`.
+Вот  `SizerComponent`  который соответствует этому шаблону.
+Оно имеет  `size`  свойство значения и компаньон  `sizeChange`  событие:
 
 <code-example path="two-way-binding/src/app/sizer/sizer.component.ts" header="src/app/sizer.component.ts"></code-example>
 
 <code-example path="two-way-binding/src/app/sizer/sizer.component.html" header="src/app/sizer.component.html"></code-example>
 
-The initial `size` is an input value from a property binding.
-Clicking the buttons increases or decreases the `size`, within
-min/max value constraints,
-and then raises, or emits, the `sizeChange` event with the adjusted size.
+Начальный  `size`  является входным значением из привязки свойства.
+Нажатие на кнопки увеличивает или уменьшает  `size`, в пределах
+минимальное / максимальное значение ограничения
+а затем поднимает или испускает  `sizeChange`  событие с установленным размером.
 
-Here's an example in which the `AppComponent.fontSizePx` is two-way bound to the `SizerComponent`:
+Вот пример, в котором  `AppComponent.fontSizePx`  является двусторонней привязкой к  `SizerComponent`  :
 
 <code-example path="two-way-binding/src/app/app.component.html" header="src/app/app.component.html (two-way-1)" region="two-way-1"></code-example>
 
-The `AppComponent.fontSizePx` establishes the initial `SizerComponent.size` value.
+ `AppComponent.fontSizePx` устанавливает начальный  `SizerComponent.size`  Значение.
 
 <code-example path="two-way-binding/src/app/app.component.ts" header="src/app/app.component.ts" region="font-size"></code-example>
 
-Clicking the buttons updates the `AppComponent.fontSizePx` via the two-way binding.
-The revised `AppComponent.fontSizePx` value flows through to the _style_ binding,
-making the displayed text bigger or smaller.
+Нажатие на кнопки обновляет  `AppComponent.fontSizePx`  через двустороннюю привязку.
+Пересмотренный  `AppComponent.fontSizePx`  значение течет через к _style_ связывания
+сделать отображаемый текст больше или меньше.
 
-The two-way binding syntax is really just syntactic sugar for a _property_ binding and an _event_ binding.
-Angular desugars the `SizerComponent` binding into this:
+Синтаксис двусторонней привязки на самом деле является просто синтаксическим сахаром для привязки _property_ и привязки _event_.
+Angular десугары  `SizerComponent`  связывание в этом:
 
 <code-example path="two-way-binding/src/app/app.component.html" header="src/app/app.component.html (two-way-2)" region="two-way-2"></code-example>
 
-The `$event` variable contains the payload of the `SizerComponent.sizeChange` event.
-Angular assigns the `$event` value to the `AppComponent.fontSizePx` when the user clicks the buttons.
+ `$event` Переменная содержит полезную нагрузку  `SizerComponent.sizeChange`  Событие.
+Angular присваивает  `$event`  значение  `AppComponent.fontSizePx`  когда пользователь нажимает кнопки.
 
-### Two-way binding in forms
+{@a two-way-binding-in-forms}
+### Двухстороннее связывание в формах
 
-The two-way binding syntax is a great convenience compared to
-separate property and event bindings. It would be convenient to
-use two-way binding with HTML form elements like `<input>` and
-`<select>`. However, no native HTML element follows the `x`
-value and `xChange` event pattern.
+Синтаксис двустороннего связывания - это большое удобство по сравнению с
+отдельные привязки свойств и событий. Было бы удобно
+использовать двустороннее связывание с такими элементами HTML-формы, как  `<input>`  и
+ `<select>` . Однако ни один нативный элемент HTML не следует за  `x` 
+значение и  `xChange`  события.
 
-For more on how to use two-way binding in forms, see
-Angular [NgModel](guide/template-syntax#ngModel).
+Подробнее о том, как использовать двустороннюю привязку в формах, см
+Angular [НгМодель](guide/template-syntax#ngModel).
 
 <hr/>
 
 {@a directives}
 
-## Built-in directives
+{@a built-in-directives}
+## Встроенные директивы
 
-Angular offers two kinds of built-in directives: attribute
-directives and structural directives. This segment reviews some of the most common built-in directives,
-classified as either [_attribute_ directives](guide/template-syntax#attribute-directives) or [_structural_ directives](guide/template-syntax#structural-directives) and has its own <live-example name="built-in-directives">built-in directives example</live-example>.
+Angular предлагает два вида встроенных директив: attribute
+директивы и структурные директивы. В этом сегменте рассматриваются некоторые из наиболее распространенных встроенных директив
+классифицируется как [директивы _attribute_](guide/template-syntax#attribute-directives)или [директивы _structural_](guide/template-syntax#structural-directives)и имеет собственный <live-example name="built-in-directives">пример встроенных директив</live-example>,
 
-For more detail, including how to build your own custom directives, see [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives).
+Для получения более подробной информации, в том числе о том, как создавать свои собственные пользовательские директивы, см. [Директивы атрибутов](guide/attribute-directives)и [Структурные директивы](guide/structural-directives).
 
 <hr/>
 
 {@a attribute-directives}
 
-### Built-in attribute directives
+{@a built-in-attribute-directives}
+### Встроенные атрибуты директив
 
-Attribute directives listen to and modify the behavior of
-other HTML elements, attributes, properties, and components.
-You usually apply them to elements as if they were HTML attributes, hence the name.
+Директивы атрибутов слушают и изменяют поведение
+другие элементы HTML, атрибуты, свойства и компоненты.
+Вы обычно применяете их к элементам, как если бы они были атрибутами HTML, отсюда и название.
 
-Many NgModules such as the [`RouterModule`](guide/router "Routing and Navigation")
-and the [`FormsModule`](guide/forms "Forms") define their own attribute directives.
-The most common attribute directives are as follows:
+Многие NgModules, такие как [  `RouterModule`  ](guide/router "Routing and Navigation")
+и [  `FormsModule`  ](guide/forms "Forms") определяют свои собственные директивы атрибутов.
+Большинство директив общего атрибута следующим образом :
 
-* [`NgClass`](guide/template-syntax#ngClass)&mdash;adds and removes a set of CSS classes.
-* [`NgStyle`](guide/template-syntax#ngStyle)&mdash;adds and removes a set of HTML styles.
-* [`NgModel`](guide/template-syntax#ngModel)&mdash;adds two-way data binding to an HTML form element.
+* [  `NgClass`  ](guide/template-syntax#ngClass)добавляет и удаляет набор классов CSS.
+* [  `NgStyle`  ](guide/template-syntax#ngStyle)добавляет и удаляет набор стилей HTML.
+* [  `NgModel`  ](guide/template-syntax#ngModel)добавляет двустороннюю привязку данных к элементу формы HTML.
 
 <hr/>
 
 {@a ngClass}
 
-### `NgClass`
+{@a ngclass}
+###  `NgClass` 
 
-Add or remove several CSS classes simultaneously with `ngClass`.
+Добавить или удалить несколько классов CSS одновременно с  `ngClass`.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="special-div" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-To add or remove a *single* class, use [class binding](guide/template-syntax#class-binding) rather than `NgClass`.
+Чтобы добавить или удалить *отдельный* класс, используйте [связывание классов](guide/template-syntax#class-binding)а не  `NgClass`.
 
 </div>
 
-Consider a `setCurrentClasses()` component method that sets a component property,
-`currentClasses`, with an object that adds or removes three classes based on the
-`true`/`false` state of three other component properties. Each key of the object is a CSS class name; its value is `true` if the class should be added,
-`false` if it should be removed.
+Рассмотрим  `setCurrentClasses()`  компонент, метод, который задает свойство компонента
+ `currentClasses`, с объектом, который добавляет или удаляет три класса на основе
+ `true ` / ` false` состояние трех других свойств компонента. Каждый ключ объекта является именем класса CSS; его ценность  `true`  если класс должен быть добавлен
+ `false` если она должна быть удалена.
 
 <code-example path="built-in-directives/src/app/app.component.ts" region="setClasses" header="src/app/app.component.ts"></code-example>
 
-Adding an `ngClass` property binding to `currentClasses` sets the element's classes accordingly:
+Добавление  `ngClass`  свойства к  `currentClasses`  устанавливает классы элемента соответственно:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgClass-1" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-Remember that in this situation you'd call `setCurrentClasses()`,
-both initially and when the dependent properties change.
+Помните, что в этой ситуации вы бы позвонили  `setCurrentClasses()`,
+как изначально, так и при изменении зависимых свойств.
 
 </div>
 
@@ -1381,31 +1429,33 @@ both initially and when the dependent properties change.
 
 {@a ngStyle}
 
-### `NgStyle`
+{@a ngstyle}
+###  `NgStyle` 
 
-Use `NgStyle` to set many inline styles simultaneously and dynamically, based on the state of the component.
+использование  `NgStyle`  для одновременной и динамической установки множества встроенных стилей в зависимости от состояния компонента.
 
-#### Without `NgStyle`
+{@a without-ngstyle}
+#### Без  `NgStyle` 
 
-For context, consider setting a *single* style value with [style binding](guide/template-syntax#style-binding), without `NgStyle`.
+Для контекста рассмотрите возможность установки *единственного* значения стиля с [привязка стиля](guide/template-syntax#style-binding), без  `NgStyle`.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="without-ng-style" header="src/app/app.component.html"></code-example>
 
-However, to set *many* inline styles at the same time, use the `NgStyle` directive.
+Однако, чтобы установить *много* встроенных стилей одновременно, используйте  `NgStyle`  Директива.
 
-The following is a `setCurrentStyles()` method that sets a component
-property, `currentStyles`, with an object that defines three styles,
-based on the state of three other component properties:
+Следующее является  `setCurrentStyles()`  Метод который устанавливает компонент
+свойство,  `currentStyles`, с объектом, который определяет три стиля
+на основе состояния трех других свойств компонентов:
 
 <code-example path="built-in-directives/src/app/app.component.ts" region="setStyles" header="src/app/app.component.ts"></code-example>
 
-Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:
+Добавление  `ngStyle`  свойства к  `currentStyles`  задает стили элемента соответственно:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgStyle-2" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-Remember to call `setCurrentStyles()`, both initially and when the dependent properties change.
+Не забудьте позвонить  `setCurrentStyles()`, как изначально, так и при изменении зависимых свойств.
 
 </div>
 
@@ -1414,69 +1464,72 @@ Remember to call `setCurrentStyles()`, both initially and when the dependent pro
 
 {@a ngModel}
 
-### `[(ngModel)]`: Two-way binding
+{@a [ngmodel]-two-way-binding}
+###  `[(ngModel)]` : двусторонняя привязка
 
-The `NgModel` directive allows you to display a data property and
-update that property when the user makes changes. Here's an example:
+ `NgModel` Директива позволяет отображать свойство данных и
+обновить это свойство, когда пользователь вносит изменения. Вот пример:
 
 <code-example path="built-in-directives/src/app/app.component.html" header="src/app/app.component.html (NgModel example)" region="NgModel-1"></code-example>
 
 
-#### Import `FormsModule` to use `ngModel`
+{@a import-formsmodule-to-use-ngmodel}
+#### Импортировать  `FormsModule`  для использования  `ngModel` 
 
-Before using the `ngModel` directive in a two-way data binding,
-you must import the `FormsModule` and add it to the NgModule's `imports` list.
-Learn more about the `FormsModule` and `ngModel` in [Forms](guide/forms#ngModel).
+Перед использованием  `ngModel`  директива в двусторонней привязке данных
+Вы должны импортировать  `FormsModule`  и добавить его в NgModule  `imports`  список.
+Узнайте больше о  `FormsModule`  и  `ngModel`  в [Формы](guide/forms#ngModel).
 
-Remember to import the `FormsModule` to make `[(ngModel)]` available as follows:
+Не забудьте импортировать  `FormsModule`  сделать  `[(ngModel)]`  доступны в следующем:
 
 <code-example path="built-in-directives/src/app/app.module.ts" header="src/app/app.module.ts (FormsModule import)" region="import-forms-module"></code-example>
 
 
-You could achieve the same result with separate bindings to
-the `<input>` element's  `value` property and `input` event:
+Вы можете достичь того же результата с отдельными привязками к
+ `<input>` элементы   `value` имущества и  `input`  событие:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="without-NgModel" header="src/app/app.component.html"></code-example>
 
-To streamline the syntax, the `ngModel` directive hides the details behind its own `ngModel` input and `ngModelChange` output properties:
+Чтобы упростить синтаксис,  `ngModel`  Директива скрывает детали за  `ngModel`  вход и  `ngModelChange`  выходные свойства:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgModelChange" header="src/app/app.component.html"></code-example>
 
-The `ngModel` data property sets the element's value property and the `ngModelChange` event property
-listens for changes to the element's value.
+ `ngModel` данных устанавливает свойство value элемента и  `ngModelChange`  события
+слушает изменения в значении элемента.
 
-#### `NgModel` and value accessors
+{@a ngmodel-and-value-accessors}
+####  `NgModel` и значение аксессоров
 
-The details are specific to each kind of element and therefore the `NgModel` directive only works for an element
-supported by a [ControlValueAccessor](api/forms/ControlValueAccessor)
-that adapts an element to this protocol.
-Angular provides *value accessors* for all of the basic HTML form elements and the
-[Forms](guide/forms) guide shows how to bind to them.
+Детали специфичны для каждого вида элементов и, следовательно,  `NgModel`  Директива работает только для элемента
+поддерживается [ControlValueAccessor](api/forms/ControlValueAccessor)
+который адаптирует элемент к этому протоколу.
+Angular предоставляет средства *доступа значениям* к для всех основных элементов формы HTML и для
+[Формы](guide/forms)руководство показывает, как привязать к ним.
 
-You can't apply `[(ngModel)]` to a non-form native element or a
-third-party custom component until you write a suitable value accessor. For more information, see
-the API documentation on [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor).
+Вы не можете подать заявку  `[(ngModel)]`  для нативного элемента или элемента
+сторонний пользовательский компонент, пока не напишете подходящее значение аксессора. Для получения дополнительной информации см
+документация по API [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor).
 
-You don't need a value accessor for an Angular component that
-you write because you can name the value and event properties
-to suit Angular's basic [two-way binding syntax](guide/template-syntax#two-way)
-and skip `NgModel` altogether.
-The `sizer` in the
-[Two-way Binding](guide/template-syntax#two-way) section is an example of this technique.
+Вам не нужен метод доступа к значениям для компонента Angular
+вы пишете, потому что вы можете назвать значение и свойства события
+в соответствии с базовым Angular [синтаксис двустороннего связывания](guide/template-syntax#two-way)
+и пропустить  `NgModel`  целом.
+ `sizer` в
+[Двухсторонний Binding](guide/template-syntax#two-way)раздела является примером этой методики.
 
-Separate `ngModel` bindings are an improvement over binding to the
-element's native properties, but you can streamline the binding with a
-single declaration using the `[(ngModel)]` syntax:
+отдельный  `ngModel`  являются улучшением по сравнению с привязкой к
+свойства элемента, но вы можете упростить привязку с помощью
+одно объявление с использованием  `[(ngModel)]`  Синтаксис:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgModel-1" header="src/app/app.component.html"></code-example>
 
-This `[(ngModel)]` syntax can only _set_ a data-bound property.
-If you need to do something more, you can write the expanded form;
-for example, the following changes the `<input>` value to uppercase:
+Эта  `[(ngModel)]`  может только _set_ привязанное к данным свойство.
+Если вам нужно сделать что-то большее, вы можете написать расширенную форму;
+например, следующее меняет  `<input>`  значение в верхний регистр:
 
 <code-example path="built-in-directives/src/app/app.component.html" region="uppercase" header="src/app/app.component.html"></code-example>
 
-Here are all variations in action, including the uppercase version:
+Вот все изменения в действии, включая заглавные версии:
 
 <div class="lightbox">
   <img src='generated/images/guide/built-in-directives/ng-model-anim.gif' alt="NgModel variations">
@@ -1486,30 +1539,31 @@ Here are all variations in action, including the uppercase version:
 
 {@a structural-directives}
 
-## Built-in _structural_ directives
+{@a built-in-structural-directives}
+## Встроенные _структурные_ директивы
 
-Structural directives are responsible for HTML layout.
-They shape or reshape the DOM's structure, typically by adding, removing, and manipulating
-the host elements to which they are attached.
+Структурные директивы отвечают за макет HTML.
+Они формируют или изменяют структуру DOM, обычно добавляя, удаляя и манипулируя
+элементы хоста, к которым они прикреплены.
 
-This section is an introduction to the common built-in structural directives:
+Этот раздел представляет собой введение в общую встроенных структурных директивах:
 
-* [`NgIf`](guide/template-syntax#ngIf)&mdash;conditionally creates or destroys subviews from the template.
-* [`NgFor`](guide/template-syntax#ngFor)&mdash;repeat a node for each item in a list.
-* [`NgSwitch`](guide/template-syntax#ngSwitch)&mdash;a set of directives that switch among alternative views.
+* [  `NgIf`  ](guide/template-syntax#ngIf)условно создает или уничтожает подпредставления из шаблона.
+* [  `NgFor`  ](guide/template-syntax#ngFor)повторять узел для каждого элемента в списке.
+* [  `NgSwitch`  ](guide/template-syntax#ngSwitch)- набор директив, которые переключаются между альтернативными представлениями.
 
 <div class="alert is-helpful">
 
-The deep details of structural directives are covered in the
-[Structural Directives](guide/structural-directives) guide,
-which explains the following:
+Глубокие детали структурных директив описаны в
+[Структурные директивы](guide/structural-directives)руководство
+которая объясняет следующее:
 
-* Why you
-[prefix the directive name with an asterisk (\*)](guide/structural-directives#the-asterisk--prefix).
-* Using [`<ng-container>`](guide/structural-directives#ngcontainer "<ng-container>")
-to group elements when there is no suitable host element for the directive.
-* How to write your own structural directive.
-* That you can only apply [one structural directive](guide/structural-directives#one-per-element "one per host element") to an element.
+* Почему ты
+[ставьте перед именем директивы звездочку (\ *)](guide/structural-directives#the-asterisk--prefix).
+* Используя [``](guide/structural-directives#ngcontainer "<ng-container>")
+группировать элементы, когда для директивы нет подходящего хост-элемента.
+* Как написать свою собственную структурную директиву.
+* Это вы можете применить только [одна структурная директива](guide/structural-directives#one-per-element "one per host element") к элементу.
 
 </div>
 
@@ -1517,64 +1571,67 @@ to group elements when there is no suitable host element for the directive.
 
 {@a ngIf}
 
+{@a ngif}
 ### NgIf
 
-You can add or remove an element from the DOM by applying an `NgIf` directive to
-a host element.
-Bind the directive to a condition expression like `isActive` in this example.
+Вы можете добавить или удалить элемент из DOM, применив  `NgIf`  директива
+хост-элемент.
+Привязать директиву к условному выражению, как  `isActive`  в этом примере.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgIf-1" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-Don't forget the asterisk (`*`) in front of `ngIf`. For more information
-on the asterisk, see the [asterisk (*) prefix](guide/structural-directives#the-asterisk--prefix) section of
-[Structural Directives](guide/structural-directives).
+Не забудьте звездочку (`*`) перед  `ngIf`  . Для получения дополнительной информации
+на звездочку см [префикс звездочка (*)](guide/structural-directives#the-asterisk--prefix)раздел
+[Структурные директивы](guide/structural-directives).
 
 </div>
 
-When the `isActive` expression returns a truthy value, `NgIf` adds the
-`ItemDetailComponent` to the DOM.
-When the expression is falsy, `NgIf` removes the `ItemDetailComponent`
-from the DOM, destroying that component and all of its sub-components.
+Когда  `isActive`  Выражение возвращает истинное значение,  `NgIf`  добавляет
+ `ItemDetailComponent` для DOM.
+Когда выражение ложное,  `NgIf`  удаляет  `ItemDetailComponent` 
+из DOM, уничтожая этот компонент и все его подкомпоненты.
 
 
-#### Show/hide vs. `NgIf`
+{@a show/hide-vs.-ngif}
+#### Показать / скрыть против  `NgIf` 
 
-Hiding an element is different from removing it with `NgIf`.
-For comparison, the following example shows how to control
-the visibility of an element with a
-[class](guide/template-syntax#class-binding) or [style](guide/template-syntax#style-binding) binding.
+Сокрытие элемента отличается от удаления его  `NgIf`.
+Для сравнения в следующем примере показано, как управлять
+видимость элемента с
+[класс](guide/template-syntax#class-binding)или [стиль](guide/template-syntax#style-binding)привязки.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgIf-3" header="src/app/app.component.html"></code-example>
 
-When you hide an element, that element and all of its descendants remain in the DOM.
-All components for those elements stay in memory and
-Angular may continue to check for changes.
-You could be holding onto considerable computing resources and degrading performance
-unnecessarily.
+Когда вы скрываете элемент, этот элемент и все его потомки остаются в DOM.
+Все компоненты для этих элементов остаются в памяти и
+Angular может продолжать проверять наличие изменений.
+Вы могли бы удерживать значительные вычислительные ресурсы и снижать производительность
+без необходимости.
 
-`NgIf` works differently. When `NgIf` is `false`, Angular removes the element and its descendants from the DOM.
-It destroys their components, freeing up resources, which
-results in a better user experience.
+ `NgIf` работает по-другому. когда  `NgIf`  есть  `false`, Angular удаляет элемент и его потомков из DOM.
+Это уничтожает их компоненты, освобождая ресурсы, которые
+приводит к лучшему пользовательскому опыту.
 
-If you are hiding large component trees, consider `NgIf` as a more
-efficient alternative to showing/hiding.
+Если вы прячете большие деревья компонентов, подумайте  `NgIf`  как больше
+эффективная альтернатива показу / сокрытию.
 
 <div class="alert is-helpful">
 
-For more information on `NgIf` and `ngIfElse`, see the [API documentation about NgIf](api/common/NgIf).
+Для получения дополнительной информации о  `NgIf`  и  `ngIfElse`, см. [документация API о NgIf](api/common/NgIf).
 
 </div>
 
-#### Guard against null
+{@a guard-against-null}
+#### Остерегайтесь нуля
 
-Another advantage of `ngIf` is that you can use it to guard against null. Show/hide
-is best suited for very simple use cases, so when you need a guard, opt instead for `ngIf`. Angular will throw an error if a nested expression tries to access a property of `null`.
+Еще одно преимущество  `ngIf`  вы можете использовать его для защиты от нуля. Показать / скрыть
+лучше всего подходит для очень простых случаев использования, поэтому, когда вам нужна охрана, выберите вместо  `ngIf`  . Angular выдаст ошибку, если вложенное выражение попытается получить доступ к свойству  `null`.
 
-The following shows `NgIf` guarding two `<div>`s.
-The `currentCustomer` name appears only when there is a `currentCustomer`.
-The `nullCustomer` will not be displayed as long as it is `null`.
+Следующее показывает  `NgIf`  охранять двух  `<div>`  s.
+ `currentCustomer` имя отображается только при наличии  `currentCustomer`.
+ `nullCustomer` не будет отображаться, пока он  `null`.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgIf-2" header="src/app/app.component.html"></code-example>
 
@@ -1582,52 +1639,53 @@ The `nullCustomer` will not be displayed as long as it is `null`.
 
 <div class="alert is-helpful">
 
-See also the
-[safe navigation operator](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?.)") below.
+Смотрите также
+[Безопасный оператор навигации](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?.)«) ниже.
 
 </div>
 <hr/>
 
 {@a ngFor}
-### `NgFor`
+{@a ngfor}
+###  `NgFor` 
 
-`NgFor` is a repeater directive&mdash;a way to present a list of items.
-You define a block of HTML that defines how a single item should be displayed
-and then you tell Angular to use that block as a template for rendering each item in the list.
-The text assigned to `*ngFor` is the instruction that guides the repeater process.
+ `NgFor` - это директива повторителя - способ представления списка элементов.
+Вы определяете блок HTML, который определяет, как должен отображаться отдельный элемент
+а затем вы говорите Angular использовать этот блок в качестве шаблона для рендеринга каждого элемента в списке.
+Текст, присвоенный  `*ngFor`  - это инструкция, которая управляет процессом повторителя.
 
-The following example shows `NgFor` applied to a simple `<div>`. (Don't forget the asterisk (`*`) in front of `ngFor`.)
+Следующий пример показывает  `NgFor`  применяется к простой  `<div>`  . (Не забудьте звездочку (  `*`) перед  `ngFor`  .)
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgFor-1" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-Don't forget the asterisk (`*`) in front of `ngFor`. For more information
-on the asterisk, see the [asterisk (*) prefix](guide/structural-directives#the-asterisk--prefix) section of
-[Structural Directives](guide/structural-directives).
+Не забудьте звездочку (`*`) перед  `ngFor`  . Для получения дополнительной информации
+на звездочку см [префикс звездочка (*)](guide/structural-directives#the-asterisk--prefix)раздел
+[Структурные директивы](guide/structural-directives).
 
 </div>
 
-You can also apply an `NgFor` to a component element, as in the following example.
+Вы также можете подать  `NgFor`  для компонента, как в следующем примере.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgFor-2" header="src/app/app.component.html"></code-example>
 
 {@a microsyntax}
 
 <div class="callout is-critical">
-<header>*ngFor microsyntax</header>
+<header>*Для микросинтаксиса </header>
 
-The string assigned to `*ngFor` is not a [template expression](guide/template-syntax#template-expressions). Rather,
-it's a *microsyntax*&mdash;a little language of its own that Angular interprets.
-The string `"let item of items"` means:
+Строка, присвоенная  `*ngFor`  не является [шаблонное выражение](guide/template-syntax#template-expressions). Скорее
+это *микросинтаксис*- маленький собственный язык, который интерпретирует Angular.
+Строка `"let item of items"` средств:
 
-> *Take each item in the `items` array, store it in the local `item` looping variable, and
-make it available to the templated HTML for each iteration.*
+> *Возьмите каждый предмет в  `items`  массив, храните его в локальном  `item`  переменная зацикливания и
+сделать его доступным для шаблонного HTML для каждой итерации.*
 
-Angular translates this instruction into an `<ng-template>` around the host element,
-then uses this template repeatedly to create a new set of elements and bindings for each `item`
-in the list.
-For more information about microsyntax, see the [Structural Directives](guide/structural-directives#microsyntax) guide.
+Angular переводит эту инструкцию в  `<ng-template>`  вокруг элемента хоста
+затем использует этот шаблон несколько раз, чтобы создать новый набор элементов и привязок для каждого  `item` 
+в списке.
+Для получения дополнительной информации о микросинтаксисе см. [Структурные директивы](guide/structural-directives#microsyntax)Руководство.
 
 </div>
 
@@ -1636,61 +1694,63 @@ For more information about microsyntax, see the [Structural Directives](guide/st
 
 {@a template-input-variables}
 
-#### Template input variables
+#### Шаблон входных переменных
 
-The `let` keyword before `item` creates a template input variable called `item`.
-The `ngFor` directive iterates over the `items` array returned by the parent component's `items` property
-and sets `item` to the current item from the array during each iteration.
+ `let` ключевое слово раньше  `item`  создает входную переменную шаблона с именем  `item`.
+ `ngFor` Директива перебирает  `items`  массив возвращаемый родительским компонентом  `items`  недвижимости
+и устанавливает  `item`  для текущего элемента из массива во время каждой итерации.
 
-Reference `item` within the `ngFor` host element
-as well as within its descendants to access the item's properties.
-The following example references `item` first in an interpolation
-and then passes in a binding to the `item` property of the `<app-item-detail>` component.
+Ссылка  `item`  пределах  `ngFor`  элемента хоста
+а также внутри его потомков для доступа к свойствам элемента.
+В следующем примере ссылки  `item`  первым в интерполяции
+а затем переходит в привязку к  `item`  собственность  `<app-item-detail>`  компонент.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgFor-1-2" header="src/app/app.component.html"></code-example>
 
-For more information about template input variables, see
-[Structural Directives](guide/structural-directives#template-input-variable).
+Для получения дополнительной информации о входных переменных шаблона см
+[Структурные директивы](guide/structural-directives#template-input-variable).
 
-#### `*ngFor` with `index`
+{@a ngfor-with-index}
+####  `*ngFor ` с ` index` 
 
-The `index` property of the `NgFor` directive context
-returns the zero-based index of the item in each iteration.
-You can capture the `index` in a template input variable and use it in the template.
+ `index` свойство  `NgFor` контекста директивы
+возвращает нулевой индекс элемента в каждой итерации.
+Вы можете захватить  `index`  во входной переменной шаблона и использовать его в шаблоне.
 
-The next example captures the `index` in a variable named `i` and displays it with the item name.
+Следующий пример фиксирует  `index`  в переменной с именем  `i`  и отображает его с именем элемента.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgFor-3" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
-`NgFor` is implemented by the `NgForOf` directive. Read more about the other `NgForOf` context values such as `last`, `even`,
-and `odd` in the [NgForOf API reference](api/common/NgForOf).
+ `NgFor ` реализуется ` NgForOf` Директива . Узнайте больше о другом  `NgForOf`  контекста такие как  `last`, `even`,
+и  `odd`  в [ссылка на API NgForOf](api/common/NgForOf).
 
 </div>
 
 {@a trackBy}
-#### *ngFor with `trackBy`
+{@a ngfor-with-trackby}
+#### *ngFor с  `trackBy` 
 
-If you use `NgFor` with large lists, a small change to one item, such as removing or adding an item, can trigger a cascade of DOM manipulations. For example, re-querying the server could reset a list with all new item objects, even when those items were previously displayed. In this case, Angular sees only a fresh list of new object references and has no choice but to replace the old DOM elements with all new DOM elements.
+Если вы используете  `NgFor`  больших списков небольшое изменение одного элемента, например удаление или добавление элемента, может вызвать каскад манипуляций DOM. Например, повторный запрос к серверу может сбросить список со всеми новыми объектами элементов, даже если эти элементы ранее отображались. В этом случае Angular видит только новый список новых ссылок на объекты и не имеет другого выбора, кроме как заменить старые элементы DOM всеми новыми элементами DOM.
 
-You can make this more efficient with `trackBy`.
-Add a method to the component that returns the value `NgFor` should track.
-In this case, that value is the hero's `id`. If the `id` has already been rendered,
-Angular keeps track of it and doesn't re-query the server for the same `id`.
+Вы можете сделать это более эффективным с  `trackBy`.
+Добавьте метод к компоненту, который возвращает значение  `NgFor`  должен отслеживать.
+В этом случае это значение героя  `id`  . Если  `id`  уже предоставлен
+Angular отслеживает это и не перезапрашивает сервер для того же  `id`.
 
 <code-example path="built-in-directives/src/app/app.component.ts" region="trackByItems" header="src/app/app.component.ts"></code-example>
 
-In the microsyntax expression, set `trackBy` to the `trackByItems()` method.
+В выражении микросинтаксиса установите  `trackBy`  к  `trackByItems()`.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="trackBy" header="src/app/app.component.html"></code-example>
 
-Here is an illustration of the `trackBy` effect.
-"Reset items" creates new items with the same `item.id`s.
-"Change ids" creates new items with new `item.id`s.
+Вот иллюстрация  `trackBy`  эффект.
+«Сбросить элементы» создает новые элементы с тем же  `item.id`  s.
+«Изменить идентификаторы» создает новые элементы с новыми  `item.id`  s.
 
-* With no `trackBy`, both buttons trigger complete DOM element replacement.
-* With `trackBy`, only changing the `id` triggers element replacement.
+* С нет  `trackBy`, обе кнопки запускают полную замену элемента DOM.
+* С  `trackBy`, только меняя  `id`  запускает замену элемента.
 
 <div class="lightbox">
   <img src="generated/images/guide/built-in-directives/ngfor-trackby.gif" alt="Animation of trackBy">
@@ -1699,22 +1759,23 @@ Here is an illustration of the `trackBy` effect.
 
 <div class="alert is-helpful">
 
-Built-in directives use only public APIs; that is,
-they do not have special access to any private APIs that other directives can't access.
+Встроенные директивы используют только публичные API; то есть
+они не имеют специального доступа к каким-либо частным API, к которым другие директивы не могут получить доступ.
 
 </div>
 
 <hr/>
 
 {@a ngSwitch}
-## The `NgSwitch` directives
+{@a the-ngswitch-directives}
+##  `NgSwitch` Директивы
 
-NgSwitch is like the JavaScript `switch` statement.
-It displays one element from among several possible elements, based on a switch condition.
-Angular puts only the selected element into the DOM.
+NgSwitch похож на JavaScript  `switch`  заявление.
+Он отображает один элемент из нескольких возможных элементов в зависимости от состояния переключателя.
+Angular помещает в DOM только выбранный элемент.
 <!-- API Flagged -->
-`NgSwitch` is actually a set of three, cooperating directives:
-`NgSwitch`, `NgSwitchCase`, and `NgSwitchDefault` as in the following example.
+ `NgSwitch` на самом деле это набор из трех, взаимодействующих директив:
+ `NgSwitch `, ` NgSwitchCase ` и ` NgSwitchDefault` как в следующем примере.
 
  <code-example path="built-in-directives/src/app/app.component.html" region="NgSwitch" header="src/app/app.component.html"></code-example>
 
@@ -1722,30 +1783,30 @@ Angular puts only the selected element into the DOM.
   <img src="generated/images/guide/built-in-directives/ngswitch.gif" alt="Animation of NgSwitch">
 </div>
 
-`NgSwitch` is the controller directive. Bind it to an expression that returns
-the *switch value*, such as `feature`. Though the `feature` value in this
-example is a string, the switch value can be of any type.
+ `NgSwitch` - это директива контроллера. Свяжите это с выражением, которое возвращает
+*значение переключателя*, например,  `feature`  . Хотя  `feature`  Значение в этом
+Например, строка представляет собой значение переключателя любого типа.
 
-**Bind to `[ngSwitch]`**. You'll get an error if you try to set `*ngSwitch` because
-`NgSwitch` is an *attribute* directive, not a *structural* directive.
-Rather than touching the DOM directly, it changes the behavior of its companion directives.
+**Связываются с  `[ngSwitch]` **. Вы получите ошибку, если попытаетесь установить  `*ngSwitch`  потому что
+ `NgSwitch` - это *атрибута* директива, а не *структурная* директива.
+Вместо непосредственного прикосновения к DOM, он меняет поведение своих сопутствующих директив.
 
-**Bind to `*ngSwitchCase` and `*ngSwitchDefault`**.
-The `NgSwitchCase` and `NgSwitchDefault` directives are _structural_ directives
-because they add or remove elements from the DOM.
+**Связываются с  `*ngSwitchCase`  и  `*ngSwitchDefault` **.
+ `NgSwitchCase ` и ` NgSwitchDefault` Директивы являются _структурными_ директивами
+потому что они добавляют или удаляют элементы из DOM.
 
-* `NgSwitchCase` adds its element to the DOM when its bound value equals the switch value and removes
-its bound value when it doesn't equal the switch value.
+*  `NgSwitchCase` добавляет свой элемент в DOM, когда его связанное значение равно значению переключателя, и удаляет его
+его значение привязки, когда оно не равно значению переключателя.
 
-* `NgSwitchDefault` adds its element to the DOM when there is no selected `NgSwitchCase`.
+*  `NgSwitchDefault` добавляет свой элемент в DOM, когда не выбрано  `NgSwitchCase`.
 
-The switch directives are particularly useful for adding and removing *component elements*.
-This example switches among four `item` components defined in the `item-switch.components.ts` file.
-Each component has an `item` [input property](guide/template-syntax#inputs-outputs "Input property")
-which is bound to the `currentItem` of the parent component.
+Директивы switch особенно полезны для добавления и удаления *элементов компонента*.
+Этот пример переключается между четырьмя  `item`  компоненты определенные в  `item-switch.components.ts`  Файл.
+Каждый компонент имеет  `item`   [входное свойство](guide/template-syntax#inputs-outputs "Input property")
+который связан с  `currentItem`  родительского компонента.
 
-Switch directives work as well with native elements and web components too.
-For example, you could replace the `<app-best-item>` switch case with the following.
+Директивы switch также работают с собственными элементами и веб-компонентами.
+Например, вы можете заменить  `<app-best-item>`  случай переключения со следующим.
 
 <code-example path="built-in-directives/src/app/app.component.html" region="NgSwitch-div" header="src/app/app.component.html"></code-example>
 
@@ -1759,61 +1820,63 @@ For example, you could replace the `<app-best-item>` switch case with the follow
 
 {@a ref-var}
 
-## Template reference variables (`#var`)
+{@a template-reference-variables-var}
+## Шаблонные ссылочные переменные (`#var`)
 
-A **template reference variable** is often a reference to a DOM element within a template.
-It can also refer to a directive (which contains a component), an element, [TemplateRef](api/core/TemplateRef), or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" title="MDN: Web Components">web component</a>.
+**Опорный шаблон переменная** часто является ссылка на DOM элемент внутри шаблона.
+Он также может ссылаться на директиву (которая содержит компонент), элемент [TemplateRef](api/core/TemplateRef)или <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" title="MDN: Web Components">веб-компонент </a>.
 
-For a demonstration of the syntax and code snippets in this section, see the <live-example name="template-reference-variables">template reference variables example</live-example>.
+Для демонстрации синтаксиса и фрагментов кода в этом разделе см. <live-example name="template-reference-variables">Пример шаблона справочных переменных </live-example>.
 
 
-Use the hash symbol (#) to declare a reference variable.
-The following reference variable, `#phone`, declares a `phone` variable on an `<input>` element.
+Используйте хэш-символ ( #) для объявления ссылочной переменной.
+Следующая ссылочная переменная,  `#phone`, объявляет  `phone`  переменная на  `<input>`  элемент.
 
 <code-example path="template-reference-variables/src/app/app.component.html" region="ref-var" header="src/app/app.component.html"></code-example>
 
-You can refer to a template reference variable anywhere in the component's template.
-Here, a `<button>` further down the template refers to the `phone` variable.
+Вы можете ссылаться на переменную ссылки на шаблон в любом месте шаблона компонента.
+Здесь  `<button>`  далее вниз по шаблону относится к  `phone`  переменная.
 
 <code-example path="template-reference-variables/src/app/app.component.html" region="ref-phone" header="src/app/app.component.html"></code-example>
 
-<h3 class="no-toc">How a reference variable gets its value</h3>
+<h3 class="no-toc">Как ссылочная переменная получает свое значение </h3>
 
-In most cases, Angular sets the reference variable's value to the element on which it is declared.
-In the previous example, `phone` refers to the phone number `<input>`.
-The button's click handler passes the `<input>` value to the component's `callPhone()` method.
+В большинстве случаев Angular устанавливает значение ссылочной переменной для элемента, для которого она объявлена.
+В предыдущем примере  `phone`  относится к номеру телефона  `<input>`.
+Обработчик нажатия кнопки пропускает  `<input>`  значение для компонента  `callPhone()`.
 
-The `NgForm` directive can change that behavior and set the value to something else. In the following example, the template reference variable, `itemForm`, appears three times separated
-by HTML.
+ `NgForm` Директива может изменить это поведение и установить значение в другое значение. В следующем примере переменная ссылки на шаблон  `itemForm`, появляется три раза в отдельности
+по HTML.
 
 <code-example path="template-reference-variables/src/app/app.component.html" region="ngForm" header="src/app/hero-form.component.html"></code-example>
 
-The reference value of itemForm, without the ngForm attribute value, would be
-the [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
-There is, however, a difference between a Component and a Directive in that a `Component`
-will be referenced without specifying the attribute value, and a `Directive` will not
-change the implicit reference (that is, the element).
+Ссылочное значение itemForm без значения атрибута ngForm будет
+[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
+Однако существует разница между Компонентом и Директивой в том, что  `Component` 
+будут ссылаться без указания значения атрибута и  `Directive`  не будет
+изменить неявную ссылку (то есть элемент).
 
 
 
-However, with `NgForm`, `itemForm` is a reference to the [NgForm](api/forms/NgForm "API: NgForm")
-directive with the ability to track the value and validity of every control in the form.
+Однако с  `NgForm`, `itemForm`  является ссылкой на [NgForm](api/forms/NgForm "API: NgForm")
+директива с возможностью отслеживать значение и действительность каждого элемента управления в форме.
 
-The native `<form>` element doesn't have a `form` property, but the `NgForm` directive does, which allows disabling the submit button
-if the `itemForm.form.valid` is invalid and passing the entire form control tree
-to the parent component's `onSubmit()` method.
+Родной  `<form>`  элемент не имеет  `form`  собственности, но  `NgForm`  Директива, которая позволяет отключить кнопку отправки
+если  `itemForm.form.valid`  является недействительным и передает все дерево управления формой
+к родительскому компоненту  `onSubmit()`.
 
-<h3 class="no-toc">Template reference variable considerations</h3>
+<h3 class="no-toc">Замечания по ссылочной переменной шаблона </h3>
 
-A template _reference_ variable (`#phone`) is not the same as a template _input_ variable (`let phone`) such as in an [`*ngFor`](guide/template-syntax#template-input-variable).
-See [_Structural Directives_](guide/structural-directives#template-input-variable) for more information.
+Переменная _reference_ шаблона (`#phone`) отличается от шаблона _input_ variable (`let phone`) такой как в [ `* ngFor` ](guide/template-syntax#template-input-variable).
+Смотрите [_Structural Directives_](guide/structural-directives#template-input-variable)для получения дополнительной информации.
 
-The scope of a reference variable is the entire template. So, don't define the same variable name more than once in the same template as the runtime value will be unpredictable.
+Область действия ссылочной переменной - весь шаблон. Поэтому не определяйте одно и то же имя переменной более одного раза в одном и том же шаблоне, так как значение времени выполнения будет непредсказуемым.
 
-#### Alternative syntax
+{@a alternative-syntax}
+#### Альтернативный синтаксис
 
-You can use the `ref-` prefix alternative to `#`.
-This example declares the `fax` variable as `ref-fax` instead of `#fax`.
+Вы можете использовать  `ref-`  Приставка альтернатива  `#`.
+Этот пример объявляет  `fax`  переменная как  `ref-fax`  вместо  `#fax`.
 
 
 <code-example path="template-reference-variables/src/app/app.component.html" region="ref-fax" header="src/app/app.component.html"></code-example>
@@ -1823,13 +1886,14 @@ This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 
 {@a inputs-outputs}
 
-## `@Input()` and `@Output()` properties
+{@a input-and-output-properties}
+##  `@Input() ` и ` @Output()` свойства
 
-`@Input()` and `@Output()` allow Angular to share data between the parent context
-and child directives or components. An `@Input()` property is writable
-while an `@Output()` property is observable.
+ `@Input() ` и ` @Output()` позволяет Angular обмениваться данными между родительским контекстом
+и дочерние директивы или компоненты.  `@Input()` доступно для записи
+в то время как  `@Output()`  можно наблюдать.
 
-Consider this example of a child/parent relationship:
+Рассмотрим этот пример ребенка / родительских отношений:
 
 ```html
 <parent-component>
@@ -1838,245 +1902,255 @@ Consider this example of a child/parent relationship:
 
 ```
 
-Here, the `<child-component>` selector, or child directive, is embedded
-within a `<parent-component>`, which serves as the child's context.
+Здесь  `<child-component>`  Селектор или дочерняя директива встроены
+в пределах  `<parent-component>`, который служит дочерним контекстом.
 
-`@Input()` and `@Output()` act as
-the API, or application programming interface, of the child
-component in that they allow the child to
-communicate with the parent. Think of `@Input()` and `@Output()` like ports
-or doorways&mdash;`@Input()` is the doorway into the component allowing data
-to flow in while `@Output()` is the doorway out of the component, allowing the
-child component to send data out.
+ `@Input() ` и ` @Output()` действует как
+API или интерфейс прикладного программирования ребенка
+Компонент в том, что они позволяют ребенку
+общаться с родителем. Думать о  `@Input()`  и  `@Output()`  как порты
+или дверные проемы—  `@Input()`  - это вход в компонент, разрешающий данные
+течь в то время как  `@Output()`  - это дверной проем компонента, позволяющий
+дочерний компонент для отправки данных.
 
-This section about `@Input()` and `@Output()` has its own <live-example name="inputs-outputs"></live-example>. The following subsections highlight
-key points in the sample app.
+Этот раздел о  `@Input()`  и  `@Output()`  имеет свои <live-example name="inputs-outputs"></live-example>. Выделите следующие подразделы
+ключевые моменты в примере приложения.
 
 <div class="alert is-helpful">
 
-#### `@Input()` and `@Output()` are independent
+{@a @input-and-output-are-independent}
+####  `@Input() ` и ` @Output()` независимы
 
-Though `@Input()` and `@Output()` often appear together in apps, you can use
-them separately. If the nested
-component is such that it only needs to send data to its parent, you wouldn't
-need an `@Input()`, only an `@Output()`. The reverse is also true in that if the
-child only needs to receive data from the parent, you'd only need `@Input()`.
+Хоть  `@Input()`  и  `@Output()`  часто появляются вместе в приложениях, которые вы можете использовать
+их отдельно. Если вложенный
+Компонент таков, что ему нужно только отправить данные своему родителю, вы бы этого не сделали
+нужен  `@Input()`, только  `@Output()`  . Обратное также верно в том случае, если
+ребенку нужно только получить данные от родителя, вам нужно только  `@Input()`.
 
 </div>
 
 {@a input}
 
-## How to use `@Input()`
+{@a how-to-use-input}
+## Как пользоваться  `@Input()` 
 
-Use the `@Input()` decorator in a child component or directive to let Angular know
-that a property in that component can receive its value from its parent component.
-It helps to remember that the data flow is from the perspective of the
-child component. So an `@Input()` allows data to be input _into_ the
-child component from the parent component.
+Использовать  `@Input()`  в дочернем компоненте или директиве, чтобы сообщить Angular
+что свойство в этом компоненте может получить свое значение от своего родительского компонента.
+Это помогает помнить, что поток данных с точки зрения
+дочерний компонент. Так что  `@Input()`  позволяет вводить данные _into_
+дочерний компонент из родительского компонента.
 
 
 <div class="lightbox">
   <img src="generated/images/guide/inputs-outputs/input.svg" alt="Input data flow diagram">
 </div>
 
-To illustrate the use of `@Input()`, edit these parts of your app:
+Для иллюстрации использования  `@Input()`, редактировать эти части вашего приложения:
 
-* The child component class and template
-* The parent component class and template
+* Класс и шаблон дочернего компонента
+* Класс родительского компонента и шаблон
 
 
-### In the child
+{@a in-the-child}
+### У ребенка
 
-To use the `@Input()` decorator in a child component class, first import
-`Input` and then decorate the property with `@Input()`:
+Чтобы использовать  `@Input()`  в классе дочерних компонентов, первый импорт
+ `Input` а затем украсьте свойство  `@Input()`  :
 
 <code-example path="inputs-outputs/src/app/item-detail/item-detail.component.ts" region="use-input" header="src/app/item-detail/item-detail.component.ts"></code-example>
 
 
-In this case, `@Input()` decorates the property <code class="no-auto-link">item</code>, which has
-a type of `string`, however, `@Input()` properties can have any type, such as
-`number`, `string`, `boolean`, or `object`. The value for `item` will come from the parent component, which the next section covers.
+В этом случае,  `@Input()`  украшает свойство <code class="no-auto-link">item</code>, которое имеет
+тип  `string`, однако,  `@Input()`  могут иметь любой тип, например
+ `number `, ` string `, ` boolean ` или ` object` . Значение для  `item`  будет получен из родительского компонента, который рассматривается в следующем разделе.
 
-Next, in the child component template, add the following:
+Далее в шаблоне компонента ребенка, добавьте следующее:
 
 <code-example path="inputs-outputs/src/app/item-detail/item-detail.component.html" region="property-in-template" header="src/app/item-detail/item-detail.component.html"></code-example>
 
 
 
-### In the parent
+{@a in-the-parent}
+### В родительском
 
-The next step is to bind the property in the parent component's template.
-In this example, the parent component template is `app.component.html`.
+Следующим шагом является привязка свойства в шаблоне родительского компонента.
+В этом примере шаблон родительского компонента  `app.component.html`.
 
-First, use the child's selector, here `<app-item-detail>`, as a directive within the
-parent component template. Then, use [property binding](guide/template-syntax#property-binding)
-to bind the property in the child to the property of the parent.
+Во-первых, используйте селектор ребенка, здесь  `<app-item-detail>`, как директива внутри
+шаблон родительского компонента. Затем используйте [свойство привязки](guide/template-syntax#property-binding)
+привязать свойство ребенка к свойству родителя.
 
 <code-example path="inputs-outputs/src/app/app.component.html" region="input-parent" header="src/app/app.component.html"></code-example>
 
-Next, in the parent component class, `app.component.ts`, designate a value for `currentItem`:
+Далее в классе родительского компонента  `app.component.ts`, значение для  `currentItem`  :
 
 <code-example path="inputs-outputs/src/app/app.component.ts" region="parent-property" header="src/app/app.component.ts"></code-example>
 
-With `@Input()`, Angular passes the value for `currentItem` to the child so that `item` renders as `Television`.
+С  `@Input()`, Angular передает значение для  `currentItem`  для ребенка, чтобы  `item`  отображается, как  `Television`.
 
-The following diagram shows this structure:
+Следующая диаграмма показывает эту структуру:
 
 <div class="lightbox">
   <img src="generated/images/guide/inputs-outputs/input-diagram-target-source.svg" alt="Property binding diagram">
 </div>
 
-The target in the square brackets, `[]`, is the property you decorate
-with `@Input()` in the child component. The binding source, the part
-to the right of the equal sign, is the data that the parent
-component passes to the nested component.
+Цель в квадратных скобках,  `[]`, это свойство, которое вы украшаете
+с  `@Input()`  в дочернем компоненте. Обязательный источник, часть
+справа от знака равенства находятся данные этого родителя
+Компонент переходит к вложенному компоненту.
 
-The key takeaway is that when binding to a child component's property in a parent component&mdash;that is, what's
-in square brackets&mdash;you must
-decorate the property with `@Input()` in the child component.
+Ключевым моментом является то, что при привязке к свойству дочернего компонента в родительском компоненте, то есть к чему
+в квадратных скобках - вы должны
+украсить имущество  `@Input()`  в дочернем компоненте.
 
 <div class="alert is-helpful">
 
-#### `OnChanges` and `@Input()`
+{@a onchanges-and-input}
+####  `OnChanges ` и ` @Input()` 
 
-To watch for changes on an `@Input()` property, use
-`OnChanges`, one of Angular's [lifecycle hooks](guide/lifecycle-hooks#onchanges).
-`OnChanges` is specifically designed to work with properties that have the
-`@Input()` decorator. See the [`OnChanges`](guide/lifecycle-hooks#onchanges) section of the [Lifecycle Hooks](guide/lifecycle-hooks) guide for more details and examples.
+Следить за изменениями на  `@Input()`, используйте
+ `OnChanges`, один из Angular [хуков жизненного цикла](guide/lifecycle-hooks#onchanges).
+ `OnChanges` специально разработан для работы со свойствами, которые имеют
+ `@Input()` декоратор. См. Раздел [  `OnChanges`  ](guide/lifecycle-hooks#onchanges)руководства [Lifecycle Hooks](guide/lifecycle-hooks)для получения более подробной информации и примеров.
 
 </div>
 
 {@a output}
 
-## How to use `@Output()`
+{@a how-to-use-output}
+## Как пользоваться  `@Output()` 
 
-Use the `@Output()` decorator in the child component or directive to allow data to flow from
-the child _out_ to the parent.
+Использовать  `@Output()`  в дочернем компоненте или директиве, из которого можно передавать данные
+ребенок _out_ к родителю.
 
-An `@Output()` property should normally be initialized to an Angular [`EventEmitter`](api/core/EventEmitter) with values flowing out of the component as [events](#event-binding).
+ `@Output()` обычно следует инициализировать в Angular [  `EventEmitter`  ](api/core/EventEmitter)со значениями, вытекающими из компонента как [события](#event-binding).
 
 
 <div class="lightbox">
   <img src="generated/images/guide/inputs-outputs/output.svg" alt="Output diagram">
 </div>
 
-Just like with `@Input()`, you can use `@Output()`
-on a property of the child component but its type should be
-`EventEmitter`.
+Так же, как с  `@Input()`, вы можете использовать  `@Output()` 
+на свойстве дочернего компонента, но его тип должен быть
+ `EventEmitter`.
 
-`@Output()` marks a property in a child component as a doorway
-through which data can travel from the child to the parent.
-The child component then has to raise an event so the
-parent knows something has changed. To raise an event,
-`@Output()` works hand in hand with `EventEmitter`,
-which is a class in `@angular/core` that you
-use to emit custom events.
+ `@Output()` помечает свойство в дочернем компоненте как дверной проем
+через которые данные могут передаваться от ребенка к родителю.
+Затем дочерний компонент должен инициировать событие
+Родитель знает, что что-то изменилось. Чтобы поднять событие
+ `@Output()` работает рука об руку с  `EventEmitter`,
+который является классом в  `@angular/core`  это ты
+использовать для создания пользовательских событий.
 
-When you use `@Output()`, edit these parts of your app:
+Когда вы используете  `@Output()`, редактировать эти части вашего приложения:
 
-* The child component class and template
-* The parent component class and template
+* Класс и шаблон дочернего компонента
+* Класс родительского компонента и шаблон
 
 
-The following example shows how to set up an `@Output()` in a child
-component that pushes data you enter in an HTML `<input>` to an array in the
-parent component.
+В следующем примере показано, как настроить  `@Output()`  у ребенка
+компонент, который толкает данные, которые вы вводите в HTML  `<input>`  в массив в
+родительский компонент.
 
 <div class="alert is-helpful">
 
-The HTML element `<input>` and the Angular decorator `@Input()`
-are different. This documentation is about component communication in Angular as it pertains to `@Input()` and `@Output()`. For more information on the HTML element `<input>`, see the [W3C Recommendation](https://www.w3.org/TR/html5/sec-forms.html#the-input-element).
+HTML-элемент  `<input>`  и Angular декоратор  `@Input()` 
+разные. Эта документация о связи компонентов в Angular, поскольку она относится к  `@Input()`  и  `@Output()`  . Для получения дополнительной информации об элементе HTML  `<input>`  см. [Рекомендация W3C](https://www.w3.org/TR/html5/sec-forms.html#the-input-element).
 
 </div>
 
-### In the child
+{@a in-the-child}
+### У ребенка
 
-This example features an `<input>` where a user can enter a value and click a `<button>` that raises an event. The `EventEmitter` then relays the data to the parent component.
+Этот пример показывает  `<input>`  где пользователь может ввести значение и нажмите  `<button>`  которая вызывает событие.  `EventEmitter` Затем передает данные в родительский компонент.
 
-First, be sure to import `Output` and `EventEmitter`
-in the child component class:
+Во-первых, обязательно импортировать  `Output`  и  `EventEmitter` 
+в классе компоненты ребенка:
 
 ```js
 import { Output, EventEmitter } from '@angular/core';
 
 ```
 
-Next, still in the child, decorate a property with `@Output()` in the component class.
-The following example `@Output()` is called `newItemEvent` and its type is
-`EventEmitter`, which means it's an event.
+Далее, еще в ребенке, украсить свойство с  `@Output()`  в классе компонентов.
+Следующий пример  `@Output()`  вызывается  `newItemEvent`  и его тип
+ `EventEmitter`, что означает, что это событие.
 
 
 <code-example path="inputs-outputs/src/app/item-output/item-output.component.ts" region="item-output" header="src/app/item-output/item-output.component.ts"></code-example>
 
-The different parts of the above declaration are as follows:
+Различные части вышеуказанной декларации являются следующими:
 
-* `@Output()`&mdash;a decorator function marking the property as a way for data to go from the child to the parent
-* `newItemEvent`&mdash;the name of the `@Output()`
-* `EventEmitter<string>`&mdash;the `@Output()`'s type
-* `new EventEmitter<string>()`&mdash;tells Angular to create a new event emitter and that the data it emits is of type string. The type could be any type, such as `number`, `boolean`, and so on. For more information on `EventEmitter`, see the [EventEmitter API documentation](api/core/EventEmitter).
+*  `@Output()` - функция декоратора, помечающая свойство как способ передачи данных от дочернего к родительскому
+*  `newItemEvent` - имя  `@Output()` 
+*  `EventEmitter<string> ` - ` @Output()` «сек Тип
+*  `new EventEmitter<string>()` - сообщает Angular для создания нового генератора событий, и что данные, которые он генерирует, имеют тип string. Тип может быть любого типа, например  `number`, `boolean`  и так далее. Для получения дополнительной информации о  `EventEmitter`, см. [Документация по API EventEmitter](api/core/EventEmitter).
 
-Next, create an `addNewItem()` method in the same component class:
+Затем создайте  `addNewItem()`  метод в том же классе компонентов:
 
 <code-example path="inputs-outputs/src/app/item-output/item-output.component.ts" region="item-output-class" header="src/app/item-output/item-output.component.ts"></code-example>
 
-The `addNewItem()` function uses the `@Output()`, `newItemEvent`,
-to raise an event in which it emits the value the user
-types into the `<input>`. In other words, when
-the user clicks the add button in the UI, the child lets the parent know
-about the event and gives that data to the parent.
+ `addNewItem() ` использует ` @Output() `, ` newItemEvent`,
+вызвать событие, в котором оно выдает значение пользователю
+вводит в  `<input>`  . Другими словами, когда
+пользователь нажимает кнопку добавления в пользовательском интерфейсе, ребенок сообщает родителю
+о событии и передает эти данные родителю.
 
-#### In the child's template
+{@a in-the-childs-template}
+#### В детском шаблоне
 
-The child's template has two controls. The first is an HTML `<input>` with a
-[template reference variable](guide/template-syntax#ref-var) , `#newItem`,
-where the user types in an item name. Whatever the user types
-into the `<input>` gets stored in the `#newItem` variable.
+Шаблон ребенка имеет два элемента управления. Первый HTML  `<input>`  с
+[ссылочная переменная шаблона](guide/template-syntax#ref-var),  `#newItem`,
+где пользователь вводит имя элемента. Что бы ни печатал пользователь
+в  `<input>`  сохраняется в  `#newItem`  переменная.
 
 <code-example path="inputs-outputs/src/app/item-output/item-output.component.html" region="child-output" header="src/app/item-output/item-output.component.html"></code-example>
 
-The second element is a `<button>`
-with an [event binding](guide/template-syntax#event-binding). You know it's
-an event binding because the part to the left of the equal
-sign is in parentheses, `(click)`.
+Второй элемент  `<button>` 
+с [привязка события](guide/template-syntax#event-binding). Вы знаете это
+привязка события, потому что часть слева равна
+знак в скобках,  `(click)`.
 
-The `(click)` event is bound to the `addNewItem()` method in the child component class which
-takes as its argument whatever the value of `#newItem` is.
+ `(click)` событие привязано к  `addNewItem()`  в классе дочернего компонента, который
+принимает в качестве аргумента независимо от значения  `#newItem`  есть.
 
-Now the child component has an `@Output()`
-for sending data to the parent and a method for raising an event.
-The next step is in the parent.
+Теперь дочерний компонент имеет  `@Output()` 
+для отправки данных родителю и способ вызова события.
+Следующий шаг в родителя.
 
-### In the parent
+{@a in-the-parent}
+### В родительском
 
-In this example, the parent component is `AppComponent`, but you could use
-any component in which you could nest the child.
+В этом примере родительский компонент  `AppComponent`, но вы можете использовать
+любой компонент, в котором вы могли бы вкладывать ребенка.
 
-The `AppComponent` in this example features a list of `items`
-in an array and a method for adding more items to the array.
+ `AppComponent` в этом примере показывает список  `items` 
+в массиве и метод для добавления дополнительных элементов в массив.
 
 <code-example path="inputs-outputs/src/app/app.component.ts" region="add-new-item" header="src/app/app.component.ts"></code-example>
 
-The `addItem()` method takes an argument in the form of a string
-and then pushes, or adds, that string to the `items` array.
+ `addItem()` принимает аргумент в форме строки
+а затем толкает или добавляет эту строку в  `items`  массив.
 
-#### In the parent's template
+{@a in-the-parents-template}
+#### В родительском шаблоне
 
-Next, in the parent's template, bind the parent's
-method to the child's event. Put the child selector, here `<app-item-output>`,
-within the parent component's
-template, `app.component.html`.
+Затем в шаблоне родителя свяжите родительский шаблон
+метод к событию ребенка. Поставьте дочерний селектор, здесь  `<app-item-output>`,
+внутри родительского компонента
+шаблон,  `app.component.html`.
 
 <code-example path="inputs-outputs/src/app/app.component.html" region="output-parent" header="src/app/app.component.html"></code-example>
 
-The event binding, `(newItemEvent)='addItem($event)'`, tells
-Angular to connect the event in the child, `newItemEvent`, to
-the method in the parent, `addItem()`, and that the event that the child
-is notifying the parent about is to be the argument of `addItem()`.
-In other words, this is where the actual hand off of data takes place.
-The `$event` contains the data that the user types into the `<input>`
-in the child template UI.
+Привязка события,  `(newItemEvent)='addItem($event)'`, рассказывает
+Angular, чтобы связать событие у ребенка,  `newItemEvent`, to
+метод в родительском,  `addItem()`, и это событие, которое ребенок
+уведомляет родителя о том, чтобы быть аргументом  `addItem()`.
+Другими словами, именно здесь происходит фактическая передача данных.
+ `$event` содержит данные, которые пользователь вводит в  `<input>` 
+в дочернем шаблоне пользовательского интерфейса.
 
-Now, in order to see the `@Output()` working, add the following to the parent's template:
+Теперь, чтобы увидеть  `@Output()`  работает, добавьте следующую строку в шаблон родителя:
 
 ```html
   <ul>
@@ -2084,58 +2158,60 @@ Now, in order to see the `@Output()` working, add the following to the parent's 
   </ul>
   ```
 
-The `*ngFor` iterates over the items in the `items` array. When you enter a value in the child's `<input>` and click the button, the child emits the event and the parent's `addItem()` method pushes the value to the `items` array and it renders in the list.
+ `*ngFor` перебирает элементы в  `items`  массив . Когда вы вводите значение в детской  `<input>`  и нажмите кнопку, дочерний элемент генерирует событие, а родительский  `addItem()`  значение в  `items`  массив и он отображает в списке.
 
 
-## `@Input()` and `@Output()` together
+{@a input-and-output-together}
+##  `@Input() ` и ` @Output()`  вместе
 
-You can use `@Input()` and `@Output()` on the same child component as in the following:
+Ты можешь использовать  `@Input()`  и  `@Output()`  на той же компоненте ребенка, как в следующем:
 
 <code-example path="inputs-outputs/src/app/app.component.html" region="together" header="src/app/app.component.html"></code-example>
 
-The target, `item`, which is an `@Input()` property in the child component class, receives its value from the parent's property, `currentItem`. When you click delete, the child component raises an event, `deleteRequest`, which is the argument for the parent's `crossOffItem()` method.
+Цель,  `item`, который является  `@Input()`  в классе дочернего компонента, получает свое значение из свойства родителя,  `currentItem`  . Когда вы нажимаете «Удалить», дочерний компонент вызывает событие,  `deleteRequest`, который является аргументом для родителя  `crossOffItem()`.
 
-The following diagram is of an `@Input()` and an `@Output()` on the same
-child component and shows the different parts of each:
+Следующая диаграмма  `@Input()`  и  `@Output()`  на то же самое
+ребенок компонент и показывает различные части каждого:
 
 <div class="lightbox">
   <img src="generated/images/guide/inputs-outputs/input-output-diagram.svg" alt="Input/Output diagram">
 </div>
 
-As the diagram shows, use inputs and outputs together in the same manner as using them separately. Here, the child selector is `<app-input-output>` with `item` and `deleteRequest` being `@Input()` and `@Output()`
-properties in the child component class. The property `currentItem` and the method `crossOffItem()` are both in the parent component class.
+Как показано на схеме, используйте входы и выходы вместе так же, как и их использование отдельно. Здесь дочерний селектор  `<app-input-output>`  с  `item`  и  `deleteRequest`  существо  `@Input()`  и  `@Output()` 
+свойства в классе дочернего компонента. Недвижимость  `currentItem`  и метод  `crossOffItem()`  оба находятся в классе родительского компонента.
 
-To combine property and event bindings using the banana-in-a-box
-syntax, `[()]`, see [Two-way Binding](guide/template-syntax#two-way).
+Комбинировать привязки свойств и событий, используя банан в коробке
+синтаксис,  `[()]`, см. [Двухстороннее связывание](guide/template-syntax#two-way).
 
-For more detail on how these work, see the previous sections on [Input](guide/template-syntax#input) and [Output](guide/template-syntax#output). To see it in action, see the <live-example name="inputs-outputs">Inputs and Outputs Example</live-example>.
+Подробнее о том, как они работают, см. В предыдущих разделах [Вход](guide/template-syntax#input)и [Выход](guide/template-syntax#output). Чтобы увидеть его в действии, см. <live-example name="inputs-outputs">Пример входов и выходов </live-example>.
 
-## `@Input()` and `@Output()` declarations
+{@a input-and-output-declarations}
+##  `@Input() ` и ` @Output()` декларации
 
-Instead of using the `@Input()` and `@Output()` decorators
-to declare inputs and outputs, you can identify
-members in the `inputs` and `outputs` arrays
-of the directive metadata, as in this example:
+Вместо использования  `@Input()`  и  `@Output()`  декораторы
+Чтобы объявить входы и выходы, вы можете определить
+члены в  `inputs`  и  `outputs`  массивы
+Директивы о метаданных, как в этом примере:
 
 <code-example path="inputs-outputs/src/app/in-the-metadata/in-the-metadata.component.ts" region="metadata" header="src/app/in-the-metadata/in-the-metadata.component.ts"></code-example>
 
-While declaring `inputs` and `outputs` in the `@Directive` and `@Component`
-metadata is possible, it is a better practice to use the `@Input()` and `@Output()`
-class decorators instead, as follows:
+При объявлении  `inputs`  и  `outputs`  в  `@Directive`  и  `@Component` 
+метаданные возможны, лучше использовать  `@Input()`  и  `@Output()` 
+класс декораторов вместо этого, следующим образом :
 
 <code-example path="inputs-outputs/src/app/input-output/input-output.component.ts" region="input-output" header="src/app/input-output/input-output.component.ts"></code-example>
 
-See the [Decorate input and output properties](guide/styleguide#decorate-input-and-output-properties) section of the
-[Style Guide](guide/styleguide) for details.
+См [Украсьте входные и выходные свойства](guide/styleguide#decorate-input-and-output-properties)секции
+[Руководство по стилю](guide/styleguide)для деталей.
 
 
 
 <div class="alert is-helpful">
 
-If you get a template parse error when trying to use inputs or outputs, but you know that the
-properties do indeed exist, double check
-that your properties are annotated with `@Input()` / `@Output()` or that you've declared
-them in an `inputs`/`outputs` array:
+Если вы получаете ошибку разбора шаблона при попытке использовать входы или выходы, но вы знаете, что
+свойства действительно существуют, проверьте дважды
+что ваши свойства помечены  `@Input()`  /  `@Output()`  или что вы объявили
+их в  `inputs`  /  `outputs`  массива:
 
 <code-example language="bash">
 Uncaught Error: Template parse errors:
@@ -2146,22 +2222,25 @@ Can't bind to 'item' since it isn't a known property of 'app-item-detail'
 
 {@a aliasing-io}
 
-## Aliasing inputs and outputs
+{@a aliasing-inputs-and-outputs}
+## Сглаживание входов и выходов
 
-Sometimes the public name of an input/output property should be different from the internal name. While it is a best practice to avoid this situation, Angular does
-offer a solution.
+Иногда публичное имя свойства ввода / вывода должно отличаться от внутреннего имени. Хотя это лучшая практика, чтобы избежать этой ситуации, Angular делает
+предложить решение.
 
-### Aliasing in the metadata
+{@a aliasing-in-the-metadata}
+### Псевдоним в метаданных
 
-Alias inputs and outputs in the metadata using a colon-delimited (`:`) string with
-the directive property name on the left and the public alias on the right:
+Псевдонимы ввода и вывода в метаданных с использованием двоеточия (`:`) Строка
+имя директивы свойства на левом и публичном псевдониме справа:
 
 <code-example path="inputs-outputs/src/app/aliasing/aliasing.component.ts" region="alias" header="src/app/aliasing/aliasing.component.ts"></code-example>
 
 
-### Aliasing with the `@Input()`/`@Output()` decorator
+{@a aliasing-with-the-@input/@output-decorator}
+### Алиасинг с  `@Input()`  /  `@Output()`  декоратор
 
-You can specify the alias for the property name by passing the alias name to the `@Input()`/`@Output()` decorator. The internal name remains as usual.
+Вы можете указать псевдоним для имени свойства, передав псевдоним в  `@Input()`  /  `@Output()`  декоратор. Внутреннее имя остается как обычно.
 
 <code-example path="inputs-outputs/src/app/aliasing/aliasing.component.ts" region="alias-input-output" header="src/app/aliasing/aliasing.component.ts"></code-example>
 
@@ -2170,42 +2249,44 @@ You can specify the alias for the property name by passing the alias name to the
 
 {@a expression-operators}
 
-## Template expression operators
+{@a template-expression-operators}
+## Операторы шаблонных выражений
 
-The Angular template expression language employs a subset of JavaScript syntax supplemented with a few special operators
-for specific scenarios. The next sections cover three of these operators:
+Язык шаблонных выражений Angular использует подмножество синтаксиса JavaScript, дополненное несколькими специальными операторами
+для конкретных сценариев. Следующие разделы посвящены три из этих операторов:
 
-* [pipe](guide/template-syntax#pipe)
-* [safe navigation operator](guide/template-syntax#safe-navigation-operator)
-* [non-null assertion operator](guide/template-syntax#non-null-assertion-operator)
+* [труба](guide/template-syntax#pipe)
+* [оператор безопасной навигации](guide/template-syntax#safe-navigation-operator)
+* [ненулевой оператор утверждения](guide/template-syntax#non-null-assertion-operator)
 
 {@a pipe}
 
-### The pipe operator (`|`)
+{@a the-pipe-operator}
+### Трубный оператор (`|`)
 
-The result of an expression might require some transformation before you're ready to use it in a binding.
-For example, you might display a number as a currency, change text to uppercase, or filter a list and sort it.
+Результат выражения может потребовать некоторого преобразования, прежде чем вы будете готовы использовать его в привязке.
+Например, вы можете отобразить число в виде валюты, изменить текст в верхний регистр или отфильтровать список и отсортировать его.
 
-Pipes are simple functions that accept an input value and return a transformed value.
-They're easy to apply within template expressions, using the pipe operator (`|`):
+Каналы - это простые функции, которые принимают входное значение и возвращают преобразованное значение.
+Их легко применять в выражениях шаблонов, используя оператор pipe (`|`)
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="uppercase-pipe" header="src/app/app.component.html"></code-example>
 
-The pipe operator passes the result of an expression on the left to a pipe function on the right.
+Оператор канала передает результат выражения слева функции функции справа.
 
-You can chain expressions through multiple pipes:
+Вы можете приковать выражения через несколько труб:
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="pipe-chain" header="src/app/app.component.html"></code-example>
 
-And you can also [apply parameters](guide/pipes#parameterizing-a-pipe) to a pipe:
+И вы можете также [применить параметры](guide/pipes#parameterizing-a-pipe)к трубе:
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="date-pipe" header="src/app/app.component.html"></code-example>
 
-The `json` pipe is particularly helpful for debugging bindings:
+ `json` трубы особенно полезно для отладки привязок:
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="json-pipe" header="src/app/app.component.html"></code-example>
 
-The generated output would look something like this:
+Сгенерированный будет выглядеть примерно так:
 
 <code-example language="json">
   { "name": "Telephone",
@@ -2215,11 +2296,11 @@ The generated output would look something like this:
 
 <div class="alert is-helpful">
 
-The pipe operator has a higher precedence than the ternary operator (`?:`),
-which means `a ? b : c | x` is parsed as `a ? b : (c | x)`.
-Nevertheless, for a number of reasons,
-the pipe operator cannot be used without parentheses in the first and second operands of `?:`.
-A good practice is to use parentheses in the third operand too.
+Трубный оператор имеет более высокий приоритет, чем троичный оператор (`?:`)
+что значит `a ? b : c | x` анализируется как `a ? b : (c | x)`.
+Тем не менее по ряду причин
+оператор трубы не может использоваться без скобок в первом и втором операндах  `?:`.
+Хорошей практикой является использование скобок и в третьем операнде.
 
 </div>
 
@@ -2228,110 +2309,114 @@ A good practice is to use parentheses in the third operand too.
 
 {@a safe-navigation-operator}
 
-### The safe navigation operator ( `?` ) and null property paths
+{@a the-safe-navigation-operator-and-null-property-paths}
+### Оператор безопасной навигации (`?`) и нулевые пути к свойствам
 
-The Angular safe navigation operator, `?`, guards against `null` and `undefined`
-values in property paths. Here, it protects against a view render failure if `item` is `null`.
+Angular оператор безопасной навигации,  `?`  охраняет против  `null`  и  `undefined` 
+значения в путях свойств. Здесь он защищает от сбоя рендеринга вида, если  `item`  является  `null`.
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="safe" header="src/app/app.component.html"></code-example>
 
-If `item` is `null`, the view still renders but the displayed value is blank; you see only "The item name is:" with nothing after it.
+Если  `item`  является  `null`, представление по-прежнему отображается, но отображаемое значение пустое; Вы видите только «Имя элемента:», и ничего после него.
 
-Consider the next example, with a `nullItem`.
+Рассмотрим следующий пример с  `nullItem`.
 
 <code-example language="html">
   The null item name is {{nullItem.name}}
 </code-example>
 
-Since there is no safe navigation operator and `nullItem` is `null`, JavaScript and Angular would throw a `null` reference error and break the rendering process of Angular:
+Так как нет безопасного оператора навигации и  `nullItem`  is  `null`, JavaScript и Angular бросили бы  `null`  ссылка ошибка и нарушить процесс рендеринга Angular:
 
 <code-example language="bash">
   TypeError: Cannot read property 'name' of null.
 </code-example>
 
-Sometimes however, `null` values in the property
-path may be OK under certain circumstances,
-especially when the value starts out null but the data arrives eventually.
+Иногда, однако,  `null`  значения в свойстве
+путь может быть в порядке при определенных обстоятельствах
+особенно когда значение начинается с нуля, но данные поступают в конце концов.
 
-With the safe navigation operator, `?`, Angular stops evaluating the expression when it hits the first `null` value and renders the view without errors.
+С оператором безопасной навигации,  `?`, Angular прекращает вычислять выражение, когда оно попадает в первый  `null`  значение и отображает представление без ошибок.
 
-It works perfectly with long property paths such as `a?.b?.c?.d`.
+Он отлично работает с длинными путями свойств, такими как  `a?.b?.c?.d`.
 
 
 <hr/>
 
 {@a non-null-assertion-operator}
 
-### The non-null assertion operator ( `!` )
+{@a the-non-null-assertion-operator-}
+### Оператор ненулевого утверждения (`!`)
 
-As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is unintentionally `null` or `undefined`.
+Начиная с Typescript 2.0, вы можете применить [строгую проверку нуля](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") с помощью  `--strictNullChecks`  флаг. Затем TypeScript гарантирует, что ни одна переменная не была непреднамеренно  `null`  или  `undefined`.
 
-In this mode, typed variables disallow `null` and `undefined` by default. The type checker throws an error if you leave a variable unassigned or try to assign `null` or `undefined` to a variable whose type disallows `null` and `undefined`.
+В этом режиме типизированные переменные запрещают  `null`  и  `undefined`  по умолчанию . Проверка типов выдает ошибку, если вы оставляете переменную неназначенной или пытаетесь назначить  `null`  или  `undefined`  для переменной, тип которой запрещен  `null`  и  `undefined`.
 
-The type checker also throws an error if it can't determine whether a variable will be `null` or `undefined` at runtime. You tell the type checker not to throw an error by applying the postfix
-[non-null assertion operator, !](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
+Средство проверки типов также выдает ошибку, если не может определить, будет ли переменная  `null`  или  `undefined`  во время выполнения. Вы говорите, что средство проверки типов не выдает ошибку, применяя постфикс
+[ненулевой оператор утверждения,!](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
 
-The Angular non-null assertion operator, `!`, serves the same purpose in
-an Angular template. For example, you can assert that `item` properties are also defined.
+Оператор Angular ненулевого утверждения,  `!`, служит той же цели в
+Angular шаблон. Например, вы можете утверждать, что  `item`  свойства также определены.
 
 <code-example path="template-expression-operators/src/app/app.component.html" region="non-null" header="src/app/app.component.html"></code-example>
 
-When the Angular compiler turns your template into TypeScript code,
-it prevents TypeScript from reporting that `item.color` might be `null` or `undefined`.
+Когда Angular компилятор превращает ваш шаблон в машинописном код,
+это мешает TypeScript сообщать, что  `item.color`  может быть  `null`  или  `undefined`.
 
-Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?)"),
-the non-null assertion operator does not guard against `null` or `undefined`.
-Rather, it tells the TypeScript type checker to suspend strict `null` checks for a specific property expression.
+В отличие от [_safe навигации operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?)«),
+Оператор утверждения ненулевого не остерегаться  `null`  или  `undefined`.
+Скорее, он говорит контролеру типов TypeScript приостановить строгий  `null`  проверяет определенное выражение свойства.
 
-The non-null assertion operator, `!`, is optional with the exception that you must use it when you turn on strict null checks.
+Оператор ненулевого утверждения,  `!`, является необязательным, за исключением того, что вы должны использовать его при включении строгих нулевых проверок.
 
-<a href="#top-of-page">back to top</a>
+<a href="#top-of-page">вернуться к началу </a>
 
 <hr/>
 
 {@a built-in-template-functions}
 
-## Built-in template functions
+## Встроенные функции шаблона
 
 {@a any-type-cast-function}
 
-### The `$any()` type cast function
+{@a the-$any-type-cast-function}
+###  `$any()` Функция приведения типа
 
-Sometimes a binding expression triggers a type error during [AOT compilation](guide/aot-compiler) and it is not possible or difficult to fully specify the type.
-To silence the error, you can use the `$any()` cast function to cast
-the expression to the [`any` type](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) as in the following example:
+Иногда выражение привязки вызывает ошибку типа во время [компиляция AOT](guide/aot-compiler)и невозможно полностью определить тип.
+Чтобы отключить ошибку, вы можете использовать  `$any()`  Функция для приведения
+выражение в [ `типа any` ](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)как показано в следующем примере:
 
 <code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-1" header="src/app/app.component.html"></code-example>
 
-When the Angular compiler turns this template into TypeScript code,
-it prevents TypeScript from reporting that `bestByDate` is not a member of the `item`
-object when it runs type checking on the template.
+Когда Angular компилятор превращает этот шаблон в машинописном код,
+это мешает TypeScript сообщать, что  `bestByDate`  не является членом  `item` 
+объект, когда он запускает проверку типа в шаблоне.
 
-The `$any()` cast function also works with `this` to allow access to undeclared members of
-the component.
+ `$any()` Функция приведения также работает с  `this`  разрешает доступ к необъявленным членам
+компонент.
 
 <code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-2" header="src/app/app.component.html"></code-example>
 
-The `$any()` cast function works anywhere in a binding expression where a method call is valid.
+ `$any()` Функция приведения работает в любом месте в выражении привязки, где допустим вызов метода.
 
-## SVG in templates
+{@a svg-in-templates}
+## SVG в шаблонах
 
-It is possible to use SVG as valid templates in Angular. All of the template syntax below is
-applicable to both SVG and HTML. Learn more in the SVG [1.1](https://www.w3.org/TR/SVG11/) and
-[2.0](https://www.w3.org/TR/SVG2/) specifications.
+Можно использовать SVG в качестве допустимых шаблонов в Angular. Весь синтаксис шаблона ниже
+применимо как к SVG, так и к HTML. Узнайте больше в SVG [1.1](https://www.w3.org/TR/SVG11/)и
+[2.0](https://www.w3.org/TR/SVG2/)технические характеристики.
 
-Why would you use SVG as template, instead of simply adding it as image to your application?
+Почему вы используете SVG в качестве шаблона, а не просто добавляете его в качестве изображения в свое приложение?
 
-When you use an SVG as the template, you are able to use directives and bindings just like with HTML
-templates. This means that you will be able to dynamically generate interactive graphics.
+Когда вы используете SVG в качестве шаблона, вы можете использовать директивы и привязки, как в HTML
+шаблоны. Это означает, что вы сможете динамически генерировать интерактивную графику.
 
-Refer to the sample code snippet below for a syntax example:
+Обратитесь к образцу коду ниже для примера синтаксиса:
 
 <code-example path="template-syntax/src/app/svg.component.ts" header="src/app/svg.component.ts"></code-example>
 
-Add the following code to your `svg.component.svg` file:
+Добавьте следующий код к вашему  `svg.component.svg`  файл:
 
 <code-example path="template-syntax/src/app/svg.component.svg" header="src/app/svg.component.svg"></code-example>
 
-Here you can see the use of a `click()` event binding and the property binding syntax
+Здесь вы можете увидеть использование  `click()`  привязка события и синтаксис привязки свойства
 (`[attr.fill]="fillColor"`).

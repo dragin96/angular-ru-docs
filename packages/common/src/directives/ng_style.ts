@@ -9,38 +9,38 @@ import {Directive, DoCheck, ElementRef, Input, KeyValueChanges, KeyValueDiffer, 
 
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @usageNotes
+ *  @usageNotes
  *
- * Set the font of the containing element to the result of an expression.
+ * Установите шрифт содержащего элемента в результате выражения.
  *
- * ```
- * <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
- * ```
+ *  ```
+ *  <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
+ *  ```
  *
- * Set the width of the containing element to a pixel value returned by an expression.
+ * Установите ширину содержащего элемента равным значению в пикселях, возвращаемому выражением.
  *
- * ```
- * <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
- * ```
+ *  ```
+ *  <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
+ *  ```
  *
- * Set a collection of style values using an expression that returns key-value pairs.
+ * Установите коллекцию значений стиля, используя выражение, которое возвращает пары ключ-значение.
  *
- * ```
- * <some-element [ngStyle]="objExp">...</some-element>
- * ```
+ *  ```
+ *  <some-element [ngStyle]="objExp">...</some-element>
+ *  ```
  *
- * @description
+ *  @description
  *
- * An attribute directive that updates styles for the containing HTML element.
- * Sets one or more style properties, specified as colon-separated key-value pairs.
- * The key is a style name, with an optional `.<unit>` suffix
- * (such as 'top.px', 'font-style.em').
- * The value is an expression to be evaluated.
- * The resulting non-null value, expressed in the given unit,
- * is assigned to the given style property.
- * If the result of evaluation is null, the corresponding style is removed.
+ * Директива атрибута, которая обновляет стили для содержащего элемента HTML.
+ * Устанавливает одно или несколько свойств стиля, заданных в виде пар ключ-значение, разделенных двоеточиями.
+ * Ключ - это имя стиля с необязательным `.<unit>` суффиксом
+ * (например, «top.px», «font-style.em»).
+ * Значение - это выражение для оценки.
+ * Результирующее ненулевое значение, выраженное в данной единице
+ * назначается данному свойству стиля.
+ * Если результат оценки равен нулю, соответствующий стиль удаляется.
  *
  * @publicApi
  */

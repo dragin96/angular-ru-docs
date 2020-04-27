@@ -15,7 +15,7 @@ import {AngularJSUrlCodec, UrlCodec} from './params';
 
 
 /**
- * Configuration options for LocationUpgrade.
+ * Параметры конфигурации для LocationUpgrade.
  *
  * @publicApi
  */
@@ -44,7 +44,7 @@ export interface LocationUpgradeConfig {
 }
 
 /**
- * A provider token used to configure the location upgrade module.
+ * Токен провайдера, используемый для настройки модуля обновления местоположения.
  *
  * @publicApi
  */
@@ -54,9 +54,9 @@ export const LOCATION_UPGRADE_CONFIGURATION =
 const APP_BASE_HREF_RESOLVED = new InjectionToken<string>('APP_BASE_HREF_RESOLVED');
 
 /**
- * `NgModule` used for providing and configuring Angular's Unified Location Service for upgrading.
+ *  `NgModule`используется для предоставления и настройки унифицированной службы локации Angular для обновления.
  *
- * @see [Using the Unified Angular Location Service](guide/upgrade#using-the-unified-angular-location-service)
+ *  @see [Использование единой службы Angular локаций](guide/upgrade#using-the-unified-angular-location-service)
  *
  * @publicApi
  */

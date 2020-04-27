@@ -34,7 +34,7 @@ const ROUTER_DIRECTIVES =
     [RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive, EmptyOutletComponent];
 
 /**
- * A [DI token](guide/glossary/#di-token) for the router service.
+ * A[токен DI](guide/glossary/#di-token)для службы маршрутизатора.
  *
  * @publicApi
  */
@@ -71,53 +71,53 @@ export function routerNgProbeToken() {
 }
 
 /**
- * @usageNotes
+ *  @usageNotes
  *
- * RouterModule can be imported multiple times: once per lazily-loaded bundle.
- * Since the router deals with a global shared resource--location, we cannot have
- * more than one router service active.
+ * RouterModule может быть импортирован несколько раз: один раз для лениво загруженного пакета.
+ * Поскольку маршрутизатор имеет дело с глобальным общим ресурсом - местоположением, мы не можем этого иметь
+ * более одной службы маршрутизатора активно.
  *
- * That is why there are two ways to create the module: `RouterModule.forRoot` and
- * `RouterModule.forChild`.
+ * Вот почему существует два способа создания модуля: `RouterModule.forRoot` и
+ *  `RouterModule.forChild`.
  *
- * * `forRoot` creates a module that contains all the directives, the given routes, and the router
- *   service itself.
- * * `forChild` creates a module that contains all the directives and the given routes, but does not
- *   include the router service.
+ *  `forRoot`создает модуль, который содержит все директивы, данные маршруты и маршрутизатор
+ * Сам сервис.
+ *  `forChild`создает модуль, который содержит все директивы и заданные маршруты, но не содержит их
+ * включите сервис роутера.
  *
- * When registered at the root, the module should be used as follows
+ * При регистрации в корне модуль должен использоваться следующим образом
  *
- * ```
- * @NgModule({
- *   imports: [RouterModule.forRoot(ROUTES)]
- * })
- * class MyNgModule {}
- * ```
+ *  ```
+ *  @NgModule({
+ *    imports: [RouterModule.forRoot(ROUTES)]
+ *  })
+ *  class MyNgModule {}
+ *  ```
  *
- * For submodules and lazy loaded submodules the module should be used as follows:
+ * Для подмодулей и ленивых нагруженных подмодулей модуль должен быть использован следующим:.
  *
- * ```
- * @NgModule({
- *   imports: [RouterModule.forChild(ROUTES)]
- * })
- * class MyNgModule {}
- * ```
+ *  ```
+ *  @NgModule({
+ *    imports: [RouterModule.forChild(ROUTES)]
+ *  })
+ *  class MyNgModule {}
+ *  ```
  *
- * @description
+ *  @description
  *
- * Adds router directives and providers.
+ * Добавляет директивы маршрутизатора и провайдеров.
  *
- * Managing state transitions is one of the hardest parts of building applications. This is
- * especially true on the web, where you also need to ensure that the state is reflected in the URL.
- * In addition, we often want to split applications into multiple bundles and load them on demand.
- * Doing this transparently is not trivial.
+ * Управление переходами между состояниями - одна из самых сложных частей строительных приложений.Это.
+ * особенно актуально в Интернете, где вам также необходимо убедиться, что состояние отражается в URL.
+ * Кроме того, мы часто хотим разбить приложения на несколько пакетов и загружать их по требованию.
+ * Делать это прозрачно не тривиально.
  *
- * The Angular router service solves these problems. Using the router, you can declaratively specify
- * application states, manage state transitions while taking care of the URL, and load bundles on
- * demand.
+ * Служба маршрутизатора Angular решает эти проблемы. Используя роутер, вы можете декларативно указать
+ * состояния приложений, управление переходами состояний при сохранении URL-адреса и загрузка пакетов
+ * требование.
  *
- * @see [Routing and Navigation](guide/router.html) for an
- * overview of how the router service should be used.
+ *  @see [Маршрутизация и навигация](guide/router.html)для
+ * Обзор того, как следует использовать службу маршрутизатора.
  *
  * @publicApi
  */
@@ -203,18 +203,18 @@ export function provideForRootGuard(router: Router): any {
 }
 
 /**
- * Registers a [DI provider](guide/glossary#provider) for a set of routes.
- * @param routes The route configuration to provide.
+ * Регистрирует[провайдер DI](guide/glossary#provider)для набора маршрутов.
+ *  @param маршруты Конфигурация маршрута, чтобы обеспечить.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ```
- * @NgModule({
- *   imports: [RouterModule.forChild(ROUTES)],
- *   providers: [provideRoutes(EXTRA_ROUTES)]
- * })
- * class MyNgModule {}
- * ```
+ *  ```
+ *  @NgModule({
+ *    imports: [RouterModule.forChild(ROUTES)],
+ *    providers: [provideRoutes(EXTRA_ROUTES)]
+ *  })
+ *  class MyNgModule {}
+ *  ```
  *
  * @publicApi
  */
@@ -226,35 +226,35 @@ export function provideRoutes(routes: Routes): any {
 }
 
 /**
- * Allowed values in an `ExtraOptions` object that configure
- * when the router performs the initial navigation operation.
+ * Допустимые значения в `ExtraOptions``ExtraOptions` которые настраиваются
+ * когда маршрутизатор выполняет начальную навигационную операцию.
  *
- * * 'enabled' - The initial navigation starts before the root component is created.
- * The bootstrap is blocked until the initial navigation is complete. This value is required
- * for [server-side rendering](guide/universal) to work.
- * * 'disabled' - The initial navigation is not performed. The location listener is set up before
- * the root component gets created. Use if there is a reason to have
- * more control over when the router starts its initial navigation due to some complex
- * initialization logic.
- * * 'legacy_enabled'- (Default, for compatibility.) The initial navigation starts after the root
- * component has been created. The bootstrap is not blocked until the initial navigation is
- * complete. @deprecated
- * * 'legacy_disabled'- The initial navigation is not performed. The location listener is set up
- * after the root component gets created. @deprecated since v4
- * * `true` - same as 'legacy_enabled'. @deprecated since v4
- * * `false` - same as 'legacy_disabled'. @deprecated since v4
+ * 'enabled' - начальная навигация начинается перед созданием корневого компонента.
+ * Начальная загрузка блокируется до завершения начальной навигации. Это значение обязательно
+ * для[рендеринга на стороне сервера](guide/universal)для работы.
+ * 'отключен' - начальная навигация не выполняется. Слушатель местоположения настроен ранее
+ * корневой компонент создается. Используйте, если есть причина, чтобы иметь
+ * больший контроль, когда маршрутизатор начинает свою начальную навигацию из-за некоторого комплекса
+ * логика инициализации.
+ * 'legacy_enabled' - (по умолчанию для совместимости.) Начальная навигация начинается после рута
+ * Компонент был создан. Бутстрап не блокируется до тех пор, пока не начнется навигация
+ * полный.@deprecated.
+ * 'legacy_disabled' - начальная навигация не выполняется. Слушатель местоположения настроен
+ * после создания корневого компонента. @ устарела с версии 4
+ *  `true`-жекак 'legacy_enabled'. @ устарела с версии 4
+ *  `false`-жекак 'legacy_disabled'. @ устарела с версии 4
  *
- * The 'legacy_enabled' and 'legacy_disabled' should not be used for new applications.
+ * 'Legacy_enabled' и 'legacy_disabled' не должны использоваться для новых приложений.
  *
- * @see `forRoot()`
+ *  @see `forRoot()`
  *
  * @publicApi
  */
 export type InitialNavigation = true|false|'enabled'|'disabled'|'legacy_enabled'|'legacy_disabled';
 
 /**
- * A set of configuration options for a router module, provided in the
- * `forRoot()` method.
+ * Набор параметров конфигурации для модуля маршрутизатора, представленный в
+ *  `forRoot()`.
  *
  * @publicApi
  */
@@ -584,8 +584,8 @@ export function getBootstrapListener(r: RouterInitializer) {
 }
 
 /**
- * A [DI token](guide/glossary/#di-token) for the router initializer that
- * is called after the app is bootstrapped.
+ * A[токен DI](guide/glossary/#di-token)для инициализатора маршрутизатора, который
+ * вызывается после загрузки приложения.
  *
  * @publicApi
  */

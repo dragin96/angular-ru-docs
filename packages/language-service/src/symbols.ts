@@ -11,7 +11,7 @@ import * as ts from 'typescript';
 
 
 /**
- * The range of a span of text in a source file.
+ * Диапазон диапазона текста в исходном файле.
  *
  * @publicApi
  */
@@ -43,8 +43,8 @@ export interface Location {
 export type Definition = Location[]|undefined;
 
 /**
- * A symbol describing a language element that can be referenced by expressions
- * in an Angular template.
+ * Символ, описывающий элемент языка, на который могут ссылаться выражения
+ * в угловом шаблоне.
  *
  * @publicApi
  */
@@ -137,7 +137,7 @@ export interface Symbol {
 }
 
 /**
- * A table of `Symbol`s accessible by name.
+ * Таблица `Symbol` доступна по имени.
  *
  * @publicApi
  */
@@ -166,7 +166,7 @@ export interface SymbolTable {
 }
 
 /**
- * A description of a function or method signature.
+ * Описание функции или сигнатуры метода.
  *
  * @publicApi
  */
@@ -184,7 +184,7 @@ export interface Signature {
 }
 
 /**
- * An enumeration of basic types.
+ * Перечень основных типов.
  *
  * @publicApi
  */
@@ -236,7 +236,7 @@ export enum BuiltinType {
 }
 
 /**
- * The kinds of definition.
+ * Виды определения.
  *
  * @publicApi
  */
@@ -244,7 +244,7 @@ export type DeclarationKind = 'attribute'|'html attribute'|'component'|'element'
     'method'|'pipe'|'property'|'type'|'reference'|'variable';
 
 /**
- * Describes a symbol to type binding used to build a symbol table.
+ * Описывает привязку символа к типу, используемую для построения таблицы символов.
  *
  * @publicApi
  */
@@ -271,7 +271,7 @@ export interface SymbolDeclaration {
 }
 
 /**
- * Information about the pipes that are available for use in a template.
+ * Информация о трубах, доступных для использования в шаблоне.
  *
  * @publicApi
  */
@@ -288,14 +288,14 @@ export interface PipeInfo {
 }
 
 /**
- * A sequence of pipe information.
+ * Последовательность конвейерной информации.
  *
  * @publicApi
  */
 export type Pipes = PipeInfo[]|undefined;
 
 /**
- * Describes the language context in which an Angular expression is evaluated.
+ * Описывает языковой контекст, в котором оценивается Angular выражение.
  *
  * @publicApi
  */

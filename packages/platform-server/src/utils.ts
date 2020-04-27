@@ -87,14 +87,14 @@ the server-rendered app can be properly bootstrapped into a client app.`);
 }
 
 /**
- * Renders a Module to string.
+ * Визуализирует модуль в строку.
  *
- * `document` is the full document HTML of the page to render, as a string.
- * `url` is the URL for the current render request.
- * `extraProviders` are the platform level providers for the current render request.
+ *  `document`- это полный HTML-код документа страницы в виде строки.
+ *  `url`- это URL для текущего запроса рендеринга.
+ *  `extraProviders`- это провайдеры уровня платформы для текущего запроса рендеринга.
  *
- * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
- * {@link renderModuleFactory} instead.
+ * Не используйте это в среде производственного сервера. Использовать предварительно скомпилированный{@link NgModuleFactory}с
+ *  {@link renderModuleFactory}вместо.
  *
  * @publicApi
  */
@@ -106,11 +106,11 @@ export function renderModule<T>(
 }
 
 /**
- * Renders a {@link NgModuleFactory} to string.
+ * Оказывает{@link NgModuleFactory}нанизывать.
  *
- * `document` is the full document HTML of the page to render, as a string.
- * `url` is the URL for the current render request.
- * `extraProviders` are the platform level providers for the current render request.
+ *  `document`- это полный HTML-код документа страницы в виде строки.
+ *  `url`- это URL для текущего запроса рендеринга.
+ *  `extraProviders`- это провайдеры уровня платформы для текущего запроса рендеринга.
  *
  * @publicApi
  */

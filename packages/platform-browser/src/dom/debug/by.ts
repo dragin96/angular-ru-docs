@@ -12,7 +12,7 @@ import {DebugElement, DebugNode, Predicate, Type} from '@angular/core';
 
 
 /**
- * Predicates for use with {@link DebugElement}'s query functions.
+ * Предикаты для использования с{@link DebugElement}функции запросов.
  *
  * @publicApi
  */

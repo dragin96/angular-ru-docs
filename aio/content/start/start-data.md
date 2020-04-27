@@ -1,81 +1,85 @@
-# Try it: Manage data
+{@a getting-started-with-angular-managing-data}
+# Начало работы с Angular: Управление данными
 
-At the end of [In-app Navigation](start/start-routing "Try it: In-app Navigation"), the online store application has a product catalog with two views: a product list and product details.
-Users can click on a product name from the list to see details in a new view, with a distinct URL, or route.
+В конце [Маршрутизация](start/start-routing "Getting Started: Routing") приложение интернет-магазина имеет каталог товаров с двумя представлениями: список товаров и сведения о товаре.
+Пользователи могут щелкнуть название продукта в списке, чтобы просмотреть подробности в новом представлении с отдельным URL-адресом или маршрутом.
 
-This page guides you through creating the shopping cart in three phases:
+Эта страница поможет вам путем создания корзины покупок в три этапа:
 
-* Update the product details view to include a "Buy" button, which adds the current product to a list of products that a cart service manages.
-* Add a cart component, which displays the items in the cart.
-* Add a shipping component, which retrieves shipping prices for the items in the cart by using Angular's `HttpClient` to retrieve shipping data from a `.json` file.
+* Обновите страницу сведений о продукте, добавив кнопку «Купить», которая добавляет текущий продукт в список продуктов, которыми управляет служба корзины.
+* Добавьте компонент корзины, который отображает элементы в корзине.
+* Добавьте компонент доставки, который получает цены доставки для элементов в корзине, используя Angular's `HttpClient` для получения данных о доставке из `.json` файл.
 
 {@a services}
-## Services
+## Услуги
 
-Services are an integral part of Angular applications. In Angular, a service is an instance of a class that you can make available to any part of your application using Angular's [dependency injection system](guide/glossary#dependency-injection-di "Dependency injection definition").
+Сервисы являются неотъемлемой частью Angular приложений. В Angular сервис - это экземпляр класса, который вы можете сделать доступным для любой части вашего приложения, используя Angular [система внедрения зависимостей](guide/glossary#dependency-injection-di "dependency injection definition").
 
-Services are the place where you share data between parts of your application. For the online store, the cart service is where you store your cart data and methods.
+Сервисы - это место, где вы обмениваетесь данными между частями вашего приложения. Для интернет-магазина услуга корзины - это место, где вы храните данные и методы вашей корзины.
 
 {@a create-cart-service}
-## Create the shopping cart service
+{@a create-the-shopping-cart-service}
+## Создать сервис корзины покупок
 
-Up to this point, users can view product information, and
-simulate sharing and being notified about product changes.
-They cannot, however, buy products.
+До этого момента пользователи могут просматривать информацию о продукте и
+симулировать совместное использование и получать уведомления об изменениях продукта.
+Однако они не могут покупать продукты.
 
-In this section, you add a "Buy" button to the product
-details view and set up a cart service to store information
-about products in the cart.
+В этом разделе вы добавляете кнопку «Купить» к товару
+страница сведений и настройка службы корзины для хранения информации
+о продуктах в корзине.
 
 <div class="alert is-helpful">
 
-A later part of this tutorial, [Use forms for user input](start/start-forms "Try it: Forms for user input"), guides you through accessing this cart service from the view where the user checks out.
+Позже, [Формы](start/start-forms "Getting Started: Forms") часть
+это руководство поможет вам получить доступ к этой услуге корзины
+со страницы, где пользователь проверяет.
 
 </div>
 
 {@a generate-cart-service}
-### Define a cart service
+{@a define-a-cart-service}
+### Определите сервис корзины
 
-1. To generate a cart service, right click on the `app` folder, choose `Angular Generator`, and choose `Service`. Name the new service `cart`.
+1. Создайте услугу корзины.
+
+    1. Щелкните правой кнопкой мыши на `app` папку, выберите `Angular Generator` и выберите `Service` . Назовите новый сервис `cart`.
 
         <code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.1.ts"></code-example>
 
-    <div class="alert is-helpful>
+    1. StackBlitz может генерировать `@Injectable()` без `{ providedIn: 'root' }` оператор как выше. Вместо этого генератор предоставляет услугу корзины в `app.module.ts` по умолчанию. Для целей
+    этого урока, так или иначе работает. `@Injectable()` `{ providedIn: 'root' }` синтаксис [встряхивание дерева](/guide/dependency-injection-providers#tree-shakable-providers), что выходит за рамки данного руководства.
 
-    The StackBlitz generator might provide the cart service in `app.module.ts` by default. That differs from the example, which uses a bundle-optimization technique, an  `@Injectable()` decorator with the `{ providedIn: 'root' }` statement.
-    For more information about services, see [Introduction to Services and Dependency Injection](guide/architecture-services "Concepts > Intro to Services and DI").
-
-    </div>
-
-1. In the `CartService` class, define an `items` property to store the array of the current products in the cart.
+1. в `CartService` Класс, определить `items` свойство для хранения массива текущих товаров в корзине.
 
     <code-example path="getting-started/src/app/cart.service.ts" header="src/app/cart.service.ts" region="props"></code-example>
 
-1. Define methods to add items to the cart, return cart items, and clear the cart items:
+1. Определение методов для добавления элементов в корзину, вернуть корзины товаров и очистить корзины товаров:
 
     <code-example path="getting-started/src/app/cart.service.ts" header="src/app/cart.service.ts" region="methods"></code-example>
 
-    * The `addToCart()` method appends a product to an array of `items`.
+    * `addToCart()` добавляет продукт в массив `items`.
 
-    * The `getItems()` method collects the items users add to the cart and returns each item with its associated quantity.
+    * `getItems()` Метод собирает элементы, добавленные пользователями в корзину, и возвращает каждый элемент с соответствующим количеством.
 
-    * The `clearCart()` method returns an empty array of items.
+    * `clearCart()` возвращает пустой массив элементов.
 
 {@a product-details-use-cart-service}
-### Use the cart service
+{@a use-the-cart-service}
+### Воспользуйтесь услугой корзины
 
-This section walks you through using the cart service to add a product to the cart with a "Buy" button.
+В этом разделе рассказывается, как воспользоваться услугой корзины, чтобы добавить товар в корзину с помощью кнопки «Купить».
 
-1. Open `product-details.component.ts`.
+1. открыто `product-details.component.ts`.
 
-1. Configure the component to use the cart service.
+1. Настройте компонент для использования службы корзины.
 
-    1. Import the cart service.
+    1. Импортируйте услугу корзины.
 
         <code-example header="src/app/product-details/product-details.component.ts" path="getting-started/src/app/product-details/product-details.component.ts" region="cart-service">
         </code-example>
 
-    1. Inject the cart service by adding it to the `constructor()`.
+    1. Добавьте услугу корзины, добавив ее в `constructor()`.
 
         <code-example path="getting-started/src/app/product-details/product-details.component.ts" header="src/app/product-details/product-details.component.ts" region="inject-cart-service">
         </code-example>
@@ -84,72 +88,68 @@ This section walks you through using the cart service to add a product to the ca
         To do: Consider defining "inject" and describing the concept of "dependency injection"
         -->
 
-1. Define the `addToCart()` method, which adds the current product to the cart.
+1. Определите `addToCart()`, который добавляет текущий продукт в корзину.
 
-    The `addToCart()` method does the following three things:
-    * Receives the current `product`.
-    * Uses the cart service's `addToCart()` method to add the product the cart.
-    * Displays a message that you've added a product to the cart.
+ `addToCart()` метод делает следующие три вещи:
+    * Получает текущий `product`.
+    * Использует услугу корзины `addToCart()` для добавления товара в корзину.
+    * Отображает сообщение о том, что вы добавили товар в корзину.
 
     <code-example path="getting-started/src/app/product-details/product-details.component.ts" header="src/app/product-details/product-details.component.ts" region="add-to-cart"></code-example>
 
-1. Update the product details template with a "Buy" button that adds the current product to the cart.
+1. Обновите шаблон сведений о товаре с помощью кнопки «Купить», которая добавляет текущий товар в корзину.
 
-    1. Open `product-details.component.html`.
+    1. открыто `product-details.component.html`.
 
-    1. Add a button with the label "Buy", and bind the `click()` event to the `addToCart()` method:
+    1. Добавьте кнопку с надписью «Купить» и привяжите `click()` событие для `addToCart()` Метод:
 
         <code-example header="src/app/product-details/product-details.component.html" path="getting-started/src/app/product-details/product-details.component.html">
         </code-example>
-    
-    <div class="alert is-helpful">
 
-    The line, `<h4>{{ product.price | currency }}</h4>` uses the `currency` pipe to transform `product.price` from a number to a currency string. A pipe is a way you can transform data in your HTML template. For more information about Angular pipes, see [Pipes](guide/pipes "Pipes").
-
-    </div>
-
-1. To see the new "Buy" button, refresh the application and click on a product's name to display its details.
+1. Чтобы увидеть новую кнопку «Купить», обновите приложение и нажмите на название продукта, чтобы отобразить его детали.
 
     <div class="lightbox">
       <img src='generated/images/guide/start/product-details-buy.png' alt="Display details for selected product with a Buy button">
     </div>
 
- 1. Click the "Buy" button to add the product to the stored list of items in the cart and display a confirmation message.
+ 1. Нажмите кнопку «Купить», чтобы добавить товар в сохраненный список товаров в корзине и отобразить подтверждающее сообщение.
 
     <div class="lightbox">
       <img src='generated/images/guide/start/buy-alert.png' alt="Display details for selected product with a Buy button">
     </div>
 
 
-## Create the cart view
+{@a create-the-cart-page}
+## Создайте страницу корзины
 
-At this point, users can put items in the cart by clicking "Buy", but they can't yet see their cart.
+На этом этапе пользователи могут добавлять товары в корзину, нажимая «Купить», но они пока не видят свою корзину.
 
-Create the cart view in two steps:
+Создание страницы корзины в два этапа:
 
-1. Create a cart component and configure routing to the new component. At this point, the cart view has only default text.
-1. Display the cart items.
+1. Создайте компонент корзины и настройте маршрутизацию к новому компоненту. На этом этапе на странице корзины будет только текст по умолчанию.
+1. Показать элементы корзины.
 
-### Set up the component
+{@a set-up-the-component}
+### Настройте компонент
 
- To create the cart view, begin by following the same steps you did to create the product details component and configure routing for the new component.
+Чтобы создать страницу корзины, начните с тех же шагов, которые вы сделали для создания компонента сведений о продукте и настройки маршрутизации для нового компонента.
 
-1. Generate a cart component, named `cart`.
+1. Создайте компонент корзины с именем `cart`.
 
-    Reminder: In the file list, right-click the `app` folder, choose `Angular Generator` and `Component`.
+    Напоминание: в списке файлов щелкните правой кнопкой мыши `app` папку, выберите `Angular Generator` и `Component`.
 
     <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.1.ts"></code-example>
 
-1. Add routing (a URL pattern) for the cart component.
+1. Добавьте маршрутизацию (шаблон URL) для компонента корзины.
 
-    Open `app.module.ts` and add a route for the component `CartComponent`, with a `path` of `cart`:
+    открыто `app.module.ts` и добавьте маршрут для компонента `CartComponent`, с `path` из `cart` :
 
     <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts" region="cart-route">
     </code-example>
 
-1. Update the "Checkout" button so that it routes to the `/cart` url.
+1. Обновите кнопку «Оформить заказ», чтобы она направлялась к `/cart` URL
 
-    Open `top-bar.component.html` and add a `routerLink` directive pointing to `/cart`.
+    открыто `top-bar.component.html` и добавьте `routerLink` директива указывающая на `/cart`.
 
     <code-example
         header="src/app/top-bar/top-bar.component.html"
@@ -157,219 +157,227 @@ Create the cart view in two steps:
         region="cart-route">
     </code-example>
 
-1. To see the new cart component, click the "Checkout" button. You can see the "cart works!" default text, and the URL has the pattern `https://getting-started.stackblitz.io/cart`,  where `getting-started.stackblitz.io` may be different for your StackBlitz project.
+1. Чтобы увидеть новый компонент корзины, нажмите кнопку «Оформить заказ». Вы можете увидеть "Корзина работает!" текст по умолчанию, и URL имеет шаблон `https://getting-started.stackblitz.io/cart`, где `getting-started.stackblitz.io` может отличаться для вашего проекта StackBlitz.
 
     <div class="lightbox">
-      <img src='generated/images/guide/start/cart-works.png' alt="Display cart view before customizing">
+      <img src='generated/images/guide/start/cart-works.png' alt="Display cart page before customizing">
     </div>
 
-### Display the cart items
+{@a display-the-cart-items}
+### Показать элементы корзины
 
-You can use services to share data across components:
+Вы можете использовать услуги для обмена данных по компонентам:
 
-* The product details component already uses the cart service to add products to the cart.
-* This section shows you how to use the cart service to display the products in the cart.
+* Компонент сведений о продукте уже использует службу корзины для добавления продуктов в корзину.
+* В этом разделе показано, как использовать службу корзины для отображения продуктов в корзине.
 
 
-1. Open `cart.component.ts`.
+1. открыто `cart.component.ts`.
 
-1. Configure the component to use the cart service.
+1. Настройте компонент для использования службы корзины.
 
-    1. Import the `CartService` from the `cart.service.ts` file.
+    1. Импортировать `CartService` от `cart.service.ts` файл.
 
         <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.2.ts" region="imports">
         </code-example>
 
-    1. Inject the `CartService` so that the cart component can use it.
+    1. Введите `CartService` чтобы компонент корзины мог его использовать.
 
         <code-example path="getting-started/src/app/cart/cart.component.2.ts" header="src/app/cart/cart.component.ts" region="inject-cart">
         </code-example>
 
-1. Define the `items` property to store the products in the cart.
+1. Определите `items` свойство хранить товары в корзине.
 
     <code-example path="getting-started/src/app/cart/cart.component.2.ts" header="src/app/cart/cart.component.ts" region="items">
     </code-example>
 
-1. Set the items using the cart service's `getItems()` method. Recall that you defined this method [when you generated `cart.service.ts`](#generate-cart-service).
+1. Установите элементы, используя сервис корзины `getItems()` метод. Напомним, что вы определили этот метод [когда вы генерировали `cart.service.ts`](#generate-cart-service).
 
-    The resulting `CartComponent` class is as follows:
+    Результирующий `CartComponent` класс выглядит следующим образом :
 
     <code-example path="getting-started/src/app/cart/cart.component.3.ts" header="src/app/cart/cart.component.ts" region="props-services">
     </code-example>
 
-1. Update the template with a header, and use a `<div>` with an `*ngFor` to display each of the cart items with its name and price.
+1. Обновите шаблон с заголовком и используйте `<div>` с `*ngFor` отображения каждого элемента корзины с его названия и цены.
 
-    The resulting `CartComponent` template is as follows:
+    Результирующий `CartComponent` шаблон выглядит следующим образом :
 
     <code-example header="src/app/cart/cart.component.html" path="getting-started/src/app/cart/cart.component.2.html" region="prices">
     </code-example>
 
-1. Test your cart component.
+1. Проверьте свой компонент корзины.
 
-    1. Click on "My Store" to go to the product list view.
-    1. Click on a product name to display its details.
-    1. Click "Buy" to add the product to the cart.
-    1. Click "Checkout" to see the cart.
-    1. To add another product, click "My Store" to return to the product list.
+    1. Нажмите «Мой магазин», чтобы перейти на страницу со списком товаров.
+    1. Нажмите на название продукта, чтобы отобразить его детали.
+    1. Нажмите «Купить», чтобы добавить товар в корзину.
+    1. Нажмите «Оформить заказ», чтобы увидеть корзину.
+    1. Чтобы добавить другой продукт, нажмите «Мой магазин», чтобы вернуться к списку продуктов.
 
-  Repeat to add more items to the cart.
+  Повторите, чтобы добавить больше товаров в корзину.
 
     <div class="lightbox">
-      <img src='generated/images/guide/start/cart-page-full.png' alt="Cart view with products added">
+      <img src='generated/images/guide/start/cart-page-full.png' alt="Cart page with products added">
     </div>
 
 
 <div class="alert is-helpful">
 
-StackBlitz tip: Any time the preview refreshes, the cart is cleared. If you make changes to the app, the page refreshes, so you'll need to buy products again to populate the cart.
+Совет от StackBlitz: при каждом обновлении предварительного просмотра корзина очищается. Если вы внесете изменения в приложение, страница обновится, поэтому вам нужно будет снова покупать продукты, чтобы заполнить корзину.
 
 </div>
 
 <div class="alert is-helpful">
 
-For more information about services, see [Introduction to Services and Dependency Injection](guide/architecture-services "Concepts > Intro to Services and DI").
+Для получения дополнительной информации об услугах см. [Введение в службы и внедрение зависимостей](guide/architecture-services "Architecture > Intro to Services and DI").
 
 </div>
 
 
-## Retrieve shipping prices
+{@a retrieve-shipping-prices}
+## Получить цены доставки
 <!-- Accessing data with the HTTP client -->
 
-Servers often return data in the form of a stream.
-Streams are useful because they make it easy to transform the returned data and  make modifications to the way you request that data.
-The Angular HTTP client, `HttpClient`, is a built-in way to fetch data from external APIs and provide them to your app as a stream.
+Серверы часто возвращают данные в виде потока.
+Потоки полезны, потому что они позволяют легко преобразовывать возвращаемые данные и вносить изменения в способ запроса этих данных.
+Angular HTTP-клиент, `HttpClient` - это встроенный способ извлечения данных из внешних API и предоставления их вашему приложению в виде потока.
 
-This section shows you how to use the HTTP client to retrieve shipping prices from an external file.
+В этом разделе показано, как использовать HTTP-клиент для получения цен доставки из внешнего файла.
 
-### Predefined shipping data
+{@a predefined-shipping-data}
+### Предопределенные данные доставки
 
-The application that StackBlitz generates for this guide comes with predefined shipping data in `assets/shipping.json`.
-Use this data to add shipping prices for items in the cart.
+Приложение, которое StackBlitz создает для этого руководства, поставляется с предопределенными данными о доставке в `assets/shipping.json`.
+Используйте эти данные, чтобы добавить цены доставки для товаров в корзине.
 
 <code-example header="src/assets/shipping.json" path="getting-started/src/assets/shipping.json">
 </code-example>
 
 
-### Use `HttpClient` in the `AppModule`
+{@a use-httpclient-in-the-appmodule}
+### использование `HttpClient` в `AppModule`
 
-Before you can use Angular's HTTP client, you must configure your app to use `HttpClientModule`.
+Прежде чем вы сможете использовать HTTP-клиент Angular, вы должны настроить свое приложение на использование `HttpClientModule`.
 
-Angular's `HttpClientModule` registers the providers your app needs to use a single instance of the `HttpClient` service throughout your app.
+Angular's `HttpClientModule` регистрирует поставщиков, которым ваше приложение должно использовать один экземпляр `HttpClient` всему вашему приложению.
 
-1. Open `app.module.ts`.
+1. открыто `app.module.ts`.
 
-  This file contains imports and functionality that is available to the entire app.
+  Этот файл содержит импорт и функциональные возможности, доступные для всего приложения.
 
-1. Import `HttpClientModule` from the `@angular/common/http` package at the top of the file with the other imports. As there are a number of other imports, this code snippet omits them for brevity. Be sure to leave the existing imports in place.
+1. Импортировать `HttpClientModule` из `@angular/common/http` Пакет в верхней части файла с другими импортными. Поскольку существует ряд других импортов, этот фрагмент кода для краткости опускает их. Не забудьте оставить существующий импорт на месте.
 
     <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts" region="http-client-module-import">
     </code-example>
 
-1. Add `HttpClientModule` to the `AppModule` `@NgModule()` `imports` array to register Angular's `HttpClient` providers globally.
+1. добавлять `HttpClientModule` для `AppModule` `@NgModule()` `imports` массив для регистрации Angular's `HttpClient` Поставщики во всем мире.
 
     <code-example path="getting-started/src/app/app.module.ts" header="src/app/app.module.ts" region="http-client-module">
     </code-example>
 
-### Use `HttpClient` in the cart service
+{@a use-httpclient-in-the-cart-service}
+### использование `HttpClient` в корзине сервиса
 
-Now that the `AppModule` imports the `HttpClientModule`, the next step is to inject the `HttpClient` service into your service so your app can fetch data and interact with external APIs and resources.
+Теперь, когда `AppModule` импортирует `HttpClientModule`, следующим шагом является внедрение `HttpClient` в вашем сервисе, так что ваше приложение может получать данные и взаимодействовать с внешними API и ресурсами.
 
 
-1. Open `cart.service.ts`.
+1. открыто `cart.service.ts`.
 
-1. Import `HttpClient` from the `@angular/common/http` package.
+1. Импортировать `HttpClient` от `@angular/common/http` пакет.
 
     <code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.ts" region="import-http">
     </code-example>
 
-1. Inject `HttpClient` into the `CartService` constructor:
+1. Вводят `HttpClient` в `CartService` конструктор:
 
     <code-example path="getting-started/src/app/cart.service.ts" header="src/app/cart.service.ts" region="inject-http">
     </code-example>
 
 
-### Define the `get()` method
+{@a define-the-get-method}
+### Определите `get()` метод
 
-Multiple components can leverage the same service.
-Later in this tutorial, the shipping component uses the cart service to retrieve shipping data via HTTP from the `shipping.json` file.
-First, define a `get()` method.
+Несколько компонентов могут использовать один и тот же сервис.
+Далее в этом руководстве компонент доставки использует службу корзины для получения данных о доставке по HTTP из `shipping.json` файл.
+Сначала определите `get()` метод
 
-1. Continue working in `cart.service.ts`.
+1. Продолжайте работать в `cart.service.ts`.
 
-1. Below the `clearCart()` method, define a new `getShippingPrices()` method that uses the `HttpClient` `get()` method to retrieve the shipping data.
+1. Ниже `clearCart()`, определить новый `getShippingPrices()` который использует `HttpClient` `get()` Метод для получения данных о доставке.
 
     <code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.ts" region="get-shipping"></code-example>
 
 
 <div class="alert is-helpful">
 
-For more information about Angular's `HttpClient`, see the [Client-Server Interaction](guide/http "Server interaction through HTTP") guide.
+Для получения дополнительной информации об Angular's `HttpClient`, см. [HttpClient](guide/http "HttpClient guide").
 
 </div>
 
-## Define the shipping view
+{@a define-the-shipping-page}
+## Определите страницу доставки
 
-Now that your app can retrieve shipping data, create a shipping component and  template.
+Теперь, когда ваше приложение может получать данные о доставке, создайте компонент и шаблон доставки.
 
-1. Generate a new component named `shipping`.
+1. Создать новый компонент с именем `shipping`.
 
-    Reminder: In the file list, right-click the `app` folder, choose `Angular Generator` and `Component`.
+    Напоминание: в списке файлов щелкните правой кнопкой мыши `app` папку, выберите `Angular Generator ` и ` Component`.
 
     <code-example header="src/app/shipping/shipping.component.ts" path="getting-started/src/app/shipping/shipping.component.1.ts"></code-example>
 
-1. In `app.module.ts`, add a route for shipping. Specify a `path` of `shipping` and a component of `ShippingComponent`.
+1. В `app.module.ts`, добавить маршрут для доставки. Укажите `path` из `shipping` и компонент `ShippingComponent`.
 
     <code-example header="src/app/app.module.ts" path="getting-started/src/app/app.module.ts" region="shipping-route"></code-example>
 
-    There's no link to the new shipping component yet, but you can see its template in the preview pane by entering the URL its route specifies. The URL has the pattern: `https://getting-started.stackblitz.io/shipping` where the `getting-started.stackblitz.io` part may be different for your StackBlitz project.
+    Пока еще нет ссылки на новый компонент доставки, но вы можете увидеть его шаблон на панели предварительного просмотра, введя URL, который указывает его маршрут. URL имеет шаблон: `https://getting-started.stackblitz.io/shipping` где `getting-started.stackblitz.io` часть может отличаться для вашего проекта StackBlitz.
 
-1. Modify the shipping component so that it uses the cart service to retrieve shipping data via HTTP from the `shipping.json` file.
+1. Измените компонент доставки, чтобы он использовал службу корзины для получения данных об отправке по HTTP из `shipping.json` файл.
 
-    1. Import the cart service.
+    1. Импортируйте услугу корзины.
 
         <code-example header="src/app/shipping/shipping.component.ts" path="getting-started/src/app/shipping/shipping.component.ts" region="imports"></code-example>
 
-    1. Define a `shippingCosts` property.
+    1. Определить `shippingCosts` имущества.
 
         <code-example path="getting-started/src/app/shipping/shipping.component.ts" header="src/app/shipping/shipping.component.ts" region="props"></code-example>
 
-    1. Inject the cart service in the `ShippingComponent` constructor:
+    1. Внедрить услугу корзины в `ShippingComponent` конструктор:
 
         <code-example path="getting-started/src/app/shipping/shipping.component.ts" header="src/app/shipping/shipping.component.ts" region="inject-cart-service"></code-example>
 
-    1. Set the `shippingCosts` property using the `getShippingPrices()` method from the cart service.
+    1. Установить `shippingCosts` свойство используя `getShippingPrices()` из сервиса корзины.
 
         <code-example path="getting-started/src/app/shipping/shipping.component.ts" header="src/app/shipping/shipping.component.ts" region="ctor"></code-example>
 
-1. Update the shipping component's template to display the shipping types and prices using the `async` pipe:
+1. Обновите шаблон компонента доставки, чтобы отобразить типы доставки и цены, используя `async` труба:
 
     <code-example header="src/app/shipping/shipping.component.html" path="getting-started/src/app/shipping/shipping.component.html"></code-example>
 
-    The `async` pipe returns the latest value from a stream of data and continues to do so for the life of a given component. When Angular destroys that component, the `async` pipe automatically stops. For detailed information about the `async` pipe, see the [AsyncPipe API documentation](/api/common/AsyncPipe).
+ `async` возвращает последнее значение из потока данных и продолжает делать это в течение срока службы данного компонента. Когда Angular уничтожает этот компонент, `async` труба автоматически останавливается. Для получения подробной информации о `async` канал, см. [документация по AsyncPipe API](/api/common/AsyncPipe).
 
-1. Add a link from the cart view to the shipping view:
+1. Добавить ссылку из страницы корзины на странице доставки:
 
     <code-example header="src/app/cart/cart.component.html" path="getting-started/src/app/cart/cart.component.2.html"></code-example>
 
-1. Test your shipping prices feature:
+1. Проверьте ваши цены доставки
 
-    Click the "Checkout" button to see the updated cart. Remember that changing the app causes the preview to refresh, which empties the cart.
+    Нажмите кнопку «Оформить заказ», чтобы увидеть обновленную корзину. Помните, что при изменении приложения предварительный просмотр обновляется, что приводит к опустошению корзины.
 
     <div class="lightbox">
       <img src='generated/images/guide/start/cart-empty-with-shipping-prices.png' alt="Cart with link to shipping prices">
     </div>
 
-    Click on the link to navigate to the shipping prices.
+    Нажмите на ссылку, чтобы перейти к ценам доставки.
 
     <div class="lightbox">
       <img src='generated/images/guide/start/shipping-prices.png' alt="Display shipping prices">
     </div>
 
 
-## Next steps
+{@a next-steps}
+## Следующие шаги
 
-Congratulations! You have an online store application with a product catalog and shopping cart. You can also look up and display shipping prices.
+Поздравляем! У вас есть приложение интернет-магазина с каталогом товаров и корзиной покупок. Вы также можете посмотреть и показать цены доставки.
 
-To continue exploring Angular, choose either of the following options:
-* [Continue to the "Forms" section](start/start-forms "Try it: Forms for User Input") to finish the app by adding the shopping cart view and a checkout form.
-* [Skip ahead to the "Deployment" section](start/start-deployment "Try it: Deployment") to move to local development, or deploy your app to Firebase or your own server.
+Чтобы продолжить изучение Angular, выбрать один из следующих вариантов:
+* [Перейдите к разделу «Формы»](start/start-forms "Getting Started: Forms") чтобы завершить приложение, добавив страницу корзины покупок и форму заказа.
+* [Перейдите к разделу «Развертывание»](start/start-deployment "Getting Started: Deployment") чтобы перейти к локальной разработке или развернуть свое приложение на Firebase или на своем собственном сервере.

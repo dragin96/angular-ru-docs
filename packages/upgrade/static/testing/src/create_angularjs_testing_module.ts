@@ -15,69 +15,69 @@ import {UpgradeAppType} from '../../../src/common/src/util';
 
 
 /**
- * A helper function to use when unit testing AngularJS services that depend upon downgraded Angular
- * services.
+ * Вспомогательная функция, используемая при модульном тестировании сервисов AngularJS, которые зависят от версии Angular
+ * Сервисы.
  *
- * This function returns an AngularJS module that is configured to wire up the AngularJS and Angular
- * injectors without the need to actually bootstrap a hybrid application.
- * This makes it simpler and faster to unit test services.
+ * Эта функция возвращает модуль AngularJS, который настроен для подключения AngularJS и Angular
+ * инжекторы без необходимости фактически загружать гибридное приложение.
+ * Это упрощает и ускоряет юнит-тестирование сервисов.
  *
- * Use the returned AngularJS module in a call to
- * [`angular.mocks.module`](https://docs.angularjs.org/api/ngMock/function/angular.mock.module) to
- * include this module in the unit test injector.
+ * Используйте возвращенный модуль AngularJS в вызове
+ *  [ `angular.mocks.module` ](https://docs.angularjs.org/api/ngMock/function/angular.mock.module)для
+ * включите этот модуль в инжектор модульного тестирования.
  *
- * In the following code snippet, we are configuring the `$injector` with two modules:
- * The AngularJS `ng1AppModule`, which is the AngularJS part of our hybrid application and the
- * `Ng2AppModule`, which is the Angular part.
+ * В следующем фрагменте коды мы настраиваем `$injector` с двумямодулями:.
+ * AngularJS `ng1AppModule` , который является частью AngularJS нашего гибридного приложения и
+ *  `Ng2AppModule`, который является Angular частью.
  *
- * <code-example path="upgrade/static/ts/full/module.spec.ts"
- * region="angularjs-setup"></code-example>
+ *  <code-example path="upgrade/static/ts/full/module.spec.ts"
+ *  region="angularjs-setup"></code-example>
  *
- * Once this is done we can get hold of services via the AngularJS `$injector` as normal.
- * Services that are (or have dependencies on) a downgraded Angular service, will be instantiated as
- * needed by the Angular root `Injector`.
+ * Как только это будет сделано, мы сможем получить сервисы через AngularJS `$injector` в обычном режиме.
+ * Службы, которые являются (или зависят от) устаревшей службой Angular, будут созданы как
+ * Нужен Angular корень `Injector`.
  *
- * In the following code snippet, `heroesService` is a downgraded Angular service that we are
- * accessing from AngularJS.
+ * В следующем фрагменте кода `heroesService``heroesService` - этоAngular, которым мы являемся
+ * доступ из AngularJS.
  *
- * <code-example path="upgrade/static/ts/full/module.spec.ts"
- * region="angularjs-spec"></code-example>
+ *  <code-example path="upgrade/static/ts/full/module.spec.ts"
+ *  region="angularjs-spec"></code-example>
  *
- * <div class="alert is-important">
+ *  <div class="alert is-important">
  *
- * This helper is for testing services not components.
- * For Component testing you must still bootstrap a hybrid app. See `UpgradeModule` or
- * `downgradeModule` for more information.
+ * Этот помощник предназначен для тестирования сервисов, а не компонентов.
+ * Для тестирования компонентов вы все равно должны загрузить гибридное приложение. Смотрите `UpgradeModule` или
+ *  `downgradeModule`для получения дополнительной информации.
  *
- * </div>
+ *  </div>
  *
- * <div class="alert is-important">
+ *  <div class="alert is-important">
  *
- * The resulting configuration does not wire up AngularJS digests to Zone hooks. It is the
- * responsibility of the test writer to call `$rootScope.$apply`, as necessary, to trigger
- * AngularJS handlers of async events from Angular.
+ * Полученная конфигурация не связывает дайджесты AngularJS с хуками Zone. Это
+ * ответственность автора теста за вызов `$rootScope.$apply` , если необходимо, триггер
+ * AngularJS обработчики асинхронных событий из Angular.
  *
- * </div>
+ *  </div>
  *
- * <div class="alert is-important">
+ *  <div class="alert is-important">
  *
- * The helper sets up global variables to hold the shared Angular and AngularJS injectors.
+ * Помощник устанавливает глобальные переменные для хранения общих инжекторов Angular и AngularJS.
  *
- * * Only call this helper once per spec.
- * * Do not use `createAngularJSTestingModule` in the same spec as `createAngularTestingModule`.
+ * Вызывайте этого помощника только один раз за спецификацию.
+ * Не используйте `createAngularJSTestingModule` в той же спецификации, что `createAngularTestingModule`.
  *
- * </div>
+ *  </div>
  *
- * Here is the example application and its unit tests that use `createAngularTestingModule`
- * and `createAngularJSTestingModule`.
+ * Вот пример приложения и его модульных тестов, которые используют `createAngularTestingModule`
+ * и `createAngularJSTestingModule`.
  *
- * <code-tabs>
- *  <code-pane header="module.spec.ts" path="upgrade/static/ts/full/module.spec.ts"></code-pane>
- *  <code-pane header="module.ts" path="upgrade/static/ts/full/module.ts"></code-pane>
- * </code-tabs>
+ *  <code-tabs>
+ *   <code-pane header="module.spec.ts" path="upgrade/static/ts/full/module.spec.ts"></code-pane>
+ *   <code-pane header="module.ts" path="upgrade/static/ts/full/module.ts"></code-pane>
+ *  </code-tabs>
  *
  *
- * @param angularModules a collection of Angular modules to include in the configuration.
+ *  @param angularModules набор Angular модулей для включения в конфигурацию.
  *
  * @publicApi
  */

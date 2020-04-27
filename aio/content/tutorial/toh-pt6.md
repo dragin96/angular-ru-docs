@@ -1,532 +1,558 @@
-# Get data from a server
+{@a get-data-from-a-server}
+# Получить данные с сервера
 
-In this tutorial, you'll add the following data persistence features with help from
+В этом руководстве вы добавите следующие функции сохранения данных с помощью
 Angular's `HttpClient`.
 
-* The `HeroService` gets hero data with HTTP requests.
-* Users can add, edit, and delete heroes and save these changes over HTTP.
-* Users can search for heroes by name.
+* `HeroService` получает данные о героях с помощью HTTP-запросов.
+* Пользователи могут добавлять, редактировать и удалять героев и сохранять эти изменения по HTTP.
+* Пользователи могут искать героев по имени.
 
-When you're done with this page, the app should look like this <live-example></live-example>.
+Когда вы закончите с этой страницей, приложение должно выглядеть следующим образом <live-example></live-example>.
 
-## Enable HTTP services
+{@a enable-http-services}
+## Включить службы HTTP
 
-`HttpClient` is Angular's mechanism for communicating with a remote server over HTTP.
+ `HttpClient` - это механизм Angular для связи с удаленным сервером по HTTP.
 
-Make `HttpClient` available everywhere in the app in two steps. First, add it to the root `AppModule` by importing it:
+Сделать `HttpClient` доступен везде в приложении в два этапа. Сначала добавьте его в корень `AppModule` путем его импорта:
 
 <code-example path="toh-pt6/src/app/app.module.ts" region="import-http-client" header="src/app/app.module.ts (HttpClientModule import)">
 </code-example>
 
-Next, still in the `AppModule`, add `HttpClient` to the `imports` array:
+Далее, еще в `AppModule`, добавить `HttpClient` для `imports` массива:
 
 <code-example path="toh-pt6/src/app/app.module.ts" region="import-httpclientmodule" header="src/app/app.module.ts (imports array excerpt)">
 </code-example>
 
 
-## Simulate a data server
+{@a simulate-a-data-server}
+## Имитация сервера данных
 
-This tutorial sample mimics communication with a remote data server by using the
-[In-memory Web API](https://github.com/angular/in-memory-web-api "In-memory Web API") module.
+Этот учебный пример имитирует связь с удаленным сервером данных с помощью
+[В-памяти Web API](https://github.com/angular/in-memory-web-api "In-memory Web API") модуль.
 
-After installing the module, the app will make requests to and receive responses from the `HttpClient`
-without knowing that the *In-memory Web API* is intercepting those requests,
-applying them to an in-memory data store, and returning simulated responses.
+После установки модуля приложение будет отправлять запросы и получать ответы от `HttpClient`
+не зная, что *Web API In-памяти * перехватывает эти запросы,
+применяя их к хранилищу данных в памяти и возвращая смоделированные ответы.
 
-By using the In-memory Web API, you won't have to set up a server to learn about `HttpClient`.
+Используя веб-API в памяти, вам не нужно настраивать сервер, чтобы узнать о `HttpClient`.
 
 <div class="alert is-important">
 
-**Important:** the In-memory Web API module has nothing to do with HTTP in Angular.
+**Важно:** модуль веб-API в памяти не имеет ничего общего с HTTP в Angular.
 
-If you're just reading this tutorial to learn about `HttpClient`, you can [skip over](#import-heroes) this step.
-If you're coding along with this tutorial, stay here and add the In-memory Web API now.
+Если вы просто читаете этот учебник, чтобы узнать о `HttpClient`, вы можете [пропустить](#import-heroes)этот шаг.
+Если вы пишете код вместе с этим руководством, оставайтесь здесь и добавьте веб-API в памяти прямо сейчас.
 
 </div>
 
-Install the In-memory Web API package from npm with the following command:
+Установите пакет Web API В-память из НПХ с помощью следующей команды:
 
 <code-example language="sh" class="code-shell">
   npm install angular-in-memory-web-api --save
 </code-example>
 
-In the `AppModule`, import the `HttpClientInMemoryWebApiModule` and the `InMemoryDataService` class,
-which you will create in a moment.
+в `AppModule`, импортировать `HttpClientInMemoryWebApiModule` и `InMemoryDataService` Класс
+который вы создадите в данный момент.
 
 <code-example path="toh-pt6/src/app/app.module.ts" region="import-in-mem-stuff" header="src/app/app.module.ts (In-memory Web API imports)">
 </code-example>
 
-After the `HttpClientModule`, add the `HttpClientInMemoryWebApiModule`
-to the `AppModule` `imports` array and configure it with the `InMemoryDataService`.
+После `HttpClientModule`, добавьте `HttpClientInMemoryWebApiModule`
+к `AppModule` `imports` массив и настраивает его `InMemoryDataService`.
 
 <code-example path="toh-pt6/src/app/app.module.ts" header="src/app/app.module.ts (imports array excerpt)" region="in-mem-web-api-imports">
 </code-example>
 
-The `forRoot()` configuration method takes an `InMemoryDataService` class
-that primes the in-memory database.
+ `forRoot()` конфигурации принимает `InMemoryDataService` Класс
+который заполняет базу данных в памяти.
 
-Generate the class `src/app/in-memory-data.service.ts` with the following command:
+Создать класс `src/app/in-memory-data.service.ts` с помощью следующей команды:
 
 <code-example language="sh" class="code-shell">
   ng generate service InMemoryData
 </code-example>
 
-Replace the default contents of `in-memory-data.service.ts` with the following:
+Заменить содержимое по умолчанию `in-memory-data.service.ts` сводится к следующему:
 
 <code-example path="toh-pt6/src/app/in-memory-data.service.ts" region="init" header="src/app/in-memory-data.service.ts"></code-example>
 
-The `in-memory-data.service.ts` file replaces `mock-heroes.ts`, which is now safe to delete.
+ `in-memory-data.service.ts` файл заменяет `mock-heroes.ts`, который теперь безопасно удалить.
 
-When the server is ready, you'll detach the In-memory Web API, and the app's requests will go through to the server.
+Когда сервер будет готов, вы отключите встроенный веб-API в памяти, и запросы приложения будут переданы на сервер.
 
 
 {@a import-heroes}
-## Heroes and HTTP
+{@a heroes-and-http}
+## Герои и HTTP
 
-In the `HeroService`, import `HttpClient` and `HttpHeaders`:
+в `HeroService`, импорт `HttpClient` и `HttpHeaders` :
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="import-httpclient" header="src/app/hero.service.ts (import HTTP symbols)">
 </code-example>
 
-Still in the `HeroService`, inject `HttpClient` into the constructor in a private property called `http`.
+Все еще в `HeroService`, вводить `HttpClient` в конструктор в частном свойстве под названием `http`.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="ctor" >
 </code-example>
 
-Notice that you keep injecting the `MessageService` but since you'll call it so frequently, wrap it in a private `log()` method:
+Обратите внимание, что вы продолжаете вводить `MessageService` но так как вы будете вызывать его так часто, оберните его `log()` метод:
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="log" >
 </code-example>
 
-Define the `heroesUrl` of the form `:base/:collectionName` with the address of the heroes resource on the server.
- Here `base` is the resource to which requests are made,
- and `collectionName` is the heroes data object in the `in-memory-data-service.ts`.
+Определите `heroesUrl` формы `:base/:collectionName` с адресом ресурса героев на сервере.
+Вот `base` - это ресурс, к которому отправляются запросы
+и `collectionName` - объект данных героев в `in-memory-data-service.ts`.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="heroesUrl" >
 </code-example>
 
-### Get heroes with `HttpClient`
+{@a get-heroes-with-httpclient}
+### Получить героев с `HttpClient`
 
-The current `HeroService.getHeroes()`
-uses the RxJS `of()` function to return an array of mock heroes
-as an `Observable<Hero[]>`.
+Электрический ток `HeroService.getHeroes()`
+использует RxJS `of()` функция, чтобы вернуть массив фиктивных героев
+как `Observable<Hero[]>`.
 
 <code-example path="toh-pt4/src/app/hero.service.ts" region="getHeroes-1" header="src/app/hero.service.ts (getHeroes with RxJs 'of()')">
 </code-example>
 
-Convert that method to use `HttpClient` as follows:
+Преобразовать этот метод для использования `HttpClient` следующим образом :
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="getHeroes-1">
 </code-example>
 
-Refresh the browser. The hero data should successfully load from the
-mock server.
+Обновите браузер. Данные героя должны успешно загружаться из
+макет сервера.
 
-You've swapped `of()` for `http.get()` and the app keeps working without any other changes
-because both functions return an `Observable<Hero[]>`.
+Вы поменялись местами `of()` для `http.get()` и приложение продолжает работать без каких-либо других изменений
+потому что обе функции возвращают `Observable<Hero[]>`.
 
-### `HttpClient` methods return one value
+{@a httpclient-methods-return-one-value}
+### `HttpClient` Методы возвращают одно значение
 
-All `HttpClient` methods return an RxJS `Observable` of something.
+Все `HttpClient` Методы возвращают RxJS `Observable` чего-то.
 
-HTTP is a request/response protocol.
-You make a request, it returns a single response.
+HTTP является протоколом запроса / ответа.
+Вы делаете запрос, он возвращает один ответ.
 
-In general, an observable _can_ return multiple values over time.
-An observable from `HttpClient` always emits a single value and then completes, never to emit again.
+В общем случае наблюдаемое _can_ может возвращать несколько значений с течением времени.
+Наблюдаемый от `HttpClient` всегда выдает одно значение, а затем завершается, никогда не отправляя снова.
 
-This particular `HttpClient.get()` call returns an `Observable<Hero[]>`; that is, "_an observable of hero arrays_". In practice, it will only return a single hero array.
+Этот конкретный `HttpClient.get()` вызов возвращает `Observable<Hero[]>` ; то есть, "наблюдаемый массив героев". На практике он вернет только один массив героев.
 
-### `HttpClient.get()` returns response data
+{@a httpclient.get-return-response-data}
+### `HttpClient.get()` возвращает данные ответа
 
-`HttpClient.get()` returns the body of the response as an untyped JSON object by default.
-Applying the optional type specifier, `<Hero[]>` , adds TypeScript capabilities, which reduce errors during compile time.
+ `HttpClient.get()` возвращает тело ответа в виде нетипизированного объекта JSON по умолчанию.
+Применяя необязательный спецификатор типа, `<Hero[]>`, добавляет возможности TypeScript, которые уменьшают ошибки во время компиляции.
 
-The server's data API determines the shape of the JSON data.
-The _Tour of Heroes_ data API returns the hero data as an array.
+API данных сервера определяет форму данных JSON.
+API данных _Tour of Heroes_ возвращает данные о героях в виде массива.
 
 <div class="alert is-helpful">
 
-Other APIs may bury the data that you want within an object.
-You might have to dig that data out by processing the `Observable` result
-with the RxJS `map()` operator.
+Другие API могут скрывать данные, которые вы хотите внутри объекта.
+Возможно, вам придется выкопать эти данные, обрабатывая `Observable` результат
+с RxJS `map()` оператор.
 
-Although not discussed here, there's an example of `map()` in the `getHeroNo404()`
-method included in the sample source code.
+Хотя здесь это не обсуждается, есть пример `map()` в `getHeroNo404()`
+метод включен в пример исходного кода.
 
 </div>
 
-### Error handling
+{@a error-handling}
+### Обработка ошибок
 
-Things go wrong, especially when you're getting data from a remote server.
-The `HeroService.getHeroes()` method should catch errors and do something appropriate.
+Все идет не так, особенно когда вы получаете данные с удаленного сервера.
+ `HeroService.getHeroes()` должен отлавливать ошибки и делать что-то подходящее.
 
-To catch errors, you **"pipe" the observable** result from `http.get()` through an RxJS `catchError()` operator.
+Чтобы поймать ошибки, вы **"труба" видимый ** результат от `http.get()` через RxJS `catchError()` оператор.
 
-Import the `catchError` symbol from `rxjs/operators`, along with some other operators you'll need later.
+Импортировать `catchError` символ из `rxjs/operators`, наряду с некоторыми другими операторами, которые понадобятся вам позже.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="import-rxjs-operators">
 </code-example>
 
-Now extend the observable result with the `pipe()` method and
-give it a `catchError()` operator.
+Теперь расширим наблюдаемый результат с помощью `pipe()` метод и
+дать ему `catchError()` оператор.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="getHeroes-2" header="src/app/hero.service.ts">
 </code-example>
 
-The `catchError()` operator intercepts an **`Observable` that failed**.
-It passes the error an error handler that can do what it wants with the error.
+ `catchError()` оператор перехватывает** `Observable` что не удалось **.
+Он передает ошибку обработчику ошибок, который может делать то, что он хочет с ошибкой.
 
-The following `handleError()` method reports the error and then returns an
-innocuous result so that the application keeps working.
+Последующий `handleError()` сообщает об ошибке, а затем возвращает
+безобидный результат, так что приложение продолжает работать.
 
+{@a handleerror}
 #### `handleError`
 
-The following `handleError()` will be shared by many `HeroService` methods
-so it's generalized to meet their different needs.
+Последующий `handleError()` будет многим `HeroService` Методы
+поэтому он обобщен для удовлетворения их различных потребностей.
 
-Instead of handling the error directly, it returns an error handler function to `catchError` that it
-has configured with both the name of the operation that failed and a safe return value.
+Вместо непосредственной обработки ошибки она возвращает функцию обработчика ошибок в `catchError` что это
+настроил как имя операции, которая не удалась, так и безопасное возвращаемое значение.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="handleError">
 </code-example>
 
-After reporting the error to the console, the handler constructs
-a user friendly message and returns a safe value to the app so the app can keep working.
+После сообщения об ошибке на консоль, обработчик создает
+удобное сообщение и возвращает безопасное значение в приложение, чтобы приложение могло продолжать работать.
 
-Because each service method returns a different kind of `Observable` result,
-`handleError()` takes a type parameter so it can return the safe value as the type that the app expects.
+Поскольку каждый метод службы возвращает различный вид `Observable` результат
+ `handleError()` принимает параметр типа, чтобы он мог возвращать безопасное значение в качестве типа, приложением.
 
-### Tap into the Observable
+{@a tap-into-the-observable}
+### Нажмите на наблюдаемую
 
-The `HeroService` methods will **tap** into the flow of observable values
-and send a message, via the `log()` method, to the message area at the bottom of the page.
+ `HeroService` Методы **подключатся** к потоку наблюдаемых значений
+и отправьте сообщение через `log()`, к области сообщений внизу страницы.
 
-They'll do that with the RxJS `tap()` operator,
-which looks at the observable values, does something with those values,
-and passes them along.
-The `tap()` call back doesn't touch the values themselves.
+Они сделают это с RxJS `tap()` оператор
+который смотрит на наблюдаемые значения, что-то делает с этими значениями
+и передает их вместе.
+ `tap()` вызов не касается самих значений.
 
-Here is the final version of `getHeroes()` with the `tap()` that logs the operation.
+Вот окончательная версия `getHeroes()` с `tap()` который регистрирует операцию.
 
-<code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts"  region="getHeroes" >
+<code-example path="toh-pt6/src/app/hero.service.ts" header="src/app/hero.service.ts" region="getHeroes" >
 </code-example>
 
-### Get hero by id
+{@a get-hero-by-id}
+### Получить героя по идентификатору
 
-Most web APIs support a _get by id_ request in the form `:baseURL/:id`.
+Большинство веб-API поддерживают запрос _get by id_ в форме `:baseURL/:id`.
 
-Here, the _base URL_ is the `heroesURL` defined in the [Heroes and HTTP](tutorial/toh-pt6#heroes-and-http) section (`api/heroes`) and _id_ is
-the number of the hero that you want to retrieve. For example, `api/heroes/11`.
+Здесь _base URL_ является `heroesURL` определенный в разделе [Герои и HTTP](tutorial/toh-pt6#heroes-and-http)(`api/heroes`) и _id_ есть
+номер героя, которого вы хотите получить. Например, `api/heroes/11`.
 
-Update the `HeroService` `getHero()` method with the following to make that request:
+Обновите `HeroService` `getHero()` метод со следующим, чтобы сделать этот запрос:
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="getHero" header="src/app/hero.service.ts"></code-example>
 
-There are three significant differences from  `getHeroes()`:
+Есть три существенных отличия от `getHeroes()` :
 
-* `getHero()` constructs a request URL with the desired hero's id.
-* The server should respond with a single hero rather than an array of heroes.
-* `getHero()` returns an `Observable<Hero>` ("_an observable of Hero objects_")
- rather than an observable of hero _arrays_ .
+* `getHero()` создает URL запроса с идентификатором нужного героя.
+* Сервер должен отвечать одним героем, а не набором героев.
+* `getHero() ` возвращает ` Observable<Hero>` («наблюдаемый объектов героя»)
+а не наблюдаемый герой _arrays_.
 
-## Update heroes
+{@a update-heroes}
+## Обновите героев
 
-Edit a hero's name in the hero detail view.
-As you type, the hero name updates the heading at the top of the page.
-But when you click the "go back button", the changes are lost.
+Отредактируйте имя героя в подробном представлении героя.
+По мере ввода имя героя обновляет заголовок вверху страницы.
+Но когда вы нажимаете «кнопку возврата», изменения теряются.
 
-If you want changes to persist, you must write them back to
-the server.
+Если вы хотите, чтобы изменения сохранялись, вы должны написать их обратно
+сервер.
 
-At the end of the hero detail template, add a save button with a `click` event
-binding that invokes a new component method named `save()`.
+В конце подробного шаблона героя добавьте кнопку сохранения с `click` событие
+привязка, которая вызывает новый метод компонента с именем `save()`.
 
 <code-example path="toh-pt6/src/app/hero-detail/hero-detail.component.html" region="save" header="src/app/hero-detail/hero-detail.component.html (save)"></code-example>
 
-In the `HeroDetail` component class, add the following `save()` method, which persists hero name changes using the hero service
-`updateHero()` method and then navigates back to the previous view.
+в `HeroDetail` компонента, добавьте следующее `save()` Метод, который сохраняет изменения имени героя с помощью сервиса hero
+ `updateHero()` и затем возвращается к предыдущему представлению.
 
 <code-example path="toh-pt6/src/app/hero-detail/hero-detail.component.ts" region="save" header="src/app/hero-detail/hero-detail.component.ts (save)"></code-example>
 
-#### Add `HeroService.updateHero()`
+{@a add-heroservice.updatehero}
+#### добавлять `HeroService.updateHero()`
 
-The overall structure of the `updateHero()` method is similar to that of
-`getHeroes()`, but it uses `http.put()` to persist the changed hero
-on the server. Add the following to the `HeroService`.
+Общая структура `updateHero()` аналогичен методу of
+ `getHeroes()`, но он использует `http.put()` чтобы сохранить измененного героя
+на сервере. Добавьте следующее к `HeroService`.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="updateHero" header="src/app/hero.service.ts (update)">
 </code-example>
 
-The `HttpClient.put()` method takes three parameters:
-* the URL
-* the data to update (the modified hero in this case)
-* options
+ `HttpClient.put()` метод принимает три параметра:
+* URL
+* данные для обновления (модифицированный герой в данном случае)
+* варианты
 
-The URL is unchanged. The heroes web API knows which hero to update by looking at the hero's `id`.
+URL не изменился. Веб-API героев знает, какого героя нужно обновить, посмотрев на героя. `id`.
 
-The heroes web API expects a special header in HTTP save requests.
-That header is in the `httpOptions` constant defined in the `HeroService`. Add the following to the `HeroService` class.
+Веб-API героев ожидает специальный заголовок в HTTP-запросах на сохранение.
+Этот заголовок находится в `httpOptions` константа определенная в `HeroService` . Добавьте следующее к `HeroService` класс.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="http-options" header="src/app/hero.service.ts">
 </code-example>
 
-Refresh the browser, change a hero name and save your change. The `save()`
-method in `HeroDetailComponent` navigates to the previous view.
-The hero now appears in the list with the changed name.
+Обновите браузер, измените имя героя и сохраните изменения. `save()`
+метод в `HeroDetailComponent` переходит к предыдущему представлению.
+Теперь герой появляется в списке с измененным именем.
 
 
-## Add a new hero
+{@a add-a-new-hero}
+## Добавь нового героя
 
-To add a hero, this app only needs the hero's name. You can use an `<input>`
-element paired with an add button.
+Чтобы добавить героя, этому приложению нужно только имя героя. Вы можете использовать `<input>`
+элемент в сочетании с кнопкой добавления.
 
-Insert the following into the `HeroesComponent` template, just after
-the heading:
+Вставьте следующее в `HeroesComponent` шаблон, сразу после
+заголовок:
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.html" region="add" header="src/app/heroes/heroes.component.html (add)"></code-example>
 
-In response to a click event, call the component's click handler, `add()`, and then
-clear the input field so that it's ready for another name. Add the following to the
-`HeroesComponent` class:
+В ответ на событие щелчка вызовите обработчик щелчка компонента, `add()`, а затем
+очистите поле ввода, чтобы оно было готово для другого имени. Добавьте следующее к
+ `HeroesComponent` класс:
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.ts" region="add" header="src/app/heroes/heroes.component.ts (add)"></code-example>
 
-When the given name is non-blank, the handler creates a `Hero`-like object
-from the name (it's only missing the `id`) and passes it to the services `addHero()` method.
+Когда данное имя не пустое, обработчик создает `Hero` подобный объект
+от имени (это только отсутствует `id`) и передает его в службы `addHero()`.
 
-When `addHero()` saves successfully, the `subscribe()` callback
-receives the new hero and pushes it into to the `heroes` list for display.
+когда `addHero()` успешно сохраняет, `subscribe()` обратный вызов
+получает нового героя и толкает его в `heroes` список для отображения.
 
-Add the following `addHero()` method to the `HeroService` class.
+Добавьте следующее `addHero()` для `HeroService` класс.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="addHero" header="src/app/hero.service.ts (addHero)"></code-example>
 
-`addHero()` differs from `updateHero()` in two ways:
+ `addHero()` отличается от `updateHero()` двумя способами:
 
-* It calls `HttpClient.post()` instead of `put()`.
-* It expects the server to generate an id for the new hero,
-which it returns in the `Observable<Hero>` to the caller.
+* Это вызывает `HttpClient.post()` вместо `put()`.
+* Ожидается, что сервер сгенерирует идентификатор для нового героя
+который он возвращает в `Observable<Hero>` для звонящего.
 
-Refresh the browser and add some heroes.
+Обновите браузер и добавьте героев.
 
-## Delete a hero
+{@a delete-a-hero}
+## Удалить героя
 
-Each hero in the heroes list should have a delete button.
+Каждый герой в списке героев должен иметь кнопку удаления.
 
-Add the following button element to the `HeroesComponent` template, after the hero
-name in the repeated `<li>` element.
+Добавьте следующий элемент кнопки в `HeroesComponent` шаблон, после героя
+имя в повторном `<li>` элемент.
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.html" header="src/app/heroes/heroes.component.html" region="delete"></code-example>
 
-The HTML for the list of heroes should look like this:
+HTML для списка героев должен выглядеть следующим образом :
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.html" region="list" header="src/app/heroes/heroes.component.html (list of heroes)"></code-example>
 
-To position the delete button at the far right of the hero entry,
-add some CSS to the `heroes.component.css`. You'll find that CSS
-in the [final review code](#heroescomponent) below.
+Чтобы поместить кнопку удаления в правом вступления героя,
+добавить немного CSS в `heroes.component.css` . Вы найдете этот CSS
+в [окончательный код проверки](#heroescomponent)ниже.
 
-Add the `delete()` handler to the component class.
+Добавить `delete()` обработчик для класса компонента.
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.ts" region="delete" header="src/app/heroes/heroes.component.ts (delete)"></code-example>
 
-Although the component delegates hero deletion to the `HeroService`,
-it remains responsible for updating its own list of heroes.
-The component's `delete()` method immediately removes the _hero-to-delete_ from that list,
-anticipating that the `HeroService` will succeed on the server.
+Хотя компонент делегирует удаление героя `HeroService`,
+он остается ответственным за обновление своего собственного списка героев.
+Компоненты `delete()` метод немедленно удаляет _hero-к-Delete_ из этого списка
+предвидя, что `HeroService` будет успешным на сервере.
 
-There's really nothing for the component to do with the `Observable` returned by
-`heroService.delete()` **but it must subscribe anyway**.
+Для компонента нет ничего общего с `Observable` возвращено
+ `heroService.delete()` **но он все равно должен подписаться **.
 
 <div class="alert is-important">
 
-  If you neglect to `subscribe()`, the service will not send the delete request to the server.
-  As a rule, an `Observable` _does nothing_ until something subscribes.
+  Если вы пренебрегаете `subscribe()`, сервис не будет отправлять запрос на удаление на сервер.
+  Как правило, `Observable` _не делает ничего_, пока что-то не подпишется.
 
-  Confirm this for yourself by temporarily removing the `subscribe()`,
-  clicking "Dashboard", then clicking "Heroes".
-  You'll see the full list of heroes again.
+  Подтвердите это для себя, временно удалив `subscribe()`,
+  нажмите «Панель инструментов», затем нажмите «Герои».
+  Вы снова увидите полный список героев.
 
 </div>
 
-Next, add a `deleteHero()` method to `HeroService` like this.
+Затем добавьте `deleteHero()` для `HeroService` как это.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="deleteHero" header="src/app/hero.service.ts (delete)"></code-example>
 
-Note the following key points:
+Обратите внимание на следующие ключевые моменты:
 
-* `deleteHero()` calls `HttpClient.delete()`.
-* The URL is the heroes resource URL plus the `id` of the hero to delete.
-* You don't send data as you did with `put()` and `post()`.
-* You still send the `httpOptions`.
+* `deleteHero() ` звонки ` HttpClient.delete()`.
+* URL является URL ресурса героев плюс `id` героя для удаления.
+* Вы не отправляете данные как вы `put()` и `post()`.
+* Вы все еще отправляете `httpOptions`.
 
-Refresh the browser and try the new delete functionality.
+Обновите браузер и попробуйте новую функцию удаления.
 
-## Search by name
+{@a search-by-name}
+## Поиск по имени
 
-In this last exercise, you learn to chain `Observable` operators together
-so you can minimize the number of similar HTTP requests
-and consume network bandwidth economically.
+В этом последнем упражнении вы научитесь связывать `Observable` операторы вместе
+так что вы можете минимизировать количество подобных HTTP-запросов
+и экономно использовать пропускную способность сети.
 
-You will add a heroes search feature to the Dashboard.
-As the user types a name into a search box,
-you'll make repeated HTTP requests for heroes filtered by that name.
-Your goal is to issue only as many requests as necessary.
+Вы добавите функцию поиска героев на панель инструментов.
+Как пользователь вводит имя в поле поиска
+Вы будете повторять HTTP-запросы для героев, отфильтрованных по этому имени.
+Ваша цель состоит в том, чтобы выдавать столько запросов, сколько необходимо.
 
+{@a heroservice.searchheroes}
 #### `HeroService.searchHeroes()`
 
-Start by adding a `searchHeroes()` method to the `HeroService`.
+Начните с добавления `searchHeroes()` для `HeroService`.
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="searchHeroes" header="src/app/hero.service.ts">
 </code-example>
 
-The method returns immediately with an empty array if there is no search term.
-The rest of it closely resembles `getHeroes()`, the only significant difference being
-the URL, which includes a query string with the search term.
+Метод немедленно возвращается с пустым массивом, если поискового термина нет.
+В остальном это очень похоже `getHeroes()`, единственное существенное отличие заключается в
+URL, который включает строку запроса с поисковым термином.
 
-### Add search to the Dashboard
+{@a add-search-to-the-dashboard}
+### Добавить поиск в панель инструментов
 
-Open the `DashboardComponent` template and
-add the hero search element, `<app-hero-search>`, to the bottom of the markup.
+Открой `DashboardComponent` шаблон и
+добавить элемент поиска героя, `<app-hero-search>`, внизу разметки.
 
 <code-example path="toh-pt6/src/app/dashboard/dashboard.component.html" header="src/app/dashboard/dashboard.component.html"></code-example>
 
-This template looks a lot like the `*ngFor` repeater in the `HeroesComponent` template.
+Этот шаблон очень похож на `*ngFor` повторителя в `HeroesComponent` шаблон.
 
-For this to work, the next step is to add a component with a selector that matches `<app-hero-search>`.
+Чтобы это работало, следующим шагом является добавление компонента с селектором, который соответствует `<app-hero-search>`.
 
 
-### Create `HeroSearchComponent`
+{@a create-herosearchcomponent}
+### Создайте `HeroSearchComponent`
 
-Create a `HeroSearchComponent` with the CLI.
+Создать `HeroSearchComponent` с CLI.
 
 <code-example language="sh" class="code-shell">
   ng generate component hero-search
 </code-example>
 
-The CLI generates the three `HeroSearchComponent` files and adds the component to the `AppModule` declarations.
+CLI генерирует три `HeroSearchComponent` файлы и добавляет компонент в `AppModule` Объявления.
 
-Replace the generated `HeroSearchComponent` template with an `<input>` and a list of matching search results, as follows.
+Заменить сгенерированный `HeroSearchComponent` шаблон с `<input>` и список соответствующих результатов поиска, как показано ниже.
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.html" header="src/app/hero-search/hero-search.component.html"></code-example>
 
-Add private CSS styles to `hero-search.component.css`
-as listed in the [final code review](#herosearchcomponent) below.
+Добавить частные стили CSS в `hero-search.component.css`
+как указано в [окончательный обзор кода](#herosearchcomponent)ниже.
 
-As the user types in the search box, an input event binding calls the
-component's `search()` method with the new search box value.
+Когда пользователь вводит в поле поиска, привязка события ввода вызывает
+составные части `search()` Метод с новым значением окна поиска.
 
 {@a asyncpipe}
 
+{@a asyncpipe}
 ### `AsyncPipe`
 
-The `*ngFor` repeats hero objects. Notice that the `*ngFor` iterates over a list called `heroes$`, not `heroes`. The `$` is a convention that indicates `heroes$` is an `Observable`, not an array.
+ `*ngFor` повторяет объекты героя. Обратите внимание, что `*ngFor` списка `heroes$`, а не `heroes` . `$` это соглашение, которое указывает `heroes$` это `Observable`, а не массив.
 
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.html" header="src/app/hero-search/hero-search.component.html" region="async"></code-example>
 
-Since `*ngFor` can't do anything with an `Observable`, use the
-pipe character (`|`) followed by `async`. This identifies Angular's `AsyncPipe` and subscribes to an `Observable` automatically so you won't have to
-do so in the component class.
+поскольку `*ngFor` ничего не может сделать с `Observable`, используйте
+символ трубы (`|`) с последующим `async` . Это идентифицирует Angular's `AsyncPipe` и подписывается на `Observable` автоматически, поэтому вам не придется
+сделать это в классе компонентов.
 
-### Edit the `HeroSearchComponent` class
+{@a edit-the-herosearchcomponent-class}
+### Изменить `HeroSearchComponent` класс
 
-Replace the generated `HeroSearchComponent` class and metadata as follows.
+Заменить сгенерированный `HeroSearchComponent` класс и метаданные следующим образом.
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.ts" header="src/app/hero-search/hero-search.component.ts"></code-example>
 
-Notice the declaration of `heroes$` as an `Observable`:
+Обратите внимание на объявление `heroes$` как `Observable` :
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.ts" header="src/app/hero-search/hero-search.component.ts" region="heroes-stream">
 </code-example>
 
-You'll set it in [`ngOnInit()`](#search-pipe).
-Before you do, focus on the definition of `searchTerms`.
+Вы установите его в [ `ngOnInit ()` ](#search-pipe).
+Прежде чем сделать это, сосредоточиться на определении `searchTerms`.
 
-### The `searchTerms` RxJS subject
+{@a the-searchterms-rxjs-subject}
+### `searchTerms` RxJS тема
 
-The `searchTerms` property is an RxJS `Subject`.
+ `searchTerms` является RxJS `Subject`.
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.ts" header="src/app/hero-search/hero-search.component.ts" region="searchTerms"></code-example>
 
-A `Subject` is both a source of observable values and an `Observable` itself.
-You can subscribe to a `Subject` as you would any `Observable`.
+ `Subject` является одновременно источником наблюдаемых значений и `Observable` сам.
+Вы можете подписаться на `Subject` как вы бы любой `Observable`.
 
-You can also push values into that `Observable` by calling its `next(value)` method
-as the `search()` method does.
+Вы также можете вставить значения в это `Observable`, называя его `next(value)` метод
+как `search()` метод делает.
 
-The event binding to the textbox's `input` event calls the `search()` method.
+Привязка события к текстовому полю `input` событие вызывает `search()` метод.
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.html" header="src/app/hero-search/hero-search.component.html" region="input"></code-example>
 
-Every time the user types in the textbox, the binding calls `search()` with the textbox value, a "search term".
-The `searchTerms` becomes an `Observable` emitting a steady stream of search terms.
+Каждый раз, когда пользователь вводит текстовое поле, привязка вызывает `search()` со значением текстового поля, «поисковый термин».
+ `searchTerms ` становится ` Observable` испускающий устойчивый поток поисковых терминов.
 
 {@a search-pipe}
 
-### Chaining RxJS operators
+{@a chaining-rxjs-operators}
+### Связывание операторов RxJS
 
-Passing a new search term directly to the `searchHeroes()` after every user keystroke would create an excessive amount of HTTP requests,
-taxing server resources and burning through data plans.
+Передача нового поискового запроса непосредственно в `searchHeroes()` после каждого нажатия клавиши пользователем будет создавать чрезмерное количество HTTP-запросов
+налогообложение ресурсов сервера и прожиг через тарифные планы.
 
-Instead, the `ngOnInit()` method pipes the `searchTerms` observable through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
-ultimately returning an observable of timely hero search results (each a `Hero[]`).
+Вместо этого `ngOnInit()` метод труб в `searchTerms` наблюдаемые через последовательность операторов RxJS, которые уменьшают количество вызовов к `searchHeroes()`,
+в конечном итоге возвращает наблюдаемые своевременные результаты поиска героя (каждый `Hero[]`).
 
-Here's a closer look at the code.
+Вот более внимательный взгляд на код.
 
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.ts" header="src/app/hero-search/hero-search.component.ts" region="search">
 </code-example>
 
-Each operator works as follows:
+Каждый оператор работает следующим образом :
 
-* `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
-before passing along the latest string. You'll never make requests more frequently than 300ms.
+* `debounceTime(300)` ожидает, пока поток новых строковых событий не остановится на 300 миллисекунд
+перед прохождением по последней строке. Вы никогда не будете делать запросы чаще, чем 300 мс.
 
-* `distinctUntilChanged()` ensures that a request is sent only if the filter text changed.
+* `distinctUntilChanged()` гарантирует, что запрос будет отправлен, только если текст фильтра изменился.
 
-* `switchMap()` calls the search service for each search term that makes it through `debounce()` and `distinctUntilChanged()`.
-It cancels and discards previous search observables, returning only the latest search service observable.
+* `switchMap()` вызывает службу поиска для каждого поискового запроса, который проходит через `debounce()` и `distinctUntilChanged()`.
+Он отменяет и отбрасывает предыдущие наблюдаемые результаты поиска, возвращая только последнюю наблюдаемую службу поиска.
 
 
 <div class="alert is-helpful">
 
-  With the [switchMap operator](http://www.learnrxjs.io/operators/transformation/switchmap.html),
-  every qualifying key event can trigger an `HttpClient.get()` method call.
-  Even with a 300ms pause between requests, you could have multiple HTTP requests in flight
-  and they may not return in the order sent.
+  С [оператор switchMap](http://www.learnrxjs.io/operators/transformation/switchmap.html),
+  каждое соответствующее ключевое событие может вызвать `HttpClient.get()` метода.
+  Даже с паузой в 300 мс между запросами у вас может быть несколько HTTP-запросов в полете
+  и они могут не вернуться в отправленном порядке.
 
-  `switchMap()` preserves the original request order while returning only the observable from the most recent HTTP method call.
-  Results from prior calls are canceled and discarded.
+   `switchMap()` сохраняет исходный порядок запросов, возвращая только наблюдаемое из самого последнего вызова метода HTTP.
+  Результаты предыдущих звонков отменяются и отбрасываются.
 
-  Note that canceling a previous `searchHeroes()` Observable
-  doesn't actually abort a pending HTTP request.
-  Unwanted results are simply discarded before they reach your application code.
+  Обратите внимание, что отмена предыдущего `searchHeroes()` Наблюдаемый
+  фактически не прерывает ожидающий HTTP-запрос.
+  Нежелательные результаты просто отбрасываются, прежде чем они достигнут кода вашего приложения.
 
 </div>
 
-Remember that the component _class_ does not subscribe to the `heroes$` _observable_.
-That's the job of the [`AsyncPipe`](#asyncpipe) in the template.
+Помните, что компонент _class_ не подписывается на `heroes$` _observable_.
+Это работа [ `AsyncPipe` ](#asyncpipe)в шаблоне.
 
-#### Try it
+{@a try-it}
+#### Попробуй это
 
-Run the app again. In the *Dashboard*, enter some text in the search box.
-If you enter characters that match any existing hero names, you'll see something like this.
+Запустите приложение еще раз. В *панели инструментов *введите текст в поле поиска.
+Если вы введете персонажей, которые соответствуют любым существующим именам героев, вы увидите что-то вроде этого.
 
 <div class="lightbox">
   <img src='generated/images/guide/toh/toh-hero-search.png' alt="Hero Search Component">
 </div>
 
-## Final code review
+{@a final-code-review}
+## Окончательный обзор кода
 
-Your app should look like this <live-example></live-example>.
+Ваше приложение должно выглядеть следующим образом <live-example></live-example>.
 
-Here are the code files discussed on this page (all in the `src/app/` folder).
+Вот файлы кода, обсуждаемые на этой странице (все в `src/app/` папка).
 
 {@a heroservice}
 {@a inmemorydataservice}
 {@a appmodule}
-#### `HeroService`, `InMemoryDataService`, `AppModule`
+{@a heroservice-inmemorydataservice-appmodule}
+#### `HeroService `, ` InMemoryDataService `, ` AppModule`
 
 <code-tabs>
   <code-pane
@@ -543,6 +569,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
   </code-pane>
 </code-tabs>
 
+{@a heroescomponent}
 {@a heroescomponent}
 #### `HeroesComponent`
 
@@ -562,6 +589,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 </code-tabs>
 
 {@a herodetailcomponent}
+{@a herodetailcomponent}
 #### `HeroDetailComponent`
 
 <code-tabs>
@@ -576,6 +604,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 </code-tabs>
 
 {@a dashboardcomponent}
+{@a dashboardcomponent}
 #### `DashboardComponent`
 
 <code-tabs>
@@ -585,6 +614,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
   </code-pane>
 </code-tabs>
 
+{@a herosearchcomponent}
 {@a herosearchcomponent}
 #### `HeroSearchComponent`
 
@@ -603,16 +633,17 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
   </code-pane>
 </code-tabs>
 
-## Summary
+{@a summary}
+## Резюме
 
-You're at the end of your journey, and you've accomplished a lot.
-* You added the necessary dependencies to use HTTP in the app.
-* You refactored `HeroService` to load heroes from a web API.
-* You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
-* You updated the components to allow adding, editing, and deleting of heroes.
-* You configured an in-memory web API.
-* You learned how to use observables.
+Вы в конце своего путешествия, и вы многого достигли.
+* Вы добавили необходимые зависимости для использования HTTP в приложении.
+* Вы рефакторинг `HeroService` для загрузки героев из веб-API.
+* Вы продлили `HeroService` для поддержки `post()`, `put()` и `delete()` методы.
+* Вы обновили компоненты, чтобы позволить добавлять, редактировать и удалять героев.
+* Вы настроили веб-API в памяти.
+* Вы узнали, как использовать наблюдаемые.
 
-This concludes the "Tour of Heroes" tutorial.
-You're ready to learn more about Angular development in the fundamentals section,
-starting with the [Architecture](guide/architecture "Architecture") guide.
+На этом учебное пособие «Тур героев» завершено.
+Вы готовы узнать больше о разработке Angular в разделе основы
+начиная с руководства [Архитектура](guide/architecture "Architecture").

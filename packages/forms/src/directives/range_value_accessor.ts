@@ -17,27 +17,27 @@ export const RANGE_VALUE_ACCESSOR: StaticProvider = {
 };
 
 /**
- * @description
- * The `ControlValueAccessor` for writing a range value and listening to range input changes.
- * The value accessor is used by the `FormControlDirective`, `FormControlName`, and  `NgModel`
- * directives.
+ *  @description
+ *  The `ControlValueAccessor`для записи значения диапазона и прослушивания входного диапазона изменений.
+ * Метод доступа к значениям используется `FormControlDirective` , `FormControlName` и `NgModel`
+ * директивы.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Using a range input with a reactive form
+ *  ### Использование диапазона ввода с реактивной формой
  *
- * The following example shows how to use a range input with a reactive form.
+ * В следующем примере показано, как использовать диапазон ввода с реактивной формой.
  *
- * ```ts
- * const ageControl = new FormControl();
- * ```
+ *  ```ts
+ *  const ageControl = new FormControl();
+ *  ```
  *
- * ```
- * <input type="range" [formControl]="ageControl">
- * ```
+ *  ```
+ *  <input type="range" [formControl]="ageControl">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

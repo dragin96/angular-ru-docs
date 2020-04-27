@@ -13,7 +13,7 @@ import {MetadataOverride} from './metadata_override';
 import {TestBed} from './test_bed';
 
 /**
- * An abstract class for inserting the root test component element in a platform independent way.
+ * Абстрактный класс для вставки корневого тестового компонента независимым от платформы способом.
  *
  * @publicApi
  */
@@ -44,7 +44,7 @@ export type TestModuleMetadata = {
 };
 
 /**
- * Static methods implemented by the `TestBedViewEngine` and `TestBedRender3`
+ * Статические методы, реализованные с помощью `TestBedViewEngine` и `TestBedRender3`
  *
  * @publicApi
  */

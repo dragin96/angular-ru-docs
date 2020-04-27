@@ -1,33 +1,35 @@
-# AOT metadata errors
+{@a aot-metadata-errors}
+# Ошибки метаданных AOT
 
-The following are metadata errors you may encounter, with explanations and suggested corrections.
+Ниже приведены ошибки метаданных, с которыми вы можете столкнуться, с объяснениями и предлагаемыми исправлениями.
 
-[Expression form not supported](#expression-form-not-supported)<br>
-[Reference to a local (non-exported) symbol](#reference-to-a-local-symbol)<br>
-[Only initialized variables and constants](#only-initialized-variables)<br>
-[Reference to a non-exported class](#reference-to-a-non-exported-class)<br>
-[Reference to a non-exported function](#reference-to-a-non-exported-function)<br>
-[Function calls are not supported](#function-calls-not-supported)<br>
-[Destructured variable or constant not supported](#destructured-variable-not-supported)<br>
-[Could not resolve type](#could-not-resolve-type)<br>
-[Name expected](#name-expected)<br>
-[Unsupported enum member name](#unsupported-enum-member-name)<br>
-[Tagged template expressions are not supported](#tagged-template-expressions-not-supported)<br>
-[Symbol reference expected](#symbol-reference-expected)<br>
+[Форма выражения не поддерживается](#expression-form-not-supported)<br>
+[Ссылка на локальный (не экспортируемый) символ](#reference-to-a-local-symbol)<br>
+[Только инициализированные переменные и константы](#only-initialized-variables)<br>
+[Ссылка на неэкспортированный класс](#reference-to-a-non-exported-class)<br>
+[Ссылка на неэкспортированную функцию](#reference-to-a-non-exported-function)<br>
+[Вызовы функций не поддерживаются](#function-calls-not-supported)<br>
+[Разрушенная переменная или константа не поддерживаются](#destructured-variable-not-supported)<br>
+[Не удалось разрешить тип](#could-not-resolve-type)<br>
+[Имя ожидается](#name-expected)<br>
+[Неподдерживаемое имя члена перечисления](#unsupported-enum-member-name)<br>
+[Теговые выражения шаблонов не поддерживаются](#tagged-template-expressions-not-supported)<br>
+[Ожидается ссылка на символ](#symbol-reference-expected)<br>
 
 <hr>
 
 {@a expression-form-not-supported}
-## Expression form not supported
+{@a expression-form-not-supported}
+## Форма выражения не поддерживается
 
 <div class="alert is-helpful">
 
-*The compiler encountered an expression it didn't understand while evaluating Angular metadata.*
+*Компилятор обнаружил выражение, которое он не понимал при оценке метаданных Angular.*
 
 </div>
 
-Language features outside of the compiler's [restricted expression syntax](guide/aot-compiler#expression-syntax)
-can produce this error, as seen in the following example:
+Возможности языка вне компилятора [синтаксис ограниченного выражения](guide/aot-compiler#expression-syntax)
+может произвести эту ошибку, как показано в следующем примере:
 
 ```ts
 // ERROR
@@ -40,27 +42,28 @@ const prop = typeof Fooish; // typeof is not valid in metadata
   ...
 ```
 
-You can use `typeof` and bracket notation in normal application code.
-You just can't use those features within expressions that define Angular metadata.
+Ты можешь использовать  `typeof`  и скобочные обозначения в нормальном коде приложения.
+Вы просто не можете использовать эти функции в выражениях, которые определяют Angular метаданные.
 
-Avoid this error by sticking to the compiler's [restricted expression syntax](guide/aot-compiler#expression-syntax)
-when writing Angular metadata
-and be wary of new or unusual TypeScript features.
+Чтобы избежать этой ошибки, придерживайтесь компилятора [синтаксис ограниченного выражения](guide/aot-compiler#expression-syntax)
+при написании Angular метаданных
+и будьте осторожны с новыми или необычными функциями TypeScript.
 
 <hr>
 
 {@a reference-to-a-local-symbol}
-## Reference to a local (non-exported) symbol
+{@a reference-to-a-local-non-exported-symbol}
+## Ссылка на локальный (не экспортируемый) символ
 
 <div class="alert is-helpful">
 
-_Reference to a local (non-exported) symbol 'symbol name'. Consider exporting the symbol._
+_Ссылка на локальный (не экспортируемый) символ «имя символа». Рассмотрите возможность экспорта символа
 
 </div>
 
-The compiler encountered a referenced to a locally defined symbol that either wasn't exported or wasn't initialized.
+Компилятор обнаружил ссылку на локально определенный символ, который либо не был экспортирован, либо не был инициализирован.
 
-Here's a `provider` example of the problem.
+Вот  `provider`  пример проблемы.
 
 ```ts
 // ERROR
@@ -68,22 +71,22 @@ let foo: number; // neither exported nor initialized
 
 @Component({
   selector: 'my-component',
-  template: ... ,
+  template: ...,
   providers: [
     { provide: Foo, useValue: foo }
   ]
 })
 export class MyComponent {}
 ```
-The compiler generates the component factory, which includes the `useValue` provider code, in a separate module. _That_ factory module can't reach back to _this_ source module to access the local (non-exported) `foo` variable.
+Компилятор генерирует фабрику компонентов, которая включает  `useValue`  код поставщика значения в отдельном модуле. Фабрика _That_ не может обратиться к этому исходному модулю _ для доступа к локальному (не экспортированному)  `foo`  переменная.
 
-You could fix the problem by initializing `foo`.
+Вы можете решить проблему, инициализировав  `foo`.
 
 ```ts
 let foo = 42; // initialized
 ```
 
-The compiler will [fold](guide/aot-compiler#code-folding) the expression into the provider as if you had written this.
+Компилятор [свернет](guide/aot-compiler#code-folding)выражение в провайдере, как если бы вы написали это.
 
 ```ts
   providers: [
@@ -91,7 +94,7 @@ The compiler will [fold](guide/aot-compiler#code-folding) the expression into th
   ]
 ```
 
-Alternatively, you can fix it by exporting `foo` with the expectation that `foo` will be assigned at runtime when you actually know its value.
+Кроме того, вы можете исправить это, экспортировав  `foo`  с ожиданием того, что  `foo`  будет назначен во время выполнения, когда вы на самом деле знаете его значение.
 
 ```ts
 // CORRECTED
@@ -99,7 +102,7 @@ export let foo: number; // exported
 
 @Component({
   selector: 'my-component',
-  template: ... ,
+  template: ...,
   providers: [
     { provide: Foo, useValue: foo }
   ]
@@ -107,11 +110,11 @@ export let foo: number; // exported
 export class MyComponent {}
 ```
 
-Adding `export` often works for variables referenced in metadata such as `providers` and `animations` because the compiler can generate _references_ to the exported variables in these expressions. It doesn't need the _values_ of those variables.
+Добавление  `export`  часто работает для переменных, на которые есть ссылки в метаданных, таких как  `providers`  и  `animations`  потому что компилятор может генерировать _references_ для экспортируемых переменных в этих выражениях. Ему не нужны _values_ этих переменных.
 
-Adding `export` doesn't work when the compiler needs the _actual value_
-in order to generate code.
-For example, it doesn't work for the `template` property.
+Добавление  `export`  не работает, когда компилятору нужно _актуальное значение_
+для того, чтобы сгенерировать код.
+Например, это не работает для  `template`  свойство.
 
 ```ts
 // ERROR
@@ -124,26 +127,27 @@ export let someTemplate: string; // exported but not initialized
 export class MyComponent {}
 ```
 
-The compiler needs the value of the `template` property _right now_ to generate the component factory.
-The variable reference alone is insufficient.
-Prefixing the declaration with `export` merely produces a new error, "[`Only initialized variables and constants can be referenced`](#only-initialized-variables)".
+Компилятору нужно значение  `template`  свойство _right сейчас_ для генерации фабрики компонентов.
+Одной ссылки на переменную недостаточно.
+Добавление префикса к объявлению  `export`  просто выдает новую ошибку, " [ ` Могут быть ссылки только на инициализированные переменные и константы` ](#only-initialized-variables)".
 
 <hr>
 
 {@a only-initialized-variables}
-## Only initialized variables and constants
+{@a only-initialized-variables-and-constants}
+## Только инициализированные переменные и константы
 
 <div class="alert is-helpful">
 
-_Only initialized variables and constants can be referenced because the value of this variable is needed by the template compiler._
+На только инициализированные переменные и константы можно ссылаться, потому что значение этой переменной требуется шаблону compiler._
 
 </div>
 
-The compiler found a reference to an exported variable or static field that wasn't initialized.
-It needs the value of that variable to generate code.
+Компилятор нашел ссылку на экспортированную переменную или статическое поле, которое не было инициализировано.
+Требуется значение этой переменной для генерации кода.
 
-The following example tries to set the component's `template` property to the value of
-the exported `someTemplate` variable which is declared but _unassigned_.
+В следующем примере пытается установить компонент  `template`  свойство к значению
+экспортируемый  `someTemplate`  переменная которая объявлена, но _unassigned_.
 
 ```ts
 // ERROR
@@ -156,7 +160,7 @@ export let someTemplate: string;
 export class MyComponent {}
 ```
 
-You'd also get this error if you imported `someTemplate` from some other module and neglected to initialize it there.
+Вы также получите эту ошибку, если вы импортировали  `someTemplate`  из какого-то другого модуля и не инициализировать его там.
 
 ```ts
 // ERROR - not initialized there either
@@ -169,12 +173,12 @@ import { someTemplate } from './config';
 export class MyComponent {}
 ```
 
-The compiler cannot wait until runtime to get the template information.
-It must statically derive the value of the `someTemplate` variable from the source code
-so that it can generate the component factory, which includes
-instructions for building the element based on the template.
+Компилятор не может дождаться времени выполнения, чтобы получить информацию о шаблоне.
+Он должен статически вывести значение  `someTemplate`  переменная из исходного кода
+так что он может генерировать фабрику компонентов, которая включает в себя
+Инструкция по созданию элемента на основе шаблона.
 
-To correct this error, provide the initial value of the variable in an initializer clause _on the same line_.
+Чтобы исправить эту ошибку, укажите начальное значение переменной в предложении инициализатора _в той же строке_.
 
 ```ts
 // CORRECTED
@@ -190,18 +194,19 @@ export class MyComponent {}
 <hr>
 
 {@a reference-to-a-non-exported-class}
-## Reference to a non-exported class
+{@a reference-to-a-non-exported-class}
+## Ссылка на неэкспортированный класс
 
 <div class="alert is-helpful">
 
-_Reference to a non-exported class <class name>. Consider exporting the class._
+_Ссылка на неэкспортированный класс, Рассмотрите возможность экспорта класса.
 
 </div>
 
-Metadata referenced a class that wasn't exported.
+Метаданные ссылаются на класс, который не был экспортирован.
 
-For example, you may have defined a class and used it as an injection token in a providers array
-but neglected to export that class.
+Например, вы могли определить класс и использовать его в качестве маркера внедрения в массиве провайдеров
+но забыл экспортировать этот класс.
 
 ```ts
 // ERROR
@@ -214,9 +219,9 @@ abstract class MyStrategy { }
   ...
 ```
 
-Angular generates a class factory in a separate module and that
-factory [can only access exported classes](guide/aot-compiler#exported-symbols).
-To correct this error, export the referenced class.
+Angular генерирует фабрику классов в отдельном модуле и тому подобное
+фабрика [может получить доступ только к экспортированным классам](guide/aot-compiler#exported-symbols).
+Чтобы исправить эту ошибку, экспортируйте указанный класс.
 
 ```ts
 // CORRECTED
@@ -231,15 +236,16 @@ export abstract class MyStrategy { }
 <hr>
 
 {@a reference-to-a-non-exported-function}
-## Reference to a non-exported function
+{@a reference-to-a-non-exported-function}
+## Ссылка на неэкспортированную функцию
 
 <div class="alert is-helpful">
 
-*Metadata referenced a function that wasn't exported.*
+*Метаданные ссылались на функцию, которая не была экспортирована.*
 
 </div>
 
-For example, you may have set a providers `useFactory` property to a locally defined function that you neglected to export.
+Например, вы могли установить провайдеров  `useFactory`  для локальной функции, которую вы экспортировать.
 
 ```ts
 // ERROR
@@ -252,9 +258,9 @@ function myStrategy() { ... }
   ...
 ```
 
-Angular generates a class factory in a separate module and that
-factory [can only access exported functions](guide/aot-compiler#exported-symbols).
-To correct this error, export the function.
+Angular генерирует фабрику классов в отдельном модуле и тому подобное
+фабрика [может получить доступ только к экспортированным функциям](guide/aot-compiler#exported-symbols).
+Чтобы исправить эту ошибку, экспортируйте функцию.
 
 ```ts
 // CORRECTED
@@ -269,16 +275,17 @@ export function myStrategy() { ... }
 <hr>
 
 {@a function-calls-not-supported}
-## Function calls are not supported
+{@a function-calls-are-not-supported}
+## Вызовы функций не поддерживаются
 
 <div class="alert is-helpful">
 
-_Function calls are not supported. Consider replacing the function or lambda with a reference to an exported function._
+_Функциональные вызовы не поддерживаются. Попробуйте заменить функцию или лямбду ссылкой на экспортированную функцию
 
 </div>
 
-The compiler does not currently support [function expressions or lambda functions](guide/aot-compiler#function-expression).
-For example, you cannot set a provider's `useFactory` to an anonymous function or arrow function like this.
+Компилятор в настоящее время не поддерживает [выражения функций или лямбда-функции](guide/aot-compiler#function-expression).
+Например, вы не можете установить провайдера  `useFactory`  для анонимной функции или функции стрелки, как это.
 
 ```ts
 // ERROR
@@ -289,7 +296,7 @@ For example, you cannot set a provider's `useFactory` to an anonymous function o
   ]
   ...
 ```
-You also get this error if you call a function or method in a provider's `useValue`.
+Вы также получаете эту ошибку, если вы вызываете функцию или метод в провайдере  `useValue`.
 
 ```ts
 // ERROR
@@ -302,7 +309,7 @@ import { calculateValue } from './utilities';
   ...
 ```
 
-To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
+Чтобы исправить эту ошибку, экспортируйте функцию из модуля и обратитесь к функции в  `useFactory`  вместо этого провайдера.
 
 ```ts
 // CORRECTED
@@ -325,17 +332,18 @@ export function someValueFactory() {
 <hr>
 
 {@a destructured-variable-not-supported}
-## Destructured variable or constant not supported
+{@a destructured-variable-or-constant-not-supported}
+## Разрушенная переменная или константа не поддерживаются
 
 <div class="alert is-helpful">
 
-_Referencing an exported destructured variable or constant is not supported by the template compiler. Consider simplifying this to avoid destructuring._
+_Ссылка на экспортированную деструктурированную переменную или константу не поддерживается компилятором шаблона. Подумайте об упрощении, чтобы избежать разрушения
 
 </div>
 
-The compiler does not support references to variables assigned by [destructuring](https://www.typescriptlang.org/docs/handbook/variable-declarations.html#destructuring).
+Компилятор не поддерживает ссылки на переменные, назначенные [деструктурирование](https://www.typescriptlang.org/docs/handbook/variable-declarations.html#destructuring).
 
-For example, you cannot write something like this:
+Например, вы не можете писать что - то вроде этого:
 
 ```ts
 // ERROR
@@ -351,7 +359,7 @@ const {foo, bar} = configuration;
   ...
 ```
 
-To correct this error, refer to non-destructured values.
+Чтобы исправить эту ошибку, обратитесь к недеструктурированным значениям.
 
 ```ts
 // CORRECTED
@@ -367,19 +375,20 @@ import { configuration } from './configuration';
 <hr>
 
 {@a could-not-resolve-type}
-## Could not resolve type
+{@a could-not-resolve-type}
+## Не удалось разрешить тип
 
 <div class="alert is-helpful">
 
-*The compiler encountered a type and can't determine which module exports that type.*
+*Компилятор обнаружил тип и не может определить, какой модуль экспортирует этот тип.*
 
 </div>
 
-This can happen if you refer to an ambient type.
-For example, the `Window` type is an ambient type declared in the global `.d.ts` file.
+Это может произойти, если вы ссылаетесь на окружающий тип.
+Например,  `Window`  Тип - это окружающий тип, объявленный в глобальном  `.d.ts`  файл
 
-You'll get an error if you reference it in the component constructor,
-which the compiler must statically analyze.
+Вы получите ошибку, если будете ссылаться на нее в конструкторе компонента
+который компилятор должен статически анализировать.
 
 ```ts
 // ERROR
@@ -388,22 +397,22 @@ export class MyComponent {
   constructor (private win: Window) { ... }
 }
 ```
-TypeScript understands ambient types so you don't import them.
-The Angular compiler does not understand a type that you neglect to export or import.
+TypeScript понимает окружающие типы, поэтому вы не импортируете их.
+Компилятор Angular не понимает тип, который вы игнорируете при экспорте или импорте.
 
-In this case, the compiler doesn't understand how to inject something with the `Window` token.
+В этом случае компилятор не понимает, как внедрить что-либо с помощью  `Window`  жетон
 
-Do not refer to ambient types in metadata expressions.
+Не ссылайтесь на окружающие типы в выражениях метаданных.
 
-If you must inject an instance of an ambient type,
-you can finesse the problem in four steps:
+Если необходимо придать экземпляр окружающей среды типа
+Вы можете замять проблему в четыре этапа:
 
-1. Create an injection token for an instance of the ambient type.
-1. Create a factory function that returns that instance.
-1. Add a `useFactory` provider with that factory function.
-1. Use `@Inject` to inject the instance.
+1. Создайте токен инъекции для экземпляра окружающего типа.
+1. Создайте фабричную функцию, которая возвращает этот экземпляр.
+1. Добавить  `useFactory`  провайдера фабрики с этой фабричной функцией.
+1. использование  `@Inject`  чтобы внедрить экземпляр.
 
-Here's an illustrative example.
+Вот иллюстративный пример.
 
 ```ts
 // CORRECTED
@@ -423,10 +432,10 @@ export class MyComponent {
 }
 ```
 
-The `Window` type in the constructor is no longer a problem for the compiler because it
-uses the `@Inject(WINDOW)` to generate the injection code.
+ `Window` Тип в конструкторе больше не является проблемой для компилятора, поскольку он
+использует  `@Inject(WINDOW)`  для генерации кода инъекции.
 
-Angular does something similar with the `DOCUMENT` token so you can inject the browser's `document` object (or an abstraction of it, depending upon the platform in which the application runs).
+Angular делает что-то похожее с  `DOCUMENT`  Токен чтобы вы могли ввести браузер  `document`  объект (или его абстракция, в зависимости от платформы, на которой работает приложение).
 
 ```ts
 import { Inject }   from '@angular/core';
@@ -440,22 +449,23 @@ export class MyComponent {
 <hr>
 
 {@a name-expected}
-## Name expected
+{@a name-expected}
+## Имя ожидается
 
 <div class="alert is-helpful">
 
-*The compiler expected a name in an expression it was evaluating.*
+*Компилятор ожидал имя в выражении, которое он вычислял.*
 
 </div>
 
-This can happen if you use a number as a property name as in the following example.
+Это может произойти, если вы используете число в качестве имени свойства, как в следующем примере.
 
 ```ts
 // ERROR
 provider: [{ provide: Foo, useValue: { 0: 'test' } }]
 ```
 
-Change the name of the property to something non-numeric.
+Измените имя свойства на что-то не числовое.
 
 ```ts
 // CORRECTED
@@ -465,15 +475,16 @@ provider: [{ provide: Foo, useValue: { '0': 'test' } }]
 <hr>
 
 {@a unsupported-enum-member-name}
-## Unsupported enum member name
+{@a unsupported-enum-member-name}
+## Неподдерживаемое имя члена перечисления
 
 <div class="alert is-helpful">
 
-*Angular couldn't determine the value of the [enum member](https://www.typescriptlang.org/docs/handbook/enums.html) that you referenced in metadata.*
+*Angular не может определить значение [члена enum](https://www.typescriptlang.org/docs/handbook/enums.html)которое вы ссылаетесь в метаданных.*
 
 </div>
 
-The compiler can understand simple enum values but not complex values such as those derived from computed properties.
+Компилятор может понимать простые значения перечисления, но не сложные значения, такие как значения, полученные из вычисляемых свойств.
 
 ```ts
 // ERROR
@@ -492,46 +503,48 @@ enum Colors {
   ...
 ```
 
-Avoid referring to enums with complicated initializers or computed properties.
+Избегайте ссылок на перечисления со сложными инициализаторами или вычисленными свойствами.
 
 <hr>
 
 {@a tagged-template-expressions-not-supported}
-## Tagged template expressions are not supported
+{@a tagged-template-expressions-are-not-supported}
+## Теговые выражения шаблонов не поддерживаются
 
 <div class="alert is-helpful">
 
-_Tagged template expressions are not supported in metadata._
+_Tagged шаблонные выражения не поддерживаются в метаданных._
 
 </div>
 
-The compiler encountered a JavaScript ES2015 [tagged template expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals) such as the following.
+Компилятор обнаружил JavaScript ES2015 теговое [выражение шаблона](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals)например, следующий.
 
 ```ts
 // ERROR
 const expression = 'funky';
-const raw = String.raw`A tagged template ${expression} string`;
+const raw = String.raw `A tagged template ${expression} string` ;
  ...
  template: '<div>' + raw + '</div>'
  ...
 ```
-[`String.raw()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw)
-is a _tag function_ native to JavaScript ES2015.
+[ `String.raw ()` ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw)
+является функцией тега _ родной для JavaScript ES2015.
 
-The AOT compiler does not support tagged template expressions; avoid them in metadata expressions.
+Компилятор AOT не поддерживает теговые выражения шаблонов; избегайте их в выражениях метаданных.
 
 <hr>
 
 {@a symbol-reference-expected}
-## Symbol reference expected
+{@a symbol-reference-expected}
+## Ожидается ссылка на символ
 
 <div class="alert is-helpful">
 
-*The compiler expected a reference to a symbol at the location specified in the error message.*
+*Компилятор ожидал ссылку на символ в месте, указанном в сообщении об ошибке.*
 
 </div>
 
-This error can occur if you use an expression in the `extends` clause of a class.
+Эта ошибка может возникнуть, если вы используете выражение в  `extends`  предложение класса.
 
 <!--
 

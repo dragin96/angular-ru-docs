@@ -1,90 +1,98 @@
-# Updating to Angular version 9
+{@a updating-to-angular-version-9}
+# Обновление до версии Angular 9
 
-This guide contains information related to updating to version 9 of Angular.
+Это руководство содержит информацию, касающуюся обновления до версии 9 Angular.
 
-## Updating CLI Apps
+{@a updating-cli-apps}
+## Обновление приложений CLI
 
-For step-by-step instructions on how to update to the latest Angular release (and leverage our automated migration tools to do so), use the interactive update guide at [update.angular.io](https://update.angular.io).
+Для получения пошаговых инструкций по обновлению до последней версии Angular (и для этого используйте наши инструменты автоматической миграции) используйте интерактивное руководство по обновлению по адресу [update.angular.io](https://update.angular.io).
 
-If you're curious about the specific migrations being run by the CLI, see the [automated migrations section](#migrations) for details on what code is changing and why.
+Если вам интересно узнать о конкретных миграциях, выполняемых CLI, обратитесь к [разделу раздел автоматических миграций](#migrations)для получения подробной информации о том, какой код изменяется и почему.
 
-## Changes and Deprecations in Version 9
+{@a changes-and-deprecations-in-version-9}
+## Изменения и устаревшие версии 9
 
 <div class="alert is-helpful">
 
-   For information about Angular's deprecation and removal practices, see [Angular Release Practices](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
+   Для получения информации о методах устаревания и удаления см. [Angular Практики выпуска Angular](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
 
 </div>
 
 {@a breaking-changes}
-### New Breaking Changes
+{@a new-breaking-changes}
+### Новые переломные изменения
 
-- Angular now compiles with Ivy by default. See the [Ivy compatibility section](#ivy).
+- Angular теперь компилируется с Ivy по умолчанию. Смотрите [раздел совместимости плюща](#ivy).
 
-- CLI apps compile in [AOT mode](/guide/aot-compiler) by default (which includes template type-checking).
-Users who only built with JIT before may see new type errors.
-See our [template type-checking guide](guide/template-typecheck) for more information and debugging tips.
+- Приложения CLI компилируются в [режим AOT](/guide/aot-compiler)по умолчанию (что включает проверку типа шаблона).
+Пользователи, которые раньше работали только с JIT, могут увидеть новые ошибки типа.
+Смотрите наш[руководство по проверке типов шаблонов](guide/template-typecheck)для получения дополнительной информации и советов по отладке.
 
-- Typescript 3.4 and 3.5 are no longer supported. Please update to Typescript 3.7.
+- Typescript 3.4 и 3.5 больше не поддерживаются. Пожалуйста, обновите до Typescript 3.7.
 
-- `tslib` is now listed as a peer dependency rather than a direct dependency. If you are not using the CLI, you must manually install `tslib`, using `yarn add tslib` or `npm install tslib --save`.
+- `tslib` указан как зависимость от сверстников, а не как прямая зависимость. Если вы не используете CLI, вы должны установить вручную `tslib`, используя `yarn add tslib ` или ` npm install tslib --save`.
 
 {@a deprecations}
-### New Deprecations
+{@a new-deprecations}
+### Новые Амортизации
 
-| API                                                                     | Replacement                          | Notes |
-| ------------------------------------------------------------------------| ------------------------------------ | ----- |
-| [`entryComponents`](api/core/NgModule#entryComponents)                  | none                                 | See [`entryComponents`](guide/deprecations#entryComponents) |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
-| [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | none                                 | See [`ANALYZE_FOR_ENTRY_COMPONENTS`](guide/deprecations#entryComponents) |
-| `ModuleWithProviders` without a generic                                 | `ModuleWithProviders` with a generic | See [`ModuleWithProviders` section](guide/deprecations#moduleWithProviders) |
-| Undecorated base classes that use Angular features                      | Base classes with `@Directive()` decorator that use Angular features | See [undecorated base classes section](guide/deprecations#undecorated-base-classes) |
-| `esm5` and `fesm5` distribution in `@angular/*` npm packages            | `esm2015` and `fesm2015` entrypoints | See [`esm5` and `fesm5`](guide/deprecations#esm5-fesm5) |
-| [`TestBed.get`](api/core/testing/TestBed#get)                           | [`TestBed.inject`](api/core/testing/TestBed#inject) | Same behavior, but type safe. |
+| API | Замена | Примечания
+| -------------------------------------------------- ---------------------- | ------------------------------------ | ----- |
+| [ `entryComponents` ](api/core/NgModule#entryComponents) | нет | Смотрите [ `entryComponents` ](guide/deprecations#entryComponents)|
+| [ `CurrencyPipe` - ` DEFAULT_CURRENCY_CODE ` ](api/common/CurrencyPipe#currency-code-deprecation)| ` {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | Начиная с версии v11 код по умолчанию будет извлечен из данных локали, предоставленных `LOCAL_ID`, а не `USD` . |
+| [ `ANALYZE_FOR_ENTRY_COMPONENTS` ](api/core/ANALYZE_FOR_ENTRY_COMPONENTS)| нет | Смотрите [ `ANALYZE_FOR_ENTRY_COMPONENTS` ](guide/deprecations#entryComponents)|
+| `ModuleWithProviders` без универсального | `ModuleWithProviders` с универсальным | Смотрите [раздел ModuleWithProviders](guide/deprecations#moduleWithProviders)|
+| Недекорированные базовые классы, использующие Angular элементы | Базовые классы с `@Directive()`, использующий Angular функции | Смотрите [раздел недекорированных базовых классов](guide/deprecations#undecorated-base-classes)|
+| `esm5` и `fesm5` распределение в `@angular/*` npm пакеты | `esm2015` и `fesm2015` входа | Смотрите [ `esm5` и ` fesm5` ](guide/deprecations#esm5-fesm5)|
+| [ `TestBed.get` ](api/core/testing/TestBed#get) | [ `TestBed.inject` ](api/core/testing/TestBed#inject)| Такое же поведение, но тип безопасный. |
 
 
 {@a removals}
-### New Removals of Deprecated APIs
+{@a new-removals-of-deprecated-apis}
+### Новые удаления устаревших API
 
-| Package | API            | Replacement | Notes |
+| Пакет | API | Замена | Примечания
 | ------- | -------------- | ----------- | ----- |
-| `@angular/core`  | [`Renderer`](https://v8.angular.io/api/core/Renderer) | [`Renderer2`](api/core/Renderer2) | [Migration guide.](guide/migration-renderer) |
-| `@angular/core`  | [`RootRenderer`](https://v8.angular.io/api/core/RootRenderer) | [`RendererFactory2`](api/core/RendererFactory2) | none |
-| `@angular/core`  | [`RenderComponentType`](https://v8.angular.io/api/core/RenderComponentType) | [`RendererType2`](api/core/RendererType2) | none |
-| `@angular/core`  | [`WtfScopeFn`](https://v8.angular.io/api/core/WtfScopeFn) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/core`  | [`wtfCreateScope`](https://v8.angular.io/api/core/wtfCreateScope) | none | v8 | See [Web Tracing Framework](guide/deprecations#wtf) |
-| `@angular/core`  | [`wtfStartTimeRange`](https://v8.angular.io/api/core/wtfStartTimeRange) | none | v8 | See [Web Tracing Framework](guide/deprecations#wtf) |
-| `@angular/core`  | [`wtfEndTimeRange`](https://v8.angular.io/api/core/wtfEndTimeRange) | none | v8 | See [Web Tracing Framework](guide/deprecations#wtf) |
-| `@angular/core`  | [`wtfLeave`](https://v8.angular.io/api/core/wtfLeave) | none | v8 | See [Web Tracing Framework](guide/deprecations#wtf) |
-| `@angular/common` | `DeprecatedI18NPipesModule` | [`CommonModule`](api/common/CommonModule#pipes) | none |
-| `@angular/common` | `DeprecatedCurrencyPipe` | [`CurrencyPipe`](api/common/CurrencyPipe) | none |
-| `@angular/common` | `DeprecatedDatePipe`     | [`DatePipe`](api/common/DatePipe) | none |
-| `@angular/common` | `DeprecatedDecimalPipe` | [`DecimalPipe`](api/common/DecimalPipe) | none |
-| `@angular/common` | `DeprecatedPercentPipe` | [`PercentPipe`](api/common/PercentPipe) | none |
-| `@angular/forms` | [`NgFormSelectorWarning`](https://v8.angular.io/api/forms/NgFormSelectorWarning) | none |
-| `@angular/forms` | `ngForm` element selector | `ng-form` element selector | none |
-| `@angular/service-worker` | `versionedFiles` | `files` | In the service worker configuration file `ngsw-config.json`, replace `versionedFiles` with `files`. See [Service Worker Configuration](guide/service-worker-config#assetgroups). |
+| `@angular/core` | [ `Рендерер` ](https://v8.angular.io/api/core/Renderer)| [ `Renderer2` ](api/core/Renderer2)| [Руководство по миграции.](guide/migration-renderer)|
+| `@angular/core` | [ `RootRenderer` ](https://v8.angular.io/api/core/RootRenderer)| [ `RendererFactory2` ](api/core/RendererFactory2)| нет |
+| `@angular/core` | [ `RenderComponentType` ](https://v8.angular.io/api/core/RenderComponentType)| [ `RendererType2` ](api/core/RendererType2)| нет |
+| `@angular/core` | [ `WtfScopeFn` ](https://v8.angular.io/api/core/WtfScopeFn)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/core` | [ `wtfCreateScope` ](https://v8.angular.io/api/core/wtfCreateScope)| нет | V8 | Смотрите [Web Tracing Framework](guide/deprecations#wtf)|
+| `@angular/core` | [ `wtfStartTimeRange` ](https://v8.angular.io/api/core/wtfStartTimeRange)| нет | V8 | Смотрите [Web Tracing Framework](guide/deprecations#wtf)|
+| `@angular/core` | [ `wtfEndTimeRange` ](https://v8.angular.io/api/core/wtfEndTimeRange)| нет | V8 | Смотрите [Web Tracing Framework](guide/deprecations#wtf)|
+| `@angular/core` | [ `wtfLeave` ](https://v8.angular.io/api/core/wtfLeave)| нет | V8 | Смотрите [Web Tracing Framework](guide/deprecations#wtf)|
+| `@angular/common` | `DeprecatedI18NPipesModule` | [ `CommonModule` ](api/common/CommonModule#pipes)| нет |
+| `@angular/common` | `DeprecatedCurrencyPipe` | [ `CurrencyPipe` ](api/common/CurrencyPipe)| нет |
+| `@angular/common` | `DeprecatedDatePipe` | [ `DatePipe` ](api/common/DatePipe)| нет |
+| `@angular/common` | `DeprecatedDecimalPipe` | [ `DecimalPipe` ](api/common/DecimalPipe)| нет |
+| `@angular/common` | `DeprecatedPercentPipe` | [ `PercentPipe` ](api/common/PercentPipe)| нет |
+| `@angular/forms` | [ `NgFormSelectorWarning` ](https://v8.angular.io/api/forms/NgFormSelectorWarning)| нет |
+| `@angular/forms` | `ngForm` элементов | `ng-form` Селектор элементов | нет |
+| `@angular/service-worker` | `versionedFiles` | `files` | В файле конфигурации работника сервиса `ngsw-config.json`, заменить `versionedFiles` с `files` . Смотрите [Конфигурация сервисного работника](guide/service-worker-config#assetgroups). |
 
 {@a ivy}
 
-## Ivy features and compatibility
+{@a ivy-features-and-compatibility}
+## Особенности плюща и совместимость
 
-In Version 9, Angular Ivy is the default rendering engine. If you haven't heard of Ivy, you can read more about it in the [Angular Ivy guide](guide/ivy).
+В версии 9 Angular Ivy является движком рендеринга по умолчанию. Если вы еще не слышали о Плюще, вы можете прочитать больше об этом в [Angular руководство Плюща](guide/ivy).
 
-* Among other features, Ivy introduces more comprehensive type-checking within templates. For details, see [Template Type-checking](guide/template-typecheck).
+* Помимо других функций, Ivy представляет более полную проверку типов в шаблонах. Подробнее см. [Проверка типа шаблона](guide/template-typecheck).
 
-* For general guidance on debugging and a list of minor changes associated with Ivy, see the [Ivy compatibility guide](guide/ivy-compatibility).
+* Общее руководство по отладке и список незначительных изменений, связанных с Ivy, см. В [Руководство по совместимости плюща](guide/ivy-compatibility).
 
-* For help with opting out of Ivy, see the instructions [here](guide/ivy#opting-out-of-angular-ivy).
+* Для получения справки об отказе от плюща см. Инструкции [здесь](guide/ivy#opting-out-of-angular-ivy).
 
 {@a migrations}
-## Automated Migrations for Version 9
+{@a automated-migrations-for-version-9}
+## Автоматизированные миграции для версии 9
 
-Read about the migrations the CLI handles for you automatically:
+Читайте о миграции ручки CLI для вас автоматически:
 
-- [Migrating from `Renderer` to `Renderer2`](guide/migration-renderer)
-- [Migrating missing `@Directive()`/`@Component()` decorators](guide/migration-undecorated-classes)
-- [Migrating missing `@Injectable()` decorators and incomplete provider definitions](guide/migration-injectable)
-- [Migrating dynamic queries](guide/migration-dynamic-flag)
-- [Migrating to the new `$localize` i18n support](guide/migration-localize)
-- [Migrating `ModuleWithProviders`](guide/migration-module-with-providers)
+- [Переход с `Renderer` на ` Renderer2` ](guide/migration-renderer)
+- [Перенос отсутствующих декораторов `@Directive ()` / `@ Component ()` ](guide/migration-undecorated-classes)
+- [Перенос отсутствующих декораторов `@Injectable ()` и неполных определений провайдеров](guide/migration-injectable)
+- [Миграция динамических запросов](guide/migration-dynamic-flag)
+- [Переход на новую поддержку `$ localize` i18n](guide/migration-localize)
+- [Миграция `ModuleWithProviders` ](guide/migration-module-with-providers)

@@ -1,67 +1,66 @@
-# Pipes
+{@a pipes}
+# Трубы
 
-Every application starts out with what seems like a simple task: get data, transform them, and show them to users.
-Getting data could be as simple as creating a local variable or as complex as streaming data over a WebSocket.
+Каждое приложение начинается с простой задачи: получить данные, преобразовать их и показать пользователям.
+Получение данных может быть таким же простым, как создание локальной переменной, или таким же сложным, как потоковая передача данных через WebSocket.
 
-<div class="alert is-helpful">
+Как только данные поступят, вы можете отправить их `toString` значения непосредственно в представление
+но это редко делает для хорошего пользовательского опыта.
+Например, в большинстве случаев пользователи предпочитают видеть дату в простом формате, например
+15 апреля 1988 г.а не формат необработанной строки
+Пт 15 апреля 1988 00:00:00 GMT-0700 (тихоокеанское летнее время),
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+Очевидно, что некоторые значения выигрывают от небольшого редактирования. Вы можете заметить, что вы
+необходимо многократное повторение одних и тех же преобразований как внутри, так и во многих приложениях.
+Вы можете почти думать о них как о стилях.
+На самом деле, вы можете применить их в своих шаблонах HTML, как и стили.
 
-</div>
+Представляем Angular pipe, способ писать преобразования отображаемых значений, которые вы можете объявить в своем HTML.
 
-Once data arrives, you could push their raw `toString` values directly to the view,
-but that rarely makes for a good user experience.
-For example, in most use cases, users prefer to see a date in a simple format like
-<samp>April 15, 1988</samp> rather than the raw string format
-<samp>Fri Apr 15 1988 00:00:00 GMT-0700 (Pacific Daylight Time)</samp>.
-
-Clearly, some values benefit from a bit of editing. You may notice that you
-desire many of the same transformations repeatedly, both within and across many applications.
-You can almost think of them as styles.
-In fact, you might like to apply them in your HTML templates as you do styles.
-
-Introducing Angular pipes, a way to write display-value transformations that you can declare in your HTML.
+Вы можете запустить <live-example></live-example>в Stackblitz и скачать код оттуда.
 
 
-## Using pipes
+{@a using-pipes}
+## Используя трубы
 
-A pipe takes in data as input and transforms it to a desired output.
-In this page, you'll use pipes to transform a component's birthday property into
-a human-friendly date.
+Канал принимает данные в качестве входных данных и преобразует их в желаемый выходной.
+На этой странице вы будете использовать каналы для преобразования свойства дня рождения компонента в
+дружеское свидание.
 
 
 <code-example path="pipes/src/app/hero-birthday1.component.ts" header="src/app/hero-birthday1.component.ts"></code-example>
 
 
 
-Focus on the component's template.
+Сосредоточьтесь на шаблоне компонента.
 
 
 <code-example path="pipes/src/app/app.component.html" region="hero-birthday-template" header="src/app/app.component.html"></code-example>
 
 
 
-Inside the interpolation expression, you flow the component's `birthday` value through the
-[pipe operator](guide/template-syntax#pipe) ( | ) to the [Date pipe](api/common/DatePipe)
-function on the right. All pipes work this way.
+Внутри интерполяционного выражения вы передаете компоненту `birthday` значение через
+[оператор трубы](guide/template-syntax#pipe)(|) к [Дата трубы](api/common/DatePipe)
+функция справа. Все трубы работают таким образом.
 
 
 
 
-## Built-in pipes
-Angular comes with a stock of pipes such as
-`DatePipe`, `UpperCasePipe`, `LowerCasePipe`, `CurrencyPipe`, and `PercentPipe`.
-They are all available for use in any template.
+{@a built-in-pipes}
+## Встроенные трубы
+Angular поставляется с запасом труб, таких как
+ `DatePipe `, ` UpperCasePipe `, ` LowerCasePipe `, ` CurrencyPipe ` и ` PercentPipe`.
+Все они доступны для использования в любом шаблоне.
 
 
 <div class="alert is-helpful">
 
 
 
-Read more about these and many other built-in pipes in the [pipes topics](api?type=pipe) of the
-[API Reference](api); filter for entries that include the word "pipe".
+Подробнее об этих и многих других встроенных труб в [трубы тем](api?type=pipe)из
+[Справочник по API](api); фильтр для записей, которые включают слово «труба».
 
-Angular doesn't have a `FilterPipe` or an `OrderByPipe` for reasons explained in the [Appendix](guide/pipes#no-filter-pipe) of this page.
+Angular не имеет `FilterPipe` или `OrderByPipe` по причинам, объясненным в [Приложении](guide/pipes#no-filter-pipe)этой страницы.
 
 
 </div>
@@ -69,46 +68,47 @@ Angular doesn't have a `FilterPipe` or an `OrderByPipe` for reasons explained in
 
 
 
-## Parameterizing a pipe
+{@a parameterizing-a-pipe}
+## Параметризация трубы
 
-A pipe can accept any number of optional parameters to fine-tune its output.
-To add parameters to a pipe, follow the pipe name with a colon ( : ) and then the parameter value
-(such as `currency:'EUR'`). If the pipe accepts multiple parameters, separate the values with colons (such as `slice:1:5`)
+Канал может принимать любое количество необязательных параметров для точной настройки своего вывода.
+Чтобы добавить параметры в канал, введите имя канала с двоеточием (:), а затем значение параметра
+(Такие как `currency:'EUR'`). Если канал принимает несколько параметров, разделите значения двоеточиями (например, `slice:1:5`)
 
-Modify the birthday template to give the date pipe a format parameter.
-After formatting the hero's April 15th birthday, it renders as **<samp>04/15/88</samp>**:
+Измените шаблон дня рождения, чтобы дать трубе даты параметр формата.
+После форматирования 15-го дня рождения героя он выглядит как**04/15/88**:
 
 
 <code-example path="pipes/src/app/app.component.html" region="format-birthday" header="src/app/app.component.html"></code-example>
 
 
 
-The parameter value can be any valid template expression,
-(see the [Template expressions](guide/template-syntax#template-expressions) section of the
-[Template Syntax](guide/template-syntax) page)
-such as a string literal or a component property.
-In other words, you can control the format through a binding the same way you control the birthday value through a binding.
+Значением параметра может быть любое допустимое выражение шаблона
+(см [выражения шаблона](guide/template-syntax#template-expressions)раздел
+[Шаблон синтаксиса](guide/template-syntax)страницы)
+такой как строковый литерал или свойство компонента.
+Другими словами, вы можете управлять форматом через привязку так же, как вы управляете значением дня рождения через привязку.
 
-Write a second component that *binds* the pipe's format parameter
-to the component's `format` property. Here's the template for that component:
+Напишите второй компонент, который *связывает* параметр формата канала
+к компоненту `format` свойство . Вот шаблон для этого компонента:
 
 
 <code-example path="pipes/src/app/hero-birthday2.component.ts" region="template" header="src/app/hero-birthday2.component.ts (template)"></code-example>
 
 
 
-You also added a button to the template and bound its click event to the component's `toggleFormat()` method.
-That method toggles the component's `format` property between a short form
-(`'shortDate'`) and a longer form (`'fullDate'`).
+Вы также добавили кнопку в шаблон и привязали ее событие нажатия к компоненту `toggleFormat()`.
+Этот метод переключает компонент `format` свойство между краткой формой
+(`'shortDate'`) и более длинная форма (`'fullDate'`).
 
 
 <code-example path="pipes/src/app/hero-birthday2.component.ts" region="class" header="src/app/hero-birthday2.component.ts (class)"></code-example>
 
 
 
-As you click the button, the displayed date alternates between
-"**<samp>04/15/1988</samp>**" and
-"**<samp>Friday, April 15, 1988</samp>**".
+Когда вы нажимаете кнопку, отображаемая дата чередуется
+"**04/15/1988**"и
+"**Пятница, 15 апреля 1988 г.**».
 
 <div class="lightbox">
   <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">
@@ -119,28 +119,29 @@ As you click the button, the displayed date alternates between
 
 
 
-Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)
-API Reference page.
+Подробнее о `DatePipe` формата в [Date Pipe](api/common/DatePipe)
+Справочная страница API.
 
 
 </div>
 
 
 
-## Chaining pipes
+{@a chaining-pipes}
+## Цепные трубы
 
-You can chain pipes together in potentially useful combinations.
-In the following example, to display the birthday in uppercase,
-the birthday is chained to the `DatePipe` and on to the `UpperCasePipe`.
-The birthday displays as **<samp>APR 15, 1988</samp>**.
+Вы можете объединить трубы в потенциально полезные комбинации.
+В следующем примере, чтобы отобразить день рождения в верхнем регистре,
+день рождения прикован к `DatePipe` и на `UpperCasePipe`.
+День рождения отображается как**15 апреля 1988 г.**,
 
 
 <code-example path="pipes/src/app/app.component.html" region="chained-birthday" header="src/app/app.component.html"></code-example>
 
 
 
-This example&mdash;which displays **<samp>FRIDAY, APRIL 15, 1988</samp>**&mdash;chains
-the same pipes as above, but passes in a parameter to `date` as well.
+Этот пример, который отображает**Пятница, 15 апреля 1988 г.**- цепи
+те же каналы, что и выше, но передаются в параметре `date` также.
 
 
 <code-example path="pipes/src/app/app.component.html" region="chained-parameter-birthday" header="src/app/app.component.html"></code-example>
@@ -148,43 +149,45 @@ the same pipes as above, but passes in a parameter to `date` as well.
 
 
 
-## Custom pipes
+{@a custom-pipes}
+## Нестандартные трубы
 
-You can write your own custom pipes.
-Here's a custom pipe named `ExponentialStrengthPipe` that can boost a hero's powers:
+Вы можете написать свои собственные трубы.
+Вот пользовательский канал с именем `ExponentialStrengthPipe` что может увеличить силы героя:
 
 
 <code-example path="pipes/src/app/exponential-strength.pipe.ts" header="src/app/exponential-strength.pipe.ts"></code-example>
 
 
 
-This pipe definition reveals the following key points:
+Это определение трубы позволяет выявить следующие ключевые моменты:
 
-* A pipe is a class decorated with pipe metadata.
-* The pipe class implements the `PipeTransform` interface's `transform` method that
-accepts an input value followed by optional parameters and returns the transformed value.
-* There will be one additional argument to the `transform` method for each parameter passed to the pipe.
-Your pipe has one such parameter: the `exponent`.
-* To tell Angular that this is a pipe, you apply the
-`@Pipe` decorator, which you import from the core Angular library.
-* The `@Pipe` decorator allows you to define the
-   pipe name that you'll use within template expressions. It must be a valid JavaScript identifier.
-   Your pipe's name is `exponentialStrength`.
+* Труба - это класс, украшенный метаданными трубы.
+* Класс pipe реализует `PipeTransform` интерфейс `transform` метод, который
+принимает входное значение, за которым следуют необязательные параметры, и возвращает преобразованное значение.
+* Там будет один дополнительный аргумент `transform` метод для каждого параметра, передаваемого в канал.
+У вашей трубы есть один такой параметр: `exponent`.
+* Чтобы сказать Angular, что это труба, вы применяете
+ `@Pipe` decorator, который вы импортируете из базовой библиотеки Angular.
+* `@Pipe` позволяет вам определить
+   имя канала, которое вы будете использовать в выражениях шаблонов. Это должен быть действительный идентификатор JavaScript.
+   Название вашей трубы `exponentialStrength`.
 
 
 <div class="alert is-helpful">
 
 
 
-## The *PipeTransform* interface
+{@a the-*pipetransform*-interface}
+## *PipeTransform* интерфейс
 
-The `transform` method is essential to a pipe.
-The `PipeTransform` *interface* defines that method and guides both tooling and the compiler.
-Technically, it's optional; Angular looks for and executes the `transform` method regardless.
+ `transform` Метод имеет важное значение для трубы.
+ `PipeTransform` *Интерфейс* определяет этот метод и управляет как инструментами, так и компилятором.
+Технически это необязательно; Angular ищет и выполняет `transform` метод независимо.
 
 </div>
 
-Now you need a component to demonstrate the pipe.
+Теперь вам нужен компонент для демонстрации трубы.
 
 <code-example path="pipes/src/app/power-booster.component.ts" header="src/app/power-booster.component.ts"></code-example>
 
@@ -194,36 +197,37 @@ Now you need a component to demonstrate the pipe.
 
 
 
-Note the following:
+Обратите внимание на следующее:
 
-* You use your custom pipe the same way you use built-in pipes.
-* You must include your pipe in the `declarations` array of the `AppModule`
-* If you choose to inject your pipe into a class, you must provide it in the `providers` array of your `NgModule`.
+* Вы используете свою собственную трубу так же, как вы используете встроенные трубы.
+* Вы должны включить свою трубу в `declarations` массив `AppModule` 
+* Если вы решите внедрить свою трубу в класс, вы должны указать ее в `providers` массив вашего `NgModule`.
 
 <div class="callout is-helpful">
 
 <header>
-  Remember the declarations array
+  Запомните массив объявлений
 </header>
 
 
-You must register custom pipes.
-If you don't, Angular reports an error.
-The [Angular CLI's](cli) generator registers the pipe automatically.
+Вы должны зарегистрировать пользовательские каналы.
+Если вы этого не сделаете, Angular сообщает об ошибке.
+[Angular CLI в](cli)генератор автоматически регистрирует трубку.
 
 
 </div>
 
 
 
-To probe the behavior in the <live-example></live-example>,
-change the value and optional exponent in the template.
+Для того, чтобы исследовать поведение в <live-example></live-example>,
+изменить значение и необязательный показатель степени в шаблоне.
 
+{@a power-boost-calculator}
 ## Power Boost Calculator
 
-It's not much fun updating the template to test the custom pipe.
-Upgrade the example to a "Power Boost Calculator" that combines
-your pipe and two-way data binding with `ngModel`.
+Обновление шаблона для тестирования пользовательского канала не очень интересно.
+Обновите пример до «Power Boost Calculator», который объединяет
+ваш канал и двустороннее связывание данных с `ngModel`.
 
 
 <code-example path="pipes/src/app/power-boost-calculator.component.ts" header="src/app/power-boost-calculator.component.ts">
@@ -242,71 +246,72 @@ your pipe and two-way data binding with `ngModel`.
 {@a change-detection}
 
 
-## Pipes and change detection
+{@a pipes-and-change-detection}
+## Трубы и обнаружение изменений
 
-Angular looks for changes to data-bound values through a *change detection* process that runs after every DOM event:
-every keystroke, mouse move, timer tick, and server response. This could be expensive.
-Angular strives to lower the cost whenever possible and appropriate.
+Angular выглядит для изменений значений с привязкой к данным через *обнаружение изменений* процесса, который запускается после каждого события DOM:
+каждое нажатие клавиши, движение мыши, отметка таймера и ответ сервера. Это может быть дорого.
+Angular стремится снизить стоимость, когда это возможно и уместно.
 
-Angular picks a simpler, faster change detection algorithm when you use a pipe.
+Angular выбирает более простой и быстрый алгоритм обнаружения изменений при использовании канала.
 
-<h3 class="no-toc">No pipe</h3>
+<h3 class="no-toc">Нет трубы </h3>
 
-In the next example, the component uses the default, aggressive change detection strategy to monitor and update
-its display of every hero in the `heroes` array. Here's the template:
+В следующем примере компонент использует стандартную стратегию агрессивного обнаружения изменений для мониторинга и обновления
+его отображение каждого героя в `heroes` массив . Вот шаблон:
 
 
 <code-example path="pipes/src/app/flying-heroes.component.html" region="template-1" header="src/app/flying-heroes.component.html (v1)"></code-example>
 
 
 
-The companion component class provides heroes, adds heroes into the array, and can reset the array.
+Компонент класса-компаньона предоставляет героев, добавляет героев в массив и может сбросить массив.
 
 <code-example path="pipes/src/app/flying-heroes.component.ts" region="v1" header="src/app/flying-heroes.component.ts (v1)"></code-example>
 
 
 
-You can add heroes and Angular updates the display when you do.
-If you click the `reset` button, Angular replaces `heroes` with a new array of the original heroes and updates the display.
-If you added the ability to remove or change a hero, Angular would detect those changes and update the display as well.
+Вы можете добавлять героев и обновления Angular, когда вы делаете.
+Если вы нажмете `reset` кнопка, Angular заменяет `heroes` с новым массивом оригинальных героев и обновлений дисплея.
+Если вы добавите возможность удалять или менять героя, Angular обнаружит эти изменения и обновит отображение.
 
-<h3 class="no-toc"><i>FlyingHeroesPipe</i></h3>
+<h3 class="no-toc"><i>FlyingHeroesPipe </i></h3>
 
-Add a `FlyingHeroesPipe` to the `*ngFor` repeater that filters the list of heroes to just those heroes who can fly.
+Добавить `FlyingHeroesPipe` к `*ngFor` повторителя, который фильтрует список героев только тем героям, которые могут летать.
 
 <code-example path="pipes/src/app/flying-heroes.component.html" region="template-flying-heroes" header="src/app/flying-heroes.component.html (flyers)"></code-example>
 
 
 
-Here's the `FlyingHeroesPipe` implementation, which follows the pattern for custom pipes described earlier.
+Вот `FlyingHeroesPipe` Реализация, которая следует шаблону для пользовательских каналов, описанному ранее.
 
 <code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pure" header="src/app/flying-heroes.pipe.ts"></code-example>
 
 
 
-Notice the odd behavior in the <live-example></live-example>:
-when you add flying heroes, none of them are displayed under "Heroes who fly."
+Обратите внимание на странное поведение в <live-example></live-example>:
+Когда вы добавляете летающих героев, ни один из них не отображается в разделе «Герои, которые летают».
 
-Although you're not getting the behavior you want, Angular isn't broken.
-It's just using a different change-detection algorithm that ignores changes to the list or any of its items.
+Хотя вы не получаете желаемого поведения, Angular не сломлен.
+Он просто использует другой алгоритм обнаружения изменений, который игнорирует изменения в списке или любых его элементах.
 
-Notice how a hero is added:
+Обратите внимание на то, как добавляется герой:
 
 <code-example path="pipes/src/app/flying-heroes.component.ts" region="push" header="src/app/flying-heroes.component.ts"></code-example>
 
 
 
-You add the hero into the `heroes` array. The reference to the array hasn't changed.
-It's the same array. That's all Angular cares about. From its perspective, *same array, no change, no display update*.
+Вы добавляете героя в `heroes` массив . Ссылка на массив не изменилась.
+Это тот же массив. Это все, что заботит Angular. С его точки зрения, *тот же массив, без изменений, без обновления дисплея*.
 
-To fix that, create an array with the new hero appended and assign that to `heroes`.
-This time Angular detects that the array reference has changed.
-It executes the pipe and updates the display with the new array, which includes the new flying hero.
+Чтобы это исправить, создайте массив с добавленным новым героем и назначьте его `heroes`.
+На этот раз Angular обнаруживает, что ссылка на массив изменилась.
+Он выполняет трубу и обновляет отображение новым массивом, в который входит новый летающий герой.
 
-If you *mutate* the array, no pipe is invoked and the display isn't updated;
-if you *replace* the array, the pipe executes and the display is updated.
-The Flying Heroes application extends the
-code with checkbox switches and additional displays to help you experience these effects.
+Если вы *изменяете* массив, канал не вызывается и отображение не обновляется;
+если вы *замените* массив, канал будет запущен и дисплей обновится.
+Приложение Flying Heroes расширяет
+код с переключателями и дополнительными дисплеями, чтобы помочь вам испытать эти эффекты.
 
 
 <div class="lightbox">
@@ -315,84 +320,85 @@ code with checkbox switches and additional displays to help you experience these
 
 
 
-Replacing the array is an efficient way to signal Angular to update the display.
-When do you replace the array? When the data changes.
-That's an easy rule to follow in *this* example
-where the only way to change the data is by adding a hero.
+Замена массива - эффективный способ сообщить Angular об обновлении дисплея.
+Когда вы заменяете массив? Когда данные меняются.
+Это простое правило, которому нужно следовать в *этом* примере
+где единственный способ изменить данные - добавить героя.
 
-More often, you don't know when the data has changed,
-especially in applications that mutate data in many ways,
-perhaps in application locations far away.
-A component in such an application usually can't know about those changes.
-Moreover, it's unwise to distort the component design to accommodate a pipe.
-Strive to keep the component class independent of the HTML.
-The component should be unaware of pipes.
+Чаще вы не знаете, когда изменились данные
+особенно в приложениях, которые изменяют данные разными способами
+возможно, в местах приложения далеко.
+Компонент в таком приложении обычно не может знать об этих изменениях.
+Более того, неразумно искажать конструкцию компонента для размещения трубы.
+Стремитесь сохранить класс компонента независимым от HTML.
+Компонент не должен знать о трубах.
 
-For filtering flying heroes, consider an *impure pipe*.
+Для фильтрации летающих героев рассмотрим *нечистую трубу*.
 
 
 
-## Pure and impure pipes
+{@a pure-and-impure-pipes}
+## Чистые и нечистые трубы
 
-There are two categories of pipes: *pure* and *impure*.
-Pipes are pure by default. Every pipe you've seen so far has been pure.
-You make a pipe impure by setting its pure flag to false. You could make the `FlyingHeroesPipe`
-impure like this:
+Есть две категории труб: *чистые* и *нечистые*.
+Трубы чистые по умолчанию. Каждая труба, которую вы видели до сих пор, была чистой.
+Вы делаете трубу нечистой, устанавливая ее чистый флаг в false. Вы могли бы сделать `FlyingHeroesPipe` 
+нечистый, как это:
 
 
 <code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pipe-decorator" header="src/app/flying-heroes.pipe.ts"></code-example>
 
 
 
-Before doing that, understand the difference between pure and impure, starting with a pure pipe.
+Прежде чем делать это, поймите разницу между чистым и нечистым, начиная с чистой трубы.
 
-<h3 class="no-toc">Pure pipes</h3>
+<h3 class="no-toc">Чистые трубы </h3>
 
-Angular executes a *pure pipe* only when it detects a *pure change* to the input value.
-A pure change is either a change to a primitive input value (`String`, `Number`, `Boolean`, `Symbol`)
-or a changed object reference (`Date`, `Array`, `Function`, `Object`).
+Angular выполняет *чистый канал* только тогда, когда обнаруживает *чистое изменение* входного значения.
+Чистое изменение - это либо изменение примитивного входного значения (`String`, `Number`, `Boolean`, `Symbol`)
+или измененная ссылка на объект (`Date`, `Array`, `Function`, `Object`).
 
-Angular ignores changes within (composite) objects.
-It won't call a pure pipe if you change an input month, add to an input array, or update an input object property.
+Angular игнорирует изменения внутри (составных) объектов.
+Он не будет вызывать чистый канал, если вы измените месяц ввода, добавите его во входной массив или обновите свойство объекта ввода.
 
-This may seem restrictive but it's also fast.
-An object reference check is fast&mdash;much faster than a deep check for
-differences&mdash;so Angular can quickly determine if it can skip both the
-pipe execution and a view update.
+Это может показаться ограничительным, но это также быстро.
+Проверка ссылки на объект выполняется быстро - намного быстрее, чем для глубокой проверки
+Различия - так что Angular может быстро определить, может ли он пропустить оба
+конвейерное исполнение и обновление вида.
 
-For this reason, a pure pipe is preferable when you can live with the change detection strategy.
-When you can't, you *can* use the impure pipe.
+По этой причине чистый канал предпочтительнее, когда вы можете жить со стратегией обнаружения изменений.
+Когда вы не можете, вы *можете* использовать нечистую трубу.
 
 
 <div class="alert is-helpful">
 
 
 
-Or you might not use a pipe at all.
-It may be better to pursue the pipe's purpose with a property of the component,
-a point that's discussed later in this page.
+Или вы не можете использовать трубу вообще.
+Может быть лучше следовать цели трубы с помощью свойства компонента
+точка, которая обсуждается позже на этой странице.
 
 
 </div>
 
 
 
-<h3 class="no-toc">Impure pipes</h3>
+<h3 class="no-toc">Нечистые трубы </h3>
 
-Angular executes an *impure pipe*  during every component change detection cycle.
-An impure pipe is called often, as often as every keystroke or mouse-move.
+Angular выполняет *нечистую трубу* во время каждого цикла обнаружения изменений компонентов.
+Нечистый канал вызывается часто, так же часто, как каждое нажатие клавиши или движение мыши.
 
-With that concern in mind, implement an impure pipe with great care.
-An expensive, long-running pipe could destroy the user experience.
+Помня об этом, осторожно используйте нечистую трубу.
+Дорогая, долговечная труба может разрушить пользовательский опыт.
 
 
 {@a impure-flying-heroes}
 
 
-<h3 class="no-toc">An impure <i>FlyingHeroesPipe</i></h3>
+<h3 class="no-toc">Нечистый <i>летучий герой пайп </i></h3>
 
-A flip of the switch turns the `FlyingHeroesPipe` into a `FlyingHeroesImpurePipe`.
-The complete implementation is as follows:
+Щелчок переключателя поворачивает `FlyingHeroesPipe` в `FlyingHeroesImpurePipe`.
+Полная реализация выглядит следующим образом :
 
 <code-tabs>
 
@@ -408,42 +414,42 @@ The complete implementation is as follows:
 
 
 
-You inherit from `FlyingHeroesPipe` to prove the point that nothing changed internally.
-The only difference is the `pure` flag in the pipe metadata.
+Вы наследуете от `FlyingHeroesPipe` чтобы доказать, что внутри ничего не изменилось.
+Единственная разница заключается в `pure` флаг в метаданных канала.
 
-This is a good candidate for an impure pipe because the `transform` function is trivial and fast.
+Это хороший кандидат на нечистую трубу, потому что `transform` Функция тривиальна и быстра.
 
 
 <code-example path="pipes/src/app/flying-heroes.pipe.ts" header="src/app/flying-heroes.pipe.ts (filter)" region="filter"></code-example>
 
 
 
-You can derive a `FlyingHeroesImpureComponent` from `FlyingHeroesComponent`.
+Вы можете получить `FlyingHeroesImpureComponent` от `FlyingHeroesComponent`.
 
 
 <code-example path="pipes/src/app/flying-heroes-impure.component.html" header="src/app/flying-heroes-impure.component.html (excerpt)" region="template-flying-heroes"></code-example>
 
 
 
-The only substantive change is the pipe in the template.
-You can confirm in the <live-example></live-example> that the _flying heroes_
-display updates as you add heroes, even when you mutate the `heroes` array.
+Единственное существенное изменение - это труба в шаблоне.
+Вы можете подтвердить в том, <live-example></live-example>что _flying героев_
+отображать обновления по мере добавления героев, даже если вы изменили `heroes` массив.
 
 
 {@a async-pipe}
-<h3 class="no-toc">The impure <i>AsyncPipe</i></h3>
+<h3 class="no-toc">Нечистый <i>AsyncPipe </i></h3>
 
 
-The Angular `AsyncPipe` is an interesting example of an impure pipe.
-The `AsyncPipe` accepts a `Promise` or `Observable` as input
-and subscribes to the input automatically, eventually returning the emitted values.
+Angular `AsyncPipe` - интересный пример нечистой трубы.
+ `AsyncPipe ` принимает ` Promise ` или ` Observable` качестве ввода
+и подписывается на вход автоматически, в конечном итоге возвращает испущенные значения.
 
-The `AsyncPipe` is also stateful.
-The pipe maintains a subscription to the input `Observable` and
-keeps delivering values from that `Observable` as they arrive.
+ `AsyncPipe` также с состоянием.
+Канал поддерживает подписку на вход `Observable` и
+продолжает доставлять ценности из этого `Observable` мере их поступления.
 
-This next example binds an `Observable` of message strings
-(`message$`) to a view with the `async` pipe.
+Следующий пример связывает `Observable` из строк сообщения
+(`message$`) для просмотра с `async` труба.
 
 
 <code-example path="pipes/src/app/hero-async-message.component.ts" header="src/app/hero-async-message.component.ts">
@@ -452,21 +458,21 @@ This next example binds an `Observable` of message strings
 
 
 
-The Async pipe saves boilerplate in the component code.
-The component doesn't have to subscribe to the async data source,
-extract the resolved values and expose them for binding,
-and have to unsubscribe when it's destroyed
-(a potent source of memory leaks).
+Асинхронная труба сохраняет шаблон в коде компонента.
+Компонент не должен подписываться на асинхронный источник данных
+извлечь разрешенные значения и выставить их для привязки
+и должны отписаться, когда он будет уничтожен
+(мощный источник утечек памяти).
 
-<h3 class="no-toc">An impure caching pipe</h3>
+<h3 class="no-toc">Нечистая кеширующая труба </h3>
 
-Write one more impure pipe, a pipe that makes an HTTP request.
+Напишите еще один нечистый канал, канал, который делает HTTP-запрос.
 
-Remember that impure pipes are called every few milliseconds.
-If you're not careful, this pipe will punish the server with requests.
+Помните, что нечистые каналы вызываются каждые несколько миллисекунд.
+Если вы не будете осторожны, этот канал накажет сервер запросами.
 
-In the following code, the pipe only calls the server when the requested URL changes and it caches the server response.
-The code uses the [Angular http](guide/http) client to retrieve data:
+В следующем коде канал вызывает сервер только при изменении запрошенного URL-адреса и кэширует ответ сервера.
+Код использует [Angular HTTP](guide/http)клиент для получения данных:
 
 
 <code-example path="pipes/src/app/fetch-json.pipe.ts" header="src/app/fetch-json.pipe.ts">
@@ -475,8 +481,8 @@ The code uses the [Angular http](guide/http) client to retrieve data:
 
 
 
-Now demonstrate it in a harness component whose template defines two bindings to this pipe,
-both requesting the heroes from the `heroes.json` file.
+Теперь продемонстрируйте это в компоненте проводки, шаблон которого определяет две привязки к этой трубе
+оба просят героев из `heroes.json` файл.
 
 
 <code-example path="pipes/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts">
@@ -485,7 +491,7 @@ both requesting the heroes from the `heroes.json` file.
 
 
 
-The component renders as the following:
+Компонент оказывает как следующие:
 
 
 <div class="lightbox">
@@ -494,16 +500,16 @@ The component renders as the following:
 
 
 
-A breakpoint on the pipe's request for data shows the following:
+Точки останова по запросу трубы для данных показывают следующее:
 
-* Each binding gets its own pipe instance.
-* Each pipe instance caches its own URL and data.
-* Each pipe instance only calls the server once.
+* Каждая привязка получает свой собственный экземпляр канала.
+* Каждый экземпляр канала кэширует свой собственный URL и данные.
+* Каждый экземпляр канала вызывает сервер только один раз.
 
-<h3 class="no-toc"><i>JsonPipe</i></h3>
+<h3 class="no-toc"><i>JsonPipe </i></h3>
 
-In the previous code sample, the second `fetch` pipe binding demonstrates more pipe chaining.
-It displays the same hero data in JSON format by chaining through to the built-in `JsonPipe`.
+В предыдущем примере кода второй `fetch` привязка труб демонстрирует большее сцепление труб.
+Он отображает те же данные о героях в формате JSON, соединяя их со встроенным `JsonPipe`.
 
 
 <div class="callout is-helpful">
@@ -511,14 +517,14 @@ It displays the same hero data in JSON format by chaining through to the built-i
 
 
 <header>
-  Debugging with the json pipe
+  Отладка с помощью JSON-канала
 </header>
 
 
 
-The [JsonPipe](api/common/JsonPipe)
-provides an easy way to diagnose a mysteriously failing data binding or
-inspect an object for future binding.
+[JsonPipe](api/common/JsonPipe)
+предоставляет простой способ диагностирования таинственно сбойной привязки данных или
+осмотреть объект для будущего связывания.
 
 
 </div>
@@ -528,57 +534,59 @@ inspect an object for future binding.
 {@a pure-pipe-pure-fn}
 
 
-<h3 class="no-toc">Pure pipes and pure functions</h3>
+<h3 class="no-toc">Чистые трубы и чистые функции </h3>
 
-A pure pipe uses pure functions.
-Pure functions process inputs and return values without detectable side effects.
-Given the same input, they should always return the same output.
+Чистая труба использует чистые функции.
+Чистые функции обрабатывают входные данные и возвращают значения без обнаруживаемых побочных эффектов.
+При одинаковом вводе они всегда должны возвращать одинаковый вывод.
 
-The pipes discussed earlier in this page are implemented with pure functions.
-The built-in `DatePipe` is a pure pipe with a pure function implementation.
-So are the `ExponentialStrengthPipe` and `FlyingHeroesPipe`.
-A few steps back, you reviewed the `FlyingHeroesImpurePipe`&mdash;an impure pipe with a pure function.
+Каналы, обсужденные ранее на этой странице, реализованы с чистыми функциями.
+Встроенный `DatePipe` - это чистый канал с чистой реализацией функции.
+Таковы `ExponentialStrengthPipe` и `FlyingHeroesPipe`.
+Несколько шагов назад вы рассмотрели `FlyingHeroesImpurePipe` - нечистая труба с чистой функцией.
 
-But always implement a *pure pipe* with a *pure function*.
-Otherwise, you'll see many console errors regarding expressions that changed after they were checked.
+Но всегда реализуйте *чистую трубу* с *чистой функцией*.
+В противном случае вы увидите много консольных ошибок, касающихся выражений, которые изменились после их проверки.
 
 
 
-## Next steps
+{@a next-steps}
+## Следующие шаги
 
-Pipes are a great way to encapsulate and share common display-value
-transformations. Use them like styles, dropping them
-into your template's expressions to enrich the appeal and usability
-of your views.
+Трубы - отличный способ инкапсулировать и совместно использовать общую отображаемую стоимость
+преобразования. Используйте их как стили, отбрасывая их
+в выражениях вашего шаблона, чтобы обогатить привлекательность и удобство использования
+ваших взглядов.
 
-Explore Angular's inventory of built-in pipes in the [API Reference](api?type=pipe).
-Try writing a custom pipe and perhaps contributing it to the community.
+Изучите инвентарь встроенных труб Angular в [Справочник по API](api?type=pipe).
+Попробуйте написать собственный канал и, возможно, внести свой вклад в сообщество.
 
 
 {@a no-filter-pipe}
 
 
 
-## Appendix: No *FilterPipe* or *OrderByPipe*
+{@a appendix-no-*filterpipe*-or-*orderbypipe*}
+## Приложение: Нет *FilterPipe* или *OrderByPipe*
 
-Angular doesn't provide pipes for filtering or sorting lists.
-Developers familiar with AngularJS know these as `filter` and `orderBy`.
-There are no equivalents in Angular.
+Angular не предоставляет каналы для фильтрации или сортировки списков.
+Разработчики, знакомые с AngularJS, знают это как `filter` и `orderBy`.
+В Angular нет аналогов.
 
-This isn't an oversight. Angular doesn't offer such pipes because
-they perform poorly and prevent aggressive minification.
-Both `filter` and `orderBy` require parameters that reference object properties.
-Earlier in this page, you learned that such pipes must be [impure](guide/pipes#pure-and-impure-pipes) and that
-Angular calls impure pipes in almost every change-detection cycle.
+Это не упущение. Angular не предлагает такие трубы, потому что
+они плохо работают и препятствуют агрессивному минимизации.
+И то и другое `filter` и `orderBy` требуются параметры, которые ссылаются на свойства объекта.
+Ранее на этой странице вы узнали, что такие трубы должны быть [нечистыми](guide/pipes#pure-and-impure-pipes)и что
+Angular вызовы загрязняют трубы почти в каждом цикле обнаружения изменений.
 
-Filtering and especially sorting are expensive operations.
-The user experience can degrade severely for even moderate-sized lists when Angular calls these pipe methods many times per second.
-`filter` and `orderBy` have often been abused in AngularJS apps, leading to complaints that Angular itself is slow.
-That charge is fair in the indirect sense that AngularJS prepared this performance trap
-by offering `filter` and `orderBy` in the first place.
+Фильтрация и особенно сортировка - дорогостоящие операции.
+Пользовательский интерфейс может значительно ухудшиться даже для списков среднего размера, когда Angular вызывает эти методы канала много раз в секунду.
+ `filter ` и ` orderBy` часто использовался в приложениях AngularJS, что приводило к жалобам на медлительность самого Angular.
+Это обвинение справедливо в косвенном смысле, что AngularJS подготовил эту ловушку производительности
+предлагая `filter` и `orderBy` в первую очередь.
 
-The minification hazard is also compelling, if less obvious. Imagine a sorting pipe applied to a list of heroes.
-The list might be sorted by hero `name` and `planet` of origin properties in the following way:
+Опасность минификации также очевидна, хотя и менее очевидна. Представьте себе трубу сортировки, примененную к списку героев.
+Список может быть отсортирован по герою `name` и `planet` свойств происхождения следующим образом:
 
 <code-example language="html">
   &lt;!-- NOT REAL CODE! -->
@@ -587,21 +595,21 @@ The list might be sorted by hero `name` and `planet` of origin properties in the
 
 
 
-You identify the sort fields by text strings, expecting the pipe to reference a property value by indexing
-(such as `hero['name']`).
-Unfortunately, aggressive minification manipulates the `Hero` property names so that `Hero.name` and `Hero.planet`
-become something like `Hero.a` and `Hero.b`. Clearly `hero['name']` doesn't work.
+Вы определяете поля сортировки по текстовым строкам, ожидая, что канал будет ссылаться на значение свойства путем индексации
+(Такие как `hero['name']`).
+К сожалению, агрессивное минимизация манипулирует `Hero` Имена свойств чтобы `Hero.name` и `Hero.planet` 
+стать чем-то вроде `Hero.a` и `Hero.b` . очевидно `hero['name']` не работает.
 
-While some may not care to minify this aggressively,
-the Angular product shouldn't prevent anyone from minifying aggressively.
-Therefore, the Angular team decided that everything Angular provides will minify safely.
+Хотя некоторые, возможно, не хотят минимизировать это агрессивно
+Angular продукт не должен мешать агрессивному минированию.
+Поэтому команда Angular решила, что все, что предоставляет Angular, безопасно минимизируется.
 
-The Angular team and many experienced Angular developers strongly recommend moving
-filtering and sorting logic into the component itself.
-The component can expose a `filteredHeroes` or `sortedHeroes` property and take control
-over when and how often to execute the supporting logic.
-Any capabilities that you would have put in a pipe and shared across the app can be
-written in a filtering/sorting service and injected into the component.
+Команда Angular и многие опытные разработчики Angular настоятельно рекомендуют переехать
+фильтрация и сортировка логики в самом компоненте.
+Компонент может выставить `filteredHeroes` или `sortedHeroes` и получить контроль
+когда и как часто выполнять вспомогательную логику.
+Любые возможности, которые вы могли бы поместить в канал и использовать в приложении, могут быть
+записывается в сервисе фильтрации / сортировки и внедряется в компонент.
 
-If these performance and minification considerations don't apply to you, you can always create your own such pipes
-(similar to the [FlyingHeroesPipe](guide/pipes#impure-flying-heroes)) or find them in the community.
+Если эти соображения производительности и минимизации не относятся к вам, вы всегда можете создать свои собственные такие каналы
+(аналогично [FlyingHeroesPipe](guide/pipes#impure-flying-heroes)) или найдите их в сообществе.

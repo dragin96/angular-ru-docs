@@ -12,140 +12,138 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 
 // clang-format off
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Formats a date value according to locale rules.
+ * Форматирует значение даты в соответствии с правилами локали.
  *
- * Only the `en-US` locale data comes with Angular. To localize dates
- * in another language, you must import the corresponding locale data.
- * See the [I18n guide](guide/i18n#i18n-pipes) for more information.
+ * Только данные `en-US` поставляются с Angular. Локализовать даты
+ * на другом языке вы должны импортировать соответствующие данные локали.
+ * См.[Руководство I18n](guide/i18n#i18n-pipes)для получения дополнительной информации.
  *
- * @see `formatDate()`
+ *  @see `formatDate()`
  *
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The result of this pipe is not reevaluated when the input is mutated. To avoid the need to
- * reformat the date on every change-detection cycle, treat the date as an immutable object
- * and change the reference when the pipe needs to run again.
+ * Результат этого канала не переоценивается, когда ввод изменяется. Чтобы избежать необходимости
+ * переформатируйте дату в каждом цикле обнаружения изменений, рассматривайте дату как неизменный объект
+ * и измените задание, когда труба должна снова работать.
  *
- * ### Pre-defined format options
+ *  ### Предопределенные параметры формата
  *
- * Examples are given in `en-US` locale.
+ * Примеры приведены в `en-US` locale.
  *
- * - `'short'`: equivalent to `'M/d/yy, h:mm a'` (`6/15/15, 9:03 AM`).
- * - `'medium'`: equivalent to `'MMM d, y, h:mm:ss a'` (`Jun 15, 2015, 9:03:01 AM`).
- * - `'long'`: equivalent to `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
- * GMT+1`).
- * - `'full'`: equivalent to `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
- * 9:03:01 AM GMT+01:00`).
- * - `'shortDate'`: equivalent to `'M/d/yy'` (`6/15/15`).
- * - `'mediumDate'`: equivalent to `'MMM d, y'` (`Jun 15, 2015`).
- * - `'longDate'`: equivalent to `'MMMM d, y'` (`June 15, 2015`).
- * - `'fullDate'`: equivalent to `'EEEE, MMMM d, y'` (`Monday, June 15, 2015`).
- * - `'shortTime'`: equivalent to `'h:mm a'` (`9:03 AM`).
- * - `'mediumTime'`: equivalent to `'h:mm:ss a'` (`9:03:01 AM`).
- * - `'longTime'`: equivalent to `'h:mm:ss a z'` (`9:03:01 AM GMT+1`).
- * - `'fullTime'`: equivalent to `'h:mm:ss a zzzz'` (`9:03:01 AM GMT+01:00`).
+ * - `'short'` : эквивалентно``'M/d/yy, h:mm a' `(` 6/15/15, 9:03 AM`),
+ * - `'medium'` : эквивалентно``'MMM d, y, h:mm:ss a' `(` Jun 15, 2015, 9:03:01 AM`).
+ * - `'long'` : эквивалентно``'MMMM d, y, h:mm:ss a z' `(` June 15, 2015 at 9:03:01 AM.GMT+1`).
+ * - `'full'` : эквивалентно``'EEEE, MMMM d, y, h:mm:ss a zzzz' `(` Monday, June 15, 2015 at.9:03:01 AM GMT+01:00`).
+ * - `'shortDate'` : эквивалентно` `'M/d/yy'` (`6/15/15`).
+ * - `'mediumDate'` mediumDate: эквивалентно`'MMM d, y' `(` Jun 15, 2015`г.).
+ * - `'longDate'` : эквивалентно``'MMMM d, y' `(` June 15, 2015``June 15, 2015`).
+ * - `'fullDate'` : эквивалентно``'EEEE, MMMM d, y' `(` Monday, June 15, 2015``Monday, June 15, 2015`).
+ * - `'shortTime'` : эквивалентно`'h:mm a' `(` 9:03 AM`).
+ * - `'mediumTime'` : эквивалентно``'h:mm:ss a' `(` 9:03:01 AM`).
+ * - `'longTime'` : эквивалентно``'h:mm:ss a z' `(` 9:03:01 AM GMT+1`).
+ * - `'fullTime'` : эквивалентно``'h:mm:ss a zzzz' `(` 9:03:01 AM GMT+01:00`).
  *
- * ### Custom format options
+ *  ### Пользовательские параметры формата
  *
- * You can construct a format string using symbols to specify the components
- * of a date-time value, as described in the following table.
- * Format details depend on the locale.
- * Fields marked with (*) are only available in the extra data set for the given locale.
+ * Вы можете создать строку формата, используя символы для указания компонентов
+ * значения даты и времени, как описано в следующей таблице.
+ * Детали формата зависят от локали.
+ * Поля, отмеченные (), доступны только в дополнительном наборе данных для данной локали.
  *
- *  | Field type         | Format      | Description                                                   | Example Value                                              |
- *  |--------------------|-------------|---------------------------------------------------------------|------------------------------------------------------------|
- *  | Era                | G, GG & GGG | Abbreviated                                                   | AD                                                         |
- *  |                    | GGGG        | Wide                                                          | Anno Domini                                                |
- *  |                    | GGGGG       | Narrow                                                        | A                                                          |
- *  | Year               | y           | Numeric: minimum digits                                       | 2, 20, 201, 2017, 20173                                    |
- *  |                    | yy          | Numeric: 2 digits + zero padded                               | 02, 20, 01, 17, 73                                         |
- *  |                    | yyy         | Numeric: 3 digits + zero padded                               | 002, 020, 201, 2017, 20173                                 |
- *  |                    | yyyy        | Numeric: 4 digits or more + zero padded                       | 0002, 0020, 0201, 2017, 20173                              |
- *  | Month              | M           | Numeric: 1 digit                                              | 9, 12                                                      |
- *  |                    | MM          | Numeric: 2 digits + zero padded                               | 09, 12                                                     |
- *  |                    | MMM         | Abbreviated                                                   | Sep                                                        |
- *  |                    | MMMM        | Wide                                                          | September                                                  |
- *  |                    | MMMMM       | Narrow                                                        | S                                                          |
- *  | Month standalone   | L           | Numeric: 1 digit                                              | 9, 12                                                      |
- *  |                    | LL          | Numeric: 2 digits + zero padded                               | 09, 12                                                     |
- *  |                    | LLL         | Abbreviated                                                   | Sep                                                        |
- *  |                    | LLLL        | Wide                                                          | September                                                  |
- *  |                    | LLLLL       | Narrow                                                        | S                                                          |
- *  | Week of year       | w           | Numeric: minimum digits                                       | 1... 53                                                    |
- *  |                    | ww          | Numeric: 2 digits + zero padded                               | 01... 53                                                   |
- *  | Week of month      | W           | Numeric: 1 digit                                              | 1... 5                                                     |
- *  | Day of month       | d           | Numeric: minimum digits                                       | 1                                                          |
- *  |                    | dd          | Numeric: 2 digits + zero padded                               | 01                                                          |
- *  | Week day           | E, EE & EEE | Abbreviated                                                   | Tue                                                        |
- *  |                    | EEEE        | Wide                                                          | Tuesday                                                    |
- *  |                    | EEEEE       | Narrow                                                        | T                                                          |
- *  |                    | EEEEEE      | Short                                                         | Tu                                                         |
- *  | Period             | a, aa & aaa | Abbreviated                                                   | am/pm or AM/PM                                             |
- *  |                    | aaaa        | Wide (fallback to `a` when missing)                           | ante meridiem/post meridiem                                |
- *  |                    | aaaaa       | Narrow                                                        | a/p                                                        |
- *  | Period*            | B, BB & BBB | Abbreviated                                                   | mid.                                                       |
- *  |                    | BBBB        | Wide                                                          | am, pm, midnight, noon, morning, afternoon, evening, night |
- *  |                    | BBBBB       | Narrow                                                        | md                                                         |
- *  | Period standalone* | b, bb & bbb | Abbreviated                                                   | mid.                                                       |
- *  |                    | bbbb        | Wide                                                          | am, pm, midnight, noon, morning, afternoon, evening, night |
- *  |                    | bbbbb       | Narrow                                                        | md                                                         |
- *  | Hour 1-12          | h           | Numeric: minimum digits                                       | 1, 12                                                      |
- *  |                    | hh          | Numeric: 2 digits + zero padded                               | 01, 12                                                     |
- *  | Hour 0-23          | H           | Numeric: minimum digits                                       | 0, 23                                                      |
- *  |                    | HH          | Numeric: 2 digits + zero padded                               | 00, 23                                                     |
- *  | Minute             | m           | Numeric: minimum digits                                       | 8, 59                                                      |
- *  |                    | mm          | Numeric: 2 digits + zero padded                               | 08, 59                                                     |
- *  | Second             | s           | Numeric: minimum digits                                       | 0... 59                                                    |
- *  |                    | ss          | Numeric: 2 digits + zero padded                               | 00... 59                                                   |
- *  | Fractional seconds | S           | Numeric: 1 digit                                              | 0... 9                                                     |
- *  |                    | SS          | Numeric: 2 digits + zero padded                               | 00... 99                                                   |
- *  |                    | SSS         | Numeric: 3 digits + zero padded (= milliseconds)              | 000... 999                                                 |
- *  | Zone               | z, zz & zzz | Short specific non location format (fallback to O)            | GMT-8                                                      |
- *  |                    | zzzz        | Long specific non location format (fallback to OOOO)          | GMT-08:00                                                  |
- *  |                    | Z, ZZ & ZZZ | ISO8601 basic format                                          | -0800                                                      |
- *  |                    | ZZZZ        | Long localized GMT format                                     | GMT-8:00                                                   |
- *  |                    | ZZZZZ       | ISO8601 extended format + Z indicator for offset 0 (= XXXXX)  | -08:00                                                     |
- *  |                    | O, OO & OOO | Short localized GMT format                                    | GMT-8                                                      |
- *  |                    | OOOO        | Long localized GMT format                                     | GMT-08:00                                                  |
+ * | Тип поля | Формат | Описание | Пример значения |
+ * | -------------------- | ------------- | -------------- ------------------------------------------------- | -------------------------------------------------- ---------- |
+ * | Эра | G, GG & GGG | Сокращенно | AD |
+ * | | GGGG | Широкий | Анно Домини |
+ * | | GGGGG | Узкий | A |
+ * | Год | у | Числовой: минимальные цифры | 2, 20, 201, 2017, 20173 |
+ * | | гг | Числовой: 2 цифры + дополненный нулями | 02, 20, 01, 17, 73 |
+ * | | гггг | Числовой: 3 цифры + дополненный нулями | 002, 020, 201, 2017, 20173 |
+ * | | гггг | Числовой: 4 цифры или более + с добавлением нуля | 0002, 0020, 0201, 2017, 20173 |
+ * | Месяц | М | Числовой: 1 цифра | 9, 12 |
+ * | | ММ | Числовой: 2 цифры + дополненный нулями | 09, 12 |
+ * | | МММ | Сокращенно | Сент |
+ * | | ММММ | Широкий | Сентябрь |
+ * | | МММММ | Узкий | S |
+ * | Месяц автономный | L | Числовой: 1 цифра | 9, 12 |
+ * | | LL | Числовой: 2 цифры + дополненный нулями | 09, 12 |
+ * | | LLL | Сокращенно | Сент |
+ * | | LLLL | Широкий | Сентябрь |
+ * | | LLLLL | Узкий | S |
+ * | Неделя года | ш | Числовой: минимальные цифры |1... 53 |
+ * | | WW | Числовой: 2 цифры + дополненный нулями | 01... 53 |
+ * | Неделя месяца | W | Числовой: 1 цифра |1... 5 |
+ * | День месяца | д | Числовой: минимальные цифры | 1 |
+ * | | дд | Числовой: 2 цифры + дополненный нулями | 01 |
+ * | День недели | E, EE & EEE | Сокращенно | Вт |
+ * | | EEEE | Широкий | Вторник |
+ * | | EEEEE | Узкий | T |
+ * | | EEEEEE | Короткая | Ту |
+ * | Период | аааааа | Сокращенно | утра / вечера или утра / вечера |
+ * | | аааа | Широкий (отступление к `a` при отсутствии) | анте меридием / пост меридием |
+ * | | ааааа | Узкий | а / п |
+ * | Период | B, BB & BBB | Сокращенно | середина. |
+ * | | BBBB | Широкий | утра, вечера, полночь, полдень, утро, день, вечер, ночь |
+ * | | BBBBB | Узкий | MD |
+ * | Период автономный | b, bb & bbb | Сокращенно | середина. |
+ * | | BBBB | Широкий | утра, вечера, полночь, полдень, утро, день, вечер, ночь |
+ * | | bbbbb | Узкий | MD |
+ * | Час 1-12 | ч | Числовой: минимальные цифры | 1, 12 |
+ * | | чч | Числовой: 2 цифры + дополненный нулями | 01, 12 |
+ * | Час 0-23 | H | Числовой: минимальные цифры | 0, 23 |
+ * | | ЧЧ | Числовой: 2 цифры + дополненный нулями | 00, 23 |
+ * | Минута | м | Числовой: минимальные цифры | 8, 59 |
+ * | | мм | Числовой: 2 цифры + дополненный нулями | 08, 59 |
+ * | Второй | с | Числовой: минимальные цифры | 0 ... 59 |
+ * | | сс | Числовой: 2 цифры + дополненный нулями | 00 ... 59 |
+ * | Дробные секунды | S | Числовой: 1 цифра | 0 ... 9 |
+ * | | СС | Числовой: 2 цифры + дополненный нулями | 00 ... 99 |
+ * | | ССС | Числовой: 3 цифры + заполнение нулями (= миллисекунды) | 000 ... 999 |
+ * | Зона | z, zz & zzz | Краткий специфический не локальный формат (откат к O) | GMT-8 |
+ * | | zzzz | Длинный конкретный не локационный формат (откат к OOOO) | GMT-08: 00 |
+ * | | Z, ZZ & ZZZ | ISO8601 базовый формат | -0800 |
+ * | | ZZZZ | Лонг локализованный формат GMT | GMT-8: 00 |
+ * | | ZZZZZ | Расширенный формат ISO8601 + индикатор Z для смещения 0 (= XXXXX) | -08: 00 |
+ * | | О, ОО & ООО | Краткий локализованный формат GMT | GMT-8 |
+ * | | ОООО | Лонг локализованный формат GMT | GMT-08: 00 |
  *
- * Note that timezone correction is not applied to an ISO string that has no time component, such as "2016-09-19"
+ * Обратите внимание, что коррекция часового пояса не применяется к строке ISO, в которой нет компонента времени, например «2016-09-19»
  *
- * ### Format examples
+ *  ### Примеры форматов
  *
- * These examples transform a date into various formats,
- * assuming that `dateObj` is a JavaScript `Date` object for
- * year: 2015, month: 6, day: 15, hour: 21, minute: 43, second: 11,
- * given in the local time for the `en-US` locale.
+ * Эти примеры преобразовывают дату в различные форматы
+ * предполагая, что `dateObj` является JavaScript- `Date` для
+ * Год выпуска: 2015,месяц: 6, день: 15, час: 21, минут: 43, второй:11,.
+ * указано по местному времени для `en-US`.
  *
- * ```
- * {{ dateObj | date }}               // output is 'Jun 15, 2015'
- * {{ dateObj | date:'medium' }}      // output is 'Jun 15, 2015, 9:43:11 PM'
- * {{ dateObj | date:'shortTime' }}   // output is '9:43 PM'
- * {{ dateObj | date:'mm:ss' }}       // output is '43:11'
- * ```
+ *  ```
+ *  {{ dateObj | date }}// output is 'Jun 15, 2015'
+ *  {{ dateObj | date:'medium' }}// output is 'Jun 15, 2015, 9:43:11 PM'
+ *  {{ dateObj | date:'shortTime' }}// output is '9:43 PM'
+ *  {{ dateObj | date:'mm:ss' }}// output is '43:11'
+ *  ```
  *
- * ### Usage example
+ *  ### Пример использования
  *
- * The following component uses a date pipe to display the current date in different formats.
+ * Следующий компонент использует конвейер даты для отображения текущей даты в разных форматах.
  *
- * ```
- * @Component({
- *  selector: 'date-pipe',
- *  template: `<div>
- *    <p>Today is {{today | date}}</p>
- *    <p>Or if you prefer, {{today | date:'fullDate'}}</p>
- *    <p>The time is {{today | date:'h:mm a z'}}</p>
- *  </div>`
- * })
- * // Get the current date and time as a date-time value.
- * export class DatePipeComponent {
- *   today: number = Date.now();
- * }
- * ```
+ *  ```
+ *  @Component({
+ *   selector: 'date-pipe',
+ *   template: `<div>
+ *     <p>Today is {{today | date}}</p>
+ *     <p>Or if you prefer, {{today | date:'fullDate'}}</p>
+ *     <p>The time is {{today | date:'h:mm a z'}}</p>
+ *   </div>`
+ *  })
+ *  // Get the current date and time as a date-time value.
+ *  export class DatePipeComponent {
+ *    today: number = Date.now();
+ *  }
+ *  ```
  *
  * @publicApi
  */

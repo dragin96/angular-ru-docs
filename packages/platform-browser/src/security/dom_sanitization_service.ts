@@ -14,75 +14,75 @@ export {SecurityContext};
 
 
 /**
- * Marker interface for a value that's safe to use in a particular context.
+ * Интерфейс маркера для значения, которое безопасно использовать в определенном контексте.
  *
  * @publicApi
  */
 export interface SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as HTML.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве HTML.
  *
  * @publicApi
  */
 export interface SafeHtml extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as style (CSS).
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве стиля (CSS).
  *
  * @publicApi
  */
 export interface SafeStyle extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as JavaScript.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве JavaScript.
  *
  * @publicApi
  */
 export interface SafeScript extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as a URL linking to a document.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве URL-ссылки на документ.
  *
  * @publicApi
  */
 export interface SafeUrl extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as a URL to load executable code from.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве URL для загрузки исполняемого кода.
  *
  * @publicApi
  */
 export interface SafeResourceUrl extends SafeValue {}
 
 /**
- * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
- * values to be safe to use in the different DOM contexts.
+ * DomSanitizer помогает предотвращать ошибки безопасности межсайтовых сценариев (XSS) путем очистки
+ * Значения, которые будут безопасны для использования в различных контекстах DOM.
  *
- * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
- * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
- * the website.
+ * Например, когда связывание URL в`<a [href]="someValue"> `гиперссылка,` someValue`будет.
+ * дезинфицируется так, что злоумышленник не может внедрить, например, `javascript:` URLURL, который будет выполнять код
+ * веб-сайт.
  *
- * In specific situations, it might be necessary to disable sanitization, for example if the
- * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
- * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
- * methods, and then binding to that value from the template.
+ * В определенных ситуациях может потребоваться отключить санитарную обработку, например, если
+ * Приложение действительно должно создать `javascript:` ссылкуstyle с динамическим значением в нем.
+ * Пользователи могут обойтибезопасности, создав значение с одним из `bypassSecurityTrust...`
+ * методы, а затем привязка к этому значению из шаблона.
  *
- * These situations should be very rare, and extraordinary care must be taken to avoid creating a
- * Cross Site Scripting (XSS) security bug!
+ * Эти ситуации должны быть очень редкими, и следует избегать чрезвычайной осторожности
+ * Ошибка безопасности межсайтового скриптинга (XSS)!
  *
- * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
- * close as possible to the source of the value, to make it easy to verify no security bug is
- * created by its use.
+ * При использовании `bypassSecurityTrust...` , обязательно вызовите метод как можно раньше и как
+ * максимально близко к источнику значения, чтобы было легко проверить, нет ли ошибки безопасности
+ * созданный его использованием.
  *
- * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
- * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
- * code. The sanitizer leaves safe values intact.
+ * Не требуется (и не рекомендуется) обходить безопасность, если значение безопасно, например, URL-адрес
+ * не начинается с подозрительного протокола или фрагмента HTML, который не содержит опасного
+ * код. Дезинфицирующее средство оставляет безопасные значения без изменений.
  *
- * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
- * sanitization for the value passed in. Carefully check and audit all values and code paths going
- * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
+ * @security Вызов любого из `bypassSecurityTrust...` API-интерфейсовотключает встроеннуюAngular
+ * очистка переданного значения. Тщательно проверьте и проверьте все значения и пути кода
+ * в этот вызов. Убедитесь, что любые пользовательские данные надлежащим образом экранированы для этого контекста безопасности.
+ * Для получения более подробной информации см.[Руководство по безопасности](http://g.co/ng/security).
  *
  * @publicApi
  */

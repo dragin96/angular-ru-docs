@@ -11,16 +11,16 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
 
 
 /**
- * The primary routing outlet.
+ * Основной маршрутный выход.
  *
  * @publicApi
  */
 export const PRIMARY_OUTLET = 'primary';
 
 /**
- * A collection of matrix and query URL parameters.
- * @see `convertToParamMap()`
- * @see `ParamMap`
+ * Коллекция параметров матрицы и URL-адреса запроса.
+ *  @see `convertToParamMap()`
+ *  @see `ParamMap`
  *
  * @publicApi
  */
@@ -29,12 +29,12 @@ export type Params = {
 };
 
 /**
- * A map that provides access to the required and optional parameters
- * specific to a route.
- * The map supports retrieving a single value with `get()`
- * or multiple values with `getAll()`.
+ * Карта, которая обеспечивает доступ к обязательным и необязательным параметрам
+ * специфичные для маршрута.
+ * Карта поддерживает получение одного значения с помощью `get()`
+ * или несколько значений с помощью `getAll()`.
  *
- * @see [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+ *  @see [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
  *
  * @publicApi
  */
@@ -101,9 +101,9 @@ class ParamsAsMap implements ParamMap {
 }
 
 /**
- * Converts a `Params` instance to a `ParamMap`.
- * @param params The instance to convert.
- * @returns The new map instance.
+ * Преобразует `Params` в `ParamMap`.
+ *  @param params Экземпляр для преобразования.
+ *  @returns Новый экземпляр карты.
  *
  * @publicApi
  */

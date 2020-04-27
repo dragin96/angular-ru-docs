@@ -15,25 +15,24 @@ import {Headers} from './headers';
 
 
 /**
- * Creates `Response` instances from provided values.
+ * Создает `Response` экземпляровиз предоставленных значений.
  *
- * Though this object isn't
- * usually instantiated by end-users, it is the primary object interacted with when it comes time to
- * add data to a view.
+ * Хотя этот объект не так
+ * обычно создаются конечными пользователями, это основной объект, с которым взаимодействует, когда приходит время
+ * добавить данные в представление.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * http.request('my-friends.txt').subscribe(response => this.friends = response.text());
- * ```
+ *  ```
+ *  http.request('my-friends.txt').subscribe(response => this.friends = response.text());
+ *  ```
  *
- * The Response's interface is inspired by the Response constructor defined in the [Fetch
- * Spec](https://fetch.spec.whatwg.org/#response-class), but is considered a static value whose body
- * can be accessed many times. There are other differences in the implementation, but this is the
- * most significant.
+ * Интерфейс Response основан на конструкторе Response, определенном в[Fetch.Spec](https://fetch.spec.whatwg.org/#response-class), но считается статическим значением, тело которого
+ * можно получить доступ много раз. Есть и другие отличия в реализации, но это
+ * наиболее значимый.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class Response extends Body {

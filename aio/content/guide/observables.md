@@ -1,113 +1,116 @@
-# Using observables to pass values
 
-Observables provide support for passing messages between parts of your application.
-They are used frequently in Angular and are the recommended technique for event handling, asynchronous programming, and handling multiple values.
+{@a observables}
+# Наблюдаемые
 
-The observer pattern is a software design pattern in which an object, called the *subject*, maintains a list of its dependents, called *observers*, and notifies them automatically of state changes.
-This pattern is similar (but not identical) to the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) design pattern.
+Observables обеспечивают поддержку передачи сообщений между издателями и подписчиками в вашем приложении. Observables предлагают значительные преимущества по сравнению с другими методами обработки событий, асинхронного программирования и обработки нескольких значений.
 
-Observables are declarative&mdash;that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
-The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+Наблюдаемые являются декларативными, то есть вы определяете функцию для публикации значений, но она не выполняется, пока потребитель не подпишется на нее. Подписанный потребитель затем получает уведомления, пока функция не завершится или пока они не откажутся от подписки.
 
-An observable can deliver multiple values of any type&mdash;literals, messages, or events, depending on the context. The API for receiving values is the same whether the values are delivered synchronously or asynchronously. Because setup and teardown logic are both handled by the observable, your application code only needs to worry about subscribing to consume values, and when done, unsubscribing. Whether the stream was keystrokes, an HTTP response, or an interval timer, the interface for listening to values and stopping listening is the same.
+Observable может доставлять несколько значений любого типа - литералы, сообщения или события, в зависимости от контекста. API для получения значений одинаков независимо от того, доставляются ли значения синхронно или асинхронно. Поскольку настройка и логика разрыва обрабатываются наблюдаемым, вашему коду приложения нужно беспокоиться только о подписке на использование значений и, когда это будет сделано, отписке. Независимо от того, был ли поток нажатий клавиш, HTTP-ответ или интервальный таймер, интерфейс для прослушивания значений и остановки прослушивания одинаков.
 
-Because of these advantages, observables are used extensively within Angular, and are recommended for app development as well.
+Благодаря этим преимуществам наблюдаемые широко используются в Angular, а также рекомендуются для разработки приложений.
 
-## Basic usage and terms
+{@a basic-usage-and-terms}
+## Основное использование и условия
 
-As a publisher, you create an `Observable` instance that defines a *subscriber* function. This is the function that is executed when a consumer calls the `subscribe()` method. The subscriber function defines how to obtain or generate values or messages to be published.
+Как издатель, вы создаете `Observable` экземпляр, который определяет функцию *подписчика* . Это функция, которая выполняется, когда потребитель вызывает `subscribe()` Метод . Функция подписчика определяет, как получать или генерировать значения или сообщения для публикации.
 
-To execute the observable you have created and begin receiving notifications, you call its `subscribe()` method, passing an *observer*. This is a JavaScript object that defines the handlers for the notifications you receive. The `subscribe()` call returns a `Subscription` object that has an `unsubscribe()` method, which you call to stop receiving notifications.
+Чтобы выполнить созданную вами заметку и начать получать уведомления, вы вызываете ее `subscribe()` Метод, передавая *наблюдателя*. Это объект JavaScript, который определяет обработчики получаемых вами уведомлений. `subscribe()` вызов возвращает `Subscription` Объект который имеет `unsubscribe()` метод, который вызывается для прекращения получения уведомлений.
 
-Here's an example that demonstrates the basic usage model by showing how an observable could be used to provide geolocation updates.
+Вот пример, который демонстрирует базовую модель использования, показывая, как наблюдаемая может использоваться для предоставления обновлений геолокации.
 
 <code-example class="no-auto-link" path="observables/src/geolocation.ts" header="Observe geolocation updates"></code-example>
 
-## Defining observers
+{@a defining-observers}
+## Определение наблюдателей
 
-A handler for receiving observable notifications implements the `Observer` interface. It is an object that defines callback methods to handle the three types of notifications that an observable can send:
+Обработчик для получения наблюдаемых уведомлений реализует `Observer` Интерфейс . Это объект, который определяет методы обратного вызова для обработки трех типов уведомлений о том, что наблюдаемая может отправить:
 
-| Notification type | Description |
-|:---------|:-------------------------------------------|
-| `next`  | Required. A handler for each delivered value. Called zero or more times after execution starts.|
-| `error` | Optional. A handler for an error notification. An error halts execution of the observable instance.|
-| `complete` | Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.|
+| Тип уведомления | Описание |
+| --------- |: ------------------------------------- ------ |
+| `next` | Необходимые. Обработчик для каждого доставленного значения. Вызывается ноль или более раз после запуска выполнения.
+| `error` | Необязательный. Обработчик для уведомления об ошибке. Ошибка останавливает выполнение наблюдаемого экземпляра.
+| `complete` | Необязательный. Обработчик для уведомления о завершении выполнения. Задержанные значения могут продолжать доставляться следующему обработчику после завершения выполнения.
 
-An observer object can define any combination of these handlers. If you don't supply a handler for a notification type, the observer ignores notifications of that type.
+Объект-наблюдатель может определять любую комбинацию этих обработчиков. Если вы не предоставите обработчик для типа уведомления, наблюдатель игнорирует уведомления этого типа.
 
-## Subscribing
+{@a subscribing}
+## Подписавшись
 
-An `Observable` instance begins publishing values only when someone subscribes to it. You subscribe by calling the `subscribe()` method of the instance, passing an observer object to receive the notifications.
+ `Observable` экземпляр начинает публиковать значения только тогда, когда кто-то подписывается на него. Вы подписываетесь по телефону `subscribe()` Метод экземпляра, передающий объект-наблюдатель для получения уведомлений.
 
 <div class="alert is-helpful">
 
-In order to show how subscribing works, we need to create a new observable. There is a constructor that you use to create new instances, but for illustration, we can use some methods from the RxJS library that create simple observables of frequently used types:
+Чтобы показать, как работает подписка, нам нужно создать новую наблюдаемую. Существует конструктор, который можно использовать для создания новых экземпляров, но для иллюстрации, мы можем использовать некоторые методы из библиотеки RxJS, которые создают простые наблюдаемые часто используемые типов:
 
-  * `of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
-  * `from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
+  * `of(...items) ` возвращает ` Observable` экземпляр, который синхронно доставляет значения, представленные в качестве аргументов.
+  * `from(iterable)` преобразует свой аргумент в `Observable` экземпляр. Этот метод обычно используется для преобразования массива в наблюдаемый.
 
 </div>
 
-Here's an example of creating and subscribing to a simple observable, with an observer that logs the received message to the console:
+Вот пример создания и подписавшись на простом наблюдаемый с наблюдателем, который регистрирует принятое сообщение на консоль:
 
 <code-example
   path="observables/src/subscribing.ts"
   region="observer"
   header="Subscribe using observer"></code-example>
 
-Alternatively, the `subscribe()` method can accept callback function definitions in line, for `next`, `error`, and `complete` handlers. For example, the following `subscribe()` call is the same as the one that specifies the predefined observer:
+В качестве альтернативы `subscribe()` Метод может принимать определения функции обратного вызова в строке, для `next`, `error` и `complete` обработчики. Например, следующее `subscribe()` вызов такой же, как тот, который определяет предопределенный наблюдателя:
 
 <code-example path="observables/src/subscribing.ts" region="sub_fn" header="Subscribe with positional arguments"></code-example>
 
-In either case, a `next` handler is required. The `error` and `complete` handlers are optional.
+В любом случае, `next` Требуется обработчик. `error ` и ` complete` обработчики являются необязательными.
 
-Note that a `next()` function could receive, for instance, message strings, or event objects, numeric values, or structures, depending on context. As a general term, we refer to data published by an observable as a *stream*. Any type of value can be represented with an observable, and the values are published as a stream.
+Обратите внимание, что `next()` Функция может получать, например, строки сообщений или объекты событий, числовые значения или структуры, в зависимости от контекста. Как общий термин, мы ссылаемся на данные, публикуемые наблюдаемой как *поток*. Любой тип значения может быть представлен наблюдаемой, а значения публикуются в виде потока.
 
-## Creating observables
+{@a creating-observables}
+## Создание наблюдаемых
 
-Use the `Observable` constructor to create an observable stream of any type. The constructor takes as its argument the subscriber function to run when the observable’s `subscribe()` method executes. A subscriber function receives an `Observer` object, and can publish values to the observer's `next()` method.
+Использовать `Observable` конструктор для создания наблюдаемого потока любого типа. Конструктор принимает в качестве аргумента функцию подписчика, которая запускается, когда наблюдаемая `subscribe()` Метод выполняется. Функция подписчика получает `Observer` объект, и может публиковать значения в наблюдателя `next()` метод.
 
-For example, to create an observable equivalent to the `of(1, 2, 3)` above, you could do something like this:
+Например, чтобы создать наблюдаемый эквивалент `of(1, 2, 3)` выше, вы могли бы сделать что - то вроде этого:
 
 <code-example path="observables/src/creating.ts" region="subscriber" header="Create observable with constructor"></code-example>
 
-To take this example a little further, we can create an observable that publishes events. In this example, the subscriber function is defined inline.
+Чтобы продолжить этот пример, мы можем создать заметку, которая публикует события. В этом примере функция подписчика определяется встроенной.
 
 <code-example path="observables/src/creating.ts" region="fromevent" header="Create with custom fromEvent function"></code-example>
 
-Now you can use this function to create an observable that publishes keydown events:
+Теперь вы можете использовать эту функцию для создания наблюдаемого, который публикует KeyDown события:
 
 <code-example path="observables/src/creating.ts" region="fromevent_use" header="Use custom fromEvent function"></code-example>
 
-## Multicasting
+{@a multicasting}
+## Многоадресная рассылка
 
-A typical observable creates a new, independent execution for each subscribed observer. When an observer subscribes, the observable wires up an event handler and delivers values to that observer. When a second observer subscribes, the observable then wires up a new event handler and delivers values to that second observer in a separate execution.
+Типичная наблюдаемая создает новое, независимое выполнение для каждого подписанного наблюдателя. Когда наблюдатель подписывается, наблюдаемый подключает обработчик события и доставляет значения этому наблюдателю. Когда подписывается второй наблюдатель, наблюдаемая затем подключает новый обработчик событий и доставляет значения этому второму наблюдателю в отдельном исполнении.
 
-Sometimes, instead of starting an independent execution for each subscriber, you want each subscription to get the same values&mdash;even if values have already started emitting. This might be the case with something like an observable of clicks on the document object.
+Иногда вместо того, чтобы запускать независимое выполнение для каждого подписчика, вы хотите, чтобы каждая подписка получала одинаковые значения, даже если значения уже начали излучаться. Это может иметь место с чем-то вроде наблюдаемых кликов на объекте документа.
 
-*Multicasting* is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
+*Multicasting* это практика трансляции на список нескольких подписчиков в одном исполнении. Благодаря наблюдаемой многоадресной рассылке вы не регистрируете несколько прослушивателей в документе, а вместо этого повторно используете первый прослушиватель и отправляете значения каждому подписчику.
 
-When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values.
+При создании наблюдаемой вы должны определить, как вы хотите, чтобы эта наблюдаемая использовалась и хотите ли вы многоадресно передавать ее значения.
 
-Let’s look at an example that counts from 1 to 3, with a one-second delay after each number emitted.
+Давайте посмотрим на пример, который насчитывает от 1 до 3 с задержкой в ​​одну секунду после каждого испускаемого числа.
 
 <code-example path="observables/src/multicasting.ts" region="delay_sequence" header="Create a delayed sequence"></code-example>
 
-Notice that if you subscribe twice, there will be two separate streams, each emitting values every second. It looks something like this:
+Обратите внимание, что если вы подпишетесь дважды, будет два отдельных потока, каждый из которых будет выдавать значения каждую секунду. Это выглядит примерно так:
 
 <code-example path="observables/src/multicasting.ts" region="subscribe_twice" header="Two subscriptions"></code-example>
 
- Changing the observable to be multicasting could look something like this:
+Изменение наблюдаемого быть мультикастинг может выглядеть примерно так:
 
 <code-example path="observables/src/multicasting.ts" region="multicast_sequence" header="Create a multicast subscriber"></code-example>
 
 <div class="alert is-helpful">
-   Multicasting observables take a bit more setup, but they can be useful for certain applications. Later we will look at tools that simplify the process of multicasting, allowing you to take any observable and make it multicasting.
+   Набираемые параметры многоадресной рассылки требуют немного больше настройки, но они могут быть полезны для определенных приложений. Позже мы рассмотрим инструменты, которые упрощают процесс многоадресной рассылки, позволяя вам взять любое наблюдаемое и сделать его многоадресным.
 </div>
 
-## Error handling
+{@a error-handling}
+## Обработка ошибок
 
-Because observables produce values asynchronously, try/catch will not effectively catch errors. Instead, you handle errors by specifying an `error` callback on the observer. Producing an error also causes the observable to clean up subscriptions and stop producing values. An observable can either produce values (calling the `next` callback), or it can complete, calling either the `complete` or `error` callback.
+Поскольку наблюдаемые производят значения асинхронно, try / catch не будет эффективно отлавливать ошибки. Вместо этого вы обрабатываете ошибки, указывая `error` обратного вызова на наблюдателя. Создание ошибки также приводит к тому, что наблюдаемое очищает подписки и прекращает создавать значения. Наблюдаемый может производить значения (вызывая `next` обратный вызов), или он может завершиться, вызывая либо `complete` или `error` обратного вызова.
 
 <code-example>
 myObservable.subscribe({
@@ -116,4 +119,4 @@ myObservable.subscribe({
 });
 </code-example>
 
-Error handling (and specifically recovering from an error) is covered in more detail in a later section.
+Обработка ошибок (и, в частности, восстановление после ошибки) более подробно рассматривается в следующем разделе.

@@ -21,7 +21,7 @@ const _CORE_PLATFORM_PROVIDERS: StaticProvider[] = [
 ];
 
 /**
- * This platform has to be included in any other platform
+ * Эта платформа должна быть включена в любую другую платформу
  *
  * @publicApi
  */

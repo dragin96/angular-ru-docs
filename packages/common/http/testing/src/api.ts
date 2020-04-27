@@ -11,7 +11,7 @@ import {HttpRequest} from '@angular/common/http';
 import {TestRequest} from './request';
 
 /**
- * Defines a matcher for requests based on URL, method, or both.
+ * Определяет сопоставление для запросов на основе URL, метода или обоих.
  *
  * @publicApi
  */
@@ -21,8 +21,8 @@ export interface RequestMatch {
 }
 
 /**
- * Controller to be injected into tests, that allows for mocking and flushing
- * of requests.
+ * Контроллер должен быть введен в тесты, что позволяет для насмешки и промывки
+ * запросов.
  *
  * @publicApi
  */

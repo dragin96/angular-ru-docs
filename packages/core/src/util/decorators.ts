@@ -13,13 +13,13 @@ import {noSideEffects} from './closure';
 
 
 /**
- * An interface implemented by all Angular type decorators, which allows them to be used as
- * decorators as well as Angular syntax.
+ * Интерфейс, реализованный всеми декораторами Angular типа, который позволяет использовать их как
+ * декораторы, а также Angular синтаксис.
  *
- * ```
- * @ng.Component({...})
- * class MyClass {...}
- * ```
+ *  ```
+ *  @ng.Component({...})
+ *  class MyClass {...}
+ *  ```
  *
  * @publicApi
  */

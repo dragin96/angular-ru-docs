@@ -13,15 +13,15 @@ import {AngularProfiler} from './common_tools';
 const PROFILER_GLOBAL_NAME = 'profiler';
 
 /**
- * Enabled Angular debug tools that are accessible via your browser's
- * developer console.
+ * Включены инструменты Angular отладки, доступные через ваш браузер
+ * консоль разработчика.
  *
- * Usage:
+ * Использование:.
  *
- * 1. Open developer console (e.g. in Chrome Ctrl + Shift + j)
- * 1. Type `ng.` (usually the console will show auto-complete suggestion)
- * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
- *    then hit Enter.
+ *  1. Откройте консоль разработчика (например, в Chrome Ctrl + Shift + j)
+ *  1. Тип `ng.``ng.` (обычно консоль будет отображать предложение автозаполнения)
+ *  1. Попробуйте профилирование обнаружения изменений `ng.profiler.timeChangeDetection()`
+ * затем нажмите Enter.
  *
  * @publicApi
  */
@@ -31,7 +31,7 @@ export function enableDebugTools<T>(ref: ComponentRef<T>): ComponentRef<T> {
 }
 
 /**
- * Disables Angular tools.
+ * Отключает Angular инструменты.
  *
  * @publicApi
  */

@@ -18,12 +18,12 @@ export function createTitle() {
 }
 
 /**
- * A service that can be used to get and set the title of a current HTML document.
+ * Служба, которая может использоваться для получения и установки заголовка текущего HTML-документа.
  *
- * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
- * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
- * (representing the `<title>` tag). Instead, this service can be used to set and get the current
- * title value.
+ * Так как приложение Angular не может быть загружено во весь документ HTML (`<html>`)
+ * это невозможным связать с `text` имущества `HTMLTitleElement` элементов.
+ * (представляющий `<title>` тег заголовка). Вместо этого этот сервис можно использовать для установки и получения тока
+ * значение заголовка.
  *
  * @publicApi
  */

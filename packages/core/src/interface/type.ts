@@ -7,12 +7,12 @@
  */
 
 /**
- * @description
+ *  @description
  *
- * Represents a type that a Component or other object is instances of.
+ * Представляет тип, экземплярами которого являются Компонент или другой объект.
  *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
+ * Пример `Type` является `MyCustomComponent` класс, который в JavaScript является бытьпредставлен.
+ *  the `MyCustomComponent`функции конструктора MyCustomComponent.
  *
  * @publicApi
  */
@@ -23,9 +23,9 @@ export function isType(v: any): v is Type<any> {
 }
 
 /**
- * @description
+ *  @description
  *
- * Represents an abstract class `T`, if applied to a concrete class it would stop being
+ * Представляет абстрактный класс `T` , если его применить к конкретному классу, он перестанет быть
  * instantiatable.
  *
  * @publicApi

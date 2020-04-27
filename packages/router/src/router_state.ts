@@ -19,31 +19,31 @@ import {Tree, TreeNode} from './utils/tree';
 
 
 /**
- * Represents the state of the router as a tree of activated routes.
+ * Представляет состояние маршрутизатора в виде дерева активированных маршрутов.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * Every node in the route tree is an `ActivatedRoute` instance
- * that knows about the "consumed" URL segments, the extracted parameters,
- * and the resolved data.
- * Use the `ActivatedRoute` properties to traverse the tree from any node.
+ * Каждый узел в дереве маршрута является `ActivatedRoute` экземпляр
+ * который знает о «потребленных» URL сегментов, извлеченныхпараметров,.
+ * и разрешенные данные.
+ * Используйте `ActivatedRoute` свойствадля обхода дерева с любого узла.
  *
- * ### Example
+ *  ### Пример
  *
- * ```
- * @Component({templateUrl:'template.html'})
- * class MyComponent {
- *   constructor(router: Router) {
- *     const state: RouterState = router.routerState;
- *     const root: ActivatedRoute = state.root;
- *     const child = root.firstChild;
- *     const id: Observable<string> = child.params.map(p => p.id);
- *     //...
- *   }
- * }
- * ```
+ *  ```
+ *  @Component({templateUrl:'template.html'})
+ *  class MyComponent {
+ *    constructor(router: Router) {
+ *      const state: RouterState = router.routerState;
+ *      const root: ActivatedRoute = state.root;
+ *      const child = root.firstChild;
+ *      const id: Observable<string> = child.params.map(p => p.id);
+ *      //...
+ *    }
+ *  }
+ *  ```
  *
- * @see `ActivatedRoute`
+ *  @see `ActivatedRoute`
  *
  * @publicApi
  */
@@ -89,12 +89,12 @@ export function createEmptyStateSnapshot(
 }
 
 /**
- * Provides access to information about a route associated with a component
- * that is loaded in an outlet.
- * Use to traverse the `RouterState` tree and extract information from nodes.
+ * Предоставляет доступ к информации о маршруте, связанном с компонентом
+ * который загружен в розетку.
+ * Используется для обхода `RouterState` дереваи извлечения информации из узлов.
  *
- * {@example router/activated-route/module.ts region="activated-route"
- *     header="activated-route.component.ts"}
+ *  {@example router/activated-route/module.ts region="activated-route"
+ *      header="activated-route.component.ts"}
  *
  * @publicApi
  */
@@ -243,22 +243,22 @@ function flattenInherited(pathFromRoot: ActivatedRouteSnapshot[]): Inherited {
 }
 
 /**
- * @description
+ *  @description
  *
- * Contains the information about a route associated with a component loaded in an
- * outlet at a particular moment in time. ActivatedRouteSnapshot can also be used to
- * traverse the router state tree.
+ * Содержит информацию о маршруте, связанном с компонентом, загруженным в
+ * выход в конкретный момент времени. ActivatedRouteSnapshot также может быть использован для
+ * пройти через дерево состояний маршрутизатора.
  *
- * ```
- * @Component({templateUrl:'./my-component.html'})
- * class MyComponent {
- *   constructor(route: ActivatedRoute) {
- *     const id: string = route.snapshot.params.id;
- *     const url: string = route.snapshot.url.join('');
- *     const user = route.snapshot.data.user;
- *   }
- * }
- * ```
+ *  ```
+ *  @Component({templateUrl:'./my-component.html'})
+ *  class MyComponent {
+ *    constructor(route: ActivatedRoute) {
+ *      const id: string = route.snapshot.params.id;
+ *      const url: string = route.snapshot.url.join('');
+ *      const user = route.snapshot.data.user;
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -354,29 +354,29 @@ export class ActivatedRouteSnapshot {
 }
 
 /**
- * @description
+ *  @description
  *
- * Represents the state of the router at a moment in time.
+ * Представляет состояние маршрутизатора в данный момент времени.
  *
- * This is a tree of activated route snapshots. Every node in this tree knows about
- * the "consumed" URL segments, the extracted parameters, and the resolved data.
+ * Это дерево активированных снимков маршрута. Каждый узел в этом дереве знает о
+ * «потребленные» сегменты URL, извлеченные параметры и разрешенные данные.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```
- * @Component({templateUrl:'template.html'})
- * class MyComponent {
- *   constructor(router: Router) {
- *     const state: RouterState = router.routerState;
- *     const snapshot: RouterStateSnapshot = state.snapshot;
- *     const root: ActivatedRouteSnapshot = snapshot.root;
- *     const child = root.firstChild;
- *     const id: Observable<string> = child.params.map(p => p.id);
- *     //...
- *   }
- * }
- * ```
+ *  ```
+ *  @Component({templateUrl:'template.html'})
+ *  class MyComponent {
+ *    constructor(router: Router) {
+ *      const state: RouterState = router.routerState;
+ *      const snapshot: RouterStateSnapshot = state.snapshot;
+ *      const root: ActivatedRouteSnapshot = snapshot.root;
+ *      const child = root.firstChild;
+ *      const id: Observable<string> = child.params.map(p => p.id);
+ *      //...
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */

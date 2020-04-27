@@ -9,19 +9,19 @@ import {SimpleChanges} from './simple_change';
 
 
 /**
- * @description
- * A lifecycle hook that is called when any data-bound property of a directive changes.
- * Define an `ngOnChanges()` method to handle the changes.
+ *  @description
+ * Хук жизненного цикла, который вызывается при изменении любого привязанного к данным свойства директивы.
+ * Определите `ngOnChanges()` для обработки изменений.
  *
- * @see `DoCheck`
- * @see `OnInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `DoCheck`
+ *  @see `OnInit`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define an on-changes handler for an input property.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить обработчик изменений для входного свойства.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnChanges'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnChanges'}
  *
  * @publicApi
  */
@@ -37,19 +37,19 @@ export interface OnChanges {
 }
 
 /**
- * @description
- * A lifecycle hook that is called after Angular has initialized
- * all data-bound properties of a directive.
- * Define an `ngOnInit()` method to handle any additional initialization tasks.
+ *  @description
+ * Хук жизненного цикла, который вызывается после инициализации Angular
+ * все связанные с данными свойства директивы.
+ * Определите `ngOnInit()` для обработки любых дополнительных задач инициализации.
  *
- * @see `AfterContentInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `AfterContentInit`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define its own initialization method.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свой собственный метод инициализации.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnInit'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnInit'}
  *
  * @publicApi
  */
@@ -65,26 +65,26 @@ export interface OnInit {
 }
 
 /**
- * A lifecycle hook that invokes a custom change-detection function for a directive,
- * in addition to the check performed by the default change-detector.
+ * Хук жизненного цикла, который вызывает пользовательскую функцию обнаружения изменений для директивы
+ * в дополнение к проверке, выполненной детектором изменений по умолчанию.
  *
- * The default change-detection algorithm looks for differences by comparing
- * bound-property values by reference across change detection runs. You can use this
- * hook to check for and respond to changes by some other means.
+ * Алгоритм обнаружения изменений по умолчанию ищет различия путем сравнения
+ * значения связанных свойств по ссылке во время прогонов обнаружения изменений. Вы можете использовать это
+ * крючок для проверки и реагирования на изменения другими способами.
  *
- * When the default change detector detects changes, it invokes `ngOnChanges()` if supplied,
- * regardless of whether you perform additional change detection.
- * Typically, you should not use both `DoCheck` and `OnChanges` to respond to
- * changes on the same input.
+ * Когда детектор изменения по умолчанию обнаруживает изменения, он вызывает `ngOnChanges()` если,.
+ * независимо от того, выполняете ли вы дополнительное обнаружение изменений.
+ * правило, вы не должны использовать как `DoCheck` и `OnChanges` чтобыреагировать.
+ * изменения на том же входе.
  *
- * @see `OnChanges`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `OnChanges`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface
- * to invoke it own change-detection cycle.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * вызвать свой собственный цикл обнаружения изменений.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='DoCheck'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='DoCheck'}
  *
  * @publicApi
  */
@@ -100,16 +100,16 @@ export interface DoCheck {
 }
 
 /**
- * A lifecycle hook that is called when a directive, pipe, or service is destroyed.
- * Use for any custom cleanup that needs to occur when the
- * instance is destroyed.
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * Хук жизненного цикла, который вызывается при уничтожении директивы, канала или службы.
+ * Используйте для любой пользовательской очистки, которая должна произойти, когда
+ * Экземпляр уничтожен.
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface
- * to define its own custom clean-up method.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свой собственный метод очистки.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnDestroy'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnDestroy'}
  *
  * @publicApi
  */
@@ -122,20 +122,20 @@ export interface OnDestroy {
 }
 
 /**
- * @description
- * A lifecycle hook that is called after Angular has fully initialized
- * all content of a directive.
- * Define an `ngAfterContentInit()` method to handle any additional initialization tasks.
+ *  @description
+ * Хук жизненного цикла, который вызывается после полной инициализации Angular
+ * все содержание директивы.
+ * Определите `ngAfterContentInit()` для обработки любых дополнительных задач инициализации.
  *
- * @see `OnInit`
- * @see `AfterViewInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `OnInit`
+ *  @see `AfterViewInit`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define its own content initialization method.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свой метод инициализации контента.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterContentInit'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterContentInit'}
  *
  * @publicApi
  */
@@ -150,18 +150,18 @@ export interface AfterContentInit {
 }
 
 /**
- * @description
- * A lifecycle hook that is called after the default change detector has
- * completed checking all content of a directive.
+ *  @description
+ * Хук жизненного цикла, который вызывается после того, как детектор изменений по умолчанию имеет
+ * завершена проверка всего содержимого директивы.
  *
- * @see `AfterViewChecked`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `AfterViewChecked`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define its own after-check functionality.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свою собственную функцию после проверки.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterContentChecked'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterContentChecked'}
  *
  * @publicApi
  */
@@ -175,20 +175,20 @@ export interface AfterContentChecked {
 }
 
 /**
- * @description
- * A lifecycle hook that is called after Angular has fully initialized
- * a component's view.
- * Define an `ngAfterViewInit()` method to handle any additional initialization tasks.
+ *  @description
+ * Хук жизненного цикла, который вызывается после полной инициализации Angular
+ * вид компонента.
+ * Определите `ngAfterViewInit()` для обработки любых дополнительных задач инициализации.
  *
- * @see `OnInit`
- * @see `AfterContentInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `OnInit`
+ *  @see `AfterContentInit`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define its own view initialization method.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свой собственный метод инициализации представления.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterViewInit'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterViewInit'}
  *
  * @publicApi
  */
@@ -203,18 +203,18 @@ export interface AfterViewInit {
 }
 
 /**
- * @description
- * A lifecycle hook that is called after the default change detector has
- * completed checking a component's view for changes.
+ *  @description
+ * Хук жизненного цикла, который вызывается после того, как детектор изменений по умолчанию имеет
+ * завершена проверка вида компонента на наличие изменений.
  *
- * @see `AfterContentChecked`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *  @see `AfterContentChecked`
+ *  @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges)руководство
  *
- * @usageNotes
- * The following snippet shows how a component can implement this interface to
- * define its own after-check functionality.
+ *  @usageNotes
+ * В следующем фрагменте показано, как компонент может реализовать этот интерфейс
+ * определить свою собственную функцию после проверки.
  *
- * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterViewChecked'}
+ *  {@example core/ts/metadata/lifecycle_hooks_spec.ts region='AfterViewChecked'}
  *
  * @publicApi
  */

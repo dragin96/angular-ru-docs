@@ -10,10 +10,10 @@ import {HttpErrorResponse, HttpEvent, HttpHeaders, HttpRequest, HttpResponse} fr
 import {Observer} from 'rxjs';
 
 /**
- * A mock requests that was received and is ready to be answered.
+ * Макет запросов, которые были получены и готовы к ответу.
  *
- * This interface allows access to the underlying `HttpRequest`, and allows
- * responding with `HttpEvent`s or `HttpErrorResponse`s.
+ * Этот интерфейс разрешает доступ к базовому `HttpRequest` и разрешает
+ * отвечает `HttpEvent` s или `HttpErrorResponse` s.
  *
  * @publicApi
  */

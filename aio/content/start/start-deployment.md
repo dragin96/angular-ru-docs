@@ -1,91 +1,104 @@
-# Try it: Deployment
+{@a getting-started-with-angular-deployment}
+# Начало работы с Angular: Развертывание
 
 
-To deploy your application, you have to compile it, and then host the JavaScript, CSS, and HTML on a web server. Built Angular applications are very portable and can live in any environment or served by any technology, such as Node, Java, .NET, PHP, and many others.
+Чтобы развернуть ваше приложение, вы должны скомпилировать его, а затем разместить JavaScript, CSS и HTML на веб-сервере. Встроенные приложения Angular очень переносимы и могут работать в любой среде или обслуживаться любыми технологиями, такими как Node, Java,.NET, PHP и многими другими.
 
 <div class="alert is-helpful">
 
-Whether you came here directly from [Part 1](start "Try it: A basic app"), or completed the entire online store application through the [In-app navigation](start/start-routing "Try it: In-app navigation"), [Manage data](start/start-data "Try it: Manage data"), and [Forms for user input](start/start-forms "Try it: Forms for user input") sections, you have an application that you can deploy by following the instructions in this section.
+
+Независимо от того, пришли ли вы прямо из [вашего первого приложения](start "Getting Started: Your First App") или полностью заполнили приложение интернет-магазина с помощью [маршрутизация](start/start-routing "Getting Started: Routing"), [управление данными](start/start-data "Getting Started: Managing Data") и [формы](start/start-forms "Getting Started: Forms") разделы, у вас есть приложение, которое вы можете развернуть, следуя инструкциям в этом разделе.
+
 
 </div>
 
-## Share your application
+{@a share-your-application}
+## Поделитесь своей заявкой
 
-StackBlitz projects are public by default, allowing you to share your Angular app via the project URL. Keep in mind that this is a great way to share ideas and prototypes, but it is not intended for production hosting.
+Проекты StackBlitz по умолчанию являются общедоступными, что позволяет вам поделиться своим приложением Angular через URL проекта. Имейте в виду, что это отличный способ поделиться идеями и прототипами, но он не предназначен для производственного хостинга.
 
-1. In your StackBlitz project, make sure you have forked or saved your project.
-1. In the preview page, you should see a URL that looks like `https://<Project ID>.stackblitz.io`.
-1. Share this URL with a friend or colleague.
-1. Users that visit your URL will see a development server start up, and then your application will load.
+1. В своем проекте StackBlitz убедитесь, что вы разветвили или сохранили свой проект.
+1. На странице предварительного просмотра вы должны увидеть URL, который выглядит как `https://<Project ID>.stackblitz.io`.
+1. Поделитесь этим URL с другом или коллегой.
+1. Пользователи, которые посещают ваш URL, увидят запуск сервера разработки, а затем загрузится ваше приложение.
 
-## Building locally
+{@a building-locally}
+## Строим локально
 
-To build your application locally or for production, download the source code from your StackBlitz project by clicking the `Download Project` icon in the left menu across from `Project` to download your files.
+Чтобы создать приложение локально или для производства, загрузите исходный код из проекта StackBlitz, нажав `Download Project` значок в левом меню напротив `Project` для загрузки ваших файлов.
 
-Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or install `Node.js` and serve your app with the Angular CLI.
+После того, как исходный код загружен и распакован, используйте [Angular Console](https://angularconsole.com "Angular Console web site") для обслуживания приложения или установите `Node.js` и обслуживайте ваше приложение с помощью Angular CLI.
 
-From the terminal, install the Angular CLI globally with:
+От терминала, установить Angular CLI глобально с:
 
 ```sh
 npm install -g @angular/cli
 ```
 
-This installs the command `ng` on your system, which is the command you use to create new workspaces, new projects, serve your application during development, or produce builds to share or distribute.
+Это устанавливает команду `ng` в вашей системе - это команда, которую вы используете для создания новых рабочих пространств, новых проектов, обслуживания вашего приложения во время разработки или создания сборок для совместного использования или распространения.
 
-Create a new Angular CLI workspace using the [`ng new`](cli/new "CLI ng new command reference") command:
+Создать новую Angular CLI рабочее пространство с помощью [ `нг new` ](cli/new "CLI ng new command reference") команду:
 
 ```sh
 ng new my-project-name
 ```
 
-In your new CLI generated app, replace the `/src` folder with the one from your `StackBlitz` download, and then perform a build.
+В вашем новом сгенерированном приложении CLI замените `/src` папка с одним из ваших `StackBlitz`, а затем выполните сборку.
 
 ```sh
 ng build --prod
 ```
 
-This will produce the files that you need to deploy.
+Это создаст файлы, которые вам нужно развернуть.
 
 <div class="alert is-helpful">
 
-If the above `ng build` command throws an error about missing packages, append the missing dependencies in your local project's `package.json` file to match the one in the downloaded StackBlitz project.
+Если выше `ng build` Команда выдает ошибку об отсутствующих пакетах, добавляет отсутствующие зависимости в ваш локальный проект `package.json` Файл файлу в загруженном проекте StackBlitz.
 
 </div>
 
-#### Hosting the built project
+{@a hosting-the-built-project}
+#### Хостинг построенного проекта
 
-The files in the `dist/my-project-name` folder are static. This means you can host them on any web server capable of serving files (such as `Node.js`, Java, .NET), or any backend (such as Firebase, Google Cloud, or App Engine).
+Файлы в `dist/my-project-name` является статической. Это означает, что вы можете разместить их на любом веб-сервере, способном обслуживать файлы (например, `Node.js`, Java,.NET) или любой бэкэнд (такой как Firebase, Google Cloud или App Engine).
 
-### Hosting an Angular app on Firebase
+{@a hosting-an-angular-app-on-firebase}
+### Хостинг приложения Angular на Firebase
 
-One of the easiest ways to get your site live is to host it using Firebase.
+Один из самых простых способов оживить ваш сайт - разместить его на Firebase.
 
-1. Sign up for a firebase account on [Firebase](https://firebase.google.com/ "Firebase web site").
-1. Create a new project, giving it any name you like.
-1. Add the `@angular/fire` schematics that will handle your deployment using `ng add @angular/fire`.
-1. Connect your CLI to your Firebase account and initialize the connection to your project using `firebase login` and `firebase init`.
-1. Follow the prompts to select the `Firebase` project you are creating for hosting.
-    - Select the `Hosting` option on the first prompt.
-    - Select the project you previously created on Firebase.
-    - Select `dist/my-project-name` as the public directory.
-1. Deploy your application with `ng deploy`.
-1. Once deployed, visit https://your-firebase-project-name.firebaseapp.com to see it live!
+1. Зарегистрируйте учетную запись в [Firebase Firebase](https://firebase.google.com/ "Firebase web site").
+1. Создайте новый проект, присвоив ему любое имя.
+1. Добавить `@angular/fire` которые будут обрабатывать ваше развертывание, используя `ng add @angular/fire`.
+1. Подключите ваш CLI к вашей учетной записи Firebase и инициализируйте соединение с вашим проектом, используя `firebase login` и `firebase init`.
+1. Следуйте инструкциям, чтобы выбрать `Firebase` Проект который вы создаете для хостинга.
+    - Выберите `Hosting` Вариант в первой строке.
+    - Выберите проект, который вы ранее создали на Firebase.
+    - Выбрать `dist/my-project-name` как публичный каталог.
+1. Разверните ваше приложение с `ng deploy`.
+1. После развертывания посетите https://your-firebase-project-name.firebaseapp.com, чтобы увидеть его вживую!
 
-### Hosting an Angular app anywhere else
+{@a hosting-an-angular-app-anywhere-else}
+### Хостинг приложение Angular в другом месте
 
-To host an Angular app on another web host, upload or send the files to the host.
-Because you are building a single page application, you'll also need to make sure you redirect any invalid URLs to your `index.html` file.
-Read more about development and distribution of your application in the [Building & Serving](guide/build "Building and Serving Angular Apps") and [Deployment](guide/deployment "Deployment guide") guides.
+Чтобы разместить приложение Angular на другом веб-хосте, загрузите или отправьте файлы на хост.
+Поскольку вы создаете одностраничное приложение, вам также необходимо убедиться, что вы перенаправили все недействительные URL-адреса на ваш `index.html` файл.
+Подробнее о разработке и распространении вашего приложения читайте в руководствах [Сборка и обслуживание](guide/build "Building and Serving Angular Apps") и [Развертывание](guide/deployment "Deployment guide").
 
-## Join the Angular community
+{@a join-the-angular-community}
+## Присоединяйтесь к сообществу Angular
 
-You are now an Angular developer! [Share this moment](https://twitter.com/intent/tweet?url=https://angular.io/start&text=I%20just%20finished%20the%20Angular%20Getting%20Started%20Tutorial "Angular on Twitter"), tell us what you thought of this get-started exercise, or submit [suggestions for future editions](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form").
+Теперь вы являетесь разработчиком Angular! [Поделитесь этим моментом](https://twitter.com/intent/tweet?url=https://angular.io/start&text=I%20just%20finished%20the%20Angular%20Getting%20Started%20Tutorial "Angular on Twitter"), расскажите нам, что вы думаете об этом Приступая к работе, или отправьте [предложения для будущих выпусков](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form").
 
-Angular offers many more capabilities, and you now have a foundation that empowers you to build an application and explore those other capabilities:
+Angular предлагает гораздо больше возможностей, и теперь у вас есть фундамент, который дает вам возможность создавать приложения и исследовать другие возможности:
 
-* Angular provides advanced capabilities for mobile apps, animation, internationalization, server-side rendering, and more.
-* [Angular Material](https://material.angular.io/ "Angular Material web site") offers an extensive library of Material Design components.
-* [Angular Protractor](https://protractor.angular.io/ "Angular Protractor web site") offers an end-to-end testing framework for Angular apps.
-* Angular also has an extensive [network of 3rd-party tools and libraries](https://angular.io/resources "Angular resources list").
+* Angular предоставляет расширенные возможности для мобильных приложений, анимации, интернационализации, рендеринга на стороне сервера и многого другого.
+* [Angular Material](https://material.angular.io/ "Angular Material web site") предлагает обширную библиотеку компонентов Material Design.
+* [Angular Protractor](https://protractor.angular.io/ "Angular Protractor web site") предлагает комплексную среду тестирования для приложений Angular.
+* Angular также имеет обширную [сеть сторонних инструментов и библиотек](https://angular.io/resources "Angular resources list").
 
-Keep current by following the [Angular blog](https://blog.angular.io/ "Angular blog").
+Будьте в курсе, следуя [Angular блог](https://blog.angular.io/ "Angular blog").
+
+
+
+

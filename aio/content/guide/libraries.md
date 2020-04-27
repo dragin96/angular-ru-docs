@@ -1,37 +1,39 @@
-# Overview of Angular libraries
+{@a overview-of-angular-libraries}
+# Обзор библиотек Angular
 
-Many applications need to solve the same general problems, such as presenting a unified user interface, presenting data, and allowing data entry.
-Developers can create general solutions for particular domains that can be adapted for re-use in different apps.
-Such a solution can be built as Angular *libraries* and these libraries can be published and shared as *npm packages*.
+Многие приложения должны решать одни и те же общие проблемы, такие как представление унифицированного пользовательского интерфейса, представление данных и разрешение ввода данных.
+Разработчики могут создавать общие решения для конкретных доменов, которые можно адаптировать для повторного использования в различных приложениях.
+Такое решение может быть построено в виде Angular, *библиотек* и эти библиотеки могут публиковаться и совместно использоваться в виде *пакетов npm*.
 
-An Angular library is an Angular [project](guide/glossary#project) that differs from an app in that it cannot run on its own.
-A library must be imported and used in an app.
+Библиотека Angular - это Angular [проект](guide/glossary#project)который отличается от приложения тем, что не может работать самостоятельно.
+Библиотека должна быть импортирована и использована в приложении.
 
-Libraries extend Angular's base functionality. For example, to add [reactive forms](guide/reactive-forms) to an app, add the library package using `ng add @angular/forms`, then import the `ReactiveFormsModule` from the `@angular/forms` library in your application code.
-Similarly, adding the [service worker](guide/service-worker-intro) library to an Angular application is one of the steps for turning an application into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) (PWA).
-[Angular Material](https://material.angular.io/) is an example of a large, general-purpose library that provides sophisticated, reusable, and adaptable UI components.
+Библиотеки расширяют базовую функциональность Angular. Например, чтобы добавить [реактивные формы](guide/reactive-forms)в приложение, добавьте пакет библиотеки, используя `ng add @angular/forms`, затем импортируйте  `ReactiveFormsModule`  из  `@angular/forms`  Библиотека в коде вашего приложения.
+Аналогичным образом, добавление [работник службы](guide/service-worker-intro)библиотеки в приложение Angular является одним из шагов для превращения приложения в [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)(PWA).
+[Angular Material](https://material.angular.io/)является примером большой библиотеки общего назначения, которая предоставляет сложные, повторно используемые и адаптируемые компоненты пользовательского интерфейса.
 
-Any app developer can use these and other libraries that have been published as npm packages by the Angular team or by third parties. See [Using Published Libraries](guide/using-libraries).
+Любой разработчик приложения может использовать эти и другие библиотеки, которые были опубликованы в виде пакетов npm командой Angular или третьими лицами. Смотрите [Использование опубликованных библиотек](guide/using-libraries).
 
-## Creating libraries
+{@a creating-libraries}
+## Создание библиотек
 
-If you have developed functionality that is suitable for reuse, you can create your own libraries.
-These libraries can be used locally in your workspace, or you can publish them as [npm packages](guide/npm-packages) to share with other projects or other Angular developers.
-These packages can be published to the npm registry, a private npm Enterprise registry, or a private package management system that supports npm packages.
-See [Creating Libraries](guide/creating-libraries).
+Если вы разработали функциональность, которая подходит для повторного использования, вы можете создавать свои собственные библиотеки.
+Эти библиотеки могут использоваться локально в вашем рабочем пространстве, или вы можете опубликовать их как [пакеты npm](guide/npm-packages)чтобы поделиться с другими проектами или другими разработчиками Angular.
+Эти пакеты могут быть опубликованы в реестре npm, частном реестре npm Enterprise или в частной системе управления пакетами, которая поддерживает пакеты npm.
+Смотрите [Создание библиотек](guide/creating-libraries).
 
-Whether you decide to package functionality as a library is an architectural decision, similar to deciding whether a piece of functionality is a component or a service, or deciding on the scope of a component.
+Если вы решите упаковать функциональность как библиотеку, это архитектурное решение, аналогичное решению, является ли часть функциональности компонентом или службой, или определению области действия компонента.
 
-Packaging functionality as a library forces the artifacts in the library to be decoupled from the application's business logic.
-This can help to avoid various bad practices or architecture mistakes that can make it difficult to decouple and reuse code in the future.
+Функциональность упаковки как библиотеки заставляет артефакты в библиотеке отделяться от бизнес-логики приложения.
+Это может помочь избежать различных плохих практик или ошибок архитектуры, которые могут затруднить разделение и повторное использование кода в будущем.
 
-Putting code into a separate library is more complex than simply putting everything in one app.
-It requires more of an investment in time and thought for managing, maintaining, and updating the library.
-This complexity can pay off, however, when the library is being used in multiple apps.
+Поместить код в отдельную библиотеку сложнее, чем просто поместить все в одно приложение.
+Для управления, обслуживания и обновления библиотеки требуется больше затрат времени и усилий.
+Однако эта сложность может окупиться, когда библиотека используется в нескольких приложениях.
 
 <div class="alert is-helpful">
 
-Note that libraries are intended to be used by Angular apps.
-To add Angular functionality to non-Angular web apps, you can use [Angular custom elements](guide/elements).
+Обратите внимание, что библиотеки предназначены для использования приложениями Angular.
+Чтобы добавить функциональность Angular к веб-приложениям, отличным от Angular, вы можете использовать [пользовательские элементы Angular](guide/elements).
 
 </div>

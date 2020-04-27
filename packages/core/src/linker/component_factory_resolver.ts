@@ -34,12 +34,12 @@ class _NullComponentFactoryResolver implements ComponentFactoryResolver {
 }
 
 /**
- * A simple registry that maps `Components` to generated `ComponentFactory` classes
- * that can be used to create instances of components.
- * Use to obtain the factory for a given component type,
- * then use the factory's `create()` method to create a component of that type.
+ * Простой реестркоторый отображает `Components` для сгенерированных `ComponentFactory` классов
+ * это может быть использовано для создания экземпляров компонентов.
+ * Используйте для получения фабрики для данного типа компонента
+ * затем используйте фабричный `create()` методдля создания компонента этого типа.
  *
- * @see [Dynamic Components](guide/dynamic-component-loader)
+ *  @see [Динамические компоненты](guide/dynamic-component-loader)
  * @publicApi
  */
 export abstract class ComponentFactoryResolver {

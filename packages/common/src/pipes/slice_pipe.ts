@@ -10,37 +10,37 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Creates a new `Array` or `String` containing a subset (slice) of the elements.
+ * Создает новый `Array` или `String` содержащую подмножество (фрагмент) элементов.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * All behavior is based on the expected behavior of the JavaScript API `Array.prototype.slice()`
- * and `String.prototype.slice()`.
+ * Все поведение основано на ожидаемом поведении JavaScript API `Array.prototype.slice()`
+ * и `String.prototype.slice()`.
  *
- * When operating on an `Array`, the returned `Array` is always a copy even when all
- * the elements are being returned.
+ * При работе на `Array` Array, возвращаемый `Array` всегда копиядаже есливсе.
+ * элементы возвращаются.
  *
- * When operating on a blank value, the pipe returns the blank value.
+ * При работе с пустым значением канал возвращает пустое значение.
  *
- * ### List Example
+ *  ### Пример списка
  *
- * This `ngFor` example:
+ * Это `ngFor` пример:.
  *
- * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_list'}
+ *  {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_list'}
  *
- * produces the following:
+ * производитследующее:.
  *
- * ```html
- * <li>b</li>
- * <li>c</li>
- * ```
+ *  ```html
+ *  <li>b</li>
+ *  <li>c</li>
+ *  ```
  *
- * ### String Examples
+ *  ### Строковые примеры
  *
- * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
+ *  {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
  *
  * @publicApi
  */

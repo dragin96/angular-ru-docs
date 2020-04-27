@@ -7,7 +7,7 @@
  */
 
 /**
- * Type used for modifications to metadata
+ * Тип используется для модификации метаданных
  *
  * @publicApi
  */

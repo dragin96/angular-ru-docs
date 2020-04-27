@@ -1,44 +1,46 @@
-# Dependency injection in action
+{@a dependency-injection-in-action}
+# Внедрение зависимости в действии
 
-This section explores many of the features of dependency injection (DI) in Angular.
+В этом разделе рассматриваются многие функции внедрения зависимостей (DI) в Angular.
 {@a toc}
 
-See the <live-example name="dependency-injection-in-action"></live-example>
-of the code in this cookbook.
+Смотрите <live-example name="dependency-injection-in-action"></live-example>
+кода в этой кулинарной книге.
 
 {@a nested-dependencies}
 
-## Nested service dependencies
+{@a nested-service-dependencies}
+## Вложенные сервисные зависимости
 
-The _consumer_ of an injected service doesn't need to know how to create that service.
-It's the job of the DI framework to create and cache dependencies. The consumer just
-needs to let the DI framework know which dependencies it needs.
+_Consumer_ внедренного сервиса не должен знать, как создать этот сервис.
+Задача инфраструктуры DI - создавать и кэшировать зависимости. Потребитель просто
+необходимо сообщить структуре DI, какие зависимости ей нужны.
 
-Sometimes a service depends on other services, which may depend on yet other services.
-The dependency injection framework resolves these nested dependencies in the correct order.
-At each step, the consumer of dependencies declares what it requires in its
-constructor, and lets the framework provide them.
+Иногда услуга зависит от других услуг, которые могут зависеть от других услуг.
+Каркас внедрения зависимостей разрешает эти вложенные зависимости в правильном порядке.
+На каждом шаге потребитель зависимостей объявляет, что ему требуется в своем
+конструктор, и позволяет инфраструктуре предоставлять их.
 
-The following example shows that `AppComponent` declares its dependence on `LoggerService` and `UserContext`.
+Следующий пример показывает, что `AppComponent` заявляет о своей зависимости от `LoggerService` и `UserContext`.
 
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="ctor" header="src/app/app.component.ts"></code-example>
 
 
-`UserContext` in turn depends on both `LoggerService` and
-`UserService`, another service that gathers information about a particular user.
+ `UserContext` в свою очередь зависит от обоих `LoggerService` и
+ `UserService`, еще один сервис, который собирает информацию о конкретном пользователе.
 
 
 <code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectables" header="user-context.service.ts (injection)"></code-example>
 
 
-When Angular creates `AppComponent`, the DI framework creates an instance of `LoggerService` and starts to create `UserContextService`.
-`UserContextService` also needs `LoggerService`, which the framework already has, so the framework can provide the same instance. `UserContextService` also needs `UserService`, which the framework has yet to create. `UserService` has no further dependencies, so the framework can simply use `new` to instantiate the class and provide the instance to the `UserContextService` constructor.
+Когда Angular создает `AppComponent`, структура DI создает экземпляр `LoggerService` и начинает создавать `UserContextService`.
+ `UserContextService` также нуждается `LoggerService`, который уже имеется в фреймворке, поэтому фреймворк может предоставить тот же экземпляр. `UserContextService` также нуждается `UserService`, который фреймворк еще не создал. `UserService` не имеет дальнейших зависимостей, поэтому инфраструктура может просто использовать `new` чтобы создать экземпляр класса и предоставить экземпляр для `UserContextService` конструктор.
 
-The parent `AppComponent` doesn't need to know about the dependencies of dependencies.
-Declare what's needed in the constructor (in this case `LoggerService` and `UserContextService`)
-and the framework resolves the nested dependencies.
+Родитель `AppComponent` не должен знать о зависимостях зависимостей.
+Объявите, что нужно в конструкторе (в данном случае `LoggerService` и `UserContextService`)
+и каркас разрешает вложенные зависимости.
 
-When all dependencies are in place, `AppComponent` displays the user information.
+Когда все зависимости на месте, `AppComponent` отображает информацию о пользователе.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/logged-in-user.png" alt="Logged In User">
@@ -46,39 +48,40 @@ When all dependencies are in place, `AppComponent` displays the user information
 
 {@a service-scope}
 
-## Limit service scope to a component subtree
+{@a limit-service-scope-to-a-component-subtree}
+## Ограничьте область обслуживания для поддерева компонента
 
-An Angular application has multiple injectors, arranged in a tree hierarchy that parallels the component tree.
-Each injector creates a singleton instance of a dependency.
-That same instance is injected wherever that injector provides that service.
-A particular service can be provided and created at any level of the injector hierarchy,
-which means that there can be multiple instances of a service if it is provided by multiple injectors.
+Приложение Angular имеет несколько инжекторов, расположенных в виде иерархии дерева, которая параллельна дереву компонента.
+Каждый инжектор создает отдельный экземпляр зависимости.
+Тот же самый экземпляр вводится везде, где этот инжектор предоставляет эту услугу.
+Конкретная услуга может предоставляться и создаваться на любом уровне иерархии инжекторов
+это означает, что может быть несколько экземпляров службы, если она предоставляется несколькими инжекторами.
 
-Dependencies provided by the root injector can be injected into *any* component *anywhere* in the application.
-In some cases, you might want to restrict service availability to a particular region of the application.
-For instance, you might want to let users explicitly opt in to use a service,
-rather than letting the root injector provide it automatically.
+Зависимости, предоставляемые корневым инжектором, могут быть внедрены в *любой* компонент в *любом месте* приложения.
+В некоторых случаях вы можете захотеть ограничить доступность службы для определенного региона приложения.
+Например, вы можете захотеть, чтобы позволить пользователям явно OPT, чтобы воспользоваться услугой,
+вместо того, чтобы позволить корневому инжектору обеспечить его автоматически.
 
-You can limit the scope of an injected service to a *branch* of the application hierarchy
-by providing that service *at the sub-root component for that branch*.
-This example shows how to make a different instance of `HeroService` available to `HeroesBaseComponent`
-by adding it to the `providers` array of the `@Component()` decorator of the sub-component.
+Вы можете ограничить область действия внедренного сервиса до *ветви* иерархии приложения
+предоставляя эту услугу *в подчиненном компоненте для этой ветви*.
+В этом примере показано, как создать другой экземпляр `HeroService` доступен для `HeroesBaseComponent` 
+добавив его в `providers` массив `@Component()` декоратор подкомпонента.
 
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="injection" header="src/app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)">
 
 </code-example>
 
-When Angular creates `HeroesBaseComponent`, it also creates a new instance of `HeroService`
-that is visible only to that component and its children, if any.
+Когда Angular создает `HeroesBaseComponent`, он также создает новый экземпляр `HeroService` 
+это видно только этому компоненту и его дочерним элементам, если таковые имеются.
 
-You could also provide `HeroService` to a different component elsewhere in the application.
-That would result in a different instance of the service, living in a different injector.
+Вы также можете предоставить `HeroService` для другого компонента в другом месте приложения.
+Это привело бы к другому экземпляру службы, живущей в другом инжекторе.
 
 <div class="alert is-helpful">
 
-Examples of such scoped `HeroService` singletons appear throughout the accompanying sample code,
-including `HeroBiosComponent`, `HeroOfTheMonthComponent`, and `HeroesBaseComponent`.
-Each of these components has its own `HeroService` instance managing its own independent collection of heroes.
+Примеры таких областей применения `HeroService` появляются в сопровождающем примере кода
+включая `HeroBiosComponent`, `HeroOfTheMonthComponent`, и `HeroesBaseComponent`.
+Каждый из этих компонентов имеет свои `HeroService` управляет собственной независимой коллекцией героев.
 
 </div>
 
@@ -86,50 +89,51 @@ Each of these components has its own `HeroService` instance managing its own ind
 {@a multiple-service-instances}
 
 
-## Multiple service instances (sandboxing)
+{@a multiple-service-instances-sandboxing}
+## Несколько сервисных экземпляров (песочница)
 
-Sometimes you want multiple instances of a service at *the same level* of the component hierarchy.
+Иногда требуется несколько экземпляров службы на *одном уровне* иерархии компонентов.
 
-A good example is a service that holds state for its companion component instance.
-You need a separate instance of the service for each component.
-Each service has its own work-state, isolated from the service-and-state of a different component.
-This is called *sandboxing* because each service and component instance has its own sandbox to play in.
+Хорошим примером является служба, которая хранит состояние для своего экземпляра компонента-компаньона.
+Вам нужен отдельный экземпляр службы для каждого компонента.
+Каждый сервис имеет свое рабочее состояние, изолированное от сервиса и состояния другого компонента.
+Это называется *песочница* потому что каждый экземпляр службы и компонента имеет свою собственную песочницу для воспроизведения
 
 {@a hero-bios-component}
 
-In this example, `HeroBiosComponent` presents three instances of `HeroBioComponent`.
+В этом примере `HeroBiosComponent` представляет три экземпляра `HeroBioComponent`.
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="simple" header="ap/hero-bios.component.ts">
 
 </code-example>
 
 
-Each `HeroBioComponent` can edit a single hero's biography.
-`HeroBioComponent` relies on `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
+каждый `HeroBioComponent` может редактировать биографию одного героя.
+ `HeroBioComponent` опирается на `HeroCacheService` для извлечения, кэширования и выполнения других операций сохранения этого героя.
 
 <code-example path="dependency-injection-in-action/src/app/hero-cache.service.ts" region="service" header="src/app/hero-cache.service.ts">
 
 </code-example>
 
 
-Three instances of `HeroBioComponent` can't share the same instance of `HeroCacheService`,
-as they'd be competing with each other to determine which hero to cache.
+Три случая `HeroBioComponent` не может использовать один и тот же экземпляр `HeroCacheService`,
+поскольку они будут конкурировать друг с другом, чтобы определить, какого героя следует кэшировать.
 
-Instead, each `HeroBioComponent` gets its *own* `HeroCacheService` instance
-by listing `HeroCacheService` in its metadata `providers` array.
+Вместо этого каждый `HeroBioComponent` получает свой *собственный* `HeroCacheService` экземпляр
+по списку `HeroCacheService` в своих метаданных `providers` массив.
 
 <code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="component" header="src/app/hero-bio.component.ts">
 
 </code-example>
 
 
-The parent `HeroBiosComponent` binds a value to `heroId`.
-`ngOnInit` passes that ID to the service, which fetches and caches the hero.
-The getter for the `hero` property pulls the cached hero from the service.
-The template displays this data-bound property.
+Родитель `HeroBiosComponent` связывает значение с `heroId`.
+ `ngOnInit` передает этот идентификатор службе, которая выбирает и кэширует героя.
+Добытчик для `hero` Свойство тянет кэшированного героя со службы.
+Шаблон отображает это свойство с привязкой к данным.
 
-Find this example in <live-example name="dependency-injection-in-action">live code</live-example>
-and confirm that the three `HeroBioComponent` instances have their own cached hero data.
+Найдите этот пример в <live-example name="dependency-injection-in-action">живом коде </live-example>
+и подтвердить, что три `HeroBioComponent` имеют собственные кэшированные данные о героях.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios.png" alt="Bios">
@@ -137,89 +141,91 @@ and confirm that the three `HeroBioComponent` instances have their own cached he
 
 {@a qualify-dependency-lookup}
 
-## Qualify dependency lookup with parameter decorators
+{@a qualify-dependency-lookup-with-parameter-decorators}
+## Квалифицируйте поиск зависимостей с помощью декораторов параметров
 
-When a class requires a dependency, that dependency is added to the constructor as a parameter.
-When Angular needs to instantiate the class, it calls upon the DI framework to supply the dependency.
-By default, the DI framework searches for a provider in the injector hierarchy,
-starting at the component's local injector of the component, and if necessary bubbling up
-through the injector tree until it reaches the root injector.
+Когда класс требует зависимости, эта зависимость добавляется в конструктор в качестве параметра.
+Когда Angular необходимо создать экземпляр класса, он вызывает платформу DI для обеспечения зависимости.
+По умолчанию структура DI ищет поставщика в иерархии инжекторов
+начиная с локального инжектора компонента, и, если необходимо, пузырится
+через инжекторное дерево, пока не достигнет корневого инжектора.
 
-* The first injector configured with a provider supplies the dependency (a service instance or value) to the constructor.
+* Первый инжектор, настроенный с провайдером, предоставляет зависимость (экземпляр или значение службы) конструктору.
 
-* If no provider is found in the root injector, the DI framework throws an error.
+* Если в корневом инжекторе не найден поставщик, структура DI выдает ошибку.
 
-There are a number of options for modifying the default search behavior, using _parameter decorators_
-on the service-valued parameters of a class constructor.
+Существует ряд опций для изменения поведения поиска по умолчанию с использованием _parameter decorators_
+на служебные параметры конструктора класса.
 
 {@a optional}
 
-### Make a dependency `@Optional` and limit search with `@Host`
+{@a make-a-dependency-@optional-and-limit-search-with-@host}
+### Сделать зависимость `@Optional` и ограниченный поиск с `@Host` 
 
-Dependencies can be registered at any level in the component hierarchy.
-When a component requests a dependency, Angular starts with that component's injector
-and walks up the injector tree until it finds the first suitable provider.
-Angular throws an error if it can't find the dependency during that walk.
+Зависимости могут быть зарегистрированы на любом уровне в иерархии компонентов.
+Когда компонент запрашивает зависимость, Angular запускается с инжектора этого компонента
+и идет вверх по дереву инжектора, пока не найдет первого подходящего поставщика.
+Angular выдает ошибку, если не может найти зависимость во время этой прогулки.
 
-In some cases, you need to limit the search or accommodate a missing dependency.
-You can modify Angular's search behavior with the `@Host` and `@Optional` qualifying
-decorators on a service-valued parameter of the component's constructor.
+В некоторых случаях вам нужно ограничить поиск или учесть отсутствующую зависимость.
+Вы можете изменить поведение поиска Angular с помощью `@Host` и `@Optional` квалификация
+декораторы для служебного параметра конструктора компонента.
 
-* The `@Optional` property decorator tells Angular to return null when it can't find the dependency.
+* `@Optional` свойство decorator говорит Angular возвращать когда он не может найти зависимость.
 
-* The `@Host` property decorator stops the upward search at the *host component*.
-The host component is typically the component requesting the dependency.
-However, when this component is projected into a *parent* component,
-that parent component becomes the host. The following example covers this second case.
+* `@Host` свойства останавливает поиск вверх по*компоненту хоста *.
+Хост-компонент обычно является компонентом, запрашивающим зависимость.
+Однако, когда этот компонент проектируется в *родительский* компонент,
+этот родительский компонент становится хостом. Следующий пример охватывает этот второй случай.
 
-These decorators can be used individually or together, as shown in the example.
-This `HeroBiosAndContactsComponent` is a revision of `HeroBiosComponent` which you looked at [above](guide/dependency-injection-in-action#hero-bios-component).
+Эти декораторы могут использоваться по отдельности или вместе, как показано в примере.
+Эта `HeroBiosAndContactsComponent` представляет собой пересмотр `HeroBiosComponent` который вы смотрели [выше](guide/dependency-injection-in-action#hero-bios-component).
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="hero-bios-and-contacts" header="src/app/hero-bios.component.ts (HeroBiosAndContactsComponent)">
 
 </code-example>
 
-Focus on the template:
+Сосредоточиться на шаблоне
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="template" header="dependency-injection-in-action/src/app/hero-bios.component.ts"></code-example>
 
-Now there's a new `<hero-contact>` element between the `<hero-bio>` tags.
-Angular *projects*, or *transcludes*, the corresponding `HeroContactComponent` into the `HeroBioComponent` view,
-placing it in the `<ng-content>` slot of the `HeroBioComponent` template.
+Теперь есть новый `<hero-contact>` элемент между `<hero-bio>` теги.
+Angular *проекты*, или *заключает*, соответствующие `HeroContactComponent` в `HeroBioComponent` посмотреть,
+поместив его в `<ng-content>` слот `HeroBioComponent` шаблон.
 
 <code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="template" header="src/app/hero-bio.component.ts (template)"></code-example>
 
-The result is shown below, with the hero's telephone number from `HeroContactComponent` projected above the hero description.
+Результат показан ниже, с номером телефона героя из `HeroContactComponent` проецируется над описанием героя.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-and-content.png" alt="bio and contact">
 </div>
 
 
-Here's `HeroContactComponent`, which demonstrates the qualifying decorators.
+Вот `HeroContactComponent`, который демонстрирует отборочные декораторы.
 
 <code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="component" header="src/app/hero-contact.component.ts">
 
 </code-example>
 
-Focus on the constructor parameters.
+Сосредоточьтесь на параметрах конструктора.
 
 <code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="ctor-params" header="src/app/hero-contact.component.ts"></code-example>
 
-The `@Host()` function decorating the  `heroCache` constructor property ensures that
-you get a reference to the cache service from the parent `HeroBioComponent`.
-Angular throws an error if the parent lacks that service, even if a component higher
-in the component tree includes it.
+ `@Host()` украшающая `heroCache` конструктора обеспечивает это
+вы получаете ссылку на службу кэширования от родителя `HeroBioComponent`.
+Angular выдает ошибку, если родителю не хватает этого сервиса, даже если компонент выше
+в дереве компонентов это включено.
 
-A second `@Host()` function decorates the `loggerService` constructor property.
-The only `LoggerService` instance in the app is provided at the `AppComponent` level.
-The host `HeroBioComponent` doesn't have its own `LoggerService` provider.
+Второй `@Host()` украшает `loggerService` конструктора.
+Единственный `LoggerService` в приложении предоставляется на `AppComponent` Уровень.
+Гостья `HeroBioComponent` не имеет своего собственного `LoggerService` провайдер.
 
-Angular throws an error if you haven't also decorated the property with `@Optional()`.
-When the property is marked as optional, Angular sets `loggerService` to null and the rest of the component adapts.
+Angular выдает ошибку, если вы не украсили свойство `@Optional()`.
+Когда свойство помечено как необязательное, Angular наборы `loggerService` для нуля, а остальная часть компонента адаптируется.
 
 
-Here's `HeroBiosAndContactsComponent` in action.
+Вот `HeroBiosAndContactsComponent` в действии.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios-and-contacts.png" alt="Bios with contact into">
@@ -227,72 +233,75 @@ Here's `HeroBiosAndContactsComponent` in action.
 
 
 
-If you comment out the `@Host()` decorator, Angular walks up the injector ancestor tree
-until it finds the logger at the `AppComponent` level.
-The logger logic kicks in and the hero display updates
-with the "!!!" marker to indicate that the logger was found.
+Если вы закомментируете `@Host()` декоратор, Angular идет вверх по дереву предков инжекторов
+пока он не найдет регистратор на `AppComponent` Уровень.
+Логика логгера включается и герой отображает обновления
+с "!!!" маркер, чтобы указать, что регистратор был найден.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-contact-no-host.png" alt="Without @Host">
 </div>
 
 
-If you restore the `@Host()` decorator and comment out `@Optional`,
-the app throws an exception when it cannot find the required logger at the host component level.
+Если вы восстановите `@Host()` декоратор и закомментируйте `@Optional`,
+приложение выдает исключение, когда не может найти требуемый регистратор на уровне компонента хоста.
 
-`EXCEPTION: No provider for LoggerService! (HeroContactComponent -> LoggerService)`
+ `EXCEPTION: No provider for LoggerService! (HeroContactComponent -> LoggerService)` 
 
-### Supply a custom provider with `@Inject`
+{@a supply-a-custom-provider-with-@inject}
+### Поставляем нестандартного провайдера `@Inject` 
 
-Using a custom provider allows you to provide a concrete implementation for implicit dependencies, such as built-in browser APIs. The following example uses an `InjectionToken` to provide the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) browser API as a dependency in the `BrowserStorageService`.
+Использование настраиваемого поставщика позволяет предоставить конкретную реализацию для неявных зависимостей, таких как встроенные API-интерфейсы браузера. В следующем примере используется `InjectionToken` для предоставления [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)API браузера в качестве зависимости в `BrowserStorageService`.
 
 <code-example path="dependency-injection-in-action/src/app/storage.service.ts" header="src/app/storage.service.ts">
 
 </code-example>
 
-The `factory` function returns the `localStorage` property that is attached to the browser window object. The `Inject` decorator is a constructor parameter used to specify a custom provider of a dependency. This custom provider can now be overridden during testing with a mock API of `localStorage` instead of interacting with real browser APIs.
+ `factory` функция возвращает `localStorage`, которое прикреплено к объекту окна браузера. `Inject` decorator - это параметр конструктора, используемый для указания пользовательского поставщика зависимости. Этот пользовательский поставщик теперь может быть переопределен во время тестирования с фиктивным API `localStorage` вместо взаимодействия с реальными браузерными API.
 
 {@a skip}
 
-### Modify the provider search with `@Self` and `@SkipSelf`
+{@a modify-the-provider-search-with-@self-and-@skipself}
+### Изменить поиск поставщика с `@Self` и `@SkipSelf` 
 
-Providers can also be scoped by injector through constructor parameter decorators. The following example overrides the `BROWSER_STORAGE` token in the `Component` class `providers` with the `sessionStorage` browser API. The same `BrowserStorageService` is injected twice in the constructor, decorated with `@Self` and `@SkipSelf` to define which injector handles the provider dependency.
+Поставщик также может ограничивать область действия инжектора через декораторы параметров конструктора. Следующий пример переопределяет `BROWSER_STORAGE` в `Component` Класс `providers ` с ` sessionStorage` API браузера . Такой же `BrowserStorageService` вводится дважды в конструктор, украшенный `@Self` и `@SkipSelf` чтобы определить, какой инжектор обрабатывает зависимость поставщика.
 
 <code-example path="dependency-injection-in-action/src/app/storage.component.ts" header="src/app/storage.component.ts">
 
 </code-example>
 
-Using the `@Self` decorator, the injector only looks at the component's injector for its providers. The `@SkipSelf` decorator allows you to skip the local injector and look up in the hierarchy to find a provider that satisfies this dependency. The `sessionStorageService` instance interacts with the `BrowserStorageService` using the `sessionStorage` browser API, while the `localStorageService` skips the local injector and uses the root `BrowserStorageService` that uses the `localStorage` browser API.
+С использованием `@Self` декоратор, инжектор смотрит только на инжектор компонента для своих провайдеров. `@SkipSelf` Декоратор позволяет пропускать локальный инжектор и искать в иерархии, чтобы найти поставщика, который удовлетворяет этой зависимости. `sessionStorageService` взаимодействует с `BrowserStorageService` с использованием `sessionStorage` API браузера, в то время как `localStorageService` пропускает локальный инжектор и использует рут `BrowserStorageService` который использует `localStorage` API браузера.
 
 {@a component-element}
 
-## Inject the component's DOM element
+{@a inject-the-components-dom-element}
+## Вставить элемент DOM компонента
 
-Although developers strive to avoid it, many visual effects and third-party tools, such as jQuery,
-require DOM access.
-As a result, you might need to access a component's DOM element.
+Хотя разработчики стремятся избежать этого, много визуальных эффектов и сторонних инструментов, таких как JQuery,
+требуется доступ DOM.
+В результате вам может понадобиться доступ к элементу DOM компонента.
 
-To illustrate, here's a simplified version of `HighlightDirective` from
-the [Attribute Directives](guide/attribute-directives) page.
+Чтобы проиллюстрировать, вот упрощенная версия `HighlightDirective` от
+[Директивы атрибутов](guide/attribute-directives)стр.
 
 <code-example path="dependency-injection-in-action/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts">
 
 </code-example>
 
-The directive sets the background to a highlight color when the user mouses over the
-DOM element to which the directive is applied.
+Директива устанавливает цвет фона для выделения, когда пользователь наводит курсор на
+Элемент DOM, к которому применяется директива.
 
-Angular sets the constructor's `el` parameter to the injected `ElementRef`.
-(An `ElementRef` is a wrapper around a DOM element,
-whose `nativeElement` property exposes the DOM element for the directive to manipulate.)
+Angular множества конструктора `el` Параметр к введенному `ElementRef`.
+(An `ElementRef` - это оболочка для элемента DOM
+чья `nativeElement` предоставляет элемент DOM для работы с директивой.)
 
-The sample code applies the directive's `myHighlight` attribute to two `<div>` tags,
-first without a value (yielding the default color) and then with an assigned color value.
+В примере кода применяется директива `myHighlight` атрибут для двух `<div>` теги
+сначала без значения (получая цвет по умолчанию), а затем с назначенным значением цвета.
 
 <code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" header="src/app/app.component.html (highlight)"></code-example>
 
 
-The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
+На следующем изображении показан эффект наложения мыши на `<hero-bios-and-contacts>` тэг.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
@@ -301,176 +310,181 @@ The following image shows the effect of mousing over the `<hero-bios-and-contact
 {@a providers}
 
 
-## Define dependencies with providers
+{@a define-dependencies-with-providers}
+## Определите зависимости с поставщиками
 
-This section demonstrates how to write providers that deliver dependent services.
+В этом разделе показано, как написать поставщиков, которые предоставляют зависимые услуги.
 
-In order to get a service from a dependency injector, you have to give it a [token](guide/glossary#token).
-Angular usually handles this transaction by specifying a constructor parameter and its type.
-The parameter type serves as the injector lookup token.
-Angular passes this token to the injector and assigns the result to the parameter.
+Чтобы получить сервис от инжектора зависимостей, вы должны дать ему [токен](guide/glossary#token).
+Angular обычно обрабатывает эту транзакцию, указывая параметр конструктора и его тип.
+Тип параметра служит токеном поиска инжектора.
+Angular передает этот токен инжектору и присваивает результат параметру.
 
-The following is a typical example.
+Ниже приведен типичный пример.
 
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" header="src/app/hero-bios.component.ts (component constructor injection)"></code-example>
 
 
-Angular asks the injector for the service associated with `LoggerService`
-and assigns the returned value to the `logger` parameter.
+Angular просит инжектор для обслуживания, связанного с `LoggerService` 
+и присваивает возвращаемое значение `logger` параметр.
 
-If the injector has already cached an instance of the service associated with the token,
-it provides that instance.
-If it doesn't, it needs to make one using the provider associated with the token.
+Если форсунка уже кэшируются экземпляр службы, связанный с маркером,
+это обеспечивает тот экземпляр.
+Если этого не произойдет, его нужно будет сделать с помощью провайдера, связанного с токеном.
 
 <div class="alert is-helpful">
 
-If the injector doesn't have a provider for a requested token, it delegates the request
-to its parent injector, where the process repeats until there are no more injectors.
-If the search fails, the injector throws an error&mdash;unless the request was [optional](guide/dependency-injection-in-action#optional).
+Если у инжектора нет провайдера для запрошенного токена, он делегирует запрос
+в родительский инжектор, где процесс повторяется до тех пор, пока не останется больше инжекторов.
+Если поиск не удается, инжектор выдает ошибку - если запрос не был [необязательно](guide/dependency-injection-in-action#optional).
 
 
 </div>
 
-A new injector has no providers.
-Angular initializes the injectors it creates with a set of preferred providers.
-You have to configure providers for your own app-specific dependencies.
+Новый инжектор не имеет поставщиков.
+Angular инициализирует созданные инжекторы с набором предпочтительных поставщиков.
+Вы должны настроить провайдеров для своих собственных зависимых от приложения зависимостей.
 
 
 {@a defining-providers}
 
 
-### Defining providers
+{@a defining-providers}
+### Определение провайдеров
 
-A dependency can't always be created by the default method of instantiating a class.
-You learned about some other methods in [Dependency Providers](guide/dependency-injection-providers).
-The following `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why you need them.
-It's visually simple: a few properties and the logs produced by a logger.
+Зависимость не всегда может быть создана методом по умолчанию для создания экземпляра класса.
+Вы узнали о некоторых других методах в [Поставщики зависимостей](guide/dependency-injection-providers).
+Последующий `HeroOfTheMonthComponent` демонстрирует многие из альтернатив и почему они вам нужны.
+Это визуально просто: несколько свойств и журналы, созданные регистратором.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-of-month.png" alt="Hero of the month">
 </div>
 
-The code behind it customizes how and where the DI framework provides dependencies.
-The use cases illustrate different ways to use the [*provide* object literal](guide/dependency-injection-providers#provide) to associate a definition object with a DI token.
+Код позади него настраивает, как и где структура DI обеспечивает зависимости.
+Варианты использования иллюстрируют различные способы использования [* обеспечить* литерал объекта](guide/dependency-injection-providers#provide)для связывания объекта определения с маркером DI.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="hero-of-the-month" header="hero-of-the-month.component.ts">
 
 </code-example>
 
-The `providers` array shows how you might use the different provider-definition keys;
-`useValue`, `useClass`, `useExisting`, or `useFactory`.
+ `providers` Массив показывает, как вы можете использовать разные ключи определения провайдера;
+ `useValue `, ` useClass `, ` useExisting ` или ` useFactory`.
 
 {@a usevalue}
 
 
-#### Value providers: `useValue`
+{@a value-providers-usevalue}
+#### Значение провайдеров: `useValue` 
 
-The `useValue` key lets you associate a fixed value with a DI token.
-Use this technique to provide *runtime configuration constants* such as website base addresses and feature flags.
-You can also use a value provider in a unit test to provide mock data in place of a production data service.
+ `useValue` Ключ позволяет связать фиксированное значение с маркером DI.
+Используйте этот метод для предоставления *констант конфигурации времени выполнения,* таких как базовые адреса веб-сайтов и флаги функций.
+Вы также можете использовать провайдера значений в модульном тесте для предоставления фиктивных данных вместо службы производственных данных.
 
-The `HeroOfTheMonthComponent` example has two value providers.
+ `HeroOfTheMonthComponent` имеет двух поставщиков значений.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-value" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
-* The first provides an existing instance of the `Hero` class to use for the `Hero` token, rather than
-requiring the injector to create a new instance with `new` or use its own cached instance.
-Here, the token is the class itself.
+* Первый обеспечивает существующий экземпляр `Hero` Класс чтобы использовать для `Hero` жетон, а не
+требуя инжектор для создания нового экземпляра с `new` или использовать собственный кэшированный экземпляр.
+Здесь токен - это сам класс.
 
-* The second specifies a literal string resource to use for the `TITLE` token.
-The `TITLE` provider token is *not* a class, but is instead a
-special kind of provider lookup key called an [injection token](guide/dependency-injection-in-action#injection-token), represented by
-an `InjectionToken` instance.
+* Второе указывает ресурс литеральной строки, который будет использоваться для `TITLE` токена.
+ `TITLE` Маркер провайдера - это *не* класс, а вместо этого
+специальный вид ключа поиска поставщика, называемый [токен инъекции](guide/dependency-injection-in-action#injection-token), представленный как
+ `InjectionToken` экземпляр.
 
-You can use an injection token for any kind of provider but it's particularly
-helpful when the dependency is a simple value like a string, a number, or a function.
+Вы можете использовать токен для любого поставщика, но это особенно важно
+полезно, когда зависимость представляет собой простое значение, такое как строка, число или функция.
 
-The value of a *value provider* must be defined before you specify it here.
-The title string literal is immediately available.
-The `someHero` variable in this example was set earlier in the file as shown below.
-You can't use a variable whose value will be defined later.
+Значение *поставщика значения* должны быть определены, прежде чем указать его здесь.
+Строка литерала заголовка доступна сразу.
+ `someHero` Переменная в этом примере была установлена ​​ранее в файле, как показано ниже.
+Вы не можете использовать переменную, значение которой будет определено позже.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="some-hero" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
 
-Other types of providers can create their values *lazily*; that is, when they're needed for injection.
+Другие типы провайдеров могут создавать свои ценности *лениво*; то есть когда они нужны для инъекции.
 
 {@a useclass}
 
 
-#### Class providers: `useClass`
+{@a class-providers-useclass}
+#### Класс провайдеров: `useClass` 
 
-The `useClass` provider key lets you create and return a new instance of the specified class.
+ `useClass` поставщика позволяет создавать и возвращать новый экземпляр указанного класса.
 
-You can use this type of provider to substitute an *alternative implementation*
-for a common or default class.
-The alternative implementation could, for example, implement a different strategy,
-extend the default class, or emulate the behavior of the real class in a test case.
+Вы можете использовать этот тип поставщика для замены *альтернативной реализации*
+для общего класса или класса по умолчанию.
+Альтернативная реализация может, например, реализовать другую стратегию
+расширить класс по умолчанию или эмулировать поведение реального класса в тестовом примере.
 
-The following code shows two examples in `HeroOfTheMonthComponent`.
+Следующий код показывает два примера в `HeroOfTheMonthComponent`.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-class" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
-The first provider is the *de-sugared*, expanded form of the most typical case in which the
-class to be created (`HeroService`) is also the provider's dependency injection token.
-The short form is generally preferred; this long form makes the details explicit.
+Первым провайдером является *обезвоженная*, расширенная форма наиболее типичного случая, в котором
+класс, который будет создан (`HeroService`) также является токеном внедрения зависимостей провайдера.
+Короткая форма обычно предпочтительна; эта длинная форма делает детали явными.
 
-The second provider substitutes `DateLoggerService` for `LoggerService`.
-`LoggerService` is already registered at the `AppComponent` level.
-When this child component requests `LoggerService`, it receives a `DateLoggerService` instance instead.
+Второй провайдер заменяет `DateLoggerService` для `LoggerService`.
+ `LoggerService` уже зарегистрирован на `AppComponent` Уровень.
+Когда этот дочерний компонент запрашивает `LoggerService`, он получает `DateLoggerService` экземпляр.
 
 <div class="alert is-helpful">
 
-This component and its tree of child components receive `DateLoggerService` instance.
-Components outside the tree continue to receive the original `LoggerService` instance.
+Этот компонент и его дерево дочерних компонентов получают `DateLoggerService`.
+Компоненты вне дерева продолжают получать оригинал `LoggerService`.
 
 </div>
 
-`DateLoggerService` inherits from `LoggerService`; it appends the current date/time to each message:
+ `DateLoggerService` наследуется от `LoggerService` ; он добавляет текущую дату / время для каждого сообщения:
 
 <code-example path="dependency-injection-in-action/src/app/date-logger.service.ts" region="date-logger-service" header="src/app/date-logger.service.ts"></code-example>
 
 {@a useexisting}
 
-#### Alias providers: `useExisting`
+{@a alias-providers-useexisting}
+#### Поставщики псевдонимов: `useExisting` 
 
-The `useExisting` provider key lets you map one token to another.
-In effect, the first token is an *alias* for the service associated with the second token,
-creating two ways to access the same service object.
+ `useExisting` провайдера позволяет сопоставить один токен с другим.
+По сути, первый токен является *псевдонимом* для службы, связанной со вторым токеном
+создание двух способов доступа к одному и тому же объекту службы.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-existing" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
 
-You can use this technique to narrow an API through an aliasing interface.
-The following example shows an alias introduced for that purpose.
+Вы можете использовать эту технику для сужения API через интерфейс псевдонимов.
+В следующем примере показан псевдоним, введенный для этой цели.
 
-Imagine that `LoggerService` had a large API, much larger than the actual three methods and a property.
-You might want to shrink that API surface to just the members you actually need.
-In this example, the `MinimalLogger` [class-interface](#class-interface) reduces the API to two members:
+Представьте себе, что `LoggerService` имеет большой API, намного больший, чем три фактических метода и свойство.
+Возможно, вы захотите уменьшить эту поверхность API только до тех членов, которые вам действительно нужны.
+В этом примере `MinimalLogger` [класс-интерфейс](#class-interface)уменьшает API для двух членов:
 
 
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="src/app/minimal-logger.service.ts"></code-example>
 
-The following example puts `MinimalLogger` to use in a simplified version of `HeroOfTheMonthComponent`.
+В следующем примере `MinimalLogger` для использования в упрощенной версии `HeroOfTheMonthComponent`.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.1.ts" header="src/app/hero-of-the-month.component.ts (minimal version)"></code-example>
 
-The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `MinimalLogger`, so only the `logs` and `logInfo` members are visible in a TypeScript-aware editor.
+ `HeroOfTheMonthComponent ` конструктор ` logger` параметр набирается как `MinimalLogger`, так что только `logs` и `logInfo` Члены видны в редакторе с поддержкой TypeScript.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger restricted API">
 </div>
 
 
-Behind the scenes, Angular sets the `logger` parameter to the full service registered under the `LoggingService` token, which happens to be the `DateLoggerService` instance that was [provided above](guide/dependency-injection-in-action#useclass).
+За кулисами Angular устанавливает `logger` параметр для полного сервиса, зарегистрированного под `LoggingService`, который является `DateLoggerService` который был [предоставлен выше](guide/dependency-injection-in-action#useclass).
 
 
 <div class="alert is-helpful">
 
-This is illustrated in the following image, which displays the logging date.
+Это показано на следующем рисунке, на котором показана дата регистрации.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/date-logger-entry.png" alt="DateLoggerService entry">
@@ -480,110 +494,113 @@ This is illustrated in the following image, which displays the logging date.
 
 {@a usefactory}
 
-#### Factory providers: `useFactory`
+{@a factory-providers-usefactory}
+#### Фабрика поставщиков: `useFactory` 
 
-The `useFactory` provider key lets you create a dependency object by calling a factory function,
-as in the following example.
+ `useFactory` поставщика позволяет создать объект зависимости, вызвав функцию фабрики
+как в следующем примере.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-factory" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
 
-The injector provides the dependency value by invoking a factory function,
-that you provide as the value of the `useFactory` key.
-Notice that this form of provider has a third key, `deps`, which specifies
-dependencies for the `useFactory` function.
+Инжектор обеспечивает значение зависимостей путем применения функции фабрики,
+что вы предоставляете в качестве значения `useFactory` ключ.
+Обратите внимание, что эта форма поставщика имеет третий ключ, `deps`, который указывает
+зависимости для `useFactory` Функция.
 
-Use this technique to create a dependency object with a factory function
-whose inputs are a combination of *injected services* and *local state*.
+Используйте эту технику для создания объекта зависимости с фабричной функцией
+чьи входы являются комбинацией *введенных услуг* и *местного государства*.
 
-The dependency object (returned by the factory function) is typically a class instance,
-but can be other things as well.
-In this example, the dependency object is a string of the names of the runners up
-to the "Hero of the Month" contest.
+Объект зависимости (возвращаемый фабричной функцией) обычно является экземпляром класса
+но могут быть и другие вещи.
+В этом примере объект зависимости - это строка имен участников, занявших второе место
+на конкурс «Герой месяца».
 
-In the example, the local state is the number `2`, the number of runners up that the component should show.
-The state value is passed as an argument to `runnersUpFactory()`.
-The `runnersUpFactory()` returns the *provider factory function*, which can use both
-the passed-in state value and the injected services `Hero` and `HeroService`.
+В данном примере местное состояние - это число `2`, количество участников, которые должен показывать компонент.
+Значение состояния передается в качестве аргумента `runnersUpFactory()`.
+ `runnersUpFactory()` возвращает *функцию фабрики провайдера*, которая может использовать оба
+переданное значение состояния и введенные услуги `Hero` и `HeroService`.
 
 
 <code-example path="dependency-injection-in-action/src/app/runners-up.ts" region="factory-synopsis" header="runners-up.ts (excerpt)"></code-example>
 
-The provider factory function (returned by `runnersUpFactory()`) returns the actual dependency object,
-the string of names.
+Функция фабрики провайдера (возвращается `runnersUpFactory()` ) возвращает реальный объект зависимостей,
+Строка имен.
 
-* The function takes a winning `Hero` and a `HeroService` as arguments.
-Angular supplies these arguments from injected values identified by
-the two *tokens* in the `deps` array.
+* Функция берет выигрыш `Hero` и `HeroService` качестве аргументов.
+Angular предоставляет эти аргументы из введенных значений, обозначенных
+два *жетона* в `deps` массив
 
-* The function returns the string of names, which Angular than injects into
-the `runnersUp` parameter of `HeroOfTheMonthComponent`.
+* Функция возвращает строку имен, в которую вводит Angular
+ `runnersUp` Параметр из `HeroOfTheMonthComponent`.
 
 <div class="alert is-helpful">
 
-The function retrieves candidate heroes from the `HeroService`,
-takes `2` of them to be the runners-up, and returns their concatenated names.
-Look at the <live-example name="dependency-injection-in-action"></live-example>
-for the full source code.
+Функция извлекает героев-кандидатов из `HeroService`,
+принимает `2` из них должны быть на втором месте, и возвращает их объединенные имена.
+Посмотрите на <live-example name="dependency-injection-in-action"></live-example>
+для полного исходного кода.
 
 </div>
 
 {@a tokens}
 
-## Provider token alternatives: class interface and 'InjectionToken'
+{@a provider-token-alternatives-class-interface-and-injectiontoken}
+## Альтернативы токенов провайдера: интерфейс класса и InjectionToken
 
-Angular dependency injection is easiest when the provider token is a class
-that is also the type of the returned dependency object, or service.
+Внедрение Angular зависимости проще всего, когда токен провайдера является классом
+это также тип возвращаемого объекта зависимости или службы.
 
-However, a token doesn't have to be a class and even when it is a class,
-it doesn't have to be the same type as the returned object.
-That's the subject of the next section.
+Однако токен не обязательно должен быть классом, даже если это класс
+он не должен быть того же типа, что и возвращаемый объект.
+Это тема следующего раздела.
 {@a class-interface}
 
-### Class interface
+{@a class-interface}
+### Интерфейс класса
 
-The previous *Hero of the Month* example used the `MinimalLogger` class
-as the token for a provider of `LoggerService`.
+В предыдущем « *Герой месяца»* примере использовался `MinimalLogger` Класс
+как знак для провайдера `LoggerService`.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-existing" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
 
-`MinimalLogger` is an abstract class.
+ `MinimalLogger` - абстрактный класс.
 
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="dependency-injection-in-action/src/app/minimal-logger.service.ts"></code-example>
 
-An abstract class is usually a base class that you can extend.
-In this app, however there is no class that inherits from `MinimalLogger`.
-The `LoggerService` and the `DateLoggerService` could have inherited from `MinimalLogger`,
-or they could have implemented it instead, in the manner of an interface.
-But they did neither.
-`MinimalLogger` is used only as a dependency injection token.
+Абстрактный класс - это обычно базовый класс, который вы можете расширить.
+В этом приложении, однако, нет класса, который наследует от `MinimalLogger`.
+ `LoggerService ` и ` DateLoggerService` мог унаследовать от `MinimalLogger`,
+или они могли бы реализовать это вместо этого в виде интерфейса.
+Но они не сделали ни того, ни другого.
+ `MinimalLogger` используется только как токен внедрения зависимостей.
 
-When you use a class this way, it's called a *class interface*.
+Когда вы используете класс таким образом, он называется *интерфейсом класса*.
 
-As mentioned in [DI Providers](guide/dependency-injection-providers#interface-not-valid-token),
-an interface is not a valid DI token because it is a TypeScript artifact that doesn't exist at run time.
-Use this abstract class interface to get the strong typing of an interface,
-and also use it as a provider token in the way you would a normal class.
+Как уже упоминалось в [провайдеров DI](guide/dependency-injection-providers#interface-not-valid-token),
+интерфейс не является допустимым токеном DI, потому что это артефакт TypeScript, который не существует во время выполнения.
+Используйте этот интерфейс абстрактного класса, чтобы получить строгую типизацию интерфейса
+а также использовать его в качестве токена провайдера, как в обычном классе.
 
-A class interface should define *only* the members that its consumers are allowed to call.
-Such a narrowing interface helps decouple the concrete class from its consumers.
+Интерфейс класса должен определять *только* те элементы, которые его потребители могут вызывать.
+Такой сужающий интерфейс помогает отделить конкретный класс от его потребителей.
 
 
 <div class="alert is-helpful">
 
-Using a class as an interface gives you the characteristics of an interface in a real JavaScript object.
-To minimize memory cost, however, the class should have *no implementation*.
-The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript for a constructor function.
+Использование класса в качестве интерфейса дает характеристики интерфейса в реальном объекте JavaScript.
+Однако, чтобы минимизировать стоимость памяти, класс не должен иметь *реализации*.
+ `MinimalLogger` переносится в этот неоптимизированный, предварительно минимизированный JavaScript для функции конструктора.
 
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" region="minimal-logger-transpiled" header="dependency-injection-in-action/src/app/minimal-logger.service.ts"></code-example>
 
-Notice that it doesn't have any members. It never grows no matter how many members you add to the class,
-as long as those members are typed but not implemented.
+Обратите внимание, что у него нет участников. Он никогда не растет независимо от того, сколько участников вы добавите в класс
+до тех пор, пока эти члены набраны, но не реализованы.
 
-Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
+Посмотрите еще раз на TypeScript `MinimalLogger` Класс чтобы подтвердить, что у него нет реализации.
 
 </div>
 
@@ -591,49 +608,51 @@ Look again at the TypeScript `MinimalLogger` class to confirm that it has no imp
 {@a injection-token}
 
 
-### 'InjectionToken' objects
+{@a injectiontoken-objects}
+### 'InjectionToken' объекты
 
-Dependency objects can be simple values like dates, numbers and strings, or
-shapeless objects like arrays and functions.
+Объектами зависимости могут быть простые значения, такие как даты, числа и строки, или
+бесформенные объекты, такие как массивы и функции.
 
-Such objects don't have application interfaces and therefore aren't well represented by a class.
-They're better represented by a token that is both unique and symbolic,
-a JavaScript object that has a friendly name but won't conflict with
-another token that happens to have the same name.
+Такие объекты не имеют интерфейсов приложений и, следовательно, плохо представлены классом.
+Они лучше представлены токеном, который является одновременно уникальным и символическим
+объект JavaScript, который имеет понятное имя, но не конфликтует с ним
+другой токен с таким же именем.
 
-`InjectionToken` has these characteristics.
-You encountered them twice in the *Hero of the Month* example,
-in the *title* value provider and in the *runnersUp* factory provider.
+ `InjectionToken` имеет эти характеристики.
+Вы столкнулись с ними дважды в « *Герой месяца»* примере
+в *заголовка* поставщике значения и в *поставщике runnersUp* фабрики.
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="provide-injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
-You created the `TITLE` token like this:
+Вы создали `TITLE` фишка, как это:
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
-The type parameter, while optional, conveys the dependency's type to developers and tooling.
-The token description is another developer aid.
+Параметр type, хотя и является необязательным, передает тип зависимости разработчикам и инструментам.
+Описание токена - еще одна помощь для разработчиков.
 
 
 {@a di-inheritance}
 
-## Inject into a derived class
+{@a inject-into-a-derived-class}
+## Введите в производный класс
 
-Take care when writing a component that inherits from another component.
-If the base component has injected dependencies,
-you must re-provide and re-inject them in the derived class
-and then pass them down to the base class through the constructor.
+Будьте осторожны при написании компонента, который наследуется от другого компонента.
+Если базовый компонент имеет инъекционные зависимости,
+Вы должны повторно предоставить и повторно внедрить их в производный класс
+а затем передать их в базовый класс через конструктор.
 
-In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent`
-to display a *sorted* list of heroes.
+В этом надуманном примере `SortedHeroesComponent` наследуется от `HeroesBaseComponent` 
+отобразить *отсортированный* список героев.
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/sorted-heroes.png" alt="Sorted Heroes">
 </div>
 
-The `HeroesBaseComponent` can stand on its own.
-It demands its own instance of `HeroService` to get heroes
-and displays them in the order they arrive from the database.
+ `HeroesBaseComponent` может стоять самостоятельно.
+Это требует своего собственного экземпляра `HeroService` для получения героев
+и отображает их в порядке их поступления из базы данных.
 
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="heroes-base" header="src/app/sorted-heroes.component.ts (HeroesBaseComponent)">
 
@@ -642,23 +661,24 @@ and displays them in the order they arrive from the database.
 
 <div class="alert is-helpful">
 
-### Keep constructors simple
+{@a keep-constructors-simple}
+### Сохраняйте конструкторы простыми
 
-Constructors should do little more than initialize variables.
-This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
-That's why you call the `HeroService` from within the `ngOnInit` rather than the constructor.
+Конструкторы должны делать немного больше, чем инициализировать переменные.
+Это правило делает компонент безопасным для создания тестируемого компонента, не опасаясь, что он сделает что-то драматическое, например, разговор с сервером.
+Вот почему вы называете `HeroService` изнутри `ngOnInit` а не конструктор.
 
 </div>
 
 
-Users want to see the heroes in alphabetical order.
-Rather than modify the original component, sub-class it and create a
-`SortedHeroesComponent` that sorts the heroes before presenting them.
-The `SortedHeroesComponent` lets the base class fetch the heroes.
+Пользователи хотят видеть героев в алфавитном порядке.
+Вместо того, чтобы изменять исходный компонент, подкласс его и создать
+ `SortedHeroesComponent` который сортирует героев перед их представлением.
+ `SortedHeroesComponent` позволяет базовому классу героев.
 
-Unfortunately, Angular cannot inject the `HeroService` directly into the base class.
-You must provide the `HeroService` again for *this* component,
-then pass it down to the base class inside the constructor.
+К сожалению, Angular не может ввести `HeroService` прямо в базовый класс.
+Вы должны предоставить `HeroService` снова для *этого* компонента
+затем передайте его базовому классу внутри конструктора.
 
 
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="sorted-heroes" header="src/app/sorted-heroes.component.ts (SortedHeroesComponent)">
@@ -666,38 +686,39 @@ then pass it down to the base class inside the constructor.
 </code-example>
 
 
-Now take note of the `afterGetHeroes()` method.
-Your first instinct might have been to create an `ngOnInit` method in `SortedHeroesComponent` and do the sorting there.
-But Angular calls the *derived* class's `ngOnInit` *before* calling the base class's `ngOnInit`
-so you'd be sorting the heroes array *before they arrived*. That produces a nasty error.
+Теперь обратите внимание на `afterGetHeroes()` метод.
+Ваш первый инстинкт мог бы создать `ngOnInit` метод в `SortedHeroesComponent` и делать сортировку там.
+Но Angular называет *производный* класс `ngOnInit` *перед* вызовом базового класса `ngOnInit` 
+так что вы сортируете массив героев *до их прибытия*. Это приводит к неприятной ошибке.
 
-Overriding the base class's `afterGetHeroes()` method solves the problem.
+Переопределение базового класса `afterGetHeroes()` решает проблему.
 
-These complications argue for *avoiding component inheritance*.
+Эти осложнения приводят к *отказу от наследования компонентов*.
 
 
 {@a forwardref}
 
-## Break circularities with a forward class reference (*forwardRef*)
+{@a break-circularities-with-a-forward-class-reference-*forwardref*}
+## Разбить цикличность с помощью прямой ссылки на класс ( *forwardRef*)
 
-The order of class declaration matters in TypeScript.
-You can't refer directly to a class until it's been defined.
+Порядок объявления класса имеет значение в TypeScript.
+Вы не можете обращаться непосредственно к классу, пока он не будет определен.
 
-This isn't usually a problem, especially if you adhere to the recommended *one class per file* rule.
-But sometimes circular references are unavoidable.
-You're in a bind when class 'A' refers to class 'B' and 'B' refers to 'A'.
-One of them has to be defined first.
+Обычно это не проблема, особенно если вы придерживаетесь рекомендуемого *класса для каждого файла*.
+Но иногда круговые ссылки неизбежны.
+Вы находитесь в затруднительном положении, когда класс «A» относится к классу «B», а «B» относится к «A».
+Один из них должен быть определен первым.
 
-The Angular `forwardRef()` function creates an *indirect* reference that Angular can resolve later.
+Angular `forwardRef()` создает *косвенную* ссылку, которую Angular может разрешить позже.
 
-The *Parent Finder* sample is full of circular class references that are impossible to break.
+*Родитель Finder* образец полон ссылок кругового класса, которые невозможно сломать.
 
-You face this dilemma when a class makes *a reference to itself*
-as does `AlexComponent` in its `providers` array.
-The `providers` array is a property of the `@Component()` decorator function which must
-appear *above* the class definition.
+Вы сталкиваетесь с этой дилеммой, когда класс делает *ссылку на себя*
+так же как и `AlexComponent` в своем `providers` массив.
+ `providers` Массив является свойством `@Component()` функция декоратора, которая должна
+появляются *над* определением класса.
 
-Break the circularity with `forwardRef`.
+Разорвать круговую окружность с `forwardRef`.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
 
@@ -710,7 +731,7 @@ Break the circularity with `forwardRef`.
 
 ## Element-level providers
 
-A component is a specialization of directive, and the `@Component()` decorator inherits the `providers` property from `@Directive`. The injector is at the element level, so a provider configured with any element-level injector is available to any component, directive, or pipe attached to the same element.
+A component is a specialization of directive, and the `@Component()` decorator inherits the `providers` property from `@Directive` . The injector is at the element level, so a provider configured with any element-level injector is available to any component, directive, or pipe attached to the same element.
 
 Here's a live example that implements a custom form control, taking advantage of an injector that is shared by a component and a directive on the same element.
 
@@ -747,6 +768,6 @@ If the `heroCache` directive provides the `HeroCacheService`, the two components
 
 If you want to show only one of them, use the directive to make sure __??of what??__.
 
-`<hero-overview heroCache></hero-overview>`
+ `<hero-overview heroCache></hero-overview>` 
 
  --->

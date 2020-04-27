@@ -7,8 +7,8 @@
  */
 
 /**
- * Supported http methods.
- * @deprecated see https://angular.io/guide/http
+ * Поддерживаемые методы http.
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export enum RequestMethod {
@@ -22,10 +22,10 @@ export enum RequestMethod {
 }
 
 /**
- * All possible states in which a connection can be, based on
- * [States](http://www.w3.org/TR/XMLHttpRequest/#states) from the `XMLHttpRequest` spec, but with an
- * additional "CANCELLED" state.
- * @deprecated see https://angular.io/guide/http
+ * Все возможные состояния, в которых может быть соединение, основаны на
+ *  [Состояния](http://www.w3.org/TR/XMLHttpRequest/#states)из `XMLHttpRequest` спецификации, но с
+ * дополнительное состояние «ОТМЕНЕНО».
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export enum ReadyState {
@@ -38,9 +38,9 @@ export enum ReadyState {
 }
 
 /**
- * Acceptable response types to be associated with a {@link Response}, based on
- * [ResponseType](https://fetch.spec.whatwg.org/#responsetype) from the Fetch spec.
- * @deprecated see https://angular.io/guide/http
+ * Приемлемые типы ответов, которые будут связаны с{@link Response}, основываясь на
+ *  [ResponseType](https://fetch.spec.whatwg.org/#responsetype)из спецификации Fetch.
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export enum ResponseType {
@@ -66,8 +66,8 @@ export enum ContentType {
 }
 
 /**
- * Define which buffer to use to store the response
- * @deprecated see https://angular.io/guide/http
+ * Определите, какой буфер использовать для хранения ответа
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export enum ResponseContentType {

@@ -23,7 +23,7 @@ import {NgModuleFactory} from './ng_module_factory';
 
 
 /**
- * Combination of NgModuleFactory and ComponentFactorys.
+ * Сочетание NgModuleFactory и ComponentFactorys.
  *
  * @publicApi
  */
@@ -84,13 +84,13 @@ const Compiler_compileModuleAndAllComponentsAsync =
     Compiler_compileModuleAndAllComponentsAsync__PRE_R3__;
 
 /**
- * Low-level service for running the angular compiler during runtime
- * to create {@link ComponentFactory}s, which
- * can later be used to create and render a Component instance.
+ * Низкоуровневый сервис для запуска Angular компилятора во время выполнения
+ * создавать{@link ComponentFactory}с, который
+ * позже может быть использован для создания и визуализации экземпляра компонента.
  *
- * Each `@NgModule` provides an own `Compiler` to its injector,
- * that will use the directives/pipes of the ng module for compilation
- * of components.
+ * Каждый `@NgModule` предоставляет свой собственный` `Compiler` для своего инжектора
+ * который будет использовать директивы / каналы модуля ng для компиляции
+ * компонентов.
  *
  * @publicApi
  */
@@ -139,7 +139,7 @@ export class Compiler {
 }
 
 /**
- * Options for creating a compiler
+ * Варианты создания компилятора
  *
  * @publicApi
  */
@@ -152,14 +152,14 @@ export type CompilerOptions = {
 };
 
 /**
- * Token to provide CompilerOptions in the platform injector.
+ * Токен для предоставления CompilerOptions в инжекторе платформы.
  *
  * @publicApi
  */
 export const COMPILER_OPTIONS = new InjectionToken<CompilerOptions[]>('compilerOptions');
 
 /**
- * A factory for creating a Compiler
+ * Фабрика для создания компилятора
  *
  * @publicApi
  */

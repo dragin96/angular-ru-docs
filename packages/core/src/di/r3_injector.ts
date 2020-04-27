@@ -72,7 +72,7 @@ interface Record<T> {
 }
 
 /**
- * Create a new `Injector` which is configured using a `defType` of `InjectorType<any>`s.
+ * Создайте новый `Injector` который настроен с использованием` `defType` из `InjectorType<any>` s.
  *
  * @publicApi
  */

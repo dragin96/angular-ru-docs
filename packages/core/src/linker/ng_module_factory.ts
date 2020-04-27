@@ -13,10 +13,10 @@ import {ComponentFactoryResolver} from './component_factory_resolver';
 
 
 /**
- * Represents an instance of an NgModule created via a {@link NgModuleFactory}.
+ * Представляет экземпляр NgModule, созданного с помощью{@link NgModuleFactory},
  *
- * `NgModuleRef` provides access to the NgModule Instance as well other objects related to this
- * NgModule Instance.
+ *  `NgModuleRef`предоставляет доступ к экземпляру NgModule, а также к другим объектам, связанным с этим
+ * Экземпляр NgModule.
  *
  * @publicApi
  */

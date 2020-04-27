@@ -9,26 +9,26 @@
 import {Directive, EmbeddedViewRef, Input, OnChanges, SimpleChange, SimpleChanges, TemplateRef, ViewContainerRef} from '@angular/core';
 
 /**
- * @ngModule CommonModule
+ *  @ngModule CommonModule
  *
- * @description
+ *  @description
  *
- * Inserts an embedded view from a prepared `TemplateRef`.
+ * Вставляет встроенное представление из подготовленного `TemplateRef`.
  *
- * You can attach a context object to the `EmbeddedViewRef` by setting `[ngTemplateOutletContext]`.
- * `[ngTemplateOutletContext]` should be an object, the object's keys will be available for binding
- * by the local template `let` declarations.
+ * Вы можете присоединить объект контекста к `EmbeddedViewRef` , установив `[ngTemplateOutletContext]`.
+ *  `[ngTemplateOutletContext]`должен быть объектом, ключи объекта будут доступны для привязки
+ * на локальный шаблон `let` декларации.
  *
- * @usageNotes
- * ```
- * <ng-container *ngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
- * ```
+ *  @usageNotes
+ *  ```
+ *  <ng-containerngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
+ *  ```
  *
- * Using the key `$implicit` in the context object will set its value as default.
+ * Использование ключа `$implicit` в объекте контекста установит его значение по умолчанию.
  *
- * ### Example
+ *  ### Пример
  *
- * {@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
+ *  {@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
  *
  * @publicApi
  */

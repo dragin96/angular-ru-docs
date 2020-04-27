@@ -7,10 +7,10 @@
  */
 
 /**
- * Options supported by the legacy View Engine compiler, which are still consumed by the Angular Ivy
- * compiler for backwards compatibility.
+ * Опции, поддерживаемые устаревшим компилятором View Engine, которые все еще используются Angular Ivy
+ * компилятор для обратной совместимости.
  *
- * These are expected to be removed at some point in the future.
+ * Ожидается, что они будут удалены в будущем.
  *
  * @publicApi
  */
@@ -80,10 +80,10 @@ export interface LegacyNgcOptions {
 }
 
 /**
- * Options which were added to the Angular Ivy compiler to support backwards compatibility with
- * existing View Engine applications.
+ * Опции, которые были добавлены в компилятор Angular Ivy для поддержки обратной совместимости с
+ * существующие приложения View Engine.
  *
- * These are expected to be removed at some point in the future.
+ * Ожидается, что они будут удалены в будущем.
  *
  * @publicApi
  */
@@ -119,7 +119,7 @@ export interface NgcCompatibilityOptions {
 }
 
 /**
- * Options related to template type-checking and its strictness.
+ * Опции, связанные с проверкой типа шаблона и его строгостью.
  *
  * @publicApi
  */
@@ -243,8 +243,8 @@ export interface StrictTemplateOptions {
 }
 
 /**
- * Options which control behavior useful for "monorepo" build cases using Bazel (such as the
- * internal Google monorepo, g3).
+ * Параметрыкоторые контролируют поведение полезно «monorepo» случаи сборкииспользованием Bazel (такиекак.
+ * внутренний гугл монорепо, g3).
  *
  * @publicApi
  */
@@ -287,7 +287,7 @@ export interface BazelAndG3Options {
 }
 
 /**
- * Options related to i18n compilation support.
+ * Опции, связанные с поддержкой компиляции i18n.
  *
  * @publicApi
  */
@@ -316,7 +316,7 @@ export interface I18nOptions {
 }
 
 /**
- * Miscellaneous options that don't fall into any other category
+ * Разные варианты, которые не попадают ни в одну другую категорию
  *
  * @publicApi
  */

@@ -20,44 +20,44 @@ import {UpgradeNg1ComponentAdapterBuilder} from './upgrade_ng1_adapter';
 let upgradeCount: number = 0;
 
 /**
- * Use `UpgradeAdapter` to allow AngularJS and Angular to coexist in a single application.
+ * Используйте `UpgradeAdapter` чтобы AngularJS и Angular могли сосуществовать в одном приложении.
  *
- * The `UpgradeAdapter` allows:
- * 1. creation of Angular component from AngularJS component directive
- *    (See [UpgradeAdapter#upgradeNg1Component()])
- * 2. creation of AngularJS directive from Angular component.
- *    (See [UpgradeAdapter#downgradeNg2Component()])
- * 3. Bootstrapping of a hybrid Angular application which contains both of the frameworks
- *    coexisting in a single application.
+ *  The `UpgradeAdapter`позволяет:.
+ *  1. создание компонента Angular из директивы компонента AngularJS
+ * (См. [UpgradeAdapter#upgradeNg1Component ()])
+ * 2. создание директивы AngularJS из компонента Angular.
+ * (См. [UpgradeAdapter#downgradeNg2Component ()])
+ * 3. Начальная загрузка гибридного Angular приложения, содержащего обе платформы
+ * сосуществовать в одном приложении.
  *
- * @usageNotes
- * ### Mental Model
+ *  @usageNotes
+ *  ### Ментальная модель
  *
- * When reasoning about how a hybrid application works it is useful to have a mental model which
- * describes what is happening and explains what is happening at the lowest level.
+ * При рассуждении о том, как работает гибридное приложение, полезно иметь умственную модель, которая
+ * описывает, что происходит, и объясняет, что происходит на самом низком уровне.
  *
- * 1. There are two independent frameworks running in a single application, each framework treats
- *    the other as a black box.
- * 2. Each DOM element on the page is owned exactly by one framework. Whichever framework
- *    instantiated the element is the owner. Each framework only updates/interacts with its own
- *    DOM elements and ignores others.
- * 3. AngularJS directives always execute inside AngularJS framework codebase regardless of
- *    where they are instantiated.
- * 4. Angular components always execute inside Angular framework codebase regardless of
- *    where they are instantiated.
- * 5. An AngularJS component can be upgraded to an Angular component. This creates an
- *    Angular directive, which bootstraps the AngularJS component directive in that location.
- * 6. An Angular component can be downgraded to an AngularJS component directive. This creates
- *    an AngularJS directive, which bootstraps the Angular component in that location.
- * 7. Whenever an adapter component is instantiated the host element is owned by the framework
- *    doing the instantiation. The other framework then instantiates and owns the view for that
- *    component. This implies that component bindings will always follow the semantics of the
- *    instantiation framework. The syntax is always that of Angular syntax.
- * 8. AngularJS is always bootstrapped first and owns the bottom most view.
- * 9. The new application is running in Angular zone, and therefore it no longer needs calls to
- *    `$apply()`.
+ *  1. В одном приложении работают две независимые платформы, каждая из которых обрабатывает
+ * другой как черный ящик.
+ * 2. Каждый элемент DOM на странице принадлежит ровно одному фреймворку. Какую бы рамку
+ * экземпляр элемента является владельцем. Каждый фреймворк только обновляет / взаимодействует со своим собственным
+ * DOM элементы и игнорирует других.
+ * 3. Директивы AngularJS всегда выполняются внутри базы кода AngularJS независимо от
+ * где они созданы.
+ * 4. Angular компоненты всегда выполняются внутри кодовой базы Angular Framework независимо от
+ * где они созданы.
+ * 5. Компонент AngularJS можно обновить до компонента Angular. Это создает
+ * Директива Angular, которая загружает директиву компонента AngularJS в этом месте.
+ * 6. Компонент Angular может быть понижен до директивы компонента AngularJS. Это создает
+ * директива AngularJS, которая загружает Angular-компонент в этом месте.
+ * 7. Всякий раз, когда создается экземпляр компонента адаптера, хост-элемент принадлежит платформе
+ * делать экземпляр. Затем другая структура создает экземпляр и владеет представлением для этого
+ * составная часть. Это означает, что привязки компонентов всегда будут следовать семантике
+ * рамки реализации. Синтаксис всегда является синтаксисом Angular.
+ * 8. AngularJS всегда загружается первым и имеет самый нижний вид.
+ * 9. Новое приложение работает в Angular зоне, и поэтому ему больше не нужны вызовы
+ *     `$apply()`.
  *
- * ### Example
+ *  ### Пример
  *
  * ```
  * const adapter = new UpgradeAdapter(forwardRef(() => MyNg2Module), myCompilerOptions);
@@ -97,8 +97,8 @@ let upgradeCount: number = 0;
  *
  * ```
  *
- * @deprecated Deprecated since v5. Use `upgrade/static` instead, which also supports
- * [Ahead-of-Time compilation](guide/aot-compiler).
+ * @deprecated Устаревший с v5. Используйте `upgrade/static` вместо этого, который также поддерживает.
+ * [AOT сборка](guide/aot-compiler).
  * @publicApi
  */
 export class UpgradeAdapter {
@@ -669,10 +669,10 @@ class ParentInjectorPromise {
 
 
 /**
- * Use `UpgradeAdapterRef` to control a hybrid AngularJS / Angular application.
+ * Используйте `UpgradeAdapterRef` для управления гибридным приложением AngularJS / Angular.
  *
- * @deprecated Deprecated since v5. Use `upgrade/static` instead, which also supports
- * [Ahead-of-Time compilation](guide/aot-compiler).
+ *  @deprecated Устаревший с v5. Используйте `upgrade/static` вместо этого, который такжеподдерживает.
+ *  [Опережающий сборник](guide/aot-compiler).
  * @publicApi
  */
 export class UpgradeAdapterRef {

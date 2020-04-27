@@ -13,11 +13,11 @@ import {RadioControlRegistry} from './directives/radio_control_value_accessor';
 import {FormBuilder} from './form_builder';
 
 /**
- * Exports the required providers and directives for template-driven forms,
- * making them available for import by NgModules that import this module.
+ * Экспорт необходимых поставщиков и директив для шаблонно-управляемых форм
+ * делая их доступными для импорта NgModules, которые импортируют этот модуль.
  *
- * @see [Forms Overview](/guide/forms-overview)
- * @see [Template-driven Forms Guide](/guide/forms)
+ *  @see [Обзор форм](/guide/forms-overview)
+ *  @see [Руководство по формам на основе шаблонов](/guide/forms)
  *
  * @publicApi
  */
@@ -30,11 +30,11 @@ export class FormsModule {
 }
 
 /**
- * Exports the required infrastructure and directives for reactive forms,
- * making them available for import by NgModules that import this module.
+ * Экспортирует необходимую инфраструктуру и директивы для реактивных форм
+ * делая их доступными для импорта NgModules, которые импортируют этот модуль.
  *
- * @see [Forms Overview](guide/forms-overview)
- * @see [Reactive Forms Guide](guide/reactive-forms)
+ *  @see [Обзор форм](guide/forms-overview)
+ *  @see [(Reactive GuideForms).](guide/reactive-forms)
  *
  * @publicApi
  */

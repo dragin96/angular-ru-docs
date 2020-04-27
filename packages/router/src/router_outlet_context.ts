@@ -13,7 +13,7 @@ import {ActivatedRoute} from './router_state';
 
 
 /**
- * Store contextual information about a `RouterOutlet`
+ * Хранить контекстную информацию о `RouterOutlet`
  *
  * @publicApi
  */
@@ -26,7 +26,7 @@ export class OutletContext {
 }
 
 /**
- * Store contextual information about the children (= nested) `RouterOutlet`
+ * Хранить контекстную информацию о дочерних (= вложенных) `RouterOutlet`
  *
  * @publicApi
  */

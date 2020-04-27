@@ -1,26 +1,28 @@
-# Deprecated APIs and features
+{@a deprecated-apis-and-features}
+# Устаревшие API и функции
 
-Angular strives to balance innovation and stability.
-Sometimes, APIs and features become obsolete and need to be removed or replaced so that Angular can stay current with new best practices, changing dependencies, or changes in the (web) platform itself.
+Angular стремится сбалансировать инновации и стабильность.
+Иногда API и функции устаревают, и их необходимо удалить или заменить, чтобы Angular мог быть в курсе новых лучших практик, изменений зависимостей или изменений в самой (веб) платформе.
 
-To make these transitions as easy as possible, we deprecate APIs and features for a period of time before removing them. This gives you time to update your apps to the latest APIs and best practices.
+Чтобы сделать эти переходы максимально простыми, мы отказываемся от API и функций на некоторое время, прежде чем удалять их. Это дает вам время обновить свои приложения до последних API и лучших практик.
 
-This guide contains a summary of all Angular APIs and features that are currently deprecated.
+В этом руководстве содержится сводная информация обо всех API и функциях Angular, которые в настоящее время устарели.
 
 
 <div class="alert is-helpful">
 
 
-Features and APIs that were deprecated in v6 or earlier are candidates for removal in version 9 or any later major version. For information about Angular's deprecation and removal practices, see [Angular Release Practices](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
+Функции и API, которые были объявлены устаревшими в версии 6 или более ранней, являются кандидатами на удаление в версии 9 или более поздней основной версии. Для получения информации о методах устаревания и удаления см. [Angular Практики выпуска Angular](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
 
-For step-by-step instructions on how to update to the latest Angular release, use the interactive update guide at [update.angular.io](https://update.angular.io).
+Пошаговые инструкции по обновлению до последней версии Angular можно в интерактивном руководстве по обновлению по адресу [найти update.angular.io](https://update.angular.io).
 
 </div>
 
 
-## Index
+{@a index}
+## Индекс
 
-To help you future-proof your apps, the following table lists all deprecated APIs and features, organized by the release in which they are candidates for removal. Each item is linked to the section later in this guide that describes the deprecation reason and replacement options.
+Чтобы помочь вашим приложениям в будущем, в следующей таблице перечислены все устаревшие API и функции, упорядоченные по версии, в которой они являются кандидатами на удаление. Каждый элемент связан с разделом далее в этом руководстве, в котором описывается причина устаревания и варианты замены.
 
 <!--
 deprecation -> removal cheat sheet
@@ -33,71 +35,74 @@ v9 - v12
 -->
 
 
-| Area                          | API or Feature                                                                | May be removed in |
-| ----------------------------- | ---------------------------------------------------------------------------   | ----------------- |
-| `@angular/common`             | [`ReflectiveInjector`](#reflectiveinjector)                                   | <!--v8--> v10 |
-| `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
-| `@angular/core`               | [`CollectionChangeRecord`](#core)                                             | <!--v7--> v10 |
-| `@angular/core`               | [`DefaultIterableDiffer`](#core)                                              | <!--v7--> v10 |
-| `@angular/core`               | [`ReflectiveKey`](#core)                                                      | <!--v8--> v10 |
-| `@angular/core`               | [`RenderComponentType`](#core)                                                | <!--v7--> v10 |
-| `@angular/core`               | [`ViewEncapsulation.Native`](#core)                                           | <!--v6--> v10 |
-| `@angular/core`               | [`ModuleWithProviders` without a generic](#moduleWithProviders)               | <!--v9--> v10 |
-| `@angular/core`               | [Undecorated base classes that use Angular features](#undecorated-base-classes) | <!--v9--> v10 |
-| `@angular/forms`              | [`ngModel` with reactive forms](#ngmodel-reactive)                            | <!--v6--> v10 |
-| `@angular/router`             | [`preserveQueryParams`](#router)                                              | <!--v7--> v10 |
-| `@angular/upgrade`            | [`@angular/upgrade`](#upgrade)                                                | <!--v8--> v10 |
-| `@angular/upgrade`            | [`getAngularLib`](#upgrade-static)                                            | <!--v8--> v10 |
-| `@angular/upgrade`            | [`setAngularLib`](#upgrade-static)                                            | <!--v8--> v10 |
-| `@angular/platform-webworker` | [All entry points](api/platform-webworker)                                    | <!--v8--> v10 |
-| template syntax               | [`<template`>](#template-tag)                                                 | <!--v7--> v10 |
-| polyfills                     | [reflect-metadata](#reflect-metadata)                                         | <!--v8--> v10 |
-| npm package format            | [`esm5` and `fesm5` entry-points in @angular/* npm packages](guide/deprecations#esm5-fesm5) | <!-- v9 --> v10 |
-| `@angular/core`               | [`defineInjectable`](#core)                                                   | <!--v8--> v11 |
-| `@angular/core`               | [`entryComponents`](api/core/NgModule#entryComponents)                        | <!--v9--> v11 |
-| `@angular/core`               | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS)       | <!--v9--> v11 |
-| `@angular/router`             | [`loadChildren` string syntax](#loadChildren)                                 | <!--v9--> v11 |
-| `@angular/core/testing`       | [`TestBed.get`](#testing)                                                     | <!--v9--> v12 |
-| `@angular/router`             | [`ActivatedRoute` params and `queryParams` properties](#activatedroute-props) | unspecified |
-| template syntax               | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector)            | <!--v7--> unspecified |
+| Площадь | API или функция | Может быть удален в |
+| ----------------------------- | -------------------------------------------------- ------------------------- | ----------------- |
+| `@angular/common`| [ `ReflectiveInjector` ](#reflectiveinjector)| <!--v8-->v10 |
+| `@angular/common`| [ `CurrencyPipe`-` DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| <!--v9-->v11 |
+| `@angular/core`| [ `CollectionChangeRecord` ](#core)| <!--v7-->v10 |
+| `@angular/core`| [ `DefaultIterableDiffer` ](#core)| <!--v7-->v10 |
+| `@angular/core`| [ `ReflectiveKey` ](#core)| <!--v8-->v10 |
+| `@angular/core`| [ `RenderComponentType` ](#core)| <!--v7-->v10 |
+| `@angular/core`| [ `ViewEncapsulation.Native` ](#core)| <!--v6-->v10 |
+| `@angular/core`| [ `ModuleWithProviders`без универсального](#moduleWithProviders)| <!--v9-->v10 |
+| `@angular/core`| [Недекорированные базовые классы, использующие Angular объекты](#undecorated-base-classes)| <!--v9-->v10 |
+| `@angular/forms`| [ `ngModel`с реактивными формами](#ngmodel-reactive)| <!--v6-->v10 |
+| `@angular/router`| [ `preserveQueryParams` ](#router)| <!--v7-->v10 |
+| `@angular/upgrade`| [`@ angular / upgrade`](#upgrade)| <!--v8-->v10 |
+| `@angular/upgrade`| [ `getAngularLib` ](#upgrade-static)| <!--v8-->v10 |
+| `@angular/upgrade`| [ `setAngularLib` ](#upgrade-static)| <!--v8-->v10 |
+| `@angular/platform-webworker` | [Все точки входа](api/platform-webworker)| <!--v8-->v10 |
+| синтаксис шаблона | [`](#template-tag)| <!--v7-->v10 |
+| полифилы | [отражение-метаданные](#reflect-metadata)| <!--v8-->v10 |
+| формат пакета npm | [точки входа `esm5` и` fesm5` в пакетах @ angular / * npm](guide/deprecations#esm5-fesm5)| <!-- v9 -->v10 |
+| `@angular/core`| [ `defineInjectable` ](#core)| <!--v8-->v11 |
+| `@angular/core`| [ `entryComponents` ](api/core/NgModule#entryComponents)| <!--v9-->v11 |
+| `@angular/core`| [ `ANALYZE_FOR_ENTRY_COMPONENTS` ](api/core/ANALYZE_FOR_ENTRY_COMPONENTS)| <!--v9-->v11 |
+| `@angular/router`| [строковый синтаксис `loadChildren`](#loadChildren)| <!--v9-->v11 |
+| `@angular/core/testing`| [ `TestBed.get` ](#testing)| <!--v9-->v12 |
+| `@angular/router`| [Параметры `ActivatedRoute` и свойства` queryParams`](#activatedroute-props)| не указано |
+| синтаксис шаблона | [`/ deep /`, `>>>` и `:: ng-deep`](#deep-component-style-selector)| <!--v7-->не указано |
 
 
 
 
-## Deprecated APIs
+{@a deprecated-apis}
+## Устаревшие API
 
-This section contains a complete list all of the currently-deprecated APIs, with details to help you plan your migration to a replacement.
+В этом разделе содержится полный список всех устаревших API-интерфейсов с подробной информацией, которая поможет вам спланировать переход на замену.
 
 
 <div class="alert is-helpful">
 
-Tip: In the [API reference section](api) of this doc site, deprecated APIs are indicated by ~~strikethrough.~~ You can filter the API list by [**Status: deprecated**](api?status=deprecated).
+Совет: в [справочный раздел API](api)На этом сайте документации устаревшие API обозначены как ~~ зачеркнутый. ~~ Вы можете отфильтровать список API с помощью [** Status: устарело **](api?status=deprecated).
 
 </div>
 
 {@a common}
-### @angular/common
+{@a angularcommon}
+### @ Angular / общий
 
-| API                                                                                           | Replacement                                         | Deprecation announced | Notes |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------------------- | ----- |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
+| API | Замена | Обесценивание объявлено | Примечания
+| -------------------------------------------------- ------------------------------------------- | -------------------------------------------------- - | --------------------- | ----- |
+| [ `CurrencyPipe`-` DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}`| v9 | Начиная с версии v11 код по умолчанию будет извлечен из данных локали, предоставленных `LOCAL_ID` , а не `USD` . |
 
 
 {@a core}
-### @angular/core
+{@a angularcore}
+### @ Angular / основной
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [`CollectionChangeRecord`](api/core/CollectionChangeRecord) | [`IterableChangeRecord`](api/core/IterableChangeRecord) | v4 | none |
-| [`DefaultIterableDiffer`](api/core/DefaultIterableDiffer) | n/a | v4 | Not part of public API. |
-| [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create)  | v5 | See [`ReflectiveInjector`](#reflectiveinjector) |
-| [`ReflectiveKey`](api/core/ReflectiveKey) | none | v5 | none |
-| [`ViewEncapsulation.Native`](api/core/ViewEncapsulation#Native) | [`ViewEncapsulation.ShadowDom`](api/core/ViewEncapsulation#ShadowDom) | v6 | Use the native encapsulation mechanism of the renderer. See [view.ts](https://github.com/angular/angular/blob/3e992e18ebf51d6036818f26c3d77b52d3ec48eb/packages/core/src/metadata/view.ts#L32).
-| [`defineInjectable`](api/core/defineInjectable) | `ɵɵdefineInjectable` | v8 | Used only in generated code. No source code should depend on this API. |
-| [`entryComponents`](api/core/NgModule#entryComponents) | none | v9 | See [`entryComponents`](#entryComponents) |
-| [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | none | v9 | See [`ANALYZE_FOR_ENTRY_COMPONENTS`](#entryComponents) |
-| `ModuleWithProviders` without a generic |  `ModuleWithProviders` with a generic             | v9 | See [`ModuleWithProviders` section](#moduleWithProviders) |
-| Undecorated base classes that use Angular features | Base classes with `@Directive()` decorator that use Angular features | v9 | See [undecorated base classes section](#undecorated-base-classes) |
+| [ `CollectionChangeRecord` ](api/core/CollectionChangeRecord)| [ `IterableChangeRecord` ](api/core/IterableChangeRecord)| v4 | нет |
+| [ `DefaultIterableDiffer` ](api/core/DefaultIterableDiffer)| н / д | v4 | Не является частью публичного API. |
+| [ `ReflectiveInjector` ](api/core/ReflectiveInjector)| [ `Injector.create` ](api/core/Injector#create)| v5 | Смотри [ `ReflectiveInjector` ](#reflectiveinjector)|
+| [ `ReflectiveKey` ](api/core/ReflectiveKey)| нет | v5 | нет |
+| [ `ViewEncapsulation.Native` ](api/core/ViewEncapsulation#Native)| [ `ViewEncapsulation.ShadowDom` ](api/core/ViewEncapsulation#ShadowDom)| v6 | Используйте собственный механизм инкапсуляции рендерера. Смотрите [view.ts](https://github.com/angular/angular/blob/3e992e18ebf51d6036818f26c3d77b52d3ec48eb/packages/core/src/metadata/view.ts#L32).
+| [ `defineInjectable` ](api/core/defineInjectable)| `ɵɵdefineInjectable` | V8 | Используется только в сгенерированном коде. Исходный код не должен зависеть от этого API. |
+| [ `entryComponents` ](api/core/NgModule#entryComponents)| нет | v9 | Смотрите [ `entryComponents` ](#entryComponents)|
+| [ `ANALYZE_FOR_ENTRY_COMPONENTS` ](api/core/ANALYZE_FOR_ENTRY_COMPONENTS)| нет | v9 | Смотрите [ `ANALYZE_FOR_ENTRY_COMPONENTS` ](#entryComponents)|
+| `ModuleWithProviders` без универсального |`ModuleWithProviders`с универсальным | v9 | Смотрите [раздел ModuleWithProviders](#moduleWithProviders)|
+| Недекорированные базовые классы, использующие Angular элементы | Базовые классы с `@Directive()` , использующий Angular функции | v9 | Смотрите [раздел недекорированных базовых классов](#undecorated-base-classes)|
 
 
 
@@ -105,95 +110,102 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 
 
 {@a testing}
-### @angular/core/testing
+{@a angularcoretesting}
+### @ Angular / ядро ​​/ тестирование
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | v9 | Same behavior, but type safe. |
+| [ `TestBed.get` ](api/core/testing/TestBed#get)| [ `TestBed.inject` ](api/core/testing/TestBed#inject)| v9 | Такое же поведение, но тип безопасный. |
 
 
 {@a forms}
-### @angular/forms
+{@a angularforms}
+### @ Angular / формы
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [`ngModel` with reactive forms](#ngmodel-reactive) | [`FormControlDirective`](api/forms/FormControlDirective) | v6 | none |
+| [ `ngModel`с реактивными формами](#ngmodel-reactive)| [ `FormControlDirective` ](api/forms/FormControlDirective)| v6 | нет |
 
 {@a router}
-### @angular/router
+{@a angularrouter}
+### @ Angular / маршрутизатор
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [`preserveQueryParams`](api/router/NavigationExtras#preserveQueryParams) | [`queryParamsHandling`](api/router/NavigationExtras#queryParamsHandling) | v4 | none |
+| [ `PreserveQueryParams` ](api/router/NavigationExtras#preserveQueryParams)| [ `queryParamsHandling` ](api/router/NavigationExtras#queryParamsHandling)| v4 | нет |
 
 {@a platform-webworker}
 ### @angular/platform-webworker
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [All entry points](api/platform-webworker) | none | v8 | See [platform-webworker](#webworker-apps). |
+| [Все точки входа](api/platform-webworker)| нет | V8 | Смотрите [платформа-веб-работник](#webworker-apps). |
 
 {@a platform-webworker-dynamic}
 ### @angular/platform-webworker-dynamic
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [All entry points](api/platform-webworker-dynamic) | none | v8 | See [platform-webworker](#webworker-apps). |
+| [Все точки входа](api/platform-webworker-dynamic)| нет | V8 | Смотри [платформа-веб-работник](#webworker-apps). |
 
 {@a upgrade}
 ### @angular/upgrade
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [All entry points](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
+| [Все точки входа](api/upgrade)| [`@ angular / upgrade / static`](api/upgrade/static)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
 
 {@a upgrade-static}
 ### @angular/upgrade/static
 
-| API | Replacement | Deprecation announced | Notes |
+| API | Замена | Обесценивание объявлено | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [`getAngularLib`](api/upgrade/static/getAngularLib) | [`getAngularJSGlobal`](api/upgrade/static/getAngularJSGlobal) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
-[`setAngularLib`](api/upgrade/static/setAngularLib) | [`setAngularJSGlobal`](api/upgrade/static/setAngularJSGlobal) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
+| [ `getAngularLib` ](api/upgrade/static/getAngularLib)| [ `getAngularJSGlobal` ](api/upgrade/static/getAngularJSGlobal)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
+[ `setAngularLib` ](api/upgrade/static/setAngularLib)| [ `setAngularJSGlobal` ](api/upgrade/static/setAngularJSGlobal)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
 
 
 
 {@a deprecated-features}
-## Deprecated features
+## Устаревшие функции
 
-This section lists all of the currently-deprecated features, which includes template syntax, configuration options, and any other deprecations not listed in the [Deprecated APIs](#deprecated-apis) section above. It also includes deprecated API usage scenarios or API combinations, to augment the information above.
+В этом разделе перечислены все устаревшие функции, которые включают синтаксис шаблона, параметры конфигурации и любые другие устаревшие функции, не перечисленные в [Устаревшие API](#deprecated-apis)раздел выше. Он также включает в себя устаревшие сценарии использования API или комбинации API, чтобы дополнить информацию выше.
 
 
 
 {@a wtf}
-### Web Tracing Framework integration
+{@a web-tracing-framework-integration}
+### Интеграция Web Tracing Framework
 
-Angular previously has supported an integration with the [Web Tracing Framework (WTF)](https://google.github.io/tracing-framework/) for performance testing of Angular applications. This integration has not been maintained and defunct. As a result, the integration was deprecated in Angular version 8 and due to no evidence of any existing usage removed in version 9.
+Ранее Angular поддерживал интеграцию с [Web Tracing Framework (WTF)](https://google.github.io/tracing-framework/)для тестирования производительности приложений Angular. Эта интеграция не была сохранена и не существовала. В результате интеграция устарела в версии Angular 8 и из-за отсутствия каких-либо свидетельств какого-либо существующего использования, удаленного в версии 9
 
 
 {@a deep-component-style-selector}
-### `/deep/`, `>>>` and `:ng-deep` component style selectors
+{@a deep-and-ng-deep-component-style-selectors}
+### `/deep/ `,` >>>` а также `:ng-deep`селекторы стиля компонента
 
-The shadow-dom-piercing descendant combinator is deprecated and support is being [removed from major browsers and tools](https://developers.google.com/web/updates/2017/10/remove-shadow-piercing). As such, in v4 we deprecated support in Angular for all 3 of `/deep/`, `>>>` and `::ng-deep`. Until removal, `::ng-deep` is preferred for broader compatibility with the tools.
+Пронзительный теневой доминантный комбинатор устарел, и поддержка в настоящее время [удалена из основных браузеров и инструментов](https://developers.google.com/web/updates/2017/10/remove-shadow-piercing). Таким образом, в v4 мы отказались от поддержки в Angular для всех 3 `/deep/` , `>>>`а также `::ng-deep`. До удаления, `::ng-deep` предпочтителен для более широкой совместимости с инструментами.
 
-For more information, see [/deep/, >>>, and ::ng-deep](guide/component-styles#deprecated-deep--and-ng-deep "Component Styles guide, Deprecated deep and ngdeep")
- in the Component Styles guide.
+Для получения дополнительной информации см. [/ Deep /, >>> и :: ng-deep](guide/component-styles#deprecated-deep--and-ng-deep "Component Styles guide, Deprecated deep and ngdeep")
+в руководстве по стилям компонентов.
 
 
 {@a template-tag}
-### &lt;template&gt; tag
+{@a &lttemplate&gt-tag}
+### Тег <template>
 
-The `<template>` tag was deprecated in v4 to avoid colliding with the DOM's element of the same name (such as when using web components). Use `<ng-template>` instead. For more information, see the [Ahead-of-Time Compilation](guide/angular-compiler-options#enablelegacytemplate) guide.
+`<template>`В v4 тег был объявлен устаревшим, чтобы избежать столкновения с элементом DOM с тем же именем (например, при использовании веб-компонентов). использование `<ng-template>` вместо . Для получения дополнительной информации см. [Опережающая компиляция](guide/angular-compiler-options#enablelegacytemplate)Руководство .
 
 
 
 {@a ngmodel-reactive}
-### ngModel with reactive forms
+{@a ngmodel-with-reactive-forms}
+### ngModel с реактивными формами
 
-Support for using the `ngModel` input property and `ngModelChange` event with reactive
-form directives has been deprecated in Angular v6 and will be removed in a future version
-of Angular.
+Поддержка использования `ngModel` входное свойство и `ngModelChange` Событие с реактивным
+директивы формы устарели в Angular v6 и будут удалены в следующей версии
+Angular
 
-Now deprecated:
+Сейчас устарела
 
 ```html
 <input [formControl]="control" [(ngModel)]="value">
@@ -203,25 +215,25 @@ Now deprecated:
 this.value = 'some value';
 ```
 
-This has been deprecated for several reasons. First, developers have found this pattern
-confusing. It seems like the actual `ngModel` directive is being used, but in fact it's
-an input/output property named `ngModel` on the reactive form directive that
-approximates some, but not all, of the directive's behavior.
-It allows getting and setting a value and intercepting value events, but
-some of `ngModel`'s other features, such as
-delaying updates with`ngModelOptions` or exporting the directive, don't work.
+Это устарело по нескольким причинам. Сначала разработчики нашли этот шаблон
+запутанный. Похоже на фактический `ngModel` Директива используется, но на самом деле это так
+свойство ввода / вывода с именем `ngModel` в директиве о реактивной форме
+приближает некоторые, но не все, поведения директивы.
+Это позволяет получать и устанавливать значения и перехватывать значения событий, но
+некоторые из `ngModel` Другие функции , такие как
+задержка обновлений с `ngModelOptions` или экспорт директивы не работают.
 
-In addition, this pattern mixes template-driven and reactive forms strategies, which
-prevents taking advantage of the full benefits of either strategy.
-Setting the value in the template violates the template-agnostic
-principles behind reactive forms, whereas adding a `FormControl`/`FormGroup` layer in
-the class removes the convenience of defining forms in the template.
+Кроме того, этот шаблон смешивает стратегии шаблонных и реактивных форм, которые
+предотвращает использование всех преимуществ любой стратегии.
+Установка значения в шаблоне нарушает независимость от шаблона
+принципы, лежащие в основе реактивных форм, в то время как добавление `FormControl` / `FormGroup` Слой в
+класс устраняет удобство определения форм в шаблоне.
 
-To update your code before support is removed, you'll want to decide whether to stick
-with reactive form directives (and get/set values using reactive forms patterns) or
-switch over to template-driven directives.
+Чтобы обновить свой код до того, как поддержка будет удалена, вам нужно решить, стоит ли придерживаться
+с директивами реактивной формы (и получить / установить значения, используя шаблоны реактивной формы) или
+переключиться на директивы на основе шаблонов.
 
-After (choice 1 - use reactive forms):
+После выбора (1 - использование активных форм):
 
 ```html
 <input [formControl]="control">
@@ -231,7 +243,7 @@ After (choice 1 - use reactive forms):
 this.control.setValue('some value');
 ```
 
-After (choice 2 - use template-driven forms):
+После выбора (2 - использование форм на основе шаблонов):
 
 ```html
 <input [(ngModel)]="value">
@@ -241,9 +253,9 @@ After (choice 2 - use template-driven forms):
 this.value = 'some value';
 ```
 
-By default, when you use this pattern, you will see a deprecation warning once in dev
-mode. You can choose to silence this warning by providing a config for
-`ReactiveFormsModule` at import time:
+По умолчанию, когда вы используете этот шаблон, вы увидите предупреждение об устаревании один раз в dev
+Режим. Вы можете отключить это предупреждение, предоставив конфигурацию для
+`ReactiveFormsModule`во время импорта:
 
 ```ts
 imports: [
@@ -251,36 +263,38 @@ imports: [
 ]
 ```
 
-Alternatively, you can choose to surface a separate warning for each instance of this
-pattern with a config value of `"always"`. This may help to track down where in the code
-the pattern is being used as the code is being updated.
+Кроме того, вы можете выбрать отдельное предупреждение для каждого экземпляра этого
+шаблон со значением конфигурации `"always"` . Это может помочь отследить, где в коде
+шаблон используется при обновлении кода.
 
 
 {@a reflectiveinjector}
-### ReflectiveInjector
+{@a reflectiveinjector}
+### Рефлективный Инжектор
 
-In v5, Angular replaced the `ReflectiveInjector` with the `StaticInjector`. The injector no longer requires the Reflect polyfill, reducing application size for most developers.
+В v5 Angular заменил `ReflectiveInjector` с `StaticInjector` . Для инжектора больше не требуется полифилл Reflect, что уменьшает размер приложения для большинства разработчиков.
 
-Before:
+Перед тем как :
 
 ```
 ReflectiveInjector.resolveAndCreate(providers);
 ```
 
-After:
+После того, как :
 
 ```
 Injector.create({providers});
 ```
 
 {@a loadChildren}
-### loadChildren string syntax
+{@a loadchildren-string-syntax}
+### Синтаксис строки loadChildren
 
-When Angular first introduced lazy routes, there wasn't browser support for dynamically loading additional JavaScript. Angular created our own scheme using the syntax `loadChildren: './lazy/lazy.module#LazyModule'` and built tooling to support it. Now that ECMAScript dynamic import is supported in many browsers, Angular is moving toward this new syntax.
+Когда Angular впервые представил ленивые маршруты, в браузере не было поддержки динамической загрузки дополнительного JavaScript. Angular создал нашу собственную схему, используя синтаксис`loadChildren: './lazy/lazy.module#LazyModule'`и встроенный инструментарий для его поддержки. Теперь, когда динамический импорт ECMAScript поддерживается во многих браузерах, Angular движется к этому новому синтаксису.
 
-In version 8, the string syntax for the [`loadChildren`](api/router/LoadChildren) route specification was deprecated, in favor of new syntax that uses `import()` syntax.
+В версии 8 строковый синтаксис для [ `loadChildren` ](api/router/LoadChildren)спецификации маршрута устарел, в пользу нового синтаксиса, который использует `import()` синтаксис .
 
-Before:
+Перед тем как :
 
 ```
 const routes: Routes = [{
@@ -290,7 +304,7 @@ const routes: Routes = [{
 }];
 ```
 
-After:
+После того, как :
 
 ```
 const routes: Routes = [{
@@ -304,14 +318,14 @@ const routes: Routes = [{
 <div class="alert is-helpful">
 
 
-**Version 8 update**: When you update to version 8, the [`ng update`](cli/update) command performs the transformation automatically. Prior to version 7, the `import()` syntax only works in JIT mode (with view engine).
+**Обновление версии 8 **: при обновлении до версии 8 команда [`ng update`](cli/update)выполняет преобразование автоматически. До версии 7 `import()` Синтаксис работает только в режиме JIT (с механизмом просмотра).
 
 
 </div>
 
 <div class="alert is-helpful">
 
-**Declaration syntax**: It's important to follow the route declaration syntax `loadChildren: () => import('...').then(m => m.ModuleName)` to allow `ngc` to discover the lazy-loaded module and the associated `NgModule`. You can find the complete list of allowed syntax constructs [here](https://github.com/angular/angular-cli/blob/a491b09800b493fe01301387fa9a025f7c7d4808/packages/ngtools/webpack/src/transformers/import_factory.ts#L104-L113). These restrictions will be relaxed with the release of Ivy since it'll no longer use `NgFactories`.
+**Синтаксис объявления **: важно следовать синтаксису объявления маршрута`loadChildren: () => import('...').then(m => m.ModuleName)`чтобы разрешить `ngc` чтобы обнаружить лениво загруженный модуль и связанный с ним `NgModule` . Вы можете найти полный список разрешенных синтаксических конструкций [здесь](https://github.com/angular/angular-cli/blob/a491b09800b493fe01301387fa9a025f7c7d4808/packages/ngtools/webpack/src/transformers/import_factory.ts#L104-L113). Эти ограничения будут ослаблены с выпуском Ivy, так как он больше не будет использовать `NgFactories` .
 
 </div>
 
@@ -319,81 +333,87 @@ const routes: Routes = [{
 
 {@a activatedroute-props}
 
-### ActivatedRoute params and queryParams properties
+{@a activatedroute-params-and-queryparams-properties}
+### ActivatedRoute params и свойства queryParams
 
-[ActivatedRoute](api/router/ActivatedRoute) contains two [properties](api/router/ActivatedRoute#properties) that are less capable than their replacements and may be deprecated in a future Angular version.
+[ActivatedRoute](api/router/ActivatedRoute)содержит два [свойства](api/router/ActivatedRoute#properties), которые менее эффективны, чем их замены, и могут быть устаревшими в будущей версии Angular.
 
-| Property | Replacement |
+| Недвижимость | Замена |
 | -------- | ----------- |
 | `params` | `paramMap` |
 | `queryParams` | `queryParamMap` |
 
-For more information see the [Getting route information](guide/router#activated-route) section of the [Router guide](guide/router).
+Для получения дополнительной информации см [Получение информации о маршруте](guide/router#activated-route)раздел [руководство маршрутизатора](guide/router).
 
 
 {@a reflect-metadata}
-### Dependency on a reflect-metadata polyfill in JIT mode
-Angular applications, and specifically applications that relied on the JIT compiler, used to require a polyfill for the [reflect-metadata](https://github.com/rbuckton/reflect-metadata) APIs.
+{@a dependency-on-a-reflect-metadata-polyfill-in-jit-mode}
+### Зависимость от полифилла отражающих метаданных в режиме JIT
+Angular приложения и, в частности, приложения, основанные на JIT-компиляторе, раньше требовали многозаполнения для рефлекса [-метаданных](https://github.com/rbuckton/reflect-metadata)API .
 
-The need for this polyfill was removed in Angular version 8.0 ([see #14473](https://github.com/angular/angular-cli/pull/14473)), rendering the presence of the poylfill in most Angular applications unnecessary. Because the polyfill can be depended on by 3rd-party libraries, instead of removing it from all Angular projects, we are deprecating the requirement for this polyfill as of version 8.0. This should give library authors and application developers sufficient time to evaluate if they need the polyfill, and perform any refactoring necessary to remove the dependency on it.
+Потребность в этом полифилле была удалена в Angular версии 8.0 ( [см. # 14473](https://github.com/angular/angular-cli/pull/14473)), что делает ненужным присутствие poylfill в большинстве приложений Angular. Поскольку на полифил могут зависеть сторонние библиотеки, вместо того, чтобы удалять его из всех проектов Angular, мы осуждаем требование для этого полифилла начиная с версии 8.0. Это должно дать авторам библиотеки и разработчикам приложений достаточно времени, чтобы оценить, нужно ли им заполнение, и выполнить любой рефакторинг, необходимый для удаления зависимости от него.
 
-In a typical Angular project, the polyfill is not used in production builds, so removing it should not impact production applications. The goal behind this removal is overall simplification of the build setup and decrease in the number of external dependencies.
+В типичном угловом проекте полифилл не используется в производственных сборках, поэтому удаление его не должно влиять на производственные приложения. Целью этого удаления является общее упрощение настройки сборки и уменьшение количества внешних зависимостей.
 
 {@a static-query-resolution}
-### `@ViewChild()` / `@ContentChild()` static resolution as the default
+{@a viewchild-contentchild-static-resolution-as-the-default}
+### `@ViewChild() `/` @ContentChild()`статическое разрешение по умолчанию
 
-See the [dedicated migration guide for static queries](guide/static-query-migration).
+Смотрите [специальное руководство по миграции для статических запросов](guide/static-query-migration).
 
 {@a contentchild-input-together}
-### `@ContentChild()` / `@Input()` used together
+{@a contentchild-input-used-together}
+### `@ContentChild() `/` @Input()`используется вместе
 
-The following pattern is deprecated:
+Следующий шаблон является устаревшим:
 
 ```ts
 @Input() @ContentChild(TemplateRef) tpl !: TemplateRef<any>;
 ```
 
-Rather than using this pattern, separate the two decorators into their own
-properties and add fallback logic as in the following example:
+Вместо того, чтобы использовать этот шаблон, разделите два декоратора на их собственные
+свойства и добавить резервную логику , как в следующем примере:
 
 ```ts
 @Input() tpl !: TemplateRef<any>;
 @ContentChild(TemplateRef) inlineTemplate !: TemplateRef<any>;
 ```
 {@a cant-assign-template-vars}
-### Cannot assign to template variables
+{@a cannot-assign-to-template-variables}
+### Невозможно назначить переменные шаблона
 
-In the following example, the two-way binding means that `optionName`
-should be written when the `valueChange` event fires.
+В следующем примере двустороннее связывание означает, что `optionName`
+должно быть написано, когда `valueChange` Событие срабатывает.
 
 ```html
 <option *ngFor="let optionName of options" [(value)]="optionName"></option>
 ```
 
-However, in practice, Angular simply ignores two-way bindings to template variables. Starting in version 8, attempting to write to template variables is deprecated. In a future version, we will throw to indicate that the write is not supported.
+Однако на практике Angular просто игнорирует двусторонние привязки к шаблонным переменным. Начиная с версии 8, попытка записи в переменные шаблона не рекомендуется. В будущей версии мы добавим, чтобы указать, что запись не поддерживается.
 
 ```html
 <option *ngFor="let optionName of options" [value]="optionName"></option>
 ```
 
 {@a undecorated-base-classes}
-### Undecorated base classes using Angular features
+{@a undecorated-base-classes-using-angular-features}
+### Недекорированные базовые классы с использованием Angular функций
 
-As of version 9, it's deprecated to have an undecorated base class that:
+Начиная с версии 9, это не рекомендуется , чтобы иметь непараметризованный базовый класс , что:
 
-- uses Angular features
-- is extended by a directive or component
+- использует Angular функции
+- продлен директивой или компонентом
 
-Angular lifecycle hooks or any of the following Angular field decorators are considered Angular features:
+Angular крючки жизненного цикла или любые из следующих Angular полех декораторов считаются Angularи характеристиками:
 
 - `@Input()`
 - `@Output()`
 - `@HostBinding()`
 - `@HostListener()`
-- `@ViewChild()` / `@ViewChildren()`
-- `@ContentChild()` / `@ContentChildren()`
+- `@ViewChild() `/` @ViewChildren()`
+- `@ContentChild() `/` @ContentChildren()`
 
-For example, the following case is deprecated because the base class uses `@Input()` and does not have a class-level decorator:
+Например, следующий случай устарел, потому что базовый класс использует `@Input()` и не имеет уровня класса декоратора:
 
 ```ts
 class Base {
@@ -409,8 +429,8 @@ class Dir extends Base {
 }
 ```
 
-In a future version of Angular, this code will start to throw an error.
-To fix this example, add a selectorless `@Directive()` decorator to the base class:
+В будущей версии Angular этот код начнет выдавать ошибку.
+Чтобы исправить этот пример, добавьте селектор без `@Directive()` декоратор для базового класса:
 
 ```ts
 @Directive()
@@ -427,63 +447,68 @@ class Dir extends Base {
 }
 ```
 
-In version 9, the CLI has an automated migration that will update your code for you when `ng update` is run.
-See [the dedicated migration guide](guide/migration-undecorated-classes) for more information about the change and more examples.
+В версии 9 CLI имеет автоматическую миграцию, которая обновит ваш код, когда вы`ng update`запущено.
+См. [Специальное руководство по миграции](guide/migration-undecorated-classes)для получения дополнительной информации об изменениях и дополнительных примеров.
 
 
 
 {@a binding-to-innertext}
-### Binding to `innerText` in `platform-server`
+{@a binding-to-innertext-in-platform-server}
+### Привязка к `innerText` в `platform-server`
 
-[Domino](https://github.com/fgnass/domino), which is used in server-side rendering, doesn't support `innerText`, so in platform-server's "domino adapter", there was special code to fall back to `textContent` if you tried to bind to `innerText`.
+[Domino](https://github.com/fgnass/domino), который используется при рендеринге на стороне сервера, не поддерживает `innerText` , так что в "адаптере домино" платформы-сервера был специальный код, к которому можно вернуться `textContent` если вы пытались привязать к `innerText` .
 
-These two properties have subtle differences, so switching to `textContent` under the hood can be surprising to users. For this reason, we are deprecating this behavior. Going forward, users should explicitly bind to `textContent` when using Domino.
+Эти два свойства имеют тонкие различия, поэтому переключение на `textContent` под капотом может удивить пользователей. По этой причине мы осуждаем это поведение. В дальнейшем пользователи должны явно связываться с `textContent` при использовании Domino.
 
 {@a wtf-apis}
-### `wtfStartTimeRange` and all `wtf*` APIs
+{@a wtfstarttimerange-and-all-wtf-apis}
+### `wtfStartTimeRange`и все `wtf*` API
 
-All of the `wtf*` APIs are deprecated and will be removed in a future version.
+Все из `wtf*` API устарели и будут удалены в следующей версии.
 
 {@a webworker-apps}
-### Running Angular applications in platform-webworker
+{@a running-angular-applications-in-platform-webworker}
+### Запуск Angular-приложений в платформе webworker
 
-The `@angular/platform-*` packages enable Angular to be run in different contexts. For examples,
-`@angular/platform-server` enables Angular to be run on the server, and `@angular/platform-browser`
-enables Angular to be run in a web browser.
+`@angular/platform-*`позволяют запускать Angular в разных контекстах. Для примера
+`@angular/platform-server`позволяет запускать Angular на сервере, и `@angular/platform-browser`
+позволяет запускать Angular в веб-браузере.
 
-`@angular/platform-webworker` was introduced in Angular version 2 as an experiment in leveraging
-Angular's rendering architecture to run an entire web application in a
-[web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API). We've learned a lot
-from this experiment and have come to the conclusion that running the entire application in a web
-worker is not the best strategy for most applications.
+`@angular/platform-webworker`был представлен в Angular версии 2 как эксперимент по использованию
+Архитектура рендеринга Angular для запуска всего веб-приложения в
+[веб-работник](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API). Мы многому научились
+Исходя из этого эксперимента и пришли к выводу, что все приложение работает в сети
+работник не самая лучшая стратегия для большинства приложений.
 
-Going forward, we will focus our efforts related to web workers around their primary use case of
-offloading CPU-intensive, non-critical work needed for initial rendering (such as in-memory search
-and image processing). Learn more in the
-[guide to Using Web Workers with the Angular CLI](guide/web-worker).
+В дальнейшем мы сосредоточим наши усилия, связанные с веб-работниками, на их основном использовании
+разгрузка процессора интенсивно, некритическая работа , необходимую для начального рендеринга (например, поиск в памяти
+и обработке изображений). Узнайте больше в
+[руководство по использованию веб-работников с Angular интерфейсом командной строки](guide/web-worker).
 
-As of Angular version 8, all  `platform-webworker` APIs are deprecated.
-This includes both packages: `@angular/platform-webworker` and
+Начиная с Angular версии 8, все`platform-webworker`API устарели.
+Это включает в себя оба пакета: `@angular/platform-webworker` и
 `@angular/platform-webworker-dynamic`.
 
 {@a entryComponents}
-### `entryComponents` and `ANALYZE_FOR_ENTRY_COMPONENTS` no longer required
-Previously, the `entryComponents` array in the `NgModule` definition was used to tell the compiler which components would be created and inserted dynamically. With Ivy, this isn't a requirement anymore and the `entryComponents` array can be removed from existing module declarations. The same applies to the `ANALYZE_FOR_ENTRY_COMPONENTS` injection token.
+{@a entrycomponents-and-analyzeforentrycomponents-no-longer-required}
+### `entryComponents `и` ANALYZE_FOR_ENTRY_COMPONENTS`больше не требуется
+Ранее `entryComponents` массив в `NgModule` Определение использовалось для компилятору, какие компоненты будут создаваться и вставляться динамически. С Плющом это больше не требование, и `entryComponents` Массив может быть удален из существующих объявлений модуля. То же самое относится к `ANALYZE_FOR_ENTRY_COMPONENTS` токен инъекции.
 
 {@a moduleWithProviders}
-### `ModuleWithProviders` type without a generic
+{@a modulewithproviders-type-without-a-generic}
+### `ModuleWithProviders`Тип без универсального
 
-Some Angular libraries, such as `@angular/router` and `@ngrx/store`, implement APIs that return a type called `ModuleWithProviders` (typically via a method named `forRoot()`).
-This type represents an `NgModule` along with additional providers.
-Angular version 9 deprecates use of `ModuleWithProviders` without an explicitly generic type, where the generic type refers to the type of the `NgModule`.
-In a future version of Angular, the generic will no longer be optional.
+Некоторые Angular библиотеки, такие как `@angular/router` и `@ngrx/store` , реализуйте API, которые возвращают тип с именем `ModuleWithProviders` (обычно через метод с именем `forRoot()` ).
+Этот тип представляет `NgModule` вместе с дополнительными провайдерами.
+Angular версия 9 не одобряет использование `ModuleWithProviders` без явно универсального типа, где универсальный тип ссылается на тип `NgModule` .
+В будущей версии Angular универсальный больше не будет опциональным.
 
 
-If you're using the CLI, `ng update` should [migrate your code automatically](guide/migration-module-with-providers).
-If you're not using the CLI, you can add any missing generic types to your application manually.
-For example:
+Если вы используете CLI,`ng update`Необходимо [перенести ваш код автоматически](guide/migration-module-with-providers).
+Если вы не используете CLI, вы можете добавить в приложение любые недостающие универсальные типы вручную.
+Например:
 
-**Before**
+**До**
 ```ts
 @NgModule({...})
 export class MyModule {
@@ -498,7 +523,7 @@ export class MyModule {
 }
 ```
 
-**After**
+**После**
 
 ```ts
 @NgModule({...})
@@ -515,22 +540,23 @@ export class MyModule {
 ```
 
 {@a esm5-fesm5}
-### `esm5` and `fesm5` code formats in @angular/* npm packages
+{@a esm5-and-fesm5-code-formats-in-angular-npm-packages}
+### `esm5 `и` fesm5`форматы кода в @ Angular / * НМП пакетов
 
-As of Angular v8, the CLI primarily consumes the `fesm2015` variant of the code distributed via `@angular/*` npm packages.
-This renders the `esm5` and `fesm5` distributions obsolete and unnecessary, adding bloat to the package size and slowing down npm installations.
+Начиная с Angular v8, CLI в основном потребляет `fesm2015` вариант кода распространяется через `@angular/*` npm пакеты.
+Это делает `esm5` и `fesm5` устарели и не нужны, увеличивая размер пакета и увеличивая скорость установки npm.
 
-The future removal of this distribution will have no impact on CLI users, unless they modified their build configuration to explicitly consume these code distributions.
+Удаление этого дистрибутива в будущем не повлияет на пользователей CLI, если они не изменят свою конфигурацию сборки, чтобы явно использовать эти дистрибутивы кода.
 
-Any application still relying on the `esm5` and `fesm5` as the input to its build system will need to ensure that the build pipeline is capable of accepting JavaScript code conforming to ECMAScript 2015 (ES2015) language specification.
+Любое приложение все еще полагается на `esm5` и `fesm5` в качестве входных данных для своей системы сборки должен будет гарантировать, что конвейер сборки способен принимать код JavaScript, соответствующий спецификации языка ECMAScript 2015 (ES2015).
 
-Note that this change doesn't make existing libraries distributed in this format incompatible with the Angular CLI.
-The CLI will fall back and consume libraries in less desirable formats if others are not available.
-However, we do recommend that libraries ship their code in ES2015 format in order to make builds faster and build output smaller.
+Обратите внимание, что это изменение не делает существующие библиотеки, распространяемые в этом формате, несовместимыми с Angular CLI.
+Интерфейс командной строки откатится и будет использовать библиотеки в менее желательных форматах, если другие недоступны.
+Тем не менее, мы рекомендуем библиотекам отправлять свой код в формате ES2015, чтобы ускорить сборку и уменьшить объем вывода.
 
-In practical terms, the `package.json` of all `@angular` packages will change in the following way:
+В практическом плане `package.json` всего `@angular` пакеты будут изменяться следующим образом:
 
-**Before**:
+**Перед тем как **:
 ```
 {
   "name": "@angular/core",
@@ -546,7 +572,7 @@ In practical terms, the `package.json` of all `@angular` packages will change in
 }
 ```
 
-**After**:
+**После того, как **:
 ```
 {
   "name": "@angular/core",
@@ -560,35 +586,36 @@ In practical terms, the `package.json` of all `@angular` packages will change in
 }
 ```
 
-For more information about the npm package format, see the [Angular Package Format spec](https://goo.gl/jB3GVv).
+Для получения дополнительной информации о формате пакета npm см. [Спецификация Angular формата пакета](https://goo.gl/jB3GVv).
 
 
 
 {@a removed}
-## Removed APIs
+{@a removed-apis}
+## Удалены API
 
-The following APIs have been removed starting with version 9.0.0*:
+Следующие интерфейсы были удалены , начиная с версии 9.0.0 *:
 
-| Package          | API            | Replacement | Notes |
+| Пакет | API | Замена | Примечания
 | ---------------- | -------------- | ----------- | ----- |
-| `@angular/core`  | [`Renderer`](https://v8.angular.io/api/core/Renderer) | [`Renderer2`](https://angular.io/api/core/Renderer2) | [Migration guide](guide/migration-renderer) |
-| `@angular/core`  | [`RootRenderer`](https://v8.angular.io/api/core/RootRenderer) | [`RendererFactory2`](https://angular.io/api/core/RendererFactory2) | none |
-| `@angular/core`  | [`RenderComponentType`](https://v8.angular.io/api/core/RenderComponentType) | [`RendererType2`](https://angular.io/api/core/RendererType2) | none |
-| `@angular/core`  | [`WtfScopeFn`](https://v8.angular.io/api/core/WtfScopeFn) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/core`  | [`wtfCreateScope`](https://v8.angular.io/api/core/wtfCreateScope) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/core`  | [`wtfStartTimeRange`](https://v8.angular.io/api/core/wtfStartTimeRange) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/core`  | [`wtfEndTimeRange`](https://v8.angular.io/api/core/wtfEndTimeRange) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/core`  | [`wtfLeave`](https://v8.angular.io/api/core/wtfLeave) | none | v8 | See [Web Tracing Framework](#wtf) |
-| `@angular/common` | `DeprecatedI18NPipesModule` | [`CommonModule`](api/common/CommonModule#pipes) | none |
-| `@angular/common` | `DeprecatedCurrencyPipe` | [`CurrencyPipe`](api/common/CurrencyPipe) | none |
-| `@angular/common` | `DeprecatedDatePipe`     | [`DatePipe`](api/common/DatePipe) | none |
-| `@angular/common` | `DeprecatedDecimalPipe` | [`DecimalPipe`](api/common/DecimalPipe) | none |
-| `@angular/common` | `DeprecatedPercentPipe` | [`PercentPipe`](api/common/PercentPipe) | none |
-| `@angular/forms` | [`NgFormSelectorWarning`](https://v8.angular.io/api/forms/NgFormSelectorWarning) | none | none |
-| `@angular/forms` | `ngForm` element selector | `ng-form` element selector | none |
-| `@angular/service-worker` | `versionedFiles` | `files` | In the service worker configuration file `ngsw-config.json`, replace `versionedFiles` with `files`. See [Service Worker Configuration](guide/service-worker-config#assetgroups). |
+| `@angular/core`| [ `Рендерер` ](https://v8.angular.io/api/core/Renderer)| [ `Renderer2` ](https://angular.io/api/core/Renderer2)| [Руководство по миграции](guide/migration-renderer)|
+| `@angular/core`| [ `RootRenderer` ](https://v8.angular.io/api/core/RootRenderer)| [ `RendererFactory2` ](https://angular.io/api/core/RendererFactory2)| нет |
+| `@angular/core`| [ `RenderComponentType` ](https://v8.angular.io/api/core/RenderComponentType)| [ `RendererType2` ](https://angular.io/api/core/RendererType2)| нет |
+| `@angular/core`| [ `WtfScopeFn` ](https://v8.angular.io/api/core/WtfScopeFn)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/core`| [ `wtfCreateScope` ](https://v8.angular.io/api/core/wtfCreateScope)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/core`| [ `wtfStartTimeRange` ](https://v8.angular.io/api/core/wtfStartTimeRange)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/core`| [ `wtfEndTimeRange` ](https://v8.angular.io/api/core/wtfEndTimeRange)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/core`| [ `wtfLeave` ](https://v8.angular.io/api/core/wtfLeave)| нет | V8 | Смотрите [Web Tracing Framework](#wtf)|
+| `@angular/common` | `DeprecatedI18NPipesModule` | [ `CommonModule` ](api/common/CommonModule#pipes)| нет |
+| `@angular/common` | `DeprecatedCurrencyPipe` | [ `CurrencyPipe` ](api/common/CurrencyPipe)| нет |
+| `@angular/common` | `DeprecatedDatePipe`| [ `DatePipe` ](api/common/DatePipe)| нет |
+| `@angular/common` | `DeprecatedDecimalPipe` | [ `DecimalPipe` ](api/common/DecimalPipe)| нет |
+| `@angular/common` | `DeprecatedPercentPipe` | [ `PercentPipe` ](api/common/PercentPipe)| нет |
+| `@angular/forms` | [ `NgFormSelectorWarning` ](https://v8.angular.io/api/forms/NgFormSelectorWarning)| нет | нет |
+| `@angular/forms` | `ngForm` элементов | `ng-form` Селектор элементов | нет |
+| `@angular/service-worker` | `versionedFiles` | `files` | В файле конфигурации работника сервиса `ngsw-config.json` , заменить `versionedFiles` с `files` . Смотрите [Конфигурация сервисного работника](guide/service-worker-config#assetgroups). |
 
-*To see APIs removed in version 8, check out this guide on the [version 8 docs site](https://v8.angular.io/guide/deprecations#removed).
+*Чтобы увидеть API, удаленные в версии 8, ознакомьтесь с этим руководством на сайте документации [версия 8](https://v8.angular.io/guide/deprecations#removed).
 
 
 <!-- The following anchor is used by redirects from the removed API pages. Do not change or remove. -->
@@ -601,53 +628,53 @@ https://blog.angular.io/version-5-0-0-of-angular-now-available-37e414935ced)
 -->
 
 
-The entire [`@angular/http`](http://v7.angular.io/api/http) package has been removed. Use [`@angular/common/http`](api/common/http) instead.
+Весь [`@ angular / http`](http://v7.angular.io/api/http)пакет был удален. Использование [`@ Angular / Common / http`](api/common/http)вместо этого.
 
-The new API is a smaller, easier, and more powerful way to make HTTP requests in Angular.
-The new API simplifies the default ergonomics: There is no need to map by invoking the `.json()` method.
-It also supports typed return values and interceptors.
+Новый API - это меньший, более простой и мощный способ выполнения HTTP-запросов в Angular.
+Новый API упрощает эргономику по умолчанию: нет необходимости отображать, вызывая `.json()` метод.
+Он также поддерживает типизированные возвращаемые значения и перехватчики.
 
-To update your apps:
-* Replace `HttpModule` with [`HttpClientModule`](api/common/http/HttpClientModule) (from [`@angular/common/http`](api/common/http)) in each of your modules.
-* Replace the `Http` service with the [`HttpClient`](api/common/http/HttpClient) service.
-* Remove any `map(res => res.json())` calls. They are no longer needed.
+Для того, чтобы обновить свои приложения:
+* замещать `HttpModule` с [ `HttpClientModule` ](api/common/http/HttpClientModule)(из [` @ angular / common / http`](api/common/http)) в каждом из ваших модулей.
+* Заменить `Http` Сервис сервисом [ `HttpClient` ](api/common/http/HttpClient).
+* Удалить любой`map(res => res.json())`вызовы. Они больше не нужны.
 
-For more information about using `@angular/common/http`, see the [HttpClient guide](guide/http "HTTP Client guide").
+Для получения дополнительной информации об использовании `@angular/common/http` , см. [руководство HttpClient](guide/http "HTTP Client guide").
 
 
-| `@angular/http` | Closest replacement in `@angular/common/http` |
+| `@angular/http` | Ближайшая замена в `@angular/common/http` |
 | ------------- | ------------------------------------------- |
-| `BaseRequestOptions` |  [`HttpRequest`](/api/common/http/HttpRequest) |
-| `BaseResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `BrowserXhr` |  |
-| `Connection` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `ConnectionBackend` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `CookieXSRFStrategy` | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule) |
-| `Headers` | [`HttpHeaders`](/api/common/http/HttpHeaders) |
-| `Http` | [`HttpClient`](/api/common/http/HttpClient) |
-| `HttpModule` | [`HttpClientModule`](/api/common/http/HttpClientModule) |
-| `Jsonp` | [`HttpClient`](/api/common/http/HttpClient) |
-| `JSONPBackend` | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend) |
-| `JSONPConnection` | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend) |
-| `JsonpModule` | [`HttpClientJsonpModule`](/api/common/http/HttpClientJsonpModule) |
-| `QueryEncoder` | [`HttpUrlEncodingCodec`](/api/common/http/HttpUrlEncodingCodec) |
-| `ReadyState` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `Request` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `RequestMethod` | [`HttpClient`](/api/common/http/HttpClient) |
-| `RequestOptions` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `RequestOptionsArgs` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `Response` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseContentType` | [`HttpClient`](/api/common/http/HttpClient) |
-| `ResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseOptionsArgs` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseType` | [`HttpClient`](/api/common/http/HttpClient) |
-| `URLSearchParams` | [`HttpParams`](/api/common/http/HttpParams) |
-| `XHRBackend` | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend) |
-| `XHRConnection` | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend) |
-| `XSRFStrategy` | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule) |
+| `BaseRequestOptions` |[ `HttpRequest` ](/api/common/http/HttpRequest)|
+| `BaseResponseOptions` | [ `HttpResponse` ](/api/common/http/HttpResponse)|
+| `BrowserXhr` | |
+| `Connection` | [ `HttpBackend` ](/api/common/http/HttpBackend)|
+| `ConnectionBackend` | [ `HttpBackend` ](/api/common/http/HttpBackend)|
+| `CookieXSRFStrategy` | [ `HttpClientXsrfModule` ](/api/common/http/HttpClientXsrfModule)|
+| `Headers` | [ `HttpHeaders` ](/api/common/http/HttpHeaders)|
+| `Http` | [ `HttpClient` ](/api/common/http/HttpClient)|
+| `HttpModule` | [ `HttpClientModule` ](/api/common/http/HttpClientModule)|
+| `Jsonp` | [ `HttpClient` ](/api/common/http/HttpClient)|
+| `JSONPBackend` | [ `JsonpClientBackend` ](/api/common/http/JsonpClientBackend)|
+| `JSONPConnection` | [ `JsonpClientBackend` ](/api/common/http/JsonpClientBackend)|
+| `JsonpModule` | [ `HttpClientJsonpModule` ](/api/common/http/HttpClientJsonpModule)|
+| `QueryEncoder` | [ `HttpUrlEncodingCodec` ](/api/common/http/HttpUrlEncodingCodec)|
+| `ReadyState` | [ `HttpBackend` ](/api/common/http/HttpBackend)|
+| `Request` | [ `HttpRequest` ](/api/common/http/HttpRequest)|
+| `RequestMethod` | [ `HttpClient` ](/api/common/http/HttpClient)|
+| `RequestOptions` | [ `HttpRequest` ](/api/common/http/HttpRequest)|
+| `RequestOptionsArgs` | [ `HttpRequest` ](/api/common/http/HttpRequest)|
+| `Response` | [ `HttpResponse` ](/api/common/http/HttpResponse)|
+| `ResponseContentType` | [ `HttpClient` ](/api/common/http/HttpClient)|
+| `ResponseOptions` | [ `HttpResponse` ](/api/common/http/HttpResponse)|
+| `ResponseOptionsArgs` | [ `HttpResponse` ](/api/common/http/HttpResponse)|
+| `ResponseType` | [ `HttpClient` ](/api/common/http/HttpClient)|
+| `URLSearchParams` | [ `HttpParams` ](/api/common/http/HttpParams)|
+| `XHRBackend` | [ `HttpXhrBackend` ](/api/common/http/HttpXhrBackend)|
+| `XHRConnection` | [ `HttpXhrBackend` ](/api/common/http/HttpXhrBackend)|
+| `XSRFStrategy` | [ `HttpClientXsrfModule` ](/api/common/http/HttpClientXsrfModule)|
 
 
-| `@angular/http/testing` | Closest replacement in `@angular/common/http/testing` |
+| `@angular/http/testing` | Ближайшая замена в `@angular/common/http/testing` |
 | --------------------- | ------------------------------------------- |
-| `MockBackend` | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
-| `MockConnection` | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
+| `MockBackend` | [ `HttpTestingController` ](/api/common/http/testing/HttpTestingController)|
+| `MockConnection` | [ `HttpTestingController` ](/api/common/http/testing/HttpTestingController)|

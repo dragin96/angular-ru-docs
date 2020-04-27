@@ -11,9 +11,9 @@ import {scheduleMicroTask} from '../util/microtask';
 import {NgZone} from '../zone/ng_zone';
 
 /**
- * Testability API.
- * `declare` keyword causes tsickle to generate externs, so these methods are
- * not renamed by Closure Compiler.
+ * API тестируемости.
+ *  `declare` `declare` слово Declaretsickle для создания внешних переменных, поэтому эти методы таковы
+ * не переименован в Closure Compiler.
  * @publicApi
  */
 export declare interface PublicTestability {
@@ -49,9 +49,9 @@ interface WaitCallback {
 }
 
 /**
- * The Testability service provides testing hooks that can be accessed from
- * the browser and by services such as Protractor. Each bootstrapped Angular
- * application on the page will have an instance of Testability.
+ * Сервис Testable предоставляет тестовые хуки, к которым можно получить доступ
+ * браузер и такие службы, как транспортир. Каждый загружен Angular
+ * Приложение на странице будет иметь экземпляр Testable.
  * @publicApi
  */
 @Injectable()
@@ -227,7 +227,7 @@ export class Testability implements PublicTestability {
 }
 
 /**
- * A global registry of {@link Testability} instances for specific elements.
+ * Глобальный реестр{@link Testability}экземпляры для конкретных элементов.
  * @publicApi
  */
 @Injectable()
@@ -297,8 +297,8 @@ export class TestabilityRegistry {
 }
 
 /**
- * Adapter interface for retrieving the `Testability` service associated for a
- * particular context.
+ * Интерфейс адаптера для извлечения `Testability` службысвязанной с a
+ * конкретный контекст.
  *
  * @publicApi
  */
@@ -317,7 +317,7 @@ class _NoopGetTestability implements GetTestability {
 }
 
 /**
- * Set the {@link GetTestability} implementation used by the Angular testing framework.
+ * Установить{@link GetTestability}реализация, используемая средой тестирования Angular.
  * @publicApi
  */
 export function setTestabilityGetter(getter: GetTestability): void {

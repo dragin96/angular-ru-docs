@@ -23,7 +23,7 @@ import {NgModuleFactory} from './ng_module_factory';
 const modules = new Map<string, NgModuleFactory<any>|NgModuleType>();
 
 /**
- * Registers a loaded module. Should only be called from generated NgModuleFactory code.
+ * Регистрирует загруженный модуль. Должен вызываться только из сгенерированного кода NgModuleFactory.
  * @publicApi
  */
 export function registerModuleFactory(id: string, factory: NgModuleFactory<any>) {

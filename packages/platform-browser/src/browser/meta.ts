@@ -10,7 +10,7 @@ import {DOCUMENT, ɵDomAdapter as DomAdapter, ɵgetDOM as getDOM} from '@angular
 import {Inject, Injectable, ɵɵinject} from '@angular/core';
 
 /**
- * Represents a meta element.
+ * Представляет метаэлемент.
  *
  * @publicApi
  */
@@ -37,7 +37,7 @@ export function createMeta() {
 }
 
 /**
- * A service that can be used to get and add meta tags.
+ * Сервис, который можно использовать для получения и добавления метатегов.
  *
  * @publicApi
  */

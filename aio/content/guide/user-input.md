@@ -1,80 +1,83 @@
-# User input
+{@a user-input}
+# Пользовательский ввод
 
-User actions such as clicking a link, pushing a button, and entering
-text raise DOM events.
-This page explains how to bind those events to component event handlers using the Angular
-event binding syntax.
+Действия пользователя, такие как нажатие на ссылку, нажатие кнопки и ввод
+текст поднять события DOM.
+На этой странице объясняется, как связать эти события с обработчиками событий компонента, используя Angular
+синтаксис привязки событий.
 
-Run the <live-example></live-example>.
+Запустите <live-example></live-example>.
 
 
-## Binding to user input events
+{@a binding-to-user-input-events}
+## Привязка к событиям пользовательского ввода
 
-You can use [Angular event bindings](guide/template-syntax#event-binding)
-to respond to any [DOM event](https://developer.mozilla.org/en-US/docs/Web/Events).
-Many DOM events are triggered by user input. Binding to these events provides a way to
-get input from the user.
+Вы можете использовать [привязки Angular событий](guide/template-syntax#event-binding)
+ответить на любое [событие DOM](https://developer.mozilla.org/en-US/docs/Web/Events).
+Многие события DOM запускаются пользовательским вводом. Привязка к этим событиям дает возможность
+получить ввод от пользователя.
 
-To bind to a DOM event, surround the DOM event name in parentheses and assign a quoted
-[template statement](guide/template-syntax#template-statements) to it.
+Для привязки к событию DOM заключите имя события DOM в круглые скобки и присвойте кавычку
+[шаблон заявления](guide/template-syntax#template-statements)к нему.
 
-The following example shows an event binding that implements a click handler:
+В следующем примере показано событие связывания, который реализует обработчик щелчка:
 
 <code-example path="user-input/src/app/click-me.component.ts" region="click-me-button" header="src/app/click-me.component.ts"></code-example>
 
 {@a click}
 
-The `(click)` to the left of the equals sign identifies the button's click event as the **target of the binding**.
-The text in quotes to the right of the equals sign
-is the **template statement**, which responds
-to the click event by calling the component's `onClickMe` method.
+ `(click)` слева от знака равенства идентифицирует событие нажатия кнопки как **цель привязки**.
+Текст в кавычках справа от знака равенства
+это **шаблон заявления**, который отвечает
+к событию click, вызывая компонент `onClickMe` метод.
 
-When writing a binding, be aware of a template statement's **execution context**.
-The identifiers in a template statement belong to a specific context object,
-usually the Angular component controlling the template.
-The example above shows a single line of HTML, but that HTML belongs to a larger component:
+При написании привязки оператора шаблона **учитывайте контекст выполнения**.
+Идентификаторы в шаблоне заявления принадлежат определенному контексту объекта
+обычно Angular компонент, управляющий шаблоном.
+Приведенный выше пример показывает одна строки HTML, но, что HTML - принадлежит к большей компоненте:
 
 
 <code-example path="user-input/src/app/click-me.component.ts" region="click-me-component" header="src/app/click-me.component.ts"></code-example>
 
 
 
-When the user clicks the button, Angular calls the `onClickMe` method from `ClickMeComponent`.
+Когда пользователь нажимает кнопку, Angular вызывает `onClickMe` метод из `ClickMeComponent`.
 
 
 
-## Get user input from the $event object
-DOM events carry a payload of information that may be useful to the component.
-This section shows how to bind to the `keyup` event of an input box to get the user's input after each keystroke.
+{@a get-user-input-from-the-$event-object}
+## Получить пользовательский ввод от объекта $ event
+События DOM несут полезную информацию, которая может быть полезна для компонента.
+В этом разделе показано, как привязать к `keyup` Событие поля ввода для получения ввода пользователя после каждого нажатия клавиши.
 
-The following code listens to the `keyup` event and passes the entire event payload (`$event`) to the component event handler.
+Следующий код слушает `keyup` событие и передает всю полезную нагрузку события (`$event`) в обработчик событий компонента.
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-template" header="src/app/keyup.components.ts (template v.1)"></code-example>
 
 
 
-When a user presses and releases a key, the `keyup` event occurs, and Angular provides a corresponding
-DOM event object in the `$event` variable which this code passes as a parameter to the component's `onKey()` method.
+Когда пользователь нажимает и отпускает клавишу, `keyup` происходит событие, а Angular предоставляет соответствующий
+Объект события DOM в `$event` переменная которую этот код передает в качестве параметра компоненту `onKey()`.
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" header="src/app/keyup.components.ts (class v.1)"></code-example>
 
 
 
-The properties of an `$event` object vary depending on the type of DOM event. For example,
-a mouse event includes different information than an input box editing event.
+Свойства `$event` Объект варьируется в зависимости от типа события DOM. Например,
+событие мыши содержит информацию, отличную от события редактирования поля ввода.
 
-All [standard DOM event objects](https://developer.mozilla.org/en-US/docs/Web/API/Event)
-have a `target` property, a reference to the element that raised the event.
-In this case, `target` refers to the [`<input>` element](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement) and
-`event.target.value` returns the current contents of that element.
+Все [стандартные объекты событий DOM](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+иметь `target` свойство, ссылка на элемент, вызвавший событие.
+В этом случае, `target` относится к [`элемент](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)и
+ `event.target.value` возвращает текущее содержимое этого элемента.
 
-After each call, the `onKey()` method appends the contents of the input box value to the list
-in the component's `values` property, followed by a separator character (|).
-The [interpolation](guide/template-syntax#interpolation)
-displays the accumulating input box changes from the `values` property.
+После каждого звонка `onKey()` добавляет содержимое значения поля ввода в список
+в компоненте `values` Свойство, за которым следует символ разделителя (|).
+[Интерполяция](guide/template-syntax#interpolation)
+отображает накопление изменений в поле ввода `values` свойства.
 
-Suppose the user enters the letters "abc", and then backspaces to remove them one by one.
-Here's what the UI displays:
+Предположим, что пользователь вводит буквы «abc», а затем удаляет их по одному.
+Вот то, что отображает пользовательский интерфейс:
 
 <code-example>
   a | ab | abc | ab | a | |
@@ -92,8 +95,8 @@ Here's what the UI displays:
 
 
 
-Alternatively, you could accumulate the individual keys themselves by substituting `event.key`
-for `event.target.value` in which case the same user input would produce:
+В качестве альтернативы, вы можете накапливать отдельные ключи сами, подставляя `event.key` 
+для `event.target.value` в этом случае тот же пользовательский ввод будет производить:
 
 <code-example>
   a | b | c | backspace | backspace | backspace |
@@ -109,56 +112,59 @@ for `event.target.value` in which case the same user input would produce:
 {@a keyup1}
 
 
-### Type the _$event_
+{@a type-the-event}
+### Введите _$event_
 
-The example above casts the `$event` as an `any` type.
-That simplifies the code at a cost.
-There is no type information
-that could reveal properties of the event object and prevent silly mistakes.
+В приведенном выше примере `$event` как `any` тип.
+Это упрощает код за плату.
+Нет информации о типе
+это может раскрыть свойства объекта события и предотвратить глупые ошибки.
 
-The following example rewrites the method with types:
+Следующий пример переписывает метод с типами:
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" header="src/app/keyup.components.ts (class v.1 - typed )"></code-example>
-
-
-
-The `$event` is now a specific `KeyboardEvent`.
-Not all elements have a `value` property so it casts `target` to an input element.
-The `OnKey` method more clearly expresses what it expects from the template and how it interprets the event.
-
-### Passing _$event_ is a dubious practice
-Typing the event object reveals a significant objection to passing the entire DOM event into the method:
-the component has too much awareness of the template details.
-It can't extract information without knowing more than it should about the HTML implementation.
-That breaks the separation of concerns between the template (_what the user sees_)
-and the component (_how the application processes user data_).
-
-The next section shows how to use template reference variables to address this problem.
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" header="src/app/keyup.components.ts (class v.1 - typed)"></code-example>
 
 
 
-## Get user input from a template reference variable
-There's another way to get the user data: use Angular
-[**template reference variables**](guide/template-syntax#ref-vars).
-These variables provide direct access to an element from within the template.
-To declare a template reference variable, precede an identifier with a hash (or pound) character (#).
+ `$event` теперь является конкретным `KeyboardEvent`.
+Не все элементы имеют `value` свойства, так что бросает `target` для элемента ввода.
+ `OnKey` Метод более четко выражает то, что он ожидает от шаблона и как он интерпретирует событие.
 
-The following example uses a template reference variable
-to implement a keystroke loopback in a simple template.
+{@a passing-$event-is-a-dubious-practice}
+### Прохождение _$event_ - сомнительная практика
+Typing объекта события показывает существенное возражение передавая все события DOM в метод:
+компонент слишком осведомлен о деталях шаблона.
+Он не может извлекать информацию, не зная больше, чем следует о реализации HTML.
+Это нарушает разделение проблем между шаблоном (то, что видит пользователь)
+и компонент (_как приложение обрабатывает пользовательские данные_).
+
+В следующем разделе показано, как использовать переменные ссылки на шаблон для решения этой проблемы.
+
+
+
+{@a get-user-input-from-a-template-reference-variable}
+## Получите пользовательский ввод из ссылочной переменной шаблона
+Есть еще один способ получить пользовательские данные: использовать Angular
+[** ссылочные переменные шаблона**](guide/template-syntax#ref-vars).
+Эти переменные обеспечивают прямой доступ к элементу из шаблона.
+Чтобы объявить переменную ссылки на шаблон, перед идентификатором должен стоять символ хеша (или фунта) ( #).
+
+В следующем примере используется ссылочная переменная шаблона
+реализовать петлю нажатия клавиш в простом шаблоне.
 
 <code-example path="user-input/src/app/loop-back.component.ts" region="loop-back-component" header="src/app/loop-back.component.ts"></code-example>
 
 
 
-The template reference variable named `box`, declared on the `<input>` element,
-refers to the `<input>` element itself.
-The code uses the `box` variable to get the input element's `value` and display it
-with interpolation between `<p>` tags.
+Ссылочная переменная шаблона с именем `box`, заявленная на `<input>` элемент
+относится к `<input>` сам элемент.
+Код использует `box` переменная чтобы получить входной элемент `value` и отобразить его
+с интерполяцией между `<p>` теги.
 
-The template is completely self contained. It doesn't bind to the component,
-and the component does nothing.
+Шаблон полностью автономен. Он не привязан к компоненту
+и компонент ничего не делает.
 
-Type something in the input box, and watch the display update with each keystroke.
+Введите что-нибудь в поле ввода и следите за обновлением дисплея при каждом нажатии клавиши.
 
 
 <div class="lightbox">
@@ -171,45 +177,46 @@ Type something in the input box, and watch the display update with each keystrok
 
 
 
-**This won't work at all unless you bind to an event**.
+**Это не будет работать вообще, если вы не привязаны к событию**.
 
-Angular updates the bindings (and therefore the screen)
-only if the app does something in response to asynchronous events, such as keystrokes.
-This example code binds the `keyup` event
-to the number 0, the shortest template statement possible.
-While the statement does nothing useful,
-it satisfies Angular's requirement so that Angular will update the screen.
+Angular обновляет привязки (и, следовательно, экран)
+только если приложение делает что-то в ответ на асинхронные события, такие как нажатия клавиш.
+Этот пример кода связывает `keyup` событие
+на номер 0 возможна самая короткая шаблонная выписка.
+Пока заявление ничего полезного не дает
+он удовлетворяет требованию Angular, чтобы Angular обновлял экран.
 
 </div>
 
 
 
-It's easier to get to the input box with the template reference
-variable than to go through the `$event` object. Here's a rewrite of the previous
-`keyup` example that uses a template reference variable to get the user's input.
+Проще попасть в поле ввода со ссылкой на шаблон
+переменная, чем пройти через `$event` объекта. Вот переписать предыдущий
+ `keyup` Пример который использует переменную ссылки шаблона для получения ввода пользователя.
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" header="src/app/keyup.components.ts (v2)"></code-example>
 
 
 
-A nice aspect of this approach is that the component gets clean data values from the view.
-It no longer requires knowledge of the `$event` and its structure.
+Приятным аспектом этого подхода является то, что компонент получает чистые значения данных из представления.
+Больше не требуется знание `$event` и его структура.
 {@a key-event}
 
 
-## Key event filtering (with `key.enter`)
-The `(keyup)` event handler hears *every keystroke*.
-Sometimes only the _Enter_ key matters, because it signals that the user has finished typing.
-One way to reduce the noise would be to examine every `$event.keyCode` and take action only when the key is _Enter_.
+{@a key-event-filtering-with-key.enter}
+## Фильтрация ключевых событий (с `key.enter`)
+ `(keyup)` обработчик событий слышит *каждое нажатие клавиши*.
+Иногда имеет значение только ключ _Enter_, потому что он сигнализирует, что пользователь закончил печатать.
+Одним из способов снижения шума будет проверка каждого `$event.keyCode` и выполнять действие только тогда, когда ключ _Enter_.
 
-There's an easier way: bind to Angular's `keyup.enter` pseudo-event.
-Then Angular calls the event handler only when the user presses _Enter_.
+Есть более простой способ: привязать к Angular's `keyup.enter` псевдо-событие.
+Затем Angular вызывает обработчик событий только тогда, когда пользователь нажимает _Enter_.
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-3" header="src/app/keyup.components.ts (v3)"></code-example>
 
 
 
-Here's how it works.
+Вот как это работает.
 
 <div class="lightbox">
   <img src='generated/images/guide/user-input/keyup3-anim.gif' alt="key up 3">
@@ -218,14 +225,15 @@ Here's how it works.
 
 
 
-## On blur
+{@a on-blur}
+## На размытие
 
-In the previous example, the current state of the input box
-is lost if the user mouses away and clicks elsewhere on the page
-without first pressing _Enter_.
-The component's `value` property is updated only when the user presses _Enter_.
+В предыдущем примере текущее состояние поля ввода
+будет потеряно, если пользователь отключится и щелкнет в другом месте на странице
+без первого нажатия _Enter_.
+Компоненты `value` свойства обновляется только тогда, когда пользователь нажимает _Enter_.
 
-To fix this issue, listen to both the _Enter_ key and the _blur_ event.
+Чтобы устранить эту проблему, прослушайте ключ _Enter_ и событие _blur_.
 
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-4" header="src/app/keyup.components.ts (v4)"></code-example>
@@ -233,14 +241,15 @@ To fix this issue, listen to both the _Enter_ key and the _blur_ event.
 
 
 
-## Put it all together
-The previous page showed how to [display data](guide/displaying-data).
-This page demonstrated event binding techniques.
+{@a put-it-all-together}
+## Положите все это вместе
+Предыдущая страница показала, как [отображать данные](guide/displaying-data).
+На этой странице демонстрируются методы привязки событий.
 
-Now, put it all together in a micro-app
-that can display a list of heroes and add new heroes to the list.
-The user can add a hero by typing the hero's name in the input box and
-clicking **Add**.
+Теперь соберите все это вместе в микро-приложение
+который может отображать список героев и добавлять новых героев в список.
+Пользователь может добавить героя, введя имя героя в поле ввода и
+нажав кнопку **Добавить**.
 
 
 <div class="lightbox">
@@ -249,33 +258,35 @@ clicking **Add**.
 
 
 
-Below is the "Little Tour of Heroes"  component.
+Ниже приведен компонент «Маленький тур героев».
 
 
 <code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" header="src/app/little-tour.component.ts"></code-example>
 
 
 
-### Observations
+{@a observations}
+### Наблюдения
 
-* **Use template variables to refer to elements** &mdash;
-The `newHero` template variable refers to the `<input>` element.
-You can reference `newHero` from any sibling or child of the `<input>` element.
+* **Используйте переменный шаблон для обозначения элементов** -
+ `newHero` шаблона относится к `<input>` элемент.
+Вы можете ссылаться `newHero` от любого родного брата или ребенка `<input>` элемент.
 
-* **Pass values, not elements** &mdash;
-Instead of passing the `newHero` into the component's `addHero` method,
-get the input box value and pass *that* to `addHero`.
+* **Передача значений, а не элементы** -
+Вместо прохождения `newHero` в компонент `addHero` метод
+получить значение поля ввода и передать, *что* в `addHero`.
 
-* **Keep template statements simple** &mdash;
-The `(blur)` event is bound to two JavaScript statements.
-The first statement calls `addHero`. The second statement, `newHero.value=''`,
-clears the input box after a new hero is added to the list.
+* **Держите шаблон отчетность простой** -
+ `(blur)` Событие связано с двумя операторами JavaScript.
+Первое высказывание призывает `addHero` . Второе утверждение, `newHero.value=''`,
+очищает поле ввода после добавления нового героя в список.
 
 
 
-## Source code
+{@a source-code}
+## Исходный код
 
-Following is all the code discussed in this page.
+Ниже приведен весь код, обсуждаемый на этой странице.
 
 <code-tabs>
 
@@ -298,31 +309,32 @@ Following is all the code discussed in this page.
 </code-tabs>
 
 
-Angular also supports passive event listeners. For example, you can use the following steps to make the scroll event passive.
+Angular также поддерживает пассивные слушатели событий. Например, вы можете использовать следующие шаги, чтобы сделать событие прокрутки пассивным.
 
-1. Create a file `zone-flags.ts` under `src` directory.
-2. Add the following line into this file.
+1. Создать файл `zone-flags.ts` под `src` каталог.
+2. Добавьте следующую строку в этот файл.
 
 ```
 (window as any)['__zone_symbol__PASSIVE_EVENTS'] = ['scroll'];
 ```
 
-3. In the `src/polyfills.ts` file, before importing zone.js, import the newly created `zone-flags`.
+3. В `src/polyfills.ts` Файл, прежде чем импортировать zone.js, импортирует только что созданный `zone-flags`.
 
 ```
 import './zone-flags';
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 ```
 
-After those steps, if you add event listeners for the `scroll` event, the listeners will be `passive`.
+После этих шагов, если вы добавите прослушиватели событий для `scroll` событие, слушатели будут `passive`.
 
-## Summary
+{@a summary}
+## Резюме
 
-You have mastered the basic primitives for responding to user input and gestures.
+Вы освоили основные примитивы для реагирования на пользовательский ввод и жесты.
 
-These techniques are useful for small-scale demonstrations, but they
-quickly become verbose and clumsy when handling large amounts of user input.
-Two-way data binding is a more elegant and compact way to move
-values between data entry fields and model properties.
-The next page, `Forms`, explains how to write
-two-way bindings with `NgModel`.
+Эти приемы полезны для небольших демонстраций, но они есть
+быстро становиться многословным и неуклюжим при обработке большого количества пользовательского ввода.
+Двустороннее связывание данных - более элегантный и компактный способ перемещения
+значения между полями ввода данных и свойствами модели.
+Следующая страница, `Forms`, объясняет, как писать
+двусторонние привязки с `NgModel`.

@@ -13,7 +13,7 @@ import {ɵINTERNAL_SERVER_PLATFORM_PROVIDERS as INTERNAL_SERVER_PLATFORM_PROVIDE
 
 
 /**
- * Platform for testing
+ * Платформа для тестирования
  *
  * @publicApi
  */
@@ -21,7 +21,7 @@ export const platformServerTesting = createPlatformFactory(
     platformCoreDynamicTesting, 'serverTesting', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
- * NgModule for testing.
+ * NgModule для тестирования.
  *
  * @publicApi
  */

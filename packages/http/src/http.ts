@@ -41,66 +41,66 @@ function mergeOptions(
 }
 
 /**
- * Performs http requests using `XMLHttpRequest` as the default backend.
+ * Выполняет http-запросы, используя `XMLHttpRequest` качествепо умолчанию.
  *
- * `Http` is available as an injectable class, with methods to perform http requests. Calling
- * `request` returns an `Observable` which will emit a single {@link Response} when a
- * response is received.
+ *  `Http`доступен как инъецируемый класс, с методами для выполнения http-запросов.Вызов.
+ *  `request `возвращает` Observable`который будет излучать один{@link Response}когда а
+ * ответ получен.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * ```typescript
- * import {Http, HTTP_PROVIDERS} from '@angular/http';
- * import {map} from 'rxjs/operators';
+ *  ```typescript
+ *  import {Http, HTTP_PROVIDERS} from '@angular/http';
+ *  import {map} from 'rxjs/operators';
  *
- * @Component({
- *   selector: 'http-app',
- *   viewProviders: [HTTP_PROVIDERS],
- *   templateUrl: 'people.html'
- * })
- * class PeopleComponent {
- *   constructor(http: Http) {
- *     http.get('people.json')
- *       // Call map on the response observable to get the parsed people object
- *       .pipe(map(res => res.json()))
- *       // Subscribe to the observable to get the parsed people object and attach it to the
- *       // component
- *       .subscribe(people => this.people = people);
- *   }
- * }
- * ```
+ *  @Component({
+ *    selector: 'http-app',
+ *    viewProviders: [HTTP_PROVIDERS],
+ *    templateUrl: 'people.html'
+ *  })
+ *  class PeopleComponent {
+ *    constructor(http: Http) {
+ *      http.get('people.json')
+ *        // Call map on the response observable to get the parsed people object
+ *        .pipe(map(res => res.json()))
+ *        // Subscribe to the observable to get the parsed people object and attach it to the
+ *        // component
+ *        .subscribe(people => this.people = people);
+ *    }
+ *  }
+ *  ```
  *
  *
- * ### Example
+ *  ### Пример
  *
- * ```
- * http.get('people.json').subscribe((res:Response) => this.people = res.json());
- * ```
+ *  ```
+ *  http.get('people.json').subscribe((res:Response) => this.people = res.json());
+ *  ```
  *
- * The default construct used to perform requests, `XMLHttpRequest`, is abstracted as a "Backend" (
- * {@link XHRBackend} in this case), which could be mocked with dependency injection by replacing
- * the {@link XHRBackend} provider, as in the following example:
+ * Конструкция по умолчанию, используемая для выполнения запросов, `XMLHttpRequest` , абстрагируется как« Backend »(
+ *  {@link XHRBackend}в данном случае), который можно смоделировать с помощью внедрения зависимости путем замены
+ *  the {@link XHRBackend}провайдера, какв следующемпримере:.
  *
- * ### Example
+ *  ### Пример
  *
- * ```typescript
- * import {BaseRequestOptions, Http} from '@angular/http';
- * import {MockBackend} from '@angular/http/testing';
- * var injector = Injector.resolveAndCreate([
- *   BaseRequestOptions,
- *   MockBackend,
- *   {provide: Http, useFactory:
- *       function(backend, defaultOptions) {
- *         return new Http(backend, defaultOptions);
- *       },
- *       deps: [MockBackend, BaseRequestOptions]}
- * ]);
- * var http = injector.get(Http);
- * http.get('request-from-mock-backend.json').subscribe((res:Response) => doSomething(res));
- * ```
+ *  ```typescript
+ *  import {BaseRequestOptions, Http} from '@angular/http';
+ *  import {MockBackend} from '@angular/http/testing';
+ *  var injector = Injector.resolveAndCreate([
+ *    BaseRequestOptions,
+ *    MockBackend,
+ *    {provide: Http, useFactory:
+ *        function(backend, defaultOptions) {
+ *          return new Http(backend, defaultOptions);
+ *        },
+ *        deps: [MockBackend, BaseRequestOptions]}
+ *  ]);
+ *  var http = injector.get(Http);
+ *  http.get('request-from-mock-backend.json').subscribe((res:Response) => doSomething(res));
+ *  ```
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()
@@ -189,7 +189,7 @@ export class Http {
 
 
 /**
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

@@ -1,6 +1,6 @@
 {
   "projectType": "i18n",
-  "tests": [
+  "e2e": [
     {
       "cmd": "yarn",
       "args": [

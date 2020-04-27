@@ -1,17 +1,19 @@
-# `$localize` Global Import Migration
+{@a $localize-global-import-migration}
+#  `$localize` Global Import Migration
 
-## What does this schematic do?
+{@a what-does-this-schematic-do}
+## Что делает эта схема?
 
-If you're using i18n, this schematic adds an import statement for `@angular/localize` to `polyfills.ts` that will look something like this:
+Если вы используете i18n, эта схема добавляет оператор импорта для  `@angular/localize`  to  `polyfills.ts`  которая будет выглядеть примерно так:
 
 ```ts
 /******************************************************************
- * Load `$localize` - used if i18n tags appear in Angular templates.
+ * Load  `$localize`  - used if i18n tags appear in Angular templates.
  */
 import '@angular/localize/init';
 ```
 
-It also lists `@angular/localize` as a dependency in your app's `package.json` to ensure the import is found.
+Это также списки  `@angular/localize`  как зависимость в вашем приложении  `package.json`  чтобы гарантировать, что импорт найден.
 
 ```json
 
@@ -23,41 +25,43 @@ It also lists `@angular/localize` as a dependency in your app's `package.json` t
 
 ```
 
-`@angular/localize` is a new package that supports i18n of messages in Ivy applications.
-This package requires a global `$localize` symbol to exist.
-The symbol is loaded by importing the `@angular/localize/init` module, which has the side-effect of attaching it to the global scope.
+ `@angular/localize` - это новый пакет, который поддерживает i18n сообщений в приложениях Ivy.
+Этот пакет требует глобального  `$localize`  символ для существования.
+Символ загружается путем импорта  `@angular/localize/init`  Модуль, побочным эффектом которого является его привязка к глобальной области видимости.
 
-## Why is this migration necessary?
+{@a why-is-this-migration-necessary}
+## Почему эта миграция необходима?
 
-Prior to Angular version 9, Angular's internationalization (i18n) system inlined translated messages into the compiled output as part of this template compilation.
-This approach required running the template compiler once per target locale, often leading to slow production build times.
+До версии Angular 9 система интернационализации Angular (i18n) встраивала переведенные сообщения в скомпилированный вывод как часть этой компиляции шаблона.
+Этот подход требовал запуска компилятора шаблона один раз для целевого языкового стандарта, что часто приводило к замедлению времени сборки продукта.
 
-In the new i18n system, the Angular compiler tags i18n messages in the compiled code with a global `$localize` handler.
-The inlining of translations then occurs as a post-compilation step for each locale.
-Because the application does not need to be built again for each locale, this makes the process much faster.
+В новой системе i18n Angular-компилятор помечает сообщения i18n в скомпилированном коде глобальным  `$localize`  обработчик.
+Встраивание переводов затем происходит как шаг после компиляции для каждой локали.
+Поскольку приложение не нужно создавать заново для каждой локали, это значительно ускоряет процесс.
 
-The post-compilation inlining step is optional&mdash;for example during development or if the translations will be inlined at runtime.
-Therefore this global `$localize` must be available on the global scope at runtime.
-To make `$localize` available on the global scope, each application must now import the `@angular/localize/init` module.
-This has the side-effect of attaching a minimal implementation of `$localize` to the global scope.
+Шаг встраивания после компиляции является необязательным - например, во время разработки или если переводы будут встроены во время выполнения.
+Поэтому этот глобальный  `$localize`  должен быть доступен в глобальной области видимости во время выполнения.
+Делать  `$localize`  доступен в глобальной области видимости, теперь каждое приложение должно импортировать  `@angular/localize/init`  модуль.
+Это имеет побочный эффект прикрепления минимальной реализации  `$localize`  для глобальной области видимости.
 
-If this import is missing, you will see an error message like this:
+Если импорт отсутствует, вы увидите сообщение об ошибке, как это:
 
 ```
 Error: It looks like your application or one of its dependencies is using i18n.
-Angular 9 introduced a global `$localize()` function that needs to be loaded.
-Please run `ng add @angular/localize` from the Angular CLI.
-(For non-CLI projects, add `import '@angular/localize/init';` to your polyfills.ts file)
+Angular 9 introduced a global  `$localize()`  function that needs to be loaded.
+Please run  `ng add @angular/localize`  from the Angular CLI.
+(For non-CLI projects, add  `import '@angular/localize/init';`  to your polyfills.ts file)
 ```
 
-This schematic automatically adds the `@angular/localize/init` import for you
-if your app uses Angular's i18n APIs.
+Эта схема автоматически добавляет  `@angular/localize/init`  импорт для вас
+если ваше приложение использует API Angular i18n.
 
 
-## Why is my tslint failing?
+{@a why-is-my-tslint-failing}
+## Почему мой tslint терпит неудачу?
 
-The import of `@angular/localize/init` may cause a tslint error for `no-import-side-effect` because it adds to the global context (that is, a side effect).
-To fix this error, add the following to your `tslint.config`:
+Импорт  `@angular/localize/init`  может вызвать ошибку tslint для  `no-import-side-effect`  потому что он добавляет к глобальному контексту (то есть побочный эффект).
+Чтобы исправить эту ошибку, добавьте следующее к вашему  `tslint.config`  :
 
 ```json
 
@@ -71,6 +75,7 @@ To fix this error, add the following to your `tslint.config`:
 ```
 
 
-## Do I need to change how I write i18n in my Angular templates?
+{@a do-i-need-to-change-how-i-write-i18n-in-my-angular-templates}
+## Нужно ли мне изменить способ написания i18n в моих шаблонах Angular?
 
-The template syntax for i18n has not changed, so you will still want to use the `i18n` attribute as you did before.
+Синтаксис шаблона для i18n не изменился, поэтому вы все равно захотите использовать  `i18n`  атрибут как вы делали раньше.

@@ -16,23 +16,23 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
 
 
 /**
- * Represents a route configuration for the Router service.
- * An array of `Route` objects, used in `Router.config` and for nested route configurations
- * in `Route.children`.
+ * Представляет конфигурацию маршрута для службы Router.
+ * Массив `Route` объектов, используемый `Router.config` и для вложенных конфигураций маршрутов
+ * в `Route.children`.
  *
- * @see `Route`
- * @see `Router`
+ *  @see `Route`
+ *  @see `Router`
  * @publicApi
  */
 export type Routes = Route[];
 
 /**
- * Represents the result of matching URLs with a custom matching function.
+ * Представляет результат сопоставления URL-адресов с пользовательской функцией сопоставления.
  *
- * * `consumed` is an array of the consumed URL segments.
- * * `posParams` is a map of positional parameters.
+ *  `consumed`является массивом потребленных сегментов URL.
+ *  `posParams`- это карта позиционных параметров.
  *
- * @see `UrlMatcher()`
+ *  @see `UrlMatcher()`
  * @publicApi
  */
 export type UrlMatchResult = {
@@ -41,26 +41,26 @@ export type UrlMatchResult = {
 };
 
 /**
- * A function for matching a route against URLs. Implement a custom URL matcher
- * for `Route.matcher` when a combination of `path` and `pathMatch`
- * is not expressive enough. Cannot be used together with `path` and `pathMatch`.
+ * Функция для сопоставления маршрута с URL. Реализуйте настраиваемое сопоставление URL
+ * для `Route.matcher` когда комбинация` `path` и `pathMatch`
+ * не достаточно выразителен. Не может быть использована вместе с `path` и `pathMatch` pathMatch.
  *
- * @param segments An array of URL segments.
- * @param group A segment group.
- * @param route The route to match against.
- * @returns The match-result.
+ *  @param сегменты Массив сегментов URL.
+ *  @param группа А сегментная группа.
+ *  @param route Маршрут, с которым нужно сравнивать.
+ *  @returns Матч-результат.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following matcher matches HTML files.
+ * Следующее сопоставление соответствует HTML-файлам.
  *
- * ```
- * export function htmlFiles(url: UrlSegment[]) {
- *   return url.length === 1 && url[0].path.endsWith('.html') ? ({consumed: url}) : null;
- * }
+ *  ```
+ *  export function htmlFiles(url: UrlSegment[]) {
+ *    return url.length === 1 && url[0].path.endsWith('.html') ? ({consumed: url}) : null;
+ *  }
  *
- * export const routes = [{ matcher: htmlFiles, component: AnyComponent }];
- * ```
+ *  export const routes = [{ matcher: htmlFiles, component: AnyComponent }];
+ *  ```
  *
  * @publicApi
  */
@@ -69,9 +69,9 @@ export type UrlMatcher = (segments: UrlSegment[], group: UrlSegmentGroup, route:
 
 /**
  *
- * Represents static data associated with a particular route.
+ * Представляет статические данные, связанные с конкретным маршрутом.
  *
- * @see `Route#data`
+ *  @see `Route#data`
  *
  * @publicApi
  */
@@ -81,9 +81,9 @@ export type Data = {
 
 /**
  *
- * Represents the resolved data associated with a particular route.
+ * Представляет разрешенные данные, связанные с конкретным маршрутом.
  *
- * @see `Route#resolve`.
+ *  @see `Route#resolve`.
  *
  * @publicApi
  */
@@ -93,21 +93,21 @@ export type ResolveData = {
 
 /**
  *
- * A function that is called to resolve a collection of lazy-loaded routes.
+ * Функция, которая вызывается для разрешения коллекции ленивых загруженных маршрутов.
  *
- * Often this function will be implemented using an ES dynamic `import()` expression. For example:
+ * Часто эта функция будет реализована с использованием динамическогоES `import()` выражения.Например:.
  *
- * ```
- * [{
- *   path: 'lazy',
- *   loadChildren: () => import('./lazy-route/lazy.module').then(mod => mod.LazyModule),
- * }];
- * ```
+ *  ```
+ *  [{
+ *    path: 'lazy',
+ *    loadChildren: () => import('./lazy-route/lazy.module').then(mod => mod.LazyModule),
+ *  }];
+ *  ```
  *
- * This function _must_ match the form above: an arrow function of the form
- * `() => import('...').then(mod => mod.MODULE)`.
+ * Эта функция должна соответствовать форме выше: функция стрелки формы
+ *  `() => import('...').then(mod => mod.MODULE)`.
  *
- * @see `Route#loadChildren`.
+ *  @see `Route#loadChildren`.
  * @publicApi
  */
 export type LoadChildrenCallback = () => Type<any>|NgModuleFactory<any>|Observable<Type<any>>|
@@ -115,21 +115,21 @@ export type LoadChildrenCallback = () => Type<any>|NgModuleFactory<any>|Observab
 
 /**
  *
- * A string of the form `path/to/file#exportName` that acts as a URL for a set of routes to load,
- * or a function that returns such a set.
+ * Строка вида `path/to/file#exportName` который действует как URL для набора маршрутов кнагрузке,.
+ * или функция, которая возвращает такой набор.
  *
- * The string form of `LoadChildren` is deprecated (see `DeprecatedLoadChildren`). The function
- * form (`LoadChildrenCallback`) should be used instead.
+ * Строка форма `LoadChildren` является устаревшим (см `DeprecatedLoadChildren` DeprecatedLoadChildren).Функция.
+ * форму ( `LoadChildrenCallback``LoadChildrenCallback` следует использовать).
  *
- * @see `Route#loadChildren`.
+ *  @see `Route#loadChildren`.
  * @publicApi
  */
 export type LoadChildren = LoadChildrenCallback|DeprecatedLoadChildren;
 
 /**
- * A string of the form `path/to/file#exportName` that acts as a URL for a set of routes to load.
+ * Строка вида `path/to/file#exportName` которая действует как URL для набора загружаемых маршрутов.
  *
- * @see `Route#loadChildren`
+ *  @see `Route#loadChildren`
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated in favor of the proposed ES dynamic
  * `import()` expression, which offers a more natural and standards-based mechanism to dynamically
@@ -139,22 +139,22 @@ export type DeprecatedLoadChildren = string;
 
 /**
  *
- * How to handle query parameters in a router link.
- * One of:
- * - `merge` : Merge new with current parameters.
- * - `preserve` : Preserve current parameters.
+ * Как обрабатывать параметры запроса в ссылке на маршрутизатор.
+ * Одиниз:.
+ * - `merge` : объединить новые с текущими параметрами.
+ * - `preserve` : сохранить текущие параметры.
  *
- * @see `NavigationExtras#queryParamsHandling`
- * @see `RouterLink`
+ *  @see `NavigationExtras#queryParamsHandling`
+ *  @see `RouterLink`
  * @publicApi
  */
 export type QueryParamsHandling = 'merge'|'preserve'|'';
 
 /**
  *
- * A policy for when to run guards and resolvers on a route.
+ * Политика, когда нужно запускать охранников и распознаватели на маршруте.
  *
- * @see `Route#runGuardsAndResolvers`
+ *  @see `Route#runGuardsAndResolvers`
  * @publicApi
  */
 export type RunGuardsAndResolvers =
@@ -162,226 +162,226 @@ export type RunGuardsAndResolvers =
     'always'|((from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean);
 
 /**
- * A configuration object that defines a single route.
- * A set of routes are collected in a `Routes` array to define a `Router` configuration.
- * The router attempts to match segments of a given URL against each route,
- * using the configuration options defined in this object.
+ * Объект конфигурации, который определяет один маршрут.
+ * Набор маршрутов собраны в `Routes` массивачтобы определить `Router` конфигурацию маршрутизатора.
+ * Маршрутизатор пытается сопоставить сегменты данного URL с каждым маршрутом
+ * используя параметры конфигурации, определенные в этом объекте.
  *
- * Supports static, parameterized, redirect, and wildcard routes, as well as
- * custom route data and resolve methods.
+ * Поддерживает статические, параметризованные, перенаправления и подстановочные маршруты, а также
+ * пользовательские данные маршрута и методы разрешения.
  *
- * For detailed usage information, see the [Routing Guide](guide/router).
+ * Для получения подробной информации об использовании см.[Руководство по маршрутизации](guide/router).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Simple Configuration
+ *  ### Простая настройка
  *
- * The following route specifies that when navigating to, for example,
- * `/team/11/user/bob`, the router creates the 'Team' component
- * with the 'User' child component in it.
+ * Следующий маршрут указывает, что при навигации, например
+ *  `/team/11/user/bob`, маршрутизатор создает компонент 'Team'
+ * с дочерним компонентом «Пользователь» в нем.
  *
- * ```
- * [{
- *   path: 'team/:id',
-  *  component: Team,
- *   children: [{
- *     path: 'user/:name',
- *     component: User
- *   }]
- * }]
- * ```
- *
- * ### Multiple Outlets
- *
- * The following route creates sibling components with multiple outlets.
- * When navigating to `/team/11(aux:chat/jim)`, the router creates the 'Team' component next to
- * the 'Chat' component. The 'Chat' component is placed into the 'aux' outlet.
- *
- * ```
- * [{
- *   path: 'team/:id',
- *   component: Team
- * }, {
- *   path: 'chat/:user',
- *   component: Chat
- *   outlet: 'aux'
- * }]
- * ```
- *
- * ### Wild Cards
- *
- * The following route uses wild-card notation to specify a component
- * that is always instantiated regardless of where you navigate to.
- *
- * ```
- * [{
- *   path: '**',
- *   component: WildcardComponent
- * }]
- * ```
- *
- * ### Redirects
- *
- * The following route uses the `redirectTo` property to ignore a segment of
- * a given URL when looking for a child path.
- *
- * When navigating to '/team/11/legacy/user/jim', the router changes the URL segment
- * '/team/11/legacy/user/jim' to '/team/11/user/jim', and then instantiates
- * the Team component with the User child component in it.
- *
- * ```
- * [{
- *   path: 'team/:id',
+ *  ```
+ *  [{
+ *    path: 'team/:id',
  *   component: Team,
- *   children: [{
- *     path: 'legacy/user/:name',
- *     redirectTo: 'user/:name'
- *   }, {
- *     path: 'user/:name',
- *     component: User
- *   }]
- * }]
- * ```
+ *    children: [{
+ *      path: 'user/:name',
+ *      component: User
+ *    }]
+ *  }]
+ *  ```
  *
- * The redirect path can be relative, as shown in this example, or absolute.
- * If we change the `redirectTo` value in the example to the absolute URL segment '/user/:name',
- * the result URL is also absolute, '/user/jim'.
-
- * ### Empty Path
+ *  ### Несколько розеток
  *
- * Empty-path route configurations can be used to instantiate components that do not 'consume'
- * any URL segments.
+ * Следующий маршрут создает компоненты одного уровня с несколькими выходами.
+ * При переходе к `/team/11(aux:chat/jim)` маршрутизатор создает компонент 'Team' рядом с
+ * компонент «Чат». Компонент «Чат» находится в розетке «aux».
  *
- * In the following configuration, when navigating to
- * `/team/11`, the router instantiates the 'AllUsers' component.
+ *  ```
+ *  [{
+ *    path: 'team/:id',
+ *    component: Team
+ *  }, {
+ *    path: 'chat/:user',
+ *    component: Chat
+ *    outlet: 'aux'
+ *  }]
+ *  ```
  *
- * ```
- * [{
- *   path: 'team/:id',
- *   component: Team,
- *   children: [{
- *     path: '',
- *     component: AllUsers
- *   }, {
- *     path: 'user/:name',
- *     component: User
- *   }]
- * }]
- * ```
+ *  ### Wild Cards
  *
- * Empty-path routes can have children. In the following example, when navigating
- * to `/team/11/user/jim`, the router instantiates the wrapper component with
- * the user component in it.
+ * Следующий маршрут использует подстановочные знаки для указания компонента
+ * это всегда создается независимо от того, куда вы переходите.
  *
- * Note that an empty path route inherits its parent's parameters and data.
+ *  ```
+ *  [{
+ *    path: '',
+ *    component: WildcardComponent
+ *  }]
+ *  ```
  *
- * ```
- * [{
- *   path: 'team/:id',
- *   component: Team,
- *   children: [{
- *     path: '',
- *     component: WrapperCmp,
- *     children: [{
- *       path: 'user/:name',
- *       component: User
- *     }]
- *   }]
- * }]
- * ```
+ *  ### Перенаправляет
  *
- * ### Matching Strategy
+ * Следующий маршрут использует `redirectTo` свойствоигнорироватьсегмент.
+ * заданный URL при поиске дочернего пути.
  *
- * The default path-match strategy is 'prefix', which means that the router
- * checks URL elements from the left to see if the URL matches a specified path.
- * For example, '/team/11/user' matches 'team/:id'.
+ * При переходе к «/ team / 11 / legacy / user / jim» маршрутизатор меняет сегмент URL
+ * '/ team / 11 / legacy / user / jim' в '/ team / 11 / user / jim', а затем создает его
+ * компонент Team с дочерним компонентом User.
  *
- * ```
- * [{
- *   path: '',
- *   pathMatch: 'prefix', //default
- *   redirectTo: 'main'
- * }, {
- *   path: 'main',
- *   component: Main
- * }]
- * ```
+ *  ```
+ *  [{
+ *    path: 'team/:id',
+ *    component: Team,
+ *    children: [{
+ *      path: 'legacy/user/:name',
+ *      redirectTo: 'user/:name'
+ *    }, {
+ *      path: 'user/:name',
+ *      component: User
+ *    }]
+ *  }]
+ *  ```
  *
- * You can specify the path-match strategy 'full' to make sure that the path
- * covers the whole unconsumed URL. It is important to do this when redirecting
- * empty-path routes. Otherwise, because an empty path is a prefix of any URL,
- * the router would apply the redirect even when navigating to the redirect destination,
- * creating an endless loop.
+ * Путь перенаправления может быть относительным, как показано в этом примере, или абсолютным.
+ * Если мы изменим значение `redirectTo` в примере на абсолютный сегмент URL '/ user /: name'
+ * URL-адрес результата также является абсолютным, '/ user / jim'.
  *
- * In the following example, supplying the 'full' `pathMatch` strategy ensures
- * that the router applies the redirect if and only if navigating to '/'.
+ *  ### Пустой Путь
  *
- * ```
- * [{
- *   path: '',
- *   pathMatch: 'full',
- *   redirectTo: 'main'
- * }, {
- *   path: 'main',
- *   component: Main
- * }]
- * ```
+ * Конфигурации маршрута с пустым путем могут использоваться для создания экземпляров компонентов, которые не «потребляют»
+ * любые сегменты URL.
  *
- * ### Componentless Routes
+ * В следующей конфигурации при переходе к
+ *  `/team/11`, маршрутизатор создает компонент 'AllUsers'.
  *
- * You can share parameters between sibling components.
- * For example, suppose that two sibling components should go next to each other,
- * and both of them require an ID parameter. You can accomplish this using a route
- * that does not specify a component at the top level.
+ *  ```
+ *  [{
+ *    path: 'team/:id',
+ *    component: Team,
+ *    children: [{
+ *      path: '',
+ *      component: AllUsers
+ *    }, {
+ *      path: 'user/:name',
+ *      component: User
+ *    }]
+ *  }]
+ *  ```
  *
- * In the following example, 'MainChild' and 'AuxChild' are siblings.
- * When navigating to 'parent/10/(a//aux:b)', the route instantiates
- * the main child and aux child components next to each other.
- * For this to work, the application component must have the primary and aux outlets defined.
+ * Маршруты с пустыми путями могут иметь детей. В следующем примере при навигации
+ * в `/team/11/user/jim` маршрутизатор создает экземпляр обертки с помощью
+ * пользовательский компонент в нем.
  *
- * ```
- * [{
- *    path: 'parent/:id',
- *    children: [
- *      { path: 'a', component: MainChild },
- *      { path: 'b', component: AuxChild, outlet: 'aux' }
- *    ]
- * }]
- * ```
+ * Обратите внимание, что пустой путь маршрута наследует параметры и данные своего родителя.
  *
- * The router merges the parameters, data, and resolve of the componentless
- * parent into the parameters, data, and resolve of the children.
+ *  ```
+ *  [{
+ *    path: 'team/:id',
+ *    component: Team,
+ *    children: [{
+ *      path: '',
+ *      component: WrapperCmp,
+ *      children: [{
+ *        path: 'user/:name',
+ *        component: User
+ *      }]
+ *    }]
+ *  }]
+ *  ```
  *
- * This is especially useful when child components are defined
- * with an empty path string, as in the following example.
- * With this configuration, navigating to '/parent/10' creates
- * the main child and aux components.
+ *  ### Соответствующая стратегия
  *
- * ```
- * [{
- *    path: 'parent/:id',
- *    children: [
- *      { path: '', component: MainChild },
- *      { path: '', component: AuxChild, outlet: 'aux' }
- *    ]
- * }]
- * ```
+ * Стратегия сопоставления пути по умолчанию - «префикс», что означает, что маршрутизатор
+ * проверяет элементы URL слева, чтобы увидеть, соответствует ли URL указанному пути.
+ * Например, '/ team / 11 / user' соответствует 'team /: id'.
  *
- * ### Lazy Loading
+ *  ```
+ *  [{
+ *    path: '',
+ *    pathMatch: 'prefix', //default
+ *    redirectTo: 'main'
+ *  }, {
+ *    path: 'main',
+ *    component: Main
+ *  }]
+ *  ```
  *
- * Lazy loading speeds up application load time by splitting the application
- * into multiple bundles and loading them on demand.
- * To use lazy loading, provide the `loadChildren` property  instead of the `children` property.
+ * Вы можете указать стратегию соответствия пути 'full', чтобы убедиться, что путь
+ * охватывает весь неиспользованный URL. Это важно сделать при перенаправлении
+ * маршруты с пустыми путями.противном случае, потому что пустой путь является префиксом любогоURL,.
+ * маршрутизатор будет применять перенаправление даже при переходе к месту назначения перенаправления
+ * создавая бесконечный цикл.
  *
- * Given the following example route, the router will lazy load
- * the associated module on demand using the browser native import system.
+ * В следующем примере, предоставление «полной» `pathMatch` стратегииобеспечивает
+ * что маршрутизатор применяет перенаправление, если и только при переходе к '/'.
  *
- * ```
- * [{
- *   path: 'lazy',
- *   loadChildren: () => import('./lazy-route/lazy.module').then(mod => mod.LazyModule),
- * }];
- * ```
+ *  ```
+ *  [{
+ *    path: '',
+ *    pathMatch: 'full',
+ *    redirectTo: 'main'
+ *  }, {
+ *    path: 'main',
+ *    component: Main
+ *  }]
+ *  ```
+ *
+ *  ### Бескомпонентные маршруты
+ *
+ * Вы можете поделиться параметрами между родственными компонентами.
+ * Например, предположим, что два родственных компонента должны находиться рядом друг с другом
+ * и оба они требуют параметра ID. Вы можете сделать это, используя маршрут
+ * это не определяет компонент на верхнем уровне.
+ *
+ * В следующем примере «MainChild» и «AuxChild» являются братьями и сестрами.
+ * При переходе к «parent / 10 / (a // aux: b)» маршрут создается
+ * основные дочерние и вспомогательные дочерние компоненты рядом друг с другом.
+ * Чтобы это работало, компонент приложения должен иметь основной и дополнительный выходы.
+ *
+ *  ```
+ *  [{
+ *     path: 'parent/:id',
+ *     children: [
+ *       { path: 'a', component: MainChild },
+ *       { path: 'b', component: AuxChild, outlet: 'aux' }
+ *     ]
+ *  }]
+ *  ```
+ *
+ * Маршрутизатор объединяет параметры, данные и разрешение без компонентов
+ * родитель в параметры, данные и решимость детей.
+ *
+ * Это особенно полезно, когда определены дочерние компоненты
+ * с пустой строкой пути, как в следующем примере.
+ * С этой конфигурацией, переход к «/ parent / 10» создает
+ * основные дочерние и вспомогательные компоненты.
+ *
+ *  ```
+ *  [{
+ *     path: 'parent/:id',
+ *     children: [
+ *       { path: '', component: MainChild },
+ *       { path: '', component: AuxChild, outlet: 'aux' }
+ *     ]
+ *  }]
+ *  ```
+ *
+ *  ### Ленивая загрузка
+ *
+ * Ленивая загрузка ускоряет время загрузки приложения, разделяя приложение
+ * в несколько пакетов и загрузки их по требованию.
+ * Чтобы использовать ленивую загрузку, предоставьте `loadChildren` свойство вместо `children` собственности.
+ *
+ * Учитывая следующий пример маршрута, маршрутизатор будет загружаться лениво
+ * связанный модуль по требованию с использованием браузера собственной системы импорта.
+ *
+ *  ```
+ *  [{
+ *    path: 'lazy',
+ *    loadChildren: () => import('./lazy-route/lazy.module').then(mod => mod.LazyModule),
+ *  }];
+ *  ```
  *
  * @publicApi
  */

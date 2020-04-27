@@ -9,11 +9,11 @@
 import {Injectable} from '@angular/core';
 
 /**
- * A backend for http that uses the `XMLHttpRequest` browser API.
+ * Бекенд для HTTPкоторый использует `XMLHttpRequest` браузера API.
  *
- * Take care not to evaluate this in non-browser contexts.
+ * Старайтесь не оценивать это в не браузерных контекстах.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

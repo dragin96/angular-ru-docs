@@ -7,9 +7,9 @@
  */
 
 /**
- * A codec for encoding and decoding parameters in URLs.
+ * Кодек для кодирования и декодирования параметров в URL.
  *
- * Used by `HttpParams`.
+ * Используется `HttpParams`.
  *
  * @publicApi
  **/
@@ -22,11 +22,11 @@ export interface HttpParameterCodec {
 }
 
 /**
- * Provides encoding and decoding of URL parameter and query-string values.
+ * Обеспечивает кодирование и декодирование параметров URL и значений строки запроса.
  *
- * Serializes and parses URL parameter keys and values to encode and decode them.
- * If you pass URL query parameters without encoding,
- * the query parameters can be misinterpreted at the receiving end.
+ * Сериализует и анализирует ключи и значения параметров URL для их кодирования и декодирования.
+ * Если передать параметры запроса URL безкодирования.
+ * параметры запроса могут быть неверно истолкованы на принимающей стороне.
  *
  *
  * @publicApi
@@ -106,7 +106,7 @@ interface Update {
 }
 
 /**
- * Options used to construct an `HttpParams` instance.
+ * Параметры, используемые для `HttpParams` экземпляра.
  *
  * @publicApi
  */
@@ -125,10 +125,10 @@ export interface HttpParamsOptions {
 }
 
 /**
- * An HTTP request/response body that represents serialized parameters,
- * per the MIME type `application/x-www-form-urlencoded`.
+ * Тело HTTP-запроса / ответа, представляющее сериализованные параметры
+ * согласно MIME-типу `application/x-www-form-urlencoded`.
  *
- * This class is immutable; all mutation operations return a new instance.
+ * Этот класс неизменен; все операции мутации возвращают новый экземпляр.
  *
  * @publicApi
  */

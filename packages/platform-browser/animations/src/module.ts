@@ -11,8 +11,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BROWSER_ANIMATIONS_PROVIDERS, BROWSER_NOOP_ANIMATIONS_PROVIDERS} from './providers';
 
 /**
- * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
- * for use with animations. See [Animations](guide/animations).
+ * Экспортирует `BrowserModule` с дополнительными[поставщики внедрения зависимостей](guide/glossary#provider)
+ * для использования с анимацией. Смотрите[Анимации](guide/animations).
  * @publicApi
  */
 @NgModule({
@@ -23,7 +23,7 @@ export class BrowserAnimationsModule {
 }
 
 /**
- * A null player that must be imported to allow disabling of animations.
+ * Нулевой проигрыватель, который необходимо импортировать, чтобы разрешить отключение анимации.
  * @publicApi
  */
 @NgModule({

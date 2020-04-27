@@ -24,26 +24,26 @@ import {getTNode, unwrapRNode} from './view_utils';
 
 
 /**
- * Retrieves the component instance associated with a given DOM element.
+ * Извлекает экземпляр компонента, связанный с данным элементом DOM.
  *
- * @usageNotes
- * Given the following DOM structure:
- * ```html
- * <my-app>
- *   <div>
- *     <child-comp></child-comp>
- *   </div>
- * </my-app>
- * ```
- * Calling `getComponent` on `<child-comp>` will return the instance of `ChildComponent`
- * associated with this DOM element.
+ *  @usageNotes
+ * Учитывая следующую структуруDOM:.
+ *  ```html
+ *  <my-app>
+ *    <div>
+ *      <child-comp></child-comp>
+ *    </div>
+ *  </my-app>
+ *  ```
+ * Вызов `getComponent` на `<child-comp>` будет возвращать экземпляр `ChildComponent`
+ * связанный с этим элементом DOM.
  *
- * Calling the function on `<my-app>` will return the `MyApp` instance.
+ * Вызов функции в `<my-app>` вернет `MyApp`.
  *
  *
- * @param element DOM element from which the component should be retrieved.
- * @returns Component instance associated with the element or `null` if there
- *    is no component associated with it.
+ *  @param элемент DOM элемент, из которого должен быть получен компонент.
+ *  @returns Компонент экземплярсвязанный с элементом или `null` еслиесть.
+ * нет компонента, связанного с ним.
  *
  * @publicApi
  * @globalApi ng
@@ -62,13 +62,13 @@ export function getComponent<T>(element: Element): T|null {
 
 
 /**
- * If inside an embedded view (e.g. `*ngIf` or `*ngFor`), retrieves the context of the embedded
- * view that the element is part of. Otherwise retrieves the instance of the component whose view
- * owns the element (in this case, the result is the same as calling `getOwningComponent`).
+ * Если внутри вложенное зрения (например `ngIf` или `ngFor` ngFor), извлекает контекствнедренных.
+ * посмотреть, что элемент является частью. В противном случае извлекает экземпляр компонента, вид которого
+ * владеет элементом (в этом случае результат совпадает с вызовом `getOwningComponent`).
  *
- * @param element Element for which to get the surrounding component instance.
- * @returns Instance of the component that is around the element or null if the element isn't
- *    inside any component.
+ *  @param элемент Элемент, для которого нужно получить экземпляр окружающего компонента.
+ *  @returns Экземпляр компонента, который находится вокруг элемента, или ноль, если элемент не является
+ * внутри любого компонента.
  *
  * @publicApi
  * @globalApi ng
@@ -80,16 +80,16 @@ export function getContext<T>(element: Element): T|null {
 }
 
 /**
- * Retrieves the component instance whose view contains the DOM element.
+ * Извлекает экземпляр компонента, представление которого содержит элемент DOM.
  *
- * For example, if `<child-comp>` is used in the template of `<app-comp>`
- * (i.e. a `ViewChild` of `<app-comp>`), calling `getOwningComponent` on `<child-comp>`
- * would return `<app-comp>`.
+ * Например, если `<child-comp>` используется в шаблоне `<app-comp>`
+ * (т.е. `ViewChild` из `<app-comp>` приложение-комп), вызов `getOwningComponent` на `<child-comp>`
+ * вернул бы `<app-comp>`.
  *
- * @param elementOrDir DOM element, component or directive instance
- *    for which to retrieve the root components.
- * @returns Component instance whose view owns the DOM element or null if the element is not
- *    part of a component view.
+ *  @param elementOrDir DOM-элемент, компонент или экземпляр директивы
+ * для которого нужно извлечь корневые компоненты.
+ *  @returns Экземпляр компонента, чье представление владеет элементом DOM или значение NULL, если элемент не является
+ * часть представления компонента.
  *
  * @publicApi
  * @globalApi ng
@@ -109,12 +109,12 @@ export function getOwningComponent<T>(elementOrDir: Element|{}): T|null {
 }
 
 /**
- * Retrieves all root components associated with a DOM element, directive or component instance.
- * Root components are those which have been bootstrapped by Angular.
+ * Извлекает все корневые компоненты, связанные с элементом DOM, директивой или экземпляром компонента.
+ * Корневые компоненты - это те, которые были загружены Angular.
  *
- * @param elementOrDir DOM element, component or directive instance
- *    for which to retrieve the root components.
- * @returns Root components associated with the target object.
+ *  @param elementOrDir DOM-элемент, компонент или экземпляр директивы
+ * для которого нужно извлечь корневые компоненты.
+ *  @returns Корневые компоненты, связанные с целевым объектом.
  *
  * @publicApi
  * @globalApi ng
@@ -124,11 +124,11 @@ export function getRootComponents(elementOrDir: Element|{}): {}[] {
 }
 
 /**
- * Retrieves an `Injector` associated with an element, component or directive instance.
+ * Извлекает `Injector` связанный с элементом, компонента или директивынапример.
  *
- * @param elementOrDir DOM element, component or directive instance for which to
- *    retrieve the injector.
- * @returns Injector associated with the element, component or directive instance.
+ *  @param elementOrDir DOM элемент, компонент или экземпляр директивы, для которого
+ * вернуть инжектор.
+ *  @returns Инжектор, связанный с элементом, компонентом или экземпляром директивы.
  *
  * @publicApi
  * @globalApi ng
@@ -170,24 +170,24 @@ export function getInjectionTokens(element: Element): any[] {
 }
 
 /**
- * Retrieves directive instances associated with a given DOM element. Does not include
- * component instances.
+ * Извлекает экземпляры директивы, связанные с данным элементом DOM. Не включаетсебя.
+ * экземпляры компонентов.
  *
- * @usageNotes
- * Given the following DOM structure:
- * ```
- * <my-app>
- *   <button my-button></button>
- *   <my-comp></my-comp>
- * </my-app>
- * ```
- * Calling `getDirectives` on `<button>` will return an array with an instance of the `MyButton`
- * directive that is associated with the DOM element.
+ *  @usageNotes
+ * Учитывая следующую структуруDOM:.
+ *  ```
+ *  <my-app>
+ *    <button my-button></button>
+ *    <my-comp></my-comp>
+ *  </my-app>
+ *  ```
+ * Вызов `getDirectives` на `<button>` возвращает массив с экземпляром `MyButton`
+ * директива, связанная с элементом DOM.
  *
- * Calling `getDirectives` on `<my-comp>` will return an empty array.
+ * Вызов `getDirectives` на `<my-comp>` будет возвращать пустой массив.
  *
- * @param element DOM element for which to get the directives.
- * @returns Array of directives associated with the element.
+ *  @param элемент DOM элемент, для которого нужно получить директивы.
+ *  @returns Массив директив, связанных с элементом.
  *
  * @publicApi
  * @globalApi ng
@@ -240,12 +240,12 @@ export function getLocalRefs(target: {}): {[key: string]: any} {
 }
 
 /**
- * Retrieves the host element of a component or directive instance.
- * The host element is the DOM element that matched the selector of the directive.
+ * Извлекает элемент хоста экземпляра компонента или директивы.
+ * Элемент host является элементом DOM, который соответствует селектору директивы.
  *
- * @param componentOrDirective Component or directive instance for which the host
- *     element should be retrieved.
- * @returns Host element of the target.
+ *  @param componentOrDirective Компонент или экземпляр директивы, для которого хост
+ * элемент должен быть восстановлен.
+ *  @returns Хост-элемент цели.
  *
  * @publicApi
  * @globalApi ng
@@ -275,7 +275,7 @@ export function loadLContextFromNode(node: Node): LContext {
 }
 
 /**
- * Event listener configuration returned from `getListeners`.
+ * Конфигурация прослушивателя событий, возвращенная из `getListeners`.
  * @publicApi
  */
 export interface Listener {
@@ -295,30 +295,30 @@ export interface Listener {
 
 
 /**
- * Retrieves a list of event listeners associated with a DOM element. The list does include host
- * listeners, but it does not include event listeners defined outside of the Angular context
- * (e.g. through `addEventListener`).
+ * Получает список прослушивателей событий, связанных с элементом DOM. Список включает хост
+ * прослушиватели, но они не включают прослушиватели событий, определенные вне контекста Angular
+ * (например, через `addEventListener`).
  *
- * @usageNotes
- * Given the following DOM structure:
- * ```
- * <my-app>
- *   <div (click)="doSomething()"></div>
- * </my-app>
+ *  @usageNotes
+ * Учитывая следующую структуруDOM:.
+ *  ```
+ *  <my-app>
+ *    <div (click)="doSomething()"></div>
+ *  </my-app>
  *
- * ```
- * Calling `getListeners` on `<div>` will return an object that looks as follows:
- * ```
- * {
- *   name: 'click',
- *   element: <div>,
- *   callback: () => doSomething(),
- *   useCapture: false
- * }
- * ```
+ *  ```
+ * Вызов `getListeners` на `<div>` будет возвращать объекткоторый выглядит следующим:.
+ *  ```
+ *  {
+ *    name: 'click',
+ *    element: <div>,
+ *    callback: () => doSomething(),
+ *    useCapture: false
+ *  }
+ *  ```
  *
- * @param element Element for which the DOM listeners should be retrieved.
- * @returns Array of event listeners on the DOM element.
+ *  @param element Элемент, для которого должны быть получены слушатели DOM.
+ *  @returns Массив слушателей событий в элементе DOM.
  *
  * @publicApi
  * @globalApi ng

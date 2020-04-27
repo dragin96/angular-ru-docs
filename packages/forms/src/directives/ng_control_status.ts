@@ -53,26 +53,26 @@ export const ngControlStatusHost = {
 };
 
 /**
- * @description
- * Directive automatically applied to Angular form controls that sets CSS classes
- * based on control status.
+ *  @description
+ * Директива автоматически применяется к элементам управления Angular, которые устанавливают классы CSS
+ * на основе контроля состояния.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### CSS classes applied
+ *  ### CSS классы применяются
  *
- * The following classes are applied as the properties become true:
+ * Следующие классы применяютсякачестве свойства становитсяистинным:.
  *
- * * ng-valid
- * * ng-invalid
- * * ng-pending
- * * ng-pristine
- * * ng-dirty
- * * ng-untouched
- * * ng-touched
+ * нг-действительный
+ * нг-недействительным
+ * в ожидании
+ * нг-нетронутый
+ * нг-грязный.
+ * нг нетронутой
+ * н-тронутый
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({selector: '[formControlName],[ngModel],[formControl]', host: ngControlStatusHost})
@@ -83,14 +83,14 @@ export class NgControlStatus extends AbstractControlStatus {
 }
 
 /**
- * @description
- * Directive automatically applied to Angular form groups that sets CSS classes
- * based on control status (valid/invalid/dirty/etc).
+ *  @description
+ * Директива автоматически применяется к группам Angular форм, которые задают классы CSS
+ * основанный на состоянии контроля (действительный / недействительный / грязный / и т. д.).
  *
- * @see `NgControlStatus`
+ *  @see `NgControlStatus`
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

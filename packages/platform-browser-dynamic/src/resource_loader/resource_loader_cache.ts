@@ -10,11 +10,11 @@ import {ResourceLoader} from '@angular/compiler';
 import {ɵglobal as global} from '@angular/core';
 
 /**
- * An implementation of ResourceLoader that uses a template cache to avoid doing an actual
+ * Реализация ResourceLoader, которая использует кэш шаблона, чтобы избежать фактического
  * ResourceLoader.
  *
- * The template cache needs to be built and loaded into window.$templateCache
- * via a separate mechanism.
+ * Кэш шаблона должен быть собран и загружен в окно. $ TemplateCache
+ * через отдельный механизм.
  *
  * @publicApi
  */

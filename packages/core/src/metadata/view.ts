@@ -7,14 +7,14 @@
  */
 
 /**
- * Defines template and style encapsulation options available for Component's {@link Component}.
+ * Определяет параметры инкапсуляции шаблона и стиля, доступные для компонента{@link Component},
  *
- * See {@link Component#encapsulation encapsulation}.
+ * Видеть{@link Component#encapsulation encapsulation},
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/ts/metadata/encapsulation.ts region='longform'}
+ *  {@example core/ts/metadata/encapsulation.ts region='longform'}
  *
  * @publicApi
  */

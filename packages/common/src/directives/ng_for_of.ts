@@ -32,101 +32,99 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
 }
 
 /**
- * A [structural directive](guide/structural-directives) that renders
- * a template for each item in a collection.
- * The directive is placed on an element, which becomes the parent
- * of the cloned templates.
+ * A[(структурная директива)](guide/structural-directives)чтоделает.
+ * шаблон для каждого элемента в коллекции.
+ * Директива помещается в элемент, который становится родителем
+ * из клонированных шаблонов.
  *
- * The `ngForOf` directive is generally used in the
- * [shorthand form](guide/structural-directives#the-asterisk--prefix) `*ngFor`.
- * In this form, the template to be rendered for each iteration is the content
- * of an anchor element containing the directive.
+ *  The `ngForOf`директиваобычно используетсяв.
+ *  [сокращенная форма](guide/structural-directives#the-asterisk--prefix) `ngFor`.
+ * В этой форме шаблон, который будет отображаться для каждой итерации, является содержимым
+ * якорного элемента, содержащего директиву.
  *
- * The following example shows the shorthand syntax with some options,
- * contained in an `<li>` element.
- *
- * ```
- * <li *ngFor="let item of items; index as i; trackBy: trackByFn">...</li>
- * ```
- *
- * The shorthand form expands into a long form that uses the `ngForOf` selector
- * on an `<ng-template>` element.
- * The content of the `<ng-template>` element is the `<li>` element that held the
- * short-form directive.
- *
- * Here is the expanded version of the short-form example.
- *
- * ```
- * <ng-template ngFor let-item [ngForOf]="items" let-i="index" [ngForTrackBy]="trackByFn">
- *   <li>...</li>
- * </ng-template>
- * ```
- *
- * Angular automatically expands the shorthand syntax as it compiles the template.
- * The context for each embedded view is logically merged to the current component
- * context according to its lexical position.
- *
- * When using the shorthand syntax, Angular allows only [one structural directive
- * on an element](guide/structural-directives#one-structural-directive-per-host-element).
- * If you want to iterate conditionally, for example,
- * put the `*ngIf` on a container element that wraps the `*ngFor` element.
- * For futher discussion, see
- * [Structural Directives](guide/structural-directives#one-per-element).
- *
- * @usageNotes
- *
- * ### Local variables
- *
- * `NgForOf` provides exported values that can be aliased to local variables.
- * For example:
+ * В следующем примере показан сокращенный синтаксис с некоторыми параметрами
+ * содержится в `<li>` элементе.
  *
  *  ```
- * <li *ngFor="let user of users; index as i; first as isFirst">
- *    {{i}}/{{users.length}}. {{user}} <span *ngIf="isFirst">default</span>
- * </li>
- * ```
+ *  <lingFor="let item of items; index as i; trackBy: trackByFn">...</li>
+ *  ```
  *
- * The following exported values can be aliased to local variables:
+ * Сокращенная форма раскрывается в длинную форму, в которой используется `ngForOf` селектор
+ * в `<ng-template>` элементе.
+ * Содержимое элемента `<ng-template>` является элементом `<li>` который содержит
+ * краткая директива.
  *
- * - `$implicit: T`: The value of the individual items in the iterable (`ngForOf`).
- * - `ngForOf: NgIterable<T>`: The value of the iterable expression. Useful when the expression is
- * more complex then a property access, for example when using the async pipe (`userStreams |
- * async`).
- * - `index: number`: The index of the current item in the iterable.
- * - `count: number`: The length of the iterable.
- * - `first: boolean`: True when the item is the first item in the iterable.
- * - `last: boolean`: True when the item is the last item in the iterable.
- * - `even: boolean`: True when the item has an even index in the iterable.
- * - `odd: boolean`: True when the item has an odd index in the iterable.
+ * Вот расширенная версия краткого примера.
  *
- * ### Change propagation
+ *  ```
+ *  <ng-template ngFor let-item [ngForOf]="items" let-i="index" [ngForTrackBy]="trackByFn">
+ *    <li>...</li>
+ *  </ng-template>
+ *  ```
  *
- * When the contents of the iterator changes, `NgForOf` makes the corresponding changes to the DOM:
+ * Angular автоматически расширяет сокращенный синтаксис при компиляции шаблона.
+ * Контекст для каждого встроенного представления логически объединяется с текущим компонентом
+ * контекст в соответствии с его лексическим положением.
  *
- * * When an item is added, a new instance of the template is added to the DOM.
- * * When an item is removed, its template instance is removed from the DOM.
- * * When items are reordered, their respective templates are reordered in the DOM.
+ * При использовании сокращенного синтаксиса Angular разрешает только[одну структурную директиву.на элемент](guide/structural-directives#one-structural-directive-per-host-element).
+ * Если вы хотите перебрать условно,например,.
+ * поставил `ngIf` на элемент контейнеракоторый оборачивает `ngFor` элемент.
+ * Для дальнейшего обсуждения, см
+ *  [Структурные директивы](guide/structural-directives#one-per-element).
  *
- * Angular uses object identity to track insertions and deletions within the iterator and reproduce
- * those changes in the DOM. This has important implications for animations and any stateful
- * controls that are present, such as `<input>` elements that accept user input. Inserted rows can
- * be animated in, deleted rows can be animated out, and unchanged rows retain any unsaved state
- * such as user input.
- * For more on animations, see [Transitions and Triggers](guide/transition-and-triggers).
+ *  @usageNotes
  *
- * The identities of elements in the iterator can change while the data does not.
- * This can happen, for example, if the iterator is produced from an RPC to the server, and that
- * RPC is re-run. Even if the data hasn't changed, the second response produces objects with
- * different identities, and Angular must tear down the entire DOM and rebuild it (as if all old
- * elements were deleted and all new elements inserted).
+ *  ### Локальные переменные
  *
- * To avoid this expensive operation, you can customize the default tracking algorithm.
- * by supplying the `trackBy` option to `NgForOf`.
- * `trackBy` takes a function that has two arguments: `index` and `item`.
- * If `trackBy` is given, Angular tracks changes by the return value of the function.
+ *  `NgForOf`предоставляет экспортированные значения, которые можно связать с локальными переменными.
+ * Например:.
  *
- * @see [Structural Directives](guide/structural-directives)
- * @ngModule CommonModule
+ *   ```
+ *  <lingFor="let user of users; index as i; first as isFirst">
+ *     {{i}}/{{users.length}}. {{user}} <spanngIf="isFirst">default</span>
+ *  </li>
+ *  ```
+ *
+ * Следующие экспортируемые значения могут быть привязаны к локальнымпеременным:.
+ *
+ * -`$implicit: T`: значение отдельных элементов в итерируемом (`ngForOf`).
+ * -`ngForOf: NgIterable<T>`: значение итерируемого выражения. Полезно, когда выражение
+ * более сложный, чем доступ к свойству, например, при использовании асинхронного канала (`userStreams |.async`).
+ * -`index: number`: Индекс текущего элемента в итерируемом.
+ * -`count: number`: длина повторяемого элемента.
+ * -`first: boolean`: True, когда элемент является первым элементом в повторяемом элементе.
+ * -`last: boolean`: True, когда элемент является последним элементом в повторяемом элементе.
+ * -`even: boolean`: True, когда элемент имеет четный индекс в итерируемом элементе.
+ * -`odd: boolean`: True, если элемент имеет нечетный индекс в итерируемой.
+ *
+ *  ### Изменить распространение
+ *
+ * Когда содержимое изменений итератора, `NgForOf` делает соответствующие изменения вDOM:.
+ *
+ * Когда элемент добавляется, новый экземпляр шаблона добавляется в DOM.
+ * Когда элемент удаляется, его экземпляр шаблона удаляется из DOM.
+ * Когда элементы переупорядочиваются, их соответствующие шаблоны переупорядочиваются в DOM.
+ *
+ * Angular использует идентификатор объекта для отслеживания вставок и удалений внутри итератора и воспроизведения
+ * эти изменения в DOM. Это имеет важные последствия для анимации и любого состояния
+ * имеющиеся элементы управления, такие как `<input>` элементыкоторые принимают пользовательский ввод. Вставленные строки могут
+ * быть анимированными, удаленные строки могут быть анимированы, а неизмененные строки сохраняют любое несохраненное состояние
+ * такие как пользовательский ввод.
+ * Более подробнуюо анимации см[(переходы и триггеры).](guide/transition-and-triggers)триггеры).
+ *
+ * Идентичность элементов в итераторе может изменяться, а данные - нет.
+ * Это может произойти, например, если итератор создается из RPC на сервер, и это
+ * RPC перезапущен. Даже если данные не изменились, второй ответ создает объекты с
+ * разные идентичности, и Angular должен разрушить весь DOM и восстановить его (как будто все старое
+ * элементы были удалены и все новые элементы вставлены).
+ *
+ * Чтобы избежать этой дорогостоящей операции, вы можете настроить алгоритм отслеживания по умолчанию.
+ * путем предоставления `trackBy` для `NgForOf``NgForOf`.
+ *  `trackBy`принимает функциюкоторая имеет два аргумента: `index` и `item` элемент.
+ * Если `trackBy` , Angular треки изменяются в зависимости от возвращаемого значения функции.
+ *
+ *  @see [Структурные директивы](guide/structural-directives)
+ *  @ngModule CommonModule
  * @publicApi
  */
 @Directive({selector: '[ngFor][ngForOf]'})

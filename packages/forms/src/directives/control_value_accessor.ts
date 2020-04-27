@@ -9,14 +9,14 @@
 import {InjectionToken} from '@angular/core';
 
 /**
- * @description
- * Defines an interface that acts as a bridge between the Angular forms API and a
- * native element in the DOM.
+ *  @description
+ * Определяет интерфейс, который действует как мост между API Angular форм и a
+ * родной элемент в DOM.
  *
- * Implement this interface to create a custom form control directive
- * that integrates with Angular forms.
+ * Реализуйте этот интерфейс для создания пользовательской директивы управления формой
+ * который интегрируется с Angularи формами.
  *
- * @see DefaultValueAccessor
+ *  @see DefaultValueAccessor
  *
  * @publicApi
  */
@@ -132,9 +132,9 @@ export interface ControlValueAccessor {
 }
 
 /**
- * Used to provide a `ControlValueAccessor` for form controls.
+ * Используется для предоставления `ControlValueAccessor` для элементов управления формы.
  *
- * See `DefaultValueAccessor` for how to implement one.
+ * Смотрите `DefaultValueAccessor` чтобы узнать, как его реализовать.
  *
  * @publicApi
  */

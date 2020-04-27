@@ -1,119 +1,124 @@
-# Angular documentation style guide
+{@a angular-documentation-style-guide}
+# Руководство по стилю Angular документации
 <!-- formerly Authors Style Guide -->
 
-This style guide is for anyone who contributes to the Angular documentation (this site).
-These guidelines should be followed by all authors.
-Deviations must be approved by a documentation editor.
+Это руководство по стилю предназначено для всех, кто вносит свой вклад в документацию Angular (этот сайт).
+Эти рекомендации должны соблюдаться всеми авторами.
+Отклонения должны быть одобрены редактором документации.
 
-The guidelines described here serve two purposes:
+Руководящие принципы, описанные здесь, служат двум целям:
 
-* To ensure a high-quality, consistent experience for Angular documentation users.
+* Для обеспечения высокого качества и согласованности работы пользователей документации Angular.
 
-* To simplify the writing process for contributing authors.
-This guide helps you make decisions about tone, voice, and style.
-It also helps you find the right markup quickly.
+* Чтобы упростить процесс написания статей для авторов.
+Это руководство поможет вам принять решение о тоне, голосе и стиле.
+Это также поможет вам быстро найти нужную разметку.
 
 
 <div class="alert is-helpful">
 
-This guide is a *living document*; it changes over time.
-We strive for consistency to the extent feasible, but you may find parts of our documentation that don't match this style guide.
-When in doubt, **follow this guide rather than imitating existing documents.**
+Это руководство является *живым документом*; это меняется со временем.
+Мы стремимся к согласованности, насколько это возможно, но вы можете найти части нашей документации, которые не соответствуют этому руководству по стилю.
+В случае сомнений **следуйте этому руководству, а не подражая существующим документам.**
 
 </div>
 
-## Scope of these guidelines
+{@a scope-of-these-guidelines}
+## Сфера применения этих рекомендаций
 
-We ask all contributing authors to adhere to three aspects of style:
-
-
-* **Writing style:** Word usage, grammar, capitalization, and punctuation.
-Adherence to Angular's writing guidelines ensures a consistent "voice", helps ensure accuracy of the information, and facilitates use world-wide, by audiences with different backgrounds.
+Мы просим всех авторов, способствующих прилипают к трем аспектам стиля:
 
 
-* **Markup style:** How to include images, tables, alert boxes, and code snippets.
-Angular docs are written in Markdown, with custom extensions for this site. Correct markup ensures a consistent look-and-feel, and is essential for the doc to build and function correctly.
+* **Стиль письма:** использование слов, грамматика, использование заглавных букв и пунктуация.
+Соблюдение правил написания Angular обеспечивает постоянный «голос», помогает гарантировать точность информации и облегчает использование по всему миру аудиторией с разным опытом.
 
 
-* **Angular coding style:** Coding style for example apps and code snippets.
-Code examples are encouraged for demonstrating how to apply the concepts and features discussed.
-Angular has a custom framework that enables authors to include code snippets directly from example apps that are automatically tested as part of doc builds.
-To contribute example code, you must understand Angular itself and the custom framework for Angular doc examples.
-
-For each aspect of style, the following table explains where to find the primary guidelines and what this Angular Documentation Style Guide offers.
+* **Стиль разметки:** как включать изображения, таблицы, окна предупреждений и фрагменты кода.
+Angular документы написаны на Markdown, с пользовательскими расширениями для этого сайта. Правильная разметка обеспечивает единообразный внешний вид и необходима для правильной сборки и функционирования документа.
 
 
-Style                    | Guidelines
+* **Angular стиль кодирования: стиль** кодирования, например, приложений и фрагментов кода.
+Примеры кода рекомендуются для демонстрации того, как применять обсуждаемые концепции и функции.
+Angular имеет собственную платформу, которая позволяет авторам включать фрагменты кода непосредственно из примеров приложений, которые автоматически тестируются как часть сборок документов.
+Чтобы добавить пример кода, вы должны понимать сам Angular и пользовательскую среду для примеров документов Angular.
+
+Для каждого аспекта стиля в следующей таблице объясняется, где найти основные рекомендации и что предлагает это Руководство по стилю Angular документации.
+
+
+Стиль | Руководство
 ------------------------ | -------------------------------
-**Writing style**        | Primary: [Google Developer Documentation Style Guide](https://developers.google.com/style/)<br />This guide: Specifies any special considerations for Angular docs.
-**Markup style**         | Primary: This guide<br />This guide: Specifies guidelines for markup of guides and tutorials, which are written primarily in Markdown.
-**Angular coding style** | Primary: [Angular Style Guide](guide/styleguide "Angular Application Code Style Guide").<br />This guide: How to create, store, and include code examples in guides and tutorials.
+**Стиль письма** | Основной: [Руководство по стилю документации Google для разработчиков](https://developers.google.com/style/)<br />Это руководство: указывает любые особые соображения по Angular документам.
+**Стиль разметки** | Основной: это руководство. <br />Это руководство. Определяет правила разметки руководств и учебных пособий, написанных в основном на уценке.
+**Angular стиль кодирования** | Основной: [Угловое руководство по стилю](guide/styleguide "Angular Application Code Style Guide"). <br />Это руководство: как создавать, хранить и включать примеры кода в руководства и учебные пособия.
 
 <div class="alert is-helpful">
 
-Note: Angular API and CLI reference docs are generated from source code and/or related source files, which may have other markup styles and other ways of including code examples.
+Примечание. Справочные документы Angular API и CLI создаются из исходного кода и / или связанных исходных файлов, которые могут иметь другие стили разметки и другие способы включения примеров кода.
 
 </div>
 
 
-## Doc generation and tooling
+{@a doc-generation-and-tooling}
+## Генерация документов и инструменты
 
-To make changes to the documentation pages and sample code, clone the [Angular github repository](https://github.com/angular/angular "Angular repo") and go to the `aio/` folder.
+Чтобы внести изменения в страницы документации и примеры кода, клонируйте [Angular github repository](https://github.com/angular/angular "Angular repo") и перейдите к `aio/` папка.
 
-The [aio/README.md](https://github.com/angular/angular/blob/master/aio/README.md "AIO ReadMe") explains how to install and use the tools to edit and test your changes.
+[AIO / README.md](https://github.com/angular/angular/blob/master/aio/README.md "AIO ReadMe") объясняет, как установить и использовать инструменты для редактирования и проверки изменений.
 
-Here are a few essential commands for guide page authors.
+Вот несколько важных команд для авторов путеводителей.
 
-1. `yarn setup` &mdash; installs packages; builds docs, stackblitz, and zips.
+1. `yarn setup` - устанавливает пакеты; создает документы, стекаблиц и почтовые индексы.
 
-1. `yarn docs-watch --watch-only` &mdash; watches for saved content changes and refreshes the browser. The (optional) `--watch-only` flag skips the initial docs rebuild.
+1. `yarn docs-watch --watch-only` - отслеживает изменения сохраненного содержимого и обновляет браузер. (Необязательно) `--watch-only` флаг пропускает начальные документы перестраивать.
 
-1. `yarn start`  &mdash;  starts the doc viewer application so you can see your local changes in the browser.
+1. `yarn start` - запускает приложение просмотра документов, чтобы вы могли видеть свои локальные изменения в браузере.
 
-1.  http://localhost:4200/  &mdash;  browse to the app running locally.
+1. http: // localhost: 4200 / - найдите приложение, работающее локально.
 
-You can combine `yarn docs-watch` and `yarn start` into one command with `yarn serve-and-sync`.
+Вы можете объединить `yarn docs-watch ` и ` yarn start` в одну команду с `yarn serve-and-sync`.
 
-## Guide pages
+{@a guide-pages}
+## Справочные страницы
 
- All but a few guide pages are [markdown](https://daringfireball.net/projects/markdown/syntax "markdown") files with an `.md` extension.
+Все, кроме нескольких справочных страниц, представляют собой [уценки](https://daringfireball.net/projects/markdown/syntax "markdown") файлы с `.md` расширение.
 
-Every guide page file is stored in the `content/guide` directory. Although the [side navigation](#navigation) panel displays as a hierarchy, the directory is flat with no sub-folders.
-The flat folder approach allows us to shuffle the apparent navigation structure without moving page files or redirecting old page URLs.
+Каждый файл страницы руководства хранится в `content/guide` справочника. Хотя [боковая навигация](#navigation)панель отображается в виде иерархии, каталог является плоским без подпапок.
+Подход с использованием плоских папок позволяет нам перетасовывать видимую структуру навигации, не перемещая файлы страниц или перенаправляя старые URL-адреса страниц.
 
-The doc generation process consumes the markdown files in the `content/guide` directory and produces JSON files in the `src/generated/docs/guide` directory, which is also flat. Those JSON files contain a combination of document metadata and HTML content.
+Процесс создания документа использует файлы уценки в `content/guide` каталог и создает файлы JSON в `src/generated/docs/guide`, который также является плоским. Эти файлы JSON содержат комбинацию метаданных документа и содержимого HTML.
 
-The reader requests a page by its Page URL. The doc viewer fetches the corresponding JSON file, interprets it, and renders it as fully-formed HTML page.
+Читатель запрашивает страницу по ее URL-адресу. Программа просмотра документов извлекает соответствующий файл JSON, интерпретирует его и отображает как полностью сформированную HTML-страницу.
 
-Page URLs mirror the `content` file structure. The URL for the page of a guide is in the form `guide/{page-name}`. The page for _this_ "Authors Style Guide" is located at `content/guide/docs-style-guide.md` and its URL is `guide/docs-style-guide`.
+URL страницы отражают `content` структура файла . URL-адрес страницы руководства находится в форме `guide/{page-name}` . Страница для _this_ "Руководства по стилю авторов" находится по адресу `content/guide/docs-style-guide.md` и его URL `guide/docs-style-guide`.
 
 
 <div class="alert is-helpful">
 
-_Tutorial_ pages are exactly like guide pages. The only difference is that they reside in `content/tutorial` instead of `content/guide` and have URLs like `tutorial/{page-name}`.
+_Tutorial_ страницы точно так же, как страницы руководства. Разница лишь в том, что они проживают в `content/tutorial` вместо `content/guide` и URL-адреса, такие как `tutorial/{page-name}`.
 
-_API_ pages are generated from Angular source code into the `src/generated/docs/api` directory.
-The doc viewer translates URLs that begin `api/` into requests for document JSON files in that directory. This style guide does not discuss creation or maintenance of API pages.
+_API_ страницы генерируются из исходного кода Angular в `src/generated/docs/api` каталог.
+Программа просмотра документов переводит начинающиеся URL `api/` в запросы на файлы документа JSON в этом каталоге. В этом руководстве по стилю не рассматривается создание или поддержка страниц API.
 
-_Marketing_ pages are similar to guide pages. They're located in the `content/marketing` directory. While they can be markdown files, they may be static HTML pages or dynamic HTML pages that render with JSON data.
+_Marketing_ страницы похожи на страницы руководства. Они расположены в `content/marketing` Каталог . Хотя они могут быть файлами уценки, они могут быть статическими HTML-страницами или динамическими HTML-страницами, которые отображаются с данными JSON.
 
-Only a few people are authorized to write marketing pages. This style guide does not discuss creation or maintenance of marketing pages.
+Только несколько человек имеют право писать маркетинговые страницы. Это руководство по стилю не обсуждает создание или обслуживание маркетинговых страниц.
 
 </div>
 
-## Markdown and HTML
+{@a markdown-and-html}
+## Уценка и HTML
 
-While documentation guide pages ultimately render as HTML, almost all of them are written in [markdown](https://daringfireball.net/projects/markdown/syntax "markdown").
+Хотя страницы руководства по документации в конечном итоге отображаются в виде HTML, почти все они написаны в [уценке](https://daringfireball.net/projects/markdown/syntax "markdown").
 
-Markdown is easier to read and to edit than HTML. Many editors (including Visual Studio Code) can render markdown as you type it.
+Markdown легче читать и редактировать, чем HTML. Многие редакторы (включая код Visual Studio) могут отображать уценку по мере ее ввода.
 
-From time to time you'll have to step away from markdown and write a portion of the document in HTML. Markdown allows you to mix HTML and markdown in the same document.
+Время от времени вам придется отойти от уценки и написать часть документа в HTML. Уценка позволяет вам смешивать HTML и уценку в одном документе.
 
-Standard markdown processors don't allow you to put markdown _within_ HTML tags. But the Angular documentation markdown processor **supports markdown within HTML**, as long as you follow one rule:
+Стандартные процессоры уценки не позволяют ставить уценку _с тегами HTML. Но Angular документация уценка процессор **поддерживает уценки в HTML**, до тех пор, пока вы будете следовать одному правилу:
 
 <div class="alert is-critical">
 
-**Always** follow every opening and closing HTML tag with _a blank line_.
+**Всегда** следуйте за каждым открывающим и закрывающим тегом HTML с помощью пустой строки.
 
 </div>
 
@@ -127,49 +132,51 @@ Standard markdown processors don't allow you to put markdown _within_ HTML tags.
 
 <div class="alert is-helpful">
 
-  It is customary but not required to _precede_ the _closing HTML_ tag with a blank line as well.
+  Обычно, но не обязательно, _precede_ _closing HTML_ тег с пустой строкой также.
 
 </div>
 
-## Title
+{@a title}
+## Название
 
-Every guide document must have a title.
+Каждый справочный документ должен иметь название.
 
-The title should appear at the top of the physical page.
-Begin the title with the markdown `#` character. Alternatively, you can write the equivalent `<h1>`.
+Заголовок должен отображаться в верхней части физической страницы.
+Начните заголовок с уценки `#` символ Кроме того, вы можете написать эквивалент `<h1>`.
 
 ```html
   # Angular documentation style guide
 ```
 
-**Only one title (`<h1>`) per document!**
+**Только один заголовок (`<h1>`) за документ!**
 
-Title text should be in "Sentence case", which means the first word is capitalized and all other words are lower case (unless they are technical terms that are always capitalized, like "Angular").
+Текст заголовка должен быть в «регистре предложений», что означает, что первое слово пишется с большой буквы, а все остальные слова строчными (если они не являются техническими терминами, которые всегда пишутся с заглавной буквы, например «Angular»).
 
 ```html
   # Deprecation policy in Angular
 ```
 
-**Always follow the title with at least one blank line.**
+**Всегда следуйте заголовку по крайней мере с одной пустой строкой.**
 
-Note that the corresponding left-nav TOC text should be in "title case", which means that you use capital letters to start the first words and all principal words. Use lower case letters for secondary words such as "in", "of", and "the". The TOC title can also be shortened to fit in the column.
+Обратите внимание, что соответствующий текст оглавления левой навигационной панели должен быть в «заглавном регистре», что означает, что вы используете заглавные буквы для начала первых слов и всех основных слов. Используйте строчные буквы для вторичных слов, таких как «in», «of» и «the». Заголовок оглавления также может быть сокращен для размещения в столбце.
 
-## Sections
+{@a sections}
+## Разделы
 
-A typical document is divided into sections.
+Типичный документ состоит из разделов.
 
-All heading text should be in "Sentence case", which means the first word is capitalized and all other words are lower case.
+Весь текст заголовка должен быть в «регистре предложений», что означает, что первое слово пишется с большой буквы, а все остальные слова строчными.
 
-**Always follow the section heading with at least one blank line.**
+**Всегда следуйте заголовку раздела хотя бы с одной пустой строкой.**
 
 <h2 class="no-toc">
-Main section heading
+Заголовок основного раздела
 </h2>
-There are usually one or more main sections that may be further divided into secondary sections.
+Обычно есть один или несколько основных разделов, которые могут быть дополнительно разделены на дополнительные разделы.
 
-Begin a main section heading with the markdown `##` characters. Alternatively, you can write the equivalent `<h2>` HTML tag.
+Начните заголовок основного раздела с уценки `##` персонажи. Кроме того, вы можете написать эквивалент `<h2>` HTML-тег.
 
-The main section heading should be followed by a blank line and then the content for that heading.
+За заголовком основного раздела должна следовать пустая строка, а затем содержание для этого заголовка.
 
 ```html
   ## Sections
@@ -178,14 +185,14 @@ The main section heading should be followed by a blank line and then the content
 ```
 
 <h3 class="no-toc">
-Secondary section heading
+Заголовок вторичного раздела
 </h3>
 
-A secondary section heading is related to a main heading and _falls textually within_ the bounds of that main heading.
+Заголовок вторичного раздела связан с основным заголовком и текстуально находится в пределах границ этого основного заголовка.
 
-Begin a secondary heading with the markdown `###` characters. Alternatively, you can write the equivalent `<h3>` HTML tag.
+Начните вторичный заголовок с уценки `###` символы. Кроме того, вы можете написать эквивалент `<h3>` HTML-тег.
 
-The secondary heading should be followed by a blank line and then the content for that heading.
+За дополнительным заголовком должна следовать пустая строка, а затем содержание для этого заголовка.
 
 ```html
   ### Secondary section heading
@@ -193,11 +200,12 @@ The secondary heading should be followed by a blank line and then the content fo
   A secondary section ...
 ```
 
-#### Additional section headings
+{@a additional-section-headings}
+#### Заголовки дополнительных разделов
 
-Try to minimize the heading depth, preferably only two. But more headings, such as this one, are permitted if they make sense.
+Старайтесь минимизировать глубину курса, желательно только два. Но больше заголовков, таких как этот, разрешены, если они имеют смысл.
 
-**N.B.**:  The [Table-of-contents](#table-of-contents) generator only considers main (`<h2>`) and secondary (`<h3>`) headings.
+**NB**: [Таблица-из-содержимого](#table-of-contents)Генератор рассматривает только основные (`<h2>`) и вторичный (`<h3>`) заголовки.
 
 ```html
   #### Additional section headings
@@ -205,13 +213,14 @@ Try to minimize the heading depth, preferably only two. But more headings, such 
   Try to minimize ...
 ```
 
-## Table of contents
+{@a table-of-contents}
+## Оглавление
 
-Most pages display a table of contents (TOC). The TOC appears in the right panel when the viewport is wide. When narrow, the TOC appears in an expandable/collapsible region near the top of the page.
+Большинство страниц отображают оглавление (TOC). Оглавление отображается на правой панели, когда область просмотра широкая. При узком значении оглавление отображается в расширяемой / складываемой области в верхней части страницы.
 
-You should not create your own TOC by hand. The TOC is generated automatically from the page's main and secondary section headers.
+Вы не должны создавать свой собственный TOC вручную. Содержание создается автоматически из заголовков основного и дополнительного разделов страницы.
 
-To exclude a heading from the TOC, create the heading as an `<h2>` or `<h3>` element with a class called 'no-toc'. You can't do this with markdown.
+Чтобы исключить заголовок из оглавления, создайте заголовок как `<h2>` или `<h3>` Элемент с классом с именем no-toc. Вы не можете сделать это с уценкой.
 
 ```html
 <h3 class="no-toc">
@@ -219,7 +228,7 @@ This heading is not displayed in the TOC
 </h3>
 ```
 
-You can turn off TOC generation for the _entire_ page by writing the title with an `<h1>` tag and the `no-toc` class.
+Вы можете отключить генерацию оглавления для страницы _entire_, написав заголовок с `<h1>` тег и `no-toc` класс.
 
 ```html
 <h1 class="no-toc">
@@ -227,16 +236,17 @@ A guide without a TOC
 </h1>
 ```
 
-## Navigation
+{@a navigation}
+## Навигация
 
-The navigation links at the top, left, and bottom of the screen are generated from the JSON configuration file, `content/navigation.json`.
+Навигационные ссылки в верхней, левой и нижней частях экрана создаются из файла конфигурации JSON. `content/navigation.json`.
 
-The authority to change the `navigation.json` file is limited to a few core team members.
-But for a new guide page, you should suggest a navigation title and position in the left-side navigation panel called the "side nav".
+Полномочия на изменение `navigation.json` Файл ограничен несколькими членами основной команды.
+Но для новой страницы руководства, вы должны предложить название и положение навигации в левой боковой панели навигации, называемой «боковая навигация».
 
-Look for the `SideNav` node in `navigation.json`. The `SideNav` node is an array of navigation nodes. Each node is either an _item_ node for a single document or a _header_ node with child nodes.
+Ищите `SideNav` Узел в `navigation.json` . `SideNav` Узел представляет собой массив узлов навигации. Каждый узел является либо узлом _item_ для отдельного документа, либо узлом _header_ с дочерними узлами.
 
-Find the header for your page. For example, a guide page that describes an Angular feature is probably a child of the `Fundamentals` header.
+Найдите заголовок для своей страницы. Например, страница руководства, в которой описывается Angular функция, вероятно, является потомком `Fundamentals` заголовка.
 
 ```html
 {
@@ -246,9 +256,9 @@ Find the header for your page. For example, a guide page that describes an Angul
 }
 ```
 
-A _header_ node child can be an _item_ node or another _header_ node. If your guide page belongs under a sub-header, find that sub-header in the JSON.
+Дочерний узел _header_ может быть узлом _item_ или другим узлом _header_. Если ваша страница гида находится под подзаголовком, найдите этот подзаголовок в JSON.
 
-Add an _item_ node for your guide page as a child of the appropriate _header_ node. It probably looks something like this one.
+Добавьте узел _item_ для вашей страницы руководства как дочерний узел соответствующего узла _header_. Вероятно, это выглядит примерно так.
 
 ```html
 {
@@ -258,54 +268,56 @@ Add an _item_ node for your guide page as a child of the appropriate _header_ no
 }
 ```
 
-A navigation node has the following properties:
+Навигационный узел имеет следующие свойства:
 
-* `url`- the URL of the guide page (_item node only_).
+* `url` - URL-адрес страницы гида (только для _item узла).
 
-* `title`- the text displayed in the side nav.
+* `title` - текст, отображаемый на боковой панели.
 
-* `tooltip` - text that appears when the reader hovers over the navigation link.
+* `tooltip` - текст, который появляется, когда читатель наводит курсор мыши на навигационную ссылку.
 
-* `children` - an array of child nodes (_header node only_).
+* `children` - массив дочерних узлов (_header node only_).
 
-* `hidden` - defined and set true if this is a guide page that should _not_ be displayed in the navigation panel. Rarely needed, it is a way to hide the page from navigation while making it available to readers who should know about it. _This_ "Authors Style Guide" is a hidden page.
+* `hidden` - определяется и устанавливается в значение true, если это направляющая страница, которая не должна отображаться на панели навигации. Редко необходимый, это способ скрыть страницу от навигации, делая ее доступной для читателей, которые должны знать об этом. _This_ "Руководство по стилю авторов" является скрытой страницей.
 
 
 <div class="alert is-critical">
 
-Do not create a node that is both a _header_ and an _item_ node. That is, do not specify the `url` property of a _header_ node.
+Не создавайте узел, который является одновременно узлом _header_ и _item_. То есть не указывайте `url` свойство _header_ узла.
 
 </div>
 
 
 <div class="alert is-critical">
 
-The current guidelines allow for a three-level navigation structure with two header levels. Don't add a third header level.
+Текущие руководящие принципы допускают трехуровневую структуру навигации с двумя уровнями заголовка. Не добавляйте третий уровень заголовка.
 
 </div>
 
 
-## Code snippets
+{@a code-snippets}
+## Фрагменты кода
 
-Guides are rich in examples of working Angular code. Example code can be commands entered in a terminal window, a fragment of TypeScript or HTML, or an entire code file.
+Руководства богаты примерами работающего Angular кода. Примером кода могут быть команды, введенные в окне терминала, фрагмент TypeScript или HTML или файл всего кода.
 
-Whatever the source, the doc viewer renders them as "code snippets", either individually with the [_code-example_](#code-example "code-example") component or as a tabbed collection with the [_code-tabs_](#code-tabs "code-tabs") component.
+Независимо от источника, программа просмотра документов отображает их как «фрагменты кода», либо по отдельности с [_code-example_](#code-example "code-example") компонент или в виде коллекции вкладок с [_code-tabs_](#code-tabs "code-tabs") компонентом.
 
 
 {@a code-example}
 
-### Code example
+{@a code-example}
+### Пример кода
 
-You can display a simple, inline code snippet with the markdown backtick syntax.
-Use a single backtick on either side of a term when referring to code or the
-name of a file in a sentence.
-The following are some examples:
+Вы можете отобразить простой встроенный фрагмент кода с синтаксисом обратной пометки уценки.
+Используйте один обратный тик по обеим сторонам термина при ссылке на код или
+имя файла в предложении.
+Ниже приведены некоторые примеры:
 
-* In the `app.component.ts`, add a `logger()` method.
-* The `name` property is `Sally`.
-* Add the component class name to the `declarations` array.
+* в `app.component.ts`, добавить `logger()` метод.
+* `name ` свойства ` Sally`.
+* Добавьте имя класса компонента к `declarations` массив.
 
-The markdown is as follows:
+Уценки выглядит следующим образом :
 
 ```markdown
 
@@ -314,25 +326,25 @@ The markdown is as follows:
 * Add the component class name to the `declarations` array.
 
 ```
-In certain cases, when you apply backticks around a term, it may auto-link to
-the API documentation. If you do not intend the term to be a link, use the following
-syntax:
+В некоторых случаях, когда вы применяете обратные метки вокруг термина, он может автоматически связываться с
+документация по API. Если вы не намерены использовать термин как ссылку, используйте следующее
+Синтаксис:
 
 ```html
 The <code class="no-auto-link">item</code> property is `true`.
 ```
 
-For block code snippets, we generally prefer to display code with
-the Angular documentation _code-example_ component represented by the `<code-example>` tag.
-The `<code-example>` tag has a `header` attribute that you use to identify the file that the example comes from. The header should be used whenever possible to establish the context of the example.
-See [Code snippets and code examples](guide/docs-style-guide#code-snippets-and-code-samples) for more details.
+Для фрагментов кода блока мы обычно предпочитаем отображать код с помощью
+компонент _code-example_ документации Angular, представленный `<code-example>` тег.
+ `<code-example>` тег имеет `header` Атрибут который вы используете для определения файла, из которого получен пример. Заголовок должен использоваться, когда это возможно, для установления контекста примера.
+Смотрите [фрагменты кода и примеры кода](guide/docs-style-guide#code-snippets-and-code-samples)для получения более подробной информации.
 
-<h3 class="no-toc">Inline code-snippets</h3>
+<h3 class="no-toc">Встроенные фрагменты кода </h3>
 
-You should source code snippets [from working sample code](#from-code-samples) when possible.
-But there are times when an inline snippet is the better choice.
+Вы должны по возможности использовать фрагменты исходного кода [из рабочего примера кода](#from-code-samples).
+Но бывают моменты, когда встроенный фрагмент является лучшим выбором.
 
-For terminal input and output, put the content between `<code-example>` tags, set the CSS class to `code-shell`, and set the language attribute to `sh` as in this example.
+Для ввода и вывода терминала поместите содержимое между `<code-example>` теги, установите класс CSS в `code-shell` и установите атрибут языка в `sh` как в этом примере.
 
 <code-example language="sh" class="code-shell">
   npm start
@@ -344,47 +356,48 @@ For terminal input and output, put the content between `<code-example>` tags, se
 </code-example>
 ```
 
-Inline, hand-coded snippets like this one are _not_ testable and, therefore, are intrinsically unreliable.
-This example belongs to the small set of pre-approved, inline snippets that includes
-user input in a command shell or the _output_ of some process.
+Встроенные фрагменты кода с ручной кодировкой, подобные этой, не проверяются и, следовательно, по своей сути ненадежны.
+Этот пример относится к небольшому набору предварительно утвержденных встроенных фрагментов, который включает
+пользовательский ввод в командной оболочке или _output_ некоторого процесса.
 
-**Do not write inline code snippets** unless you have a good reason and the editor's permission to do so.
-In all other cases, code snippets should be generated automatically from tested code samples.
+**Не пишите фрагменты встроенного кода,** если у вас нет веской причины и разрешения редактора.
+Во всех остальных случаях фрагменты кода должны генерироваться автоматически из проверенных примеров кода.
 
-For hypothetical examples such as illustrations of configuration options in a JSON file, you should still use The `<code-example>` tag with the `header` attribute to identify the context.
+Для гипотетических примеров, таких как иллюстрации параметров конфигурации в файле JSON, вы все равно должны использовать `<code-example>` тег с `header` Атрибут для идентификации контекста.
 
 {@a from-code-samples}
+{@a code-snippets-and-code-samples}
+<h3 class="no-toc">Фрагменты кода и примеры кода </h3>
 
-<h3 class="no-toc">Code snippets and code samples</h3>
+Одной из целей разработки документации является то, что фрагменты кода руководства должны быть примерами реального, рабочего кода.
 
-One of the documentation design goals is that guide page code snippets should be examples of real, working code.
+Мы достигаем этой цели, отображая фрагменты кода, которые получены непосредственно из отдельных примеров кода, написанных специально для этих страниц руководства.
 
-We meet this goal by displaying code snippets that are derived directly from standalone code samples, written specifically for these guide pages.
+Автор страницы руководства отвечает за пример кода, который поддерживает эту страницу.
+Автор также должен написать сквозные тесты для образца.
 
-The author of a guide page is responsible for the code sample that supports that page.
-The author must also write end-to-end tests for the sample.
-
-Code samples are located in sub-folders of the `content/examples` directory of the `angular/angular` repository. An example folder name should be the same as the guide page it supports.
+Образцы кода находятся в подпапках `content/examples` каталог из `angular/angular` репозиторий. Имя папки примера должно совпадать с поддерживаемой страницей справочника.
 
 <div class="alert is-helpful">
 
-A guide page might not have its own sample code. It might refer instead to a sample belonging to another page.
+Страница руководства может не иметь собственного примера кода. Вместо этого он может ссылаться на образец, принадлежащий другой странице.
 
 </div>
 
-The Angular CI process runs all end-to-end tests for every Angular PR. Angular re-tests the samples after every new version of a sample and every new version of Angular itself.
+Процесс Angular CI выполняет все сквозные тесты для каждого Angular PR. Angular повторно тестирует образцы после каждой новой версии образца и каждой новой версии самого Angular.
 
-When possible, every snippet of code on a guide page should be derived from a code sample file. You tell the Angular documentation engine which code file - or fragment of a code file - to display by configuring `<code-example>` attributes.
+Когда это возможно, каждый фрагмент кода на странице руководства должен быть получен из файла примера кода. Вы указываете движку документации Angular, какой файл кода - или фрагмент файла кода - отображать, конфигурируя `<code-example>` атрибуты.
 
-#### Code snippet from a file
+{@a code-snippet-from-a-file}
+#### Фрагмент кода из файла
 
-_This_ "Authors Doc Style Guide" has its own sample application, located in the `content/examples/docs-style-guide` folder.
+_Это_ «Руководство по стилю документа для авторов» имеет собственный пример приложения, расположенного в `content/examples/docs-style-guide` папка.
 
-The following _code-example_ displays the sample's `app.module.ts`.
+Следующий _code-example_ отображает образец `app.module.ts`.
 
 <code-example path="docs-style-guide/src/app/app.module.ts" header="src/app/app.module.ts"></code-example>
 
-Here's the brief markup that produced that lengthy snippet:
+Вот краткие разметки, произвели этот длинный фрагмент кода:
 
 ```html
 <code-example
@@ -393,27 +406,27 @@ Here's the brief markup that produced that lengthy snippet:
 </code-example>
 ```
 
-You identified the snippet's source file by setting the `path` attribute to sample folder's location _within_ `content/examples`.
-In this example, that path is  `docs-style-guide/src/app/app.module.ts`.
+Вы определили исходный файл фрагмента, установив `path` атрибут к папке с образцом _within_ `content/examples`.
+В этом примере этот путь `docs-style-guide/src/app/app.module.ts`.
 
-You added a header to tell the reader where to find the file by setting the `header` attribute.
-Following convention, you set the `header` attribute to the file's location within the sample's root folder.
+Вы добавили заголовок, чтобы сообщить читателю, где найти файл, установив `header` атрибут.
+Следуя соглашению, вы устанавливаете `header` Атрибут для местоположения файла в корневой папке образца.
 
 <div class="alert is-helpful">
 
-Unless otherwise noted, all code snippets in this page are derived from sample source code
-located in the `content/examples/docs-style-guide` directory.
+Если не указано иное, все фрагменты кода на этой странице получены из примера исходного кода
+расположенный в `content/examples/docs-style-guide` Каталог.
 
 </div>
 
 <div class="alert is-important">
 
-The doc tooling reports an error if the file identified in the path does not exist **or is _git_-ignored**.
+Инструмент doc сообщает об ошибке, если файл, указанный в пути, не существует **или игнорируется _git_**.
 
-Most `.js` files are _git_-ignored.
-If you want to include an ignored code file in your project and display it in a guide you must _un-ignore_ it.
+Наиболее `.js` Файлы игнорируются _git_.
+Если вы хотите включить файл игнорируемого кода в свой проект и отобразить его в руководстве, вы должны _un-ignore_.
 
-The preferred way to un-ignore a file is to update the `content/examples/.gitignore` like this:
+Предпочтительный способ игнорировать файл - обновить `content/examples/.gitignore` как это:
 
 <code-example header="content/examples/.gitignore">
   # my-guide
@@ -423,37 +436,39 @@ The preferred way to un-ignore a file is to update the `content/examples/.gitign
 
 </div>
 
-#### Code-example attributes
+{@a code-example-attributes}
+#### Атрибуты примера кода
 
-You control the _code-example_ output by setting one or more of its attributes:
+Вы можете контролировать выход _code-example_ путем установки одного или нескольких из его атрибутов:
 
-* `path`- the path to the file in the `content/examples` folder.
+* `path` - путь к файлу в `content/examples` папка.
 
-* `header`- the header of the code listing.
+* `header` - заголовок листинга кода.
 
-* `region`- displays the source file fragment with that region name; regions are identified by _docregion_ markup in the source file, as explained [below](#region "Displaying a code fragment").
+* `region` - отображает фрагмент исходного файла с этим именем региона; области идентифицируются разметкой _docregion_ в исходном файле, как объяснено [ниже](#region "Displaying a code fragment").
 
-* `linenums`- value may be `true`, `false`, or a `number`. When not specified, line numbers default to `false` (i.e. no line numbers are displayed). The rarely used `number` option starts line numbering at the given value. `linenums=4` sets the starting line number to 4.
+* `linenums` - стоимость может быть `true`, `false` или `number` . Если не указано, номера строк по умолчанию `false` (т.е. номера строк не отображаются). Редко используемый `number` Параметр начинает нумерацию строк с заданного значения. `linenums=4` устанавливает номер стартовой строки в 4
 
-* `class`- code snippets can be styled with the CSS classes `no-box`, `code-shell`, and `avoid`.
+* `class` - фрагменты кода могут быть стилизованы с помощью классов CSS `no-box`, `code-shell` и `avoid`.
 
-* `hideCopy`- hides the copy button
+* `hideCopy` - скрывает кнопку копирования
 
-* `language`- the source code language such as `javascript`, `html`, `css`, `typescript`, `json`, or `sh`. This attribute only works for inline examples.
+* `language` - исходного кода, такой как `javascript`, `html`, `css`, `typescript`, `json`, или `sh` . Этот атрибут работает только для встроенных примеров.
 
 {@a region}
 
-#### Displaying a code fragment
+{@a displaying-a-code-fragment}
+#### Отображение фрагмента кода
 
-Often you want to focus on a fragment of code within a sample code file. In this example, you focus on the `AppModule` class and its `NgModule` metadata.
+Часто вы хотите сосредоточиться на фрагменте кода в файле примера кода. В этом примере вы сосредоточены на `AppModule` Класс и его `NgModule` Метаданные.
 
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   region="class">
 </code-example>
 
-First you surround that fragment in the source file with a named _docregion_ as described [below](#source-code-markup).
-Then you reference that _docregion_ in the `region` attribute of the `<code-example>` like this
+Сначала вы окружаете этот фрагмент в исходном файле именем _docregion_, как описано [ниже](#source-code-markup).
+Затем вы ссылаетесь на _docregion_ в `region` атрибут `<code-example>` как это
 
 
 ```html
@@ -463,22 +478,23 @@ Then you reference that _docregion_ in the `region` attribute of the `<code-exam
 </code-example>
 ```
 
-A couple of observations:
+Несколько наблюдений:
 
-1. The `region` value, `"class"`, is the name of the `#docregion` in the source file. Confirm that by looking at `content/examples/docs-style-guide/src/app/app.module.ts`
+1. `region` значение, `"class"`, это имя `#docregion` в исходном файле. Подтвердите это, посмотрев на `content/examples/docs-style-guide/src/app/app.module.ts` 
 
-1. Omitting the `header` is fine when the source of the fragment is obvious. We just said that this is a fragment of the `app.module.ts` file which was displayed immediately above, in full, with a header.
-There's no need to repeat the header.
+1. Опуская `header` в порядке, когда источник фрагмента очевиден. Мы только что сказали, что это фрагмент `app.module.ts` Файл который был показан выше, полностью, с заголовком.
+Там нет необходимости повторять заголовок.
 
-#### Example of bad code
+{@a example-of-bad-code}
+#### Пример плохого кода
 
-Sometimes you want to display an example of bad code or bad design.
+Иногда вы хотите показать пример плохого кода или плохого дизайна.
 
-You should be careful. Readers don't always read carefully and are likely to copy and paste your example of bad code in their own applications. So don't display bad code often.
+Тебе следует быть осторожным. Читатели не всегда читают внимательно и могут скопировать и вставить ваш пример плохого кода в свои приложения. Так что не показывайте плохой код часто.
 
-When you do, set the `class` to `avoid`. The code snippet will be framed in bright red to grab the reader's attention.
+Когда вы это сделаете, установите `class` для `avoid` . Фрагмент кода будет выделен ярко-красным, чтобы привлечь внимание читателя.
 
-Here's the markup for an "avoid" example in the
+Вот разметка для примера «избежать» в
 [_Angular Style Guide_](guide/styleguide#style-05-03 "Style 05-03: components as elements").
 
 ```html
@@ -493,22 +509,24 @@ Here's the markup for an "avoid" example in the
 </code-example>
 
 {@a code-tabs}
-### Code Tabs
+### Код табуляции
 
-Code tabs display code much like _code examples_ do.  The added advantage is that they can display multiple code samples within a tabbed interface.  Each tab is displayed using _code pane_.
+Кодовые вкладки отображают код так же, как _code examples_ do. Дополнительным преимуществом является то, что они могут отображать несколько примеров кода в интерфейсе с вкладками. Каждая вкладка отображается с помощью _code pane_.
 
-#### Code-tabs attributes
+{@a code-tabs-attributes}
+#### Атрибуты вкладок кода
 
-* `linenums`: The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
+* `linenums` : значение может быть `true`, `false` или число, указывающее номер начальной строки. Если не указано, по умолчанию `false`.
 
-#### Code-pane attributes
+{@a code-pane-attributes}
+#### Атрибуты кодовой панели
 
-* `path` - a file in the content/examples folder
-* `header` - seen in the header of a tab
-* `linenums` - overrides the `linenums` property at the `code-tabs` level for this particular pane. The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
+* `path` - файл в папке content / examples
+* `header` - видно в заголовке вкладки
+* `linenums` - переопределяет `linenums` имущество `code-tabs` Уровень для этой конкретной панели. Значение может быть `true`, `false` или число, указывающее номер начальной строки. Если не указано, по умолчанию `false`.
 
-The next example displays multiple code tabs, each with its own header.
-It demonstrates control over display of line numbers at both the `<code-tabs>` and `<code-pane>` levels.
+В следующем примере отображаются несколько вкладок кода, каждая со своим заголовком.
+Это демонстрирует контроль над отображением номеров строк на обоих `<code-tabs>` и `<code-pane>` уровни.
 
 <code-tabs linenums="true">
   <code-pane
@@ -531,10 +549,10 @@ It demonstrates control over display of line numbers at both the `<code-tabs>` a
   </code-pane>
 </code-tabs>
 
-Here's the markup for that example.
+Вот разметка для этого примера.
 
-Note how the `linenums` attribute in the `<code-tabs>` explicitly enables numbering for all panes.
-The `linenums` attribute in the second pane disables line numbering for _itself only_.
+Обратите внимание, как `linenums` атрибут в `<code-tabs>` явно разрешает нумерацию для всех панелей.
+ `linenums` на второй панели отключает нумерацию строк для _itself only_.
 
 ```html
 <code-tabs linenums="true">
@@ -561,24 +579,25 @@ The `linenums` attribute in the second pane disables line numbering for _itself 
 
 {@a source-code-markup}
 
-## Source code markup
+{@a source-code-markup}
+## Разметка исходного кода
 
-You must add special code snippet markup to sample source code files before they can be displayed by `<code-example>` and `<code-tabs>` components.
+Вы должны добавить специальную разметку фрагмента кода в образцы файлов исходного кода, прежде чем они будут отображаться `<code-example>` и `<code-tabs>` компоненты.
 
 <div class="alert is-helpful">
 
-The sample source code for this page, located in `context/examples/docs-style-guide`, contains examples of every code snippet markup described in this section.
+Пример исходного кода для этой страницы, расположенный в `context/examples/docs-style-guide`, содержит примеры каждой разметки фрагмента кода, описанной в этом разделе.
 
 </div>
 
-Code snippet markup is always in the form of a comment. Here's the default _docregion_ markup for a TypeScript or JavaScript file:
+Разметка фрагмента кода всегда в форме комментария. Вот _docregion_ Разметка по умолчанию для файла машинопись или JavaScript:
 
 ```
 // #docregion
 ... some code ...
 // #enddocregion
 ```
-Different file types have different comment syntax so adjust accordingly.
+Различные типы файлов имеют разный синтаксис комментариев, поэтому настройте их соответствующим образом.
 
 ```html
 <!-- #docregion -->
@@ -587,34 +606,35 @@ Different file types have different comment syntax so adjust accordingly.
 ```
 
 ```
-/* #docregion */
+/* #docregion*/
 ... some CSS ...
-/* #enddocregion */
+/* #enddocregion*/
 ```
 
-The doc generation process erases these comments before displaying them in the doc viewer.
-It also strips them from stackblitz and sample code downloads.
+Процесс создания документа стирает эти комментарии перед их отображением в средстве просмотра документов.
+Он также удаляет их из стекаблиц и примеров загрузки кода.
 
 <div class="alert is-important">
 
-Code snippet markup is not supported in JSON files because comments are forbidden in JSON files.
-See [below](#json-files) for details and workarounds.
+Разметка фрагмента кода не поддерживается в файлах JSON, поскольку в файлах JSON запрещены комментарии.
+Смотрите [ниже](#json-files)для деталей и обходных путей.
 
 </div>
 
 
+{@a docregion}
 #### _#docregion_
 
-The _#docregion_ is the most important kind of code snippet markup.
+_#Docregion_ самый важный вид фрагмента кода разметки.
 
-The `<code-example>` and `<code-tabs>` components won't display a source code file unless it has a _#docregion_.
+ `<code-example> ` и ` <code-tabs>` Компоненты не будут отображать файл исходного кода, если у него нет #_docregion_.
 
-The _#docregion_ comment begins a code snippet region.
-Every line of code _after_ that comment belongs in the region _until_ the code fragment processor encounters the end of the file or a closing _#enddocregion_.
+_#Комментарий docregion_ начинает область фрагмента кода.
+Каждая строка кода _after_ этого комментария принадлежит области _until_ обработчик фрагмента кода встречает конец файла или закрывающий _#enddocregion_.
 
 <div class="alert is-helpful">
 
-The `src/main.ts` is a simple example of a file with a single _#docregion_ at the top of the file.
+ `src/main.ts` - это простой пример файла с одним #_docregion_ в верхней части файла.
 
 <code-example
   path="docs-style-guide/src/main.ts"
@@ -622,10 +642,11 @@ The `src/main.ts` is a simple example of a file with a single _#docregion_ at th
 
 </div>
 
-#### Named _#docregions_
+{@a named-docregions}
+#### Именованные _#docregions_
 
-You'll often display multiple snippets from different fragments within the same file.
-You distinguish among them by giving each fragment its own _#docregion name_ as follows.
+Вы часто будете отображать несколько фрагментов из разных фрагментов в одном файле.
+Вы выделяете их, каждому фрагменту свое собственное #присваивая имя_региона следующим образом.
 
 ```
 // #docregion region-name
@@ -633,7 +654,7 @@ You distinguish among them by giving each fragment its own _#docregion name_ as 
 // #enddocregion region-name
 ```
 
-Remember to refer to this region by name in the `region` attribute of the `<code-example>` or `<code-pane>` as you did in an example above like this:
+Не забудьте сослаться на этот регион по имени в `region` атрибут `<code-example>` или `<code-pane>` как вы делали в приведенном выше примере, как это:
 
 ```html
 <code-example
@@ -641,11 +662,12 @@ Remember to refer to this region by name in the `region` attribute of the `<code
   region="class"></code-example>
 ```
 
-The _#docregion_ with no name is the _default region_. Do _not_ set the `region` attribute when referring to the default _#docregion_.
+_#Docregion_ без имени является _default region_. _Не_ установить `region` Атрибут при обращении к стандартному _#docregion_.
 
-#### Nested _#docregions_
+{@a nested-docregions}
+#### Вложенные _#docregions_
 
-You can nest _#docregions_ within _#docregions_
+Вы можете _#вкладывать docregions_ в _#docregions_
 ```
 // #docregion
 ... some code ...
@@ -657,18 +679,19 @@ You can nest _#docregions_ within _#docregions_
 ```
 <div class="alert is-helpful">
 
-The `src/app/app.module.ts` file has a good example of a nested region.
+ `src/app/app.module.ts` Файл содержит хороший пример вложенной области.
 
 </div>
 
-#### Combining fragments
+{@a combining-fragments}
+#### Объединение фрагментов
 
-You can combine several fragments from the same file into a single code snippet by defining
-multiple _#docregions_ with the _same region name_.
+Вы можете объединить несколько фрагментов из одного файла в один фрагмент кода, определив его
+несколько _#docregions_ с именем _same региона_.
 
-Examine the `src/app/app.component.ts` file which defines two nested _#docregions_.
+Изучите `src/app/app.component.ts` Файл который определяет два вложенных _#docregions_.
 
-The inner, `class-skeleton` region appears twice, once to capture the code that opens the class definition and once to capture the code that closes the class definition.
+Внутренний, `class-skeleton` область появляется дважды, один раз для захвата кода, который открывает определение класса, и один раз для захвата кода, который закрывает определение класса.
 
 <code-example>
 // #docplaster
@@ -688,7 +711,7 @@ export class AppComponent {
 // #enddocregion class, class-skeleton
 </code-example>
 
-Here's are the two corresponding code snippets displayed side-by-side.
+Вот два соответствующих фрагмента кода, отображаемых рядом.
 
 <code-tabs>
   <code-pane
@@ -703,30 +726,31 @@ Here's are the two corresponding code snippets displayed side-by-side.
   </code-pane>
 </code-tabs>
 
-Some observations:
+Некоторые наблюдения:
 
-* The `#docplaster` at the top is another bit of code snippet markup. It tells the processor how to join the fragments into a single snippet.
+* `#docplaster` вверху - это еще один фрагмент кода. Он говорит процессору, как объединить фрагменты в один фрагмент.
 
-  In this example, we tell the processor to put the fragments together without anything in between - without any "plaster".  Most sample files define this _empty plaster_.
+  В этом примере мы говорим процессору соединять фрагменты без чего-либо между ними - без какой-либо «штукатурки». Большинство примеров файлов определяют этот _empty штукатурка_.
 
-  If we neglected to add, `#docplaster`, the processor would insert the _default_ plaster - an ellipsis comment - between the fragments. Try removing the `#docplaster` comment yourself to see the effect.
+  Если мы забыли добавить, `#docplaster`, процессор вставит между фрагментами _default_ гипс - многоточечный комментарий. Попробуйте удалить `#docplaster` прокомментируйте себя, чтобы увидеть эффект.
 
-* One `#docregion` comment mentions **_two_** region names as does an `#enddocregion` comment. This is a convenient way to start (or stop) multiple regions on the same code line. You could have put these comments on separate lines and many authors prefer to do so.
+* Один `#docregion` Комментарий упоминает**двух** имена регионов, как и `#enddocregion` комментарий. Это удобный способ запустить (или остановить) несколько регионов в одной строке кода. Вы могли бы поместить эти комментарии в отдельные строки, и многие авторы предпочитают это делать.
 
-#### JSON files
+{@a json-files}
+#### Файлы JSON
 
-Code snippet markup is not supported for JSON files because comments are forbidden in JSON files.
+Разметка фрагмента кода не поддерживается для файлов JSON, поскольку в файлах JSON запрещены комментарии.
 
-You can display an entire JSON file by referring to it in the `src` attribute.
-But you can't display JSON fragments because you can't add `#docregion` tags to the file.
+Вы можете отобразить весь файл JSON, ссылаясь на него в `src` атрибут.
+Но вы не можете отобразить фрагменты JSON, потому что вы не можете добавить `#docregion` теги к файлу.
 
-If the JSON file is too big, you could copy the nodes-of-interest into markdown backticks.
+Если файл JSON слишком велик, вы можете скопировать интересующие вас узлы в обратные ссылки уценки.
 
-Unfortunately, it's easy to mistakenly create invalid JSON that way. The preferred way is to create a JSON partial file with the fragment you want to display.
+К сожалению, легко ошибочно создать неверный JSON таким образом. Предпочтительным способом является создание частичного файла JSON с фрагментом, который вы хотите отобразить.
 
-You can't test this partial file and you'll never use it in the application. But at least your IDE can confirm that it is syntactically correct.
+Вы не можете проверить этот частичный файл, и вы никогда не будете использовать его в приложении. Но по крайней мере ваша IDE может подтвердить, что это синтаксически правильно.
 
-Here's an example that excerpts certain scripts from `package.json` into a partial file named `package.1.json`.
+Вот пример, который извлекает некоторые сценарии из `package.json` в частичный файл с именем `package.1.json`.
 
 <code-example
   path="docs-style-guide/package.1.json"
@@ -738,14 +762,15 @@ Here's an example that excerpts certain scripts from `package.json` into a parti
   header="package.json (selected scripts)"></code-example>
 ```
 
-#### Partial file naming
+{@a partial-file-naming}
+#### Частичное именование файлов
 
-Many guides tell a story. In that story, the app evolves incrementally, often with simplistic or incomplete code along the way.
+Многие гиды рассказывают историю. В этой истории приложение развивается постепенно, часто с упрощенным или неполным кодом на этом пути.
 
-To tell that story in code, you'll often need to create partial files or intermediate versions of the final source code file with fragments of code that don't appear in the final app.
+Чтобы рассказать эту историю в коде, вам часто нужно создавать частичные файлы или промежуточные версии окончательного файла исходного кода с фрагментами кода, которые не появляются в конечном приложении.
 
-Such partial and intermediate files need their own names.
-Follow the doc sample naming convention. Add a number before the file extension as illustrated here:
+Такие частичные и промежуточные файлы должны иметь свои собственные имена.
+Следуйте примеру соглашения о присвоении имен. Добавление номера перед расширением файла, как показано здесь:
 
 ```html
 package.1.json
@@ -753,45 +778,45 @@ app.component.1.ts
 app.component.2.ts
 ```
 
-You'll find many such files among the samples in the Angular documentation.
+Вы найдете много таких файлов среди примеров в документации Angular.
 
-Remember to exclude these files from stackblitz by listing them in the `stackblitz.json` as illustrated here.
+Не забудьте исключить эти файлы из stackblitz, перечислив их в `stackblitz.json` как показано здесь.
 
 <code-example
   path="docs-style-guide/stackblitz.json"
   header="stackblitz.json"></code-example>
 
 {@a live-examples}
-## Live examples
+## Живые примеры
 
-By adding `<live-example>` to the page you generate links that run sample code in the Stackblitz live coding environment and download that code to the reader's file system.
+Добавляя `<live-example>` страницы, на которой вы генерируете ссылки, которые запускают образец кода в среде live-кодирования Stackblitz и загружают этот код в файловую систему читателя.
 
-Live examples (AKA "stackblitz") are defined by one or more `stackblitz.json` files in the root of a code sample folder. Each sample folder usually has a single unnamed definition file, the default `stackblitz.json`.
+Живые примеры (AKA "stackblitz") определяются одним или несколькими `stackblitz.json` файлы в корне папки с примером кода. Каждая папка с образцами обычно имеет один безымянный файл определения, по умолчанию `stackblitz.json`.
 
 <div class="alert is-helpful">
 
-You can create additional, named definition files in the form `name.stackblitz.json`. See `content/examples/testing` for examples.
+Вы можете создавать дополнительные именованные файлы определений в форме `name.stackblitz.json` . Видеть `content/examples/testing` для примеров.
 
-The schema for a `stackblitz.json` hasn't been documented yet but looking at the `stackblitz.json` files in the example folders should tell you most of what you need to know.
+Схема для `stackblitz.json` еще не был задокументирован, но, глядя на `stackblitz.json` Файлы в папках примеров должны рассказать вам большую часть того, что вам нужно знать.
 
 </div>
 
-Adding `<live-example></live-example>` to the page generates the two default links.
+Добавление `<live-example></live-example>` к странице генерирует две ссылки по умолчанию.
 
 <live-example></live-example>
 
-1. a link to the Stackblitz defined by the default `stackblitz.json` file located in the code sample folder with the same name as the guide page.
+1. ссылка на Stackblitz, определенную по умолчанию `stackblitz.json` Файл расположенный в папке примера кода с тем же именем, что и страница руководства.
 
-2. a link that downloads that sample.
+2. ссылка, которая загружает этот образец.
 
-Clicking the first link opens the code sample on StackBlitz in a new browser tab.
+При нажатии на первую ссылку открывается пример кода на StackBlitz в новой вкладке браузера.
 
-You can change the appearance and behavior of the live example with attributes and classes.
+Вы можете изменить внешний вид и поведение живого примера с помощью атрибутов и классов.
 
 
-<h3 class="no-toc">Custom label and tooltip</h3>
+<h3 class="no-toc">Пользовательский ярлык и всплывающая подсказка </h3>
 
-Give the live example anchor a custom label and tooltip by setting the `title` attribute.
+Дайте живому примеру привязки собственную метку и всплывающую подсказку, установив `title` атрибут.
 
 <live-example title="Live Example with title"></live-example>
 
@@ -799,27 +824,27 @@ Give the live example anchor a custom label and tooltip by setting the `title` a
 <live-example title="Live Example with title"></live-example>
 ```
 
-You can achieve the same effect by putting the label between the `<live-example>` tags:
+Вы можете добиться того же эффекта, поместив метку между `<live-example>` теги:
 
-<live-example>Live example with content label</live-example>
+<live-example>Живой пример с меткой контента </live-example>
 
 ```html
 <live-example>Live example with content label</live-example>
 ```
 
-<h3 class="no-toc">Live example from another guide</h3>
+<h3 class="no-toc">Живой пример из другого руководства </h3>
 
-To link to a Stackblitz in a folder whose name is not the same as the current guide page, set the `name` attribute to the name of that folder.
+Чтобы связать Stackblitz в папке, имя которой не совпадает с текущей страницей руководства, установите `name` атрибут к названию этой папки.
 
-<live-example name="router">Live Example from the Router guide</live-example>
+<live-example name="router">Живой пример из путеводителя по роутеру </live-example>
 
 ```html
 <live-example name="router">Live Example from the Router guide</live-example>
 ```
 
-<h3 class="no-toc">Live Example for named Stackblitz</h3>
+<h3 class="no-toc">Живой пример по имени Штакблиц </h3>
 
-To link to a Stackblitz defined by a named `stackblitz.json` file, set the `stackblitz` attribute. The following example links to the Stackblitz defined by `second.stackblitz.json` in the current guide's directory.
+Для ссылки на Stackblitz, определенный именованным `stackblitz.json` файл, установите `stackblitz` атрибут . В следующем примере ссылки на Stackblitz определены `second.stackblitz.json` в текущего руководства.
 
 <live-example stackblitz="second"></live-example>
 
@@ -827,34 +852,34 @@ To link to a Stackblitz defined by a named `stackblitz.json` file, set the `stac
 <live-example stackblitz="second"></live-example>
 ```
 
-<h3 class="no-toc">Live Example without download</h3>
+<h3 class="no-toc">Живой пример без скачивания </h3>
 
-To skip the download link, add the `noDownload` attribute.
+Чтобы пропустить ссылку на скачивание, добавьте `noDownload` атрибут.
 
-<live-example noDownload>Just the Stackblitz</live-example>
+<live-example noDownload>Просто Stackblitz </live-example>
 
 ```html
 <live-example noDownload>Just the Stackblitz</live-example>
 ```
 
-<h3 class="no-toc">Live Example with download-only</h3>
+<h3 class="no-toc">Живой пример только для скачивания </h3>
 
-To skip the live Stackblitz link and only link to the download, add the `downloadOnly` attribute.
+Чтобы пропустить живую ссылку Stackblitz и только ссылку на скачивание, добавьте `downloadOnly` Атрибут.
 
-<live-example downloadOnly>Download only</live-example>
+<live-example downloadOnly>Только скачивание </live-example>
 
 ```html
 <live-example downloadOnly>Download only</live-example>
 ```
 
-<h3 class="no-toc">Embedded live example</h3>
+<h3 class="no-toc">Встроенный живой пример </h3>
 
-By default, a live example link opens a Stackblitz in a separate browser tab.
-You can embed the Stackblitz within the guide page itself by adding the `embedded` attribute.
+По умолчанию ссылка на пример в реальном времени открывает Stackblitz на отдельной вкладке браузера.
+Вы можете встроить Stackblitz в саму страницу руководства, добавив `embedded` атрибут
 
-For performance reasons, the Stackblitz does not start right away. The reader sees an image instead. Clicking the image starts the sometimes-slow process of launching the embedded Stackblitz within an iframe on the page.
+По соображениям производительности Stackblitz запускается не сразу. Читатель видит изображение вместо этого. Нажатие на изображение запускает иногда медленный процесс запуска встроенного Stackblitz внутри iframe на странице.
 
-Here's an embedded live example for this guide.
+Вот встроенный живой пример для этого руководства.
 
 ```html
 <live-example embedded></live-example>
@@ -864,13 +889,14 @@ Here's an embedded live example for this guide.
 
 {@a anchors}
 
-## Anchors
+{@a anchors}
+## Якоря
 
-Every section header tag is also an anchor point. Another guide page could add a link to this section by writing:
+Каждый заголовок раздела тег также является точка привязки. Еще одна направляющая страница может добавить ссылку в этот раздел, написав:
 
 <div class="alert is-helpful">
 
-See the ["Anchors"](guide/docs-style-guide#anchors "Style Guide - Anchors") section for details.
+Смотрите [«Якорь»](guide/docs-style-guide#anchors "Style Guide - Anchors") раздел.
 
 </div>
 
@@ -882,7 +908,7 @@ See the ["Anchors"](guide/docs-style-guide#anchors "Style Guide - Anchors") sect
 </div>
 ```
 
-When navigating within the page, you can omit the page URL when specifying the link that [scrolls up](#anchors "Anchors") to the beginning of this section.
+При перемещении по странице вы можете не указывать URL-адрес страницы при указании ссылки [прокруткой вверх](#anchors "Anchors") к началу этого раздела.
 
 ```html
 ... the link that [scrolls up](#anchors "Anchors") to ...
@@ -890,28 +916,29 @@ When navigating within the page, you can omit the page URL when specifying the l
 
 {@a ugly-anchors}
 
-#### Ugly, long section header anchors
+{@a ugly-long-section-header-anchors}
+#### Уродливые, длинные якоря заголовков разделов
 
-It is often a good idea to *lock-in* a good anchor name.
+Часто хорошей идеей является *фиксация* хорошего имени якоря.
 
-Sometimes the section header text makes for an unattractive anchor. [This one](#ugly-long-section-header-anchors) is pretty bad.
+Иногда текст заголовка раздела делает непривлекательной привязку. [Этот](#ugly-long-section-header-anchors)довольно плохой.
 
 ```html
 [This one](#ugly-long-section-header-anchors) is pretty bad.
 ```
 
-The greater danger is that **a future rewording of the header text would break** a link to this section.
+Большая опасность состоит в том, что **в будущем изменение текста заголовка нарушит** ссылку на этот раздел.
 
-For these reasons, it is often wise to add a custom anchor explicitly, just above the heading or
-text to which it applies, using the special `{@a name}` syntax like this.
+По этим причинам часто целесообразно явно добавить пользовательский якорь чуть выше заголовка или
+текст, к которому он применяется, используя специальные `{@a name}` такой.
 
-<code-example  language="html">
+<code-example language="html">
   &#123;@a ugly-anchors&#125;
 
   #### Ugly, long section header anchors
 </code-example>
 
-Now [link to that custom anchor name](#ugly-anchors) as you did before.
+Теперь [ссылка на это пользовательское имя якоря](#ugly-anchors)как вы делали раньше.
 
 ```html
 Now [link to that custom anchor name](#ugly-anchors) as you did before.
@@ -919,35 +946,38 @@ Now [link to that custom anchor name](#ugly-anchors) as you did before.
 
 <div class="alert is-helpful">
 
-Alternatively, you can use the HTML `<a>` tag.
+Кроме того, вы можете использовать HTML `<a>` тег.
 
-If you do, be sure to set the `id` attribute - not the `name` attribute! The docs generator will not convert the `name` to the proper link URL.
+Если вы это сделаете, обязательно установите `id` атрибут - не `name` атрибут ! Генератор документов не будет преобразовывать `name` для правильной ссылки URL.
 
 ```html
 <a id="anchors"></a>
 
+{@a anchors}
 ## Anchors
 ```
 
 </div>
 
-## Alerts and Calllouts
+{@a alerts-and-calllouts}
+## Оповещения и звонки
 
-Alerts and callouts present warnings, extra detail or references to other pages. They can also be used to provide commentary that _enriches_ the reader's understanding of the content being presented.
+Оповещения и выноски представляют предупреждения, дополнительную информацию или ссылки на другие страницы. Они также могут быть использованы для предоставления комментариев, которые _enriches_ понимание читателем представляемого контента.
 
-An alert or callout _must not_ contain anything _essential_ to that understanding. Don't put a critical instruction or a tutorial step in a subsection.
+Предупреждение или выноска не должны содержать ничего необходимого для этого понимания. Не помещайте критическую инструкцию или учебный шаг в подраздел.
 
-### Alerts
+{@a alerts}
+### Оповещения
 
-Alerts draw attention to short important points. Alerts should not be used for multi-line content (use [callouts](#callouts "callouts") instead).
+Оповещения обращают внимание на короткие важные моменты. Оповещения не должны использоваться для многострочного контента (использование [выноски](#callouts "callouts") вместо).
 
 <div class="alert is-helpful">
 
-  You'll learn about styles for live examples in the [section below](guide/docs-style-guide#live-examples "Live examples").
+  Вы узнаете о стилях для живых примеров в [раздел ниже](guide/docs-style-guide#live-examples "Live examples").
 
 </div>
 
-  Note that at least one blank line must follow both the opening and closing `<div>` tags. A blank line before the closing `</div>` is customary but not required.
+  Обратите внимание, что как минимум одна пустая строка должна следовать за открытием и закрытием `<div>` теги . Пустая строка перед закрытием `</div>` обычно, но не обязателен.
 
 ```html
 <div class="alert is-helpful">
@@ -957,28 +987,28 @@ You'll learn about styles for live examples in the [section below](guide/docs-st
 </div>
 ```
 
-There are three different _urgency levels_ used to style the alerts based on the severity or importance of the content.
+Существует три различных уровня срочности, используемых для стилизации предупреждений в зависимости от серьезности или важности содержимого.
 
 <div class="alert is-critical">
 
-A critical alert.
+Критическое предупреждение.
 
 </div>
 
 <div class="alert is-important">
 
-An important alert.
+Важное предупреждение.
 
 </div>
 
 <div class="alert is-helpful">
 
-A helpful, informational alert.
+Полезное информационное оповещение.
 
 </div>
 
 
-Here is the markup for these alerts.
+Вот разметка для этих предупреждений.
 ```html
 <div class="alert is-critical">
 
@@ -999,72 +1029,74 @@ A helpful, informational alert.
 </div>
 ```
 
-### Callouts
+{@a callouts}
+### Выноски
 
-Callouts, like alerts, are meant to draw attention to important points. Use a callout when you want a riveting header and multi-line content.
+Выноски, как и предупреждения, предназначены для привлечения внимания к важным моментам. Используйте выноску, когда вам нужен захватывающий заголовок и многострочный контент.
 
-If you have more than two paragraphs, consider creating a new page or making it part of the main content.
+Если у вас есть более двух абзацев, рассмотрите возможность создания новой страницы или включения ее в основной контент.
 
-Callouts use the same _urgency levels_ that alerts do.
+Выноски используют те же уровни _urgency_, что и предупреждения.
 
 <div class="callout is-critical">
-<header>A critical point</header>
+<header>Критическая точка </header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Семиотика с капюшоном из вилы**, всплывающая на крыше вечеринка _paleo_ сумка для мессенджера кредит Карлес взъерошенный Truffaut yr. Семиотика вирусного фригана VHS, Shoreditch нарушают работу МакСвини. Интеллигенция капустные чипсы Вице четырехдолларовый тост, распятие Шлитц
 
 </div>
 
 <div class="callout is-important">
-<header>An important point</header>
+<header>Важный момент </header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Семиотика с капюшоном из вилы**, всплывающая на крыше вечеринка _paleo_ сумка почтальона Carles взъерошенный Truffaut yr. Семиотика вирусного фригана VHS, Shoreditch нарушают работу МакСвини. Интеллигенция капустные чипсы Вице четырехдолларовый тост, распятие Шлитц
 
 </div>
 
 <div class="callout is-helpful">
-<header>A helpful or informational point</header>
+<header>Полезный или информационный пункт </header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Вилы с капюшоном семиотики**, всплывающее окно на вечеринку на крыше _paleo_ сумка почтальона Carles взъерошенный Truffaut yr. Семиотика вирусного фригана VHS, Shoreditch нарушают работу МакСвини. Интеллигенция капустные чипсы Вице четырехдолларовый тост, распятие Шлитц
 
 </div>
 
-Here is the markup for the first of these callouts.
+Вот разметка для первого из этих выносок.
 ```html
 <div class="callout is-critical">
 <header>A critical point</header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
 </div>
 ```
 
-Notice that:
-* the callout header text is forced to all upper case
-* the callout body can be written in markdown
-* a blank line separates the `</header>` tag from the markdown content
+Обратите внимание, что:
+* текст заголовка выноски переносится на верхний регистр
+* тело выноски может быть записано в уценке
+* пустая строка отделяет `</header>` Тег из содержимого уценки
 
-Callouts are meant to grab the user's attention. They are not for casual asides. Please use them sparingly.
+Выноски предназначены для привлечения внимания пользователя. Они не для случайных сторон. Пожалуйста, используйте их экономно.
 
-## Trees
+{@a trees}
+## Деревья
 
-Trees can represent hierarchical data.
+Деревья могут представлять иерархические данные.
 
 <div class='filetree'>
 
   <div class='file'>
-    sample-dir
+    образец-реж
   </div>
 
   <div class='children'>
 
     <div class='file'>
-      src
+      ЦСИ
     </div>
 
     <div class='children'>
 
       <div class='file'>
-        app
+        приложение
       </div>
 
       <div class='children'>
@@ -1101,7 +1133,7 @@ Trees can represent hierarchical data.
 
 </div>
 
-Here is the markup for this file tree.
+Вот разметка для этого файлового дерева.
 
 ```html
 <div class='filetree'>
@@ -1142,9 +1174,10 @@ Here is the markup for this file tree.
 ```
 
 
-## Tables
+{@a tables}
+## Таблицы
 
-Use HTML tables to present tabular data.
+Используйте таблицы HTML для представления табличных данных.
 
 
 <style>
@@ -1153,37 +1186,37 @@ Use HTML tables to present tabular data.
 
 <table>
   <tr>
-    <th>Framework</th>
-    <th>Task</th>
-    <th>Speed</th>
+    <th>Рамки </th>
+    <th>Задача </th>
+    <th>Скорость </th>
   </tr>
   <tr>
     <td><code>AngularJS</code></td>
-    <td>Routing</td>
-    <td>Fast</td>
+    <td>Маршрутизация </td>
+    <td>Быстро </td>
   </tr>
   <tr>
     <td><code>Angular v2</code></td>
-    <td>Routing</td>
+    <td>Маршрутизация </td>
     <!-- can use markdown too; remember blank lines -->
     <td>
 
-      *Faster*
+      *Быстрее*
 
     </td>
   </tr>
   <tr>
     <td><code>Angular v4</code></td>
-    <td>Routing</td>
+    <td>Маршрутизация </td>
     <td>
 
-      **Fastest :)**
+      **Самый быстрый :)**
 
     </td>
   </tr>
 </table>
 
-Here is the markup for this table.
+Вот разметка для этой таблицы.
 
 ```html
 <style>
@@ -1223,32 +1256,33 @@ Here is the markup for this table.
 </table>
 ```
 
-## Images
+{@a images}
+## Изображения
 
-<h3 class="no-toc">Image location</h3>
+<h3 class="no-toc">Местоположение изображения </h3>
 
-Store images in the `content/images` directory in a folder with the same URL as the guide page.
-Images for this "Authors Style Guide" page belong in the `content/images/guide/docs-style-guide` folder.
+Хранить изображения в `content/images` каталог в папке с тем же URL-адресом, что и страница руководства.
+Изображения для этой страницы "Руководство по стилю авторов" находятся в `content/images/guide/docs-style-guide` папка.
 
-Angular doc generation copies these image folders to the _runtime_ location, `generated/images`.
-Set the image `src` attribute to begin in _that_ directory.
+Генерация Angular документов копирует эти папки с изображениями в папку _runtime_, `generated/images`.
+Установите изображение `src` атрибут должен начинаться в каталоге _that_.
 
-Here's the `src` attribute for the "flying hero" image belonging to this page.
+Вот `src` Атрибут для изображения «летающий герой», принадлежащего этой странице.
 ```
 src="generated/images/guide/docs-style-guide/flying-hero.png"
 ```
 
-<h3 class="no-toc">Use the HTML <i>&lt;img&gt;</i> tag</h3>
+<h3 class="no-toc">Используйте HTML <i>&lt;img&gt;</i> тэг</h3>
 
-**Do not use the markdown image syntax, \!\[\.\.\.\]\(\.\.\.\).**
+**Не используйте синтаксис изображения уценки, \!\[\.\.\.\]\(\.\.\.\).**
 
-Images should be specified in an `<img>` tag.
+Изображения должны быть указаны в `<img>` тег.
 
-For accessibility, always set the `alt` attribute with a meaningful description of the image.
+Для доступности всегда устанавливайте `alt` Атрибут с содержательным описанием изображения.
 
-You should nest the `<img>` tag within a `<div class="lightbox">` tag, which styles the image within a drop-shadow frame. You'll need the editor's permission to skip the `lightbox` class on its `div` encapsulation.
+Вы должны вложить `<img>` тег внутри `<div class="lightbox">` Тег, который изображение внутри рамки с тенями. Вам нужно разрешение редактора, чтобы пропустить `lightbox` класс на своем `div` инкапсуляция.
 
-Here's a conforming example
+Вот соответствующий пример
 
 <div class="lightbox">
   <img src="generated/images/guide/docs-style-guide/flying-hero.png"
@@ -1262,13 +1296,13 @@ Here's a conforming example
 </div>
 ```
 
-_Note that the HTML image element does not have a closing tag._
+Обратите внимание, что элемент изображения HTML не имеет закрывающего тега
 
-<h3 class="no-toc">Image dimensions</h3>
+<h3 class="no-toc">Размеры изображения </h3>
 
-The doc generator reads the image dimensions from the file and adds width and height attributes to the `img` tag automatically. If you want to control the size of the image, supply your own width and height attributes.
+Генератор документов читает размеры изображения из файла и добавляет атрибуты ширины и высоты к `img` тег автоматически. Если вы хотите контролировать размер изображения, укажите свои собственные атрибуты ширины и высоты.
 
-Here's the "flying hero" at a more reasonable scale.
+Вот «летающий герой» в более разумном масштабе.
 
 <div class="lightbox">
   <img src="generated/images/guide/docs-style-guide/flying-hero.png"
@@ -1285,9 +1319,9 @@ Here's the "flying hero" at a more reasonable scale.
 </div>
 ```
 
-Wide images can be a problem. Most browsers try to rescale the image but wide images may overflow the document in certain viewports.
+Широкие изображения могут быть проблемой. Большинство браузеров пытаются изменить масштаб изображения, но широкие изображения могут переполнять документ в некоторых видовых экранах.
 
-**Do not set a width greater than 700px**. If you wish to display a larger image, provide a link to the actual image that the user can click on to see the full size image separately as in this example of `source-map-explorer` output from the "Ahead-of-time Compilation" guide:
+**Не устанавливайте ширину больше 700 пикселей**. Если вы хотите отобразить увеличенное изображение, предоставьте ссылку на фактическое изображение, по которому пользователь может щелкнуть, чтобы увидеть полноразмерное изображение отдельно, как в этом примере `source-map-explorer` выход из руководства «Вперед-оф-времени компиляции»:
 
 <a href="generated/images/guide/docs-style-guide/toh-pt6-bundle.png" title="Click to view larger image">
   <div class="lightbox">
@@ -1295,27 +1329,27 @@ Wide images can be a problem. Most browsers try to rescale the image but wide im
   </div>
 </a>
 
-<h3 class="no-toc">Image compression</h3>
+<h3 class="no-toc">Сжатие изображения </h3>
 
-Large image files can be slow to load, harming the user experience. Always compress the image.
-Consider using an image compression web site such as [tinypng](https://tinypng.com/ "tinypng").
+Большие файлы изображений могут загружаться медленно, что отрицательно влияет на работу пользователя. Всегда сжимайте изображение.
+Подумайте об использовании веб-сайта сжатия изображений, например [tinypng](https://tinypng.com/ "tinypng").
 
-<h3 class="no-toc">Floating images</h3>
+<h3 class="no-toc">Плавающие изображения </h3>
 
-You can float the image to the left or right of text by applying the class="left" or class="right" attributes respectively.
+Вы можете перемещать изображение слева или справа от текста, применяя атрибуты class = "left" или class = "right" соответственно.
 
 <img src="generated/images/guide/docs-style-guide/flying-hero.png"
    alt="flying Angular hero"
    width="200"
    class="left">
 
-This text wraps around to the right of the floating "flying hero" image.
+Этот текст оборачивается справа от плавающего изображения «летающего героя».
 
-Headings and code-examples automatically clear a floating image. If you need to force a piece of text to clear a floating image, add `<br class="clear">` where the text should break.
+Заголовки и примеры кода автоматически очищают плавающее изображение. Если вам нужно заставить фрагмент текста очистить плавающее изображение, добавьте `<br class="clear">` где текст должен сломаться.
 
 <br class="clear">
 
-The markup for the above example is:
+Разметки для приведенного выше примера:
 
 ```html
 <img src="generated/images/guide/docs-style-guide/flying-hero.png"
@@ -1330,11 +1364,12 @@ Headings and code-examples automatically clear a floating image. If you need to 
 <br class="clear">
 ```
 
-Note that you generally don't wrap a floating image in a `<figure>` element.
+Обратите внимание, что вы обычно не переносите плавающее изображение в `<figure>` элемент.
 
-#### Floating within a subsection
+{@a floating-within-a-subsection}
+#### Плавающий в подразделе
 
-If you have a floating image inside an alert, callout, or a subsection, it is a good idea to apply the `clear-fix` class to the `div` to ensure that the image doesn't overflow its container. For example:
+Если у вас есть плавающее изображение внутри предупреждения, выноски или подраздела, рекомендуется применить `clear-fix` класс к `div` чтобы изображение не переполняло его контейнер. Например:
 
 <div class="alert is-helpful clear-fix">
 
@@ -1343,7 +1378,7 @@ If you have a floating image inside an alert, callout, or a subsection, it is a 
     width="100"
     class="right">
 
-  A subsection with **markdown** formatted text.
+  Подраздел с **уценки** форматированным текстом.
 
 </div>
 

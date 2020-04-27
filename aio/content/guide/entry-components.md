@@ -1,25 +1,27 @@
-# Entry components
+{@a entry-components}
+# Входные компоненты
 
-An entry component is any component that Angular loads imperatively, (which means you’re not referencing it in the template), by type. You specify an entry component by bootstrapping it in an NgModule, or including it in a routing definition.
+Компонент ввода - это любой компонент, который Angular обязательно загружает (что означает, что вы не ссылаетесь на него в шаблоне) по типу. Вы указываете компонент ввода, загружая его в NgModule или включая в определение маршрутизации.
 
 <div class="alert is-helpful">
 
-To contrast the two types of components, there are components which are included in the template, which are declarative. Additionally, there are components which you load imperatively; that is, entry components.
+Чтобы противопоставить два типа компонентов, в шаблон включены компоненты, которые являются декларативными. Кроме того, есть компоненты, которые вы обязательно загружаете; то есть входные компоненты.
 
 </div>
 
 
-There are two main kinds of entry components:
+Есть два основных вида компонентов ввода:
 
-* The bootstrapped root component.
-* A component you specify in a route definition.
-
-
-## A bootstrapped entry component
+* Загрузочный корневой компонент.
+* Компонент, который вы указываете в определении маршрута.
 
 
-The following is an example of specifying a bootstrapped component,
-`AppComponent`, in a basic `app.module.ts`:
+{@a a-bootstrapped-entry-component}
+## Компонент начальной загрузки
+
+
+Ниже приведен пример указания загруженного компонента
+ `AppComponent`, в основном  `app.module.ts`  :
 
 ```typescript
 @NgModule({
@@ -37,28 +39,29 @@ The following is an example of specifying a bootstrapped component,
 })
 ```
 
-A bootstrapped component is an entry component
-that Angular loads into the DOM during the bootstrap process (application launch).
-Other entry components are loaded dynamically by other means, such as with the router.
+Загрузочный компонент является компонентом ввода
+что Angular загружается в DOM во время процесса начальной загрузки (запуска приложения).
+Другие компоненты входа загружаются динамически с помощью других средств, таких как маршрутизатор.
 
-Angular loads a root `AppComponent` dynamically because it's listed by type in `@NgModule.bootstrap`.
+Angular нагрузки на корень  `AppComponent`  динамически, потому что он указан по типу в  `@NgModule.bootstrap`.
 
 <div class="alert is-helpful">
 
-A component can also be bootstrapped imperatively in the module's `ngDoBootstrap()` method.
-The `@NgModule.bootstrap` property tells the compiler that this is an entry component and
-it should generate code to bootstrap the application with this component.
+Компонент также может быть обязательно загружен в модуле  `ngDoBootstrap()`.
+ `@NgModule.bootstrap` сообщает компилятору, что это компонент ввода и
+он должен генерировать код для начальной загрузки приложения с этим компонентом.
 
 </div>
 
 
-A bootstrapped component is necessarily an entry component because bootstrapping is an imperative process, thus it needs to have an entry component.
+Компонент начальной загрузки обязательно является компонентом ввода, поскольку процесс начальной загрузки является обязательным процессом, поэтому он должен иметь компонент ввода.
 
-## A routed entry component
+{@a a-routed-entry-component}
+## Компонент маршрутизируемой записи
 
 
-The second kind of entry component occurs in a route definition like
-this:
+Второй тип компонента входа встречается в определении маршрута, как
+это:
 
 ```typescript
 const routes: Routes = [
@@ -69,38 +72,41 @@ const routes: Routes = [
 ];
 ```
 
-A route definition refers to a component by its type with `component: CustomerListComponent`.
+Определение маршрута относится к компоненту по его типу с `component: CustomerListComponent`.
 
-All router components must be entry components. Because this would require you to add the component in two places (router and `entryComponents`) the Compiler is smart enough to recognize that this is a router definition and automatically add the router component into `entryComponents`.
+Все компоненты маршрутизатора должны быть компонентами входа. Потому что для этого потребуется добавить компонент в двух местах (маршрутизатор и  `entryComponents`) Компилятор достаточно умен, чтобы признать, что это определение маршрутизатора, и автоматически добавить компонент маршрутизатора в  `entryComponents`.
 
 
-## The `entryComponents` array
+{@a the-entrycomponents-array}
+##  `entryComponents` массив
 
-Though the `@NgModule` decorator has an `entryComponents` array, most of the time
-you won't have to explicitly set any entry components because Angular adds components listed in `@NgModule.bootstrap` and those in route definitions to entry components automatically. Though these two mechanisms account for most entry components, if your app happens to bootstrap or dynamically load a component by type imperatively,
-you must add it to `entryComponents` explicitly.
+Хотя  `@NgModule`  декоратор имеет  `entryComponents`  массив большую часть времени
+вам не нужно явно устанавливать какие-либо компоненты ввода, потому что Angular добавляет компоненты, перечисленные в  `@NgModule.bootstrap`  и те, которые в определениях маршрутов, для автоматического ввода компонентов. Хотя эти два механизма учитывают большинство входных компонентов, если ваше приложение загружается или динамически загружает компонент по типу, обязательно
+Вы должны добавить это к  `entryComponents`  явно.
 
-### `entryComponents` and the compiler
+{@a entrycomponents-and-the-compiler}
+###  `entryComponents` и компилятор
 
-For production apps you want to load the smallest code possible.
-The code should contain only the classes that you actually need and
-exclude components that are never used. For this reason, the Angular compiler only generates code for components which are reachable from the `entryComponents`; This means that adding more references to `@NgModule.declarations` does not imply that they will necessarily be included in the final bundle.
+Для производственных приложений вы хотите загрузить наименьший возможный код.
+Код должен содержать только те классы, которые вам действительно нужны
+исключить компоненты, которые никогда не используются. По этой причине Angular-компилятор генерирует код только для компонентов, которые доступны из  `entryComponents`  ; Это означает, что добавление дополнительных ссылок на  `@NgModule.declarations`  не означает, что они обязательно будут включены в окончательный комплект.
 
-In fact, many libraries declare and export components you'll never use.
-For example, a material design library will export all components because it doesn’t know which ones you will use. However, it is unlikely that you will use them all.
-For the ones you don't reference, the tree shaker drops these components from the final code package.
+Фактически, многие библиотеки объявляют и экспортируют компоненты, которые вы никогда не будете использовать.
+Например, библиотека дизайна материалов будет экспортировать все компоненты, потому что она не знает, какие из них вы будете использовать. Однако вряд ли вы будете использовать их все.
+Для тех, на кого вы не ссылаетесь, шейкер дерева удаляет эти компоненты из окончательного пакета кода.
 
-If a component isn't an _entry component_ and isn't found in a template,
-the tree shaker will throw it away. So, it's best to add only the components that are truly entry components to help keep your app
-as trim as possible.
+Если компонент не является _entry component_ и не найден в шаблоне
+шейкер дерева выбросит его. Поэтому лучше всего добавлять только те компоненты, которые действительно являются входными компонентами, чтобы сохранить ваше приложение
+настолько аккуратный, насколько это возможно.
 
 
 <hr />
 
-## More on Angular modules
+{@a more-on-angular-modules}
+## Подробнее об Angular модулях
 
-You may also be interested in the following:
-* [Types of NgModules](guide/module-types)
-* [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
-* [Providers](guide/providers).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Типы NgModules](guide/module-types)
+* [Ленивые загрузочные модули с Angular маршрутизатором](guide/lazy-loading-ngmodules).
+* [Провайдеры](guide/providers).
 * [NgModules FAQ](guide/ngmodule-faq).

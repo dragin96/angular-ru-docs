@@ -21,30 +21,30 @@ export interface PopStateEvent {
 }
 
 /**
- * @description
+ *  @description
  *
- * A service that applications can use to interact with a browser's URL.
+ * Служба, которую приложения могут использовать для взаимодействия с URL-адресом браузера.
  *
- * Depending on the `LocationStrategy` used, `Location` persists
- * to the URL's path or the URL's hash segment.
+ * В зависимости от используемой `LocationStrategy` , `Location` сохраняется
+ * к пути URL или сегменту хэша URL.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * It's better to use the `Router#navigate` service to trigger route changes. Use
- * `Location` only if you need to interact with or create normalized URLs outside of
- * routing.
+ * лучше использовать `Router#navigate` Для запуска изменений маршрутасервис.Использование.
+ *  `Location`только если вам нужно взаимодействовать или создавать нормализованные URL за пределами
+ * маршрутизации.
  *
- * `Location` is responsible for normalizing the URL against the application's base href.
- * A normalized URL is absolute from the URL host, includes the application's base href, and has no
- * trailing slash:
- * - `/my/app/user/123` is normalized
- * - `my/app/user/123` **is not** normalized
- * - `/my/app/user/123/` **is not** normalized
+ *  `Location`отвечает за нормализацию URL-адреса по отношению к основному href приложения.
+ * Нормализованный URL-адрес является абсолютным по отношению к хосту URL-адреса, включает базовый href приложения и не имеет его
+ * задний косаячерта:.
+ * - `/my/app/user/123` нормализован
+ * - `my/app/user/123` не нормализовано
+ * - `/my/app/user/123/` не нормализовано
  *
- * ### Example
+ *  ### Пример
  *
- * <code-example path='common/location/ts/path_location_component.ts'
- * region='LocationComponent'></code-example>
+ *  <code-example path='common/location/ts/path_location_component.ts'
+ *  region='LocationComponent'></code-example>
  *
  * @publicApi
  */

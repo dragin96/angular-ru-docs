@@ -9,7 +9,7 @@ import {ComponentFactory, Injector} from '@angular/core';
 import {Observable} from 'rxjs';
 
 /**
- * Interface for the events emitted through the NgElementStrategy.
+ * Интерфейс для событий, генерируемых через NgElementStrategy.
  *
  * @publicApi
  */
@@ -19,8 +19,8 @@ export interface NgElementStrategyEvent {
 }
 
 /**
- * Underlying strategy used by the NgElement to create/destroy the component and react to input
- * changes.
+ * Базовая стратегия, используемая NgElement для создания / уничтожения компонента и реагирования на ввод
+ * меняется.
  *
  * @publicApi
  */
@@ -34,7 +34,7 @@ export interface NgElementStrategy {
 }
 
 /**
- * Factory used to create new strategies for each NgElement instance.
+ * Фабрика используется для создания новых стратегий для каждого экземпляра NgElement.
  *
  * @publicApi
  */

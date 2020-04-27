@@ -23,10 +23,10 @@ import {Inject, Optional, Self, SkipSelf} from './metadata';
 
 
 /**
- * An InjectionToken that gets the current `Injector` for `createInjector()`-style injectors.
+ * InjectionTokenкоторый получает текущий `Injector` для `createInjector()` -Style инжекторов.
  *
- * Requesting this token instead of `Injector` allows `StaticInjector` to be tree-shaken from a
- * project.
+ * Запрос этого токена вместо `Injector` позволяет` `StaticInjector` бытьот дерева
+ * проект.
  *
  * @publicApi
  */
@@ -141,26 +141,26 @@ Please check that 1) the type for the parameter at index ${
 }
 
 /**
- * Injects a token from the currently active injector.
+ * Вводит токен из текущего активного инжектора.
  *
- * Must be used in the context of a factory function such as one defined for an
- * `InjectionToken`. Throws an error if not called from such a context.
+ * Должен использоваться в контексте заводской функции, такой как функция, определенная для
+ *  `InjectionToken`. Выдает ошибку, если не вызывается из такого контекста.
  *
- * Within such a factory function, using this function to request injection of a dependency
- * is faster and more type-safe than providing an additional array of dependencies
- * (as has been common with `useFactory` providers).
+ * Внутри такой фабричной функции, использующей эту функцию для запроса внедрения зависимости
+ * это быстрее и более безопасно для типов, чем предоставление дополнительного массива зависимостей
+ * (как было обычно с `useFactory` поставщиками).
  *
- * @param token The injection token for the dependency to be injected.
- * @param flags Optional flags that control how injection is executed.
- * The flags correspond to injection strategies that can be specified with
- * parameter decorators `@Host`, `@Self`, `@SkipSef`, and `@Optional`.
- * @returns True if injection is successful, null otherwise.
+ *  @param токен токен инъекции для зависимости, которая будет внедрена.
+ *  @param флаги Необязательные флаги, которые контролируют, как выполняется инъекция.
+ * Флаги соответствуют стратегиям внедрения, которые можно указать с помощью
+ * Параметр декораторов `@Host` @Host, `@Self` @Self, `@SkipSef` и `@Optional` @optional.
+ *  @returns True, если инъекция прошла успешно, в противном случае - NULL.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example core/di/ts/injector_spec.ts region='ShakableInjectionToken'}
+ *  {@example core/di/ts/injector_spec.ts region='ShakableInjectionToken'}
  *
  * @publicApi
  */

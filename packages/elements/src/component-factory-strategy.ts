@@ -18,8 +18,8 @@ import {isFunction, scheduler, strictEquals} from './utils';
 const DESTROY_DELAY = 10;
 
 /**
- * Factory that creates new ComponentNgElementStrategy instance. Gets the component factory with the
- * constructor's injector's factory resolver and passes that factory to each strategy.
+ * Фабрика, которая создает новый экземпляр ComponentNgElementStrategy. Получает фабрику компонентов с
+ * преобразователь фабрики инжектора конструктора и передает эту фабрику каждой стратегии.
  *
  * @publicApi
  */
@@ -37,8 +37,8 @@ export class ComponentNgElementStrategyFactory implements NgElementStrategyFacto
 }
 
 /**
- * Creates and destroys a component ref using a component factory and handles change detection
- * in response to input changes.
+ * Создает и удаляет ссылку на компонент с использованием фабрики компонентов и обрабатывает обнаружение изменений
+ * в ответ на входные изменения.
  *
  * @publicApi
  */

@@ -1,18 +1,20 @@
-# The RxJS library
+{@a the-rxjs-library}
+# Библиотека RxJS
 
-Reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change ([Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)). RxJS (Reactive Extensions for JavaScript) is a library for reactive programming using observables that makes it easier to compose asynchronous or callback-based code. See ([RxJS Docs](https://rxjs.dev/guide/overview)).
+Реактивное программирование - это парадигма асинхронного программирования, связанная с потоками данных и распространением изменений ( [Википедия](https://en.wikipedia.org/wiki/Reactive_programming)). RxJS (Reactive Extensions for JavaScript) - это библиотека для реактивного программирования с использованием наблюдаемых, которая облегчает составление асинхронного или основанного на обратном вызове кода. Смотрите ( [RxJS Docs](https://rxjs.dev/guide/overview)).
 
-RxJS provides an implementation of the `Observable` type, which is needed until the type becomes part of the language and until browsers support it. The library also provides utility functions for creating and working with observables. These utility functions can be used for:
+RxJS обеспечивает реализацию  `Observable`  тип, который необходим, пока тип не станет частью языка и пока его не поддержат браузеры. Библиотека также предоставляет служебные функции для создания и работы с наблюдаемыми. Эти вспомогательные функции могут быть использованы для:
 
-* Converting existing code for async operations into observables
-* Iterating through the values in a stream
-* Mapping values to different types
-* Filtering streams
-* Composing multiple streams
+* Преобразование существующего кода для асинхронных операций в наблюдаемые
+* Перебирая значения в потоке
+* Отображение значений для разных типов
+* Фильтрация потоков
+* Составление нескольких потоков
 
-## Observable creation functions
+{@a observable-creation-functions}
+## Наблюдаемые функции создания
 
-RxJS offers a number of functions that can be used to create new observables. These functions can simplify the process of creating observables from things such as events, timers, promises, and so on. For example:
+RxJS предлагает ряд функций, которые можно использовать для создания новых наблюдаемых. Эти функции могут упростить процесс создания наблюдаемых из таких вещей, как события, таймеры, обещания и так далее. Например:
 
 
 <code-example path="rx-library/src/simple-creation.ts" region="promise" header="Create an observable from a promise"></code-example>
@@ -23,75 +25,80 @@ RxJS offers a number of functions that can be used to create new observables. Th
 
 <code-example path="rx-library/src/simple-creation.ts" region="ajax" header="Create an observable that creates an AJAX request"></code-example>
 
-## Operators
+{@a operators}
+## Операторы
 
-Operators are functions that build on the observables foundation to enable sophisticated manipulation of collections. For example, RxJS defines operators such as `map()`, `filter()`, `concat()`, and `flatMap()`.
+Операторы - это функции, которые строятся на основе наблюдаемых, чтобы обеспечить сложные манипуляции с коллекциями. Например, RxJS определяет такие операторы, как  `map()`, `filter()`, `concat()`  и  `flatMap()`.
 
-Operators take configuration options, and they return a function that takes a source observable. When executing this returned function, the operator observes the source observable’s emitted values, transforms them, and returns a new observable of those transformed values. Here is a simple example:
+Операторы принимают параметры конфигурации и возвращают функцию, которая принимает наблюдаемый источник. Выполняя эту возвращаемую функцию, оператор наблюдает излучаемые значения исходной наблюдаемой, преобразует их и возвращает новую наблюдаемую из этих преобразованных значений. Вот простой пример:
 
 <code-example path="rx-library/src/operators.ts" header="Map operator"></code-example>
 
-You can use _pipes_ to link operators together. Pipes let you combine multiple functions into a single function. The `pipe()` function takes as its arguments the functions you want to combine, and returns a new function that, when executed, runs the composed functions in sequence.
+Вы можете использовать _pipes_, чтобы связать операторов вместе. Трубы позволяют объединить несколько функций в одну функцию.  `pipe()` Функция принимает в качестве аргументов функции, которые вы хотите объединить, и возвращает новую функцию, которая при выполнении запускает составные функции в последовательности.
 
-A set of operators applied to an observable is a recipe&mdash;that is, a set of instructions for producing the values you’re interested in. By itself, the recipe doesn’t do anything. You need to call `subscribe()` to produce a result through the recipe.
+Набор операторов, применяемых к наблюдаемой, является рецептом, то есть набором инструкций для создания интересующих вас значений. Сам рецепт ничего не делает. Вам нужно позвонить  `subscribe()`  чтобы получить результат через рецепт.
 
-Here’s an example:
+Вот пример:
 
 <code-example path="rx-library/src/operators.1.ts" header="Standalone pipe function"></code-example>
 
-The `pipe()` function is also a method on the RxJS `Observable`, so you use this shorter form to define the same operation:
+ `pipe()` Функция также является методом в RxJS  `Observable`, так что вы используете эту короткую форму, чтобы определить ту же операцию:
 
 <code-example path="rx-library/src/operators.2.ts" header="Observable.pipe function"></code-example>
 
-### Common operators
+{@a common-operators}
+### Общие операторы
 
-RxJS provides many operators, but only a handful are used frequently. For a list of operators and usage samples, visit the [RxJS API Documentation](https://rxjs.dev/api).
+RxJS предоставляет много операторов, но часто используется только несколько. Для получения списка операторов и примеров использования посетите [Документация RxJS API](https://rxjs.dev/api).
 
 <div class="alert is-helpful">
-  Note that, for Angular apps, we prefer combining operators with pipes, rather than chaining. Chaining is used in many RxJS examples.
+  Обратите внимание, что для приложений Angular мы предпочитаем объединять операторов с конвейерами, а не объединять в цепочки. Цепочка используется во многих примерах RxJS.
 </div>
 
-| Area | Operators |
-| :------------| :----------|
-| Creation |  `from`,`fromEvent`, `of` |
-| Combination | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip` |
-| Filtering | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil` |
-| Transformation | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap` |
-| Utility | `tap` |
-| Multicasting | `share` |
+| Площадь | Операторы |
+| : ------------ | : ---------- |
+| Создание |   `from `, ` fromEvent `, ` of` |
+| Сочетание |  `combineLatest`, `concat`, `merge`, `startWith`, `withLatestFrom`, `zip`  |
+| Фильтрация |  `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil`  |
+| Преобразование |  `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap`  |
+| Полезность |  `tap`  |
+| Многоадресная рассылка |  `share`  |
 
-## Error handling
+{@a error-handling}
+## Обработка ошибок
 
-In addition to the `error()` handler that you provide on subscription, RxJS provides the `catchError` operator that lets you handle known errors in the observable recipe.
+В добавок к  `error()`  Обработчик который вы предоставляете при подписке, RxJS предоставляет  `catchError`  Оператор который позволяет обрабатывать известные ошибки в наблюдаемом рецепте.
 
-For instance, suppose you have an observable that makes an API request and maps to the response from the server. If the server returns an error or the value doesn’t exist, an error is produced. If you catch this error and supply a default value, your stream continues to process values rather than erroring out.
+Например, предположим, что у вас есть наблюдаемая, которая делает запрос API и сопоставляется с ответом от сервера. Если сервер возвращает ошибку или значение не существует, выдается ошибка. Если вы поймаете эту ошибку и предоставите значение по умолчанию, ваш поток продолжит обрабатывать значения, а не выдавать ошибку.
 
-Here's an example of using the `catchError` operator to do this:
+Вот пример использования  `catchError`  оператор, чтобы сделать это:
 
 <code-example path="rx-library/src/error-handling.ts" header="catchError operator"></code-example>
 
-### Retry failed observable
+{@a retry-failed-observable}
+### Повторить не удалось заметным
 
-Where the `catchError` operator provides a simple path of recovery, the `retry` operator lets you retry a failed request.
+Где  `catchError`  Оператор предоставляет простой путь восстановления,  `retry`  оператор позволяет повторить неудачный запрос.
 
-Use the `retry` operator before the `catchError` operator. It resubscribes to the original source observable, which can then re-run the full sequence of actions that resulted in the error. If this includes an HTTP request, it will retry that HTTP request.
+Использовать  `retry`  операцию перед  `catchError`  оператор . Он повторно подписывается на исходный наблюдаемый источник, который затем может повторно выполнить полную последовательность действий, приведших к ошибке. Если это включает в себя HTTP-запрос, он будет повторять этот HTTP-запрос.
 
-The following converts the previous example to retry the request before catching the error:
+Следующий преобразует предыдущий пример, чтобы повторить запрос, прежде чем поймать ошибку:
 
 <code-example path="rx-library/src/retry-on-error.ts" header="retry operator"></code-example>
 
 <div class="alert is-helpful">
 
-   Do not retry **authentication** requests, since these should only be initiated by user action. We don't want to lock out user accounts with repeated login requests that the user has not initiated.
+   Не повторяйте **аутентификации** запросы, поскольку они должны инициироваться только действиями пользователя. Мы не хотим блокировать учетные записи пользователей повторными запросами на вход, которые пользователь не инициировал.
 
 </div>
 
-## Naming conventions for observables
+{@a naming-conventions-for-observables}
+## Соглашения об именах для наблюдаемых
 
-Because Angular applications are mostly written in TypeScript, you will typically know when a variable is an observable. Although the Angular framework does not enforce a naming convention for observables, you will often see observables named with a trailing “$” sign.
+Поскольку приложения Angular в основном написаны на TypeScript, вы обычно будете знать, когда переменная является наблюдаемой. Хотя среда Angular не предписывает соглашение об именовании для наблюдаемых, вы часто будете видеть наблюдаемые, названные со знаком «$».
 
-This can be useful when scanning through code and looking for observable values. Also, if you want a property to store the most recent value from an observable, it can be convenient to simply use the same name with or without the “$”.
+Это может быть полезно при сканировании кода и поиске наблюдаемых значений. Также, если вы хотите, чтобы свойство сохраняло самое последнее значение из наблюдаемой, может быть удобно просто использовать одно и то же имя с или без «$».
 
-For example:
+Например:
 
 <code-example path="rx-library/src/naming-convention.ts" header="Naming observables"></code-example>

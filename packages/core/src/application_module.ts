@@ -120,12 +120,12 @@ export function zoneSchedulerFactory(ngZone: NgZone): (fn: () => void) => void {
 }
 
 /**
- * Configures the root injector for an app with
- * providers of `@angular/core` dependencies that `ApplicationRef` needs
- * to bootstrap components.
+ * Настраивает корневой инжектор для приложения с
+ * провайдеры `@angular/core` зависимости, `ApplicationRef` потребности
+ * загрузить компоненты.
  *
- * Re-exported by `BrowserModule`, which is included automatically in the root
- * `AppModule` when you create a new app with the CLI `new` command.
+ * Реэкспортируется с помощью `BrowserModule` , который автоматически включается в корень
+ *  `AppModule`при создании нового приложения с помощью команды CLI `new`.
  *
  * @publicApi
  */

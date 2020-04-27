@@ -14,20 +14,20 @@ import {HttpRequest} from './request';
 import {HttpEvent} from './response';
 
 /**
- * Intercepts and handles an `HttpRequest` or `HttpResponse`.
+ * Перехватывает и обрабатывает `HttpRequest` или `HttpResponse`.
  *
- * Most interceptors transform the outgoing request before passing it to the
- * next interceptor in the chain, by calling `next.handle(transformedReq)`.
- * An interceptor may transform the
- * response event stream as well, by applying additional RxJS operators on the stream
- * returned by `next.handle()`.
+ * Большинство перехватчиков преобразуют исходящий запрос перед передачей его в
+ * Следующий перехватчик в цепочке, вызывая `next.handle(transformedReq)`.
+ * Перехватчик может преобразовать
+ * поток ответных событий, также применяя дополнительные операторы RxJS к потоку
+ * возвращается `next.handle()`.
  *
- * More rarely, an interceptor may handle the request entirely,
- * and compose a new event stream instead of invoking `next.handle()`. This is an
- * acceptable behavior, but keep in mind that further interceptors will be skipped entirely.
+ * В более редких случаях перехватчик может полностью обработать запрос
+ * иновый поток событий вместо вызова `next.handle()``next.handle()` .Это.
+ * приемлемое поведение, но имейте в виду, что дальнейшие перехватчики будут полностью пропущены.
  *
- * It is also rare but valid for an interceptor to return multiple responses on the
- * event stream for a single request.
+ * Также редко, но допустимо, чтобы перехватчик возвращал множественные ответы на
+ * поток событий для одного запроса.
  *
  * @publicApi
  *
@@ -67,8 +67,8 @@ export class HttpInterceptorHandler implements HttpHandler {
 }
 
 /**
- * A multi-provider token that represents the array of registered
- * `HttpInterceptor` objects.
+ * Токен мульти-провайдера, представляющий массив зарегистрированных
+ *  `HttpInterceptor`объекты.
  *
  * @publicApi
  */

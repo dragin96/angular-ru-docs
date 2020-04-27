@@ -1,6 +1,7 @@
-# Browser support
+{@a browser-support}
+# Поддержка браузера
 
-Angular supports most recent browsers. This includes the following specific versions:
+Angular поддерживает самые последние браузеры. Это включает в себя следующие версии конкретные:
 
 <table>
 
@@ -11,7 +12,7 @@ Angular supports most recent browsers. This includes the following specific vers
 </th>
 
 <th>
-      Supported versions
+      Поддерживаемые версии
 </th>
 
   </tr>
@@ -19,11 +20,11 @@ Angular supports most recent browsers. This includes the following specific vers
   <tr>
 
     <td>
-      Chrome
+      Хром
     </td>
 
     <td>
-      latest
+      последний
     </td>
   </tr>
 
@@ -34,7 +35,7 @@ Angular supports most recent browsers. This includes the following specific vers
     </td>
 
     <td>
-      latest
+      последний
     </td>
   </tr>
 
@@ -45,7 +46,7 @@ Angular supports most recent browsers. This includes the following specific vers
     </td>
 
     <td>
-      2 most recent major versions
+      2 самые последние основные версии
     </td>
   </tr>
   <tr>
@@ -53,7 +54,7 @@ Angular supports most recent browsers. This includes the following specific vers
       IE
     </td>
     <td>
-      11, 10, 9 ("compatibility view" mode not supported)
+      11, 10, 9 (режим «совместимости просмотра» не поддерживается)
     </td>
   </tr>
  <tr>
@@ -71,16 +72,16 @@ Angular supports most recent browsers. This includes the following specific vers
     </td>
 
     <td>
-      2 most recent major versions
+      2 самые последние основные версии
     </td>
   </tr>
   <tr>
     <td>
-      iOS
+      IOS
     </td>
 
     <td>
-      2 most recent major versions
+      2 самые последние основные версии
     </td>
   </tr>
   <tr>
@@ -89,7 +90,7 @@ Angular supports most recent browsers. This includes the following specific vers
     </td>
 
     <td>
-      X (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)
+      Х (10,0), Пирог (9,0), Орео (8,0), Нуга (7,0)
     </td>
   </tr>
 
@@ -97,84 +98,87 @@ Angular supports most recent browsers. This includes the following specific vers
 
 <div class="alert is-helpful">
 
-Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request,
-using <a href="https://saucelabs.com/">SauceLabs</a> and
-<a href="https://www.browserstack.com">Browserstack</a>.
+Процесс непрерывной интеграции Angular запускает модульные тесты инфраструктуры во всех этих браузерах для каждого запроса на извлечение
+используя <a href="https://saucelabs.com/">SauceLabs </a>и
+<a href="https://www.browserstack.com">Browserstack </a>.
 
 </div>
 
-## Polyfills
+{@a polyfills}
+## Полифиллы
 
-Angular is built on the latest standards of the web platform.
-Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
-You compensate by loading polyfill scripts ("polyfills") for the browsers that you must support.
-The [table below](#polyfill-libs) identifies most of the polyfills you might need.
+Angular построен по последним стандартам веб-платформы.
+Ориентация на такой широкий спектр браузеров является сложной задачей, поскольку они не поддерживают все функции современных браузеров.
+Вы компенсируете загрузку сценариев polyfill («polyfills») для браузеров, которые вы должны поддерживать.
+[Таблица ниже](#polyfill-libs)идентифицирует большинство polyfills вам может понадобиться.
 
 <div class="alert is-important">
 
-The suggested polyfills are the ones that run full Angular applications.
-You may need additional polyfills to support features not covered by this list.
-Note that polyfills cannot magically transform an old, slow browser into a modern, fast one.
+Предлагаемые полифилы - те, которые выполняют полные Angular приложения.
+Вам могут понадобиться дополнительные полифиллы для поддержки функций, не включенных в этот список.
+Обратите внимание, что полифиллы не могут волшебным образом преобразовать старый, медленный браузер в современный, быстрый.
 
 </div>
 
-In Angular CLI version 8 and higher, applications are built using *differential loading*, a strategy where the CLI builds two separate bundles as part of your deployed application.
+В Angular CLI версии 8 и выше приложения создаются с использованием *дифференциальной загрузки*, стратегии, в которой CLI создает два отдельных пакета как часть развернутого приложения.
 
-* The first bundle contains modern ES2015 syntax, takes advantage of built-in support in modern browsers, ships less polyfills, and results in a smaller bundle size.
+* Первый пакет содержит современный синтаксис ES2015, использует встроенную поддержку современных браузеров, поставляет меньше полифилов и приводит к меньшему размеру пакета.
 
-* The second bundle contains code in the old ES5 syntax, along with all necessary polyfills. This results in a larger bundle size, but supports older browsers.
+* Второй пакет содержит код в старом синтаксисе ES5, а также все необходимые полифилы. Это приводит к увеличению размера пакета, но поддерживает старые браузеры.
 
-This strategy allows you to continue to build your web application to support multiple browsers, but only load the necessary code that the browser needs.
-For more information about how this works, see [Differential Loading](guide/deployment#differential-loading) in the [Deployment guide](guide/deployment).
+Эта стратегия позволяет вам продолжать создавать ваше веб-приложение для поддержки нескольких браузеров, но загружать только тот код, который необходим браузеру.
+Для получения дополнительной информации о том, как это работает, см. [Дифференциальная загрузка](guide/deployment#differential-loading)в [Руководство по развертыванию](guide/deployment).
 
-## Enabling polyfills with CLI projects
+{@a enabling-polyfills-with-cli-projects}
+## Включение полизаполнения в проектах CLI
 
-The [Angular CLI](cli) provides support for polyfills.
-If you are not using the CLI to create your projects, see [Polyfill instructions for non-CLI users](#non-cli).
+[Angular CLI](cli)обеспечивает поддержку polyfills.
+Если вы не используете CLI для создания своих проектов, см. [Инструкции по Polyfill для пользователей, не являющихся пользователями CLI](#non-cli).
 
-When you create a project with the `ng new` command, a `src/polyfills.ts` configuration file is created as part of your project folder.
-This file incorporates the mandatory and many of the optional polyfills as JavaScript `import` statements.
+Когда вы создаете проект с  `ng new` команда, а  `src/polyfills.ts`  конфигурации создается как часть вашей папки проекта.
+Этот файл включает в себя обязательные и многие дополнительные полифилы в виде JavaScript  `import`  заявления.
 
-* The npm packages for the [_mandatory_ polyfills](#polyfill-libs) (such as `zone.js`) are installed automatically for you when you create your project with `ng new`, and their corresponding `import` statements are already enabled in the `src/polyfills.ts` configuration file.
+* Пакеты npm для [_mandatory_ polyfills](#polyfill-libs)(такие как  `zone.js`) устанавливаются автоматически при создании проекта с `ng new` и соответствующие им  `import`  операторы уже включены в  `src/polyfills.ts`  конфигурации.
 
-* If you need an _optional_ polyfill, you must install its npm package, then uncomment or create the corresponding import statement in the `src/polyfills.ts` configuration file.
+* Если вам нужно _optional_ polyfill, вы должны установить его пакет npm, затем раскомментировать или создать соответствующий оператор импорта в  `src/polyfills.ts`  конфигурации.
 
-For example, if you need the optional [web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
+Например, если вам нужен опциональный [веб-анимация полифилл](http://caniuse.com/#feat=web-animation), вы можете установить его с  `npm`, используя следующую команду (или  `yarn`  эквивалент)
 
 <code-example language="sh" class="code-shell">
   # install the optional web animations polyfill
   npm install --save web-animations-js
 </code-example>
 
-You can then add the import statement in the `src/polyfills.ts` file.
-For many polyfills, you can simply un-comment the corresponding `import` statement in the file, as in the following example.
+Затем вы можете добавить оператор импорта в  `src/polyfills.ts`  Файл.
+Для многих polyfills, вы можете просто откомментировать соответствующие  `import`  оператор в файле, как в следующем примере.
 
 <code-example header="src/polyfills.ts">
   /**
-  * Required to support Web Animations `@angular/platform-browser/animations`.
+  * Required to support Web Animations  `@angular/platform-browser/animations`.
   * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
   **/
-  import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+  import 'web-animations-js';  // Run  `npm install --save web-animations-js`.
 </code-example>
 
-If the polyfill you want is not already in `polyfills.ts` file, add the `import` statement by hand.
+Если нужного вам полифилла еще нет  `polyfills.ts`  файл, добавьте  `import`  заявления вручную.
 
 
 {@a polyfill-libs}
 
-### Mandatory polyfills
-These are the polyfills required to run an Angular application on each supported browser:
+{@a mandatory-polyfills}
+### Обязательные полифилы
+Это polyfills необходимый для запуска приложения на угловое каждый поддерживаемый браузере:
 
 <table>
 
   <tr style="vertical-align: top">
 
     <th>
-      Browsers (Desktop & Mobile)
+      Браузеры (настольные и мобильные)
     </th>
 
     <th>
-      Polyfills Required
+      Полифилы Обязательные
     </th>
 
   </tr>
@@ -182,7 +186,7 @@ These are the polyfills required to run an Angular application on each supported
   <tr style="vertical-align: top">
 
     <td>
-      Chrome, Firefox, Edge, <br>
+      Chrome, Firefox, край, <br>
       Safari, Android, IE 10+
     </td>
 
@@ -202,7 +206,7 @@ These are the polyfills required to run an Angular application on each supported
 
     <td>
 
-      ES2015<br>[classList](guide/browser-support#classlist)
+      ES2015 <br>[classList](guide/browser-support#classlist)
 
     </td>
 
@@ -211,24 +215,25 @@ These are the polyfills required to run an Angular application on each supported
 </table>
 
 
-### Optional browser features to polyfill
+{@a optional-browser-features-to-polyfill}
+### Дополнительные функции браузера для заполнения
 
-Some features of Angular may require additional polyfills.
+Для некоторых функций Angular могут потребоваться дополнительные полифилы.
 
 <table>
 
   <tr style="vertical-align: top">
 
     <th>
-      Feature
+      Особенность
     </th>
 
     <th>
-      Polyfill
+      Полифилл
     </th>
 
     <th style="width: 50%">
-       Browsers (Desktop & Mobile)
+       Браузеры (настольные и мобильные)
     </th>
 
   </tr>
@@ -238,20 +243,20 @@ Some features of Angular may require additional polyfills.
     <td>
 
       [AnimationBuilder](api/animations/AnimationBuilder).
-      (Standard animation support does not require polyfills.)
+      (Стандартная поддержка анимации не требует polyfills.)
 
     </td>
 
     <td>
 
-      [Web Animations](guide/browser-support#web-animations)
+      [Веб-анимация](guide/browser-support#web-animations)
 
     </td>
 
     <td>
-      <p>If AnimationBuilder is used, enables scrubbing
-      support for IE/Edge and Safari.
-      (Chrome and Firefox support this natively).</p>
+      <p>Если используется AnimationBuilder, включает очистку
+      поддержка IE / Edge и Safari.
+      (Chrome и Firefox поддерживают это изначально). </p>
     </td>
 
   </tr>
@@ -260,7 +265,7 @@ Some features of Angular may require additional polyfills.
 
     <td>
 
-       [NgClass](api/common/NgClass) on SVG elements
+       [NgClass](api/common/NgClass)на элементах SVG
     </td>
 
     <td>
@@ -279,12 +284,12 @@ Some features of Angular may require additional polyfills.
 
     <td>
 
-      [Http](guide/http) when sending and receiving binary data
+      [Http](guide/http)при отправке и получении двоичных данных
     </td>
 
     <td>
 
-      [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
+      [Типизированный массив](guide/browser-support#typedarray)<br>
 
       [Blob](guide/browser-support#blob)<br>
 
@@ -302,13 +307,13 @@ Some features of Angular may require additional polyfills.
 
     <td>
 
-      [Router](guide/router) when using
-      [hash-based routing](guide/router#location-strategy)
+      [Роутер](guide/router)при использовании
+      [маршрутизация на основе хеша](guide/router#appendix-locationstrategy-and-browser-url-styles)
     </td>
 
     <td>
 
-      [ES7/array](guide/browser-support#core-es7-array)
+      [ES7 / массив](guide/browser-support#core-es7-array)
 
     </td>
 
@@ -322,9 +327,10 @@ Some features of Angular may require additional polyfills.
 
 
 
-### Suggested polyfills
+{@a suggested-polyfills}
+### Предлагаемые полифилы
 
-The following polyfills are used to test the framework itself. They are a good starting point for an application.
+Следующие polyfills используются, чтобы проверить саму структуру. Они являются хорошей отправной точкой для приложения.
 
 
 <table>
@@ -332,15 +338,15 @@ The following polyfills are used to test the framework itself. They are a good s
   <tr>
 
     <th>
-      Polyfill
+      Полифилл
     </th>
 
     <th>
-      License
+      Лицензия
     </th>
 
     <th>
-      Size*
+      Размер*
     </th>
 
   </tr>
@@ -349,7 +355,7 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-      <a id='core-es7-array' href="https://github.com/zloirock/core-js/tree/v2/fn/array">ES7/array</a>
+      <a id='core-es7-array' href="https://github.com/zloirock/core-js/tree/v2/fn/array">ES7 / массив </a>
 
     </td>
 
@@ -358,7 +364,7 @@ The following polyfills are used to test the framework itself. They are a good s
     </td>
 
     <td>
-      0.1KB
+      0,1 КБ
     </td>
 
   </tr>
@@ -367,7 +373,7 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-      <a id='core-es6' href="https://github.com/zloirock/core-js">ES2015</a>
+      <a id='core-es6' href="https://github.com/zloirock/core-js">ES2015 </a>
 
     </td>
 
@@ -376,7 +382,7 @@ The following polyfills are used to test the framework itself. They are a good s
     </td>
 
     <td>
-      27.4KB
+      27,4 КБ
     </td>
 
   </tr>
@@ -385,34 +391,16 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-      <a id='classlist' href="https://github.com/eligrey/classList.js">classList</a>
+      <a id='classlist' href="https://github.com/eligrey/classList.js">classList </a>
 
     </td>
 
     <td>
-      Public domain
+      Общественное достояние
     </td>
 
     <td>
-      1KB
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-      <a id='intl' href="https://github.com/andyearnshaw/Intl.js">Intl</a>
-
-    </td>
-
-    <td>
-      MIT / Unicode license
-    </td>
-
-    <td>
-      13.5KB
+      1 КБ
     </td>
 
   </tr>
@@ -421,16 +409,16 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-       <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
+      <a id='intl' href="https://github.com/andyearnshaw/Intl.js">Intl </a>
 
     </td>
 
     <td>
-      Apache
+      Лицензия MIT / Unicode
     </td>
 
     <td>
-      14.8KB
+      13,5 КБ
     </td>
 
   </tr>
@@ -439,7 +427,25 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-      <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js">Typed Array</a>
+       <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Веб-анимация </a>
+
+    </td>
+
+    <td>
+      Апач
+    </td>
+
+    <td>
+      14,8 КБ
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
+      <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js">Типизированный Массив </a>
 
     </td>
 
@@ -448,7 +454,7 @@ The following polyfills are used to test the framework itself. They are a good s
     </td>
 
     <td>
-      4KB
+      4 КБ
     </td>
 
   </tr>
@@ -457,7 +463,7 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-       <a id='blob' href="https://github.com/eligrey/Blob.js">Blob</a>
+       <a id='blob' href="https://github.com/eligrey/Blob.js">Blob </a>
 
     </td>
 
@@ -466,7 +472,7 @@ The following polyfills are used to test the framework itself. They are a good s
     </td>
 
     <td>
-      1.3KB
+      1.3 КБ
     </td>
 
   </tr>
@@ -475,7 +481,7 @@ The following polyfills are used to test the framework itself. They are a good s
 
     <td>
 
-       <a id='formdata' href="https://github.com/francois2metz/html5-formdata">FormData</a>
+       <a id='formdata' href="https://github.com/francois2metz/html5-formdata">FormData </a>
 
     </td>
 
@@ -484,7 +490,7 @@ The following polyfills are used to test the framework itself. They are a good s
     </td>
 
     <td>
-      0.4KB
+      0,4 КБ
     </td>
 
   </tr>
@@ -492,16 +498,17 @@ The following polyfills are used to test the framework itself. They are a good s
 </table>
 
 
-\* Figures are for minified and gzipped code,
-computed with the <a href="http://closure-compiler.appspot.com/home">closure compiler</a>.
+\ * Цифры для сокращенного и сжатого кода
+вычисляется с помощью <a href="http://closure-compiler.appspot.com/home">компилятора замыкания </a>.
 
 {@a non-cli}
 
-## Polyfills for non-CLI users
+{@a polyfills-for-non-cli-users}
+## Polyfills для пользователей без CLI
 
-If you are not using the CLI, add your polyfill scripts directly to the host web page (`index.html`).
+Если вы не используете CLI, добавьте сценарии polyfill непосредственно на веб-страницу хоста (`index.html`).
 
-For example:
+Например:
 
 <code-example header="src/index.html" language="html">
   &lt;!-- pre-zone polyfills -->
@@ -519,7 +526,7 @@ For example:
 
     /*
      * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
-     * with the following flag, it will bypass `zone.js` patch for IE/Edge
+     * with the following flag, it will bypass  `zone.js`  patch for IE/Edge
      */
     // __Zone_enable_cross_context_check = true;
   &lt;/script>

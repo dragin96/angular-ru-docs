@@ -1,61 +1,57 @@
-# Setting up the local environment and workspace
+{@a setting-up-the-local-environment-and-workspace}
+# Настройка локальной среды и рабочего пространства
 
 
-This guide explains how to set up your environment for Angular development using the [Angular CLI tool](cli "CLI command reference").
-It includes information about prerequisites, installing the CLI, creating an initial workspace and starter app, and running that app locally to verify your setup.
+Это руководство объясняет, как настроить среду для развития Angular с помощью [инструментом Angular CLI](cli "CLI command reference").
+Он включает информацию о предварительных условиях, установке интерфейса командной строки, создании начального рабочего пространства и начального приложения, а также локальном запуске этого приложения для проверки вашей настройки.
 
 
 <div class="callout is-helpful">
-<header>Try Angular without local setup</header>
+<header>Учить Angular </header>
 
-If you are new to Angular, you might want to start with [Try it now!](start), which introduces the essentials of Angular in the context of a ready-made basic online store app that you can examine and modify. This standalone tutorial takes advantage of the interactive [StackBlitz](https://stackblitz.com/) environment for online development. You don't need to set up your local environment until you're ready.
+Если вы новичок в Angular, см. [Начало работы](start). Начало работы поможет вам быстро освоить основы Angular в контексте создания базового приложения интернет-магазина. Это использует [StackBlitz](https://stackblitz.com/)онлайн-среда разработки, поэтому вам не нужно настраивать локальную среду, пока вы не будете готовы.
+
 
 </div>
 
 
 {@a devenv}
 {@a prerequisites}
-## Prerequisites
+## Предпосылки
 
-To use the Angular framework, you should be familiar with the following:
-
-* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
-* [HTML](https://developer.mozilla.org/docs/Learn/HTML/Introduction_to_HTML)
-* [CSS](https://developer.mozilla.org/docs/Learn/CSS/First_steps)
-
-Knowledge of [TypeScript](https://www.typescriptlang.org/) is helpful, but not required.
+Прежде чем начать, убедитесь, что ваша среда разработки включает `Node.js®` и менеджер пакетов npm.
 
 {@a nodejs}
 ### Node.js
 
-Make sure your development environment includes `Node.js®` and an npm package manager.
+Angular требует [текущей, активной LTS или технической поддержки LTS](https://nodejs.org/about/releases/)версию `Node.js` . Увидеть `engines` для конкретных требований к версии в нашем [package.json](https://unpkg.com/@angular/cli/package.json).
 
-Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases/) version of `Node.js`. See the `engines` key for the specific version requirements in our [package.json](https://unpkg.com/@angular/cli/package.json).
+* Чтобы проверить свою версию, запустите `node -v` в окне терминала / консоли.
 
-* To check your version, run `node -v` in a terminal/console window.
-
-* To get `Node.js`, go to [nodejs.org](https://nodejs.org "Nodejs.org").
+* Получить `Node.js`, перейдите на [nodejs.org](https://nodejs.org "Nodejs.org").
 
 {@a npm}
-### npm package manager
+{@a npm-package-manager}
+### менеджер пакетов npm
 
-Angular, the Angular CLI, and Angular apps depend on features and functionality provided by libraries that are available as [npm packages](https://docs.npmjs.com/getting-started/what-is-npm). To download and install npm packages, you must have an npm package manager.
+Приложения Angular, Angular CLI и Angular зависят от функций и возможностей, предоставляемых библиотеками, которые доступны как [пакеты npm](https://docs.npmjs.com/getting-started/what-is-npm). Для загрузки и установки пакетов npm необходим менеджер пакетов npm.
 
-This setup guide uses the [npm client](https://docs.npmjs.com/cli/install) command line interface, which is installed with `Node.js` by default.
+В этом руководстве по настройке используется [клиент npm](https://docs.npmjs.com/cli/install)интерфейс командной строки, который устанавливается вместе с `Node.js` по умолчанию.
 
-To check that you have the npm client installed, run `npm -v` in a terminal/console window.
+Чтобы убедиться, что у вас установлен клиент npm, запустите `npm -v` в окне терминала / консоли.
 
 
 {@a install-cli}
 
-## Step 1: Install the Angular CLI
+{@a step-1-install-the-angular-cli}
+## Шаг 1: Установите Angular CLI
 
-You use the Angular CLI
-to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
+Вы используете Angular CLI
+создавать проекты, генерировать код приложения и библиотеки и выполнять различные текущие задачи разработки, такие как тестирование, пакетирование и развертывание.
 
-Install the Angular CLI globally.
+Установите Angular CLI глобально.
 
-To install the CLI using `npm`, open a terminal/console window and enter the following command:
+Чтобы установить CLI с помощью `npm`, открыть / консольное окно терминала и введите следующую команду:
 
 
 <code-example language="sh" class="code-shell">
@@ -67,48 +63,50 @@ To install the CLI using `npm`, open a terminal/console window and enter the fol
 
 {@a create-proj}
 
-## Step 2: Create a workspace and initial application
+{@a step-2-create-a-workspace-and-initial-application}
+## Шаг 2: Создайте рабочее пространство и начальное приложение
 
-You develop apps in the context of an Angular [**workspace**](guide/glossary#workspace).
+Вы разрабатываете приложения в контексте Angular [** рабочее пространство**](guide/glossary#workspace).
 
-To create a new workspace and initial starter app:
+Чтобы создать новое рабочее пространство и начальное приложение стартера:
 
-1. Run the CLI command `ng new` and provide the name `my-app`, as shown here:
+1. Запустите команду CLI `ng new` и укажите имя `my-app`, как показано здесь:
 
     <code-example language="sh" class="code-shell">
       ng new my-app
 
     </code-example>
 
-2. The `ng new` command prompts you for information about features to include in the initial app. Accept the defaults by pressing the Enter or Return key.
+2. The `ng new` Команда запрашивает информацию о функциях, которые необходимо включить в первоначальное приложение. Примите значения по умолчанию, нажав клавишу ввода или возврата.
 
-The Angular CLI installs the necessary Angular npm packages and other dependencies. This can take a few minutes.
+Angular CLI устанавливает необходимые пакеты Angular npm и другие зависимости. Это может занять несколько минут.
 
-The CLI creates a new workspace and a simple Welcome app, ready to run.
+CLI создает новое рабочее пространство и простое приложение Welcome, готовое к запуску.
 
 
 {@a serve}
 
-## Step 3: Run the application
+{@a step-3-run-the-application}
+## Шаг 3: Запустите приложение
 
-The Angular CLI includes a server, so that you can easily build and serve your app locally.
+В состав Angular CLI входит сервер, так что вы можете легко создавать и обслуживать свое приложение локально.
 
-1. Go to the workspace folder (`my-app`).
+1. Перейти в папку рабочей области (`my-app`).
 
-1. Launch the server by using the CLI command `ng serve`, with the `--open` option.
+1. Запустите сервер с помощью команды CLI `ng serve`, с `--open` вариант.
 
 <code-example language="sh" class="code-shell">
   cd my-app
   ng serve --open
 </code-example>
 
-The `ng serve` command launches the server, watches your files,
-and rebuilds the app as you make changes to those files.
+ `ng serve` пуски команды сервера, следит за файлами,
+и перестраивает приложение, когда вы вносите изменения в эти файлы.
 
-The `--open` (or just `-o`) option automatically opens your browser
-to `http://localhost:4200/`.
+ `--open` (или просто `-o`) опция автоматически открывает ваш браузер
+в `http://localhost:4200/`.
 
-You will see:
+Вы увидите:
 
 
 <div class="lightbox">
@@ -116,12 +114,21 @@ You will see:
 </div>
 
 
-## Next steps
+{@a next-steps}
+## Следующие шаги
 
-* For a more thorough introduction to the fundamental concepts and terminology of Angular single-page app architecture and design principles, read the [Angular Concepts](guide/architecture) section.
 
-* Work through the [Tour of Heroes Tutorial](tutorial), a complete hands-on exercise that introduces you to the app development process using the Angular CLI and walks through important subsystems.
+* Если вы новичок в Angular см [Getting Started](start)учебник. Начало работы поможет вам быстро освоить основы Angular в контексте создания базового приложения интернет-магазина.
 
-* To learn more about using the Angular CLI, see the [CLI Overview](cli "CLI Overview"). In addition to creating the initial workspace and app scaffolding, you can use the CLI to generate Angular code such as components and services. The CLI supports the full development cycle, including building, testing, bundling, and deployment.
+  <div class="alert is-helpful">
 
-* For more information about the Angular files generated by `ng new`, see [Workspace and Project File Structure](guide/file-structure).
+  Приступая к работе предполагает [StackBlitz](https://stackblitz.com/)онлайн-среду разработки.
+  Чтобы узнать, как экспортировать приложение из StackBlitz в локальную среду, перейдите к[Развертывание](start/start-deployment "Getting Started: Deployment") раздел.
+
+  </div>
+
+
+* Чтобы узнать больше об использовании Angular CLI, см. [Обзор CLI](cli "CLI Overview"). В дополнение к созданию исходного рабочего пространства и леса приложений вы можете использовать интерфейс командной строки для генерации Angular-кода, такого как компоненты и сервисы. CLI поддерживает полный цикл разработки, включая сборку, тестирование, пакетирование и развертывание.
+
+
+* Для получения дополнительной информации о файлах Angular, созданных `ng new`, см. [Рабочая область и структура файла проекта](guide/file-structure).

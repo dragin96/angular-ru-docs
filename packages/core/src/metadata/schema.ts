@@ -8,11 +8,11 @@
 
 
 /**
- * A schema definition associated with an NgModule.
+ * Определение схемы, связанной с модулем NgModule.
  *
- * @see `@NgModule`, `CUSTOM_ELEMENTS_SCHEMA`, `NO_ERRORS_SCHEMA`
+ *  @see `@NgModule `@NgModule,` CUSTOM_ELEMENTS_SCHEMA `CUSTOM_ELEMENTS_SCHEMA,` NO_ERRORS_SCHEMA`
  *
- * @param name The name of a defined schema.
+ *  @param name Имя определенной схемы.
  *
  * @publicApi
  */
@@ -21,10 +21,10 @@ export interface SchemaMetadata {
 }
 
 /**
- * Defines a schema that allows an NgModule to contain the following:
- * - Non-Angular elements named with dash case (`-`).
- * - Element properties named with dash case (`-`).
- * Dash case is the naming convention for custom elements.
+ * Определяет схему, позволяющее NgModule содержатьследующее:.
+ * - Не Angular элементы, названные с тире (`-`).
+ * - Свойства элемента, названные с тире (`-`).
+ * Тире - это соглашение об именах пользовательских элементов.
  *
  * @publicApi
  */
@@ -33,7 +33,7 @@ export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
 };
 
 /**
- * Defines a schema that allows any property on any element.
+ * Определяет схему, которая допускает любое свойство любого элемента.
  *
  * @publicApi
  */

@@ -15,16 +15,16 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 const _INTERPOLATION_REGEXP: RegExp = /#/g;
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Maps a value to a string that pluralizes the value according to locale rules.
+ * Сопоставляет значение со строкой, которая умножает значение в соответствии с правилами локали.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example common/pipes/ts/i18n_pipe.ts region='I18nPluralPipeComponent'}
+ *  {@example common/pipes/ts/i18n_pipe.ts region='I18nPluralPipeComponent'}
  *
  * @publicApi
  */

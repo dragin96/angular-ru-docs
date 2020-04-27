@@ -21,29 +21,29 @@ export const modelGroupProvider: any = {
 };
 
 /**
- * @description
- * Creates and binds a `FormGroup` instance to a DOM element.
+ *  @description
+ * Создает и связывает `FormGroup` экземплярс элементом DOM.
  *
- * This directive can only be used as a child of `NgForm` (within `<form>` tags).
+ * Эта директива может использоваться только как потомок `NgForm` (внутри `<form>` тегов).
  *
- * Use this directive to validate a sub-group of your form separately from the
- * rest of your form, or if some values in your domain model make more sense
- * to consume together in a nested object.
+ * Используйте эту директиву для проверки подгруппы вашей формы отдельно от
+ * остальная часть вашей формы, или если некоторые значения в вашей доменной модели имеют больше смысла
+ * потреблять вместе во вложенном объекте.
  *
- * Provide a name for the sub-group and it will become the key
- * for the sub-group in the form's full value. If you need direct access, export the directive into
- * a local template variable using `ngModelGroup` (ex: `#myGroup="ngModelGroup"`).
+ * Укажите имя для подгруппы, и оно станет ключевым
+ * для подгруппы в полной стоимости формы. Если вам нужен прямой доступ, экспортируйте директиву в
+ * локальная переменная шаблона с использованием `ngModelGroup` (например: `#myGroup="ngModelGroup"`).
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Consuming controls in a grouping
+ *  ### Использование элементов управления в группировке
  *
- * The following example shows you how to combine controls together in a sub-group
- * of the form.
+ * В следующем примере показано, как объединить элементы управления в подгруппе
+ * формы.
  *
- * {@example forms/ts/ngModelGroup/ng_model_group_example.ts region='Component'}
+ *  {@example forms/ts/ngModelGroup/ng_model_group_example.ts region='Component'}
  *
- * @ngModule FormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({selector: '[ngModelGroup]', providers: [modelGroupProvider], exportAs: 'ngModelGroup'})

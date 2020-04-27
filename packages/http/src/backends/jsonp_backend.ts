@@ -21,9 +21,9 @@ const JSONP_ERR_NO_CALLBACK = 'JSONP injected script did not invoke callback.';
 const JSONP_ERR_WRONG_METHOD = 'JSONP requests must use GET request method.';
 
 /**
- * Base class for an in-flight JSONP request.
+ * Базовый класс для запроса JSONP в полете.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 export class JSONPConnection implements Connection {
@@ -137,9 +137,9 @@ export class JSONPConnection implements Connection {
 }
 
 /**
- * A {@link ConnectionBackend} that uses the JSONP strategy of making requests.
+ *  A {@link ConnectionBackend}который использует стратегию JSONP для создания запросов.
  *
- * @deprecated see https://angular.io/guide/http
+ *  @deprecated см. https://angular.io/guide/http
  * @publicApi
  */
 @Injectable()

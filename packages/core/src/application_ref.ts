@@ -124,7 +124,7 @@ export const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken<boolean>('AllowMultip
 
 
 /**
- * A token for third-party components that can register themselves with NgProbe.
+ * Токен для сторонних компонентов, которые могут зарегистрироваться с помощью NgProbe.
  *
  * @publicApi
  */
@@ -133,8 +133,8 @@ export class NgProbeToken {
 }
 
 /**
- * Creates a platform.
- * Platforms have to be eagerly created via this function.
+ * Создает платформу.
+ * Платформы должны быть созданы с помощью этой функции.
  *
  * @publicApi
  */
@@ -152,7 +152,7 @@ export function createPlatform(injector: Injector): PlatformRef {
 }
 
 /**
- * Creates a factory for a platform
+ * Создает фабрику для платформы
  *
  * @publicApi
  */
@@ -181,7 +181,7 @@ export function createPlatformFactory(
 }
 
 /**
- * Checks that there currently is a platform which contains the given token as a provider.
+ * Проверяет, что в настоящее время существует платформа, которая содержит данный токен в качестве провайдера.
  *
  * @publicApi
  */
@@ -201,7 +201,7 @@ export function assertPlatform(requiredToken: any): PlatformRef {
 }
 
 /**
- * Destroy the existing platform.
+ * Уничтожить существующую платформу.
  *
  * @publicApi
  */
@@ -212,7 +212,7 @@ export function destroyPlatform(): void {
 }
 
 /**
- * Returns the current platform.
+ * Возвращает текущую платформу.
  *
  * @publicApi
  */
@@ -258,12 +258,12 @@ export interface BootstrapOptions {
 }
 
 /**
- * The Angular platform is the entry point for Angular on a web page. Each page
- * has exactly one platform, and services (such as reflection) which are common
- * to every Angular application running on the page are bound in its scope.
+ * Платформа Angular является точкой входа для Angular на веб-странице. Каждаястраница.
+ * имеет ровно одну платформу и сервисы (например, рефлексию), которые являются общими
+ * к каждому приложению Angular, запущенному на странице, привязаны его области действия.
  *
- * A page's platform is initialized implicitly when a platform is created via a platform factory
- * (e.g. {@link platformBrowser}), or explicitly by calling the {@link createPlatform} function.
+ * Платформа страницы инициализируется неявно, когда платформа создается посредством фабрики платформ
+ * (например{@link platformBrowser}) или явно вызывая{@link createPlatform}функция.
  *
  * @publicApi
  */
@@ -459,95 +459,95 @@ function optionsReducer<T extends Object>(dst: any, objs: T|T[]): T {
 }
 
 /**
- * A reference to an Angular application running on a page.
+ * Ссылка на приложение Angular, запущенное на странице.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * {@a is-stable-examples}
- * ### isStable examples and caveats
+ *  {@a is-stable-examples}
+ *  ### isStable примеры и предостережения
  *
- * Note two important points about `isStable`, demonstrated in the examples below:
- * - the application will never be stable if you start any kind
- * of recurrent asynchronous task when the application starts
- * (for example for a polling process, started with a `setInterval`, a `setTimeout`
- * or using RxJS operators like `interval`);
- * - the `isStable` Observable runs outside of the Angular zone.
+ * Отметим два важных пункта о `isStable` isStable, продемонстрированные в примерахниже:.
+ * - приложение никогда не будет стабильным, если вы запустите его
+ * повторяющейся асинхронной задачи при запуске приложения
+ * (например, для процесса опроса, начинающегося с `setInterval` , `setTimeout`
+ * или используя операторы RxJS, такие как `interval`);
+ * - `isStable` Observable работает за пределами Angular зоны.
  *
- * Let's imagine that you start a recurrent task
- * (here incrementing a counter, using RxJS `interval`),
- * and at the same time subscribe to `isStable`.
+ * Давайте представим, что вы запускаете повторяющееся задание
+ * (здесь увеличение счетчика, используя RxJS `interval` интервал),.
+ * и в то же время подписаться на `isStable`.
  *
- * ```
- * constructor(appRef: ApplicationRef) {
- *   appRef.isStable.pipe(
- *      filter(stable => stable)
- *   ).subscribe(() => console.log('App is stable now');
- *   interval(1000).subscribe(counter => console.log(counter));
- * }
- * ```
- * In this example, `isStable` will never emit `true`,
- * and the trace "App is stable now" will never get logged.
+ *  ```
+ *  constructor(appRef: ApplicationRef) {
+ *    appRef.isStable.pipe(
+ *       filter(stable => stable)
+ *    ).subscribe(() => console.log('App is stable now');
+ *    interval(1000).subscribe(counter => console.log(counter));
+ *  }
+ *  ```
+ * В этом примере `isStable` никогда не `true`,
+ * и трассировка «Приложение стабильно сейчас» никогда не будет регистрироваться.
  *
- * If you want to execute something when the app is stable,
- * you have to wait for the application to be stable
- * before starting your polling process.
+ * Если вы хотитечтобы выполнить токогда приложениестабильно,.
+ * Вы должны ждать, пока приложение будет стабильным
+ * перед началом вашего опроса.
  *
- * ```
- * constructor(appRef: ApplicationRef) {
- *   appRef.isStable.pipe(
- *     first(stable => stable),
- *     tap(stable => console.log('App is stable now')),
- *     switchMap(() => interval(1000))
- *   ).subscribe(counter => console.log(counter));
- * }
- * ```
- * In this example, the trace "App is stable now" will be logged
- * and then the counter starts incrementing every second.
+ *  ```
+ *  constructor(appRef: ApplicationRef) {
+ *    appRef.isStable.pipe(
+ *      first(stable => stable),
+ *      tap(stable => console.log('App is stable now')),
+ *      switchMap(() => interval(1000))
+ *    ).subscribe(counter => console.log(counter));
+ *  }
+ *  ```
+ * В этом примере будет зарегистрирована трассировка «Приложение стабильно сейчас»
+ * и затем счетчик начинает увеличиваться каждую секунду.
  *
- * Note also that this Observable runs outside of the Angular zone,
- * which means that the code in the subscription
- * to this Observable will not trigger the change detection.
+ * Следует также отметитьчто эта Наблюдаемые проходит за пределами Angularзоны.
+ * что означает, что код в подписке
+ * к этому Observable не сработает обнаружение изменений.
  *
- * Let's imagine that instead of logging the counter value,
- * you update a field of your component
- * and display it in its template.
+ * Давайте представим, что вместо регистрации значения счетчика
+ * Вы обновляете поле вашего компонента
+ * и отобразить его в своем шаблоне.
  *
- * ```
- * constructor(appRef: ApplicationRef) {
- *   appRef.isStable.pipe(
- *     first(stable => stable),
- *     switchMap(() => interval(1000))
- *   ).subscribe(counter => this.value = counter);
- * }
- * ```
- * As the `isStable` Observable runs outside the zone,
- * the `value` field will be updated properly,
- * but the template will not be refreshed!
+ *  ```
+ *  constructor(appRef: ApplicationRef) {
+ *    appRef.isStable.pipe(
+ *      first(stable => stable),
+ *      switchMap(() => interval(1000))
+ *    ).subscribe(counter => this.value = counter);
+ *  }
+ *  ```
+ * Как `isStable` Наблюдаемые работает за пределамизоны,.
+ *  the `value`поля будет обновлятьсяправильно,.
+ * но шаблон не обновится!
  *
- * You'll have to manually trigger the change detection to update the template.
+ * Вам придется вручную активировать обнаружение изменений, чтобы обновить шаблон.
  *
- * ```
- * constructor(appRef: ApplicationRef, cd: ChangeDetectorRef) {
- *   appRef.isStable.pipe(
- *     first(stable => stable),
- *     switchMap(() => interval(1000))
- *   ).subscribe(counter => {
- *     this.value = counter;
- *     cd.detectChanges();
- *   });
- * }
- * ```
+ *  ```
+ *  constructor(appRef: ApplicationRef, cd: ChangeDetectorRef) {
+ *    appRef.isStable.pipe(
+ *      first(stable => stable),
+ *      switchMap(() => interval(1000))
+ *    ).subscribe(counter => {
+ *      this.value = counter;
+ *      cd.detectChanges();
+ *    });
+ *  }
+ *  ```
  *
- * Or make the subscription callback run inside the zone.
+ * Или сделайте так, чтобы обратный вызов подписки выполнялся внутри зоны.
  *
- * ```
- * constructor(appRef: ApplicationRef, zone: NgZone) {
- *   appRef.isStable.pipe(
- *     first(stable => stable),
- *     switchMap(() => interval(1000))
- *   ).subscribe(counter => zone.run(() => this.value = counter));
- * }
- * ```
+ *  ```
+ *  constructor(appRef: ApplicationRef, zone: NgZone) {
+ *    appRef.isStable.pipe(
+ *      first(stable => stable),
+ *      switchMap(() => interval(1000))
+ *    ).subscribe(counter => zone.run(() => this.value = counter));
+ *  }
+ *  ```
  *
  * @publicApi
  */

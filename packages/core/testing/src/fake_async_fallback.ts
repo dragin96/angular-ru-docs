@@ -21,8 +21,8 @@ const ProxyZoneSpec: {get(): ProxyZoneSpec; assertPresent: () => ProxyZoneSpec} 
 let _fakeAsyncTestZoneSpec: any = null;
 
 /**
- * Clears out the shared fake async zone for a test.
- * To be called in a global `beforeEach`.
+ * Удаляет общую ложную асинхронную зону для теста.
+ * Дляв глобальном `beforeEach``beforeEach`.
  *
  * @publicApi
  */
@@ -35,21 +35,21 @@ export function resetFakeAsyncZoneFallback() {
 let _inFakeAsyncCall = false;
 
 /**
- * Wraps a function to be executed in the fakeAsync zone:
- * - microtasks are manually executed by calling `flushMicrotasks()`,
- * - timers are synchronous, `tick()` simulates the asynchronous passage of time.
+ * Обертка функция должна быть выполнена в зонеfakeAsync:.
+ * - microtasks вручную выполняется путем вызова `flushMicrotasks()`,
+ * - таймеры синхронны, `tick()` имитирует асинхронный ход времени.
  *
- * If there are any pending timers at the end of the function, an exception will be thrown.
+ * Если в конце функции есть ожидающие таймеры, будет сгенерировано исключение.
  *
- * Can be used to wrap inject() calls.
+ * Может использоваться для переноса вызовов inject ().
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/testing/ts/fake_async.ts region='basic'}
+ *  {@example core/testing/ts/fake_async.ts region='basic'}
  *
- * @param fn
- * @returns The function wrapped to be executed in the fakeAsync zone
+ *  @param фин
+ *  @returns Функция упакована для выполнения в зоне fakeAsync
  *
  * @publicApi
  */
@@ -106,15 +106,15 @@ function _getFakeAsyncZoneSpec(): any {
 }
 
 /**
- * Simulates the asynchronous passage of time for the timers in the fakeAsync zone.
+ * Имитирует асинхронное течение времени для таймеров в зоне fakeAsync.
  *
- * The microtasks queue is drained at the very start of this function and after any timer callback
- * has been executed.
+ * Очередь микрозадач очищается в самом начале этой функции и после любого обратного вызова таймера
+ * был выполнен
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/testing/ts/fake_async.ts region='basic'}
+ *  {@example core/testing/ts/fake_async.ts region='basic'}
  *
  * @publicApi
  */
@@ -126,12 +126,12 @@ export function tickFallback(
 }
 
 /**
- * Simulates the asynchronous passage of time for the timers in the fakeAsync zone by
- * draining the macrotask queue until it is empty. The returned value is the milliseconds
- * of time that would have been elapsed.
+ * Имитирует асинхронное прохождение времени для таймеров в зоне fakeAsync
+ * опустошение очереди макросов до тех пор, пока она не станет пустой. Возвращаемое значение - миллисекунды
+ * времени, которое прошло бы.
  *
- * @param maxTurns
- * @returns The simulated time elapsed, in millis.
+ *  @param maxTurns
+ *  @returns Имитированное время в миллис.
  *
  * @publicApi
  */
@@ -140,7 +140,7 @@ export function flushFallback(maxTurns?: number): number {
 }
 
 /**
- * Discard all remaining periodic tasks.
+ * Откажитесь от всех оставшихся периодических задач.
  *
  * @publicApi
  */
@@ -150,7 +150,7 @@ export function discardPeriodicTasksFallback(): void {
 }
 
 /**
- * Flush any pending microtasks.
+ * Сбросьте любые ожидающие выполнения микрозадачи.
  *
  * @publicApi
  */

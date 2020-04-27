@@ -12,19 +12,19 @@ import {LocationChangeListener, PlatformLocation} from './platform_location';
 import {joinWithSlash, normalizeQueryParams} from './util';
 
 /**
- * Enables the `Location` service to read route state from the browser's URL.
- * Angular provides two strategies:
- * `HashLocationStrategy` and `PathLocationStrategy`.
+ * Включает `Location` сервис для чтения состояния маршрута из URL браузера.
+ * Angular обеспечивает двестратегии:.
+ *  `HashLocationStrategy `и` PathLocationStrategy`PathLocationStrategy.
  *
- * Applications should use the `Router` or `Location` services to
- * interact with application route state.
+ * Приложения должны использовать `Router` или `Location` услугив.
+ * взаимодействовать с состоянием маршрута приложения.
  *
- * For instance, `HashLocationStrategy` produces URLs like
- * <code class="no-auto-link">http://example.com#/foo</code>,
- * and `PathLocationStrategy` produces
- * <code class="no-auto-link">http://example.com/foo</code> as an equivalent URL.
+ * Например, `HashLocationStrategy` создает URL-адреса как
+ *  <code class="no-auto-link">http://example.com#/foo</code>,.
+ * и `PathLocationStrategy` производит.
+ *  <code class="no-auto-link">http://example.com/foo</code>как эквивалентный URL.
  *
- * See these two classes for more.
+ * Смотрите эти два класса для более.
  *
  * @publicApi
  */
@@ -49,54 +49,54 @@ export function provideLocationStrategy(platformLocation: PlatformLocation) {
 
 
 /**
- * A predefined [DI token](guide/glossary#di-token) for the base href
- * to be used with the `PathLocationStrategy`.
- * The base href is the URL prefix that should be preserved when generating
- * and recognizing URLs.
+ * Предопределенный[токен DI](guide/glossary#di-token)для базового href
+ * для использования с `PathLocationStrategy`.
+ * Базовый href - это префикс URL, который должен быть сохранен при генерации
+ * и распознавание URL.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The following example shows how to use this token to configure the root app injector
- * with a base href value, so that the DI framework can supply the dependency anywhere in the app.
+ * В следующем примере показано, как использовать этот токен для настройки инжектора корневого приложения
+ * с базовым значением href, чтобы структура DI могла предоставлять зависимости в любом месте приложения.
  *
- * ```typescript
- * import {Component, NgModule} from '@angular/core';
- * import {APP_BASE_HREF} from '@angular/common';
+ *  ```typescript
+ *  import {Component, NgModule} from '@angular/core';
+ *  import {APP_BASE_HREF} from '@angular/common';
  *
- * @NgModule({
- *   providers: [{provide: APP_BASE_HREF, useValue: '/my/app'}]
- * })
- * class AppModule {}
- * ```
+ *  @NgModule({
+ *    providers: [{provide: APP_BASE_HREF, useValue: '/my/app'}]
+ *  })
+ *  class AppModule {}
+ *  ```
  *
  * @publicApi
  */
 export const APP_BASE_HREF = new InjectionToken<string>('appBaseHref');
 
 /**
- * @description
- * A {@link LocationStrategy} used to configure the {@link Location} service to
- * represent its state in the
- * [path](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax) of the
- * browser's URL.
+ *  @description
+ *  A {@link LocationStrategy}используется для настройки{@link Location}Служба
+ * представлять свое государство в
+ *  [(Путь)](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)из.
+ * URL браузера.
  *
- * If you're using `PathLocationStrategy`, you must provide a {@link APP_BASE_HREF}
- * or add a base element to the document. This URL prefix that will be preserved
- * when generating and recognizing URLs.
+ * Если вы используете `PathLocationStrategy` , вы должны предоставить{@link APP_BASE_HREF}
+ * или добавьте базовый элемент в документ. Этот префикс URL, который будет сохранен
+ * при создании и распознавании URL.
  *
- * For instance, if you provide an `APP_BASE_HREF` of `'/my/app'` and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
+ * Например, если вы предоставляете `APP_BASE_HREF` из `'/my/app'` ивызов.
+ *  `location.go('/foo')`, URL браузера станет
+ *  `example.com/my/app/foo`.
  *
- * Similarly, if you add `<base href='/my/app'/>` to the document and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
+ * Аналогично, если вы добавите в документ`<base href='/my/app'/>`и вызовите
+ *  `location.go('/foo')`, URL браузера станет
+ *  `example.com/my/app/foo`.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example common/location/ts/path_location_component.ts region='LocationComponent'}
+ *  {@example common/location/ts/path_location_component.ts region='LocationComponent'}
  *
  * @publicApi
  */

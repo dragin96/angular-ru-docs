@@ -10,142 +10,142 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
 
 
 /**
- * A structural directive that conditionally includes a template based on the value of
- * an expression coerced to Boolean.
- * When the expression evaluates to true, Angular renders the template
- * provided in a `then` clause, and when  false or null,
- * Angular renders the template provided in an optional `else` clause. The default
- * template for the `else` clause is blank.
+ * Структурная директива, которая условно включает шаблон, основанный на значении
+ * выражение приведено к логическому.
+ * Когда выражение оценивается как true, Angular отображает шаблон
+ * условиив `then` пункта, а когда ложь илинулевой,.
+ * Angular отображает шаблон, предоставленный в дополнительном `else` . По умолчанию
+ * шаблон для `else` пуст.
  *
- * A [shorthand form](guide/structural-directives#the-asterisk--prefix) of the directive,
- * `*ngIf="condition"`, is generally used, provided
- * as an attribute of the anchor element for the inserted template.
- * Angular expands this into a more explicit version, in which the anchor element
- * is contained in an `<ng-template>` element.
+ * А[(форма сокращенной)](guide/structural-directives#the-asterisk--prefix)директивы,.
+ *  `ngIf="condition"`, обычно используется при условии
+ * в качестве атрибута элемента привязки для вставленного шаблона.
+ * Angular расширяет это в более явную версию, в которой элемент привязки
+ * содержится в `<ng-template>` элементе.
  *
- * Simple form with shorthand syntax:
+ * Простая форма с синтаксисомсокращенном:.
  *
- * ```
- * <div *ngIf="condition">Content to render when condition is true.</div>
- * ```
+ *  ```
+ *  <divngIf="condition">Content to render when condition is true.</div>
+ *  ```
  *
- * Simple form with expanded syntax:
+ * Простая форма с расширеннымсинтаксисом:.
  *
- * ```
- * <ng-template [ngIf]="condition"><div>Content to render when condition is
- * true.</div></ng-template>
- * ```
+ *  ```
+ *  <ng-template [ngIf]="condition"><div>Content to render when condition is
+ *  true.</div></ng-template>
+ *  ```
  *
- * Form with an "else" block:
+ * Форма с «другим»блоком:.
  *
- * ```
- * <div *ngIf="condition; else elseBlock">Content to render when condition is true.</div>
- * <ng-template #elseBlock>Content to render when condition is false.</ng-template>
- * ```
+ *  ```
+ *  <divngIf="condition; else elseBlock">Content to render when condition is true.</div>
+ *  <ng-template #elseBlock>Content to render when condition is false.</ng-template>
+ *  ```
  *
- * Shorthand form with "then" and "else" blocks:
+ * Сокращенная форма с «тогда» и «Else»блоков:.
  *
- * ```
- * <div *ngIf="condition; then thenBlock else elseBlock"></div>
- * <ng-template #thenBlock>Content to render when condition is true.</ng-template>
- * <ng-template #elseBlock>Content to render when condition is false.</ng-template>
- * ```
+ *  ```
+ *  <divngIf="condition; then thenBlock else elseBlock"></div>
+ *  <ng-template #thenBlock>Content to render when condition is true.</ng-template>
+ *  <ng-template #elseBlock>Content to render when condition is false.</ng-template>
+ *  ```
  *
- * Form with storing the value locally:
+ * Форма с хранения значениялокально:.
  *
- * ```
- * <div *ngIf="condition as value; else elseBlock">{{value}}</div>
- * <ng-template #elseBlock>Content to render when value is null.</ng-template>
- * ```
+ *  ```
+ *  <divngIf="condition as value; else elseBlock">{{value}}</div>
+ *  <ng-template #elseBlock>Content to render when value is null.</ng-template>
+ *  ```
  *
- * @usageNotes
+ *  @usageNotes
  *
- * The `*ngIf` directive is most commonly used to conditionally show an inline template,
- * as seen in the following  example.
- * The default `else` template is blank.
+ *  The `ngIf`директиванаиболее часто используется условно отображать шаблонрядный,.
+ * как видно в следующем примере.
+ * По умолчанию `else` пуст.
  *
- * {@example common/ngIf/ts/module.ts region='NgIfSimple'}
+ *  {@example common/ngIf/ts/module.ts region='NgIfSimple'}
  *
- * ### Showing an alternative template using `else`
+ *  ### Отображение альтернативного шаблона с использованием `else`
  *
- * To display a template when `expression` evaluates to false, use an `else` template
- * binding as shown in the following example.
- * The `else` binding points to an `<ng-template>`  element labeled `#elseBlock`.
- * The template can be defined anywhere in the component view, but is typically placed right after
- * `ngIf` for readability.
+ * Чтобы отобразить шаблонкогда `expression` выражение в ЛОЖЬ, используйте `else` шаблона.
+ * привязка, как показано в следующем примере.
+ *  The `else`привязки точек к `<ng-template>` нг-элементамеченой `#elseBlock` #elseBlock.
+ * Шаблон может быть определен в любом месте в представлении компонента, но обычно размещается сразу после
+ *  `ngIf`для удобства чтения.
  *
- * {@example common/ngIf/ts/module.ts region='NgIfElse'}
+ *  {@example common/ngIf/ts/module.ts region='NgIfElse'}
  *
- * ### Using an external `then` template
+ *  ### Используя внешний `then` шаблон
  *
- * In the previous example, the then-clause template is specified inline, as the content of the
- * tag that contains the `ngIf` directive. You can also specify a template that is defined
- * externally, by referencing a labeled `<ng-template>` element. When you do this, you can
- * change which template to use at runtime, as shown in the following example.
+ * В предыдущем примере шаблон then-условия указан как встроенный, как содержимое
+ * тег, который содержит `ngIf` директиву. Вы также можете указать шаблон, который определен
+ * внешне, путем ссылки на помеченный элемент `<ng-template>` . Когда вы делаете это, вы можете
+ * измените шаблон для использования во время выполнения, как показано в следующем примере.
  *
- * {@example common/ngIf/ts/module.ts region='NgIfThenElse'}
+ *  {@example common/ngIf/ts/module.ts region='NgIfThenElse'}
  *
- * ### Storing a conditional result in a variable
+ *  ### Сохранение условного результата в переменной
  *
- * You might want to show a set of properties from the same object. If you are waiting
- * for asynchronous data, the object can be undefined.
- * In this case, you can use `ngIf` and store the result of the condition in a local
- * variable as shown in the the following example.
+ * Возможно, вы захотите показать набор свойств из того же объекта. Если вы ждете
+ * для асинхронных данных объект может быть неопределенным.
+ * В этом случае вы можете использовать `ngIf` и сохранить результат условия в локальном
+ * переменная, как показано в следующем примере.
  *
- * {@example common/ngIf/ts/module.ts region='NgIfAs'}
+ *  {@example common/ngIf/ts/module.ts region='NgIfAs'}
  *
- * This code uses only one `AsyncPipe`, so only one subscription is created.
- * The conditional statement stores the result of `userStream|async` in the local variable `user`.
- * You can then bind the local `user` repeatedly.
+ * Этот код использует только один `AsyncPipe` , поэтомутолько одна подписка.
+ * Условный оператор сохраняет результат `userStream|async` в локальной переменной` `user`.
+ * Затем вы можетесвязать локального `user` повторно.
  *
- * The conditional displays the data only if `userStream` returns a value,
- * so you don't need to use the
- * [safe-navigation-operator](guide/template-syntax#safe-navigation-operator) (`?.`)
- * to guard against null values when accessing properties.
- * You can display an alternative template while waiting for the data.
+ * Условные отображает данные только тогдакогда `userStream` возвращаетзначение,.
+ * так что вам не нужно использовать
+ *  [безопасный оператор навигации](guide/template-syntax#safe-navigation-operator)(`?.`)
+ * для защиты от нулевых значений при доступе к свойствам.
+ * Вы можете отобразить альтернативный шаблон во время ожидания данных.
  *
- * ### Shorthand syntax
+ *  ### Сокращенный синтаксис
  *
- * The shorthand syntax `*ngIf` expands into two separate template specifications
- * for the "then" and "else" clauses. For example, consider the following shorthand statement,
- * that is meant to show a loading page while waiting for data to be loaded.
+ * Сокращенный синтаксис `ngIf` расширяется до двух отдельных спецификаций шаблона
+ * для условий «тогда» и «еще». Например, рассмотрим следующую стенографию
+ * это означает, что страница загрузки отображается в ожидании загрузки данных.
  *
- * ```
- * <div class="hero-list" *ngIf="heroes else loading">
- *  ...
- * </div>
- *
- * <ng-template #loading>
- *  <div>Loading...</div>
- * </ng-template>
- * ```
- *
- * You can see that the "else" clause references the `<ng-template>`
- * with the `#loading` label, and the template for the "then" clause
- * is provided as the content of the anchor element.
- *
- * However, when Angular expands the shorthand syntax, it creates
- * another `<ng-template>` tag, with `ngIf` and `ngIfElse` directives.
- * The anchor element containing the template for the "then" clause becomes
- * the content of this unlabeled `<ng-template>` tag.
- *
- * ```
- * <ng-template [ngIf]="heroes" [ngIfElse]="loading">
- *  <div class="hero-list">
+ *  ```
+ *  <div class="hero-list"ngIf="heroes else loading">
  *   ...
  *  </div>
- * </ng-template>
  *
- * <ng-template #loading>
- *  <div>Loading...</div>
- * </ng-template>
- * ```
+ *  <ng-template #loading>
+ *   <div>Loading...</div>
+ *  </ng-template>
+ *  ```
  *
- * The presence of the implicit template object has implications for the nesting of
- * structural directives. For more on this subject, see
- * [Structural Directives](https://angular.io/guide/structural-directives#one-per-element).
+ * Вы можете видеть, что предложение "else" ссылается на `<ng-template>`
+ * с `#loading` и шаблоном для предложения then
+ * предоставляется в качестве содержимого элемента привязки.
  *
- * @ngModule CommonModule
+ * Однако, когда Angular расширяет сокращенный синтаксис, он создает
+ * другой `<ng-template>` с `ngIf` и `ngIfElse`.
+ * Элемент привязки, содержащий шаблон для предложения then, становится
+ * содержимое этогобез `<ng-template>``<ng-template>`.
+ *
+ *  ```
+ *  <ng-template [ngIf]="heroes" [ngIfElse]="loading">
+ *   <div class="hero-list">
+ *    ...
+ *   </div>
+ *  </ng-template>
+ *
+ *  <ng-template #loading>
+ *   <div>Loading...</div>
+ *  </ng-template>
+ *  ```
+ *
+ * Наличие неявного объекта шаблона имеет значение для вложения
+ * структурные директивы. Подробнее об этом см
+ *  [Структурные директивы](https://angular.io/guide/structural-directives#one-per-element).
+ *
+ *  @ngModule CommonModule
  * @publicApi
  */
 @Directive({selector: '[ngIf]'})

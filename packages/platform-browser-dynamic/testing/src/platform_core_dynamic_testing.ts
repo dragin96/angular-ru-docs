@@ -13,7 +13,7 @@ import {ɵplatformCoreDynamic as platformCoreDynamic} from '@angular/platform-br
 import {COMPILER_PROVIDERS, TestingCompilerFactoryImpl} from './compiler_factory';
 
 /**
- * Platform for dynamic tests
+ * Платформа для динамических испытаний
  *
  * @publicApi
  */

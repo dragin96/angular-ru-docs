@@ -13,12 +13,12 @@ import {stringify} from '../util/stringify';
 
 
 /**
- * An interface that a function passed into {@link forwardRef} has to implement.
+ * Интерфейс, в который передана функция{@link forwardRef}должен реализовать.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/di/ts/forward_ref/forward_ref_spec.ts region='forward_ref_fn'}
+ *  {@example core/di/ts/forward_ref/forward_ref_spec.ts region='forward_ref_fn'}
  * @publicApi
  */
 export interface ForwardRefFn {
@@ -28,15 +28,15 @@ export interface ForwardRefFn {
 const __forward_ref__ = getClosureSafeProperty({__forward_ref__: getClosureSafeProperty});
 
 /**
- * Allows to refer to references which are not yet defined.
+ * Позволяет ссылаться на ссылки, которые еще не определены.
  *
- * For instance, `forwardRef` is used when the `token` which we need to refer to for the purposes of
- * DI is declared, but not yet defined. It is also used when the `token` which we use when creating
- * a query is not yet defined.
+ * Например, `forwardRef` используетсякогда `token` который мы должны обратиться к дляцелей.
+ * DI объявлен, но еще не определен. Он также используется, когда `token` который мы используем при создании
+ * запрос еще не определен.
  *
- * @usageNotes
- * ### Example
- * {@example core/di/ts/forward_ref/forward_ref_spec.ts region='forward_ref'}
+ *  @usageNotes
+ *  ### Пример
+ *  {@example core/di/ts/forward_ref/forward_ref_spec.ts region='forward_ref'}
  * @publicApi
  */
 export function forwardRef(forwardRefFn: ForwardRefFn): Type<any> {
@@ -48,16 +48,16 @@ export function forwardRef(forwardRefFn: ForwardRefFn): Type<any> {
 }
 
 /**
- * Lazily retrieves the reference value from a forwardRef.
+ * Лениво извлекает ссылочное значение из forwardRef.
  *
- * Acts as the identity function when given a non-forward-ref value.
+ * Действует как функция тождества, когда ей присваивается значение не вперед-ref.
  *
- * @usageNotes
- * ### Example
+ *  @usageNotes
+ *  ### Пример
  *
- * {@example core/di/ts/forward_ref/forward_ref_spec.ts region='resolve_forward_ref'}
+ *  {@example core/di/ts/forward_ref/forward_ref_spec.ts region='resolve_forward_ref'}
  *
- * @see `forwardRef`
+ *  @see `forwardRef`
  * @publicApi
  */
 export function resolveForwardRef<T>(type: T): T {

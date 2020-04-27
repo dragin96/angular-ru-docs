@@ -1,273 +1,290 @@
-# Introduction to forms in Angular
+{@a introduction-to-forms-in-angular}
+# Введение в формы в Angular
 
-Handling user input with forms is the cornerstone of many common applications. Applications use forms to enable users to log in, to update a profile, to enter sensitive information, and to perform many other data-entry tasks.
+Обработка пользовательского ввода с помощью форм является краеугольным камнем многих распространенных приложений. Приложения используют формы, чтобы пользователи могли войти в систему, обновить профиль, ввести конфиденциальную информацию и выполнить множество других задач ввода данных.
 
-Angular provides two different approaches to handling user input through forms: reactive and template-driven. Both capture user input events from the view, validate the user input, create a form model and data model to update, and provide a way to track changes.
+Angular предоставляет два разных подхода к обработке пользовательского ввода через формы: реактивный и управляемый шаблоном. Оба захватывают события пользовательского ввода из представления, проверяют пользовательский ввод, создают модель формы и модель данных для обновления и предоставляют способ отслеживания изменений.
 
-Reactive and template-driven forms process and manage form data differently. Each offers different advantages.
+Реактивные и управляемые шаблоном формы обрабатывают и обрабатывают данные формы по-разному. Каждый предлагает разные преимущества.
 
-**In general:**
+**В целом:**
 
-* **Reactive forms** are more robust: they're more scalable, reusable, and testable. If forms are a key part of your application, or you're already using reactive patterns for building your application, use reactive forms.
-* **Template-driven forms** are useful for adding a simple form to an app, such as an email list signup form. They're easy to add to an app, but they don't scale as well as reactive forms. If you have very basic form requirements and logic that can be managed solely in the template, use template-driven forms.
+* **Реактивные формы** более надежны: они более масштабируемы, многократно используются и тестируемы. Если формы являются ключевой частью вашего приложения или вы уже используете реактивные шаблоны для создания приложения, используйте реактивные формы.
+* **Шаблонно-управляемые формы** полезны для добавления в приложение простой формы, например формы регистрации в списке рассылки. Их легко добавить в приложение, но они не так масштабируются, как реагирующие формы. Если у вас есть базовые требования к форме и логике, которыми можно управлять только в шаблоне, используйте формы на основе шаблона.
 
-This guide provides information to help you decide which type of form works best for your situation. It introduces the common building blocks used by both approaches. It also summarizes the key differences between the two approaches, and demonstrates those differences in the context of setup, data flow, and testing.
+Это руководство содержит информацию, которая поможет вам решить, какой тип формы лучше всего подходит для вашей ситуации. Он вводит общие строительные блоки, используемые в обоих подходах. Он также суммирует ключевые различия между двумя подходами и демонстрирует эти различия в контексте настройки, потока данных и тестирования.
 
 <div class="alert is-helpful">
 
-**Note:** For complete information about each kind of form, see [Reactive Forms](guide/reactive-forms) and [Template-driven Forms](guide/forms).
+**Примечание.** Для получения полной информации о формах каждого типа см. [Реактивные формы](guide/reactive-forms)и [Формы на основе шаблонов](guide/forms).
 
 </div>
 
-## Key differences
+{@a key-differences}
+## Основные отличия
 
-The table below summarizes the key differences between reactive and template-driven forms.
+В таблице ниже приведены основные различия между формами реагирования и шаблонами.
 
 <style>
   table {width: 100%};
   td, th {vertical-align: top};
 </style>
 
-||Reactive|Template-driven|
-|--- |--- |--- |
-|Setup (form model)|More explicit, created in component class|Less explicit, created by directives|
-|Data model|Structured|Unstructured|
-|Predictability|Synchronous|Asynchronous|
-|Form validation|Functions|Directives|
-|Mutability|Immutable|Mutable|
-|Scalability|Low-level API access|Abstraction on top of APIs|
+|| Реактивный | Шаблон привод |
+| --- | --- | --- |
+| Настройка (модель формы) | Более явный, созданный в классе компонентов | Менее явный, созданный директивами |
+| Модель данных | Структурированная | Неструктурированная |
+| Предсказуемость | синхронный | Асинхронный |
+| Проверка формы | Функции | Директивы |
+| Изменчивость | Неизменное | Mutable |
+| Масштабируемость | Низкоуровневый доступ к API | Абстракция поверх API |
 
-## Common foundation
+{@a common-foundation}
+## Общий фундамент
 
-Both reactive and template-driven forms share underlying building blocks.
+И реактивные, и управляемые шаблоном формы имеют общие строительные блоки.
 
 
-* `FormControl` tracks the value and validation status of an individual form control.
+* `FormControl` отслеживает значение и статус проверки отдельного элемента управления формы.
 
-* `FormGroup` tracks the same values and status for a collection of form controls.
+* `FormGroup` отслеживает те же значения и статус для коллекции элементов управления формы.
 
-* `FormArray` tracks the same values and status for an array of form controls.
+* `FormArray` отслеживает те же значения и статус для массива элементов управления формы.
 
-* `ControlValueAccessor` creates a bridge between Angular `FormControl` instances and native DOM elements.
+* `ControlValueAccessor` создает мост между Angular `FormControl` и собственные элементы DOM.
 
-See the [Form model setup](#setup-the-form-model) section below for an introduction to how these control instances are created and managed with reactive and template-driven forms. Further details are provided in the [data flow section](#data-flow-in-forms) of this guide.
+В разделе [Настройка модели формы](#setup-the-form-model)ниже приведено введение в создание и управление этими экземплярами элементов управления с помощью реактивных и управляемых шаблонами форм. Дальнейшие подробности представлены в [секциях потока данных](#data-flow-in-forms)данное руководство.
 
 {@a setup-the-form-model}
 
-## Form model setup
+{@a form-model-setup}
+## Настройка модели формы
 
-Reactive and template-driven forms both use a form model to track value changes between Angular forms and form input elements. The examples below show how the form model is defined and created.
+Реактивные и управляемые шаблоном формы используют модель формы для отслеживания изменений значений между Angularи формами и элементами ввода формы. Приведенные ниже примеры показывают, как модель формы определяется и создается.
 
-### Setup in reactive forms
+{@a setup-in-reactive-forms}
+### Настройка в реактивных формах
 
-Here's a component with an input field for a single control implemented using reactive forms.
+Вот компонент с полем ввода для одного элемента управления, реализованного с использованием реактивных форм.
 
 <code-example path="forms-overview/src/app/reactive/favorite-color/favorite-color.component.ts">
 </code-example>
 
-The source of truth provides the value and status of the form element at a given point in time. In reactive forms, the form model is the source of truth. In the example above, the form model is the `FormControl` instance.
+Источник правды предоставляет значение и статус элемента формы в данный момент времени. В реактивных формах модель формы является источником истины. В приведенном выше примере модель формы `FormControl`.
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/key-diff-reactive-forms.png" alt="Reactive forms key differences">
 </div>
 
-With reactive forms, the form model is explicitly defined in the component class. The reactive form directive (in this case, `FormControlDirective`) then links the existing `FormControl` instance to a specific form element in the view using a value accessor (`ControlValueAccessor` instance).
+В случае реактивных форм модель формы явно определяется в классе компонентов. Директива о реактивной форме (в данном случае `FormControlDirective`) затем связывает существующие `FormControl` для определенного элемента формы в представлении с использованием метода доступа к значению (`ControlValueAccessor`).
 
-### Setup in template-driven forms
+{@a setup-in-template-driven-forms}
+### Настройка в шаблонно-управляемых формах
 
-Here's the same component with an input field for a single control implemented using template-driven forms.
+Вот тот же компонент с полем ввода для одного элемента управления, реализованного с использованием шаблонно-управляемых форм.
 
 <code-example path="forms-overview/src/app/template/favorite-color/favorite-color.component.ts">
 </code-example>
 
-In template-driven forms, the source of truth is the template.
+В формах, управляемых шаблонами, источником истины является шаблон.
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/key-diff-td-forms.png" alt="Template-driven forms key differences">
 </div>
 
-The abstraction of the form model promotes simplicity over structure. The template-driven form directive `NgModel` is responsible for creating and managing the `FormControl` instance for a given form element. It's less explicit, but you no longer have direct control over the form model.
+Абстракция модели формы способствует простоте структуры. Директива на основе шаблонов `NgModel` отвечает за создание и управление `FormControl` для данного элемента формы. Это менее очевидно, но вы больше не имеете прямого контроля над моделью формы.
 
 {@a data-flow-in-forms}
 
-## Data flow in forms
+{@a data-flow-in-forms}
+## Поток данных в формах
 
-When building forms in Angular, it's important to understand how the framework handles data flowing from the user or from programmatic changes. Reactive and template-driven forms follow two different strategies when handling form input. The data flow examples below begin with the favorite color input field example from above, and then show how changes to favorite color are handled in reactive forms compared to template-driven forms.
+При создании форм в Angular важно понимать, как платформа обрабатывает данные, поступающие от пользователя или от программных изменений. Реактивные и управляемые шаблоном формы следуют двум различным стратегиям при обработке ввода формы. Приведенные ниже примеры потока данных начинаются с приведенного выше примера поля ввода любимого цвета, а затем показывают, как изменения в любимом цвете обрабатываются в реактивных формах по сравнению с формами на основе шаблонов.
 
-### Data flow in reactive forms
+{@a data-flow-in-reactive-forms}
+### Поток данных в реактивных формах
 
-As described above, in reactive forms each form element in the view is directly linked to a form model (`FormControl` instance). Updates from the view to the model and from the model to the view are synchronous and aren't dependent on the UI rendered. The diagrams below use the same favorite color example to demonstrate how data flows when an input field's value is changed from the view and then from the model.
+Как описано выше, в реактивных формах каждый элемент формы в представлении напрямую связан с моделью формы (`FormControl`). Обновления из представления в модель и из модели в представление являются синхронными и не зависят от отображаемого пользовательского интерфейса. На приведенных ниже схемах используется тот же пример избранного цвета, чтобы продемонстрировать, как данные передаются при изменении значения поля ввода из представления, а затем из модели.
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/dataflow-reactive-forms-vtm.png" alt="Reactive forms data flow - view to model" width="100%">
 </div>
 
-The steps below outline the data flow from view to model.
+Следующие шаги описывают поток данных от вида к модели.
 
-1. The user types a value into the input element, in this case the favorite color *Blue*.
-1. The form input element emits an "input" event with the latest value.
-1. The control value accessor listening for events on the form input element immediately relays the new value to the `FormControl` instance.
-1. The `FormControl` instance emits the new value through the `valueChanges` observable.
-1. Any subscribers to the `valueChanges` observable receive the new value.
+1. Пользователь вводит значение в элемент ввода, в данном случае любимый цвет *синий*.
+1. Элемент ввода формы генерирует событие «input» с самым последним значением.
+1. Метод доступа к управляющему значению, прослушивающий события в элементе ввода формы, немедленно передает новое значение `FormControl`.
+1. `FormControl` выдает новое значение через `valueChanges` наблюдаемые.
+1. Любые подписчики на `valueChanges` observable получает новое значение.
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/dataflow-reactive-forms-mtv.png" alt="Reactive forms data flow - model to view" width="100%">
 </div>
 
-The steps below outline the data flow from model to view.
+Следующие шаги описывают поток данных от модели к представлению.
 
-1. The user calls the `favoriteColorControl.setValue()` method, which updates the `FormControl` value.
-1. The `FormControl` instance emits the new value through the `valueChanges` observable.
-1. Any subscribers to the `valueChanges` observable receive the new value.
-1. The control value accessor on the form input element updates the element with the new value.
+1. Пользователь вызывает `favoriteColorControl.setValue()` метод, который обновляет `FormControl` Значение.
+1. `FormControl` выдает новое значение через `valueChanges` наблюдаемые.
+1. Любые подписчики на `valueChanges` observable получает новое значение.
+1. Метод доступа к управляющему значению в элементе ввода формы обновляет элемент новым значением.
 
-### Data flow in template-driven forms
+{@a data-flow-in-template-driven-forms}
+### Поток данных в управляемых шаблонами формах
 
-In template-driven forms, each form element is linked to a directive that manages the form model internally. The diagrams below use the same favorite color example to demonstrate how data flows when an input field's value is changed from the view and then from the model.
+В управляемых шаблонами формах каждый элемент формы связан с директивой, которая управляет моделью формы внутри. На приведенных ниже схемах используется тот же пример избранного цвета, чтобы продемонстрировать, как данные передаются при изменении значения поля ввода из представления, а затем из модели.
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/dataflow-td-forms-vtm.png" alt="Template-driven forms data flow - view to model" width="100%">
 </div>
 
-The steps below outline the data flow from view to model when the input value changes from *Red* to *Blue*.
+Приведенные ниже шаги описывают поток данных от вида к модели, когда входное значение изменяется с *красного* на *синий*.
 
-1. The user types *Blue* into the input element.
-1. The input element emits an "input" event with the value *Blue*.
-1. The control value accessor attached to the input triggers the `setValue()` method on the `FormControl` instance.
-1. The `FormControl` instance emits the new value through the `valueChanges` observable.
-1. Any subscribers to the `valueChanges` observable receive the new value.
-1. The control value accessor also calls the `NgModel.viewToModelUpdate()` method which emits an `ngModelChange` event.
-1. Because the component template uses two-way data binding for the `favoriteColor` property, the `favoriteColor` property in the component
-is updated to the value emitted by the `ngModelChange` event (*Blue*).
+1. Пользователь вводит *синий* в элемент ввода.
+1. Элемент input генерирует событие «input» со значением *Blue*.
+1. Аксессор значения управления, подключенный к входу, запускает `setValue()` на `FormControl`.
+1. `FormControl` выдает новое значение через `valueChanges` наблюдаемые.
+1. Любые подписчики на `valueChanges` observable получает новое значение.
+1. Метод доступа к значению управления также вызывает `NgModel.viewToModelUpdate()` который `ngModelChange` Событие.
+1. Поскольку шаблон компонента использует двустороннюю привязку данных для `favoriteColor` собственности, `favoriteColor` свойство в компоненте
+обновляется до значения, испускаемого `ngModelChange` Событие ( *синий*).
 
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/dataflow-td-forms-mtv.png" alt="Template-driven forms data flow - model to view" width="100%">
 </div>
 
-The steps below outline the data flow from model to view when the `favoriteColor` changes from *Blue* to *Red*.
+Приведенные ниже шаги описывают поток данных от модели для просмотра, когда `favoriteColor` меняется с *синего* на *красный*.
 
-1. The `favoriteColor` value is updated in the component.
-1. Change detection begins.
-1. During change detection, the `ngOnChanges` lifecycle hook is called on the `NgModel` directive instance because the value of one of its inputs has changed.
-1. The `ngOnChanges()` method queues an async task to set the value for the internal `FormControl` instance.
-1. Change detection completes.
-1. On the next tick, the task to set the `FormControl` instance value is executed.
-1. The `FormControl` instance emits the latest value through the `valueChanges` observable.
-1. Any subscribers to the `valueChanges` observable receive the new value.
-1. The control value accessor updates the form input element in the view with the latest `favoriteColor` value.
+1. `favoriteColor` значение обновляется в компоненте.
+1. Обнаружение изменений начинается.
+1. Во время обнаружения изменений `ngOnChanges` жизненного цикла вызывается на `NgModel` директивы потому что значение одного из его входов изменилось.
+1. `ngOnChanges()` очередь асинхронную задачу, чтобы установить значение для внутреннего `FormControl`.
+1. Обнаружение изменений завершено.
+1. На следующем тике задача установить `FormControl` экземпляра выполняется.
+1. `FormControl` выдает последнее значение через `valueChanges` наблюдаемые.
+1. Любые подписчики на `valueChanges` observable получает новое значение.
+1. Средство доступа к значению элемента управления обновляет элемент ввода формы в представлении самыми последними `favoriteColor` значение.
 
-## Form validation
+{@a form-validation}
+## Проверка формы
 
-Validation is an integral part of managing any set of forms. Whether you're checking for required fields or querying an external API for an existing username, Angular provides a set of built-in validators as well as the ability to create custom validators.
+Валидация является неотъемлемой частью управления любым набором форм. Независимо от того, проверяете ли вы обязательные поля или запрашиваете внешний API для существующего имени пользователя, Angular предоставляет набор встроенных валидаторов, а также возможность создавать собственные валидаторы.
 
-* **Reactive forms** define custom validators as **functions** that receive a control to validate.
-* **Template-driven forms** are tied to template **directives**, and must provide custom validator directives that wrap validation functions.
+* **Реактивные формы** определяют пользовательские валидаторы как**функции,** которые получают элемент управления для проверки.
+* **Формы, управляемые** шаблоном привязаны к шаблона**директивам**, и должны предоставлять пользовательские директивы валидатора, которые обертывают функции валидации.
 
-For more information, see [Form Validation](guide/form-validation).
+Для получения дополнительной информации см. [Проверка формы](guide/form-validation).
 
-## Testing
+{@a testing}
+## Тестирование
 
-Testing plays a large part in complex applications and a simpler testing strategy is useful when validating that your forms function correctly. Reactive forms and template-driven forms have different levels of reliance on rendering the UI to perform assertions based on form control and form field changes. The following examples demonstrate the process of testing forms with reactive and template-driven forms.
+Тестирование играет большую роль в сложных приложениях, и более простая стратегия тестирования полезна для проверки правильности работы ваших форм. Реактивные формы и формы на основе шаблонов имеют разную степень зависимости от визуализации пользовательского интерфейса для выполнения утверждений на основе управления формой и изменений полей формы. Следующие примеры демонстрируют процесс тестирования форм с реактивными и управляемыми шаблонами формами.
 
-### Testing reactive forms
+{@a testing-reactive-forms}
+### Тестирование реактивных форм
 
-Reactive forms provide a relatively easy testing strategy because they provide synchronous access to the form and data models, and they can be tested without rendering the UI. In these tests, status and data are queried and manipulated through the control without interacting with the change detection cycle.
+Реактивные формы обеспечивают относительно простую стратегию тестирования, поскольку они обеспечивают синхронный доступ к форме и моделям данных, и их можно тестировать без визуализации пользовательского интерфейса. В этих тестах состояние и данные запрашиваются и управляются через элемент управления, не взаимодействуя с циклом обнаружения изменений.
 
-The following tests use the favorite color components mentioned earlier to verify the data flows from view to model and model to view for a reactive form.
+В следующих тестах используются любимые компоненты цвета, упомянутые ранее, чтобы проверить потоки данных от представления к модели и модели для просмотра на реактивную форму.
 
-The following test verifies the data flow from view to model.
+Следующий тест проверяет поток данных от представления к модели.
 
 <code-example path="forms-overview/src/app/reactive/favorite-color/favorite-color.component.spec.ts" region="view-to-model" header="Favorite color test - view to model">
 </code-example>
 
-Here are the steps performed in the view to model test.
+Вот шаги, выполняемые с целью проверки модели.
 
-1. Query the view for the form input element, and create a custom "input" event for the test.
-1. Set the new value for the input to *Red*, and dispatch the "input" event on the form input element.
-1. Assert that the component's `favoriteColorControl` value matches the value from the input.
+1. Запросите представление для элемента ввода формы и создайте пользовательское событие ввода для теста.
+1. Установите новое значение для ввода *Red*и отправьте событие «input» на элемент ввода формы.
+1. Утверждают, что компонент `favoriteColorControl` значение соответствует значению от входа.
 
-The following test verifies the data flow from model to view.
+Следующий тест проверяет поток данных от модели к представлению.
 
 <code-example path="forms-overview/src/app/reactive/favorite-color/favorite-color.component.spec.ts" region="model-to-view" header="Favorite color test - model to view">
 </code-example>
 
-Here are the steps performed in the model to view test.
+Вот шаги, выполненные в модели для просмотра теста.
 
-1. Use the `favoriteColorControl`, a `FormControl` instance, to set the new value.
-1. Query the view for the form input element.
-1. Assert that the new value set on the control matches the value in the input.
+1. Использовать `favoriteColorControl`, `FormControl`, чтобы установить новое значение.
+1. Запросите представление для элемента ввода формы.
+1. Утвердите, что новое значение, установленное в элементе управления, совпадает со значением на входе.
 
-### Testing template-driven forms
+{@a testing-template-driven-forms}
+### Тестирование шаблонно-управляемых форм
 
-Writing tests with template-driven forms requires a detailed knowledge of the change detection process and an understanding of how directives run on each cycle to ensure that elements are queried, tested, or changed at the correct time.
+Написание тестов с использованием шаблонно-управляемых форм требует детального знания процесса обнаружения изменений и понимания того, как выполняются директивы в каждом цикле, чтобы гарантировать, что элементы запрашиваются, тестируются или изменяются в нужное время.
 
-The following tests use the favorite color components mentioned earlier to verify the data flows from view to model and model to view for a template-driven form.
+В следующих тестах используются любимые компоненты цвета, упомянутые ранее, для проверки потоков данных от представления к модели и модели для просмотра формы на основе шаблона.
 
-The following test verifies the data flow from view to model.
+Следующий тест проверяет поток данных от представления к модели.
 
 <code-example path="forms-overview/src/app/template/favorite-color/favorite-color.component.spec.ts" region="view-to-model" header="Favorite color test - view to model">
 </code-example>
 
-Here are the steps performed in the view to model test.
+Вот шаги, выполняемые с целью проверки модели.
 
-1. Query the view for the form input element, and create a custom "input" event for the test.
-1. Set the new value for the input to *Red*, and dispatch the "input" event on the form input element.
-1. Run change detection through the test fixture.
-1. Assert that the component `favoriteColor` property value matches the value from the input.
+1. Запросите представление для элемента ввода формы и создайте пользовательское событие ввода для теста.
+1. Установите новое значение для ввода *Red*и отправьте событие «input» на элемент ввода формы.
+1. Запустите обнаружение изменений через тестовое устройство.
+1. Утверждают, что компонент `favoriteColor` Значение свойства соответствует значению из входных данных.
 
-The following test verifies the data flow from model to view.
+Следующий тест проверяет поток данных от модели к представлению.
 
 <code-example path="forms-overview/src/app/template/favorite-color/favorite-color.component.spec.ts" region="model-to-view" header="Favorite color test - model to view">
 </code-example>
 
-Here are the steps performed in the model to view test.
+Вот шаги, выполненные в модели для просмотра теста.
 
-1. Use the component instance to set the value of the `favoriteColor` property.
-1. Run change detection through the test fixture.
-1. Use the `tick()` method to simulate the passage of time within the `fakeAsync()` task.
-1. Query the view for the form input element.
-1. Assert that the input value matches the value of the `favoriteColor` property in the component instance.
+1. Используйте экземпляр компонента, чтобы установить значение `favoriteColor` собственности.
+1. Запустите обнаружение изменений через тестовое устройство.
+1. Использовать `tick()` метод для имитации времени в течение `fakeAsync()`.
+1. Запросите представление для элемента ввода формы.
+1. Утверждают, что входное значение соответствует значению `favoriteColor` свойство в экземпляре компонента.
 
-## Mutability
+{@a mutability}
+## Изменчивость
 
-The change tracking method plays a role in the efficiency of your application.
-
-
-* **Reactive forms** keep the data model pure by providing it as an immutable data structure. Each time a change is triggered on the data model, the `FormControl` instance returns a new data model rather than updating the existing data model. This gives you the ability to track unique changes to the data model through the control's observable. This provides one way for change detection to be more efficient because it only needs to update on unique changes. It also follows reactive patterns that integrate with observable operators to transform data.
-
-* **Template-driven** forms rely on mutability with two-way data binding to update the data model in the component as changes are made in the template. Because there are no unique changes to track on the data model when using two-way data binding, change detection is less efficient at determining when updates are required.
-
-The difference is demonstrated in the examples above using the **favorite color** input element.
+Метод отслеживания изменений играет роль в эффективности вашего приложения.
 
 
-* With reactive forms, the **`FormControl` instance** always returns a new value when the control's value is updated.
+* **Реактивные формы** обеспечивают чистоту модели данных, предоставляя ее в качестве неизменной структуры данных. Каждый раз, когда происходит изменение в модели данных, `FormControl` возвращает новую модель данных, а не обновляет существующую модель данных. Это дает вам возможность отслеживать уникальные изменения в модели данных через наблюдаемый элемент управления. Это обеспечивает один из способов повышения эффективности обнаружения изменений, поскольку требуется обновлять только уникальные изменения. Это также следует за реактивными моделями, которые объединяются с наблюдаемыми операторами для преобразования данных.
 
-* With template-driven forms, the **favorite color property** is always modified to its new value.
+* **шаблонов** Формы на основе полагаются на изменчивость с двусторонним связыванием данных для обновления модели данных в компоненте по мере внесения изменений в шаблон. Поскольку при использовании двусторонней привязки данных не существует уникальных изменений, которые нужно отслеживать в модели данных, обнаружение изменений менее эффективно при определении необходимости обновления.
 
-## Scalability
-
-If forms are a central part of your application, scalability is very important. Being able to reuse form models across components is critical.
+Разница демонстрируется в приведенных выше примерах с использованием **любимого цвета** элемента ввода.
 
 
-* **Reactive forms** provide access to low-level APIs and synchronous access to the form model, making creating large-scale forms easier.
+* С реактивными формами** `FormControl` экземпляр** всегда возвращает новое значение, когда значение элемента управления обновляется.
 
-* **Template-driven** forms focus on simple scenarios, are not as reusable, abstract away the low-level APIs, and provide asynchronous access to the form model. The abstraction with template-driven forms also surfaces in testing, where testing reactive forms requires less setup and no dependence on the change detection cycle when updating and validating the form and data models during testing.
+* В формах на основе шаблона**свойство избранного цвета** всегда изменяется на новое значение.
 
-## Final thoughts
+{@a scalability}
+## Масштабируемость
 
-Choosing a strategy begins with understanding the strengths and weaknesses of the options presented. Low-level API and form model access, predictability, mutability, straightforward validation and testing strategies, and scalability are all important considerations in choosing the infrastructure you use to build your forms in Angular. Template-driven forms are similar to patterns in AngularJS, but they have limitations given the criteria of many modern, large-scale Angular apps. Reactive forms minimize these limitations. Reactive forms integrate with reactive patterns already present in other areas of the Angular architecture, and complement those requirements well.
-
-## Next steps
-
+Если формы являются центральной частью вашего приложения, масштабируемость очень важна. Возможность повторного использования моделей форм в компонентах имеет решающее значение.
 
 
-To learn more about reactive forms, see the following guides:
+* **Реактивные формы** предоставляют доступ к низкоуровневым API и синхронный доступ к модели форм, что облегчает создание крупномасштабных форм.
 
-* [Reactive Forms](guide/reactive-forms)
-* [Form Validation](guide/form-validation#reactive-form-validation)
-* [Dynamic Forms](guide/dynamic-form)
+* **Шаблон приводом** формы ориентированы на простые сценарии, не являются многократно используемыми, абстрагируются от низкоуровневых API и обеспечивают асинхронный доступ к модели формы. Абстракция с управляемыми шаблоном формами также проявляется в тестировании, где тестирование реактивных форм требует меньше настроек и не зависит от цикла обнаружения изменений при обновлении и проверке формы и моделей данных во время тестирования.
 
-To learn more about template-driven forms, see the following guides:
+{@a final-thoughts}
+## Заключительные мысли
 
-* [Template-driven Forms](guide/forms#template-driven-forms)
-* [Form Validation](guide/form-validation#template-driven-validation)
+Выбор стратегии начинается с понимания сильных и слабых сторон представленных вариантов. Низкоуровневый доступ к API и модели форм, предсказуемость, изменчивость, простые стратегии валидации и тестирования, а также масштабируемость - все это важные факторы при выборе инфраструктуры, используемой для создания форм в Angular. Формы на основе шаблонов аналогичны шаблонам в AngularJS, но имеют ограничения с учетом критериев многих современных крупномасштабных приложений Angular. Реактивные формы минимизируют эти ограничения. Реактивные формы интегрируются с реактивными шаблонами, уже присутствующими в других областях Angular архитектуры, и хорошо дополняют эти требования.
+
+{@a next-steps}
+## Следующие шаги
+
+
+
+Чтобы узнать больше о реактивных форм см в следующих руководствах:
+
+* [Реактивные формы](guide/reactive-forms)
+* [Проверка формы](guide/form-validation#reactive-form-validation)
+* [Динамические формы](guide/dynamic-form)
+
+Чтобы узнать больше о формах на основе шаблонов, см в следующих руководствах:
+
+* [Шаблонно-управляемые формы](guide/forms#template-driven-forms)
+* [Проверка формы](guide/form-validation#template-driven-validation)

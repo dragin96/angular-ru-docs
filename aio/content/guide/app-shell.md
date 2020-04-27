@@ -1,32 +1,35 @@
-# App shell
+{@a app-shell}
+# Приложение оболочки
 
-App shell is a way to render a portion of your application via a route at build time.
-It can improve the user experience by quickly launching a static rendered page (a skeleton common to all pages) while the browser downloads the full client version and switches to it automatically after the code loads.
+Оболочка приложения - это способ визуализации части вашего приложения через маршрут во время сборки.
+Он может улучшить взаимодействие с пользователем, быстро запустив статическую визуализированную страницу (каркас, общий для всех страниц), пока браузер загружает полную версию клиента и автоматически переключается на нее после загрузки кода.
 
-This gives users a meaningful first paint of your application that appears quickly because the browser can simply render the HTML and CSS without the need to initialize any JavaScript.
+Это дает пользователям осмысленную первую картину вашего приложения, которая появляется быстро, потому что браузер может просто визуализировать HTML и CSS без необходимости инициализации какого-либо JavaScript.
 
-Learn more in [The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell).
+Узнайте больше в [Модель оболочки приложения](https://developers.google.com/web/fundamentals/architecture/app-shell).
 
-## Step 1: Prepare the application
+{@a step-1-prepare-the-application}
+## Шаг 1: подготовить заявку
 
-You can do this with the following CLI command:
+Вы можете сделать это с помощью следующей команды CLI:
 <code-example language="bash">
 ng new my-app --routing
 </code-example>
 
-For an existing application, you have to manually add the `RouterModule` and defining a `<router-outlet>` within your application.
+Для существующего приложения вы должны вручную добавить `RouterModule` и определение `<router-outlet>` в вашем приложении.
 
-## Step 2: Create the app shell
+{@a step-2-create-the-app-shell}
+## Шаг 2: Создайте оболочку приложения
 
-Use the CLI to automatically create the app shell.
+Используйте CLI для автоматического создания оболочки приложения.
 
 <code-example language="bash">
 ng generate app-shell
 </code-example>
 
-* `client-project` takes the name of your client application.
+* `client-project` берет имя вашего клиентского приложения.
 
-After running this command you will notice that the `angular.json` configuration file has been updated to add two new targets, with a few other changes.
+После выполнения этой команды вы заметите, что `angular.json` конфигурации был обновлен, чтобы добавить две новые цели, с некоторыми другими изменениями.
 
 <code-example language="json">
 "server": {
@@ -53,20 +56,21 @@ After running this command you will notice that the `angular.json` configuration
 }
 </code-example>
 
-## Step 3: Verify the app is built with the shell content
+{@a step-3-verify-the-app-is-built-with-the-shell-content}
+## Шаг 3. Убедитесь, что приложение создано с использованием содержимого оболочки
 
-Use the CLI to build the `app-shell` target.
+Используйте CLI для построения `app-shell` цель.
 
 <code-example language="bash">
 ng run my-app:app-shell
 </code-example>
 
-Or to use the production configuration.
+Или использовать производственную конфигурацию.
 
 <code-example language="bash">
 ng run my-app:app-shell:production
 </code-example>
 
-To verify the build output, open `dist/my-app/index.html`. Look for default text `app-shell works!` to show that the app shell route was rendered as part of the output.
+Чтобы проверить вывод сборки, откройте `dist/my-app/index.html` . Ищите текст по умолчанию `app-shell works!` чтобы показать, что маршрут оболочки приложения отображен как часть вывода.
 
 

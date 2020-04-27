@@ -9,9 +9,9 @@
 import {UrlTree} from './url_tree';
 
 /**
- * @description
+ *  @description
  *
- * Provides a way to migrate AngularJS applications to Angular.
+ * Предоставляет способ переноса приложений AngularJS в Angular.
  *
  * @publicApi
  */

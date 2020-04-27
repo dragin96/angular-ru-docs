@@ -1,55 +1,60 @@
-# Service worker configuration
+{@a service-worker-configuration}
+# Конфигурация сервисного работника
 
-#### Prerequisites
+{@a prerequisites}
+#### Предпосылки
 
-A basic understanding of the following:
-* [Service Worker in Production](guide/service-worker-devops).
+Основное понимание следующего:
+* [Сервисный работник на производстве](guide/service-worker-devops).
 
 <hr />
 
-The `ngsw-config.json` configuration file specifies which files and data URLs the Angular service
-worker should cache and how it should update the cached files and data. The [Angular CLI](cli)
-processes the configuration file during `ng build --prod`. Manually, you can process it with the
-`ngsw-config` tool (where `<project-name>` is the name of the project being built):
+ `ngsw-config.json` конфигурации указывает, какие файлы и URL-адреса данных используются сервисом Angular
+Рабочий должен кешировать и как он должен обновлять кэшированные файлы и данные. [Angular CLI](cli)
+обрабатывает файл конфигурации во время `ng build --prod` . Вручную вы можете обработать его с помощью
+ `ngsw-config` инструмент (где `<project-name>` этого название проекта строится)
 
 <code-example language="sh">
 ./node_modules/.bin/ngsw-config ./dist/&lt;project-name&gt; ./ngsw-config.json [/base/href]
 </code-example>
 
-The configuration file uses the JSON format. All file paths must begin with `/`, which corresponds
-to the deployment directory&mdash;usually `dist/<project-name>` in CLI projects.
+Файл конфигурации использует формат JSON. Все пути к файлам должны начинаться с `/`, что соответствует
+в каталог развертывания - обычно `dist/<project-name>` проекта в проектах CLI.
 
 {@a glob-patterns}
-Unless otherwise noted, patterns use a limited glob format:
+Если не указано иное, образцы используют ограниченный формат Глоб:
 
-* `**` matches 0 or more path segments.
-* `*` matches 0 or more characters excluding `/`.
-* `?` matches exactly one character excluding `/`.
-* The `!` prefix marks the pattern as being negative, meaning that only files that don't match the pattern will be included.
+* `**` соответствует 0 или более сегментам пути.
+* `*` соответствует 0 или более символам, исключая `/`,
+* `?` соответствует ровно одному символу, исключая `/`,
+* `!` Префикс помечает шаблон как отрицательный, что означает, что будут включены только файлы, которые не соответствуют шаблону.
 
-Example patterns:
+Пример структуры:
 
-* `/**/*.html` specifies all HTML files.
-* `/*.html` specifies only HTML files in the root.
-* `!/**/*.map` exclude all sourcemaps.
+* `/**/*.html` определяет все файлы HTML.
+* `/*.html` указывает только файлы HTML в корне.
+* `!/**/*.map` исключить все исходные карты.
 
-Each section of the configuration file is described below.
+Каждый раздел файла конфигурации описан ниже.
 
-## `appData`
+{@a appdata}
+## `appData` 
 
-This section enables you to pass any data you want that describes this particular version of the app.
-The `SwUpdate` service includes that data in the update notifications. Many apps use this section to provide additional information for the display of UI popups, notifying users of the available update.
+Этот раздел позволяет передавать любые данные, которые вы хотите, которые описывают эту конкретную версию приложения.
+ `SwUpdate` включает эти данные в уведомления об обновлениях. Многие приложения используют этот раздел, чтобы предоставить дополнительную информацию для отображения всплывающих окон пользовательского интерфейса, уведомляя пользователей о доступном обновлении.
 
 {@a index-file}
-## `index`
+{@a index}
+## `index` 
 
-Specifies the file that serves as the index page to satisfy navigation requests. Usually this is `/index.html`.
+Указывает файл, который служит страницей индекса для удовлетворения запросов навигации. Обычно это `/index.html`.
 
-## `assetGroups`
+{@a assetgroups}
+## `assetGroups` 
 
-*Assets* are resources that are part of the app version that update along with the app. They can include resources loaded from the page's origin as well as third-party resources loaded from CDNs and other external URLs. As not all such external URLs may be known at build time, URL patterns can be matched.
+*Активы* - это ресурсы, являющиеся частью версии приложения, которые обновляются вместе с приложением. Они могут включать ресурсы, загруженные из источника страницы, а также сторонние ресурсы, загруженные из CDN и других внешних URL-адресов. Поскольку не все такие внешние URL-адреса могут быть известны во время сборки, шаблоны URL-адресов могут быть сопоставлены.
 
-This field contains an array of asset groups, each of which defines a set of asset resources and the policy by which they are cached.
+Это поле содержит массив групп активов, каждая из которых определяет набор ресурсов и политику, в которой они кэшируются.
 
 ```json
 {
@@ -61,9 +66,9 @@ This field contains an array of asset groups, each of which defines a set of ass
 }
 ```
 
-Each asset group specifies both a group of resources and a policy that governs them. This policy determines when the resources are fetched and what happens when changes are detected.
+Каждая группа активов определяет как группу ресурсов, так и политику, которая ими управляет. Эта политика определяет, когда ресурсы выбираются и что происходит при обнаружении изменений.
 
-Asset groups follow the Typescript interface shown here:
+Группы активов следуют интерфейсу машинописи, показанный здесь:
 
 ```typescript
 interface AssetGroup {
@@ -77,44 +82,49 @@ interface AssetGroup {
 }
 ```
 
-### `name`
+{@a name}
+### `name` 
 
-A `name` is mandatory. It identifies this particular group of assets between versions of the configuration.
+ `name` обязательно. Он идентифицирует эту конкретную группу активов между версиями конфигурации.
 
-### `installMode`
+{@a installmode}
+### `installMode` 
 
-The `installMode` determines how these resources are initially cached. The `installMode` can be either of two values:
+ `installMode` определяет, как эти ресурсы изначально кэшируются. `installMode` может быть одно из двух значений:
 
-* `prefetch` tells the Angular service worker to fetch every single listed resource while it's caching the current version of the app. This is bandwidth-intensive but ensures resources are available whenever they're requested, even if the browser is currently offline.
+* `prefetch` сообщает работнику службы Angular о необходимости извлечения каждого из перечисленных ресурсов во время кэширования текущей версии приложения. Это интенсивно использует пропускную способность, но обеспечивает доступность ресурсов, когда они запрашиваются, даже если браузер в данный момент отключен.
 
-* `lazy` does not cache any of the resources up front. Instead, the Angular service worker only caches resources for which it receives requests. This is an on-demand caching mode. Resources that are never requested will not be cached. This is useful for things like images at different resolutions, so the service worker only caches the correct assets for the particular screen and orientation.
+* `lazy` не кеширует любые ресурсы заранее. Вместо этого работник службы Angular кэширует только те ресурсы, к которым он получает запросы. Это режим кэширования по требованию. Ресурсы, которые никогда не запрашиваются, не будут кэшироваться. Это полезно для таких вещей, как изображения с различным разрешением, поэтому работник службы кэширует только правильные ресурсы для определенного экрана и ориентации.
 
-Defaults to `prefetch`.
+По умолчанию `prefetch`.
 
-### `updateMode`
+{@a updatemode}
+### `updateMode` 
 
-For resources already in the cache, the `updateMode` determines the caching behavior when a new version of the app is discovered. Any resources in the group that have changed since the previous version are updated in accordance with `updateMode`.
+Для ресурсов, уже находящихся в кеше, `updateMode` определяет поведение кэширования при обнаружении новой версии приложения. Любые ресурсы в группе, которые изменились с предыдущей версии, обновляются в соответствии с `updateMode`.
 
-* `prefetch` tells the service worker to download and cache the changed resources immediately.
+* `prefetch` сообщает сервисному работнику немедленно загрузить и кэшировать измененные ресурсы.
 
-* `lazy` tells the service worker to not cache those resources. Instead, it treats them as unrequested and waits until they're requested again before updating them. An `updateMode` of `lazy` is only valid if the `installMode` is also `lazy`.
+* `lazy` говорит сервисному работнику не кэшировать эти ресурсы. Вместо этого он обрабатывает их как незапрошенные и ждет, пока их не запросят снова, прежде чем обновлять их. `updateMode ` of ` lazy` действителен только если `installMode` также `lazy`.
 
-Defaults to the value `installMode` is set to.
+По умолчанию это значение `installMode` установлен в.
 
-### `resources`
+{@a resources}
+### `resources` 
 
-This section describes the resources to cache, broken up into the following groups:
+В этом разделе описаны ресурсы в кэш, разбитых на следующие группы:
 
-* `files` lists patterns that match files in the distribution directory. These can be single files or glob-like patterns that match a number of files.
+* `files` перечислены шаблоны, соответствующие файлам в каталоге распространения. Это могут быть отдельные файлы или глобальные шаблоны, которые соответствуют нескольким файлам.
 
-* `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
-  _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
+* `urls` включают в себя как URL, так и шаблоны URL, которые будут сопоставляться во время выполнения. Эти ресурсы не извлекаются напрямую и не содержат хэшей контента, но они будут кэшироваться в соответствии с их заголовками HTTP. Это наиболее полезно для CDN, таких как сервис Google Fonts. <br>
+  _(Отрицательные шаблоны глобуса не поддерживаются и `?` будет соответствовать буквально; т.е. он не будет соответствовать ни одному символу, кроме `?` .) _
 
-## `dataGroups`
+{@a datagroups}
+## `dataGroups` 
 
-Unlike asset resources, data requests are not versioned along with the app. They're cached according to manually-configured policies that are more useful for situations such as API requests and other data dependencies.
+В отличие от ресурсов ресурсов, запросы данных не версионируются вместе с приложением. Они кэшируются в соответствии с настроенными вручную политиками, которые более полезны для таких ситуаций, как запросы API и другие зависимости данных.
 
-Data groups follow this Typescript interface:
+Группы данных следуют этому интерфейсу Машинопись:
 
 ```typescript
 export interface DataGroup {
@@ -130,89 +140,100 @@ export interface DataGroup {
 }
 ```
 
-### `name`
-Similar to `assetGroups`, every data group has a `name` which uniquely identifies it.
+{@a name}
+### `name` 
+Похожий на `assetGroups`, каждая группа данных имеет `name` которое однозначно идентифицирует его.
 
-### `urls`
-A list of URL patterns. URLs that match these patterns are cached according to this data group's policy. Only non-mutating requests (GET and HEAD) are cached.
- * Negative glob patterns are not supported.
- * `?` is matched literally; that is, it matches *only* the character `?`.
+{@a urls}
+### `urls` 
+Список шаблонов URL. URL-адреса, соответствующие этим шаблонам, кэшируются в соответствии с политикой этой группы данных. Только немутирующие запросы (GET и HEAD) кэшируются.
+ * Отрицательные шаблоны глобуса не поддерживаются.
+ * `?` подбирается буквально; то есть соответствует*только * персонажу `?`,
 
-### `version`
-Occasionally APIs change formats in a way that is not backward-compatible. A new version of the app may not be compatible with the old API format and thus may not be compatible with existing cached resources from that API.
+{@a version}
+### `version` 
+Иногда API изменяют форматы способом, который не является обратно совместимым. Новая версия приложения может быть несовместима со старым форматом API и, следовательно, может быть несовместима с существующими кэшированными ресурсами этого API.
 
-`version` provides a mechanism to indicate that the resources being cached have been updated in a backwards-incompatible way, and that the old cache entries&mdash;those from previous versions&mdash;should be discarded.
+ `version` предоставляет механизм для указания того, что кэшируемые ресурсы были обновлены обратно несовместимым способом, и что старые записи в кэше - записи из предыдущих версий - должны быть отброшены.
 
-`version` is an integer field and defaults to `1`.
+ `version` является целочисленным полем и по умолчанию `1`.
 
-### `cacheConfig`
-This section defines the policy by which matching requests will be cached.
+{@a cacheconfig}
+### `cacheConfig` 
+Этот раздел определяет политику, по которой соответствующие запросы будут кэшироваться.
 
-#### `maxSize`
-(required) The maximum number of entries, or responses, in the cache. Open-ended caches can grow in unbounded ways and eventually exceed storage quotas, calling for eviction.
+{@a maxsize}
+#### `maxSize` 
+(обязательно) Максимальное количество записей или ответов в кэше. Кэши открытого типа могут неограниченно увеличиваться и в конечном итоге превышать квоты хранилища, требуя выселения.
 
-#### `maxAge`
-(required) The `maxAge` parameter indicates how long responses are allowed to remain in the cache before being considered invalid and evicted. `maxAge` is a duration string, using the following unit suffixes:
+{@a maxage}
+#### `maxAge` 
+(обязательно) `maxAge` Параметр указывает, как долго ответы могут оставаться в кэше, прежде чем они будут считаться недействительными и исключенными. `maxAge` является строкой, длительность, используя следующие единицы суффиксы:
 
-* `d`: days
-* `h`: hours
-* `m`: minutes
-* `s`: seconds
-* `u`: milliseconds
+* `d` : дни
+* `h` : ч
+* `m` : мин
+* `s` : секунды
+* `u` : миллисекунды
 
-For example, the string `3d12h` will cache content for up to three and a half days.
+Например, строка `3d12h` будет кешировать контент на срок до трех с половиной дней.
 
-#### `timeout`
-This duration string specifies the network timeout. The network timeout is how long the Angular service worker will wait for the network to respond before using a cached response, if configured to do so. `timeout` is a duration string, using the following unit suffixes:
+{@a timeout}
+#### `timeout` 
+Эта строка длительности указывает время ожидания сети. Время ожидания сети - это время, в течение которого работник службы Angular будет ждать ответа от сети, прежде чем использовать кэшированный ответ, если он настроен для этого. `timeout` является строкой, длительность, используя следующие единицы суффиксы:
 
-* `d`: days
-* `h`: hours
-* `m`: minutes
-* `s`: seconds
-* `u`: milliseconds
+* `d` : дни
+* `h` : ч
+* `m` : мин
+* `s` : секунды
+* `u` : миллисекунды
 
-For example, the string `5s30u` will translate to five seconds and 30 milliseconds of network timeout.
+Например, строка `5s30u` переведет на пять секунд и 30 миллисекунд времени ожидания сети.
 
-#### `strategy`
+{@a strategy}
+#### `strategy` 
 
-The Angular service worker can use either of two caching strategies for data resources.
+Работник службы Angular может использовать любую из двух стратегий кэширования для ресурсов данных.
 
-* `performance`, the default, optimizes for responses that are as fast as possible. If a resource exists in the cache, the cached version is used, and no network request is made. This allows for some staleness, depending on the `maxAge`, in exchange for better performance. This is suitable for resources that don't change often; for example, user avatar images.
+* `performance` по умолчанию оптимизируется для максимально быстрых ответов. Если ресурс существует в кэше, используется кэшированная версия, и сетевой запрос не выполняется. Это учитывает некоторую несостоятельность, в зависимости от `maxAge`, в обмен на лучшую производительность. Это подходит для ресурсов, которые не меняются часто; например, изображения аватара пользователя.
 
-* `freshness` optimizes for currency of data, preferentially fetching requested data from the network. Only if the network times out, according to `timeout`, does the request fall back to the cache. This is useful for resources that change frequently; for example, account balances.
+* `freshness` оптимизируется для валюты данных, преимущественно выбирая запрошенные данные из сети. Только если время сети истекло, согласно `timeout`, запрос возвращается в кеш. Это полезно для ресурсов, которые часто меняются; например, остатки на счетах.
 
-## `navigationUrls`
+{@a navigationurls}
+## `navigationUrls` 
 
-This optional section enables you to specify a custom list of URLs that will be redirected to the index file.
+Этот необязательный раздел позволяет указать пользовательский список URL-адресов, которые будут перенаправлены в индексный файл.
 
-### Handling navigation requests
+{@a handling-navigation-requests}
+### Обработка навигационных запросов
 
-The ServiceWorker will redirect navigation requests that don't match any `asset` or `data` group to the specified [index file](#index-file). A request is considered to be a navigation request if:
+ServiceWorker будет перенаправлять запросы навигации, которые не соответствуют ни одному `asset` или `data` группы к указанному [индексный файл](#index-file). Запрос считается запрос навигации, если:
 
-1. Its [mode](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode) is `navigation`.
-2. It accepts a `text/html` response (as determined by the value of the `Accept` header).
-3. Its URL matches certain criteria (see below).
+1. Его [режим](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode)является `navigation`.
+2. Он принимает `text/html` ответ (определяется значением `Accept` заголовок).
+3. Его URL соответствует определенным критериям (см. Ниже).
 
-By default, these criteria are:
+По умолчанию эти критерии:
 
-1. The URL must not contain a file extension (i.e. a `.`) in the last path segment.
-2. The URL must not contain `__`.
+1. URL не должен содержать расширение файла (т.е. `.`) в последнем сегменте пути.
+2. URL не должен содержать `__`.
 
-### Matching navigation request URLs
+{@a matching-navigation-request-urls}
+### Соответствие URL запроса навигации
 
-While these default criteria are fine in most cases, it is sometimes desirable to configure different rules. For example, you may want to ignore specific routes (that are not part of the Angular app) and pass them through to the server.
+Хотя эти критерии по умолчанию подходят в большинстве случаев, иногда желательно настроить другие правила. Например, вы можете игнорировать определенные маршруты (которые не являются частью приложения Angular) и передавать их на сервер.
 
-This field contains an array of URLs and [glob-like](#glob-patterns) URL patterns that will be matched at runtime. It can contain both negative patterns (i.e. patterns starting with `!`) and non-negative patterns and URLs.
+Это поле содержит массив URL-адресов и [глобальных](#glob-patterns)шаблонов URL-адресов, которые будут сопоставляться во время выполнения. Он может содержать как негативные паттерны (т. Е. Паттерны, начинающиеся с `!`) и неотрицательные шаблоны и URL.
 
-Only requests whose URLs match _any_ of the non-negative URLs/patterns and _none_ of the negative ones will be considered navigation requests. The URL query will be ignored when matching.
+Только запросы, URL-адреса которых соответствуют _any_ неотрицательных URL / шаблонов и _none_ отрицательных, будут считаться навигационными запросами. URL-запрос будет игнорироваться при сопоставлении.
 
-If the field is omitted, it defaults to:
+Если поле опущено, то по умолчанию:
 
 ```ts
 [
-  '/**',           // Include all URLs.
-  '!/**/*.*',      // Exclude URLs to files.
-  '!/**/*__*',     // Exclude URLs containing `__` in the last segment.
-  '!/**/*__*/**',  // Exclude URLs containing `__` in any other segment.
+  '/**', // Include all URLs.
+  '!/**/*.*', // Exclude URLs to files.
+  '!/**/*__*', // Exclude URLs containing `__` in the last segment.
+  '!/**/*__*/**', // Exclude URLs containing `__` in any other segment.
 ]
 ```

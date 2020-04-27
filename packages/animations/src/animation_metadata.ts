@@ -14,8 +14,8 @@ export interface ɵStyleData {
 }
 
 /**
- * Represents animation-step timing parameters for an animation step.
- * @see `animate()`
+ * Представляет параметры синхронизации шага анимации для шага анимации.
+ *  @see `animate()`
  *
  * @publicApi
  */
@@ -43,20 +43,20 @@ export declare type AnimateTimings = {
 };
 
 /**
- * @description Options that control animation styling and timing.
+ *  @description Параметры, управляющие стилем анимации и временем.
  *
- * The following animation functions accept `AnimationOptions` data:
+ * Следующие функции анимации принимают `AnimationOptions` данныеAnimationOptions:.
  *
  * - `transition()`
  * - `sequence()`
- * - `{@link animations/group group()}`
+ * -`{@link animations/group group()}`
  * - `query()`
  * - `animation()`
  * - `useAnimation()`
  * - `animateChild()`
  *
- * Programmatic animations built using the `AnimationBuilder` service also
- * make use of `AnimationOptions`.
+ * Программные анимации, созданные с использованием `AnimationBuilder` сервиса
+ * использовать `AnimationOptions`.
  *
  * @publicApi
  */
@@ -77,9 +77,9 @@ export declare interface AnimationOptions {
 }
 
 /**
- * Adds duration options to control animation styling and timing for a child animation.
+ * Добавляет параметры продолжительности для управления стилем анимации и временем для дочерней анимации.
  *
- * @see `animateChild()`
+ *  @see `animateChild()`
  *
  * @publicApi
  */
@@ -88,10 +88,10 @@ export declare interface AnimateChildOptions extends AnimationOptions {
 }
 
 /**
- * @description Constants for the categories of parameters that can be defined for animations.
+ *  @description Константы для категорий параметров, которые могут быть определены для анимации.
  *
- * A corresponding function defines a set of parameters for each category, and
- * collects them into a corresponding `AnimationMetadata` object.
+ * Соответствующая функция определяет набор параметров для каждой категории, и
+ * собирает их в соответствующий `AnimationMetadata` объект.
  *
  * @publicApi
  */
@@ -164,14 +164,14 @@ export const enum AnimationMetadataType {
 }
 
 /**
- * Specifies automatic styling.
+ * Определяет автоматическое моделирование.
  *
  * @publicApi
  */
 export const AUTO_STYLE = '*';
 
 /**
- * Base for animation data structures.
+ * База для анимации структур данных.
  *
  * @publicApi
  */
@@ -180,8 +180,8 @@ export interface AnimationMetadata {
 }
 
 /**
- * Contains an animation trigger. Instantiated and returned by the
- * `trigger()` function.
+ * Содержит анимационный триггер. Создано и возвращено
+ *  `trigger()`функция.
  *
  * @publicApi
  */
@@ -203,8 +203,8 @@ export interface AnimationTriggerMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation state by associating a state name with a set of CSS styles.
- * Instantiated and returned by the `state()` function.
+ * Инкапсулирует состояние анимации, связывая имя состояния с набором стилей CSS.
+ * Создается и возвращается `state()` функцией.
  *
  * @publicApi
  */
@@ -226,8 +226,8 @@ export interface AnimationStateMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation transition. Instantiated and returned by the
- * `transition()` function.
+ * Инкапсулирует анимационный переход. Создано и возвращено
+ *  `transition()`функция.
  *
  * @publicApi
  */
@@ -251,9 +251,9 @@ export interface AnimationTransitionMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates a reusable animation, which is a collection of individual animation steps.
- * Instantiated and returned by the `animation()` function, and
- * passed to the `useAnimation()` function.
+ * Инкапсулирует повторно используемую анимацию, которая представляет собой набор отдельных шагов анимации.
+ * Создается и возвращается `animation()` функцией, а также
+ * передается в `useAnimation()`.
  *
  * @publicApi
  */
@@ -271,8 +271,8 @@ export interface AnimationReferenceMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation query. Instantiated and returned by
- * the `query()` function.
+ * Инкапсулирует запрос анимации. Создан и возвращен
+ *  the `query()`функция().
  *
  * @publicApi
  */
@@ -292,8 +292,8 @@ export interface AnimationQueryMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates a keyframes sequence. Instantiated and returned by
- * the `keyframes()` function.
+ * Инкапсулирует последовательность ключевых кадров. Создан и возвращен
+ * в `keyframes()` функция.
  *
  * @publicApi
  */
@@ -305,8 +305,8 @@ export interface AnimationKeyframesSequenceMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation style. Instantiated and returned by
- * the `style()` function.
+ * Инкапсулирует стиль анимации. Создан и возвращен
+ *  the `style()`функция().
  *
  * @publicApi
  */
@@ -322,8 +322,8 @@ export interface AnimationStyleMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation step. Instantiated and returned by
- * the `animate()` function.
+ * Инкапсулирует шаг анимации. Создан и возвращен
+ *  the `animate()`функция().
  *
  * @publicApi
  */
@@ -339,8 +339,8 @@ export interface AnimationAnimateMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates a child animation, that can be run explicitly when the parent is run.
- * Instantiated and returned by the `animateChild` function.
+ * Инкапсулирует дочернюю анимацию, которая может быть запущена явно при запуске родителя.
+ * Создается и возвращается `animateChild``animateChild`.
  *
  * @publicApi
  */
@@ -354,8 +354,8 @@ export interface AnimationAnimateChildMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates a reusable animation.
- * Instantiated and returned by the `useAnimation()` function.
+ * Инкапсулирует многоразовую анимацию.
+ * Создается и возвращается `useAnimation()`.
  *
  * @publicApi
  */
@@ -373,8 +373,8 @@ export interface AnimationAnimateRefMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation sequence.
- * Instantiated and returned by the `sequence()` function.
+ * Инкапсулирует последовательность анимации.
+ * Создается и возвращается `sequence()` функцией.
  *
  * @publicApi
  */
@@ -392,8 +392,8 @@ export interface AnimationSequenceMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates an animation group.
- * Instantiated and returned by the `{@link animations/group group()}` function.
+ * Инкапсулирует анимационную группу.
+ * Создается и возвращается`{@link animations/group group()}`функцией.
  *
  * @publicApi
  */
@@ -411,8 +411,8 @@ export interface AnimationGroupMetadata extends AnimationMetadata {
 }
 
 /**
- * Encapsulates animation query options.
- * Passed to the `query()` function.
+ * Инкапсулирует параметры запроса анимации.
+ * Переходит к функции `query()`.
  *
  * @publicApi
  */
@@ -433,8 +433,8 @@ export declare interface AnimationQueryOptions extends AnimationOptions {
 }
 
 /**
- * Encapsulates parameters for staggering the start times of a set of animation steps.
- * Instantiated and returned by the `stagger()` function.
+ * Инкапсулирует параметры для ошеломления времени начала набора шагов анимации.
+ * Создается и возвращается `stagger()` функцией.
  *
  * @publicApi
  **/
@@ -450,150 +450,150 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
 }
 
 /**
- * Creates a named animation trigger, containing a  list of `state()`
- * and `transition()` entries to be evaluated when the expression
- * bound to the trigger changes.
+ * Создает именованный анимационный триггер, содержащий список `state()`
+ * и `transition()` записей, которые будут оцениваться при выражении
+ * привязан к курку изменений.
  *
- * @param name An identifying string.
- * @param definitions  An animation definition object, containing an array of `state()`
- * and `transition()` declarations.
+ *  @param name Идентифицирующая строка.
+ *  @param определения Объект определения анимации, содержащий массив из `state()`
+ * и `transition()`.
  *
- * @return An object that encapsulates the trigger data.
+ *  @return Объект, который инкапсулирует данные триггера.
  *
- * @usageNotes
- * Define an animation trigger in the `animations` section of `@Component` metadata.
- * In the template, reference the trigger by name and bind it to a trigger expression that
- * evaluates to a defined animation state, using the following format:
+ *  @usageNotes
+ * Определите триггер анимации в разделе `animations` разделе `@Component` метаданных.
+ * В шаблоне укажите триггер по имени и свяжите его с выражением триггера
+ * вычисляется в определенном состоянии анимации, используя следующийформат:.
  *
- * `[@triggerName]="expression"`
+ *  `[@triggerName]="expression"`
  *
- * Animation trigger bindings convert all values to strings, and then match the
- * previous and current values against any linked transitions.
- * Booleans can be specified as `1` or `true` and `0` or `false`.
+ * Привязки триггеров анимации преобразуют все значения в строки, а затем сопоставляют
+ * предыдущие и текущие значения против любых связанных переходов.
+ * Булевы может быть определен как `1` или `true` и `0` или `false` ложным.
  *
- * ### Usage Example
+ *  ### Пример использования
  *
- * The following example creates an animation trigger reference based on the provided
- * name value.
- * The provided animation value is expected to be an array consisting of state and
- * transition declarations.
+ * В следующем примере создается ссылка на триггер анимации на основе предоставленного
+ * имя значение.
+ * Ожидается, что предоставленное значение анимации будет массивом, состоящим из состояния и
+ * декларации перехода.
  *
- * ```typescript
- * @Component({
- *   selector: "my-component",
- *   templateUrl: "my-component-tpl.html",
- *   animations: [
- *     trigger("myAnimationTrigger", [
- *       state(...),
- *       state(...),
- *       transition(...),
- *       transition(...)
- *     ])
- *   ]
- * })
- * class MyComponent {
- *   myStatusExp = "something";
- * }
- * ```
+ *  ```typescript
+ *  @Component({
+ *    selector: "my-component",
+ *    templateUrl: "my-component-tpl.html",
+ *    animations: [
+ *      trigger("myAnimationTrigger", [
+ *        state(...),
+ *        state(...),
+ *        transition(...),
+ *        transition(...)
+ *      ])
+ *    ]
+ *  })
+ *  class MyComponent {
+ *    myStatusExp = "something";
+ *  }
+ *  ```
  *
- * The template associated with this component makes use of the defined trigger
- * by binding to an element within its template code.
+ * Шаблон, связанный с этим компонентом, использует определенный триггер
+ * путем привязки к элементу в своем коде шаблона.
  *
- * ```html
- * <!-- somewhere inside of my-component-tpl.html -->
- * <div [@myAnimationTrigger]="myStatusExp">...</div>
- * ```
+ *  ```html
+ *  <!-- somewhere inside of my-component-tpl.html -->
+ *  <div [@myAnimationTrigger]="myStatusExp">...</div>
+ *  ```
  *
- * ### Using an inline function
- * The `transition` animation method also supports reading an inline function which can decide
- * if its associated animation should be run.
+ *  ### Используя встроенную функцию
+ *  The `transition`Метод анимациитакже поддерживает чтение встроенной функции, которая может решить
+ * если связанная анимация должна быть запущена.
  *
- * ```typescript
- * // this method is run each time the `myAnimationTrigger` trigger value changes.
- * function myInlineMatcherFn(fromState: string, toState: string, element: any, params: {[key:
- string]: any}): boolean {
- *   // notice that `element` and `params` are also available here
- *   return toState == 'yes-please-animate';
- * }
+ *  ```typescript
+ *  // this method is run each time the `myAnimationTrigger` trigger value changes.
+ *  function myInlineMatcherFn(fromState: string, toState: string, element: any, params: {[key:
+ *  string]: any}): boolean {
+ *    // notice that `element` and `params` are also available here
+ *    return toState == 'yes-please-animate';
+ *  }
  *
- * @Component({
- *   selector: 'my-component',
- *   templateUrl: 'my-component-tpl.html',
- *   animations: [
- *     trigger('myAnimationTrigger', [
- *       transition(myInlineMatcherFn, [
- *         // the animation sequence code
- *       ]),
- *     ])
- *   ]
- * })
- * class MyComponent {
- *   myStatusExp = "yes-please-animate";
- * }
- * ```
+ *  @Component({
+ *    selector: 'my-component',
+ *    templateUrl: 'my-component-tpl.html',
+ *    animations: [
+ *      trigger('myAnimationTrigger', [
+ *        transition(myInlineMatcherFn, [
+ *          // the animation sequence code
+ *        ]),
+ *      ])
+ *    ]
+ *  })
+ *  class MyComponent {
+ *    myStatusExp = "yes-please-animate";
+ *  }
+ *  ```
  *
- * ### Disabling Animations
- * When true, the special animation control binding `@.disabled` binding prevents
- * all animations from rendering.
- * Place the  `@.disabled` binding on an element to disable
- * animations on the element itself, as well as any inner animation triggers
- * within the element.
+ *  ### Отключение анимации
+ * Когда правда, особый контроль анимации связывания `@.disabled` связыванияпредотвращает.
+ * все анимации от рендеринга.
+ * Поместите `@.disabled` на элемент для отключения
+ * анимации на самом элементе, а также любые триггеры внутренней анимации
+ * внутри элемента.
  *
- * The following example shows how to use this feature:
+ * В следующем примере показанокак использовать этуфункцию:.
  *
- * ```typescript
- * @Component({
- *   selector: 'my-component',
- *   template: `
- *     <div [@.disabled]="isDisabled">
- *       <div [@childAnimation]="exp"></div>
- *     </div>
- *   `,
- *   animations: [
- *     trigger("childAnimation", [
- *       // ...
- *     ])
- *   ]
- * })
- * class MyComponent {
- *   isDisabled = true;
- *   exp = '...';
- * }
- * ```
+ *  ```typescript
+ *  @Component({
+ *    selector: 'my-component',
+ *    template: `
+ *      <div [@.disabled]="isDisabled">
+ *        <div [@childAnimation]="exp"></div>
+ *      </div>
+ *    `,
+ *    animations: [
+ *      trigger("childAnimation", [
+ *        // ...
+ *      ])
+ *    ]
+ *  })
+ *  class MyComponent {
+ *    isDisabled = true;
+ *    exp = '...';
+ *  }
+ *  ```
  *
- * When `@.disabled` is true, it prevents the `@childAnimation` trigger from animating,
- * along with any inner animations.
+ * Когда `@.disabled` правда, он предотвращает `@childAnimation` курок отоживляющей,.
+ * наряду с любыми внутренними анимациями.
  *
- * ### Disable animations application-wide
- * When an area of the template is set to have animations disabled,
- * **all** inner components have their animations disabled as well.
- * This means that you can disable all animations for an app
- * by placing a host binding set on `@.disabled` on the topmost Angular component.
+ *  ### Отключить анимацию в приложении
+ * Когда область шаблона установленачтобы иметь анимацииинвалидов,.
+ * у всех внутренних компонентов анимация отключена.
+ * Это означает, что вы можете отключить все анимации для приложения
+ * поместив привязку хоста в `@.disabled` в самый верхний Angular компонент.
  *
- * ```typescript
- * import {Component, HostBinding} from '@angular/core';
+ *  ```typescript
+ *  import {Component, HostBinding} from '@angular/core';
  *
- * @Component({
- *   selector: 'app-component',
- *   templateUrl: 'app.component.html',
- * })
- * class AppComponent {
- *   @HostBinding('@.disabled')
- *   public animationsDisabled = true;
- * }
- * ```
+ *  @Component({
+ *    selector: 'app-component',
+ *    templateUrl: 'app.component.html',
+ *  })
+ *  class AppComponent {
+ *    @HostBinding('@.disabled')
+ *    public animationsDisabled = true;
+ *  }
+ *  ```
  *
- * ### Overriding disablement of inner animations
- * Despite inner animations being disabled, a parent animation can `query()`
- * for inner elements located in disabled areas of the template and still animate
- * them if needed. This is also the case for when a sub animation is
- * queried by a parent and then later animated using `animateChild()`.
+ *  ### Переопределение отключения внутренней анимации
+ * Несмотря на то, что внутренняя анимация отключена, родительская анимация может `query()`
+ * для внутренних элементов, расположенных в отключенных областях шаблона и по-прежнему анимированных
+ * их при необходимости. Это также относится и к случаю, когда используется дополнительная анимация
+ * запрашивается родителем, а затем анимируется с помощью `animateChild()`.
  *
- * ### Detecting when an animation is disabled
- * If a region of the DOM (or the entire application) has its animations disabled, the animation
- * trigger callbacks still fire, but for zero seconds. When the callback fires, it provides
- * an instance of an `AnimationEvent`. If animations are disabled,
- * the `.disabled` flag on the event is true.
+ *  ### Обнаружение, когда анимация отключена
+ * Если в области DOM (или всего приложения) анимация отключена, анимация
+ * триггеры обратного вызова все еще срабатывают, но на ноль секунд. Когда обратный вызов срабатывает, он обеспечивает
+ * экземпляр `AnimationEvent` . Если отключитьанимацию,.
+ *  the `.disabled`флаг на событие верно.
  *
  * @publicApi
  */
@@ -602,60 +602,60 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
 }
 
 /**
- * Defines an animation step that combines styling information with timing information.
+ * Определяет шаг анимации, который объединяет информацию о стиле и информацию о времени.
  *
- * @param timings Sets `AnimateTimings` for the parent animation.
- * A string in the format "duration [delay] [easing]".
- *  - Duration and delay are expressed as a number and optional time unit,
- * such as "1s" or "10ms" for one second and 10 milliseconds, respectively.
- * The default unit is milliseconds.
- *  - The easing value controls how the animation accelerates and decelerates
- * during its runtime. Value is one of  `ease`, `ease-in`, `ease-out`,
- * `ease-in-out`, or a `cubic-bezier()` function call.
- * If not supplied, no easing is applied.
+ *  @param Устанавливает `AnimateTimings``AnimateTimings` для родительской анимации.
+ * Строка в формате «duration [delay] [easing]».
+ * - Продолжительность и задержка выражаются в виде числа и необязательной единицы времени
+ * например, «1 с» или «10 мс» в течение одной секунды и 10 миллисекунд соответственно.
+ * Единицей по умолчанию является миллисекунда.
+ * - Значение замедления контролирует, как анимация ускоряется и замедляется
+ * во время его выполнения. Значение один из `ease` легкости, `ease-in` в, `ease-out` выхода,.
+ *  `ease-in-out `или` cubic-bezier()`вызов функции.
+ * Если не поставляется, смягчение не применяется.
  *
- * For example, the string "1s 100ms ease-out" specifies a duration of
- * 1000 milliseconds, and delay of 100 ms, and the "ease-out" easing style,
- * which decelerates near the end of the duration.
- * @param styles Sets AnimationStyles for the parent animation.
- * A function call to either `style()` or `keyframes()`
- * that returns a collection of CSS style entries to be applied to the parent animation.
- * When null, uses the styles from the destination state.
- * This is useful when describing an animation step that will complete an animation;
- * see "Animating to the final state" in `transitions()`.
- * @returns An object that encapsulates the animation step.
+ * Например, строка «1s 100ms ease-out» указывает длительность
+ * 1000 миллисекунд, задержка в 100 мс и стиль "замедления"
+ * который замедляется ближе к концу продолжительности.
+ *  @param Стили Устанавливает стили анимации для родительской анимации.
+ * Вызов функции либо в `style()` либо в `keyframes()`
+ * который возвращает коллекцию записей в стиле CSS для применения к родительской анимации.
+ * Когда ноль, использует стили из состояния назначения.
+ * Это полезно при описании шага анимации, который завершит анимацию;
+ * см. «Анимация до конечного состояния» в `transitions()`.
+ *  @returns Объект, который инкапсулирует шаг анимации.
  *
- * @usageNotes
- * Call within an animation `sequence()`, `{@link animations/group group()}`, or
- * `transition()` call to specify an animation step
- * that applies given style data to the parent animation for a given amount of time.
+ *  @usageNotes
+ * Вызвать в анимации `sequence()` ,`{@link animations/group group()}`или
+ *  `transition()`callвызов для указания шага анимации
+ * который применяет данные данного стиля к родительской анимации в течение заданного промежутка времени.
  *
- * ### Syntax Examples
- * **Timing examples**
+ *  ### Примеры синтаксиса
+ * Сроки примеры
  *
- * The following examples show various `timings` specifications.
- * - `animate(500)` : Duration is 500 milliseconds.
- * - `animate("1s")` : Duration is 1000 milliseconds.
- * - `animate("100ms 0.5s")` : Duration is 100 milliseconds, delay is 500 milliseconds.
- * - `animate("5s ease-in")` : Duration is 5000 milliseconds, easing in.
- * - `animate("5s 10ms cubic-bezier(.17,.67,.88,.1)")` : Duration is 5000 milliseconds, delay is 10
- * milliseconds, easing according to a bezier curve.
+ * В следующих примерах показаны различные `timings`.
+ * - `animate(500)` : продолжительность составляет 500 миллисекунд.
+ * -`animate("1s") `: длительность составляет 1000 миллисекунд.
+ * -`animate("100ms 0.5s") `: длительность составляет 100 миллисекунд, задержка составляет 500 миллисекунд.
+ * -`animate("5s ease-in") `замедление: длительность составляет 5000 миллисекунд, время замедления
+ * -`animate("5s 10ms cubic-bezier(.17,.67,.88,.1)") `: продолжительность 5000 миллисекунд, задержка 10
+ * миллисекунды, ослабление по кривой Безье.
  *
- * **Style examples**
+ * Примеры стилей
  *
- * The following example calls `style()` to set a single CSS style.
- * ```typescript
- * animate(500, style({ background: "red" }))
- * ```
- * The following example calls `keyframes()` to set a CSS style
- * to different values for successive keyframes.
- * ```typescript
- * animate(500, keyframes(
- *  [
- *   style({ background: "blue" })),
- *   style({ background: "red" }))
- *  ])
- * ```
+ * В следующем примере вызывается `style()` установить единый стиль CSS.
+ *  ```typescript
+ *  animate(500, style({ background: "red" }))
+ *  ```
+ * В следующем примере вызывается `keyframes()` для установки стиля CSS
+ * к различным значениям для последовательных ключевых кадров.
+ *  ```typescript
+ *  animate(500, keyframes(
+ *   [
+ *    style({ background: "blue" })),
+ *    style({ background: "red" }))
+ *   ])
+ *  ```
  *
  * @publicApi
  */
@@ -667,35 +667,35 @@ export function animate(
 }
 
 /**
- * @description Defines a list of animation steps to be run in parallel.
+ *  @description Определяет список шагов анимации, которые должны выполняться параллельно.
  *
- * @param steps An array of animation step objects.
- * - When steps are defined by `style()` or `animate()`
- * function calls, each call within the group is executed instantly.
- * - To specify offset styles to be applied at a later time, define steps with
- * `keyframes()`, or use `animate()` calls with a delay value.
- * For example:
+ *  @param шаги Массив объектов шага анимации.
+ * - Когда шаги определяются с помощью `style()` или `animate()`
+ * вызовы функций, каждый вызов в группе выполняется мгновенно.
+ * - Чтобы указать стили смещения, которые будут применяться позже, определите шаги с помощью
+ *  `keyframes()`или используйте `animate()` вызовысо значением задержки.
+ * Например:.
  *
- * ```typescript
- * group([
- *   animate("1s", style({ background: "black" })),
- *   animate("2s", style({ color: "white" }))
- * ])
- * ```
+ *  ```typescript
+ *  group([
+ *    animate("1s", style({ background: "black" })),
+ *    animate("2s", style({ color: "white" }))
+ *  ])
+ *  ```
  *
- * @param options An options object containing a delay and
- * developer-defined parameters that provide styling defaults and
- * can be overridden on invocation.
+ *  @param параметры Объект параметров, содержащий задержку и
+ * Определенные разработчиком параметры, которые предоставляют стили по умолчанию и
+ * может быть переопределено при вызове.
  *
- * @return An object that encapsulates the group data.
+ *  @return Объект, который инкапсулирует данные группы.
  *
- * @usageNotes
- * Grouped animations are useful when a series of styles must be
- * animated at different starting times and closed off at different ending times.
+ *  @usageNotes
+ * Сгруппированные анимации полезны, когда должна быть серия стилей
+ * анимированные в разное время начала и закрытые в разное время окончания.
  *
- * When called within a `sequence()` or a
- * `transition()` call, does not continue to the next
- * instruction until all of the inner animation steps have completed.
+ * Когда вызывается в `sequence()` или a
+ *  `transition()`вызов, не переходит к следующему
+ * инструкция, пока все внутренние шаги анимации не будут завершены.
  *
  * @publicApi
  */
@@ -705,35 +705,35 @@ export function group(
 }
 
 /**
- * Defines a list of animation steps to be run sequentially, one by one.
+ * Определяет список шагов анимации, которые должны выполняться последовательно, один за другим.
  *
- * @param steps An array of animation step objects.
- * - Steps defined by `style()` calls apply the styling data immediately.
- * - Steps defined by `animate()` calls apply the styling data over time
- *   as specified by the timing data.
+ *  @param шаги Массив объектов шага анимации.
+ * - Шаги, определенные `style()` вызовамиприменяют данные стиля немедленно.
+ * - Шаги, определенные `animate()` вызовамиприменяют данные стиля со временем
+ * как указано временными данными.
  *
- * ```typescript
- * sequence([
- *   style({ opacity: 0 }),
- *   animate("1s", style({ opacity: 1 }))
- * ])
- * ```
+ *  ```typescript
+ *  sequence([
+ *    style({ opacity: 0 }),
+ *    animate("1s", style({ opacity: 1 }))
+ *  ])
+ *  ```
  *
- * @param options An options object containing a delay and
- * developer-defined parameters that provide styling defaults and
- * can be overridden on invocation.
+ *  @param параметры Объект параметров, содержащий задержку и
+ * Определенные разработчиком параметры, которые предоставляют стили по умолчанию и
+ * может быть переопределено при вызове.
  *
- * @return An object that encapsulates the sequence data.
+ *  @return Объект, который инкапсулирует данные последовательности.
  *
- * @usageNotes
- * When you pass an array of steps to a
- * `transition()` call, the steps run sequentially by default.
- * Compare this to the `{@link animations/group group()}` call, which runs animation steps in
- *parallel.
+ *  @usageNotes
+ * Когда вы передаете массив шагов в
+ *  `transition()`callвызов, шаги выполняются последовательно по умолчанию.
+ * Сравните это с`{@link animations/group group()}`вызовом, который выполняет шаги анимации
+ * параллельно.
  *
- * When a sequence is used within a `{@link animations/group group()}` or a `transition()` call,
- * execution continues to the next instruction only after each of the inner animation
- * steps have completed.
+ * Когда последовательность используется в`{@link animations/group group()} `или` transition()`вызова,.
+ * выполнение продолжается до следующей инструкции только после каждой внутренней анимации
+ * шаги завершены.
  *
  * @publicApi
  **/
@@ -743,41 +743,41 @@ export function sequence(
 }
 
 /**
- * Declares a key/value object containing CSS properties/styles that
- * can then be used for an animation `state`, within an animation `sequence`,
- * or as styling data for calls to `animate()` and `keyframes()`.
+ * Объявляет объект ключ / значение, содержащий свойства / стили CSS
+ * затем можно использовать для анимации `state` состояния,пределах анимации `sequence` последовательности,.
+ * или как данные стиля для вызовов `animate()` и `keyframes()`.
  *
- * @param tokens A set of CSS styles or HTML styles associated with an animation state.
- * The value can be any of the following:
- * - A key-value style pair associating a CSS property with a value.
- * - An array of key-value style pairs.
- * - An asterisk (*), to use auto-styling, where styles are derived from the element
- * being animated and applied to the animation when it starts.
+ *  @param токены Набор стилей CSS или HTML-стилей, связанных с состоянием анимации.
+ * Значение может быть любым изследующих:.
+ * - пара стилей ключ-значение, связывающая свойство CSS со значением.
+ * - Массив пар стилей ключ-значение.
+ * - Звездочка (), чтобы использовать авто-стиль, где стили получены из элемента
+ * будучи анимированным и примененным к анимации, когда она начинается.
  *
- * Auto-styling can be used to define a state that depends on layout or other
- * environmental factors.
+ * Авто-стиль может использоваться для определения состояния, которое зависит от макета или другого
+ * факторы окружающей среды.
  *
- * @return An object that encapsulates the style data.
+ *  @return Объект, который инкапсулирует данные стиля.
  *
- * @usageNotes
- * The following examples create animation styles that collect a set of
- * CSS property values:
+ *  @usageNotes
+ * В следующих примерах создаются стили анимации, которые собирают набор
+ * Значения CSSсвойство:.
  *
- * ```typescript
- * // string values for CSS properties
- * style({ background: "red", color: "blue" })
+ *  ```typescript
+ *  // string values for CSS properties
+ *  style({ background: "red", color: "blue" })
  *
- * // numerical pixel values
- * style({ width: 100, height: 0 })
- * ```
+ *  // numerical pixel values
+ *  style({ width: 100, height: 0 })
+ *  ```
  *
- * The following example uses auto-styling to allow a component to animate from
- * a height of 0 up to the height of the parent element:
+ * В следующем примере используется авто-стиль, позволяющий анимировать компонент
+ * высота 0 до высоты родительскогоэлемента:.
  *
- * ```
- * style({ height: 0 }),
- * animate("1s", style({ height: "*" }))
- * ```
+ *  ```
+ *  style({ height: 0 }),
+ *  animate("1s", style({ height: "" }))
+ *  ```
  *
  * @publicApi
  **/
@@ -787,31 +787,18 @@ export function style(tokens: '*'|{[key: string]: string | number}|
 }
 
 /**
- * Declares an animation state within a trigger attached to an element.
+ * Объявляет состояние анимации в триггере, прикрепленном к элементу.
  *
- * @param name One or more names for the defined state in a comma-separated string.
- * The following reserved state names can be supplied to define a style for specific use
- * cases:
+ *  @param name Одно или несколько имен для определенного состояния в строке через запятую.
+ * Следующие зарезервированные имена состояний могут быть предоставлены для определения стиля для конкретного использования
+ * случаи:.
  *
- * - `void` You can associate styles with this name to be used when
- * the element is detached from the application. For example, when an `ngIf` evaluates
- * to false, the state of the associated element is void.
- *  - `*` (asterisk) Indicates the default state. You can associate styles with this name
- * to be used as the fallback when the state that is being animated is not declared
- * within the trigger.
- *
- * @param styles A set of CSS styles associated with this state, created using the
- * `style()` function.
- * This set of styles persists on the element once the state has been reached.
- * @param options Parameters that can be passed to the state when it is invoked.
- * 0 or more key-value pairs.
- * @return An object that encapsulates the new state data.
- *
- * @usageNotes
- * Use the `trigger()` function to register states to an animation trigger.
- * Use the `transition()` function to animate between states.
- * When a state is active within a component, its associated styles persist on the element,
- * even when the animation ends.
+ * - `void` Вы можете связать стили с этим именем, которые будут использоваться при
+ * элемент отсоединен от приложения. Например, когда `ngIf` оценивает
+ * в false состояние связанного элемента является недействительным.
+ * - `` (asterisk) Indicates the default state. You can associate styles with this name.to be used as the fallback when the state that is being animated is not declared.within the trigger...@param styles A set of CSS styles associated with this state, created using the.`style ()` function..This set of styles persists on the element once the state has been reached..@param options Parameters that can be passed to the state when it is invoked..0 or more key-value pairs..@return An object that encapsulates the new state data...@usageNotes.Use the `trigger ()` function to register states to an animation trigger..Use the `` function to register states to an animation trigger..Use the `` function to register states to an animation trigger..Use the `функцию transition () для анимации между состояниями.
+ * Когда состояние активно внутри компонента, его связанные стили сохраняются на элементе
+ * даже когда анимация заканчивается.
  *
  * @publicApi
  **/
@@ -822,48 +809,48 @@ export function state(
 }
 
 /**
- * Defines a set of animation styles, associating each style with an optional `offset` value.
+ * Определяет набор стилей анимации, связывая каждый стиль с необязательным `offset``offset`.
  *
- * @param steps A set of animation styles with optional offset data.
- * The optional `offset` value for a style specifies a percentage of the total animation
- * time at which that style is applied.
- * @returns An object that encapsulates the keyframes data.
+ *  @param steps Набор стилей анимации с необязательными данными смещения.
+ * Необязательное `offset``offset` для стиля указывает процент от общей анимации
+ * время, когда этот стиль применяется.
+ *  @returns Объект, который инкапсулирует данные ключевых кадров.
  *
- * @usageNotes
- * Use with the `animate()` call. Instead of applying animations
- * from the current state
- * to the destination state, keyframes describe how each style entry is applied and at what point
- * within the animation arc.
- * Compare [CSS Keyframe Animations](https://www.w3schools.com/css/css3_animations.asp).
+ *  @usageNotes
+ * Используйте с `animate()` вызовом. Вместо применения анимации
+ * из текущего состояния
+ * до состояния назначения ключевые кадры описывают, как применяется каждая запись стиля и в какой точке
+ * в анимации дуги.
+ * Сравнить[анимация ключевых кадров CSS](https://www.w3schools.com/css/css3_animations.asp).
  *
- * ### Usage
+ *  ### Использование.
  *
- * In the following example, the offset values describe
- * when each `backgroundColor` value is applied. The color is red at the start, and changes to
- * blue when 20% of the total time has elapsed.
+ * В следующем примере значения смещения описываются
+ * когда каждое `backgroundColor` значениеприменяется. Цвет красный в начале и меняется на
+ * синий, когда прошло 20% от общего времени.
  *
- * ```typescript
- * // the provided offset values
- * animate("5s", keyframes([
- *   style({ backgroundColor: "red", offset: 0 }),
- *   style({ backgroundColor: "blue", offset: 0.2 }),
- *   style({ backgroundColor: "orange", offset: 0.3 }),
- *   style({ backgroundColor: "black", offset: 1 })
- * ]))
+ *  ```typescript
+ *  // the provided offset values
+ *  animate("5s", keyframes([
+ *    style({ backgroundColor: "red", offset: 0 }),
+ *    style({ backgroundColor: "blue", offset: 0.2 }),
+ *    style({ backgroundColor: "orange", offset: 0.3 }),
+ *    style({ backgroundColor: "black", offset: 1 })
+ *  ]))
+ *  ```
+ *
+ * Еслине `offset``offset` в записях стилязначения, смещения
+ * рассчитываются автоматически.
+ *
+ *  ```typescript
+ *  animate("5s", keyframes([
+ *    style({ backgroundColor: "red" }) // offset = 0
+ *    style({ backgroundColor: "blue" }) // offset = 0.33
+ *    style({ backgroundColor: "orange" }) // offset = 0.66
+ *    style({ backgroundColor: "black" }) // offset = 1
+ *  ]))
  * ```
  *
- * If there are no `offset` values specified in the style entries, the offsets
- * are calculated automatically.
- *
- * ```typescript
- * animate("5s", keyframes([
- *   style({ backgroundColor: "red" }) // offset = 0
- *   style({ backgroundColor: "blue" }) // offset = 0.33
- *   style({ backgroundColor: "orange" }) // offset = 0.66
- *   style({ backgroundColor: "black" }) // offset = 1
- * ]))
- *```
-
  * @publicApi
  */
 export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSequenceMetadata {
@@ -871,170 +858,170 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
 }
 
 /**
- * Declares an animation transition as a sequence of animation steps to run when a given
- * condition is satisfied. The condition is a Boolean expression or function that compares
- * the previous and current animation states, and returns true if this transition should occur.
- * When the state criteria of a defined transition are met, the associated animation is
- * triggered.
+ * Объявляет анимационный переход как последовательность шагов анимации, выполняемых при задании
+ * состояние удовлетворено. Условие является логическим выражением или функцией, которая сравнивается
+ * предыдущее и текущее состояния анимации и возвращает true, если этот переход должен произойти.
+ * Когда критерии состояния определенного перехода выполнены, ассоциированная анимация имеет вид
+ * срабатывает.
  *
- * @param stateChangeExpr A Boolean expression or function that compares the previous and current
- * animation states, and returns true if this transition should occur. Note that  "true" and "false"
- * match 1 and 0, respectively. An expression is evaluated each time a state change occurs in the
- * animation trigger element.
- * The animation steps run when the expression evaluates to true.
+ *  @param stateChangeExpr Булево выражение или функция, которая сравнивает предыдущий и текущий
+ * анимация заявляет и возвращает true, если этот переход должен произойти. Обратите внимание, что «истина» и «ложь»
+ * соответствует 1 и 0 соответственно. Выражение оценивается каждый раз, когда происходит изменение состояния в
+ * элемент запуска анимации.
+ * Шаги анимации выполняются, когда выражение оценивается как true.
  *
- * - A state-change string takes the form "state1 => state2", where each side is a defined animation
- * state, or an asterix (*) to refer to a dynamic start or end state.
- *   - The expression string can contain multiple comma-separated statements;
- * for example "state1 => state2, state3 => state4".
- *   - Special values `:enter` and `:leave` initiate a transition on the entry and exit states,
- * equivalent to  "void => *"  and "* => void".
- *   - Special values `:increment` and `:decrement` initiate a transition when a numeric value has
- * increased or decreased in value.
- * - A function is executed each time a state change occurs in the animation trigger element.
- * The animation steps run when the function returns true.
+ * - Строка изменения состояния принимает форму «state1 => state2», где каждая сторона является определенной анимацией
+ * состояние или звездочка () для обозначения динамического начального или конечного состояния.
+ * - Строка выражения может содержать несколько операторов, разделенных запятыми;
+ * например "state1 => state2, state3 => state4".
+ * - Специальные значения `:enter` и `:leave` инициировать переход на входе и выходесостояний.
+ * эквивалентно "void =>" и "=> void".
+ * - Специальные значения `:increment` и `:decrement` инициировать переходкогда числовое значениеимеет.
+ * увеличился или уменьшился в стоимости.
+ * - Функция выполняется каждый раз, когда происходит изменение состояния в элементе запуска анимации.
+ * Шаги анимации запускаются, когда функция возвращает true.
  *
- * @param steps One or more animation objects, as returned by the `animate()` or
- * `sequence()` function, that form a transformation from one state to another.
- * A sequence is used by default when you pass an array.
- * @param options An options object that can contain a delay value for the start of the animation,
- * and additional developer-defined parameters. Provided values for additional parameters are used
- * as defaults, and override values can be passed to the caller on invocation.
- * @returns An object that encapsulates the transition data.
+ *  @param одной или более стадий объекты анимации, который возвращается в `animate()` или.
+ *  `sequence()`функция, которая формирует преобразование из одного состояния в другое.
+ * Последовательность используется по умолчанию при передаче массива.
+ *  @param Параметры опций объекткоторый может содержать значение задержки для началаанимации,.
+ * и дополнительные параметры, определенные разработчиком. Предоставлены значения для дополнительных параметров
+ * как значения по умолчанию, и значения переопределения могут быть переданы вызывающей стороне при вызове.
+ *  @returns Объект, который инкапсулирует данные перехода.
  *
- * @usageNotes
- * The template associated with a component binds an animation trigger to an element.
+ *  @usageNotes
+ * Шаблон, связанный с компонентом, связывает анимационный триггер с элементом.
  *
- * ```HTML
- * <!-- somewhere inside of my-component-tpl.html -->
- * <div [@myAnimationTrigger]="myStatusExp">...</div>
- * ```
+ *  ```HTML
+ *  <!-- somewhere inside of my-component-tpl.html -->
+ *  <div [@myAnimationTrigger]="myStatusExp">...</div>
+ *  ```
  *
- * All transitions are defined within an animation trigger,
- * along with named states that the transitions change to and from.
+ * Все переходы определены в анимационном триггере
+ * наряду с именованными состояниями, что переходы изменяются в и из.
  *
- * ```typescript
- * trigger("myAnimationTrigger", [
- *  // define states
- *  state("on", style({ background: "green" })),
- *  state("off", style({ background: "grey" })),
- *  ...]
- * ```
+ *  ```typescript
+ *  trigger("myAnimationTrigger", [
+ *   // define states
+ *   state("on", style({ background: "green" })),
+ *   state("off", style({ background: "grey" })),
+ *   ...]
+ *  ```
  *
- * Note that when you call the `sequence()` function within a `{@link animations/group group()}`
- * or a `transition()` call, execution does not continue to the next instruction
- * until each of the inner animation steps have completed.
+ * Обратите внимание, что когда вы вызываете `sequence()` функцию`{@link animations/group group()}`
+ * или `transition()` вызов, выполнение не продолжается до следующей инструкции
+ * пока каждый из внутренних шагов анимации не будет завершен.
  *
- * ### Syntax examples
+ *  ### Примеры синтаксиса
  *
- * The following examples define transitions between the two defined states (and default states),
- * using various options:
+ * В следующих примерах определяются переходы между двумя определенными состояниями (и состояниями по умолчанию)
+ * используя различныеварианты:.
  *
- * ```typescript
- * // Transition occurs when the state value
- * // bound to "myAnimationTrigger" changes from "on" to "off"
- * transition("on => off", animate(500))
- * // Run the same animation for both directions
- * transition("on <=> off", animate(500))
- * // Define multiple state-change pairs separated by commas
- * transition("on => off, off => void", animate(500))
- * ```
+ *  ```typescript
+ *  // Transition occurs when the state value
+ *  // bound to "myAnimationTrigger" changes from "on" to "off"
+ *  transition("on => off", animate(500))
+ *  // Run the same animation for both directions
+ *  transition("on <=> off", animate(500))
+ *  // Define multiple state-change pairs separated by commas
+ *  transition("on => off, off => void", animate(500))
+ *  ```
  *
- * ### Special values for state-change expressions
+ *  ### Специальные значения для выражений изменения состояния
  *
- * - Catch-all state change for when an element is inserted into the page and the
- * destination state is unknown:
+ * - Изменение состояния Catch-all для случая, когда элемент вставлен на страницу и
+ * состояние назначениянеизвестно:.
  *
- * ```typescript
- * transition("void => *", [
- *  style({ opacity: 0 }),
- *  animate(500)
- *  ])
- * ```
- *
- * - Capture a state change between any states:
- *
- *  `transition("* => *", animate("1s 0s"))`
- *
- * - Entry and exit transitions:
- *
- * ```typescript
- * transition(":enter", [
- *   style({ opacity: 0 }),
- *   animate(500, style({ opacity: 1 }))
- *   ]),
- * transition(":leave", [
- *   animate(500, style({ opacity: 0 }))
- *   ])
- * ```
- *
- * - Use `:increment` and `:decrement` to initiate transitions:
- *
- * ```typescript
- * transition(":increment", group([
- *  query(':enter', [
- *     style({ left: '100%' }),
- *     animate('0.5s ease-out', style('*'))
- *   ]),
- *  query(':leave', [
- *     animate('0.5s ease-out', style({ left: '-100%' }))
- *  ])
- * ]))
- *
- * transition(":decrement", group([
- *  query(':enter', [
- *     style({ left: '100%' }),
- *     animate('0.5s ease-out', style('*'))
- *   ]),
- *  query(':leave', [
- *     animate('0.5s ease-out', style({ left: '-100%' }))
- *  ])
- * ]))
- * ```
- *
- * ### State-change functions
- *
- * Here is an example of a `fromState` specified as a state-change function that invokes an
- * animation when true:
- *
- * ```typescript
- * transition((fromState, toState) =>
- *  {
- *   return fromState == "off" && toState == "on";
- *  },
- *  animate("1s 0s"))
- * ```
- *
- * ### Animating to the final state
- *
- * If the final step in a transition is a call to `animate()` that uses a timing value
- * with no style data, that step is automatically considered the final animation arc,
- * for the element to reach the final state. Angular automatically adds or removes
- * CSS styles to ensure that the element is in the correct final state.
- *
- * The following example defines a transition that starts by hiding the element,
- * then makes sure that it animates properly to whatever state is currently active for trigger:
- *
- * ```typescript
- * transition("void => *", [
+ *  ```typescript
+ *  transition("void =>", [
  *   style({ opacity: 0 }),
  *   animate(500)
- *  ])
- * ```
- * ### Boolean value matching
- * If a trigger binding value is a Boolean, it can be matched using a transition expression
- * that compares true and false or 1 and 0. For example:
+ *   ])
+ *  ```
  *
- * ```
- * // in the template
- * <div [@openClose]="open ? true : false">...</div>
- * // in the component metadata
- * trigger('openClose', [
- *   state('true', style({ height: '*' })),
- *   state('false', style({ height: '0px' })),
- *   transition('false <=> true', animate(500))
- * ])
- * ```
+ * - Захват изменения состояния между любымисостояниями:.
+ *
+ *   `transition(" =>", animate("1s 0s") )`
+ *
+ * - вход и выходпереходы:.
+ *
+ *  ```typescript
+ *  transition(":enter", [
+ *    style({ opacity: 0 }),
+ *    animate(500, style({ opacity: 1 }))
+ *    ]),
+ *  transition(":leave", [
+ *    animate(500, style({ opacity: 0 }))
+ *    ])
+ *  ```
+ *
+ * - Использование `:increment` и `:decrement` инициироватьпереходы:.
+ *
+ *  ```typescript
+ *  transition(":increment", group([
+ *   query(':enter', [
+ *      style({ left: '100%' }),
+ *      animate('0.5s ease-out', style(''))
+ *    ]),
+ *   query(':leave', [
+ *      animate('0.5s ease-out', style({ left: '-100%' }))
+ *   ])
+ *  ]))
+ *
+ *  transition(":decrement", group([
+ *   query(':enter', [
+ *      style({ left: '100%' }),
+ *      animate('0.5s ease-out', style(''))
+ *    ]),
+ *   query(':leave', [
+ *      animate('0.5s ease-out', style({ left: '-100%' }))
+ *   ])
+ *  ]))
+ *  ```
+ *
+ *  ### Функции изменения состояния
+ *
+ * Вот пример `fromState` указанного как функция изменения состояния, которая вызывает
+ * анимациякогдаправда:.
+ *
+ *  ```typescript
+ *  transition((fromState, toState) =>
+ *   {
+ *    return fromState == "off" && toState == "on";
+ *   },
+ *   animate("1s 0s") )
+ *  ```
+ *
+ *  ### Анимация до конечного состояния
+ *
+ * Если последний шаг в переходе - это вызов `animate()` который использует значение синхронизации
+ * без какихлибо данных стилей, этот шаг автоматически считается окончательной анимациейдугой.
+ * для элемента, чтобы достичь конечного состояния. Angular автоматически добавляет или удаляет
+ * Стили CSS, чтобы гарантировать, что элемент находится в правильном конечном состоянии.
+ *
+ * В следующем примере определяется переход, который начинается с скрытия элемента
+ * затем убеждаетсячто он одушевляет правильно независимосостояния в данный момент активен длязапуска:.
+ *
+ *  ```typescript
+ *  transition("void =>", [
+ *    style({ opacity: 0 }),
+ *    animate(500)
+ *   ])
+ *  ```
+ *  ### Соответствие логического значения
+ * Если значение привязки триггера является логическим, его можно сопоставить с помощью выражения перехода
+ * который сравнивает истинные и ложные или 1 и 0.Например:.
+ *
+ *  ```
+ *  // in the template
+ *  <div [@openClose]="open ? true : false">...</div>
+ *  // in the component metadata
+ *  trigger('openClose', [
+ *    state('true', style({ height: '' })),
+ *    state('false', style({ height: '0px' })),
+ *    transition('false <=> true', animate(500))
+ *  ])
+ *  ```
  *
  * @publicApi
  **/
@@ -1047,47 +1034,47 @@ export function transition(
 }
 
 /**
- * Produces a reusable animation that can be invoked in another animation or sequence,
- * by calling the `useAnimation()` function.
+ * Создает повторно используемую анимацию, которая может быть вызвана в другой анимации или последовательности
+ * вызывая `useAnimation()`.
  *
- * @param steps One or more animation objects, as returned by the `animate()`
- * or `sequence()` function, that form a transformation from one state to another.
- * A sequence is used by default when you pass an array.
- * @param options An options object that can contain a delay value for the start of the
- * animation, and additional developer-defined parameters.
- * Provided values for additional parameters are used as defaults,
- * and override values can be passed to the caller on invocation.
- * @returns An object that encapsulates the animation data.
+ *  @param шаги Один или несколько объектов анимации, возвращаемых `animate()`
+ * или `sequence()` функция, которая формирует преобразование из одного состояния в другое.
+ * Последовательность используется по умолчанию при передаче массива.
+ *  @param параметры Объект параметров, который может содержать значение задержки для начала
+ * анимация и дополнительные параметры, определенные разработчиком.
+ * В качестве значений по умолчанию используются предоставленные значения для дополнительных параметров
+ * и значения переопределения могут быть переданы вызывающей стороне при вызове.
+ *  @returns Объект, который инкапсулирует данные анимации.
  *
- * @usageNotes
- * The following example defines a reusable animation, providing some default parameter
- * values.
+ *  @usageNotes
+ * В следующем примере определяется многократно используемая анимация с некоторыми параметрами по умолчанию
+ * ценности.
  *
- * ```typescript
- * var fadeAnimation = animation([
- *   style({ opacity: '{{ start }}' }),
- *   animate('{{ time }}',
- *   style({ opacity: '{{ end }}'}))
- *   ],
- *   { params: { time: '1000ms', start: 0, end: 1 }});
- * ```
+ *  ```typescript
+ *  var fadeAnimation = animation([
+ *    style({ opacity: '{{ start }}' }),
+ *    animate('{{ time }}',
+ *    style({ opacity: '{{ end }}'}))
+ *    ],
+ *    { params: { time: '1000ms', start: 0, end: 1 }});
+ *  ```
  *
- * The following invokes the defined animation with a call to `useAnimation()`,
- * passing in override parameter values.
+ * Следующие вызывает определенные анимации с помощью вызова `useAnimation()` (),.
+ * передача значений параметров переопределения.
  *
- * ```js
- * useAnimation(fadeAnimation, {
- *   params: {
- *     time: '2s',
- *     start: 1,
- *     end: 0
- *   }
- * })
- * ```
+ *  ```js
+ *  useAnimation(fadeAnimation, {
+ *    params: {
+ *      time: '2s',
+ *      start: 1,
+ *      end: 0
+ *    }
+ *  })
+ *  ```
  *
- * If any of the passed-in parameter values are missing from this call,
- * the default values are used. If one or more parameter values are missing before a step is
- * animated, `useAnimation()` throws an error.
+ * Если какиелибо из Переданных значений параметров отсутствует этотвызов.
+ * используются значения по умолчанию. Если одно или несколько значений параметров отсутствуют до шага
+ * animated, `useAnimation()` выдает ошибку.
  *
  * @publicApi
  */
@@ -1098,21 +1085,21 @@ export function animation(
 }
 
 /**
- * Executes a queried inner animation element within an animation sequence.
+ * Выполняет запрашиваемый внутренний элемент анимации в последовательности анимации.
  *
- * @param options An options object that can contain a delay value for the start of the
- * animation, and additional override values for developer-defined parameters.
- * @return An object that encapsulates the child animation data.
+ *  @param параметры Объект параметров, который может содержать значение задержки для начала
+ * анимация и дополнительные значения переопределения для параметров, определенных разработчиком.
+ *  @return Объект, который инкапсулирует дочерние данные анимации.
  *
- * @usageNotes
- * Each time an animation is triggered in Angular, the parent animation
- * has priority and any child animations are blocked. In order
- * for a child animation to run, the parent animation must query each of the elements
- * containing child animations, and run them using this function.
+ *  @usageNotes
+ * Каждый раз, когда анимация запускается в Angular, родительской анимации
+ * имеет приоритет, и любые дочерние анимации блокируются. В порядке
+ * для запуска дочерней анимации родительская анимация должна запрашивать каждый из элементов
+ * содержащие дочерние анимации, и запустите их с помощью этой функции.
  *
- * Note that this feature is designed to be used with `query()` and it will only work
- * with animations that are assigned using the Angular animation library. CSS keyframes
- * and transitions are not handled by this API.
+ * Обратите внимание, что эта функция предназначена для использования с `query()` и она будет работать только
+ * с анимациями, которые назначаются с помощью библиотеки Angular анимации. Ключевые кадры CSS
+ * и переходы не обрабатываются этим API.
  *
  * @publicApi
  */
@@ -1122,12 +1109,12 @@ export function animateChild(options: AnimateChildOptions|null = null):
 }
 
 /**
- * Starts a reusable animation that is created using the `animation()` function.
+ * Запускает повторно используемую анимацию, которая создается с помощью функции `animation()`.
  *
- * @param animation The reusable animation to start.
- * @param options An options object that can contain a delay value for the start of
- * the animation, and additional override values for developer-defined parameters.
- * @return An object that contains the animation parameters.
+ *  @param анимация Многоразовая анимация для запуска.
+ *  @param параметры Объект параметров, который может содержать значение задержки для начала
+ * анимация и дополнительные значения переопределения для параметров, определенных разработчиком.
+ *  @return Объект, который содержит параметры анимации.
  *
  * @publicApi
  */
@@ -1138,89 +1125,89 @@ export function useAnimation(
 }
 
 /**
- * Finds one or more inner elements within the current element that is
- * being animated within a sequence. Use with `animate()`.
+ * Находит один или несколько внутренних элементов в текущем элементе
+ * будучи анимированным в последовательности. Используйте с `animate()`.
  *
- * @param selector The element to query, or a set of elements that contain Angular-specific
- * characteristics, specified with one or more of the following tokens.
- *  - `query(":enter")` or `query(":leave")` : Query for newly inserted/removed elements.
- *  - `query(":animating")` : Query all currently animating elements.
- *  - `query("@triggerName")` : Query elements that contain an animation trigger.
- *  - `query("@*")` : Query all elements that contain an animation triggers.
- *  - `query(":self")` : Include the current element into the animation sequence.
+ *  @param selector Элемент для запроса или набор элементов, которые содержат Angular-специфичные
+ * характеристики, указанные с одним или несколькими из следующих токенов.
+ * -`query(":enter") `или`query(":leave") `: запрос для вновь вставленных / удаленных элементов.
+ * -`query(":animating") `: запрос всех анимируемых в данный момент элементов.
+ * -`query("@triggerName") `: элементы запроса, которые содержат анимационный триггер.
+ * -`query("@") `: запрос всех элементов, которые содержат анимационные триггеры.
+ * -`query(":self") `: включить текущий элемент в последовательность анимации.
  *
- * @param animation One or more animation steps to apply to the queried element or elements.
- * An array is treated as an animation sequence.
- * @param options An options object. Use the 'limit' field to limit the total number of
- * items to collect.
- * @return An object that encapsulates the query data.
+ *  @param анимация Один или несколько шагов анимации для применения к запрашиваемому элементу или элементам.
+ * Массив рассматривается как последовательность анимации.
+ *  @param параметры Объект параметров. Используйте поле «предел», чтобы ограничить общее количество
+ * предметы для сбора.
+ *  @return Объект, который инкапсулирует данные запроса.
  *
- * @usageNotes
- * Tokens can be merged into a combined query selector string. For example:
+ *  @usageNotes
+ * Токены могут быть объединены в комбинированную строку селектора запросов.Например:.
  *
- * ```typescript
- *  query(':self, .record:enter, .record:leave, @subTrigger', [...])
- * ```
+ *  ```typescript
+ *   query(':self, .record:enter, .record:leave, @subTrigger', [...])
+ *  ```
  *
- * The `query()` function collects multiple elements and works internally by using
- * `element.querySelectorAll`. Use the `limit` field of an options object to limit
- * the total number of items to be collected. For example:
+ * Функция `query()` собирает несколько элементов и работает внутри с помощью
+ *  `element.querySelectorAll`. Используйте `limit``limit` объекта опций для ограничения
+ * общее количество предметов, которые будут собраны.Например:.
  *
- * ```js
- * query('div', [
- *   animate(...),
- *   animate(...)
- * ], { limit: 1 })
- * ```
+ *  ```js
+ *  query('div', [
+ *    animate(...),
+ *    animate(...)
+ *  ], { limit: 1 })
+ *  ```
  *
- * By default, throws an error when zero items are found. Set the
- * `optional` flag to ignore this error. For example:
+ * По умолчанию выдает ошибку при обнаружении нуля предметов. Установите
+ *  `optional`флаг игнорировать эту ошибку.Например:.
  *
- * ```js
- * query('.some-element-that-may-not-be-there', [
- *   animate(...),
- *   animate(...)
- * ], { optional: true })
- * ```
+ *  ```js
+ *  query('.some-element-that-may-not-be-there', [
+ *    animate(...),
+ *    animate(...)
+ *  ], { optional: true })
+ *  ```
  *
- * ### Usage Example
+ *  ### Пример использования
  *
- * The following example queries for inner elements and animates them
- * individually using `animate()`.
+ * Следующий пример запрашивает внутренние элементы и анимирует их
+ * индивидуально используя `animate()`.
  *
- * ```typescript
- * @Component({
- *   selector: 'inner',
- *   template: `
- *     <div [@queryAnimation]="exp">
- *       <h1>Title</h1>
- *       <div class="content">
- *         Blah blah blah
- *       </div>
- *     </div>
- *   `,
- *   animations: [
- *    trigger('queryAnimation', [
- *      transition('* => goAnimate', [
- *        // hide the inner elements
- *        query('h1', style({ opacity: 0 })),
- *        query('.content', style({ opacity: 0 })),
+ *  ```typescript
+ *  @Component({
+ *    selector: 'inner',
+ *    template: `
+ *      <div [@queryAnimation]="exp">
+ *        <h1>Title</h1>
+ *        <div class="content">
+ *          Blah blah blah
+ *        </div>
+ *      </div>
+ *    `,
+ *    animations: [
+ *     trigger('queryAnimation', [
+ *       transition(' => goAnimate', [
+ *         // hide the inner elements
+ *         query('h1', style({ opacity: 0 })),
+ *         query('.content', style({ opacity: 0 })),
  *
- *        // animate the inner elements in, one by one
- *        query('h1', animate(1000, style({ opacity: 1 }))),
- *        query('.content', animate(1000, style({ opacity: 1 }))),
- *      ])
- *    ])
- *  ]
- * })
- * class Cmp {
- *   exp = '';
+ *         // animate the inner elements in, one by one
+ *         query('h1', animate(1000, style({ opacity: 1 }))),
+ *         query('.content', animate(1000, style({ opacity: 1 }))),
+ *       ])
+ *     ])
+ *   ]
+ *  })
+ *  class Cmp {
+ *    exp = '';
  *
- *   goAnimate() {
- *     this.exp = 'goAnimate';
- *   }
- * }
- * ```
+ *    goAnimate() {
+ *      this.exp = 'goAnimate';
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -1231,82 +1218,82 @@ export function query(
 }
 
 /**
- * Use within an animation `query()` call to issue a timing gap after
- * each queried item is animated.
+ * Используйте внутрианимации `query()` вызовадля выдачи временного промежутка после
+ * каждый запрашиваемый элемент анимирован.
  *
- * @param timings A delay value.
- * @param animation One ore more animation steps.
- * @returns An object that encapsulates the stagger data.
+ *  @param время задержки.
+ *  @param анимация Один или несколько шагов анимации.
+ *  @returns Объект, который инкапсулирует данные ошеломления.
  *
- * @usageNotes
- * In the following example, a container element wraps a list of items stamped out
- * by an `ngFor`. The container element contains an animation trigger that will later be set
- * to query for each of the inner items.
+ *  @usageNotes
+ * В следующем примере элемент контейнера оборачивает список элементов, выбитых
+ * от `ngFor` . Элемент контейнера содержит анимационный триггер, который позже будет установлен
+ * запросить для каждого из внутренних элементов.
  *
- * Each time items are added, the opacity fade-in animation runs,
- * and each removed item is faded out.
- * When either of these animations occur, the stagger effect is
- * applied after each item's animation is started.
+ * Каждый раз, когда элементы добавляются, запускается анимация постепенного изменения прозрачности
+ * и каждый удаленный элемент исчезает.
+ * Когда происходит любая из этих анимаций, эффект ошеломления
+ * применяется после запуска анимации каждого элемента.
  *
- * ```html
- * <!-- list.component.html -->
- * <button (click)="toggle()">Show / Hide Items</button>
- * <hr />
- * <div [@listAnimation]="items.length">
- *   <div *ngFor="let item of items">
- *     {{ item }}
- *   </div>
- * </div>
- * ```
+ *  ```html
+ *  <!-- list.component.html -->
+ *  <button (click)="toggle()">Show / Hide Items</button>
+ *  <hr />
+ *  <div [@listAnimation]="items.length">
+ *    <divngFor="let item of items">
+ *      {{ item }}
+ *    </div>
+ *  </div>
+ *  ```
  *
- * Here is the component code:
+ * Вот кодкомпонента:.
  *
- * ```typescript
- * import {trigger, transition, style, animate, query, stagger} from '@angular/animations';
- * @Component({
- *   templateUrl: 'list.component.html',
- *   animations: [
- *     trigger('listAnimation', [
- *     ...
- *     ])
- *   ]
- * })
- * class ListComponent {
- *   items = [];
+ *  ```typescript
+ *  import {trigger, transition, style, animate, query, stagger} from '@angular/animations';
+ *  @Component({
+ *    templateUrl: 'list.component.html',
+ *    animations: [
+ *      trigger('listAnimation', [
+ *      ...
+ *      ])
+ *    ]
+ *  })
+ *  class ListComponent {
+ *    items = [];
  *
- *   showItems() {
- *     this.items = [0,1,2,3,4];
- *   }
- *
- *   hideItems() {
- *     this.items = [];
- *   }
- *
- *   toggle() {
- *     this.items.length ? this.hideItems() : this.showItems();
+ *    showItems() {
+ *      this.items = [0,1,2,3,4];
  *    }
- *  }
- * ```
  *
- * Here is the animation trigger code:
+ *    hideItems() {
+ *      this.items = [];
+ *    }
  *
- * ```typescript
- * trigger('listAnimation', [
- *   transition('* => *', [ // each time the binding value changes
- *     query(':leave', [
- *       stagger(100, [
- *         animate('0.5s', style({ opacity: 0 }))
- *       ])
- *     ]),
- *     query(':enter', [
- *       style({ opacity: 0 }),
- *       stagger(100, [
- *         animate('0.5s', style({ opacity: 1 }))
- *       ])
- *     ])
- *   ])
- * ])
- * ```
+ *    toggle() {
+ *      this.items.length ? this.hideItems() : this.showItems();
+ *     }
+ *   }
+ *  ```
+ *
+ * Вот код запускаанимации:.
+ *
+ *  ```typescript
+ *  trigger('listAnimation', [
+ *    transition(' =>', [ // each time the binding value changes
+ *      query(':leave', [
+ *        stagger(100, [
+ *          animate('0.5s', style({ opacity: 0 }))
+ *        ])
+ *      ]),
+ *      query(':enter', [
+ *        style({ opacity: 0 }),
+ *        stagger(100, [
+ *          animate('0.5s', style({ opacity: 1 }))
+ *        ])
+ *      ])
+ *    ])
+ *  ])
+ *  ```
  *
  * @publicApi
  */

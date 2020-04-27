@@ -16,42 +16,42 @@ export const enum BypassType {
 }
 
 /**
- * Marker interface for a value that's safe to use in a particular context.
+ * Интерфейс маркера для значения, которое безопасно использовать в определенном контексте.
  *
  * @publicApi
  */
 export interface SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as HTML.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве HTML.
  *
  * @publicApi
  */
 export interface SafeHtml extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as style (CSS).
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве стиля (CSS).
  *
  * @publicApi
  */
 export interface SafeStyle extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as JavaScript.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве JavaScript.
  *
  * @publicApi
  */
 export interface SafeScript extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as a URL linking to a document.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве URL-ссылки на документ.
  *
  * @publicApi
  */
 export interface SafeUrl extends SafeValue {}
 
 /**
- * Marker interface for a value that's safe to use as a URL to load executable code from.
+ * Интерфейс маркера для значения, которое безопасно использовать в качестве URL для загрузки исполняемого кода.
  *
  * @publicApi
  */

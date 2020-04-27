@@ -14,8 +14,8 @@ import {NG_VALIDATORS, Validators} from '../validators';
 
 
 /**
- * @description
- * Defines the map of errors returned from failed validation checks.
+ *  @description
+ * Определяет карту ошибок, возвращенных после неудачных проверок.
  *
  * @publicApi
  */
@@ -24,27 +24,27 @@ export type ValidationErrors = {
 };
 
 /**
- * @description
- * An interface implemented by classes that perform synchronous validation.
+ *  @description
+ * Интерфейс, реализованный классами, которые выполняют синхронную проверку.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Provide a custom validator
+ *  ### Предоставить собственный валидатор
  *
- * The following example implements the `Validator` interface to create a
- * validator directive with a custom error key.
+ * В следующем примере реализуется `Validator` интерфейсдля создания
+ * директива валидатора с пользовательским ключом ошибки.
  *
- * ```typescript
- * @Directive({
- *   selector: '[customValidator]',
- *   providers: [{provide: NG_VALIDATORS, useExisting: CustomValidatorDirective, multi: true}]
- * })
- * class CustomValidatorDirective implements Validator {
- *   validate(control: AbstractControl): ValidationErrors|null {
- *     return {'custom': true};
- *   }
- * }
- * ```
+ *  ```typescript
+ *  @Directive({
+ *    selector: '[customValidator]',
+ *    providers: [{provide: NG_VALIDATORS, useExisting: CustomValidatorDirective, multi: true}]
+ *  })
+ *  class CustomValidatorDirective implements Validator {
+ *    validate(control: AbstractControl): ValidationErrors|null {
+ *      return {'custom': true};
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -70,30 +70,30 @@ export interface Validator {
 }
 
 /**
- * @description
- * An interface implemented by classes that perform asynchronous validation.
+ *  @description
+ * Интерфейс, реализованный классами, которые выполняют асинхронную проверку.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Provide a custom async validator directive
+ *  ### Предоставьте пользовательскую директиву асинхронного валидатора
  *
- * The following example implements the `AsyncValidator` interface to create an
- * async validator directive with a custom error key.
+ * В следующем примере реализуется `AsyncValidator` интерфейсдля создания
+ * асинхронная директива валидатора с пользовательским ключом ошибки.
  *
- * ```typescript
- * import { of as observableOf } from 'rxjs';
+ *  ```typescript
+ *  import { of as observableOf } from 'rxjs';
  *
- * @Directive({
- *   selector: '[customAsyncValidator]',
- *   providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: CustomAsyncValidatorDirective, multi:
- * true}]
- * })
- * class CustomAsyncValidatorDirective implements AsyncValidator {
- *   validate(control: AbstractControl): Observable<ValidationErrors|null> {
- *     return observableOf({'custom': true});
- *   }
- * }
- * ```
+ *  @Directive({
+ *    selector: '[customAsyncValidator]',
+ *    providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: CustomAsyncValidatorDirective, multi:
+ *  true}]
+ *  })
+ *  class CustomAsyncValidatorDirective implements AsyncValidator {
+ *    validate(control: AbstractControl): Observable<ValidationErrors|null> {
+ *      return observableOf({'custom': true});
+ *    }
+ *  }
+ *  ```
  *
  * @publicApi
  */
@@ -133,22 +133,22 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
 
 
 /**
- * @description
- * A directive that adds the `required` validator to any controls marked with the
- * `required` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ *  @description
+ * Директивакоторая добавляет `required` валидатор для какоголибо контроляотмеченногос.
+ *  `required`атрибут. Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding a required validator using template-driven forms
+ *  ### Добавление необходимого валидатора с использованием шаблонно-управляемых форм
  *
- * ```
- * <input name="fullName" ngModel required>
- * ```
+ *  ```
+ *  <input name="fullName" ngModel required>
+ *  ```
  *
- * @ngModule FormsModule
- * @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
  * @publicApi
  */
 @Directive({
@@ -199,21 +199,21 @@ export class RequiredValidator implements Validator {
 
 
 /**
- * A Directive that adds the `required` validator to checkbox controls marked with the
- * `required` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ * Директива, которая добавляет `required` валидатор к элементам управления флажками, отмеченными значком
+ *  `required`атрибут. Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding a required checkbox validator using template-driven forms
+ *  ### Добавление необходимого валидатора флажка с использованием шаблонно-управляемых форм
  *
- * The following example shows how to add a checkbox required validator to an input attached to an
- * ngModel binding.
+ * В следующем примере показано, как добавить необходимый флажок для валидатора к входу, присоединенному к
+ * ngModel привязка.
  *
- * ```
- * <input type="checkbox" name="active" ngModel required>
- * ```
+ *  ```
+ *  <input type="checkbox" name="active" ngModel required>
+ *  ```
  *
  * @publicApi
  * @ngModule FormsModule
@@ -247,23 +247,23 @@ export const EMAIL_VALIDATOR: any = {
 };
 
 /**
- * A directive that adds the `email` validator to controls marked with the
- * `email` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ * Директива, которая добавляет `email` валидаторк элементам управления, отмеченным знаком
+ *  `email`атрибут. Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding an email validator
+ *  ### Добавление валидатора электронной почты
  *
- * The following example shows how to add an email validator to an input attached to an ngModel
- * binding.
+ * В следующем примере показано, как добавить валидатор электронной почты к входу, присоединенному к ngModel
+ * связывание.
  *
- * ```
- * <input type="email" name="email" ngModel email>
- * <input type="email" name="email" ngModel email="true">
- * <input type="email" name="email" ngModel [email]="true">
- * ```
+ *  ```
+ *  <input type="email" name="email" ngModel email>
+ *  <input type="email" name="email" ngModel email="true">
+ *  <input type="email" name="email" ngModel [email]="true">
+ *  ```
  *
  * @publicApi
  * @ngModule FormsModule
@@ -310,9 +310,9 @@ export class EmailValidator implements Validator {
 }
 
 /**
- * @description
- * A function that receives a control and synchronously returns a map of
- * validation errors if present, otherwise null.
+ *  @description
+ * Функция, которая получает элемент управления и синхронно возвращает карту
+ * ошибки проверки, если присутствуют, в противном случае ноль.
  *
  * @publicApi
  */
@@ -321,9 +321,9 @@ export interface ValidatorFn {
 }
 
 /**
- * @description
- * A function that receives a control and returns a Promise or observable
- * that emits validation errors if present, otherwise null.
+ *  @description
+ * Функция, которая получает элемент управления и возвращает Обещание или наблюдаемый
+ * который выдает ошибки проверки, если они есть, в противном случае - ноль.
  *
  * @publicApi
  */
@@ -342,24 +342,24 @@ export const MIN_LENGTH_VALIDATOR: any = {
 };
 
 /**
- * A directive that adds minimum length validation to controls marked with the
- * `minlength` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ * Директива, которая добавляет проверку минимальной длины к элементам управления, отмеченным знаком
+ *  `minlength`атрибут. Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding a minimum length validator
+ *  ### Добавление валидатора минимальной длины
  *
- * The following example shows how to add a minimum length validator to an input attached to an
- * ngModel binding.
+ * В следующем примере показано, как добавить валидатор минимальной длины к входу, присоединенному к
+ * ngModel привязка.
  *
- * ```html
- * <input name="firstName" ngModel minlength="4">
- * ```
+ *  ```html
+ *  <input name="firstName" ngModel minlength="4">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({
@@ -430,24 +430,24 @@ export const MAX_LENGTH_VALIDATOR: any = {
 };
 
 /**
- * A directive that adds max length validation to controls marked with the
- * `maxlength` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ * Директива, которая добавляет проверку максимальной длины к элементам управления, отмеченным знаком
+ *  `maxlength`атрибут. Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding a maximum length validator
+ *  ### Добавление валидатора максимальной длины
  *
- * The following example shows how to add a maximum length validator to an input attached to an
- * ngModel binding.
+ * В следующем примере показано, как добавить валидатор максимальной длины к входу, присоединенному к
+ * ngModel привязка.
  *
- * ```html
- * <input name="firstName" ngModel maxlength="25">
- * ```
+ *  ```html
+ *  <input name="firstName" ngModel maxlength="25">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({
@@ -519,26 +519,26 @@ export const PATTERN_VALIDATOR: any = {
 
 
 /**
- * @description
- * A directive that adds regex pattern validation to controls marked with the
- * `pattern` attribute. The regex must match the entire control value.
- * The directive is provided with the `NG_VALIDATORS` multi-provider list.
+ *  @description
+ * Директива, которая добавляет валидацию регулярных выражений в элементы управления, помеченные знаком
+ *  `pattern`атрибут модели. Регулярное выражение должно соответствовать всему контрольному значению.
+ * Директива предоставляется в `NG_VALIDATORS` мульти-провайдеров.
  *
- * @see [Form Validation](guide/form-validation)
+ *  @see [Проверка формы](guide/form-validation)
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Adding a pattern validator
+ *  ### Добавление шаблона проверки
  *
- * The following example shows how to add a pattern validator to an input attached to an
- * ngModel binding.
+ * В следующем примере показано, как добавить средство проверки шаблона к входу, присоединенному к
+ * ngModel привязка.
  *
- * ```html
- * <input name="firstName" ngModel pattern="[a-zA-Z ]*">
- * ```
+ *  ```html
+ *  <input name="firstName" ngModel pattern="[a-zA-Z ]">
+ *  ```
  *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
+ *  @ngModule ReactiveFormsModule
+ *  @ngModule FormsModule
  * @publicApi
  */
 @Directive({

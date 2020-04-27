@@ -14,20 +14,20 @@ import {joinWithSlash, normalizeQueryParams} from './util';
 
 
 /**
- * @description
- * A {@link LocationStrategy} used to configure the {@link Location} service to
- * represent its state in the
- * [hash fragment](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
- * of the browser's URL.
+ *  @description
+ *  A {@link LocationStrategy}используется для настройки{@link Location}Служба
+ * представлять свое государство в
+ *  [фрагмент хеша](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
+ * URL браузера.
  *
- * For instance, if you call `location.go('/foo')`, the browser's URL will become
- * `example.com#/foo`.
+ * Например, если вы вызываете `location.go('/foo')` , URL браузера станет
+ *  `example.com#/foo`.
  *
- * @usageNotes
+ *  @usageNotes
  *
- * ### Example
+ *  ### Пример
  *
- * {@example common/location/ts/hash_location_component.ts region='LocationComponent'}
+ *  {@example common/location/ts/hash_location_component.ts region='LocationComponent'}
  *
  * @publicApi
  */

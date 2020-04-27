@@ -1,166 +1,177 @@
-# Getting started with service workers
+{@a getting-started-with-service-workers}
+# Начало работы с работниками сферы обслуживания
 
 
-This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching.
+В этом документе объясняется, как включить поддержку Angular Service Worker в проектах, которые вы создали с помощью [Angular CLI](cli). Затем он использует простой пример, чтобы показать вам работника службы в действии, демонстрируя загрузку и базовое кэширование.
 
-#### Prerequisites
+{@a prerequisites}
+#### Предпосылки
 
-A basic understanding of the information in [Introduction to Angular service workers](guide/service-worker-intro).
+Базовое понимание информации в [Введение в работников сферы услуг Angular](guide/service-worker-intro).
 
 
-## Adding a service worker to your project
+{@a adding-a-service-worker-to-your-project}
+## Добавление сервисного работника в ваш проект
 
-To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your app to use service workers by adding the `service-worker` package along
-with setting up the necessary support files.
+Чтобы настроить работника службы Angular в своем проекте, используйте команду CLI `ng add @angular/pwa` . Он заботится о настройке вашего приложения для использования сервисными работниками, добавив `service-worker` пакет вместе
+с настройкой необходимых файлов поддержки.
 
 ```sh
 ng add @angular/pwa --project *project-name*
 ```
 
-The above command completes the following actions:
+Эта команда выполняет следующие действия:
 
-1. Adds the `@angular/service-worker` package to your project.
-2. Enables service worker build support in the CLI.
-3. Imports and registers the service worker in the app module.
-4. Updates the `index.html` file:
-    * Includes a link to add the `manifest.json` file.
-    * Adds meta tags for `theme-color`.
-5. Installs icon files to support the installed Progressive Web App (PWA).
-6. Creates the service worker configuration file called [`ngsw-config.json`](/guide/service-worker-config), which specifies the caching behaviors and other settings.
+1. Добавляет `@angular/service-worker` пакет для вашего проекта.
+2. Включает поддержку сборки сервисного работника в CLI.
+3. Импортирует и регистрирует работника сервиса в модуле приложения.
+4. Обновляет `index.html` файл:
+    * Включает ссылку для добавления `manifest.json` файл.
+    * Добавляет метатеги для `theme-color`.
+5. Устанавливает файлы значков для поддержки установленного Progressive Web App (PWA).
+6. Создает файл конфигурации работника сервиса с именем [ `ngsw-config.json` ](/guide/service-worker-config), в котором указываются параметры кэширования и другие параметры.
 
 
- Now, build the project:
+Теперь, построить проект:
 
 ```sh
 ng build --prod
 ```
 
-The CLI project is now set up to use the Angular service worker.
+Проект CLI теперь настроен на использование сервисного работника Angular.
 
 
-## Service worker in action: a tour
+{@a service-worker-in-action-a-tour}
+## Работник службы в действии: экскурсия
 
-This section demonstrates a service worker in action,
-using an example application.
+Этот раздел демонстрирует работника службы в действии
+используя пример приложения.
 
-### Serving with `http-server`
+{@a serving-with-http-server}
+### Служа с `http-server` 
 
-Because `ng serve` does not work with service workers, you must use a separate HTTP server to test your project locally. You can use any HTTP server. The example below uses the [http-server](https://www.npmjs.com/package/http-server) package from npm. To reduce the possibility of conflicts and avoid serving stale content, test on a dedicated port and disable caching.
+Потому что `ng serve` не работает с сервисными работниками, вы должны использовать отдельный HTTP-сервер для локального тестирования вашего проекта. Вы можете использовать любой HTTP-сервер. В приведенном ниже примере используется [http-server](https://www.npmjs.com/package/http-server)пакет из npm. Чтобы уменьшить вероятность конфликтов и избежать обслуживания устаревшего контента, протестируйте выделенный порт и отключите кэширование.
 
-To serve the directory containing your web files with `http-server`, run the following command:
+Служить каталогу, содержащему ваши веб-файлы с `http-server`, выполните следующую команду:
 
 ```sh
 http-server -p 8080 -c-1 dist/<project-name>
 ```
 
-### Initial load
+{@a initial-load}
+### Начальная загрузка
 
-With the server running, you can point your browser at http://localhost:8080/. Your application should load normally.
+Когда сервер работает, вы можете указать свой браузер по адресу http: // localhost: 8080 /. Ваше приложение должно загружаться нормально.
 
-**Tip:** When testing Angular service workers, it's a good idea to use an incognito or private window in your browser to ensure the service worker doesn't end up reading from a previous leftover state, which can cause unexpected behavior.
+**Совет:** при тестировании сервисных работников Angular рекомендуется использовать в браузере инкогнито или закрытое окно, чтобы убедиться, что сервисный работник не заканчивает чтение из предыдущего оставшегося состояния, что может вызвать неожиданное поведение.
 
 <div class="alert is-helpful">
 
-**Note:**
-If you are not using HTTPS, the service worker will only be registered when accessing the app on `localhost`.
+**Примечание:**
+Если вы не используете HTTPS, сервисный работник будет зарегистрирован только при доступе к приложению на `localhost`.
 
 </div>
 
-### Simulating a network issue
+{@a simulating-a-network-issue}
+### Имитация проблемы сети
 
-To simulate a network issue, disable network interaction for your application. In Chrome:
+Чтобы смоделировать проблему с сетью, отключите сетевое взаимодействие для своего приложения. В Chrome:
 
-1. Select **Tools** > **Developer Tools** (from the Chrome menu located at the top right corner).
-2. Go to the **Network tab**.
-3. Check the **Offline box**.
+1. Выберите « **Инструменты» Инструменты** > «**разработчика»** (в меню Chrome, расположенном в верхнем правом углу).
+2. Перейдите на **вкладку Сеть**.
+3. Установите **флажок Оффлайн**.
 
 <div class="lightbox">
   <img src="generated/images/guide/service-worker/offline-checkbox.png" alt="The offline checkbox in the Network tab is checked">
 </div>
 
-Now the app has no access to network interaction.
+Теперь приложение не имеет доступа к сетевому взаимодействию.
 
-For applications that do not use the Angular service worker, refreshing now would display Chrome's Internet disconnected page that says "There is no Internet connection".
+Для приложений, которые не используют сервис Angular, при обновлении теперь отображается отключенная от Интернета страница Chrome с надписью «Нет подключения к Интернету».
 
-With the addition of an Angular service worker, the application behavior changes. On a refresh, the page loads normally.
+С добавлением работника службы Angular поведение приложения меняется. При обновлении страница загружается нормально.
 
-If you look at the Network tab, you can verify that the service worker is active.
+Если вы посмотрите на вкладку Сеть, вы можете убедиться, что работник службы активен.
 
 <div class="lightbox">
   <img src="generated/images/guide/service-worker/sw-active.png" alt="Requests are marked as from ServiceWorker">
 </div>
 
-Notice that under the "Size" column, the requests state is `(from ServiceWorker)`. This means that the resources are not being loaded from the network. Instead, they are being loaded from the service worker's cache.
+Обратите внимание, что в столбце «Размер» состояние запросов `(from ServiceWorker)` . Это означает, что ресурсы не загружаются из сети. Вместо этого они загружаются из кэша работника сервиса.
 
 
-### What's being cached?
+{@a whats-being-cached}
+### Что кешируется?
 
-Notice that all of the files the browser needs to render this application are cached. The `ngsw-config.json` boilerplate configuration is set up to cache the specific resources used by the CLI:
+Обратите внимание, что все файлы, необходимые браузеру для визуализации этого приложения, кэшируются. `ngsw-config.json` конфигурация газетного устанавливается кэшировать определенные ресурсы, используемые CLI:
 
 * `index.html`.
 * `favicon.ico`.
-* Build artifacts (JS and CSS bundles).
-* Anything under `assets`.
-* Images and fonts directly under the configured `outputPath` (by default `./dist/<project-name>/`) or `resourcesOutputPath`. See [`ng build`](cli/build) for more information about these options.
+* Построить артефакты (JS и CSS).
+* Что-нибудь под `assets`.
+* Изображения и шрифты прямо под настроенным `outputPath` (по умолчанию `./dist/<project-name>/`) или `resourcesOutputPath` . Смотрите [ `ng build` ](cli/build)для получения дополнительной информации об этих параметрах.
 
 
 <div class="alert is-helpful">
-Pay attention to two key points:
+Обратите внимание на два ключевых момента:
 
-1. The generated `ngsw-config.json` includes a limited list of cachable fonts and images extentions. In some cases, you might want to modify the glob pattern to suit your needs.
+1. Сгенерированный `ngsw-config.json` содержит ограниченный список кэшируемых шрифтов и расширений изображений. В некоторых случаях вы можете изменить шаблон глобуса в соответствии с вашими потребностями.
 
-1. If `resourcesOutputPath` or `assets` paths are modified after the generation of configuration file, you need to change the paths manually in `ngsw-config.json`.
+1. Если `resourcesOutputPath` или `assets` пути изменяются после создания файла конфигурации, вам необходимо изменить пути вручную в `ngsw-config.json`.
 </div>
 
-### Making changes to your application
+{@a making-changes-to-your-application}
+### Внесение изменений в ваше приложение
 
-Now that you've seen how service workers cache your application, the
-next step is understanding how updates work.
+Теперь, когда вы видели, как работники службы кэширования приложения, то
+Следующим шагом является понимание того, как работают обновления.
 
-1. If you're testing in an incognito window, open a second blank tab. This will keep the incognito and the cache state alive during your test.
+1. Если вы тестируете в окне инкогнито, откройте вторую пустую вкладку. Это сохранит инкогнито и состояние кэша во время теста.
 
-2. Close the application tab, but not the window. This should also close the Developer Tools.
+2. Закройте вкладку приложения, но не окно. Это также должно закрыть Инструменты разработчика.
 
-3. Shut down `http-server`.
+3. Отключить `http-server`.
 
-4. Next, make a change to the application, and watch the service worker install the update.
+4. Затем внесите изменения в приложение и посмотрите, как работник службы установки устанавливает обновление.
 
-5. Open `src/app/app.component.html` for editing.
+5. Открыть `src/app/app.component.html` для редактирования.
 
-6. Change the text `Welcome to {{title}}!` to `Bienvenue à {{title}}!`.
+6. Изменить текст `Welcome to {{title}}! ` в ` Bienvenue à {{title}}!`,
 
-7. Build and run the server again:
+7. Построить и запустить сервер снова:
 
 ```sh
 ng build --prod
 http-server -p 8080 -c-1 dist/<project-name>
 ```
 
-### Updating your application in the browser
+{@a updating-your-application-in-the-browser}
+### Обновление вашего приложения в браузере
 
-Now look at how the browser and service worker handle the updated application.
+Теперь посмотрим, как браузер и сервисный работник обрабатывают обновленное приложение.
 
-1. Open http://localhost:8080 again in the same window. What happens?
+1. Снова откройте http: // localhost: 8080 в том же окне. Что происходит?
 
 <div class="lightbox">
   <img src="generated/images/guide/service-worker/welcome-msg-en.png" alt="It still says Welcome to Service Workers!">
 </div>
 
-What went wrong? Nothing, actually. The Angular service worker is doing its job and serving the version of the application that it has **installed**, even though there is an update available. In the interest of speed, the service worker doesn't wait to check for updates before it serves the application that it has cached.
+Что пошло не так? На самом деле ничего. Сервисный работник Angular выполняет свою работу и обслуживает версию приложения, которое он **установил**, несмотря на наличие доступных обновлений. В интересах скорости, обслуживающий работник не ждет проверки обновлений, прежде чем он обслуживает приложение, которое он кэшировал.
 
-If you look at the `http-server` logs, you can see the service worker requesting `/ngsw.json`. This is how the service worker checks for updates.
+Если вы посмотрите на `http-server` Журналы, вы можете увидеть запрос работника службы `/ngsw.json` . Вот как работник службы проверяет наличие обновлений.
 
-2. Refresh the page.
+2. Обновите страницу.
 
 <div class="lightbox">
   <img src="generated/images/guide/service-worker/welcome-msg-fr.png" alt="The text has changed to say Bienvenue à app!">
 </div>
 
-The service worker installed the updated version of your app *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
+Работник сервиса установил обновленную версию вашего приложения *в фоновом режиме*, и при следующей загрузке или перезагрузке страницы работник сервиса переключится на последнюю версию.
 
 <hr />
 
-## More on Angular service workers
+{@a more-on-angular-service-workers}
+## Больше на Angular сервисных рабочих
 
-You may also be interested in the following:
-* [Communicating with service workers](guide/service-worker-communications).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Общение с работниками сферы обслуживания](guide/service-worker-communications).

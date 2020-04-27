@@ -1,219 +1,228 @@
-# Upgrading from AngularJS to Angular
+{@a upgrading-from-angularjs-to-angular}
+# Обновление с AngularJS до Angular
 
-_Angular_ is the name for the Angular of today and tomorrow.<br />
-_AngularJS_ is the name for all 1.x versions of Angular.
+_Angular_ это имя для Angular сегодня и завтра. <br />
+_AngularJS_ - имя для всех 1.x версий Angular.
 
-AngularJS apps are great.
-Always consider the business case before moving to Angular.
-An important part of that case is the time and effort to get there.
-This guide describes the built-in tools for efficiently migrating AngularJS projects over to the
-Angular platform, a piece at a time.
+Приложения AngularJS великолепны.
+Всегда рассматривайте экономическое обоснование перед переходом на Angular.
+Важной частью этого дела является время и усилия, чтобы добраться туда.
+В этом руководстве описаны встроенные инструменты для эффективной миграции проектов AngularJS в
+Angular платформа, штука за раз.
 
-Some applications will be easier to upgrade than others, and there are
-many ways to make it easier for yourself. It is possible to
-prepare and align AngularJS applications with Angular even before beginning
-the upgrade process. These preparation steps are all about making the code
-more decoupled, more maintainable, and better aligned with modern development
-tools. That means in addition to making the upgrade easier,
-you will also improve the existing AngularJS applications.
+Некоторые приложения будет легче обновить, чем другие, и есть
+много способов сделать это проще для себя. Это возможно
+подготовить и согласовать приложения AngularJS с Angular еще до начала
+процесс обновления. Эти подготовительные шаги все о создании кода
+более разъединенный, более ремонтопригодный и лучше согласованный с современным развитием
+инструменты. Это означает, что в дополнение к упрощению обновления
+Вы также улучшите существующие приложения AngularJS.
 
-One of the keys to a successful upgrade is to do it incrementally,
-by running the two frameworks side by side in the same application, and
-porting AngularJS components to Angular one by one. This makes it possible
-to upgrade even large and complex applications without disrupting other
-business, because the work can be done collaboratively and spread over
-a period of time. The `upgrade` module in Angular has been designed to
-make incremental upgrading seamless.
+Один из ключей к успешному обновлению - делать это постепенно
+запустив две платформы бок о бок в одном приложении, и
+портирование компонентов AngularJS на Angular один за другим. Это делает возможным
+обновить даже большие и сложные приложения, не мешая другим
+бизнес, потому что работа может выполняться совместно и распространяться
+Период времени.  `upgrade` Модуль в Angular был разработан для
+сделать постепенное обновление без шва.
 
-## Preparation
+{@a preparation}
+## Подготовка
 
-There are many ways to structure AngularJS applications. When you begin
-to upgrade these applications to Angular, some will turn out to be
-much more easy to work with than others. There are a few key techniques
-and patterns that you can apply to future proof apps even before you
-begin the migration.
+Есть много способов структурировать приложения AngularJS. Когда ты начнешь
+чтобы обновить эти приложения до Angular, некоторые из них окажутся
+гораздо проще работать с другими. Есть несколько ключевых приемов
+и шаблоны, которые вы можете применить к будущим приложениям еще до вас
+начать миграцию.
 
 {@a follow-the-angular-styleguide}
 
-### Follow the AngularJS Style Guide
+{@a follow-the-angularjs-style-guide}
+### Следуйте Руководству по стилю AngularJS
 
-The [AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
-collects patterns and practices that have been proven to result in
-cleaner and more maintainable AngularJS applications. It contains a wealth
-of information about how to write and organize AngularJS code - and equally
-importantly - how **not** to write and organize AngularJS code.
+[Руководство по стилю AngularJS](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
+собирает образцы и методы, которые, как доказывали, привели к
+более чистые и удобные в обслуживании приложения AngularJS. Он содержит богатство
+информации о том, как писать и организовывать код AngularJS - и в равной степени
+главное - как **не** писать и не организовывать код AngularJS.
 
-Angular is a reimagined version of the best parts of AngularJS. In that
-sense, its goals are the same as the AngularJS Style Guide's: To preserve
-the good parts of AngularJS, and to avoid the bad parts. There's a lot
-more to Angular than just that of course, but this does mean that
-*following the style guide helps make your AngularJS app more closely
-aligned with Angular*.
+Angular - это переосмысленная версия лучших частей AngularJS. В этом
+В смысле, его цели такие же, как в Руководстве по стилю AngularJS: «Сохранить»
+хорошие части AngularJS, и чтобы избежать плохих частей. Там очень много
+больше, чем Angular, конечно, но это значит
+*следование руководству по стилю помогает сделать ваше приложение AngularJS более тесным
+выровнен с Angular *.
 
-There are a few rules in particular that will make it much easier to do
-*an incremental upgrade* using the Angular `upgrade/static` module:
+В частности, есть несколько правил, которые значительно облегчат выполнение
+*постепенное обновление* с использованием Angular  `upgrade/static`  модуль:
 
-* The [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
-  states that there should be one component per file. This not only makes
-  components easy to navigate and find, but will also allow us to migrate
-  them between languages and frameworks one at a time. In this example application,
-  each controller, component, service, and filter is in its own source file.
+* [Правило 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
+  утверждает, что должен быть один компонент на файл. Это не только делает
+  Компоненты легко перемещаться и находить, но также позволяют нам мигрировать
+  их между языками и фреймворками по одному. В этом примере приложения
+  каждый контроллер, компонент, служба и фильтр находятся в своем собственном исходном файле.
 
-* The [Folders-by-Feature Structure](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
-  and [Modularity](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
-  rules define similar principles on a higher level of abstraction: Different parts of the
-  application should reside in different directories and NgModules.
+* [Папки-на-Feature Structure](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
+  и [модульность](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
+  правила определяют аналогичные принципы на более высоком уровне абстракции: различные части
+  Приложение должно находиться в разных каталогах и NgModules.
 
-When an application is laid out feature per feature in this way, it can also be
-migrated one feature at a time. For applications that don't already look like
-this, applying the rules in the AngularJS style guide is a highly recommended
-preparation step. And this is not just for the sake of the upgrade - it is just
-solid advice in general!
+Таким образом, когда приложение размещает функцию для каждой функции, это также может быть
+перенес одну функцию за раз. Для приложений, которые еще не похожи
+поэтому настоятельно рекомендуется применять правила из руководства по стилю AngularJS
+подготовительный этап. И это не только ради обновления - это просто
+солидный совет в общем!
 
-### Using a Module Loader
+{@a using-a-module-loader}
+### Использование загрузчика модулей
 
-When you break application code down into one component per file, you often end
-up with a project structure with a large number of relatively small files. This is
-a much neater way to organize things than a small number of large files, but it
-doesn't work that well if you have to load all those files to the HTML page with
-&lt;script&gt; tags. Especially when you also have to maintain those tags in the correct
-order. That's why it's a good idea to start using a *module loader*.
+Когда вы разбиваете код приложения на один компонент на файл, вы часто заканчиваете работу
+со структурой проекта с большим количеством относительно небольших файлов. Это
+гораздо более аккуратный способ организовать вещи, чем небольшое количество больших файлов, но это
+не очень хорошо работает, если вам нужно загрузить все эти файлы на страницу HTML
+теги &lt;script&gt;. Особенно, когда вы также должны поддерживать эти теги в правильном
+приказ. Вот почему стоит начать использовать *загрузчик модулей*.
 
-Using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
-[Webpack](http://webpack.github.io/), or [Browserify](http://browserify.org/)
-allows us to use the built-in module systems of TypeScript or ES2015.
-You can use the `import` and `export` features that explicitly specify what code can
-and will be shared between different parts of the application. For ES5 applications
-you can use CommonJS style `require` and `module.exports` features. In both cases,
-the module loader will then take care of loading all the code the application needs
-in the correct order.
+Использование модуля загрузчика, такие как [SystemJS](https://github.com/systemjs/systemjs),
+[Webpack](http://webpack.github.io/)или[Browserify](http://browserify.org/)
+позволяет использовать встроенные модульные системы TypeScript или ES2015.
+Вы можете использовать  `import`  и  `export`  функции которые явно указывают, что код может
+и будут разделены между различными частями приложения. Для приложений ES5
+Вы можете использовать стиль CommonJS  `require`  и  `module.exports`  . В обоих случаях
+загрузчик модулей позаботится о загрузке всего кода, который необходим приложению
+в правильном порядке.
 
-When moving applications into production, module loaders also make it easier
-to package them all up into production bundles with batteries included.
+При перемещении приложений в производство модульные загрузчики также облегчают это
+упаковать их в производственные пакеты с включенными батареями.
 
-### Migrating to TypeScript
+{@a migrating-to-typescript}
+### Переход на TypeScript
 
-If part of the Angular upgrade plan is to also take TypeScript into use, it makes
-sense to bring in the TypeScript compiler even before the upgrade itself begins.
-This means there's one less thing to learn and think about during the actual upgrade.
-It also means you can start using TypeScript features in your AngularJS code.
+Если часть плана обновления Angular также предусматривает использование TypeScript, это делает
+смысл вводить компилятор TypeScript еще до того, как начнется само обновление.
+Это означает, что во время фактического обновления есть одна вещь, о которой нужно учиться и думать
+Это также означает, что вы можете начать использовать функции TypeScript в своем коде AngularJS.
 
-Since TypeScript is a superset of ECMAScript 2015, which in turn is a superset
-of ECMAScript 5, "switching" to TypeScript doesn't necessarily require anything
-more than installing the TypeScript compiler and renaming files from
-`*.js` to `*.ts`. But just doing that is not hugely useful or exciting, of course.
-Additional steps like the following can give us much more bang for the buck:
+Поскольку TypeScript является надмножеством ECMAScript 2015, который, в свою очередь, является надмножеством
+в ECMAScript 5 «переключение» на TypeScript не обязательно требует ничего
+больше, чем установка компилятора TypeScript и переименование файлов из
+ `*.js ` к `*.ts` . Но делать это, конечно, не очень полезно и не интересно.
+Дополнительные шаги, подобные следующим может дать нам гораздо больше за доллар:
 
-* For applications that use a module loader, TypeScript imports and exports
-  (which are really ECMAScript 2015 imports and exports) can be used to organize
-  code into modules.
+* Для приложений, использующих загрузчик модулей, TypeScript импортирует и экспортирует
+  (которые на самом деле ECMAScript 2015 импорта и экспорта) могут быть использованы для организации
+  код в модули.
 
-* Type annotations can be gradually added to existing functions and variables
-  to pin down their types and get benefits like build-time error checking,
-  great autocompletion support and inline documentation.
+* Типовые аннотации можно постепенно добавлять к существующим функциям и переменным
+  чтобы определить их типы и получить такие преимущества, как проверка ошибок во время сборки
+  отличная поддержка автозаполнения и встроенная документация.
 
-* JavaScript features new to ES2015, like arrow functions, `let`s and `const`s,
-  default function parameters, and destructuring assignments can also be gradually
-  added to make the code more expressive.
+* Новые функции JavaScript в ES2015, такие как функции стрелок,  `let ` с ` const` s,
+  параметры функции по умолчанию и назначения деструктуры также могут быть постепенно
+  добавлено, чтобы сделать код более выразительным.
 
-* Services and controllers can be turned into *classes*. That way they'll be a step
-  closer to becoming Angular service and component classes, which will make
-  life easier after the upgrade.
+* Сервисы и контроллеры можно превратить в*классы *. Таким образом, они будут шагом
+  ближе к становлению Angular класса обслуживания и компонентов, которые сделают
+  жизнь проще после обновления.
 
-### Using Component Directives
+{@a using-component-directives}
+### Использование директив компонента
 
-In Angular, components are the main primitive from which user interfaces
-are built. You define the different portions of the UI as components and
-compose them into a full user experience.
+В Angular компоненты являются основным примитивом, с которого работают пользовательские интерфейсы
+построены. Вы определяете различные части пользовательского интерфейса как компоненты и
+составить их в полный пользовательский опыт.
 
-You can also do this in AngularJS, using *component directives*. These are
-directives that define their own templates, controllers, and input/output bindings -
-the same things that Angular components define. Applications built with
-component directives are much easier to migrate to Angular than applications
-built with lower-level features like `ng-controller`,  `ng-include`, and scope
-inheritance.
+Вы также можете сделать это в AngularJS, используя *директивы компонента*. Это
+директивы, которые определяют свои собственные шаблоны, контроллеры и привязки ввода / вывода -
+те же самые вещи, которые определяют Angular компоненты. Приложения, созданные с
+директивы компонентов гораздо проще перенести в Angular, чем в приложения
+построен с функциями более низкого уровня, такими как  `ng-controller`, `ng-include` и область
+наследование.
 
-To be Angular compatible, an AngularJS component directive should configure
-these attributes:
+Для обеспечения совместимости с Angular должна быть настроена директива компонента AngularJS
+эти атрибуты:
 
-* `restrict: 'E'`. Components are usually used as elements.
-* `scope: {}` - an isolate scope. In Angular, components are always isolated
-  from their surroundings, and you should do this in AngularJS too.
-* `bindToController: {}`. Component inputs and outputs should be bound
-  to the controller instead of using the `$scope`.
-* `controller` and `controllerAs`. Components have their own controllers.
-* `template` or `templateUrl`. Components have their own templates.
+*  `restrict: 'E'` . Компоненты обычно используются в качестве элементов.
+*  `scope: {}` - область изоляции. В Angular компоненты всегда изолированы
+  из их окружения, и вы должны делать это и в AngularJS.
+*  `bindToController: {}` . Компонентные входы и выходы должны быть связаны
+  к контроллеру вместо использования  `$scope`.
+*  `controller ` и ` controllerAs` . Компоненты имеют свои собственные контроллеры.
+*  `template ` или ` templateUrl` . Компоненты имеют свои собственные шаблоны.
 
-Component directives may also use the following attributes:
+Компонентные директивы могут также использовать следующие атрибуты:
 
-* `transclude: true/{}`, if the component needs to transclude content from elsewhere.
-* `require`, if the component needs to communicate with some parent component's
-  controller.
+*  `transclude: true/{}`, если компонент должен включать содержимое из другого места.
+*  `require`, если компонент должен общаться с некоторыми родительскими компонентами
+  контроллер.
 
-Component directives **should not** use the following attributes:
+Компонент директива **не должен** использовать следующие атрибуты:
 
-* `compile`. This will not be supported in Angular.
-* `replace: true`. Angular never replaces a component element with the
-  component template. This attribute is also deprecated in AngularJS.
-* `priority` and `terminal`. While AngularJS components may use these,
-  they are not used in Angular and it is better not to write code
-  that relies on them.
+*  `compile` . Это не будет поддерживаться в Angular.
+*  `replace: true` . Angular никогда не заменяет элемент компонента на
+  компонентный шаблон. Этот атрибут также не рекомендуется в AngularJS.
+*  `priority ` и ` terminal` . В то время как AngularJS компоненты могут использовать их,
+  они не используются в Angular, и лучше не писать код
+  это зависит от них.
 
-An AngularJS component directive that is fully aligned with the Angular
-architecture may look something like this:
+Директива компонента AngularJS, полностью совпадающая с Angular
+архитектура может выглядеть примерно так:
 
 <code-example path="upgrade-module/src/app/hero-detail.directive.ts" header="hero-detail.directive.ts">
 </code-example>
 
-AngularJS 1.5 introduces the [component API](https://docs.angularjs.org/api/ng/type/angular.Module#component)
-that makes it easier to define component directives like these. It is a good idea to use
-this API for component directives for several reasons:
+AngularJS 1.5 представляет [компонент API](https://docs.angularjs.org/api/ng/type/angular.Module#component)
+это облегчает определение директив компонентов, подобных этим. Это хорошая идея для использования
+этот API для компонентов директив по нескольким причинам:
 
-* It requires less boilerplate code.
-* It enforces the use of component best practices like `controllerAs`.
-* It has good default values for directive attributes like `scope` and `restrict`.
+* Требуется меньше стандартного кода.
+* Он обеспечивает использование лучших практик, таких как  `controllerAs`.
+* Он имеет хорошие значения по умолчанию для таких атрибутов директивы, как  `scope`  и  `restrict`.
 
-The component directive example from above looks like this when expressed
-using the component API:
+Приведенный выше пример директивы компонента выглядит следующим образом
+используя компонент API:
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io" header="hero-detail.component.ts">
 </code-example>
 
-Controller lifecycle hook methods `$onInit()`, `$onDestroy()`, and `$onChanges()`
-are another convenient feature that AngularJS 1.5 introduces. They all have nearly
-exact [equivalents in Angular](guide/lifecycle-hooks), so organizing component lifecycle
-logic around them will ease the eventual Angular upgrade process.
+Методы подключения жизненного цикла контроллера  `$onInit()`, `$onDestroy()`  и  `$onChanges()` 
+Еще одна удобная функция, которую представляет AngularJS 1.5. У них все почти
+точный [эквиваленты в Angular](guide/lifecycle-hooks), поэтому организация жизненного цикла компонента
+логика вокруг них облегчит возможный процесс обновления Angular.
 
-## Upgrading with ngUpgrade
+{@a upgrading-with-ngupgrade}
+## Обновление с помощью ngUpgrade
 
-The ngUpgrade library in Angular is a very useful tool for upgrading
-anything but the smallest of applications. With it you can mix and match
-AngularJS and Angular components in the same application and have them interoperate
-seamlessly. That means you don't have to do the upgrade work all at once,
-since there's a natural coexistence between the two frameworks during the
-transition period.
+Библиотека ngUpgrade в Angular - очень полезный инструмент для обновления
+все, кроме самых маленьких приложений. С его помощью вы можете смешивать и сочетать
+AngularJS и Angular компоненты в одном приложении и позволяют им взаимодействовать
+бесшовно. Это означает, что вам не нужно выполнять работу по обновлению сразу
+так как во время
+переходный период.
 
-### How ngUpgrade Works
+{@a how-ngupgrade-works}
+### Как работает ngUpgrade
 
-One of the primary tools provided by ngUpgrade is called the `UpgradeModule`.
-This is a module that contains utilities for bootstrapping and managing hybrid
-applications that support both Angular and AngularJS code.
+Один из основных инструментов, предоставляемых ngUpgrade, называется  `UpgradeModule`.
+Это модуль, который содержит утилиты для начальной загрузки и управления гибридом
+приложения, которые поддерживают как Angular, так и AngularJS код.
 
-When you use ngUpgrade, what you're really doing is *running both AngularJS and
-Angular at the same time*. All Angular code is running in the Angular
-framework, and AngularJS code in the AngularJS framework. Both of these are the
-actual, fully featured versions of the frameworks. There is no emulation going on,
-so you can expect to have all the features and natural behavior of both frameworks.
+Когда вы используете ngUpgrade, вы действительно *запускаете AngularJS и
+Angular одновременно *. Весь Angular код работает в Angular
+фреймворк и код AngularJS в фреймворке AngularJS. Оба из них являются
+актуальные, полнофункциональные версии фреймворков. Эмуляция не происходит
+так что вы можете ожидать, что у вас будут все функции и естественное поведение обеих платформ.
 
-What happens on top of this is that components and services managed by one
-framework can interoperate with those from the other framework. This happens
-in three main areas: Dependency injection, the DOM, and change detection.
+Кроме того, компоненты и сервисы управляются одним сервером
+Фреймворк может взаимодействовать с теми из другого фреймворка. Это происходит
+в трех основных областях: внедрение зависимостей, DOM и обнаружение изменений.
 
-#### Dependency Injection
+{@a dependency-injection}
+#### Инъекция зависимости
 
-Dependency injection is front and center in both AngularJS and
-Angular, but there are some key differences between the two
-frameworks in how it actually works.
+Инъекция зависимостей является передней и центральной в AngularJS и
+Angular, но есть некоторые ключевые различия между ними
+рамки в том, как это на самом деле работает.
 
 <table>
   <tr>
@@ -226,264 +235,270 @@ frameworks in how it actually works.
   </tr>
   <tr>
     <td>
-      Dependency injection tokens are always strings
+      Токены внедрения зависимостей всегда являются строками
     </td>
     <td>
 
-      Tokens [can have different types](guide/dependency-injection).
-      They are often classes. They may also be strings.
+      Жетоны [могут иметь разные типы](guide/dependency-injection).
+      Они часто являются классами. Они также могут быть строками.
 
     </td>
   </tr>
   <tr>
     <td>
 
-      There is exactly one injector. Even in multi-module applications,
-      everything is poured into one big namespace.
+      Там точно один инжектор. Даже в многомодульных приложениях
+      все вливается в одно большое пространство имен.
 
     </td>
     <td>
 
-      There is a [tree hierarchy of injectors](guide/hierarchical-dependency-injection),
-      with a root injector and an additional injector for each component.
+      Существует [дерево иерархии инжекторов](guide/hierarchical-dependency-injection),
+      с корневым инжектором и дополнительным инжектором для каждого компонента.
 
     </td>
   </tr>
 </table>
 
-Even accounting for these differences you can still have dependency injection
-interoperability. `upgrade/static` resolves the differences and makes
-everything work seamlessly:
+Даже с учетом этих различий у вас все еще может быть внедрение зависимости
+совместимость.  `upgrade/static`  решает различия и делает
+все работает без проблем
 
-* You can make AngularJS services available for injection to Angular code
-  by *upgrading* them. The same singleton instance of each service is shared
-  between the frameworks. In Angular these services will always be in the
-  *root injector* and available to all components.
+* Вы можете сделать сервисы AngularJS доступными для внедрения в код Angular
+  путем *повышения* их. Один и тот же экземпляр одного сервиса является общим
+  между рамками. В Angular эти сервисы всегда будут в
+  *корневой инжектор* и доступен для всех компонентов.
 
-* You can also make Angular services available for injection to AngularJS code
-  by *downgrading* them. Only services from the Angular root injector can
-  be downgraded. Again, the same singleton instances are shared between the frameworks.
-  When you register a downgraded service, you must explicitly specify a *string token* that you want to
-  use in AngularJS.
+* Вы также можете сделать сервисы Angular доступными для внедрения в код AngularJS
+  путем *понижения* их. Могут только услуги от Angular корневого инжектора
+  быть пониженным. Опять же, одни и те же единичные экземпляры совместно используются средами.
+  Когда вы регистрируете устаревшую службу, вы должны явно указать *строковый токен,* который вы хотите
+  использовать в AngularJS.
 
 <div class="lightbox">
   <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application">
 </div>
 
-#### Components and the DOM
+{@a components-and-the-dom}
+#### Компоненты и DOM
 
-In the DOM of a hybrid ngUpgrade application are components and
-directives from both AngularJS and Angular. These components
-communicate with each other by using the input and output bindings
-of their respective frameworks, which ngUpgrade bridges together. They may also
-communicate through shared injected dependencies, as described above.
+В DOM гибридного приложения ngUpgrade есть компоненты и
+директивы от AngularJS и Angular. Эти компоненты
+общаться друг с другом, используя привязки ввода и вывода
+их соответствующих структур, которые объединяют мосты ngUpgrade. Они могут также
+общаться через общие введенные зависимости, как описано выше.
 
-The key thing to understand about a hybrid application is that every element in the DOM is owned by exactly one of the two frameworks.
-The other framework ignores it. If an element is
-owned by AngularJS, Angular treats it as if it didn't exist,
-and vice versa.
+Главное, что нужно понять о гибридном приложении, это то, что каждый элемент в DOM принадлежит только одной из двух платформ.
+Другая структура игнорирует это. Если элемент есть
+принадлежащий AngularJS, Angular рассматривает его так, как если бы он не существовал
+и наоборот.
 
-So normally a hybrid application begins life as an AngularJS application,
-and it is AngularJS that processes the root template, e.g. the index.html.
-Angular then steps into the picture when an Angular component is used somewhere
-in an AngularJS template. That component's template will then be managed
-by Angular, and it may contain any number of Angular components and
-directives.
+Поэтому обычно гибридное приложение начинает жизнь как приложение AngularJS
+и именно AngularJS обрабатывает корневой шаблон, например, index.html.
+Затем Angular входит в изображение, когда где-то используется Angular компонент
+в шаблоне AngularJS. Шаблон этого компонента будет затем управляться
+Angular, и он может содержать любое количество Angular компонентов и
+директивы.
 
-Beyond that, you may interleave the two frameworks.
-You always cross the boundary between the two frameworks by one of two
-ways:
+Помимо этого, вы можете чередовать две структуры.
+Вы всегда пересекаете границу между двумя фреймворками одним из двух
+пути:
 
-1. By using a component from the other framework: An AngularJS template
-   using an Angular component, or an Angular template using an
-   AngularJS component.
+1. Используя компонент из другой среды: шаблон AngularJS
+   используя Angular компонент, или Angular шаблон, используя
+   AngularJS компонент.
 
-2. By transcluding or projecting content from the other framework. ngUpgrade
-    bridges the related concepts of AngularJS transclusion and Angular content
-    projection together.
+2. За счет включения или проецирования контента из другой среды. ngUpgrade
+    связывает связанные понятия AngularJS transclusion и Angular контента
+    проекция вместе.
 
 <div class="lightbox">
   <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application">
 </div>
 
-Whenever you use a component that belongs to the other framework, a
-switch between framework boundaries occurs. However, that switch only
-happens to the elements in the template of that component. Consider a situation
-where you use an Angular component from AngularJS like this:
+Всякий раз, когда вы используете компонент, принадлежащий другой структуре, a
+происходит переключение между рамочными границами. Однако этот переключатель только
+происходит с элементами в шаблоне этого компонента. Рассмотрим ситуацию
+где вы используете Angular компонент из AngularJS, как это:
 
 <code-example language="html" escape="html">
   &lt;a-component&gt;&lt;/a-component&gt;
 </code-example>
 
-The DOM element `<a-component>` will remain to be an AngularJS managed
-element, because it's defined in an AngularJS template. That also
-means you can apply additional AngularJS directives to it, but *not*
-Angular directives. It is only in the template of the `<a-component>`
-where Angular steps in. This same rule also applies when you
-use AngularJS component directives from Angular.
+Элемент DOM  `<a-component>`  останется управляемым AngularJS
+элемент, потому что он определен в шаблоне AngularJS. Это также
+означает, что вы можете применять к нему дополнительные директивы AngularJS, но *не можете*
+Angular директивы. Это только в шаблоне  `<a-component>` 
+где Angular шаги. Это же правило также применяется, когда вы
+используйте директивы AngularJS от Angular.
 
-#### Change Detection
+{@a change-detection}
+#### Обнаружение изменений
 
-The `scope.$apply()` is how AngularJS detects changes and updates data bindings.
-After every event that occurs, `scope.$apply()` gets called. This is done either
-automatically by the framework, or manually by you.
+ `scope.$apply()` - это то, как AngularJS обнаруживает изменения и обновляет привязки данных.
+После каждого события, которое происходит,  `scope.$apply()`  вызывается. Это тоже сделано
+автоматически рамкой или вручную вами.
 
-In Angular things are different. While change detection still
-occurs after every event, no one needs to call `scope.$apply()` for
-that to happen. This is because all Angular code runs inside something
-called the [Angular zone](api/core/NgZone). Angular always
-knows when the code finishes, so it also knows when it should kick off
-change detection. The code itself doesn't have to call `scope.$apply()`
-or anything like it.
+В Angular вещи разные. Пока обнаружение изменений еще
+происходит после каждого события, никому не нужно звонить  `scope.$apply()`  для
+что произойдет. Это потому, что весь код Angular работает внутри чего-либо
+называется [Angular зона](api/core/NgZone). Angular всегда
+знает, когда код заканчивается, поэтому он также знает, когда он должен стартовать
+обнаружение изменений. Сам код не должен вызывать  `scope.$apply()` 
+или что-нибудь подобное.
 
-In the case of hybrid applications, the `UpgradeModule` bridges the
-AngularJS and Angular approaches. Here's what happens:
+В случае гибридных приложений,  `UpgradeModule`  соединяет
+AngularJS и Angular подходы. Вот что происходит:
 
-* Everything that happens in the application runs inside the Angular zone.
-  This is true whether the event originated in AngularJS or Angular code.
-  The zone triggers Angular change detection after every event.
+* Все, что происходит в приложении, выполняется внутри Angular зоны.
+  Это верно независимо от того, произошло ли событие в коде AngularJS или Angular.
+  Зона запускает обнаружение изменения угла после каждого события.
 
-* The `UpgradeModule` will invoke the AngularJS `$rootScope.$apply()` after
-  every turn of the Angular zone. This also triggers AngularJS change
-  detection after every event.
+*  `UpgradeModule` вызовет AngularJS  `$rootScope.$apply()`  после
+  каждый поворот Angular зоны. Это также вызывает изменение AngularJS
+  обнаружение после каждого события.
 
 <div class="lightbox">
   <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application">
 </div>
 
-In practice, you do not need to call `$apply()`,
-regardless of whether it is in AngularJS or Angular. The
-`UpgradeModule` does it for us. You *can* still call `$apply()` so there
-is no need to remove such calls from existing code. Those calls just trigger
-additional AngularJS change detection checks in a hybrid application.
+На практике вам не нужно звонить  `$apply()`,
+независимо от того, находится ли он в AngularJS или Angular.
+ `UpgradeModule` делает это для нас. Вы *все можете* еще позвонить  `$apply()`  так что есть
+Нет необходимости удалять такие вызовы из существующего кода. Эти звонки просто срабатывают
+дополнительные проверки обнаружения изменений AngularJS в гибридном приложении.
 
-When you downgrade an Angular component and then use it from AngularJS,
-the component's inputs will be watched using AngularJS change detection.
-When those inputs change, the corresponding properties in the component
-are set. You can also hook into the changes by implementing the
-[OnChanges](api/core/OnChanges) interface in the component,
-just like you could if it hadn't been downgraded.
+Когда вы понижаете Angular компонент, а затем использовать его с AngularJS,
+входы компонента будут отслеживаться с помощью обнаружения изменений AngularJS.
+Когда эти входные данные изменяются, соответствующие свойства в компоненте
+установлены. Вы также можете подключиться к изменениям путем реализации
+[OnChanges](api/core/OnChanges)интерфейс в компоненте
+так же, как вы могли бы, если бы не было понижено.
 
-Correspondingly, when you upgrade an AngularJS component and use it from Angular,
-all the bindings defined for the component directive's `scope` (or `bindToController`)
-will be hooked into Angular change detection. They will be treated
-as regular Angular inputs. Their values will be written to the upgraded component's
-scope (or controller) when they change.
+Соответственно, при обновлении компонента AngularJS и использовать его с угловатыми,
+все привязки, определенные для директивы компонента  `scope`  (или  `bindToController`)
+будет подключен к обнаружению Angular изменений. Они будут лечиться
+как обычные Angular входы. Их значения будут записаны в обновленные компоненты
+сфера (или контроллер), когда они меняются.
 
-### Using UpgradeModule with Angular _NgModules_
+{@a using-upgrademodule-with-angular-ngmodules}
+### Использование UpgradeModule с Angularи _NgModules_
 
-Both AngularJS and Angular have their own concept of modules
-to help organize an application into cohesive blocks of functionality.
+И AngularJS, и Angular имеют свою концепцию модулей
+чтобы помочь организовать приложение в единые блоки функциональности.
 
-Their details are quite different in architecture and implementation.
-In AngularJS, you add Angular assets to the `angular.module` property.
-In Angular, you create one or more classes adorned with an `NgModule` decorator
-that describes Angular assets in metadata. The differences blossom from there.
+Их детали сильно отличаются по архитектуре и реализации.
+В AngularJS вы добавляете ресурсы Angular к  `angular.module`  свойство.
+В Angular вы создаете один или несколько классов, украшенных  `NgModule`  декоратор
+который описывает Angular активы в метаданных. Различия расцветают оттуда.
 
-In a hybrid application you run both versions of Angular at the same time.
-That means that you need at least one module each from both AngularJS and Angular.
-You will import `UpgradeModule` inside the NgModule, and then use it for
-bootstrapping the AngularJS module.
+В гибридном приложении вы запускаете обе версии Angular одновременно.
+Это означает, что вам нужен как минимум один модуль, как AngularJS, так и Angular.
+Вы будете импортировать  `UpgradeModule`  внутри NgModule, а затем использовать его для
+начальная загрузка модуля AngularJS.
 
 <div class="alert is-helpful">
 
-For more information, see [NgModules](guide/ngmodules).
+Для получения дополнительной информации см. [NgModules](guide/ngmodules).
 
 </div>
 
-### Bootstrapping hybrid applications
+{@a bootstrapping-hybrid-applications}
+### Самозагрузка гибридных приложений
 
-To bootstrap a hybrid application, you must bootstrap each of the Angular and
-AngularJS parts of the application. You must bootstrap the Angular bits first and
-then ask the `UpgradeModule` to bootstrap the AngularJS bits next.
+Чтобы загрузить гибридное приложение, вы должны загрузить каждый из Angular и
+AngularJS части приложения. Вы должны сначала загрузить Angular биты и
+затем спросите  `UpgradeModule`  для загрузки битов AngularJS дальше.
 
-In an AngularJS application you have a root AngularJS module, which will also
-be used to bootstrap the AngularJS application.
+В приложении AngularJS у вас есть корневой модуль AngularJS, который также будет
+использоваться для начальной загрузки приложения AngularJS.
 
 <code-example path="upgrade-module/src/app/ajs-bootstrap/app.module.ts" region="ng1module" header="app.module.ts">
 </code-example>
 
-Pure AngularJS applications can be automatically bootstrapped by using an `ng-app`
-directive somewhere on the HTML page. But for hybrid applications, you manually bootstrap via the
-`UpgradeModule`. Therefore, it is a good preliminary step to switch AngularJS applications to use the
-manual JavaScript [`angular.bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap)
-method even before switching them to hybrid mode.
+Приложения Pure AngularJS могут автоматически загружаться с помощью  `ng-app` 
+директива где-то на странице HTML. Но для гибридных приложений вы вручную запускаете через
+ `UpgradeModule` . Таким образом, это хороший предварительный шаг для переключения приложений AngularJS на использование
+ручной JavaScript [  `angular.bootstrap`  ](https://docs.angularjs.org/api/ng/function/angular.bootstrap)
+метод даже до переключения их в гибридный режим.
 
-Say you have an `ng-app` driven bootstrap such as this one:
+Скажи, что у тебя есть  `ng-app`  привод начальной загрузки, такие как этот:
 
 <code-example path="upgrade-module/src/index-ng-app.html">
 </code-example>
 
-You can remove the `ng-app` and `ng-strict-di` directives from the HTML
-and instead switch to calling `angular.bootstrap` from JavaScript, which
-will result in the same thing:
+Вы можете удалить  `ng-app`  и  `ng-strict-di`  директивы из HTML
+и вместо этого переключиться на вызов  `angular.bootstrap`  из JavaScript, который
+приведет к тому же:
 
 <code-example path="upgrade-module/src/app/ajs-bootstrap/app.module.ts" region="bootstrap" header="app.module.ts">
 </code-example>
 
-To begin converting your AngularJS application to a hybrid, you need to load the Angular framework.
-You can see how this can be done with SystemJS by following the instructions in [Setup for Upgrading to AngularJS](guide/upgrade-setup) for selectively copying code from the [QuickStart github repository](https://github.com/angular/quickstart).
+Чтобы начать преобразование приложения AngularJS в гибрид, вам необходимо загрузить платформу Angular.
+Вы можете увидеть, как это можно сделать с помощью SystemJS, следуя инструкциям в [Настройка для обновления до AngularJS](guide/upgrade-setup)для выборочного копирования кода из [QuickStart github repository](https://github.com/angular/quickstart).
 
-You also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
-and add a mapping for the `@angular/upgrade/static` package:
+Вам также необходимо установить  `@angular/upgrade`  пакет через `npm install @angular/upgrade --save` 
+и добавьте отображение для  `@angular/upgrade/static`  пакет:
 
 <code-example path="upgrade-module/src/systemjs.config.1.js" region="upgrade-static-umd" header="systemjs.config.js (map)">
 </code-example>
 
-Next, create an `app.module.ts` file and add the following `NgModule` class:
+Затем создайте  `app.module.ts`  файл и добавьте следующее  `NgModule`  класс:
 
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="ngmodule" header="app.module.ts">
 </code-example>
 
-This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app must have.
-It also imports `UpgradeModule` from `@angular/upgrade/static`, which exports providers that will be used
-for upgrading and downgrading services and components.
+Это минимум  `NgModule`  Импорт  `BrowserModule` - модуль, который должно быть в каждом браузерном приложении Angular.
+Также импортирует  `UpgradeModule`  от  `@angular/upgrade/static`, которая экспортирует поставщиков, которые будут использоваться
+для обновления и понижения сервисов и компонентов.
 
-In the constructor of the `AppModule`, use dependency injection to get a hold of the `UpgradeModule` instance,
-and use it to bootstrap the AngularJS app in the `AppModule.ngDoBootstrap` method.
-The `upgrade.bootstrap` method takes the exact same arguments as [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap):
+В конструкторе  `AppModule`, используйте внедрение зависимостей, чтобы получить  `UpgradeModule`  Экземпляр
+и использовать его для загрузки приложения AngularJS в  `AppModule.ngDoBootstrap`  Метод.
+ `upgrade.bootstrap` метод принимает точно такие же аргументы, что и [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap):
 
 <div class="alert is-helpful">
 
-Note that you do not add a `bootstrap` declaration to the `@NgModule` decorator, since
-AngularJS will own the root template of the application.
+Обратите внимание, что вы не добавляете  `bootstrap`  декларация к  `@NgModule`  декоратор, так как
+AngularJS будет владельцем корневого шаблона приложения.
 
 </div>
 
-Now you can bootstrap `AppModule` using the `platformBrowserDynamic.bootstrapModule` method.
+Теперь вы можете загрузиться  `AppModule`  с помощью  `platformBrowserDynamic.bootstrapModule`  Метод.
 
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="bootstrap" header="app.module.ts'">
 </code-example>
 
-Congratulations! You're running a hybrid application! The
-existing AngularJS code works as before _and_ you're ready to start adding Angular code.
+Поздравляем! Вы запускаете гибридное приложение!
+существующий код AngularJS работает как прежде, и вы готовы начать добавление кода Angular.
 
-### Using Angular Components from AngularJS Code
+{@a using-angular-components-from-angularjs-code}
+
+### Использование Angular компонентов из кода AngularJS
 
 <img src="generated/images/guide/upgrade/ajs-to-a.png" alt="Using an Angular component from AngularJS code" class="left">
 
-Once you're running a hybrid app, you can start the gradual process of upgrading
-code. One of the more common patterns for doing that is to use an Angular component
-in an AngularJS context. This could be a completely new component or one that was
-previously AngularJS but has been rewritten for Angular.
+Запустив гибридное приложение, вы можете начать постепенный процесс обновления
+код. Одним из наиболее распространенных шаблонов для этого является использование Angular компонента
+в контексте AngularJS. Это может быть совершенно новый компонент или тот, который был
+ранее AngularJS, но был переписан для Angular.
 
-Say you have a simple Angular component that shows information about a hero:
+Скажем, у вас есть простой Angular компонент, который содержится информацией о герое:
 
 <code-example path="upgrade-module/src/app/downgrade-static/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
-If you want to use this component from AngularJS, you need to *downgrade* it
-using the `downgradeComponent()` method. The result is an AngularJS
-*directive*, which you can then register in the AngularJS module:
+Если вы хотите использовать этот компонент из AngularJS, вам нужно *понизить* его
+с использованием  `downgradeComponent()`  метод . Результатом является AngularJS
+*директива*, которую затем можно зарегистрировать в AngularJS модуль:
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="downgradecomponent" header="app.module.ts">
 </code-example>
 
-Because `HeroDetailComponent` is an Angular component, you must also add it to the
-`declarations` in the `AppModule`.
+Потому что  `HeroDetailComponent`  является Angular компонентом, вы также должны добавить его в
+ `declarations ` в ` AppModule`.
 
-And because this component is being used from the AngularJS module, and is an entry point into
-the Angular application, you must add it to the `entryComponents` for the
+И потому, что этот компонент используется из модуля AngularJS, и является точкой входа в
+Angular приложение, вы должны добавить его в  `entryComponents`  для
 NgModule.
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="ngmodule" header="app.module.ts">
@@ -491,58 +506,58 @@ NgModule.
 
 <div class="alert is-helpful">
 
-All Angular components, directives and pipes must be declared in an NgModule.
+Все Angular компоненты, директивы и трубы должны быть объявлены в NgModule.
 
 </div>
 
-The net result is an AngularJS directive called `heroDetail`, that you can
-use like any other directive in AngularJS templates.
+Чистым результатом является директива AngularJS под названием  `heroDetail`, что вы можете
+используйте как любую другую директиву в шаблонах AngularJS.
 
 <code-example path="upgrade-module/src/index-downgrade-static.html" region="usecomponent">
 </code-example>
 
 <div class="alert is-helpful">
 
-Note that this AngularJS is an element directive (`restrict: 'E'`) called `heroDetail`.
-An AngularJS element directive is matched based on its _name_.
-*The `selector` metadata of the downgraded Angular component is ignored.*
+Обратите внимание, что этот AngularJS является директивой элемента (`restrict: 'E'`) называется  `heroDetail`.
+Директива элемента AngularJS сопоставляется на основе ее _name_.
+*  `selector`  Метаданные пониженного компонента Angular игнорируются.*
 
 </div>
 
-Most components are not quite this simple, of course. Many of them
-have *inputs and outputs* that connect them to the outside world. An
-Angular hero detail component with inputs and outputs might look
-like this:
+Конечно, большинство компонентов не так просты. Многие из них
+есть *входы и выходы,* которые соединяют их с внешним миром. Ан
+Компонент Angular детализации героя с входами и выходами может выглядеть
+нравится это:
 
 <code-example path="upgrade-module/src/app/downgrade-io/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
-These inputs and outputs can be supplied from the AngularJS template, and the
-`downgradeComponent()` method takes care of wiring them up:
+Эти входы и выходы могут быть предоставлены из шаблона AngularJS и
+ `downgradeComponent()` метод заботится о подключении их:
 
 <code-example path="upgrade-module/src/index-downgrade-io.html" region="usecomponent">
 </code-example>
 
-Note that even though you are in an AngularJS template, **you're using Angular
-attribute syntax to bind the inputs and outputs**. This is a requirement for downgraded
-components. The expressions themselves are still regular AngularJS expressions.
+Обратите внимание, что даже если вы находитесь в шаблоне AngularJS, **вы используете Angular
+Синтаксис атрибута для привязки входов и выходов **. Это требование понижено
+составные части. Сами выражения все еще являются регулярными выражениями AngularJS.
 
 <div class="callout is-important">
 
 <header>
-  Use kebab-case for downgraded component attributes
+  Используйте kebab-case для устаревших атрибутов компонентов
 </header>
 
-There's one notable exception to the rule of using Angular attribute syntax
-for downgraded components. It has to do with input or output names that consist
-of multiple words. In Angular, you would bind these attributes using camelCase:
+Есть одно заметное исключение из правила использования синтаксиса Angular
+для пониженных компонентов. Это связано с входными или выходными именами, которые состоят из
+из нескольких слов. В угловому, вы бы связать эти атрибуты с помощью верблюжьего:
 
 <code-example format="">
   [myHero]="hero"
   (heroDeleted)="handleHeroDeleted($event)"
 </code-example>
 
-But when using them from AngularJS templates, you must use kebab-case:
+Но при их использовании из шаблонов AngularJS, вы должны использовать кебаб-случай:
 
 <code-example format="">
   [my-hero]="hero"
@@ -551,46 +566,47 @@ But when using them from AngularJS templates, you must use kebab-case:
 
 </div>
 
-The `$event` variable can be used in outputs to gain access to the
-object that was emitted. In this case it will be the `Hero` object, because
-that is what was passed to `this.deleted.emit()`.
+ `$event` Переменная может использоваться в выходных данных для получения доступа к
+объект, который был испущен. В этом случае это будет  `Hero`  объект, потому что
+это то, что было передано  `this.deleted.emit()`.
 
-Since this is an AngularJS template, you can still use other AngularJS
-directives on the element, even though it has Angular binding attributes on it.
-For example, you can easily make multiple copies of the component using `ng-repeat`:
+Поскольку это шаблон AngularJS, вы все равно можете использовать другой AngularJS
+директивы на элементе, даже если на нем есть атрибуты Angular привязки.
+Например, вы можете легко сделать несколько копий компонента, используя  `ng-repeat`  :
 
 <code-example path="upgrade-module/src/index-downgrade-io.html" region="userepeatedcomponent">
 </code-example>
 
-### Using AngularJS Component Directives from Angular Code
+{@a using-angularjs-component-directives-from-angular-code}
+### Использование AngularJS Компонент Директивы из Angular кода
 
 <img src="generated/images/guide/upgrade/a-to-ajs.png" alt="Using an AngularJS component from Angular code" class="left">
 
-So, you can write an Angular component and then use it from AngularJS
-code. This is useful when you start to migrate from lower-level
-components and work your way up. But in some cases it is more convenient
-to do things in the opposite order: To start with higher-level components
-and work your way down. This too can be done using the `upgrade/static`.
-You can *upgrade* AngularJS component directives and then use them from
+Таким образом, вы можете написать компонент Angular, а затем использовать его из AngularJS
+код. Это полезно, когда вы начинаете переходить с более низкого уровня
+компоненты и проложите себе путь. Но в некоторых случаях это удобнее
+делать вещи в обратном порядке: начать с компонентов более высокого уровня
+и проложите себе путь вниз. Это тоже можно сделать с помощью  `upgrade/static`.
+Вы можете *обновить* директивы компонента AngularJS, а затем использовать их из
 Angular.
 
-Not all kinds of AngularJS directives can be upgraded. The directive
-really has to be a *component directive*, with the characteristics
-[described in the preparation guide above](guide/upgrade#using-component-directives).
-The safest bet for ensuring compatibility is using the
-[component API](https://docs.angularjs.org/api/ng/type/angular.Module)
-introduced in AngularJS 1.5.
+Не все виды директив AngularJS могут быть обновлены. Директива
+действительно должна быть *директива компонента*, с характеристиками
+[описано в руководстве по подготовке выше](guide/upgrade#using-component-directives).
+Самым безопасным вариантом для обеспечения совместимости является использование
+[компонент API](https://docs.angularjs.org/api/ng/type/angular.Module)
+введено в AngularJS 1.5
 
-A simple example of an upgradable component is one that just has a template
-and a controller:
+Простой пример обновляемого компонента - это тот, который просто имеет шаблон
+и контроллер:
 
 <code-example path="upgrade-module/src/app/upgrade-static/hero-detail.component.ts" region="hero-detail" header="hero-detail.component.ts">
 </code-example>
 
-You can *upgrade* this component to Angular using the `UpgradeComponent` class.
-By creating a new Angular **directive** that extends `UpgradeComponent` and doing a `super` call
-inside its constructor, you have a fully upgraded AngularJS component to be used inside Angular.
-All that is left is to add it to `AppModule`'s `declarations` array.
+Вы можете *обновить* этот компонент до Angular, используя  `UpgradeComponent`  Класс.
+Создавая новую Angular **директиву,** которая расширяет  `UpgradeComponent`  и делает  `super`  звонок
+внутри его конструктора у вас есть полностью обновленный компонент AngularJS, который будет использоваться внутри Angular.
+Осталось только добавить его в  `AppModule`  's  `declarations`  массив.
 
 <code-example path="upgrade-module/src/app/upgrade-static/hero-detail.component.ts" region="hero-detail-upgrade" header="hero-detail.component.ts">
 </code-example>
@@ -600,103 +616,103 @@ All that is left is to add it to `AppModule`'s `declarations` array.
 
 <div class="alert is-helpful">
 
-Upgraded components are Angular **directives**, instead of **components**, because Angular
-is unaware that AngularJS will create elements under it. As far as Angular knows, the upgraded
-component is just a directive - a tag - and Angular doesn't have to concern itself with
-its children.
+Модернизированные компоненты - это Angular **директивы**, а не**компоненты**, потому что Angular
+не знает, что AngularJS будет создавать элементы под ним. Насколько Angular знает, модернизированный
+Компонент - это просто директива - тег - и Angular не должен беспокоиться о нем
+его дети.
 
 </div>
 
-An upgraded component may also have inputs and outputs, as defined by
-the scope/controller bindings of the original AngularJS component
-directive. When you use the component from an Angular template,
-provide the inputs and outputs using **Angular template syntax**,
-observing the following rules:
+Модернизированный компонент также может иметь входы и выходы, как определено
+привязки области / контроллера исходного компонента AngularJS
+директивы. При использовании компонента из Angular шаблона,
+обеспечивают входы и выходы, используя **Angular синтаксис шаблона**,
+соблюдая следующие правила:
 
 <table>
   <tr>
     <th>
     </th>
     <th>
-      Binding definition
+      Обязательное определение
     </th>
     <th>
-      Template syntax
+      Синтаксис шаблона
     </th>
   </tr>
   <tr>
     <th>
-      Attribute binding
+      Привязка атрибутов
     </th>
     <td>
 
-      `myAttribute: '@myAttribute'`
+       `myAttribute: '@myAttribute'` 
 
     </td>
 
     <td>
 
-      `<my-component myAttribute="value">`
-
-    </td>
-  </tr>
-  <tr>
-    <th>
-      Expression binding
-    </th>
-    <td>
-
-      `myOutput: '&myOutput'`
-
-    </td>
-    <td>
-
-      `<my-component (myOutput)="action()">`
+       `<my-component myAttribute="value">` 
 
     </td>
   </tr>
   <tr>
     <th>
-      One-way binding
+      Привязка выражения
     </th>
     <td>
 
-      `myValue: '<myValue'`
+       `myOutput: '&myOutput'` 
 
     </td>
     <td>
 
-      `<my-component [myValue]="anExpression">`
+       `<my-component (myOutput)="action()">` 
 
     </td>
   </tr>
   <tr>
     <th>
-      Two-way binding
+      Односторонняя привязка
     </th>
     <td>
 
-      `myValue: '=myValue'`
+       `myValue: '<myValue'` 
 
     </td>
     <td>
 
-      As a two-way binding: `<my-component [(myValue)]="anExpression">`.
-      Since most AngularJS two-way bindings actually only need a one-way binding
-      in practice, `<my-component [myValue]="anExpression">` is often enough.
+       `<my-component [myValue]="anExpression">` 
+
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Двухстороннее связывание
+    </th>
+    <td>
+
+       `myValue: '=myValue'` 
+
+    </td>
+    <td>
+
+      Как двусторонняя привязка: `<my-component [(myValue)]="anExpression">`.
+      Поскольку для большинства двусторонних привязок AngularJS требуется только односторонняя привязка
+      на практике, `<my-component [myValue]="anExpression">` достаточно часто.
 
     </td>
   </tr>
 </table>
 
-For example, imagine a hero detail AngularJS component directive
-with one input and one output:
+Например, представьте героическую детальную директиву компонента AngularJS
+с одним входом и одним выходом:
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io" header="hero-detail.component.ts">
 </code-example>
 
-You can upgrade this component to Angular, annotate inputs and outputs in the upgrade directive,
-and then provide the input and output using Angular template syntax:
+Вы можете обновить этот компонент к угловому, аннотированию входов и выходам в директиве обновления,
+а затем обеспечивают ввод и вывод с помощью Angular синтаксис шаблона:
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io-upgrade" header="hero-detail.component.ts">
 </code-example>
@@ -704,216 +720,225 @@ and then provide the input and output using Angular template syntax:
 <code-example path="upgrade-module/src/app/upgrade-io/container.component.ts" header="container.component.ts">
 </code-example>
 
-### Projecting AngularJS Content into Angular Components
+{@a projecting-angularjs-content-into-angular-components}
+### Проецирование содержимого AngularJS в Angular компоненты
 
 <img src="generated/images/guide/upgrade/ajs-to-a-with-projection.png" alt="Projecting AngularJS content into Angular" class="left">
 
-When you are using a downgraded Angular component from an AngularJS
-template, the need may arise to *transclude* some content into it. This
-is also possible. While there is no such thing as transclusion in Angular,
-there is a very similar concept called *content projection*. `upgrade/static`
-is able to make these two features interoperate.
+Когда вы используете пониженный компонент Angular из AngularJS
+шаблон, может возникнуть необходимость *включить* какой-либо контент в него. Это
+тоже возможно. Несмотря на то, что нет такого понятия, как включение в угловом,
+Существует очень похожая концепция, которая называется *проекцией контента*.  `upgrade/static` 
+в состоянии сделать эти две функции взаимодействовать.
 
-Angular components that support content projection make use of an `<ng-content>`
-tag within them. Here's an example of such a component:
+Angular компоненты, поддерживающие проекцию контента, используют  `<ng-content>` 
+тег в них. Вот пример такого компонента:
 
 <code-example path="upgrade-module/src/app/ajs-to-a-projection/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
-When using the component from AngularJS, you can supply contents for it. Just
-like they would be transcluded in AngularJS, they get projected to the location
-of the `<ng-content>` tag in Angular:
+При использовании компонента из AngularJS вы можете предоставить содержимое для него. Просто
+как если бы они были включены в AngularJS, они проецируются на локацию
+из  `<ng-content>`  тега в угловому:
 
 <code-example path="upgrade-module/src/index-ajs-to-a-projection.html" region="usecomponent">
 </code-example>
 
 <div class="alert is-helpful">
 
-When AngularJS content gets projected inside an Angular component, it still
-remains in "AngularJS land" and is managed by the AngularJS framework.
+Когда содержимое AngularJS проецируется внутри компонента Angular, оно все равно остается
+остается в "земле AngularJS" и управляется структурой AngularJS.
 
 </div>
 
-### Transcluding Angular Content into AngularJS Component Directives
+{@a transcluding-angular-content-into-angularjs-component-directives}
+### Преобразование Angular содержимого в директивы AngularJS Component
 
 <img src="generated/images/guide/upgrade/a-to-ajs-with-transclusion.png" alt="Projecting Angular content into AngularJS" class="left">
 
-Just as you can project AngularJS content into Angular components,
-you can *transclude* Angular content into AngularJS components, whenever
-you are using upgraded versions from them.
+Так же, как вы можете проецировать контент AngularJS в Angular компоненты
+вы можете в *любое время включить* Angular-контент в компоненты AngularJS
+вы используете обновленные версии из них.
 
-When an AngularJS component directive supports transclusion, it may use
-the `ng-transclude` directive in its template to mark the transclusion
-point:
+Когда директива компонента AngularJS поддерживает transclusion, она может использовать
+ `ng-transclude` Директива в своем шаблоне для обозначения включения
+указать:
 
 <code-example path="upgrade-module/src/app/a-to-ajs-transclusion/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
-If you upgrade this component and use it from Angular, you can populate
-the component tag with contents that will then get transcluded:
+Если вы обновите этот компонент и используете его из Angular, вы можете заполнить его
+компонент тег с содержимым, которые будут затем включены через :
 
 <code-example path="upgrade-module/src/app/a-to-ajs-transclusion/container.component.ts" header="container.component.ts">
 </code-example>
 
-### Making AngularJS Dependencies Injectable to Angular
+{@a making-angularjs-dependencies-injectable-to-angular}
+### Создание зависимостей AngularJS для инъекций в Angular
 
-When running a hybrid app, you may encounter situations where you need to inject
-some AngularJS dependencies into your Angular code.
-Maybe you have some business logic still in AngularJS services.
-Maybe you want access to AngularJS's built-in services like `$location` or `$timeout`.
+При запуске гибридного приложения вы можете столкнуться с ситуациями, когда вам нужно ввести
+некоторые зависимости AngularJS в вашем коде Angular.
+Может быть, у вас есть бизнес-логика в сервисах AngularJS.
+Может быть, вы хотите получить доступ к встроенным сервисам AngularJS, таким как  `$location ` или ` $timeout`.
 
-In these situations, it is possible to *upgrade* an AngularJS provider to
-Angular. This makes it possible to then inject it somewhere in Angular
-code. For example, you might have a service called `HeroesService` in AngularJS:
+В этих ситуациях можно *обновить* поставщика AngularJS до
+Angular. Это позволяет затем ввести его где-нибудь в Angular
+код. Например, у вас может быть служба под названием  `HeroesService`  в AngularJS:
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/heroes.service.ts" header="heroes.service.ts">
 </code-example>
 
-You can upgrade the service using a Angular [factory provider](guide/dependency-injection-providers#factory-providers)
-that requests the service from the AngularJS `$injector`.
+Вы можете обновить сервис, используя Angular [заводской провайдер](guide/dependency-injection-providers#factory-providers)
+который запрашивает сервис у AngularJS  `$injector`.
 
-Many developers prefer to declare the factory provider in a separate `ajs-upgraded-providers.ts` file
-so that they are all together, making it easier to reference them, create new ones and
-delete them once the upgrade is over.
+Многие разработчики предпочитают декларировать провайдера фабрики в отдельном  `ajs-upgraded-providers.ts`  файл
+так что они все вместе, что делает их легче ссылаться на них, создавать новые и
+удалите их после завершения обновления.
 
-It's also recommended to export the `heroesServiceFactory` function so that Ahead-of-Time
-compilation can pick it up.
+Также рекомендуется экспортировать  `heroesServiceFactory`  функционирует так, что время
+Компиляция может забрать его.
 
 <div class="alert is-helpful">
 
-**Note:** The 'heroes' string inside the factory refers to the AngularJS `HeroesService`.
-It is common in AngularJS apps to choose a service name for the token, for example "heroes",
-and append the "Service" suffix to create the class name.
+**Примечание:** строка 'heroes' внутри фабрики относится к AngularJS  `HeroesService`.
+Обычно в AngularJS приложений, чтобы выбрать имя службы для маркеров, например «героев»,
+и добавьте суффикс «Service» для создания имени класса.
 
 </div>
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/ajs-upgraded-providers.ts" header="ajs-upgraded-providers.ts">
 </code-example>
 
-You can then provide the service to Angular by adding it to the `@NgModule`:
+Затем вы можете предоставить услугу Angular, добавив ее в  `@NgModule`  :
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/app.module.ts" region="register" header="app.module.ts">
 </code-example>
 
-Then use the service inside your component by injecting it in the component constructor using its class as a type annotation:
+Затем используйте службу внутри компонента, вводя его в компоненте конструктора, используя свой класс в качестве аннотации типа:
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
 <div class="alert is-helpful">
 
-In this example you upgraded a service class.
-You can use a TypeScript type annotation when you inject it. While it doesn't
-affect how the dependency is handled, it enables the benefits of static type
-checking. This is not required though, and any AngularJS service, factory, or
-provider can be upgraded.
+В этом примере вы обновили класс обслуживания.
+Вы можете использовать аннотацию типа TypeScript, когда вводите ее. Пока это не так
+влияет на то, как обрабатывается зависимость, это дает преимущества статического типа
+проверка. Это не требуется, хотя и любой сервис AngularJS, фабрика или
+провайдер может быть обновлен.
 
 </div>
 
-### Making Angular Dependencies Injectable to AngularJS
+{@a making-angular-dependencies-injectable-to-angularjs}
+### Создание Angular зависимостей для инъекций в AngularJS
 
-In addition to upgrading AngularJS dependencies, you can also *downgrade*
-Angular dependencies, so that you can use them from AngularJS. This can be
-useful when you start migrating services to Angular or creating new services
-in Angular while retaining components written in AngularJS.
+В дополнение к обновлению зависимостей AngularJS, вы также можете *понизить версию*
+Angular зависимости, так что вы можете использовать их из AngularJS. Это может быть
+полезно, когда вы начинаете миграцию сервисов на Angular или создание новых сервисов
+в Angular с сохранением компонентов, написанных на AngularJS.
 
-For example, you might have an Angular service called `Heroes`:
+Например, у вас может быть служба Angular, которая называется  `Heroes`  :
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/heroes.ts" header="heroes.ts">
 </code-example>
 
-Again, as with Angular components, register the provider with the `NgModule` by adding it to the module's `providers` list.
+Опять же, как и в случае с Angularи компонентами, зарегистрируйте провайдера в  `NgModule`, добавив его в модуль  `providers`  список.
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="ngmodule" header="app.module.ts">
 </code-example>
 
-Now wrap the Angular `Heroes` in an *AngularJS factory function* using `downgradeInjectable()`
-and plug the factory into an AngularJS module.
-The name of the AngularJS dependency is up to you:
+Теперь заверните Angular  `Heroes`  в *заводской функции AngularJS* с использованием  `downgradeInjectable()` 
+и подключите фабрику к модулю AngularJS.
+Имя зависимости AngularJS до вас:
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="register" header="app.module.ts">
 </code-example>
 
-After this, the service is injectable anywhere in AngularJS code:
+После этого, услуга инъекционный где - нибудь в AngularJS коде:
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
 
-## Lazy Loading AngularJS
+{@a lazy-loading-angularjs}
+## Ленивая загрузка AngularJS
 
-When building applications, you want to ensure that only the required resources are loaded when necessary. Whether that be loading of assets or code, making sure everything that can be deferred until needed keeps your application running efficiently. This is especially true when running different frameworks in the same application.
+При создании приложений вы хотите, чтобы при необходимости загружались только необходимые ресурсы. Будь то загрузка ресурсов или кода, убедитесь, что все, что можно отложить до необходимого, обеспечивает эффективную работу приложения. Это особенно актуально при запуске разных фреймворков в одном приложении.
 
-[Lazy loading](guide/glossary#lazy-loading) is a technique that defers the loading of required assets and code resources until they are actually used. This reduces startup time and increases efficiency, especially when running different frameworks in the same application.
+[Ленивая загрузка](guide/glossary#lazy-loading)- это метод, который откладывает загрузку необходимых ресурсов и ресурсов кода до их фактического использования. Это сокращает время запуска и повышает эффективность, особенно при запуске разных сред в одном приложении.
 
-When migrating large applications from AngularJS to Angular using a hybrid approach, you want to migrate some of the most commonly used features first, and only use the less commonly used features if needed. Doing so helps you ensure that the application is still providing a seamless experience for your users while you are migrating.
+При переносе больших приложений из AngularJS в Angular с использованием гибридного подхода необходимо сначала перенести некоторые из наиболее часто используемых функций и использовать только менее часто используемые функции, если это необходимо. Это поможет вам убедиться, что приложение по-прежнему обеспечивает бесперебойную работу ваших пользователей во время миграции.
 
-In most environments where both Angular and AngularJS are used to render the application, both frameworks are loaded in the initial bundle being sent to the client. This results in both increased bundle size and possible reduced performance.
+В большинстве сред, где для визуализации приложения используются Angular и AngularJS, обе платформы загружаются в исходный пакет, отправляемый клиенту. Это приводит как к увеличению размера пакета, так и к возможному снижению производительности.
 
-Overall application performance is affected in cases where the user stays on Angular-rendered pages because the AngularJS framework and application are still loaded and running, even if they are never accessed.
+На общую производительность приложения влияют случаи, когда пользователь остается на страницах рендеринга в Angular, поскольку среда и приложение AngularJS по-прежнему загружаются и работают, даже если к ним никогда не обращаются.
 
-You can take steps to mitigate both bundle size and performance issues. By isolating your AngularJS app to a separate bundle, you can take advantage of [lazy loading](guide/glossary#lazy-loading) to load, bootstrap, and render the AngularJS application only when needed. This strategy reduces your initial bundle size, defers any potential impact from loading both frameworks until absolutely necessary, and keeps your application running as efficiently as possible.
+Вы можете предпринять шаги для уменьшения как размера пакета, так и проблем с производительностью. Выделив свое приложение AngularJS в отдельный пакет, вы можете воспользоваться [ленивая загрузка](guide/glossary#lazy-loading)загружать, загружать и отображать приложение AngularJS только при необходимости. Эта стратегия уменьшает ваш первоначальный размер пакета, предотвращает любое потенциальное влияние от загрузки обеих платформ до тех пор, пока это не станет абсолютно необходимым, и поддерживает максимально эффективную работу вашего приложения.
 
-The steps below show you how to do the following:
+Шаги ниже показано, как сделать следующее:
 
-* Setup a callback function for your AngularJS bundle.
-* Create a service that lazy loads and bootstraps your AngularJS app.
-* Create a routable component for AngularJS content
-* Create a custom `matcher` function for AngularJS-specific URLs and configure the Angular `Router` with the custom matcher for AngularJS routes.
+* Настройте функцию обратного вызова для вашего пакета AngularJS.
+* Создайте сервис, который загружает и загружает ваше приложение AngularJS.
+* Создайте маршрутизируемый компонент для контента AngularJS
+* Создать кастом  `matcher`  функция для AngularJS специфической URL - адресов и настроить Angular  `Router`  с пользовательским сопоставителем для маршрутов AngularJS.
 
-### Create a service to lazy load AngularJS
+{@a create-a-service-to-lazy-load-angularjs}
+### Создать сервис для ленивой загрузки AngularJS
 
-As of Angular version 8, lazy loading code can be accomplished simply by using the dynamic import syntax `import('...')`. In your application, you create a new service that uses dynamic imports to lazy load AngularJS.
+Начиная с Angular версии 8, ленивая загрузка кода может быть выполнена просто с использованием синтаксиса динамического импорта  `import('...')`  . В вашем приложении вы создаете новый сервис, который использует динамический импорт для отложенной загрузки AngularJS.
 
 <code-example path="upgrade-lazy-load-ajs/src/app/lazy-loader.service.ts" header="src/app/lazy-loader.service.ts">
 </code-example>
 
-The service uses the `import()` method to load your bundled AngularJS application lazily. This decreases the initial bundle size of your application as you're not loading code your user doesn't need yet. You also need to provide a way to _bootstrap_ the application manually after it has been loaded. AngularJS provides a way to manually bootstrap an application using the [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) method with a provided HTML element. Your AngularJS app should also expose a `bootstrap` method that bootstraps the AngularJS app.
+Сервис использует  `import()`  Метод для ленивой загрузки вашего приложения AngularJS. Это уменьшает первоначальный размер пакета вашего приложения, так как вы не загружаете код, который еще не нужен вашему пользователю. Вам также необходимо указать способ _bootstrap_ приложения вручную после его загрузки. AngularJS предоставляет способ ручной загрузки приложения с помощью метода [angular.bootstrap ()](https://docs.angularjs.org/api/ng/function/angular.bootstrap)с предоставленным элементом HTML. Ваше приложение AngularJS также должно отображать  `bootstrap`  метод начальной который загружает приложение AngularJS.
 
-To ensure any necessary teardown is triggered in the AngularJS app, such as removal of global listeners, you also implement a method to call the `$rootScope.destroy()` method.
+Чтобы убедиться, что в приложении AngularJS запущен любой необходимый разрыв, например, удаление глобальных слушателей, вы также реализуете метод для вызова  `$rootScope.destroy()`.
 
 <code-example path="upgrade-lazy-load-ajs/src/app/angularjs-app/index.ts" header="angularjs-app">
 </code-example>
 
-Your AngularJS application is configured with only the routes it needs to render content. The remaining routes in your application are handled by the Angular Router. The exposed `bootstrap` method is called in your Angular app to bootstrap the AngularJS application after the bundle is loaded.
+В вашем приложении AngularJS настроены только маршруты, необходимые для визуализации контента. Остальные маршруты в вашем приложении обрабатываются Angular маршрутизатором. Выставленный  `bootstrap`  Метод вызывается в вашем приложении Angular для начальной загрузки приложения AngularJS после загрузки пакета.
 
 <div class="alert is-important">
 
-**Note:** After AngularJS is loaded and bootstrapped, listeners such as those wired up in your route configuration will continue to listen for route changes. To ensure listeners are shut down when AngularJS isn't being displayed, configure an `otherwise` option with the [$routeProvider](https://docs.angularjs.org/api/ngRoute/provider/$routeProvider) that renders an empty template. This assumes all other routes will be handled by Angular.
+**Примечание.** После загрузки и загрузки AngularJS прослушиватели, например, подключенные в конфигурации вашего маршрута, продолжат прослушивать изменения маршрута. Чтобы гарантировать отключение слушателей, когда AngularJS не отображается, настройте  `otherwise`  опция с [$ routeProvider](https://docs.angularjs.org/api/ngRoute/provider/$routeProvider)которая отображает пустой шаблон. Это предполагает, что все другие маршруты будут обрабатываться Angular.
 
 </div>
 
-### Create a component to render AngularJS content
+{@a create-a-component-to-render-angularjs-content}
+### Создайте компонент для визуализации содержимого AngularJS
 
-In your Angular application, you need a component as a placeholder for your AngularJS content. This component uses the service you create to load and bootstrap your AngularJS app after the component is initialized.
+В вашем приложении Angular вам необходим компонент в качестве заполнителя для содержимого AngularJS. Этот компонент использует созданный вами сервис для загрузки и начальной загрузки вашего приложения AngularJS после инициализации компонента.
 
 <code-example path="upgrade-lazy-load-ajs/src/app/angular-js/angular-js.component.ts" header="src/app/angular-js/angular-js.component.ts">
 </code-example>
 
-When the Angular Router matches a route that uses AngularJS, the `AngularJSComponent` is rendered, and the content is rendered within the AngularJS [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) directive. When the user navigates away from the route, the `$rootScope` is destroyed on the AngularJS application.
+Когда Angular Router соответствует маршруту, который использует AngularJS,  `AngularJSComponent`, а содержимое отображается в соответствии с AngularJS [  `ng-view`  ](https://docs.angularjs.org/api/ngRoute/directive/ngView)директивой . Когда пользователь уходит от маршрута,  `$rootScope`  уничтожен в приложении AngularJS.
 
-### Configure a custom route matcher for AngularJS routes
+{@a configure-a-custom-route-matcher-for-angularjs-routes}
+### Настройте пользовательское сопоставление маршрутов для маршрутов AngularJS
 
-To configure the Angular Router, you must define a route for AngularJS URLs. To match those URLs, you add a route configuration that uses the `matcher` property. The `matcher` allows you to use custom pattern matching for URL paths. The Angular Router tries to match on more specific routes such as static and variable routes first. When it doesn't find a match, it then looks at custom matchers defined in your route configuration. If the custom matchers don't match a route, it then goes to catch-all routes, such as a 404 page.
+Чтобы настроить Angular Router, необходимо определить маршрут для URL-адресов AngularJS. Чтобы соответствовать этим URL, вы добавляете конфигурацию маршрута, которая использует  `matcher`  недвижимость.  `matcher` позволяет использовать настраиваемое сопоставление с образцом для URL-путей. Angular маршрутизатор сначала пытается найти соответствие более конкретным маршрутам, таким как статические и переменные. Когда он не находит соответствия, он просматривает пользовательские соответствия, определенные в конфигурации вашего маршрута. Если пользовательские сопоставления не совпадают с маршрутом, он переходит ко всем маршрутам, таким как страница 404.
 
-The following example defines a custom matcher function for AngularJS routes.
+В следующем примере определяется пользовательская функция соответствия для маршрутов AngularJS.
 
 <code-example path="upgrade-lazy-load-ajs/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts" region="matcher">
 </code-example>
 
-The following code adds a route object to your routing configuration using the `matcher` property and custom matcher, and the `component` property with `AngularJSComponent`.
+Следующий код добавляет объект маршрута в вашу конфигурацию маршрутизации, используя  `matcher`  свойство и пользовательское matcher, а также  `component`  свойство с  `AngularJSComponent`.
 
 <code-example path="upgrade-lazy-load-ajs/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts">
 </code-example>
 
-When your application matches a route that needs AngularJS, the AngularJS app is loaded and bootstrapped, the AngularJS routes match the necessary URL to render their content, and your application continues to run with both AngularJS and Angular frameworks.
+Когда ваше приложение соответствует маршруту, для которого требуется AngularJS, приложение AngularJS загружается и загружается, маршруты AngularJS соответствуют URL-адресу, необходимому для визуализации их содержимого, и ваше приложение продолжает работать с платформами AngularJS и Angular.
 
-## Using the Unified Angular Location Service
+{@a using-the-unified-angular-location-service}
+## Использование единой службы Angular локаций
 
-In AngularJS, the [$location service](https://docs.angularjs.org/api/ng/service/$location) handles all routing configuration and navigation, encoding and decoding of URLS, redirects, and interactions with browser APIs. Angular uses its own underlying `Location` service for all of these tasks.
+В AngularJS [$ location service](https://docs.angularjs.org/api/ng/service/$location)обрабатывает все настройки маршрутизации и навигации, кодирование и декодирование URL-адресов, перенаправляет и взаимодействует с API-интерфейсами браузера. Angular использует свой собственный  `Location`  Служба определения для всех этих задач.
 
-When you migrate from AngularJS to Angular you will want to move as much responsibility as possible to Angular, so that you can take advantage of new APIs. To help with the transition, Angular provides the `LocationUpgradeModule`. This module enables a _unified_ location service that shifts responsibilities from the AngularJS `$location` service to the Angular `Location` service.
+При переходе с AngularJS на Angular вы захотите перенести как можно больше ответственности на Angular, чтобы вы могли воспользоваться преимуществами новых API. Чтобы помочь с переходом, Angular предоставляет  `LocationUpgradeModule`  . Этот модуль включает _унифицированную_ службу определения местоположения, которая переносит обязанности с AngularJS  `$location`  Служба определения в Angular  `Location`  Служба определения.
 
-To use the `LocationUpgradeModule`, import the symbol from `@angular/common/upgrade` and add it to your `AppModule` imports using the static `LocationUpgradeModule.config()` method.
+Чтобы использовать  `LocationUpgradeModule`, импортировать символ из  `@angular/common/upgrade`  и добавьте его в свой  `AppModule`  импортирует используя статический  `LocationUpgradeModule.config()`  Метод.
 
 ```ts
 // Other imports ...
@@ -928,9 +953,9 @@ import { LocationUpgradeModule } from '@angular/common/upgrade';
 export class AppModule {}
 ```
 
-The `LocationUpgradeModule.config()` method accepts a configuration object that allows you to configure options including the `LocationStrategy` with the `useHash` property, and the URL prefix with the `hashPrefix` property.
+ `LocationUpgradeModule.config()` Метод принимает объект конфигурации, который позволяет настраивать параметры, включая  `LocationStrategy`  с  `useHash`  свойство и префикс URL с  `hashPrefix`  свойство.
 
-The `useHash` property defaults to `false`, and the `hashPrefix` defaults to an empty `string`. Pass the configuration object to override the defaults.
+ `useHash` свойство умолчанию  `false`, а  `hashPrefix`  умолчанию - пустой  `string`  . Передайте объект конфигурации, чтобы переопределить значения по умолчанию.
 
 ```ts
 LocationUpgradeModule.config({
@@ -941,13 +966,13 @@ LocationUpgradeModule.config({
 
 <div class="alert is-important">
 
-**Note:** See the `LocationUpgradeConfig` for more configuration options available to the `LocationUpgradeModule.config()` method.
+**Примечание:** см.  `LocationUpgradeConfig`  для дополнительных параметров конфигурации, доступных для  `LocationUpgradeModule.config()`  Метод.
 
 </div>
 
-This registers a drop-in replacement for the `$location` provider in AngularJS. Once registered, all navigation, routing broadcast messages, and any necessary digest cycles in AngularJS triggered during navigation are handled by Angular. This gives you a single way to navigate within both sides of your hybrid application consistently.
+Это регистрирует замену для  `$location`  провайдера в AngularJS. После регистрации все навигационные, широковещательные сообщения и любые необходимые циклы дайджеста в AngularJS, запускаемые во время навигации, обрабатываются Angular. Это дает вам единый способ последовательно перемещаться по обеим сторонам гибридного приложения.
 
-For usage of the `$location` service as a provider in AngularJS, you need to downgrade the `$locationShim` using a factory provider.
+Для использования  `$location`  Service в качестве поставщика в AngularJS, вам нужно понизить  `$locationShim`  используя фабричного провайдера.
 
 ```ts
 // Other imports ...
@@ -958,27 +983,28 @@ angular.module('myHybridApp', [...])
   .factory('$location', downgradeInjectable($locationShim));
 ```
 
-Once you introduce the Angular Router, using the Angular Router triggers navigations through the unified location service, still providing a single source for navigating with AngularJS and Angular.
+Как только вы представите Angular Router, использование Angular Router запускает навигацию через унифицированную службу определения местоположения, по-прежнему предоставляя единый источник для навигации с AngularJS и Angular.
 
 <!--
 TODO:
-Correctly document how to use AOT with SystemJS-based `ngUpgrade` apps (or better yet update the
-`ngUpgrade` examples/guides to use `@angular/cli`).
+Correctly document how to use AOT with SystemJS-based  `ngUpgrade`  apps (or better yet update the
+ `ngUpgrade`  examples/guides to use  `@angular/cli` ).
 See https://github.com/angular/angular/issues/35989.
 
+{@a using-ahead-of-time-compilation-with-hybrid-apps}
 ## Using Ahead-of-time compilation with hybrid apps
 
 You can take advantage of Ahead-of-time (AOT) compilation on hybrid apps just like on any other
 Angular application.
 The setup for a hybrid app is mostly the same as described in
 [the Ahead-of-time Compilation chapter](guide/aot-compiler)
-save for differences in `index.html` and `main-aot.ts`
+save for differences in  `index.html`  and  `main-aot.ts` 
 
-The `index.html` will likely have script tags loading AngularJS files, so the `index.html`
+The  `index.html`  will likely have script tags loading AngularJS files, so the  `index.html` 
 for AOT must also load those files.
-An easy way to copy them is by adding each to the `copy-dist-files.js` file.
+An easy way to copy them is by adding each to the  `copy-dist-files.js`  file.
 
-You'll need to use the generated `AppModuleFactory`, instead of the original `AppModule` to
+You'll need to use the generated  `AppModuleFactory`, instead of the original  `AppModule`  to
 bootstrap the hybrid app:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main-aot.ts" header="app/main-aot.ts">
@@ -987,27 +1013,28 @@ bootstrap the hybrid app:
 And that's all you need do to get the full benefit of AOT for Angular apps!
 -->
 
-## PhoneCat Upgrade Tutorial
+{@a phonecat-upgrade-tutorial}
+## PhoneCat Обновление Учебник
 
-In this section, you'll learn to prepare and upgrade an application with `ngUpgrade`.
-The example app is [Angular PhoneCat](https://github.com/angular/angular-phonecat)
-from [the original AngularJS tutorial](https://docs.angularjs.org/tutorial),
-which is where many of us began our Angular adventures. Now you'll see how to
-bring that application to the brave new world of Angular.
+В этом разделе вы научитесь готовить и обновлять приложение с  `ngUpgrade`.
+Пример приложения [Angular PhoneCat](https://github.com/angular/angular-phonecat)
+из [оригинальное AngularJS учебника](https://docs.angularjs.org/tutorial),
+именно здесь многие из нас начали наши Angular приключения. Теперь вы увидите, как
+перенесите это приложение в дивный новый мир Angular.
 
-During the process you'll learn how to apply the steps outlined in the
-[preparation guide](guide/upgrade#preparation). You'll align the application
-with Angular and also start writing in TypeScript.
+В процессе вы узнаете, как применять шаги, описанные в
+[руководство по подготовке](guide/upgrade#preparation). Вы выровняете приложение
+с Angular, а также начать писать в TypeScript.
 
-To follow along with the tutorial, clone the
-[angular-phonecat](https://github.com/angular/angular-phonecat) repository
-and apply the steps as you go.
+Чтобы следовать учебнику, клонируйте
+[angular-phonecat](https://github.com/angular/angular-phonecat)хранилище
+и применить шаги, как вы идете.
 
-In terms of project structure, this is where the work begins:
+С точки зрения структуры проекта, это где начинается работа:
 
 <div class='filetree'>
   <div class='file'>
-    angular-phonecat
+    Angular-Phonecat
   </div>
   <div class='children'>
     <div class='file'>
@@ -1020,15 +1047,15 @@ In terms of project structure, this is where the work begins:
       package.json
     </div>
     <div class='file'>
-      app
+      приложение
     </div>
     <div class='children'>
       <div class='file'>
-        core
+        ядро
       </div>
       <div class='children'>
         <div class='file'>
-          checkmark
+          Галочка
         </div>
         <div class='children'>
           <div class='file'>
@@ -1039,7 +1066,7 @@ In terms of project structure, this is where the work begins:
           </div>
         </div>
         <div class='file'>
-          phone
+          телефон
         </div>
         <div class='children'>
           <div class='file'>
@@ -1057,7 +1084,7 @@ In terms of project structure, this is where the work begins:
         </div>
       </div>
       <div class='file'>
-        phone-detail
+        телефон-деталь
       </div>
       <div class='children'>
         <div class='file'>
@@ -1074,7 +1101,7 @@ In terms of project structure, this is where the work begins:
         </div>
       </div>
       <div class='file'>
-        phone-list
+        список телефонов
       </div>
       <div class='children'>
         <div class='file'>
@@ -1091,7 +1118,7 @@ In terms of project structure, this is where the work begins:
         </div>
       </div>
       <div class='file'>
-        img
+        IMG
       </div>
       <div class='children'>
         <div class='file'>
@@ -1099,7 +1126,7 @@ In terms of project structure, this is where the work begins:
         </div>
       </div>
       <div class='file'>
-        phones
+        телефоны
       </div>
       <div class='children'>
         <div class='file'>
@@ -1123,11 +1150,11 @@ In terms of project structure, this is where the work begins:
       </div>
     </div>
     <div class='file'>
-      e2e-tests
+      e2e-тесты
     </div>
     <div class='children'>
       <div class='file'>
-        protractor-conf.js
+        транспортир-conf.js
       </div>
       <div class='file'>
         scenarios.js
@@ -1136,63 +1163,64 @@ In terms of project structure, this is where the work begins:
   </div>
 </div>
 
-This is actually a pretty good starting point. The code uses the AngularJS 1.5
-component API and the organization follows the
-[AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md),
-which is an important [preparation step](guide/upgrade#follow-the-angular-styleguide) before
-a successful upgrade.
+Это на самом деле довольно хорошая отправная точка. Код использует AngularJS 1.5
+Компонент API и организация следует
+[AngularJS Руководство по стилю](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md),
+что является важным [подготовительный этап](guide/upgrade#follow-the-angular-styleguide)раньше
+успешное обновление.
 
-* Each component, service, and filter is in its own source file, as per the
-  [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
+* Каждый компонент, служба и фильтр находятся в своем собственном исходном файле согласно
+  [Правило 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
 
-* The `core`, `phone-detail`, and `phone-list` modules are each in their
-  own subdirectory. Those subdirectories contain the JavaScript code as well as
-  the HTML templates that go with each particular feature. This is in line with the
-  [Folders-by-Feature Structure](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
-  and [Modularity](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
-  rules.
+*  `core `, ` phone-detail`, и  `phone-list`  Модули каждый в своем
+  собственный подкаталог. Эти подкаталоги содержат код JavaScript, а также
+  HTML-шаблоны, которые идут с каждой конкретной функцией. Это соответствует
+  [Структура папок по функциям](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
+  и [модульность](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
+  правила.
 
-* Unit tests are located side-by-side with application code where they are easily
-  found, as described in the rules for
-  [Organizing Tests](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#organizing-tests).
+* Модульные тесты расположены рядом с кодом приложения, где они легко
+  нашел, как описано в правилах для
+  [Организация испытаний](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#organizing-tests).
 
-### Switching to TypeScript
+{@a switching-to-typescript}
+### Переключение на TypeScript
 
-Since you're going to be writing Angular code in TypeScript, it makes sense to
-bring in the TypeScript compiler even before you begin upgrading.
+Поскольку вы собираетесь писать код Angular на языке TypeScript, это имеет смысл
+принесите компилятор TypeScript еще до того, как вы начнете обновление.
 
-You'll also start to gradually phase out the Bower package manager in favor
-of NPM, installing all new dependencies using NPM, and eventually removing Bower from the project.
+Вы также начнете постепенно отказываться от менеджера пакетов Bower
+NPM, установка всех новых зависимостей с использованием NPM и, в конечном итоге, удаление Bower из проекта.
 
-Begin by installing TypeScript to the project.
+Начните с установки TypeScript в проект.
 
 <code-example format="">
   npm i typescript --save-dev
 </code-example>
 
-Install type definitions for the existing libraries that
-you're using but that don't come with prepackaged types: AngularJS, AngularJS Material, and the
-Jasmine unit test framework.
+Установите определения типов для существующих библиотек
+вы используете, но они не поставляются с предварительно упакованными типами: AngularJS, AngularJS Material и
+Фреймворк для жасмина.
 
-For the PhoneCat app, we can install the necessary type definitions by running the following command:
+Для приложения PhoneCat, мы можем установить необходимые определения типов, выполнив следующую команду:
 
 <code-example format="">
   npm install @types/jasmine @types/angular @types/angular-animate @types/angular-aria @types/angular-cookies @types/angular-mocks @types/angular-resource @types/angular-route @types/angular-sanitize --save-dev
 </code-example>
 
-If you are using AngularJS Material, you can install the type definitions via:
+Если вы используете AngularJS материал, вы можете установить определение типа с помощью:
 
 <code-example format="">
   npm install @types/angular-material --save-dev
 </code-example>
 
-You should also configure the TypeScript compiler with a `tsconfig.json` in the project directory
-as described in the [TypeScript Configuration](guide/typescript-configuration) guide.
-The `tsconfig.json` file tells the TypeScript compiler how to turn your TypeScript files
-into ES5 code bundled into CommonJS modules.
+Вы также должны настроить компилятор TypeScript с  `tsconfig.json`  в каталоге проекта
+как описано в руководстве [Конфигурация TypeScript](guide/typescript-configuration).
+ `tsconfig.json` Файл сообщает компилятору TypeScript, как включить файлы TypeScript
+в код ES5, связанный с модулями CommonJS.
 
-Finally, you should add some npm scripts in `package.json` to compile the TypeScript files to
-JavaScript (based on the `tsconfig.json` configuration file):
+Наконец, вы должны добавить несколько скриптов npm в  `package.json`  для компиляции файлов TypeScript
+JavaScript (на основе  `tsconfig.json`  файл конфигурации):
 
 <code-example format="">
   "scripts": {
@@ -1201,324 +1229,329 @@ JavaScript (based on the `tsconfig.json` configuration file):
     ...
 </code-example>
 
-Now launch the TypeScript compiler from the command line in watch mode:
+Теперь запустите компилятор машинопись из командной строки в режиме часов:
 
 <code-example format="">
   npm run tsc:w
 </code-example>
 
-Keep this process running in the background, watching and recompiling as you make changes.
+Сохраняйте этот процесс в фоновом режиме, наблюдая и перекомпилируя при внесении изменений.
 
-Next, convert your current JavaScript files into TypeScript. Since
-TypeScript is a super-set of ECMAScript 2015, which in turn is a super-set
-of ECMAScript 5, you can simply switch the file extensions from `.js` to `.ts`
-and everything will work just like it did before. As the TypeScript compiler
-runs, it emits the corresponding `.js` file for every `.ts` file and the
-compiled JavaScript is what actually gets executed. If you start
-the project HTTP server with `npm start`, you should see the fully functional
-application in your browser.
+Затем конвертируйте ваши текущие файлы JavaScript в TypeScript. Так как
+TypeScript - это супер-набор ECMAScript 2015, который, в свою очередь, является супер-набором
+ECMAScript 5, вы можете просто переключать расширения файлов с  `.js`  к  `.ts` 
+и все будет работать так же, как и раньше. Как компилятор TypeScript
+работает, он испускает соответствующий  `.js`  файл для каждого  `.ts`  файл и
+скомпилированный JavaScript - это то, что фактически выполняется. Если вы начнете
+HTTP-сервер проекта с `npm start`, вы должны увидеть полностью работоспособный
+приложение в вашем браузере.
 
-Now that you have TypeScript though, you can start benefiting from some of its
-features. There's a lot of value the language can provide to AngularJS applications.
+Теперь, когда у вас есть TypeScript, вы можете начать пользоваться некоторыми из них
+функции. Язык имеет большое значение для приложений AngularJS.
 
-For one thing, TypeScript is a superset of ES2015. Any app that has previously
-been written in ES5 - like the PhoneCat example has - can with TypeScript
-start incorporating all of the JavaScript features that are new to ES2015.
-These include things like `let`s and `const`s, arrow functions, default function
-parameters, and destructuring assignments.
+С одной стороны, TypeScript - это расширенный набор ES2015. Любое приложение, которое ранее
+был написан на ES5 - как в примере PhoneCat - может с TypeScript
+начать включать все функции JavaScript, которые являются новыми для ES2015.
+К ним относятся такие вещи, как  `let`  с  `const`  s, функции стрелок, функция по умолчанию
+параметры и деструктурирующие задания.
 
-Another thing you can do is start adding *type safety* to your code. This has
-actually partially already happened because of the AngularJS typings you installed.
-TypeScript are checking that you are calling AngularJS APIs correctly when you do
-things like register components to Angular modules.
+Еще одна вещь, которую вы можете сделать, это начать добавлять *безопасность типов* в ваш код. Это имеет
+фактически частично это уже произошло из-за установленных вами AngularJS-типов.
+TypeScript проверяет, правильно ли вы вызываете API AngularJS
+такие вещи, как регистрация компонентов в Angular модулях.
 
-But you can also start adding *type annotations* to get even more
-out of TypeScript's type system. For instance, you can annotate the checkmark
-filter so that it explicitly expects booleans as arguments. This makes it clearer
-what the filter is supposed to do.
+Но вы также можете начать добавлять *аннотации типов,* чтобы получить еще больше
+вне системы типов TypeScript. Например, вы можете аннотировать галочку
+фильтр, так что он явно ожидает логические значения в качестве аргументов. Это делает это понятнее
+что фильтр должен делать.
 
 <code-example path="upgrade-phonecat-1-typescript/app/core/checkmark/checkmark.filter.ts" header="app/core/checkmark/checkmark.filter.ts">
 </code-example>
 
-In the `Phone` service, you can explicitly annotate the `$resource` service dependency
-as an `angular.resource.IResourceService` - a type defined by the AngularJS typings.
+в  `Phone`  служба, вы можете явно аннотировать  `$resource`  службы зависимости
+как  `angular.resource.IResourceService`  - тип, определенный типизацией AngularJS.
 
 <code-example path="upgrade-phonecat-1-typescript/app/core/phone/phone.service.ts" header="app/core/phone/phone.service.ts">
 </code-example>
 
-You can apply the same trick to the application's route configuration file in `app.config.ts`,
-where you are using the location and route services. By annotating them accordingly TypeScript
-can verify you're calling their APIs with the correct kinds of arguments.
+Вы можете применить тот же трюк к файлу конфигурации маршрута приложения в  `app.config.ts`,
+где вы используете местоположение и маршрутные услуги. Путем аннотирования их соответственно TypeScript
+можете убедиться, что вы вызываете их API с правильными аргументами.
 
 <code-example path="upgrade-phonecat-1-typescript/app/app.config.ts" header="app/app.config.ts">
 </code-example>
 
 <div class="alert is-helpful">
 
-The [AngularJS 1.x type definitions](https://www.npmjs.com/package/@types/angular)
-you installed are not officially maintained by the Angular team,
-but are quite comprehensive. It is possible to make an AngularJS 1.x application
-fully type-annotated with the help of these definitions.
+В [AngularJS 1.X типа определений](https://www.npmjs.com/package/@types/angular)
+Вы не установлены официально командой Angular
+но довольно всеобъемлющие. Можно создать приложение AngularJS 1.x
+полностью аннотированный с помощью этих определений.
 
-If this is something you wanted to do, it would be a good idea to enable
-the `noImplicitAny` configuration option in `tsconfig.json`. This would
-cause the TypeScript compiler to display a warning when there's any code that
-does not yet have type annotations. You could use it as a guide to inform
-us about how close you are to having a fully annotated project.
+Если это то, что вы хотели сделать, было бы неплохо включить
+ `noImplicitAny` опция конфигурации в  `tsconfig.json`  . Это бы
+заставить компилятор TypeScript отображать предупреждение, когда есть какой-либо код
+еще не имеет аннотации типа. Вы можете использовать его в качестве руководства для информирования
+о том, насколько вы близки к полностью аннотированному проекту.
 
 </div>
 
-Another TypeScript feature you can make use of is *classes*. In particular, you
-can turn component controllers into classes. That way they'll be a step
-closer to becoming Angular component classes, which will make life
-easier once you upgrade.
+Еще одна особенность TypeScript, которую вы можете использовать - это *классы*. В частности, вы
+может превратить контроллеры компонентов в классы. Таким образом, они будут шагом
+ближе к становлению Angular компонентов классов, которые сделают жизнь
+легче, как только вы обновитесь.
 
-AngularJS expects controllers to be constructor functions. That's exactly what
-ES2015/TypeScript classes are under the hood, so that means you can just plug in a
-class as a component controller and AngularJS will happily use it.
+AngularJS ожидает, что контроллеры будут функциями конструктора. Это именно то, что
+Классы ES2015 / TypeScript находятся внутри, так что это означает, что вы можете просто подключить
+класс как компонентный контроллер, и AngularJS с удовольствием его использует.
 
-Here's what the new class for the phone list component controller looks like:
+Вот то, что новый класс для списка телефонов компонентов выглядит контроллер, как:
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-list/phone-list.component.ts" header="app/phone-list/phone-list.component.ts">
 </code-example>
 
-What was previously done in the controller function is now done in the class
-constructor function. The dependency injection annotations are attached
-to the class using a static property `$inject`. At runtime this becomes the
-`PhoneListController.$inject` property.
+То, что раньше было сделано в функции контроллера, теперь делается в классе
+функция конструктора. Аннотации внедрения зависимостей прилагаются
+в класс с использованием статического свойства  `$inject`  . Во время выполнения это становится
+ `PhoneListController.$inject` свойство.
 
-The class additionally declares three members: The array of phones, the name of
-the current sort key, and the search query. These are all things you have already
-been attaching to the controller but that weren't explicitly declared anywhere.
-The last one of these isn't actually used in the TypeScript code since it's only
-referred to in the template, but for the sake of clarity you should define all of the
-controller members.
+Класс дополнительно объявляет трех членов: массив телефонов, имя
+текущий ключ сортировки и поисковый запрос. Это все, что у вас уже есть
+подключался к контроллеру, но это нигде не было явно объявлено.
+Последний из них на самом деле не используется в коде TypeScript, поскольку он только
+упоминается в шаблоне, но для ясности вы должны определить все
+члены контроллера.
 
-In the Phone detail controller, you'll have two members: One for the phone
-that the user is looking at and another for the URL of the currently displayed image:
+В подробном контроллере телефона у вас будет два участника: один для телефона
+что пользователь смотрит, а другой для URL отображаемого в данный момент изображения:
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-detail/phone-detail.component.ts" header="app/phone-detail/phone-detail.component.ts">
 </code-example>
 
-This makes the controller code look a lot more like Angular already. You're
-all set to actually introduce Angular into the project.
+Это делает код контроллера уже более похожим на Angular. Ты
+все готово для внедрения Angular в проект.
 
-If you had any AngularJS services in the project, those would also be
-a good candidate for converting to classes, since like controllers,
-they're also constructor functions. But you only have the `Phone` factory
-in this project, and that's a bit special since it's an `ngResource`
-factory. So you won't be doing anything to it in the preparation stage.
-You'll instead turn it directly into an Angular service.
+Если у вас есть какие-либо сервисы AngularJS в проекте, они также будут
+хороший кандидат для преобразования классов, так как контроллеры,
+они также функции конструктора. Но у вас есть только  `Phone`  фабрика
+в этом проекте, и это немного особенное, так как это  `ngResource` 
+завод. Таким образом, вы не будете ничего делать с ним на стадии подготовки.
+Вместо этого вы превратите его непосредственно в сервис Angular.
 
-### Installing Angular
+{@a installing-angular}
+### Установка Angular
 
-Having completed the preparation work, get going with the Angular
-upgrade of PhoneCat. You'll do this incrementally with the help of
-[ngUpgrade](#upgrading-with-ngupgrade) that comes with Angular.
-By the time you're done, you'll be able to remove AngularJS from the project
-completely, but the key is to do this piece by piece without breaking the application.
+Закончив подготовительные работы, приступайте к работе с Angular
+обновление PhoneCat. Вы будете делать это постепенно с помощью
+[ngUpgrade](#upgrading-with-ngupgrade)который поставляется с Angular.
+К тому времени, как вы закончите, вы сможете удалить AngularJS из проекта
+полностью, но ключ в том, чтобы сделать это по частям, не нарушая приложения.
 
 <div class="alert is-important">
 
-The project also contains some animations.
-You won't upgrade them in this version of the guide.
-Turn to the [Angular animations](guide/animations) guide to learn about that.
+Проект также содержит некоторые анимации.
+Вы не будете обновлять их в этой версии руководства.
+Обратитесь к руководству [Angular Animation](guide/animations)чтобы узнать об этом.
 
 </div>
 
-Install Angular into the project, along with the SystemJS module loader.
-Take a look at the results of the [upgrade setup instructions](guide/upgrade-setup)
-and get the following configurations from there:
+Установите Angular в проект вместе с загрузчиком модулей SystemJS.
+Посмотрите на результаты [инструкции по установке обновления](guide/upgrade-setup)
+и получить следующие конфигурации оттуда:
 
-* Add Angular and the other new dependencies to `package.json`
-* The SystemJS configuration file `systemjs.config.js` to the project root directory.
+* Добавьте Angular и другие новые зависимости в  `package.json` 
+* Файл конфигурации SystemJS  `systemjs.config.js`  в корневой каталог проекта.
 
-Once these are done, run:
+После того, как это делается, выполните:
 
 <code-example format="">
   npm install
 </code-example>
 
-Soon you can load Angular dependencies into the application via `index.html`,
-but first you need to do some directory path adjustments.
-You'll need to load files from `node_modules` and the project root instead of
-from the `/app` directory as you've been doing to this point.
+Вскоре вы можете загрузить Angular-зависимости в приложение через  `index.html`,
+но сначала вам нужно сделать некоторые корректировки пути к каталогу.
+Вам нужно будет загрузить файлы из  `node_modules`  и корень проекта вместо
+от  `/app`  каталог как вы делали до этого момента.
 
-Move the `app/index.html` file to the project root directory. Then change the
-development server root path in `package.json` to also point to the project root
-instead of `app`:
+Переместить  `app/index.html`  файл в корневой каталог проекта. Тогда поменяй
+корневой путь сервера разработки в  `package.json`  также указывает на корневой каталог проекта
+вместо того  `app`  :
 
 <code-example format="">
   "start": "http-server ./ -a localhost -p 8000 -c-1",
 </code-example>
 
-Now you're able to serve everything from the project root to the web browser. But you do *not*
-want to have to change all the image and data paths used in the application code to match
-the development setup. For that reason, you'll add a `<base>` tag to `index.html`, which will
-cause relative URLs to be resolved back to the `/app` directory:
+Теперь вы можете обслуживать все, от корня проекта до веб-браузера. Но ты *не*
+хотите изменить все изображения и пути к данным, используемые в коде приложения, чтобы они соответствовали
+настройка разработки. По этой причине вы добавите  `<base>`  тег для  `index.html`, который будет
+вызвать относительные URL-адреса обратно к  `/app`  каталога:
 
 <code-example path="upgrade-phonecat-2-hybrid/index.html" region="base" header="index.html">
 </code-example>
 
-Now you can load Angular via SystemJS. You'll add the Angular polyfills and the
-SystemJS config to the end of the `<head>` section, and then you'll use `System.import`
-to load the actual application:
+Теперь вы можете загрузить Angular через SystemJS. Вы добавите Angular заполнитель и
+Конфигурация SystemJS до конца  `<head>`  раздел, и тогда вы будете использовать  `System.import` 
+загрузить само приложение:
 
 <code-example path="upgrade-phonecat-2-hybrid/index.html" region="angular" header="index.html">
 </code-example>
 
-You also need to make a couple of adjustments
-to the `systemjs.config.js` file installed during [upgrade setup](guide/upgrade-setup).
+Вам также необходимо внести пару корректировок
+к  `systemjs.config.js`  Файл установленный во время [настройка обновления](guide/upgrade-setup).
 
-Point the browser to the project root when loading things through SystemJS,
-instead of using the `<base>` URL.
+При загрузке файлов через SystemJS укажите браузер на корневой каталог проекта
+вместо использования  `<base>`  URL.
 
-Install the `upgrade` package via `npm install @angular/upgrade --save`
-and add a mapping for the `@angular/upgrade/static` package.
+Установите  `upgrade`  пакет через `npm install @angular/upgrade --save` 
+и добавьте отображение для  `@angular/upgrade/static`  package.
 
 <code-example path="upgrade-phonecat-2-hybrid/systemjs.config.1.js" region="paths" header="systemjs.config.js">
 </code-example>
 
-### Creating the _AppModule_
+{@a creating-the-appmodule}
+### Создание _AppModule_
 
-Now create the root `NgModule` class called `AppModule`.
-There is already a file named `app.module.ts` that holds the AngularJS module.
-Rename it to `app.module.ajs.ts` and update the corresponding script name in the `index.html` as well.
-The file contents remain:
+Теперь создайте рут  `NgModule`  Класс называется  `AppModule`.
+Уже есть файл с именем  `app.module.ts`  который содержит модуль AngularJS.
+Переименуйте его в  `app.module.ajs.ts`  и обновите имя соответствующего скрипта в  `index.html`  также.
+Содержимое файла остается:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ajs.ts" header="app.module.ajs.ts">
 </code-example>
 
-Now create a new `app.module.ts` with the minimum `NgModule` class:
+Теперь создайте новый  `app.module.ts`  с минимальным  `NgModule`  класс:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="bare" header="app.module.ts">
 </code-example>
 
-### Bootstrapping a hybrid PhoneCat
+{@a bootstrapping-a-hybrid-phonecat}
+### Самозагрузка гибридного PhoneCat
 
-Next, you'll bootstrap the application as a *hybrid application*
-that supports both AngularJS and Angular components. After that,
-you can start converting the individual pieces to Angular.
+Далее вы загрузите приложение как *гибридное приложение*
+который поддерживает компоненты AngularJS и Angular. После этого
+Вы можете начать преобразование отдельных частей в Angular.
 
-The application is currently bootstrapped using the AngularJS `ng-app` directive
-attached to the `<html>` element of the host page. This will no longer work in the hybrid
-app. Switch to the [ngUpgrade bootstrap](#bootstrapping-hybrid-applications) method
-instead.
+Приложение в настоящее время загружается с помощью AngularJS  `ng-app`  директива
+прикреплен к  `<html>`  элемент страницы хоста. Это больше не будет работать в гибриде
+приложение. Переключение на [самозагрузки ngUpgrade](#bootstrapping-hybrid-applications)метода
+вместо.
 
-First, remove the `ng-app` attribute from `index.html`.
-Then import `UpgradeModule` in the `AppModule`, and override its `ngDoBootstrap` method:
+Сначала удалите  `ng-app`  атрибут from  `index.html`.
+Затем импортировать  `UpgradeModule`  в  `AppModule`  и переопределить его  `ngDoBootstrap`  метод:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="upgrademodule" header="app/app.module.ts">
 </code-example>
 
-Note that you are bootstrapping the AngularJS module from inside `ngDoBootstrap`.
-The arguments are the same as you would pass to `angular.bootstrap` if you were manually
-bootstrapping AngularJS: the root element of the application; and an array of the
-AngularJS 1.x modules that you want to load.
+Обратите внимание, что вы загружаете модуль AngularJS изнутри  `ngDoBootstrap`.
+Аргументы такие же, как вы могли бы передать  `angular.bootstrap`  если вы были вручную
+начальная загрузка AngularJS: корневой элемент приложения; и массив
+AngularJS 1.Модули x, которые вы хотите загрузить.
 
-Finally, bootstrap the `AppModule` in `app/main.ts`.
-This file has been configured as the application entrypoint in `systemjs.config.js`,
-so it is already being loaded by the browser.
+Наконец, загрузите  `AppModule`  в  `app/main.ts`.
+Этот файл был настроен как точка входа приложения в  `systemjs.config.js`,
+поэтому он уже загружается браузером.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main.ts" region="bootstrap" header="app/main.ts">
 </code-example>
 
-Now you're running both AngularJS and Angular at the same time. That's pretty
-exciting! You're not running any actual Angular components yet. That's next.
+Теперь вы используете одновременно AngularJS и Angular. Это мило
+захватывающий! Вы еще не используете какие-либо фактические компоненты Angular. Это следующее.
 
 <div class="alert is-helpful">
 
-#### Why declare _angular_ as _angular.IAngularStatic_?
+{@a why-declare-angular-as-angular.iangularstatic}
+#### Зачем объявлять _angular_ как _angular.IAngularStatic_?
 
-`@types/angular` is declared as a UMD module, and due to the way
-<a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions">UMD typings</a>
-work, once you have an ES6 `import` statement in a file all UMD typed modules must also be
-imported via `import` statements instead of being globally available.
+ `@types/angular` объявлено как модуль UMD, и из-за пути
+<a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions">UMD печатает </a>
+работать, если у вас есть ES6  `import`  оператор в файле также должен содержать все модули UMD
+импортируется через  `import`  операторы вместо того, чтобы быть глобально доступным.
 
-AngularJS is currently loaded by a script tag in `index.html`, which means that the whole app
-has access to it as a global and uses the same instance of the `angular` variable.
-If you used `import * as angular from 'angular'` instead, you'd also have to
-load every file in the AngularJS app to use ES2015 modules in order to ensure AngularJS was being
-loaded correctly.
+AngularJS в настоящее время загружается тегом script в  `index.html`, что означает, что все приложение
+имеет доступ к нему как к глобальному и использует тот же экземпляр  `angular`  переменная.
+Если вы использовали `import * as angular from 'angular'`, вам также придется
+загрузите каждый файл в приложении AngularJS, чтобы использовать модули ES2015, чтобы обеспечить работу AngularJS
+загружен правильно.
 
-This is a considerable effort and it often isn't worth it, especially since you are in the
-process of moving your code to Angular.
-Instead, declare `angular` as `angular.IAngularStatic` to indicate it is a global variable
-and still have full typing support.
+Это значительное усилие, и оно часто того не стоит, тем более что вы в
+процесс перемещения вашего кода в Angular.
+Вместо этого объявить  `angular`  как  `angular.IAngularStatic`  чтобы указать, что это глобальная переменная
+и до сих пор есть полная поддержка набора текста.
 
 </div>
 
-### Upgrading the Phone service
+{@a upgrading-the-phone-service}
+### Обновление телефонного сервиса
 
-The first piece you'll port over to Angular is the `Phone` service, which
-resides in `app/core/phone/phone.service.ts` and makes it possible for components
-to load phone information from the server. Right now it's implemented with
-ngResource and you're using it for two things:
+Первая часть, которую вы перенесете на Angular, это  `Phone`  служба, которая
+проживает в  `app/core/phone/phone.service.ts`  и делает это возможным для компонентов
+загрузить информацию о телефоне с сервера. Прямо сейчас это реализовано с
+ngResource и вы используете его для двух вещей:
 
-* For loading the list of all phones into the phone list component.
-* For loading the details of a single phone into the phone detail component.
+* Для загрузки списка всех телефонов в компонент списка телефонов.
+* Для загрузки информации об одном телефоне в компонент телефона.
 
-You can replace this implementation with an Angular service class, while
-keeping the controllers in AngularJS land.
+Вы можете заменить эту реализацию классом обслуживания Angular, в то время как
+сохраняя контроллеры на земле AngularJS.
 
-In the new version, you import the Angular HTTP module and call its `HttpClient` service instead of `ngResource`.
+В новой версии вы импортируете модуль Angular HTTP и вызываете его  `HttpClient`  вместо  `ngResource`.
 
-Re-open the `app.module.ts` file, import and add `HttpClientModule` to the `imports` array of the `AppModule`:
+Снова откройте  `app.module.ts`  файл, импорт и добавление  `HttpClientModule`  для  `imports`  массив  `AppModule`  :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="httpclientmodule" header="app.module.ts">
 </code-example>
 
-Now you're ready to upgrade the Phone service itself. Replace the ngResource-based
-service in `phone.service.ts` with a TypeScript class decorated as `@Injectable`:
+Теперь вы готовы обновить сам телефон. Заменить на основе ngResource
+служба в  `phone.service.ts`  с классом TypeScript, оформленным как  `@Injectable`  :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="classdef" header="app/core/phone/phone.service.ts (skeleton)"></code-example>
 
-The `@Injectable` decorator will attach some dependency injection metadata
-to the class, letting Angular know about its dependencies. As described
-by the [Dependency Injection Guide](guide/dependency-injection),
-this is a marker decorator you need to use for classes that have no other
-Angular decorators but still need to have their dependencies injected.
+ `@Injectable` декоратор будет прикреплять некоторые метаданные внедрения зависимости
+к классу, давая Angular знать о его зависимостях. Как описано
+по [Dependency Injection Guide](guide/dependency-injection),
+это маркерный декоратор, который нужно использовать для классов, которые не имеют других
+Angular декораторы, но по-прежнему необходимо вводить их зависимости.
 
-In its constructor the class expects to get the `HttpClient` service. It will
-be injected to it and it is stored as a private field. The service is then
-used in the two instance methods, one of which loads the list of all phones,
-and the other loads the details of a specified phone:
+В своем конструкторе класс ожидает получить  `HttpClient`  . Будет
+быть введен в него, и он сохраняется как личное поле. Служба тогда
+используется в двух методов экземпляра, один из которых загружает список всех телефонов,
+и другие нагрузки на детали указанного телефона:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="fullclass" header="app/core/phone/phone.service.ts">
 </code-example>
 
-The methods now return observables of type `PhoneData` and `PhoneData[]`. This is
-a type you don't have yet. Add a simple interface for it:
+Методы теперь возвращают наблюдаемые типа  `PhoneData`  и  `PhoneData[]`  . Это
+тип у вас еще нет. Добавьте простой интерфейс для этого:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="phonedata-interface" header="app/core/phone/phone.service.ts (interface)"></code-example>
 
-`@angular/upgrade/static` has a `downgradeInjectable` method for the purpose of making
-Angular services available to AngularJS code. Use it to plug in the `Phone` service:
+ `@angular/upgrade/static ` имеет ` downgradeInjectable` метод с целью создания
+Услуги Angular доступны для кода AngularJS. Используйте его для подключения  `Phone`  службы:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="downgrade-injectable" header="app/core/phone/phone.service.ts (downgrade)"></code-example>
 
-Here's the full, final code for the service:
+Вот полный, окончательный код для службы:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" header="app/core/phone/phone.service.ts">
 </code-example>
 
-Notice that you're importing the `map` operator of the RxJS `Observable` separately.
-Do this for every RxJS operator.
+Обратите внимание, что вы импортируете  `map`  оператор RxJS  `Observable`  отдельно.
+Сделайте это для каждого оператора RxJS.
 
-The new `Phone` service has the same features as the original, `ngResource`-based service.
-Because it's an Angular service, you register it with the `NgModule` providers:
+Новый  `Phone`  сервис имеет те же функции, что и оригинал,  `ngResource`  основе.
+Поскольку это услуга Angular, вы регистрируете ее в  `NgModule`  провайдеры:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phone" header="app.module.ts">
 </code-example>
 
-Now that you are loading `phone.service.ts` through an import that is resolved
-by SystemJS, you should **remove the &lt;script&gt; tag** for the service from `index.html`.
-This is something you'll do to all components as you upgrade them. Simultaneously
-with the AngularJS to Angular upgrade you're also migrating code from scripts to modules.
+Теперь, когда вы загружаете  `phone.service.ts`  через импорт, который решен
+SystemJS, вы должны **удалить тег <script>** для службы из  `index.html`.
+Это то, что вы будете делать со всеми компонентами при их обновлении. Одновременно
+с обновлением AngularJS до Angular вы также переносите код из скриптов в модули.
 
-At this point, you can switch the two components to use the new service
-instead of the old one. While you `$inject` it as the downgraded `phone` factory,
-it's really an instance of the `Phone` class and you annotate its type accordingly:
+На этом этапе вы можете переключить два компонента для использования нового сервиса
+вместо старого. Пока ты  `$inject`  как пониженный  `phone`  фабрика
+это действительно пример  `Phone`  класс и аннотированный его тип соответственно:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ajs.ts" header="app/phone-list/phone-list.component.ts">
 </code-example>
@@ -1526,544 +1559,557 @@ it's really an instance of the `Phone` class and you annotate its type according
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.ajs.ts" header="app/phone-detail/phone-detail.component.ts">
 </code-example>
 
-Now there are two AngularJS components using an Angular service!
-The components don't need to be aware of this, though the fact that the
-service returns observables and not promises is a bit of a giveaway.
-In any case, what you've achieved is a migration of a service to Angular
-without having to yet migrate the components that use it.
+Теперь есть два компонента AngularJS, использующие сервис Angular!
+Компоненты не должны знать об этом, хотя тот факт, что
+Служба возвращает наблюдаемые, а не обещания, что-то вроде дешевой распродажи.
+В любом случае вы добились миграции сервиса на Angular
+без необходимости еще переносить компоненты, которые его используют.
 
 <div class="alert is-helpful">
 
-You could use the `toPromise` method of `Observable` to turn those
-observables into promises in the service. In many cases that reduce
-the number of changes to the component controllers.
+Вы могли бы использовать  `toPromise`  способ  `Observable` чтобы превратить тех
+Наблюдаемые в обещания в службе. Во многих случаях это уменьшается
+количество изменений в контроллерах компонентов.
 
 </div>
 
-### Upgrading Components
+{@a upgrading-components}
+### Обновление компонентов
 
-Upgrade the AngularJS components to Angular components next.
-Do it one component at a time while still keeping the application in hybrid mode.
-As you make these conversions, you'll also define your first Angular *pipes*.
+Затем обновите компоненты AngularJS до компонентов Angular.
+Делайте это по одному компоненту за раз, сохраняя приложение в гибридном режиме.
+Выполняя эти преобразования, вы также определите свои первые Angular *трубы*.
 
-Look at the phone list component first. Right now it contains a TypeScript
-controller class and a component definition object. You can morph this into
-an Angular component by just renaming the controller class and turning the
-AngularJS component definition object into an Angular `@Component` decorator.
-You can then also remove the static `$inject` property from the class:
+Сначала посмотрите на список телефонов. Прямо сейчас он содержит TypeScript
+класс контроллера и объект определения компонента. Вы можете превратить это в
+Angular компонент, просто переименовывая класс контроллера и поворачивая
+AngularJS компонент определения объекта в Angular  `@Component`  декоратор.
+Затем вы также можете удалить статический  `$inject`  свойства из класса:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="initialclass" header="app/phone-list/phone-list.component.ts">
 </code-example>
 
-The `selector` attribute is a CSS selector that defines where on the page the component
-should go. In AngularJS you do matching based on component names, but in Angular you
-have these explicit selectors. This one will match elements with the name `phone-list`,
-just like the AngularJS version did.
+ `selector` Атрибут - это селектор CSS, который определяет, где на странице находится компонент
+должны идти. В AngularJS вы делаете сопоставление на основе имен компонентов, но в Angular вы
+есть эти явные селекторы. Этот будет соответствовать элементам с именем  `phone-list`,
+как и в версии AngularJS.
 
-Now convert the template of this component into Angular syntax.
-The search controls replace the AngularJS `$ctrl` expressions
-with Angular's two-way `[(ngModel)]` binding syntax:
+Теперь преобразуйте шаблон этого компонента в Angular синтаксис.
+Элементы управления поиском заменяют AngularJS  `$ctrl`  выражений
+с двухсторонним Angular  `[(ngModel)]`  связывание Синтаксис:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="controls" header="app/phone-list/phone-list.template.html (search controls)"></code-example>
 
-Replace the list's `ng-repeat` with an `*ngFor` as
-[described in the Template Syntax page](guide/template-syntax#directives).
-Replace the image tag's `ng-src` with a binding to the native `src` property.
+Заменить список  `ng-repeat`  с  `*ngFor`  как
+[описано на странице «Синтаксис шаблона»](guide/template-syntax#directives).
+Заменить тег изображения  `ng-src`  с привязкой к родной  `src`  свойство.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (phones)"></code-example>
 
-#### No Angular _filter_ or _orderBy_ filters
+{@a no-angular-filter-or-orderby-filters}
+#### Нет Angular _filter_ или _orderBy_ фильтров
 
-The built-in AngularJS `filter` and `orderBy` filters do not exist in Angular,
-so you need to do the filtering and sorting yourself.
+Встроенный AngularJS  `filter`  и  `orderBy`  Фильтры не существуют в Angular
+так что вам нужно сделать фильтрацию и сортировку самостоятельно.
 
-You replaced the `filter` and `orderBy` filters with bindings to the `getPhones()` controller method,
-which implements the filtering and ordering logic inside the component itself.
+Вы заменили  `filter`  и  `orderBy`  Фильтры с привязками к  `getPhones()`  контроллера
+который реализует логику фильтрации и упорядочения внутри самого компонента.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="getphones" header="app/phone-list/phone-list.component.ts">
 </code-example>
 
-Now you need to downgrade the Angular component so you can use it in AngularJS.
-Instead of registering a component, you register a `phoneList` *directive*,
-a downgraded version of the Angular component.
+Теперь вам нужно понизить компонент Angular, чтобы вы могли использовать его в AngularJS.
+Вместо регистрации компонента, вы регистрируете  `phoneList`   *директива*,
+пониженная версия Angular компонента.
 
-The `as angular.IDirectiveFactory` cast tells the TypeScript compiler
-that the return value of the `downgradeComponent` method is a directive factory.
+ `as angular.IDirectiveFactory` сообщает компилятору TypeScript
+что возвращаемое значение  `downgradeComponent`  Метод является фабрикой директив.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="downgrade-component" header="app/phone-list/phone-list.component.ts">
 </code-example>
 
-The new `PhoneListComponent` uses the Angular `ngModel` directive, located in the `FormsModule`.
-Add the `FormsModule` to `NgModule` imports, declare the new `PhoneListComponent` and
-finally add it to `entryComponents` since you downgraded it:
+Новый  `PhoneListComponent`  использует Angular  `ngModel`  директива, расположенная в  `FormsModule`.
+Добавить  `FormsModule`  to  `NgModule`  импортирует, объявляет новый  `PhoneListComponent`  и
+наконец, добавьте его в  `entryComponents`  так как Вы понизили его:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phonelist" header="app.module.ts">
 </code-example>
 
-Remove the &lt;script&gt; tag for the phone list component from `index.html`.
+Удалите тег <script> для компонента списка телефонов из  `index.html`.
 
-Now set the remaining `phone-detail.component.ts` as follows:
+Теперь установите оставшиеся  `phone-detail.component.ts`  следующим образом :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.ts" header="app/phone-detail/phone-detail.component.ts">
 </code-example>
 
-This is similar to the phone list component.
-The new wrinkle is the `RouteParams` type annotation that identifies the `routeParams` dependency.
+Это похоже на компонент списка телефонов.
+Новая морщина это  `RouteParams`  типа которая идентифицирует  `routeParams`  Зависимость.
 
-The AngularJS injector has an AngularJS router dependency called `$routeParams`,
-which was injected into `PhoneDetails` when it was still an AngularJS controller.
-You intend to inject it into the new `PhoneDetailsComponent`.
+Инжектор AngularJS имеет зависимость от маршрутизатора AngularJS, которая называется  `$routeParams`,
+который был введен в  `PhoneDetails`  когда он все еще был контроллером AngularJS.
+Вы намерены ввести его в новый  `PhoneDetailsComponent`.
 
-Unfortunately, AngularJS dependencies are not automatically available to Angular components.
-You must upgrade this service via a [factory provider](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
-to make `$routeParams` an Angular injectable.
-Do that in a new file called `ajs-upgraded-providers.ts` and import it in `app.module.ts`:
+К сожалению, зависимости AngularJS не доступны автоматически для компонентов Angular.
+Вы должны обновить эту услугу через [заводской провайдер](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
+делать  `$routeParams`  Angular инъекция.
+Сделайте это в новом файле с именем  `ajs-upgraded-providers.ts`  и импортировать его в  `app.module.ts`  :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/ajs-upgraded-providers.ts" header="app/ajs-upgraded-providers.ts">
 </code-example>
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="routeparams" header="app/app.module.ts ($routeParams)"></code-example>
 
-Convert the phone detail component template into Angular syntax as follows:
+Преобразовать шаблон компонента телефона подробно в Angular синтаксис выглядит следующим образом :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.template.html" header="app/phone-detail/phone-detail.template.html">
 </code-example>
 
-There are several notable changes here:
+Есть несколько заметных изменений здесь:
 
-* You've removed the `$ctrl.` prefix from all expressions.
+* Вы удалили  `$ctrl.`  префикс из всех выражений.
 
-* You've replaced `ng-src` with property
-  bindings for the standard `src` property.
+* Вы заменили  `ng-src`  с собственностью
+  привязки для стандарта  `src`  свойство.
 
-* You're using the property binding syntax around `ng-class`. Though Angular
-  does have [a very similar `ngClass`](guide/template-syntax#directives)
-  as AngularJS does, its value is not magically evaluated as an expression.
-  In Angular, you always specify in the template when an attribute's value is
-  a property expression, as opposed to a literal string.
+* Вы используете синтаксис привязки свойств вокруг  `ng-class`  . Хоть и Angular
+  действительно имеет [очень похожий  `ngClass` ](guide/template-syntax#directives)
+  как и AngularJS, его значение магическим образом не оценивается как выражение.
+  В Angular вы всегда указываете в шаблоне значение атрибута
+  выражение свойства, в отличие от литеральной строки.
 
-* You've replaced `ng-repeat`s with `*ngFor`s.
+* Вы заменили  `ng-repeat`  с  `*ngFor`  с.
 
-* You've replaced `ng-click` with an event binding for the standard `click`.
+* Вы заменили  `ng-click`  с привязкой события для стандарта  `click`.
 
-* You've wrapped the whole template in an `ngIf` that causes it only to be
-  rendered when there is a phone present. You need this because when the component
-  first loads, you don't have `phone` yet and the expressions will refer to a
-  non-existing value. Unlike in AngularJS, Angular expressions do not fail silently
-  when you try to refer to properties on undefined objects. You need to be explicit
-  about cases where this is expected.
+* Вы завернули весь шаблон в  `ngIf`  это только вызывает
+  отображается при наличии телефона. Вам это нужно, потому что, когда компонент
+  первые загрузки, у вас нет  `phone`  еще и выражения будут относиться к
+  несуществующее значение. В отличие от AngularJS, Angular выражения не работают молча
+  при попытке обратиться к свойствам неопределенных объектов. Вы должны быть явными
+  о случаях, когда это ожидается.
 
-Add `PhoneDetailComponent` component to the `NgModule` _declarations_ and _entryComponents_:
+добавлять  `PhoneDetailComponent`  Компонент для  `NgModule`  _declarations_ и _entryComponents_:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phonedetail" header="app.module.ts">
 </code-example>
 
-You should now also remove the phone detail component &lt;script&gt; tag from `index.html`.
+Теперь вы должны также удалить тег <script> компонента сведений о телефоне из  `index.html`.
 
-#### Add the _CheckmarkPipe_
+{@a add-the-checkmarkpipe}
+#### Добавьте _CheckmarkPipe_
 
-The AngularJS directive had a `checkmark` _filter_.
-Turn that into an Angular **pipe**.
+Директива AngularJS имела  `checkmark`  _filter_.
+Преврати это в Angular **трубу**.
 
-There is no upgrade method to convert filters into pipes.
-You won't miss it.
-It's easy to turn the filter function into an equivalent Pipe class.
-The implementation is the same as before, repackaged in the `transform` method.
-Rename the file to `checkmark.pipe.ts` to conform with Angular conventions:
+Не существует метода обновления для преобразования фильтров в трубы.
+Вы не пропустите это.
+Легко превратить функцию фильтра в эквивалентный класс Pipe.
+Реализация такая же, как и раньше, переупакована в  `transform`  метод.
+Переименуйте файл в  `checkmark.pipe.ts`  в соответствии с Angularи конвенциями:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.ts" header="app/core/checkmark/checkmark.pipe.ts"></code-example>
 
-Now import and declare the newly created pipe and
-remove the filter &lt;script&gt; tag from `index.html`:
+Теперь импортируйте и объявите вновь созданный канал и
+удалить тег <script> фильтра из  `index.html`  :
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="checkmarkpipe" header="app.module.ts">
 </code-example>
 
-### AOT compile the hybrid app
+{@a aot-compile-the-hybrid-app}
+### AOT скомпилировать гибридное приложение
 
-To use AOT with a hybrid app, you have to first set it up like any other Angular application,
-as shown in [the Ahead-of-time Compilation chapter](guide/aot-compiler).
+Чтобы использовать AOT с гибридным приложением, вы должны сначала настроить его, как любое другое приложение Angular
+как показано в [глава «Опережающее время»](guide/aot-compiler).
 
-Then change `main-aot.ts` to bootstrap the `AppComponentFactory` that was generated
-by the AOT compiler:
+Тогда поменяй  `main-aot.ts`  для начальной загрузки  `AppComponentFactory`  который был создан
+по АОТУ компилятор:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main-aot.ts" header="app/main-aot.ts">
 </code-example>
 
-You need to load all the AngularJS files you already use in `index.html` in `aot/index.html`
-as well:
+Вам нужно загрузить все файлы AngularJS, которые вы уже используете в  `index.html`  в  `aot/index.html` 
+а также:
 
 <code-example path="upgrade-phonecat-2-hybrid/aot/index.html" header="aot/index.html">
 </code-example>
 
-These files need to be copied together with the polyfills. The files the application
-needs at runtime, like the `.json` phone lists and images, also need to be copied.
+Эти файлы необходимо скопировать вместе с полифилами. Файлы приложения
+необходимо во время выполнения, как  `.json`  телефонов и изображения также необходимо скопировать.
 
-Install `fs-extra` via `npm install fs-extra --save-dev` for better file copying, and change
-`copy-dist-files.js` to the following:
+устанавливать  `fs-extra`  через `npm install fs-extra --save-dev` для лучшего копирования и изменения файлов
+ `copy-dist-files.js` к следующему:
 
 <code-example path="upgrade-phonecat-2-hybrid/copy-dist-files.js" header="copy-dist-files.js">
 </code-example>
 
-And that's all you need to use AOT while upgrading your app!
+И это все, что вам нужно, чтобы использовать AOT при обновлении вашего приложения!
 
-### Adding The Angular Router And Bootstrap
+{@a adding-the-angular-router-and-bootstrap}
+### Добавление Angular маршрутизатора и начальной загрузки
 
-At this point, you've replaced all AngularJS application components with
-their Angular counterparts, even though you're still serving them from the AngularJS router.
+На этом этапе вы заменили все компоненты приложения AngularJS на
+их аналоги Angular, даже если вы по-прежнему обслуживаете их с маршрутизатора AngularJS.
 
-#### Add the Angular router
+{@a add-the-angular-router}
+#### Добавьте Angular маршрутизатор
 
-Angular has an [all-new router](guide/router).
+Angular имеет [совершенно новый маршрутизатор](guide/router).
 
-Like all routers, it needs a place in the UI to display routed views.
-For Angular that's the `<router-outlet>` and it belongs in a *root component*
-at the top of the applications component tree.
+Как и всем маршрутизаторам, ему нужно место в пользовательском интерфейсе для отображения маршрутизированных представлений.
+Для Angular это  `<router-outlet>` и она принадлежит *корневому компоненту*
+в верхней части дерева компонентов приложения.
 
-You don't yet have such a root component, because the app is still managed as an AngularJS app.
-Create a new `app.component.ts` file with the following `AppComponent` class:
+У вас еще нет такого корневого компонента, потому что приложение по-прежнему управляется как приложение AngularJS.
+Создать новый  `app.component.ts`  файл со следующим  `AppComponent`  класс:
 
 <code-example path="upgrade-phonecat-3-final/app/app.component.ts" header="app/app.component.ts">
 </code-example>
 
-It has a simple template that only includes the `<router-outlet>`.
-This component just renders the contents of the active route and nothing else.
+Он имеет простой шаблон, который включает в себя только  `<router-outlet>`.
+Этот компонент просто отображает содержимое активного маршрута и ничего больше.
 
-The selector tells Angular to plug this root component into the `<phonecat-app>`
-element on the host web page when the application launches.
+Селектор сообщает Angular подключить этот корневой компонент к  `<phonecat-app>` 
+элемент на веб-странице хоста при запуске приложения.
 
-Add this `<phonecat-app>` element to the `index.html`.
-It replaces the old AngularJS `ng-view` directive:
+Добавь это  `<phonecat-app>`  для  `index.html`.
+Он заменяет старый AngularJS  `ng-view`  директивы:
 
 <code-example path="upgrade-phonecat-3-final/index.html" region="appcomponent" header="index.html (body)"></code-example>
 
-#### Create the _Routing Module_
-A router needs configuration whether it's the AngularJS or Angular or any other router.
+{@a create-the-routing-module}
+#### Создайте модуль маршрутизации
+Маршрутизатор нуждается в настройке, будь то AngularJS, Angular или любой другой маршрутизатор.
 
-The details of Angular router configuration are best left to the [Routing documentation](guide/router)
-which recommends that you create a `NgModule` dedicated to router configuration
-(called a _Routing Module_).
+Подробные сведения о конфигурации Angular маршрутизатора лучше оставить [документация по маршрутизации](guide/router)
+который рекомендует вам создать  `NgModule`  посвященный настройке маршрутизатора
+(называется _Routing Module_).
 
 <code-example path="upgrade-phonecat-3-final/app/app-routing.module.ts" header="app/app-routing.module.ts">
 </code-example>
 
-This module defines a `routes` object with two routes to the two phone components
-and a default route for the empty path.
-It passes the `routes` to the `RouterModule.forRoot` method which does the rest.
+Этот модуль определяет  `routes`  объекта с двумя маршрутами к двум компонентам телефона
+и маршрут по умолчанию для пустого пути.
+Это проходит  `routes`  к  `RouterModule.forRoot`  метод, который делает все остальное.
 
-A couple of extra providers enable routing with "hash" URLs such as `#!/phones`
-instead of the default "push state" strategy.
+Несколько дополнительных провайдеров включают маршрутизацию с «хэш» URL, такими как  `#!/phones` 
+вместо принятой по умолчанию стратегии "push state".
 
-Now update the `AppModule` to import this `AppRoutingModule` and also the
-declare the root `AppComponent` as the bootstrap component.
-That tells Angular that it should bootstrap the app with the _root_ `AppComponent` and
-insert its view into the host web page.
+Теперь обновите  `AppModule`  для импорта этого  `AppRoutingModule`  а также
+объявить корень  `AppComponent`  как компонент начальной загрузки.
+Это говорит Angular, что он должен загрузить приложение с помощью _root_  `AppComponent`  и
+вставьте его вид на веб-страницу хоста.
 
-You must also remove the bootstrap of the AngularJS module from `ngDoBootstrap()` in `app.module.ts`
-and the `UpgradeModule` import.
+Вы также должны удалить загрузчик модуля AngularJS из  `ngDoBootstrap()`  в  `app.module.ts` 
+и  `UpgradeModule`  импорт.
 
 <code-example path="upgrade-phonecat-3-final/app/app.module.ts" header="app/app.module.ts">
 </code-example>
 
-And since you are routing to `PhoneListComponent` and `PhoneDetailComponent` directly rather than
-using a route template with a `<phone-list>` or `<phone-detail>` tag, you can do away with their
-Angular selectors as well.
+И так как вы направляетесь в  `PhoneListComponent`  и  `PhoneDetailComponent`  напрямую, а не
+используя шаблон маршрута с  `<phone-list>`  или  `<phone-detail>`  тег, вы можете покончить со своими
+Angular селекторы также.
 
-#### Generate links for each phone
+{@a generate-links-for-each-phone}
+#### Генерация ссылок для каждого телефона
 
-You no longer have to hardcode the links to phone details in the phone list.
-You can generate data bindings for each phone's `id` to the `routerLink` directive
-and let that directive construct the appropriate URL to the `PhoneDetailComponent`:
+Вам больше не нужно жестко кодировать ссылки на телефонные данные в списке телефонов.
+Вы можете создавать привязки данных для каждого телефона  `id`  в  `routerLink`  директива
+и пусть эта директива создаст соответствующий URL для  `PhoneDetailComponent`  :
 
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (list with links)"></code-example>
 
 <div class="alert is-helpful">
 
-See the [Routing](guide/router) page for details.
+Смотрите [Маршрутизация](guide/router)страницу для деталей.
 
 </div><br>
 
-#### Use route parameters
+{@a use-route-parameters}
+#### Используйте параметры маршрута
 
-The Angular router passes route parameters differently.
-Correct the `PhoneDetail` component constructor to expect an injected `ActivatedRoute` object.
-Extract the `phoneId` from the `ActivatedRoute.snapshot.params` and fetch the phone data as before:
+Маршрутизатор Angular передает параметры маршрута по-разному.
+Исправить  `PhoneDetail`  компонента ожидает  `ActivatedRoute` Объект.
+Извлечь  `phoneId`  от  `ActivatedRoute.snapshot.params`  и извлечения данных телефона, как раньше:
 
 <code-example path="upgrade-phonecat-3-final/app/phone-detail/phone-detail.component.ts" header="app/phone-detail/phone-detail.component.ts">
 </code-example>
 
-You are now running a pure Angular application!
+Теперь вы работаете с чисто Angular приложением!
 
-### Say Goodbye to AngularJS
+{@a say-goodbye-to-angularjs}
+### Попрощайся с AngularJS
 
-It is time to take off the training wheels and let the application begin
-its new life as a pure, shiny Angular app. The remaining tasks all have to
-do with removing code - which of course is every programmer's favorite task!
+Пришло время снять учебные колеса и начать приложение
+его новая жизнь в виде чистого, блестящего Angular приложения. Остальные задачи все должны
+делать с удалением кода - что, конечно, любимая задача каждого программиста!
 
-The application is still bootstrapped as a hybrid app.
-There's no need for that anymore.
+Приложение по-прежнему загружается как гибридное приложение.
+В этом больше нет необходимости.
 
-Switch the bootstrap method of the application from the `UpgradeModule` to the Angular way.
+Переключите метод начальной загрузки приложения из  `UpgradeModule` для Angular пути.
 
 <code-example path="upgrade-phonecat-3-final/app/main.ts" header="main.ts">
 </code-example>
 
-If you haven't already, remove all references to the `UpgradeModule` from `app.module.ts`,
-as well as any [factory provider](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
-for AngularJS services, and the `app/ajs-upgraded-providers.ts` file.
+Если вы этого еще не сделали, удалите все ссылки на  `UpgradeModule`  от  `app.module.ts`,
+как и любой [заводской провайдер](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
+для услуг AngularJS, и  `app/ajs-upgraded-providers.ts`.
 
-Also remove any `downgradeInjectable()` or `downgradeComponent()` you find,
-together with the associated AngularJS factory or directive declarations.
-Since you no longer have downgraded components, you no longer list them
-in `entryComponents`.
+Также удалите все  `downgradeInjectable()`  или  `downgradeComponent()`  вы найдете
+вместе с соответствующими заводскими или директивными декларациями AngularJS.
+Поскольку у вас больше нет устаревших компонентов, вы больше не перечисляете их
+в  `entryComponents`.
 
 <code-example path="upgrade-phonecat-3-final/app/app.module.ts" header="app.module.ts">
 </code-example>
 
-You may also completely remove the following files. They are AngularJS
-module configuration files and not needed in Angular:
+Вы также можете полностью удалить следующие файлы. Это AngularJS
+модуль файлы конфигурации и не требуется в угловому:
 
-* `app/app.module.ajs.ts`
-* `app/app.config.ts`
-* `app/core/core.module.ts`
-* `app/core/phone/phone.module.ts`
-* `app/phone-detail/phone-detail.module.ts`
-* `app/phone-list/phone-list.module.ts`
+*  `app/app.module.ajs.ts` 
+*  `app/app.config.ts` 
+*  `app/core/core.module.ts` 
+*  `app/core/phone/phone.module.ts` 
+*  `app/phone-detail/phone-detail.module.ts` 
+*  `app/phone-list/phone-list.module.ts` 
 
-The external typings for AngularJS may be uninstalled as well. The only ones
-you still need are for Jasmine and Angular polyfills.
-The `@angular/upgrade` package and its mapping in `systemjs.config.js` can also go.
+Внешние наборы для AngularJS также могут быть удалены. Единственные
+вам все еще нужны жасминовые и Angular полифилы.
+ `@angular/upgrade` Пакет и его отображение в  `systemjs.config.js`  также может идти.
 
 <code-example format="">
   npm uninstall @angular/upgrade --save
   npm uninstall @types/angular @types/angular-animate @types/angular-cookies @types/angular-mocks @types/angular-resource @types/angular-route @types/angular-sanitize --save-dev
 </code-example>
 
-Finally, from `index.html`, remove all references to AngularJS scripts and jQuery.
-When you're done, this is what it should look like:
+Наконец, из  `index.html`, удалите все ссылки на скрипты AngularJS и jQuery.
+Когда вы закончите, это то, что он должен выглядеть следующим образом :
 
 <code-example path="upgrade-phonecat-3-final/index.html" region="full" header="index.html">
 </code-example>
 
-That is the last you'll see of AngularJS! It has served us well but now
-it's time to say goodbye.
+Это последнее, что вы увидите в AngularJS! Это послужило нам хорошо, но сейчас
+пришло время прощаться.
 
-## Appendix: Upgrading PhoneCat Tests
+{@a appendix-upgrading-phonecat-tests}
+## Приложение: Обновление тестов PhoneCat
 
-Tests can not only be retained through an upgrade process, but they can also be
-used as a valuable safety measure when ensuring that the application does not
-break during the upgrade. E2E tests are especially useful for this purpose.
+Тесты можно не только сохранить в процессе обновления, но они также могут быть сохранены
+используется в качестве ценной меры безопасности при обеспечении того, что приложение не делает
+перерыв во время обновления. Тесты E2E особенно полезны для этой цели.
 
-### E2E Tests
+{@a e2e-tests}
+### Тесты E2E
 
-The PhoneCat project has both E2E Protractor tests and some Karma unit tests in it.
-Of these two, E2E tests can be dealt with much more easily: By definition,
-E2E tests access the application from the *outside* by interacting with
-the various UI elements the app puts on the screen. E2E tests aren't really that
-concerned with the internal structure of the application components. That
-also means that, although you modify the project quite a bit during the upgrade, the E2E
-test suite should keep passing with just minor modifications. You
-didn't change how the application behaves from the user's point of view.
+В проекте PhoneCat есть как тесты E2E Protractor, так и некоторые модульные тесты Karma.
+Из этих двух E2E тесты могут быть решены гораздо проще: по определению
+Тесты E2E обращаются к приложению *извне*, взаимодействуя с ним
+различные элементы интерфейса, которые приложение выводит на экран. Тесты E2E на самом деле не такие
+касается внутренней структуры компонентов приложения. Это
+также означает, что, хотя вы вносите в проект небольшие изменения, E2E
+Тестовый набор должен продолжать проходить с небольшими изменениями. Вы
+не изменилось поведение приложения с точки зрения пользователя.
 
-During TypeScript conversion, there is nothing to do to keep E2E tests
-working. But when you change the bootstrap to that of a Hybrid app,
-you must make a few changes.
+Во время преобразования TypeScript нечего делать, чтобы сохранить тесты E2E
+работает. Но при изменении начальной загрузки к тому, что гибридного приложения,
+Вы должны сделать несколько изменений.
 
-Update the `protractor-conf.js` to sync with hybrid apps:
+Обновите  `protractor-conf.js`  для синхронизации с гибридными приложениями:
 
 <code-example format="">
   ng12Hybrid: true
 </code-example>
 
-When you start to upgrade components and their templates to Angular, you'll make more changes
-because the E2E tests have matchers that are specific to AngularJS.
-For PhoneCat you need to make the following changes in order to make things work with Angular:
+Когда вы начнете обновлять компоненты и их шаблоны до Angular, вы внесете больше изменений
+потому что тесты E2E имеют сопоставления, специфичные для AngularJS.
+Для PhoneCat вам необходимо сделать следующие изменения для того, чтобы заставить вещи работать с Angularи:
 
 <table>
   <tr>
     <th>
-      Previous code
+      Предыдущий код
     </th>
     <th>
-      New code
+      Новый код
     </th>
     <th>
-      Notes
+      Примечания
     </th>
   </tr>
   <tr>
     <td>
 
-      `by.repeater('phone in $ctrl.phones').column('phone.name')`
+       `by.repeater('phone in $ctrl.phones').column('phone.name')` 
 
     </td>
     <td>
 
-      `by.css('.phones .name')`
+       `by.css('.phones .name')` 
 
     </td>
     <td>
 
-      The repeater matcher relies on AngularJS `ng-repeat`
-
-    </td>
-  </tr>
-  <tr>
-    <td>
-
-      `by.repeater('phone in $ctrl.phones')`
-
-    </td>
-    <td>
-
-      `by.css('.phones li')`
-
-    </td>
-
-    <td>
-
-      The repeater matcher relies on AngularJS `ng-repeat`
+      Повторитель повторителей полагается на AngularJS  `ng-repeat` 
 
     </td>
   </tr>
   <tr>
     <td>
 
-      `by.model('$ctrl.query')`
+       `by.repeater('phone in $ctrl.phones')` 
 
     </td>
     <td>
 
-      `by.css('input')`
+       `by.css('.phones li')` 
 
     </td>
+
     <td>
 
-      The model matcher relies on AngularJS `ng-model`
-
-    </td>
-  </tr>
-  <tr>
-    <td>
-
-      `by.model('$ctrl.orderProp')`
-
-    </td>
-    <td>
-
-      `by.css('select')`
-
-    </td>
-    <td>
-
-      The model matcher relies on AngularJS `ng-model`
+      Повторитель повторителей полагается на AngularJS  `ng-repeat` 
 
     </td>
   </tr>
   <tr>
     <td>
 
-      `by.binding('$ctrl.phone.name')`
+       `by.model('$ctrl.query')` 
 
     </td>
     <td>
 
-      `by.css('h1')`
+       `by.css('input')` 
 
     </td>
     <td>
 
-      The binding matcher relies on AngularJS data binding
+      Модель соответствия основывается на AngularJS  `ng-model` 
+
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+       `by.model('$ctrl.orderProp')` 
+
+    </td>
+    <td>
+
+       `by.css('select')` 
+
+    </td>
+    <td>
+
+      Модель соответствия основывается на AngularJS  `ng-model` 
+
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+       `by.binding('$ctrl.phone.name')` 
+
+    </td>
+    <td>
+
+       `by.css('h1')` 
+
+    </td>
+    <td>
+
+      Сопоставление привязки опирается на привязку данных AngularJS
 
     </td>
   </tr>
 </table>
 
-When the bootstrap method is switched from that of `UpgradeModule` to
-pure Angular, AngularJS ceases to exist on the page completely.
-At this point, you need to tell Protractor that it should not be looking for
-an AngularJS app anymore, but instead it should find *Angular apps* from
-the page.
+Когда метод начальной загрузки переключается с  `UpgradeModule`  для
+чисто Angular, AngularJS перестает существовать на странице полностью.
+На данный момент, вы должны сказать транспортиру, что он не должен искать
+приложение AngularJS больше, но вместо этого оно должно найти *приложения Angular* от
+страница.
 
-Replace the `ng12Hybrid` previously added with the following in `protractor-conf.js`:
+Заменить  `ng12Hybrid`  ранее добавлен со следующим в  `protractor-conf.js`  :
 
 <code-example format="">
   useAllAngular2AppRoots: true,
 </code-example>
 
-Also, there are a couple of Protractor API calls in the PhoneCat test code that
-are using the AngularJS `$location` service under the hood. As that
-service is no longer present after the upgrade, replace those calls with ones
-that use WebDriver's generic URL APIs instead. The first of these is
-the redirection spec:
+Кроме того, в тестовом коде PhoneCat есть несколько вызовов API Protractor
+используете AngularJS  `$location`  сервис под капотом. Как то
+после обновления сервис больше не присутствует, замените эти звонки на звонки
+которые используют общие URL-интерфейсы WebDriver. Первый из них
+переназначение спецификации:
 
 <code-example path="upgrade-phonecat-3-final/e2e-spec.ts" region="redirect" header="e2e-tests/scenarios.ts">
 </code-example>
 
-And the second is the phone links spec:
+И второе - спецификация телефонных ссылок
 
 <code-example path="upgrade-phonecat-3-final/e2e-spec.ts" region="links" header="e2e-tests/scenarios.ts">
 </code-example>
 
-### Unit Tests
+{@a unit-tests}
+### Модульные тесты
 
-For unit tests, on the other hand, more conversion work is needed. Effectively
-they need to be *upgraded* along with the production code.
+Для юнит-тестов, с другой стороны, требуется больше работы по конвертации. Эффективно
+они должны быть *обновлены* вместе с производственным кодом.
 
-During TypeScript conversion no changes are strictly necessary. But it may be
-a good idea to convert the unit test code into TypeScript as well.
+Во время преобразования TypeScript никаких изменений не требуется. Но это может быть
+хорошая идея преобразовать код модульного теста также в TypeScript.
 
-For instance, in the phone detail component spec, you can use ES2015
-features like arrow functions and block-scoped variables and benefit from the type
-definitions of the AngularJS services you're consuming:
+Например, в спецификации компонентов телефона вы можете использовать ES2015
+такие функции, как функции стрелок и переменные в области блока, и преимущества от типа
+определения услуг AngularJS вы потребляющие:
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-detail/phone-detail.component.spec.ts" header="app/phone-detail/phone-detail.component.spec.ts">
 </code-example>
 
-Once you start the upgrade process and bring in SystemJS, configuration changes
-are needed for Karma. You need to let SystemJS load all the new Angular code,
-which can be done with the following kind of shim file:
+После запуска процесса обновления и внесения SystemJS изменения конфигурации
+нужны для кармы. Вы должны позволить SystemJS загрузить весь новый код Angular
+что можно сделать с помощью следующего вида прокладки файла:
 
 <code-example path="upgrade-phonecat-2-hybrid/karma-test-shim.1.js" header="karma-test-shim.js">
 </code-example>
 
-The shim first loads the SystemJS configuration, then Angular's test support libraries,
-and then the application's spec files themselves.
+Сначала shim загружает конфигурацию SystemJS, затем библиотеки поддержки тестирования Angular
+а затем сами спецификации файлов приложения.
 
-Karma configuration should then be changed so that it uses the application root dir
-as the base directory, instead of `app`.
+Затем необходимо изменить конфигурацию Karma, чтобы она использовала корневой каталог приложения
+в качестве базового каталога, а не  `app`.
 
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="basepath" header="karma.conf.js">
 </code-example>
 
-Once done, you can load SystemJS and other dependencies, and also switch the configuration
-for loading application files so that they are *not* included to the page by Karma. You'll let
-the shim and SystemJS load them.
+После этого вы можете загрузить SystemJS и другие зависимости, а также переключить конфигурацию
+для загрузки файлов приложений, чтобы *не* Карма добавляла их на страницу. Вы позволите
+Шим и SystemJS загружают их.
 
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="files" header="karma.conf.js">
 </code-example>
 
-Since the HTML templates of Angular components will be loaded as well, you must help
-Karma out a bit so that it can route them to the right paths:
+Поскольку HTML-шаблоны компонентов Angular также будут загружены, вы должны помочь
+Карма из немногих, так что он может направить их на право пути:
 
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="html" header="karma.conf.js">
 </code-example>
 
-The unit test files themselves also need to be switched to Angular when their production
-counterparts are switched. The specs for the checkmark pipe are probably the most straightforward,
-as the pipe has no dependencies:
+Сами файлы модульных тестов также должны быть переключены на Angular при их создании
+аналоги меняются. Спецификации для канала с галочками, вероятно, самые простые
+как труба не имеет зависимостей:
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.spec.ts" header="app/core/checkmark/checkmark.pipe.spec.ts">
 </code-example>
 
-The unit test for the phone service is a bit more involved. You need to switch from the mocked-out
-AngularJS `$httpBackend` to a mocked-out Angular Http backend.
+Модульный тест для телефонной службы немного сложнее. Вам нужно переключиться с макета
+AngularJS  `$httpBackend`  на бэкэнд Angular Http.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.spec.ts" header="app/core/phone/phone.service.spec.ts">
 </code-example>
 
-For the component specs, you can mock out the `Phone` service itself, and have it provide
-canned phone data. You use Angular's component unit testing APIs for both components.
+Для спецификации компонентов, вы можете макетировать  `Phone`  Сам сервис, и пусть это обеспечит
+консервированные данные телефона. Для обоих компонентов вы используете API модульного тестирования компонентов Angular.
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.spec.ts" header="app/phone-detail/phone-detail.component.spec.ts">
 </code-example>
@@ -2071,15 +2117,15 @@ canned phone data. You use Angular's component unit testing APIs for both compon
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.spec.ts" header="app/phone-list/phone-list.component.spec.ts">
 </code-example>
 
-Finally, revisit both of the component tests when you switch to the Angular
-router. For the details component, provide a mock of Angular `ActivatedRoute` object
-instead of using the AngularJS `$routeParams`.
+И наконец, еще раз проверьте оба теста компонентов, когда вы переключаетесь на Angular
+маршрутизатор. Для компонента детали, предоставьте макет Angular  `ActivatedRoute`  Объект
+вместо использования AngularJS  `$routeParams`.
 
 <code-example path="upgrade-phonecat-3-final/app/phone-detail/phone-detail.component.spec.ts" region="activatedroute" header="app/phone-detail/phone-detail.component.spec.ts">
 </code-example>
 
-And for the phone list component, a few adjustments to the router make
-the `RouteLink` directives work.
+А для компонента списка телефонов внесены некоторые изменения в маршрутизатор
+ `RouteLink` Директивы работают.
 
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.component.spec.ts" region="routestuff" header="app/phone-list/phone-list.component.spec.ts">
 </code-example>

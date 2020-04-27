@@ -15,7 +15,7 @@ function unimplemented(): any {
 }
 
 /**
- * Special interface to the compiler only used by testing
+ * Специальный интерфейс к компилятору используется только при тестировании
  *
  * @publicApi
  */
@@ -63,7 +63,7 @@ export class TestingCompiler extends Compiler {
 }
 
 /**
- * A factory for creating a Compiler
+ * Фабрика для создания компилятора
  *
  * @publicApi
  */

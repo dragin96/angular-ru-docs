@@ -1,58 +1,53 @@
-<h1 class="no-toc">Introduction to the Angular Docs</h1>
+<h1 class="no-toc">Введение в Angular документы </h1>
 
-Angular is an application design framework and development platform for creating efficient and sophisticated single-page apps.
+Angular - это платформа для разработки приложений и платформа для разработки эффективных и сложных одностраничных приложений.
 
-These Angular docs help you learn and use the Angular framework and development platform, from your first application to optimizing complex single-page apps for enterprises.
-Tutorials and guides include downloadable examples to accelerate your projects.
+Эти документы Angular помогут вам изучить и использовать платформу Angular и платформу разработки - от вашего первого приложения до оптимизации сложных одностраничных приложений для предприятий.
+Учебные руководства и руководства включают загружаемые примеры для ускорения ваших проектов.
 
 
 <div class="card-container">
+  <a href="start" class="docs-card" title="Angular Getting Started">
+      <section>Учись </section>
+      <p>Играйте и расширяйте небольшое готовое приложение Angular без каких-либо настроек </p>
+      <p class="card-footer">Начало работы </p>
+  </a>
   <a href="guide/setup-local" class="docs-card"
     title="Angular Local Environment Setup">
-      <section>Get Started</section>
-      <p>Set up your local environment for development with the Angular CLI.</p>
-      <p class="card-footer">Local setup</p>
+      <section>Начните работать </section>
+      <p>Настройте локальную среду с помощью Angular CLI </p>
+      <p class="card-footer">Локальная настройка </p>
   </a>
-  <a href="guide/architecture" class="docs-card" title="Angular Concepts">
-      <section>Learn and Explore</section>
-      <p>Learn about the fundamental design concepts and architecture of Angular apps.</p>
-      <p class="card-footer">Introduction to Angular concepts</p>
+  <a href="guide/architecture" class="docs-card" title="Angular App Architecture">
+      <section>Исследовать </section>
+      <p>Узнайте о фундаментальных концепциях дизайна и архитектуре приложений Angular </p>
+      <p class="card-footer">Введение в Angular понятия </p>
   </a>
-  <a href="start" class="docs-card" title="Try out Angular">
-      <section>Take a Look</section>
-      <p>Examine and work with a small ready-made Angular app, without any setup.</p>
-      <p class="card-footer">Try it now</p>
-  </a>
-  <a href="tutorial" class="docs-card" title="Create an app">
-      <section>Hello World</section>
-      <p>Work through a full tutorial to create your first app.</p>
-      <p class="card-footer">Tour of Heroes tutorial</p>
-  </a>
-
-
 </div>
 
 
-## Assumptions
+{@a assumptions}
+## Предположения
 
 
-These docs assume that you are already familiar with [HTML](https://developer.mozilla.org/docs/Learn/HTML/Introduction_to_HTML "Learn HTML"), [CSS](https://developer.mozilla.org/docs/Learn/CSS/First_steps "Learn CSS"), [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript"),
-and some of the tools from the [latest standards](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards"), such as [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") and [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules").
-The code samples are written using [TypeScript](https://www.typescriptlang.org/ "TypeScript").
-Most Angular code can be written with just the latest JavaScript, using [types](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") for dependency injection, and using [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") for metadata.
+Эти документы предполагают , что вы уже знакомы с [HTML](https://developer.mozilla.org/docs/Learn/HTML/Introduction_to_HTML "Learn HTML"), [CSS](https://developer.mozilla.org/docs/Learn/CSS/First_steps "Learn CSS"), [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript"),
+и некоторые инструменты из [последние стандарты](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards"), такие как [классы](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") и [модули](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules").
+Примеры кода написаны с использованием [TypeScript](https://www.typescriptlang.org/ "TypeScript").
+Большая часть кода Angular может быть написана только с использованием новейшего JavaScript, с использованием [типов](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") для внедрения зависимостей и использованием [декораторов](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") для метаданных.
 
 
-## Feedback
+{@a feedback}
+## Обратная связь
 
-<h4>You can sit with us!</h4>
+<h4>Вы можете сидеть с нами! </h4>
 
-We want to hear from you. [Report problems or submit suggestions for future docs.](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")
+Ждем вашего ответа. [Сообщить о проблемах или представить предложения для будущих документов.](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")
 
-Contribute to Angular docs by creating
-[pull requests](https://github.com/angular/angular/pulls "Angular Github pull requests")
-on the Angular Github repository.
-See [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "Contributing guide")
-for information about submission guidelines.
+Внесите свой вклад в Angular документы, создав
+[тянуть запросы](https://github.com/angular/angular/pulls "Angular Github pull requests")
+в хранилище Angular Github.
+Смотрите [Содействие Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "Contributing guide")
+для получения информации о правилах подачи.
 
-Our community values respectful, supportive communication.
-Please consult and adhere to the [Code of Conduct](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "Contributor code of conduct").
+Наше сообщество ценит уважительное, поддерживающее общение.
+Пожалуйста, проконсультируйтесь и придерживайтесь [Кодекса поведения](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "Contributor code of conduct").

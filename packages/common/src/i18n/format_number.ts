@@ -123,27 +123,27 @@ function formatNumberToLocaleString(
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Formats a number as currency using locale rules.
+ * Форматирует число как валюту, используя правила локали.
  *
- * @param value The number to format.
- * @param locale A locale code for the locale format rules to use.
- * @param currency A string containing the currency symbol or its name,
- * such as "$" or "Canadian Dollar". Used in output string, but does not affect the operation
- * of the function.
- * @param currencyCode The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217)
- * currency code, such as `USD` for the US dollar and `EUR` for the euro.
- * Used to determine the number of digits in the decimal part.
- * @param digitInfo Decimal representation options, specified by a string in the following format:
- * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
+ *  @param значение Число для форматирования.
+ *  @param locale Код локали для используемых правил формата локали.
+ *  @param валюта Строка, содержащая символ валюты или его название
+ * такие как «$» или «канадский доллар». Используется в выходной строке, но не влияет на операцию
+ * функции.
+ *  @param CurrencyCode The[ISO 4217](https://en.wikipedia.org/wiki/ISO_4217)
+ * код валюты, такой как `USD` за доллар США `EUR` за евро.
+ * Используется для определения количества цифр в десятичной части.
+ *  @param Варианты представления digitInfo десятичного, указанные строки в следующемформате:.
+ *  `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. Смотрите `DecimalPipe` для более подробной информации.
  *
- * @returns The formatted currency value.
+ *  @returns Форматированное значение валюты.
  *
- * @see `formatNumber()`
- * @see `DecimalPipe`
- * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+ *  @see `formatNumber()`
+ *  @see `DecimalPipe`
+ *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
  */
@@ -170,21 +170,21 @@ export function formatCurrency(
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Formats a number as a percentage according to locale rules.
+ * Форматирует число в процентах в соответствии с правилами локали.
  *
- * @param value The number to format.
- * @param locale A locale code for the locale format rules to use.
- * @param digitInfo Decimal representation options, specified by a string in the following format:
- * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
+ *  @param значение Число для форматирования.
+ *  @param locale Код локали для используемых правил формата локали.
+ *  @param Варианты представления digitInfo десятичного, указанные строки в следующемформате:.
+ *  `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. Смотрите `DecimalPipe` для более подробной информации.
  *
- * @returns The formatted percentage value.
+ *  @returns Отформатированное процентное значение.
  *
- * @see `formatNumber()`
- * @see `DecimalPipe`
- * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+ *  @see `formatNumber()`
+ *  @see `DecimalPipe`
+ *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  * @publicApi
  *
  */
@@ -198,19 +198,19 @@ export function formatPercent(value: number, locale: string, digitsInfo?: string
 }
 
 /**
- * @ngModule CommonModule
- * @description
+ *  @ngModule CommonModule
+ *  @description
  *
- * Formats a number as text, with group sizing, separator, and other
- * parameters based on the locale.
+ * Форматирует число как текст, с размером группы, разделителем и другими
+ * параметры основаны на локали.
  *
- * @param value The number to format.
- * @param locale A locale code for the locale format rules to use.
- * @param digitInfo Decimal representation options, specified by a string in the following format:
- * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
+ *  @param значение Число для форматирования.
+ *  @param locale Код локали для используемых правил формата локали.
+ *  @param Варианты представления digitInfo десятичного, указанные строки в следующемформате:.
+ *  `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. Смотрите `DecimalPipe` для более подробной информации.
  *
- * @returns The formatted text string.
- * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+ *  @returns Форматированная текстовая строка.
+ *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
  */

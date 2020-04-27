@@ -36,21 +36,21 @@ export class ReflectiveDependency {
 const _EMPTY_LIST: any[] = [];
 
 /**
- * An internal resolved representation of a `Provider` used by the `Injector`.
+ * Внутреннее разрешенное представление `Provider` используемого `Injector`.
  *
- * @usageNotes
- * This is usually created automatically by `Injector.resolveAndCreate`.
+ *  @usageNotes
+ * Обычно это создается автоматически `Injector.resolveAndCreate`.
  *
- * It can be created manually, as follows:
+ * Он может быть создан вручную, следующим:.
  *
- * ### Example
+ *  ### Пример
  *
- * ```typescript
- * var resolvedProviders = Injector.resolve([{ provide: 'message', useValue: 'Hello' }]);
- * var injector = Injector.fromResolvedProviders(resolvedProviders);
+ *  ```typescript
+ *  var resolvedProviders = Injector.resolve([{ provide: 'message', useValue: 'Hello' }]);
+ *  var injector = Injector.fromResolvedProviders(resolvedProviders);
  *
- * expect(injector.get('message')).toEqual('Hello');
- * ```
+ *  expect(injector.get('message')).toEqual('Hello');
+ *  ```
  *
  * @publicApi
  */
@@ -82,7 +82,7 @@ export class ResolvedReflectiveProvider_ implements ResolvedReflectiveProvider {
 }
 
 /**
- * An internal resolved representation of a factory function created by resolving `Provider`.
+ * Внутреннее разрешенное представление фабричной функции, созданное путем разрешения `Provider`.
  * @publicApi
  */
 export class ResolvedReflectiveFactory {

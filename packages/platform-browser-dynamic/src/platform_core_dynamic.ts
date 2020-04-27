@@ -11,7 +11,7 @@ import {COMPILER_OPTIONS, CompilerFactory, createPlatformFactory, platformCore, 
 import {JitCompilerFactory} from './compiler_factory';
 
 /**
- * A platform that included corePlatform and the compiler.
+ * Платформа, включающая в себя corePlatform и компилятор.
  *
  * @publicApi
  */

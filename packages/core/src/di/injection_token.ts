@@ -11,41 +11,41 @@ import {Type} from '../interface/type';
 import {ɵɵdefineInjectable} from './interface/defs';
 
 /**
- * Creates a token that can be used in a DI Provider.
+ * Создает токен, который можно использовать в провайдере DI.
  *
- * Use an `InjectionToken` whenever the type you are injecting is not reified (does not have a
- * runtime representation) such as when injecting an interface, callable type, array or
- * parameterized type.
+ * Используйте `InjectionToken` всякий раз, когда тип, который вы вводите, не является reified (не имеет
+ * представление во время выполнения), например, при внедрении интерфейса, вызываемого типа, массива или
+ * параметризованный тип.
  *
- * `InjectionToken` is parameterized on `T` which is the type of object which will be returned by
- * the `Injector`. This provides additional level of type safety.
+ *  `InjectionToken `параметризован` T`который является типом объекта, который будет возвращен
+ *  the `Injector`Инжектор. Это обеспечивает дополнительный уровень безопасности типов.
  *
- * ```
- * interface MyInterface {...}
- * var myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
- * // myInterface is inferred to be MyInterface.
- * ```
+ *  ```
+ *  interface MyInterface {...}
+ *  var myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
+ *  // myInterface is inferred to be MyInterface.
+ *  ```
  *
- * When creating an `InjectionToken`, you can optionally specify a factory function which returns
- * (possibly by creating) a default value of the parameterized type `T`. This sets up the
- * `InjectionToken` using this factory as a provider as if it was defined explicitly in the
- * application's root injector. If the factory function, which takes zero arguments, needs to inject
- * dependencies, it can do so using the `inject` function. See below for an example.
+ * При создании `InjectionToken` , вы можете дополнительно указать фабричную функцию, которая возвращает
+ * (возможнопутем создания) значение по умолчанию параметризованного типа `T` T. Это настраивает
+ *  `InjectionToken`использует эту фабрику в качестве провайдера, как если бы она была явно определена в
+ * корневой инжектор приложения. Если фабричная функция, которая принимает нулевые аргументы, должна ввести
+ * зависимости, это можно сделать с помощью `inject``inject` . Смотрите ниже пример.
  *
- * Additionally, if a `factory` is specified you can also specify the `providedIn` option, which
- * overrides the above behavior and marks the token as belonging to a particular `@NgModule`. As
- * mentioned above, `'root'` is the default value for `providedIn`.
+ * Кроме того, если `factory` указанвы можете также указать `providedIn` вариант providedIn,который.
+ * отменяет вышеуказанное поведение и помечает токен как принадлежащий определенному `@NgModule` . Как
+ * упоминалось выше, `'root'` является значением по умолчанию для `providedIn` providedIn.
  *
- * @usageNotes
- * ### Basic Example
+ *  @usageNotes
+ *  ### Основной пример
  *
- * ### Plain InjectionToken
+ *  ### Простой InjectionToken
  *
- * {@example core/di/ts/injector_spec.ts region='InjectionToken'}
+ *  {@example core/di/ts/injector_spec.ts region='InjectionToken'}
  *
- * ### Tree-shakable InjectionToken
+ *  ### Потрясенный деревьями InjectionToken
  *
- * {@example core/di/ts/injector_spec.ts region='ShakableInjectionToken'}
+ *  {@example core/di/ts/injector_spec.ts region='ShakableInjectionToken'}
  *
  *
  * @publicApi

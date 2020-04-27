@@ -12,7 +12,7 @@ import {filter, map, publish, switchMap, take, tap} from 'rxjs/operators';
 export const ERR_SW_NOT_SUPPORTED = 'Service workers are disabled or not supported by this browser';
 
 /**
- * An event emitted when a new version of the app is available.
+ * Событие, генерируемое при появлении новой версии приложения.
  *
  * @publicApi
  */
@@ -23,7 +23,7 @@ export interface UpdateAvailableEvent {
 }
 
 /**
- * An event emitted when a new version of the app has been downloaded and activated.
+ * Событие, возникающее при загрузке и активации новой версии приложения.
  *
  * @publicApi
  */

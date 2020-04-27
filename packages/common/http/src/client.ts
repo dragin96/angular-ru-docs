@@ -51,48 +51,48 @@ function addBody<T>(
 export type HttpObserve = 'body'|'events'|'response';
 
 /**
- * Performs HTTP requests.
- * This service is available as an injectable class, with methods to perform HTTP requests.
- * Each request method has multiple signatures, and the return type varies based on
- * the signature that is called (mainly the values of `observe` and `responseType`).
+ * Выполняет HTTP-запросы.
+ * Этот сервис доступен как инъецируемый класс с методами для выполнения HTTP-запросов.
+ * Каждый метод запроса имеет несколько подписей, а тип возвращаемого значения зависит от
+ * подписькоторая называется (основном значения `observe` и `responseType` responseType).
  *
- * Note that the `responseType` *options* value is a String that identifies the
- * single data type of the response.
- * A single overload version of the method handles each response type.
- * The value of `responseType` cannot be a union, as the combined signature could imply.
-
+ * Обратите внимание, что `responseType` значение параметраявляется строкой, которая идентифицирует
+ * единый тип данных ответа.
+ * Одна перегрузочная версия метода обрабатывает каждый тип ответа.
+ * Значение `responseType` не может быть объединением, как может подразумевать объединенная подпись.
  *
- * @usageNotes
- * Sample HTTP requests for the [Tour of Heroes](/tutorial/toh-pt0) application.
  *
- * ### HTTP Request Example
+ *  @usageNotes
+ * Примеры HTTP-запросов для приложения[Tour of Heroes](/tutorial/toh-pt0).
  *
- * ```
- *  // GET heroes whose name contains search term
- * searchHeroes(term: string): observable<Hero[]>{
+ *  ### Пример HTTP-запроса
  *
- *  const params = new HttpParams({fromString: 'name=term'});
- *    return this.httpClient.request('GET', this.heroesUrl, {responseType:'json', params});
- * }
- * ```
- * ### JSONP Example
- * ```
- * requestJsonp(url, callback = 'callback') {
- *  return this.httpClient.jsonp(this.heroesURL, callback);
- * }
- * ```
+ *  ```
+ *   // GET heroes whose name contains search term
+ *  searchHeroes(term: string): observable<Hero[]>{
  *
- * ### PATCH Example
- * ```
- * // PATCH one of the heroes' name
- * patchHero (id: number, heroName: string): Observable<{}> {
- * const url = `${this.heroesUrl}/${id}`;   // PATCH api/heroes/42
- *  return this.httpClient.patch(url, {name: heroName}, httpOptions)
- *    .pipe(catchError(this.handleError('patchHero')));
- * }
- * ```
+ *   const params = new HttpParams({fromString: 'name=term'});
+ *     return this.httpClient.request('GET', this.heroesUrl, {responseType:'json', params});
+ *  }
+ *  ```
+ *  ### Пример JSONP
+ *  ```
+ *  requestJsonp(url, callback = 'callback') {
+ *   return this.httpClient.jsonp(this.heroesURL, callback);
+ *  }
+ *  ```
  *
- * @see [HTTP Guide](guide/http)
+ *  ### Пример патча
+ *  ```
+ *  // PATCH one of the heroes' name
+ *  patchHero (id: number, heroName: string): Observable<{}> {
+ *  const url = `${this.heroesUrl}/${id}`;// PATCH api/heroes/42
+ *   return this.httpClient.patch(url, {name: heroName}, httpOptions)
+ *     .pipe(catchError(this.handleError('patchHero')));
+ *  }
+ *  ```
+ *
+ *  @see [HTTP Guide](guide/http)
  *
  * @publicApi
  */

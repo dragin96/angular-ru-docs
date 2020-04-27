@@ -22,8 +22,8 @@ import {MessageBasedRenderer2} from './web_workers/ui/renderer';
 
 
 /**
- * Wrapper class that exposes the Worker
- * and underlying {@link MessageBus} for lower level message passing.
+ * Класс Wrapper, который выставляет Работника
+ * и лежащий в основе{@link MessageBus}для передачи сообщений более низкого уровня.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10
@@ -49,8 +49,8 @@ export class WebWorkerInstance {
 export const WORKER_SCRIPT = new InjectionToken<string>('WebWorkerScript');
 
 /**
- * A multi-provider used to automatically call the `start()` method after the service is
- * created.
+ * Мульти-провайдера используется для автоматического вызвать `start()` методпослеуслуга.
+ * создано.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

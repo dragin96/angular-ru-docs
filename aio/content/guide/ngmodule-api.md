@@ -1,13 +1,14 @@
-# NgModule API
+{@a ngmodule-api}
+# API NgModule
 
-At a high level, NgModules are a way to organize Angular apps
-and they accomplish this through the metadata in the `@NgModule`
-decorator.
-The metadata falls into three categories:
+На высоком уровне NgModules - это способ организации приложений Angular
+и они выполняют это с помощью метаданных в  `@NgModule` 
+декоратор.
+Метаданные подразделяются на три категории:
 
-* **Static:** Compiler configuration which tells the compiler about directive selectors and where in templates the directives should be applied through selector matching. This is configured via the `declarations` array.
-* **Runtime:** Injector configuration via the `providers` array.
-* **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
+* **Статический:** конфигурация компилятора, которая сообщает компилятору о селекторах директив и о том, где в шаблонах директивы должны применяться посредством сопоставления селекторов. Это настраивается через  `declarations`  массив.
+* **Время работы:** конфигурация инжектора через  `providers`  массив.
+* **Композиционность / группировка:** объединение NgModules и предоставление их через  `imports`  и  `exports`  массивов.
 
 ```typescript
 @NgModule({
@@ -24,20 +25,21 @@ The metadata falls into three categories:
 })
 ```
 
-## `@NgModule` metadata
+{@a @ngmodule-metadata}
+##  `@NgModule` метаданные
 
-The following table summarizes the `@NgModule` metadata properties.
+Следующая таблица суммирует  `@NgModule`  метаданных.
 
 <table>
 
   <tr>
 
     <th>
-      Property
+      Недвижимость
     </th>
 
     <th>
-      Description
+      Описание
     </th>
 
   </tr>
@@ -50,23 +52,23 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of [declarable](guide/ngmodule-faq#q-declarable) classes,
-      (*components*, *directives*, and *pipes*) that _belong to this module_.
+      Список [объявляемых](guide/ngmodule-faq#q-declarable)классов
+      ( *компоненты*, *директивы*и *каналы*), которые принадлежат этому модулю.
 
       <ol>
-        <li>When compiling a template, you need to determine a set of selectors which should be used for triggering their corresponding directives.</li>
+        <li>При компиляции шаблона вам нужно определить набор селекторов, которые должны использоваться для запуска их соответствующих директив. </li>
         <li>
-          The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
+          Шаблон составлен в контексте NgModule-NgModule в пределах которого компонент шаблона объявляется-который определяет набор селекторов, используя следующие правила:
           <ul>
-            <li>All selectors of directives listed in `declarations`.</li>
-            <li>All selectors of directives exported from imported NgModules.</li>
+            <li>Все селекторы директив перечислены в  `declarations`  . </li>
+            <li>Все селекторы директив экспортированы из импортированных NgModules. </li>
           </ul>
         </li>
       </ol>
 
-      Components, directives, and pipes must belong to _exactly_ one module.
-      The compiler emits an error if you try to declare the same class in more than one module. Be careful not to re-declare a class that is imported
-      directly or indirectly from another module.
+      Компоненты, директивы и каналы должны принадлежать ровно одному модулю.
+      Компилятор выдает ошибку, если вы пытаетесь объявить один и тот же класс более чем в одном модуле. Будьте осторожны, чтобы не повторно объявить импортируемый класс
+      прямо или косвенно из другого модуля.
 
     </td>
 
@@ -80,24 +82,24 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of dependency-injection providers.
+      Список поставщиков внедрения зависимостей.
 
-      Angular registers these providers with the NgModule's injector.
-      If it is the NgModule used for bootstrapping then it is the root injector.
+      Angular регистрирует этих провайдеров с помощью инжектора NgModule.
+      Если это NgModule, используемый для начальной загрузки, то это корневой инжектор.
 
-      These services become available for injection into any component, directive, pipe or service which is a child of this injector.
+      Эти услуги становятся доступными для внедрения в любой компонент, директиву, канал или службу, являющуюся дочерним элементом этого инжектора.
 
-      A lazy-loaded module has its own injector which
-      is typically a child of the application root injector.
+      Модуль с ленивой загрузкой имеет свой собственный инжектор, который
+      обычно является потомком корневого инжектора приложения.
 
-      Lazy-loaded services are scoped to the lazy module's injector.
-      If a lazy-loaded module also provides the `UserService`,
-      any component created within that module's context (such as by router navigation)
-      gets the local instance of the service, not the instance in the root application injector.
+      Ленивые загруженные сервисы ограничены инжектором ленивого модуля.
+      Если лениво загруженный модуль также обеспечивает  `UserService`,
+      любой компонент, созданный в контексте этого модуля (например, с помощью навигации маршрутизатора)
+      получает локальный экземпляр службы, а не экземпляр в инжекторе корневого приложения.
 
-      Components in external modules continue to receive the instance provided by their injectors.
+      Компоненты во внешних модулях продолжают получать экземпляр, предоставленный их инжекторами.
 
-      For more information on injector hierarchy and scoping, see [Providers](guide/providers) and the [DI Guide](guide/dependency-injection).
+      Для получения дополнительной информации об иерархии инжектора и области видимости см. [Поставщики](guide/providers)и [Руководство по DI](guide/dependency-injection).
 
     </td>
 
@@ -111,21 +113,21 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of modules which should be folded into this module. Folded means it is
-      as if all the imported NgModule's exported properties were declared here.
+      Список модулей, которые следует сложить в этот модуль. Свернутый означает, что это так
+      как будто все экспортированные свойства импортированного NgModule были объявлены здесь.
 
-      Specifically, it is as if the list of modules whose exported components, directives, or pipes
-      are referenced by the component templates were declared in this module.
+      В частности, это как если бы список модулей, чьи экспортированные компоненты, директивы или каналы
+      ссылки на компоненты были объявлены в этом модуле.
 
-      A component template can [reference](guide/ngmodule-faq#q-template-reference) another component, directive, or pipe
-      when the reference is declared in this module or if the imported module has exported it.
-      For example, a component can use the `NgIf` and `NgFor` directives only if the
-      module has imported the Angular `CommonModule` (perhaps indirectly by importing `BrowserModule`).
+      Шаблон компонента может [ссылаться](guide/ngmodule-faq#q-template-reference)другой компонент, директиву или канал
+      когда ссылка объявлена ​​в этом модуле или если импортированный модуль экспортировал ее.
+      Например, компонент может использовать  `NgIf`  и  `NgFor`  директив, только если
+      модуль импортировал Angular  `CommonModule`  (возможно, косвенно путем импорта  `BrowserModule`).
 
-      You can import many standard directives from the `CommonModule`
-      but some familiar directives belong to other modules.
-      For example, you can use `[(ngModel)]` only
-      after importing the Angular `FormsModule`.
+      Вы можете импортировать много стандартных директив из  `CommonModule` 
+      но некоторые знакомые директивы относятся к другим модулям.
+      Например, вы можете использовать  `[(ngModel)]`  только
+      после импорта Angular  `FormsModule`.
 
     </td>
 
@@ -139,27 +141,27 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of declarations&mdash;*component*, *directive*, and *pipe* classes&mdash;that
-      an importing module can use.
+      Список объявлений - *компонентов*, *директив*и *каналов* классов - это
+      модуль импорта может использовать.
 
-      Exported declarations are the module's _public API_.
-      A component in another module can [use](guide/ngmodule-faq#q-template-reference) _this_
-      module's `UserComponent` if it imports this module and this module exports `UserComponent`.
+      Экспортируемые объявления являются _public API_ модуля.
+      Компонент в другом модуле может [использовать](guide/ngmodule-faq#q-template-reference)_this_
+      модуля  `UserComponent`  если он импортирует этот модуль и этот модуль экспортирует  `UserComponent`.
 
-      Declarations are private by default.
-      If this module does _not_ export `UserComponent`, then only the components within _this_
-      module can use `UserComponent`.
+      По умолчанию объявления являются закрытыми.
+      Если этот модуль не экспортирует  `UserComponent`, затем только компоненты внутри _this_
+      модуль может использовать  `UserComponent`.
 
-      Importing a module does _not_ automatically re-export the imported module's imports.
-      Module 'B' can't use `ngIf` just because it imported module 'A' which imported `CommonModule`.
-      Module 'B' must import `CommonModule` itself.
+      Импорт модуля _не_ автоматически реэкспортирует импортированные импортированные модули.
+      Модуль "B" не может использовать  `ngIf`  только потому, что он импортировал модуль 'A', который импортировал  `CommonModule`.
+      Модуль 'B' должен импортировать  `CommonModule`  Сам.
 
-      A module can list another module among its `exports`, in which case
-      all of that module's public components, directives, and pipes are exported.
+      Модуль может перечислить другой модуль среди своих  `exports`, в этом случае
+      все открытые компоненты, директивы и каналы этого модуля экспортируются.
 
-      [Re-export](guide/ngmodule-faq#q-reexport) makes module transitivity explicit.
-      If Module 'A' re-exports `CommonModule` and Module 'B' imports Module 'A',
-      Module 'B' components can use `ngIf` even though 'B' itself didn't import `CommonModule`.
+      [Реэкспорт](guide/ngmodule-faq#q-reexport)делает транзитивность модуля явной.
+      Если модуль «А» реэкспортирует  `CommonModule`  и модуля 'B' импорта модуля 'A',
+      Компоненты модуля "B" можно использовать  `ngIf`  «B» не импортировалось  `CommonModule`.
 
     </td>
 
@@ -173,14 +175,14 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of components that are automatically bootstrapped.
+      Список компонентов, которые автоматически загружаются.
 
-      Usually there's only one component in this list, the _root component_ of the application.
+      Обычно в этом списке только один компонент, _root component_ приложения.
 
-      Angular can launch with multiple bootstrap components,
-      each with its own location in the host web page.
+      Angular может запускаться с несколькими компонентами начальной загрузки
+      каждый со своим местоположением на веб-странице хоста.
 
-      A bootstrap component is automatically added to `entryComponents`.
+      Компонент начальной загрузки автоматически добавляется в  `entryComponents`.
 
     </td>
 
@@ -194,24 +196,24 @@ The following table summarizes the `@NgModule` metadata properties.
 
     <td>
 
-      A list of components that can be dynamically loaded into the view.
+      Список компонентов, которые могут быть динамически загружены в представление.
 
-      By default, an Angular app always has at least one entry component, the root component, `AppComponent`. Its purpose is to serve as a point of entry into the app, that is, you bootstrap it to launch the app.
+      По умолчанию приложение Angular всегда имеет по крайней мере один компонент ввода, корневой компонент,  `AppComponent`  . Его цель - служить точкой входа в приложение, то есть вы загружаете его для запуска приложения.
 
-      Routed components are also _entry components_ because they need to be loaded dynamically.
-      The router creates them and drops them into the DOM near a `<router-outlet>`.
+      Маршрутизируемые компоненты также являются _entry component_, потому что они должны быть загружены динамически.
+      Маршрутизатор создает их и помещает в DOM рядом с  `<router-outlet>`.
 
-      While the bootstrapped and routed components are _entry components_,
-      you don't have to add them to a module's `entryComponents` list,
-      as they are added implicitly.
+      В то время как бутстраповские и проложенные компоненты _entry components_,
+      вам не нужно добавлять их в модуль  `entryComponents`  список
+      как они добавляются неявно.
 
-      Angular automatically adds components in the module's `bootstrap` and route definitions into the `entryComponents` list.
+      Angular автоматически добавляет компоненты в модуль  `bootstrap`  и определения маршрута в  `entryComponents`  list.
 
-      That leaves only components bootstrapped using one of the imperative techniques, such as [`ViewComponentRef.createComponent()`](https://angular.io/api/core/ViewContainerRef#createComponent) as undiscoverable.
+      При этом только компоненты загружаются с использованием одного из императивных методов, таких как [ `ViewComponentRef.createComponent ()` ](https://angular.io/api/core/ViewContainerRef#createComponent)как неоткрываемые.
 
-      Dynamic component loading is not common in most apps beyond the router. If you need to dynamically load components, you must add these components to the `entryComponents` list yourself.
+      Динамическая загрузка компонентов не распространена в большинстве приложений за пределами маршрутизатора. Если вам нужно динамически загрузить компоненты, вы должны добавить эти компоненты в  `entryComponents`  перечислите себя.
 
-      For more information, see [Entry Components](guide/entry-components).
+      Для получения дополнительной информации см. [Компоненты ввода](guide/entry-components).
 
     </td>
 
@@ -222,10 +224,11 @@ The following table summarizes the `@NgModule` metadata properties.
 
 <hr />
 
-## More on NgModules
+{@a more-on-ngmodules}
+## Больше на NgModules
 
-You may also be interested in the following:
-* [Feature Modules](guide/feature-modules).
-* [Entry Components](guide/entry-components).
-* [Providers](guide/providers).
-* [Types of Feature Modules](guide/module-types).
+Вы также можете быть заинтересованы в следующих ситуациях :
+* [Функциональные модули](guide/feature-modules).
+* [Входные компоненты](guide/entry-components).
+* [Провайдеры](guide/providers).
+* [Типы функциональных модулей](guide/module-types).

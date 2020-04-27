@@ -15,9 +15,9 @@ import {noop} from '../util/noop';
 export const Renderer2Interceptor = new InjectionToken<Renderer2[]>('Renderer2Interceptor');
 
 /**
- * Used by `RendererFactory2` to associate custom rendering data and styles
- * with a rendering implementation.
- *  @publicApi
+ * Используется `RendererFactory2` для связи пользовательских данных и стилей визуализации
+ * с реализацией рендеринга.
+ * @publicApi
  */
 export interface RendererType2 {
   /**
@@ -48,7 +48,7 @@ export interface RendererType2 {
 }
 
 /**
- * Creates and initializes a custom renderer that implements the `Renderer2` base class.
+ * Создает и инициализирует пользовательский рендерер, который реализует `Renderer2` базовый класс.
  *
  * @publicApi
  */
@@ -76,7 +76,7 @@ export abstract class RendererFactory2 {
 }
 
 /**
- * Flags for renderer-specific style modifiers.
+ * Флаги для модификаторов стиля, специфичных для рендерера.
  * @publicApi
  */
 export enum RendererStyleFlags2 {
@@ -94,17 +94,17 @@ export enum RendererStyleFlags2 {
 }
 
 /**
- * Extend this base class to implement custom rendering. By default, Angular
- * renders a template into DOM. You can use custom rendering to intercept
- * rendering calls, or to render to something other than DOM.
+ * Расширьте этот базовый класс для реализации пользовательского рендеринга. По умолчанию Angular
+ * отображает шаблон в DOM Вы можете использовать пользовательский рендеринг для перехвата
+ * рендеринг вызовов или рендеринг в нечто иное, чем DOM.
  *
- * Create your custom renderer using `RendererFactory2`.
+ * Создайте свой собственный рендер, используя `RendererFactory2`.
  *
- * Use a custom renderer to bypass Angular's templating and
- * make custom UI changes that can't be expressed declaratively.
- * For example if you need to set a property or an attribute whose name is
- * not statically known, use the `setProperty()` or
- * `setAttribute()` method.
+ * Используйте пользовательский рендер для обхода шаблонов Angular и
+ * вносить изменения в пользовательский интерфейс, которые не могут быть выражены декларативно.
+ * Например, если вам нужно установить свойство или атрибут с именем
+ * Статически неизвестно, используйте `setProperty()` или
+ *  `setAttribute()`метод.
  *
  * @publicApi
  */

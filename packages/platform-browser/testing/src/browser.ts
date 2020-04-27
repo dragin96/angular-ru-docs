@@ -19,7 +19,7 @@ const _TEST_BROWSER_PLATFORM_PROVIDERS: StaticProvider[] =
     [{provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true}];
 
 /**
- * Platform for testing
+ * Платформа для тестирования
  *
  * @publicApi
  */
@@ -27,7 +27,7 @@ export const platformBrowserTesting =
     createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 
 /**
- * NgModule for testing.
+ * NgModule для тестирования.
  *
  * @publicApi
  */

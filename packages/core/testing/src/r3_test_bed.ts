@@ -53,17 +53,17 @@ let _nextRootElementId = 0;
  */
 export class TestBedRender3 implements TestBed {
   /**
-   * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
-   * angular module. These are common to every test in the suite.
-   *
-   * This may only be called once, to set up the common providers for the current test
-   * suite on the current platform. If you absolutely need to change the providers,
-   * first use `resetTestEnvironment`.
-   *
-   * Test modules and platforms for individual platforms are available from
-   * '@angular/<platform_name>/testing'.
-   *
-   * @publicApi
+ * Инициализируйте среду для тестирования с помощью фабрики компиляторов, PlatformRef и
+ * Angular модуль. Они являются общими для каждого теста в наборе.
+ *
+ * Это можно вызвать только один раз, чтобы настроить общих провайдеров для текущего теста
+ * Люкс на текущей платформе. Если вам абсолютно необходимо сменить провайдера
+ * сначала используйте `resetTestEnvironment`.
+ *
+ * Тестовые модули и платформы для отдельных платформ доступны с
+ * @ Angular /<platform_name>/ тестирование.
+ *
+ * @publicApi
    */
   static initTestEnvironment(
       ngModule: Type<any>|Type<any>[], platform: PlatformRef, aotSummaries?: () => any[]): TestBed {
@@ -73,9 +73,9 @@ export class TestBedRender3 implements TestBed {
   }
 
   /**
-   * Reset the providers for the test injector.
-   *
-   * @publicApi
+ * Сброс провайдеров для проверки инжектора.
+ *
+ * @publicApi
    */
   static resetTestEnvironment(): void {
     _getTestBedRender3().resetTestEnvironment();
@@ -199,17 +199,17 @@ export class TestBedRender3 implements TestBed {
   private _globalCompilationChecked = false;
 
   /**
-   * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
-   * angular module. These are common to every test in the suite.
-   *
-   * This may only be called once, to set up the common providers for the current test
-   * suite on the current platform. If you absolutely need to change the providers,
-   * first use `resetTestEnvironment`.
-   *
-   * Test modules and platforms for individual platforms are available from
-   * '@angular/<platform_name>/testing'.
-   *
-   * @publicApi
+ * Инициализируйте среду для тестирования с помощью фабрики компиляторов, PlatformRef и
+ * Angular модуль. Они являются общими для каждого теста в наборе.
+ *
+ * Это можно вызвать только один раз, чтобы настроить общих провайдеров для текущего теста
+ * Люкс на текущей платформе. Если вам абсолютно необходимо сменить провайдера
+ * сначала используйте `resetTestEnvironment`.
+ *
+ * Тестовые модули и платформы для отдельных платформ доступны с
+ * @ Angular /<platform_name>/ тестирование.
+ *
+ * @publicApi
    */
   initTestEnvironment(
       ngModule: Type<any>|Type<any>[], platform: PlatformRef, aotSummaries?: () => any[]): void {
@@ -222,9 +222,9 @@ export class TestBedRender3 implements TestBed {
   }
 
   /**
-   * Reset the providers for the test injector.
-   *
-   * @publicApi
+ * Сброс провайдеров для проверки инжектора.
+ *
+ * @publicApi
    */
   resetTestEnvironment(): void {
     this.resetTestingModule();
