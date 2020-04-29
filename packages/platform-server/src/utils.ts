@@ -93,7 +93,7 @@ the server-rendered app can be properly bootstrapped into a client app.`);
  *  `url`- это URL для текущего запроса рендеринга.
  *  `extraProviders`- это провайдеры уровня платформы для текущего запроса рендеринга.
  *
- * Не используйте это в среде производственного сервера. Использовать предварительно скомпилированный{@link NgModuleFactory}с
+ * Не используйте это в среде производственного сервера. Использовать предварительно скомпилированный {@link NgModuleFactory} с
  *  {@link renderModuleFactory}вместо.
  *
  * @publicApi

@@ -260,7 +260,7 @@ export type StaticProvider =
 
 
 /**
- * Конфигурирует `Injector` вернуть экземпляр `Type` когда`Type' is used as the token...Create an instance by invoking the `новый` operator and supplying additional arguments..This form is a short form of `TypeProvider`;
+ * Конфигурирует `Injector` вернуть экземпляр `Type` когда `Type' is used as the token...Create an instance by invoking the ` новый` operator and supplying additional arguments..This form is a short form of `TypeProvider`;
  *
  * Для получения дополнительной информации см.[«Руководство по внедрению зависимостей»](guide/dependency-injection).
  *

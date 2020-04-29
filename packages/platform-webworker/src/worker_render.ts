@@ -23,7 +23,7 @@ import {MessageBasedRenderer2} from './web_workers/ui/renderer';
 
 /**
  * Класс Wrapper, который выставляет Работника
- * и лежащий в основе{@link MessageBus}для передачи сообщений более низкого уровня.
+ * и лежащий в основе {@link MessageBus} для передачи сообщений более низкого уровня.
  *
  * @publicApi
  * @deprecated platform-webworker is deprecated in Angular and will be removed in version 10

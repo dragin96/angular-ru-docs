@@ -45,7 +45,7 @@ export const controlNameBinding: any = {
  *
  *  {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
  *
- * Чтобы увидеть `formControlName` примерыс различными типами управления формы,см.
+ * Чтобы увидеть `formControlName` примерыс различными типами управления формы, см.
  *
  * : `RadioControlValueAccessor``RadioControlValueAccessor`
  * Выбирает: `SelectControlValueAccessor`

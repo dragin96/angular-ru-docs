@@ -21,7 +21,7 @@ import {_sanitizeUrl as _sanitizeUrl} from './url_sanitizer';
 
 
 /**
- *  An `html`дезинфицирующеекоторый преобразует ненадежного `html` строку в доверенную строку,удалив.
+ *  An `html`дезинфицирующеекоторый преобразует ненадежного `html` строку в доверенную строку, удалив.
  * опасный контент.
  *
  * Этот метод анализирует `html` и находит потенциально опасный контент (такой как URL и
@@ -55,7 +55,7 @@ export function ɵɵsanitizeHtml(unsafeHtml: any): string {
  *
  * Можно пометить строку как доверенную, вызвав{@link bypassSanitizationTrustStyle},
  *
- *  @param unsafeStyle ненадежный `style` стиль,правилоот пользователя.
+ *  @param unsafeStyle ненадежный `style` стиль, правилоот пользователя.
  *  @returns `style`строкакоторый является безопасным для связывания с `style` свойств стиля, потому чтовсе.
  * опасный javascript и URL были удалены.
  *
@@ -82,8 +82,8 @@ export function ɵɵsanitizeStyle(unsafeStyle: any): string {
  *
  * Можно пометить строку как доверенную, вызвав{@link bypassSanitizationTrustUrl},
  *
- *  @param unsafeUrl Ненадежных `url` URL,правилоот пользователя.
- *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как`<img src>`, потому что
+ *  @param unsafeUrl Ненадежных `url` URL, правилоот пользователя.
+ *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как `<img src>`, потому что
  * весь опасный javascript был удален.
  *
  * @publicApi
@@ -104,8 +104,8 @@ export function ɵɵsanitizeUrl(unsafeUrl: any): string {
  *
  * Это передает только `url` помеченные как доверенные путем вызова{@link bypassSanitizationTrustResourceUrl},
  *
- *  @param unsafeResourceUrl Ненадежных `url` URL,правилоот пользователя.
- *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как`<img src>`, потому что
+ *  @param unsafeResourceUrl Ненадежных `url` URL, правилоот пользователя.
+ *  @returns `url`строкакоторую можно безопасно связать со `src` свойствами`такими как `<img src>`, потому что
  * Только доверенные `url` были разрешены для прохождения.
  *
  * @publicApi
@@ -169,7 +169,7 @@ export function getUrlSanitizer(tag: string, prop: string) {
  * Элемент хоста неизвестен во время компиляции, поэтому мы откладываем вычисление определенного дезинфицирующего средства до
  * время выполнения.
  *
- *  @param unsafeUrl Ненадежных `url` URL,правилоот пользователя.
+ *  @param unsafeUrl Ненадежных `url` URL, правилоот пользователя.
  *  @param тег целевой элемент имя тега.
  *  @param имя свойства, которое содержит значение.
  *  @returns `url`строкакоторую можно связать.

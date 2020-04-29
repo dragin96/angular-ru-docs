@@ -182,8 +182,8 @@ export {
   ɵɵrestoreView,
 } from './state';
 export {NO_CHANGE} from './tokens';
-export { ɵɵresolveBody, ɵɵresolveDocument,ɵɵresolveWindow} from './util/misc_utils';
-export { ɵɵinjectPipeChangeDetectorRef,ɵɵtemplateRefExtractor} from './view_engine_compatibility_prebound';
+export { ɵɵresolveBody, ɵɵresolveDocument$& ɵɵresolveWindow} from './util/misc_utils';
+export { ɵɵinjectPipeChangeDetectorRef$& ɵɵtemplateRefExtractor} from './view_engine_compatibility_prebound';
 // clang-format on
 
 export {

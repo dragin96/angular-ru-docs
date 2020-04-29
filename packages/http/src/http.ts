@@ -44,7 +44,7 @@ function mergeOptions(
  * Выполняет http-запросы, используя `XMLHttpRequest` качествепо умолчанию.
  *
  *  `Http`доступен как инъецируемый класс, с методами для выполнения http-запросов.Вызов.
- *  `request `возвращает` Observable`который будет излучать один{@link Response}когда а
+ *  `request `возвращает` Observable`который будет излучать один {@link Response} когда а
  * ответ получен.
  *
  *  @usageNotes

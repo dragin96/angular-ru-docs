@@ -11,7 +11,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {SubscriptionLike} from 'rxjs';
 
 /**
- * Шпион для{@link Location}это позволяет тестам запускать смоделированные события местоположения.
+ * Шпион для {@link Location} это позволяет тестам запускать смоделированные события местоположения.
  *
  * @publicApi
  */

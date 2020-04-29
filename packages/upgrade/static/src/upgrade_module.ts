@@ -49,7 +49,7 @@ import {NgAdapterInjector} from './util';
  *  import {UpgradeModule} from '@angular/upgrade/static';
  *  ```
  *
- * Смотрите также{@link UpgradeModule#examples examples}ниже.
+ * Смотрите также {@link UpgradeModule#examples examples} ниже.
  *
  *  ### Ментальная модель
  *
@@ -100,7 +100,7 @@ import {NgAdapterInjector} from './util';
  * метод, который используется для начальной загрузки модуля AngularJS верхнего уровня на элемент в
  * DOM для гибридного приложения обновления.
  *
- * Он также содержит свойства для доступа к{@link UpgradeModule#injector root injector},То.
+ * Он также содержит свойства для доступа к{@link UpgradeModule#injector root injector}, То.
  * начальная `NgZone` и
  *    [AngularJS $ инжектор](https://docs.angularjs.org/api/auto/service/$injector).
  *
@@ -116,7 +116,7 @@ import {NgAdapterInjector} from './util';
  *
  *  {@example upgrade/static/ts/full/module.ts region='bootstrap-ng1'}
  *
- * Наконец,весь процесс, загрузив свой Angularвысшего уровня `NgModule``NgModule`.
+ * Наконец, весь процесс, загрузив свой Angularвысшего уровня `NgModule``NgModule`.
  *
  *  {@example upgrade/static/ts/full/module.ts region='bootstrap-ng2'}
  *

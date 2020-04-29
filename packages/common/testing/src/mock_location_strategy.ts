@@ -12,7 +12,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 
 
 /**
- * Макетная реализация{@link LocationStrategy}что позволяет тестировать, чтобы имитировать огонь
+ * Макетная реализация {@link LocationStrategy} что позволяет тестировать, чтобы имитировать огонь
  * Место событий.
  *
  * @publicApi

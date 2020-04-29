@@ -72,7 +72,7 @@ export const HAMMER_GESTURE_CONFIG = new InjectionToken<HammerGestureConfig>('Ha
 export type HammerLoader = () => Promise<void>;
 
 /**
- * Токен впрыска, используемый для{@link HammerLoader}на Angular.
+ * Токен впрыска, используемый для {@link HammerLoader} на Angular.
  *
  * @publicApi
  */

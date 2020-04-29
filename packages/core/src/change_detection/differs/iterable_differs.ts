@@ -21,7 +21,7 @@ import {DefaultIterableDifferFactory} from '../differs/default_iterable_differ';
 export type NgIterable<T> = Array<T>|Iterable<T>;
 
 /**
- * Стратегия отслеживания изменений с течением времени до итеративной. Использован{@link NgForOf}к.
+ * Стратегия отслеживания изменений с течением времени до итеративной. Использован {@link NgForOf} к.
  * реагировать на изменения в итерируемом, осуществляя эквивалентные изменения в DOM.
  *
  * @publicApi

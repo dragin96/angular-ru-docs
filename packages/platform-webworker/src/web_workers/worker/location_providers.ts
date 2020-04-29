@@ -13,7 +13,7 @@ import {WebWorkerPlatformLocation} from './platform_location';
 
 
 /**
- *  The {@link PlatformLocation}поставщики, которые должны быть добавлены, когда{@link Location}используется в
+ *  The {@link PlatformLocation}поставщики, которые должны быть добавлены, когда {@link Location} используется в
  * рабочий контекст.
  *
  * @publicApi

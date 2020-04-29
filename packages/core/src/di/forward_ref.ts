@@ -13,7 +13,7 @@ import {stringify} from '../util/stringify';
 
 
 /**
- * Интерфейс, в который передана функция{@link forwardRef}должен реализовать.
+ * Интерфейс, в который передана функция {@link forwardRef} должен реализовать.
  *
  *  @usageNotes
  *  ### Пример

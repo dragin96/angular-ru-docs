@@ -23,7 +23,7 @@ let moduleUid = 0;
  *  @description
  *
  * Вспомогательная функция для создания модуля AngularJS, который может загружать модуль Angular
- * «по требованию» (возможно, лениво), когда{@link downgradeComponent downgraded component}должен быть
+ * «по требованию» (возможно, лениво), когда {@link downgradeComponent downgraded component} должен быть
  * инстанцирован.
  *
  * Часть[обновление / статическая](api?query=upgrade/static)библиотека для гибридных приложений обновления
@@ -69,7 +69,7 @@ let moduleUid = 0;
  *  ### Отличия от `UpgradeModule`
  *
  * Помимо их различного API, между ними есть два важных внутренних различия
- *  `downgradeModule() `и` UpgradeModule`которые влияют на поведение гибридныхприложений:.
+ *  `downgradeModule() `и ` UpgradeModule` которые влияют на поведение гибридныхприложений:.
  *
  *  1. В отличие от `UpgradeModule` , `downgradeModule()` не загружает основной модуль AngularJS
  * внутри{@link NgZone Angular zone},
@@ -116,7 +116,7 @@ let moduleUid = 0;
  *    `StaticProvider`с, при создании `PlatformRef` (напримерпомощью `platformBrowser` или.
  *    `platformBrowserDynamic`).
  *
- * - Когда используешь{@link PlatformRef#bootstrapmodule `bootstrapModule()`}или.
+ * - Когда используешь {@link PlatformRef#bootstrapmodule `bootstrapModule()`} или.
  *    {@link PlatformRef#bootstrapmodulefactory `bootstrapModuleFactory()`}чтобы загрузить
  * Пониженные модули, каждый считается «корневым» модулем. Как следствие, новый экземпляр
  * будет создан для каждой инъекции, предоставленной в `"root"``"root"` (через

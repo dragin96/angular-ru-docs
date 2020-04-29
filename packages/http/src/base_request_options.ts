@@ -172,11 +172,11 @@ export class RequestOptions {
  *
  * умолчаниюзначения:.
  * метод:{@link RequestMethod RequestMethod.Get}
- * заголовки: пусто{@link Headers}объект
+ * заголовки: пусто {@link Headers} объект
  *
- * Этот класс может быть расширен и привязан к{@link RequestOptions}класс.
+ * Этот класс может быть расширен и привязан к {@link RequestOptions} класс.
  * при настройке{@link Injector}, чтобы переопределить параметры по умолчанию
- * использован{@link Http}создать и отправить{@link Request Requests},
+ * использован {@link Http} создать и отправить{@link Request Requests},
  *
  *  ```typescript
  *  import {BaseRequestOptions, RequestOptions} from '@angular/http';

@@ -102,7 +102,7 @@ import {UrlTree} from '../url_tree';
  *
  * Например, если текущий URL-адрес `/user/(box//aux:team)`.
  *
- * Затем следующая ссылка`<a [routerLink]="['/user/jim']">Jim</a>`создаст ссылку
+ * Затем следующая ссылка `<a [routerLink]="['/user/jim']">Jim</a>` создаст ссылку
  *  `/user/(jim//aux:team)`.
  *
  * Видеть{@link Router#createUrlTree createUrlTree}за дополнительной информацией.

@@ -38,7 +38,7 @@ export interface KeyValueDiffer<K, V> {
 }
 
 /**
- * Объектописывающий изменения в `Map` или`{[k:string]: string}`так какпоследнийраз.
+ * Объектописывающий изменения в `Map` или `{[k:string]: string}` так какпоследнийраз.
  *  `KeyValueDiffer#diff()`был вызван.
  *
  * @publicApi

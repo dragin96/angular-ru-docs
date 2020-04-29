@@ -67,7 +67,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * контекст в соответствии с его лексическим положением.
  *
  * При использовании сокращенного синтаксиса Angular разрешает только[одну структурную директиву.на элемент](guide/structural-directives#one-structural-directive-per-host-element).
- * Если вы хотите перебрать условно,например,.
+ * Если вы хотите перебрать условно, например,.
  * поставил `ngIf` на элемент контейнеракоторый оборачивает `ngFor` элемент.
  * Для дальнейшего обсуждения, см
  *  [Структурные директивы](guide/structural-directives#one-per-element).

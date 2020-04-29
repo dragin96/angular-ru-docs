@@ -226,7 +226,7 @@ export function getLocaleId(locale: string): string {
  *  @param locale Код локали для используемых правил формата локали.
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
- *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для` en-US`.
+ *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -248,7 +248,7 @@ export function getLocaleDayPeriods(
  * @param formStyle Обязательная грамматическая форма.
  * @param ширина Требуемая ширина символа.
  * @returns Массив локализованных именных строк.
- * Например,`[Sunday, Monday, ... Saturday] `для` en-US`ан-США.
+ * Например,`[Sunday, Monday, ... Saturday] `для ` en-US` ан-США.
  * @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -269,7 +269,7 @@ export function getLocaleDayNames(
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
  *  @returns Массив локализованных именных строк.
- * Например,`[January, February, ...] `для` en-US`.
+ * Например,`[January, February, ...] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -290,7 +290,7 @@ export function getLocaleMonthNames(
  *  @param ширина Требуемая ширина символа.
  *
  *  @returns Массив локализованных строк эпохи.
- * Например,`[AD, BC] `для` en-US`.
+ * Например,`[AD, BC] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -863,7 +863,7 @@ export function getLocaleId(locale: string): string {
  *  @param locale Код локали для используемых правил формата локали.
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
- *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для` en-US`.
+ *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -885,7 +885,7 @@ export function getLocaleDayPeriods(
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
  *  @returns Массив локализованных именных строк.
- * Например,`[Sunday, Monday, ... Saturday] `для` en-US`ан-США.
+ * Например,`[Sunday, Monday, ... Saturday] `для ` en-US` ан-США.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -906,7 +906,7 @@ export function getLocaleDayNames(
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
  *  @returns Массив локализованных именных строк.
- * Например,`[January, February, ...] `для` en-US`.
+ * Например,`[January, February, ...] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -927,7 +927,7 @@ export function getLocaleMonthNames(
  *  @param ширина Требуемая ширина символа.
  *
  *  @returns Массив локализованных строк эпохи.
- * Например,`[AD, BC] `для` en-US`.
+ * Например,`[AD, BC] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -1497,7 +1497,7 @@ export function getLocaleId(locale: string): string {
  *  @param locale Код локали для используемых правил формата локали.
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
- *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для` en-US`.
+ *  @returns Массив локализованных периодических строк. Например,`[AM, PM] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -1519,7 +1519,7 @@ export function getLocaleDayPeriods(
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
  *  @returns Массив локализованных именных строк.
- * Например,`[Sunday, Monday, ... Saturday] `для` en-US`ан-США.
+ * Например,`[Sunday, Monday, ... Saturday] `для ` en-US` ан-США.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -1540,7 +1540,7 @@ export function getLocaleDayNames(
  *  @param formStyle Обязательная грамматическая форма.
  *  @param ширина Требуемая ширина символа.
  *  @returns Массив локализованных именных строк.
- * Например,`[January, February, ...] `для` en-US`.
+ * Например,`[January, February, ...] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi
@@ -1561,7 +1561,7 @@ export function getLocaleMonthNames(
  * @param ширина Требуемая ширина символа.
  *
  * @returns Массив локализованных строк эпохи.
- * Например,`[AD, BC] `для` en-US`.
+ * Например,`[AD, BC] `для ` en-US`.
  *  @see [(Интернационализация (i18n)Guide).](https://angular.io/guide/i18n)
  *
  * @publicApi

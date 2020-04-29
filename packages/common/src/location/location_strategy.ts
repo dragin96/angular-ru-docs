@@ -75,7 +75,7 @@ export const APP_BASE_HREF = new InjectionToken<string>('appBaseHref');
 
 /**
  *  @description
- *  A {@link LocationStrategy}используется для настройки{@link Location}Служба
+ *  A {@link LocationStrategy}используется для настройки {@link Location} Служба
  * представлять свое государство в
  *  [(Путь)](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)из.
  * URL браузера.

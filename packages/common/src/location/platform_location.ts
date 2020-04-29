@@ -24,8 +24,8 @@ import {DOCUMENT} from '../dom_tokens';
  *  The `PlatformLocation`классиспользуется непосредственно всеми реализациями{@link LocationStrategy}
  * когда им нужно взаимодействовать с API-интерфейсом DOM, например pushState, popState и т
  *
- *  {@link LocationStrategy}в свою очередь используется{@link Location}сервис, который используется напрямую
- * посредством{@link Router}для того, чтобы перемещаться между маршрутами. Поскольку все взаимодействия между {@link
+ *  {@link LocationStrategy}в свою очередь используется {@link Location} сервис, который используется напрямую
+ * посредством {@link Router} для того, чтобы перемещаться между маршрутами. Поскольку все взаимодействия между {@link
  * Router} /
  *  {@link Location}/{@link LocationStrategy}и DOM APIs потока через `PlatformLocation`
  * Все они независимы от платформы.

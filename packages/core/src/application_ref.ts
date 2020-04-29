@@ -263,7 +263,7 @@ export interface BootstrapOptions {
  * к каждому приложению Angular, запущенному на странице, привязаны его области действия.
  *
  * Платформа страницы инициализируется неявно, когда платформа создается посредством фабрики платформ
- * (например{@link platformBrowser}) или явно вызывая{@link createPlatform}функция.
+ * (например{@link platformBrowser}) или явно вызывая {@link createPlatform} функция.
  *
  * @publicApi
  */

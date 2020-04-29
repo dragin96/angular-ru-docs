@@ -76,9 +76,9 @@ const resolvedPromise = (() => Promise.resolve(null))();
  *
  * Чтобы пользовательский интерфейс проверки формы DOM не мешал форме Angular
  * проверка, Angular автоматически добавляет `novalidate` атрибут любого `<form>` всякийраз.
- *  `FormModule `или` ReactiveFormModule`импортируются в приложение.
+ * `FormModule` или ` ReactiveFormModule` импортируются в приложение.
  * Если вы хотите явно включить собственный пользовательский интерфейс проверки DOM с Angularи формами, вы можете добавить
- *  `ngNativeValidate `атрибутв` <form>`элементаформы:.
+ * `ngNativeValidate` атрибут в `<form>` элемента формы:
  *
  *  ```html
  *  <form ngNativeValidate>

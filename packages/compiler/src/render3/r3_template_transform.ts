@@ -460,7 +460,7 @@ class NonBindableVisitor implements html.Visitor {
     const children: t.Node[] = html.visitAll(this, ast.children, null);
     return new t.Element(
         ast.name, html.visitAll(this, ast.attrs) as t.TextAttribute[],
-        /* inputs */[], /* outputs */[], children,  /* references */[], ast.sourceSpan,
+        /* inputs */[], /* outputs */[], children$&   /* references */[], ast.sourceSpan,
         ast.startSourceSpan, ast.endSourceSpan);
   }
 

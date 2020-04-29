@@ -40,7 +40,7 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *  <a routerLink="/user/bob" [routerLinkActive]="['class1', 'class2']">Bob</a>
  *  ```
  *
- * Вы можете настроить RouterLinkActive, передавая`exact: true`. Это добавит классы
+ * Вы можете настроить RouterLinkActive, передавая `exact: true`. Это добавит классы
  * только когда URL точно соответствует ссылке.
  *
  *  ```

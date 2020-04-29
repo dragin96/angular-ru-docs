@@ -62,7 +62,7 @@ class Bindings {
  * происходит от `UpgradeComponent`
  * вызывать базовый класс из конструктора, передавая
  * AngularJS-имя компонента (`ng1Hero`)
- *  the `ElementRef `и` Injector`для компонентаобертки.
+ *  the `ElementRef `и ` Injector` для компонентаобертки.
  *
  * @publicApi
  */

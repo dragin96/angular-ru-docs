@@ -15,7 +15,7 @@ import {joinWithSlash, normalizeQueryParams} from './util';
 
 /**
  *  @description
- *  A {@link LocationStrategy}используется для настройки{@link Location}Служба
+ *  A {@link LocationStrategy}используется для настройки {@link Location} Служба
  * представлять свое государство в
  *  [фрагмент хеша](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
  * URL браузера.

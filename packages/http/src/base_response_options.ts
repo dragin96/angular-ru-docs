@@ -22,7 +22,7 @@ import {ResponseOptionsArgs} from './interfaces';
  * Все значения по умолчанию являются нулевыми. Типичные значения по умолчанию можно найти в
  *  {@link BaseResponseOptions}класс, который подклассов `ResponseOptions`.
  *
- * Этот класс может быть использован в тестах для построения{@link Response Responses}для.
+ * Этот класс может быть использован в тестах для построения {@link Response Responses} для.
  * ложные ответы (см.{@link MockBackend}).
  *
  *  @usageNotes
@@ -119,11 +119,11 @@ export class ResponseOptions {
  *
  * умолчаниюзначения:.
  * статус: 200
- * заголовки: пусто{@link Headers}объект
+ * заголовки: пусто {@link Headers} объект
  *
- * Этот класс может быть расширен и привязан к{@link ResponseOptions}класс.
+ * Этот класс может быть расширен и привязан к {@link ResponseOptions} класс.
  * при настройке{@link Injector}, чтобы переопределить параметры по умолчанию
- * использован{@link Http}создавать{@link Response Responses},
+ * использован {@link Http} создавать{@link Response Responses},
  *
  *  @usageNotes
  *  ### Пример

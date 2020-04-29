@@ -44,7 +44,7 @@ export const formGroupNameProvider: any = {
  *
  *  ### Доступ к группе по имени
  *
- * В следующем примере используется{@link AbstractControl#get get}метод доступа к
+ * В следующем примере используется {@link AbstractControl#get get} метод доступа к
  * связанный `FormGroup`
  *
  *  ```ts
@@ -53,7 +53,7 @@ export const formGroupNameProvider: any = {
  *
  *  ### Доступ к отдельным элементам управления в группе
  *
- * В следующем примере используется{@link AbstractControl#get get}метод доступа
+ * В следующем примере используется {@link AbstractControl#get get} метод доступа
  * отдельные элементы управления в группе с использованием точечного синтаксиса.
  *
  *  ```ts

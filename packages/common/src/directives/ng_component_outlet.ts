@@ -10,7 +10,7 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
 
 
 /**
- * Создает один{@link Component}введите и вставьте его Host View в текущий View.
+ * Создает один {@link Component} введите и вставьте его Host View в текущий View.
  *  `NgComponentOutlet`обеспечивает декларативный подход для создания динамических компонентов.
  *
  *  `NgComponentOutlet`требует тип компонента, если установлено ложное значение, представление очистится и
@@ -22,7 +22,7 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
  *
  * Вы можете контролировать процесс создания компоненты с помощью следующих дополнительныхатрибутов:.
  *
- *  `ngComponentOutletInjector`: необязательный пользовательский{@link Injector}это будет использоваться в качестве родителя для
+ *  `ngComponentOutletInjector`: необязательный пользовательский {@link Injector} это будет использоваться в качестве родителя для
  * Компонент. По умолчанию используется инжектор контейнера текущего представления.
  *
  *  `ngComponentOutletContent`: необязательный список проектируемых узлов для вставки в контент

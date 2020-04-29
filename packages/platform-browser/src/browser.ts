@@ -92,7 +92,7 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
  * Экспортирует необходимую инфраструктуру для всех приложений Angular.
  * Включено по умолчанию во все приложения Angular, созданные с помощью CLI
  *  `new`команда.
- * Реэкспорт `CommonModule` и `ApplicationModule` ApplicationModule,делаетих.
+ * Реэкспорт `CommonModule` и `ApplicationModule` ApplicationModule, делаетих.
  * Экспорт и поставщики доступны для всех приложений.
  *
  * @publicApi
