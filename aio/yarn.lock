@@ -10539,6 +10539,11 @@ select-hose@^2.0.0:
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   integrity sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
 
+selection-popup@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/selection-popup/-/selection-popup-1.0.4.tgz#064eb4693b885cfa570cc60e2d80f457c6e9ef2b"
+  integrity sha512-TVZZ4n4ZF13WUaIF/ShE3/Y4zPSHh2/S9vvP65ABqai6QVcdaWeGRnbOA6jbvt3XsYcVRLHAlz2d8LzHZ2+BAg==
+
 selenium-webdriver@3.6.0, selenium-webdriver@^3.0.1:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-3.6.0.tgz#2ba87a1662c020b8988c981ae62cb2a01298eafc"
