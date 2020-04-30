@@ -488,11 +488,11 @@
             {
               "url": "guide/service-worker-communications",
               "title": "Коммуникация Service Worker-ов",
-              "tooltip": "Сервисы, которые позволяют вам взаимодействовать с сервисным работником Angular"
+              "tooltip": "Сервисы, которые позволяют вам взаимодействовать с Service Worker-ами в Angular"
             },
             {
               "url": "guide/service-worker-devops",
-              "title": "Сервисный работник на производстве",
+              "title": "Service Worker на продакшине",
               "tooltip": "Запуск приложений с Service Worker, управление обновлением приложений, отладка и удаление приложений"
             },
             {
