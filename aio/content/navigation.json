@@ -48,7 +48,7 @@
     {
       "url": "docs",
       "title": "Введение",
-      "tooltip": "Введение в угловую документацию",
+      "tooltip": "Введение в документацию по Angular",
       "hidden": false
     },
     {
@@ -99,12 +99,12 @@
       "children": [
         {
           "title": "Архитектура",
-          "tooltip": "Основные строительные блоки угловых приложений.",
+          "tooltip": "Основные строительные блоки Angular приложений.",
           "children": [
             {
               "url": "guide/architecture",
               "title": "Обзор архитектуры",
-              "tooltip": "Основные строительные блоки угловых приложений."
+              "tooltip": "Основные строительные блоки Angular приложений."
             },
             {
               "url": "guide/architecture-modules",
@@ -159,13 +159,13 @@
           },
           {
             "url": "tutorial/toh-pt4",
-            "title": "4. Услуги",
-            "tooltip": "Часть 4. Создание службы многократного использования для управления данными о героях"
+            "title": "4. Сервисы",
+            "tooltip": "Часть 4. Создание сервиса многократного использования для управления данными о героях"
           },
           {
             "url": "tutorial/toh-pt5",
             "title": "5. Маршрутизация",
-            "tooltip": "Часть 5: Добавьте угловой маршрутизатор и перемещайтесь между видами"
+            "tooltip": "Часть 5: Добавление Angular маршрутизатора и перемещение между страницами"
           },
           {
             "url": "tutorial/toh-pt6",
@@ -215,8 +215,8 @@
             },
             {
               "url": "guide/elements",
-              "title": "Угловые элементы",
-              "tooltip": "Преобразовать компоненты в пользовательские элементы."
+              "title": "Angular элементы",
+              "tooltip": "Преобразование компонентов в пользовательские элементы."
             },
             {
               "url": "guide/attribute-directives",
@@ -230,8 +230,8 @@
             },
             {
               "url": "guide/pipes",
-              "title": "Трубы",
-              "tooltip": "Трубы преобразуют отображаемые значения в шаблоне."
+              "title": "Фильтры",
+              "tooltip": "Фильтры преобразуют отображаемые значения в шаблоне."
             }
           ]
         },
@@ -242,7 +242,7 @@
             {
               "url": "guide/forms-overview",
               "title": "Введение",
-              "tooltip": "Форма создает целостный, эффективный и убедительный опыт ввода данных. Угловая форма координирует набор связанных с данными пользовательских элементов управления, отслеживает изменения, проверяет ввод и представляет ошибки"
+              "tooltip": "Форма создает целостный, эффективный способ ввода данных. Angular форма координирует набор связанных с данными пользовательских элементов управления, отслеживает изменения, проверяет ввод и представляет ошибки"
             },
             {
               "url": "guide/reactive-forms",
@@ -252,12 +252,12 @@
             {
               "url": "guide/forms",
               "title": "Управляемые шаблоном формы",
-              "tooltip": "Создать управляемую шаблоном форму с использованием директив и синтаксиса угловых шаблонов."
+              "tooltip": "Создать управляемую шаблоном форму с использованием директив и синтаксиса Angular шаблонов."
             },
             {
               "url": "guide/form-validation",
               "title": "Проверка формы",
-              "tooltip": "Проверить записи формы пользователя."
+              "tooltip": "Проверка пользовательских форм."
             },
             {
               "url": "guide/dynamic-form",
@@ -272,7 +272,7 @@
           "children": [
             {
               "url": "guide/observables",
-              "title": "Наблюдаемые",
+              "title": "Observables",
               "tooltip": ""
             },
             {
@@ -282,7 +282,7 @@
             },
             {
               "url": "guide/observables-in-angular",
-              "title": "Наблюдаемые в угловых",
+              "title": "Observables в Angular",
               "tooltip": ""
             },
             {
@@ -292,7 +292,7 @@
             },
             {
               "url": "guide/comparing-observables",
-              "title": "Сравните с другими методами",
+              "title": "Сравнение с другими методами",
               "tooltip": ""
             }
           ]
@@ -309,12 +309,12 @@
             {
               "url": "guide/ngmodule-vs-jsmodule",
               "title": "Модули JS против NgModules",
-              "tooltip": "Различать модули JavaScript и NgModules."
+              "tooltip": "Отличие JavaScript модулей от NgModules."
             },
             {
               "url": "guide/bootstrapping",
-              "title": "App Root NgModule",
-              "tooltip": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\"."
+              "title": "Корневой NgModule",
+              "tooltip": "Укажите Angular, как создать и запустить приложение в корневом \"AppModule\"."
             },
             {
               "url": "guide/frequent-ngmodules",
@@ -328,13 +328,13 @@
             },
             {
               "url": "guide/entry-components",
-              "title": "Компоненты входа",
+              "title": "Входные компоненты",
               "tooltip": "Все о входных компонентах в Angular."
             },
             {
               "url": "guide/feature-modules",
               "title": "Функциональные модули",
-              "tooltip": "Создать функциональные модули для организации вашего кода."
+              "tooltip": "Создание функциональных модулей для организации вашего кода."
             },
             {
               "url": "guide/providers",
@@ -343,7 +343,7 @@
             },
             {
               "url": "guide/singleton-services",
-              "title": "Синглтон Сервисес",
+              "title": "Синглтон сервисы",
               "tooltip": "Создание синглтон-сервисов."
             },
             {
@@ -353,13 +353,13 @@
             },
             {
               "url": "guide/sharing-ngmodules",
-              "title": "Обмен NgModules",
-              "tooltip": "Поделиться NgModules, чтобы оптимизировать ваши приложения."
+              "title": "Общие NgModules",
+              "tooltip": "Общие NgModules для оптимизации ваших приложений."
             },
             {
               "url": "guide/ngmodule-api",
               "title": "API NgModule",
-              "tooltip": "Понять детали NgModules."
+              "tooltip": "Понимание деталей NgModules."
             },
             {
               "url": "guide/ngmodule-faq",
@@ -369,13 +369,13 @@
           ]
         },
         {
-          "title": "Внедрение зависимости",
-          "tooltip": "Внедрение зависимостей: создание и внедрение услуг",
+          "title": "Внедрение зависимостей",
+          "tooltip": "Внедрение зависимостей: создание и внедрение сервисов",
           "children": [
             {
               "url": "guide/dependency-injection",
-              "title": "Инъекция угловой зависимости",
-              "tooltip": "Система внедрения зависимостей Angular создает и предоставляет зависимые сервисы классам, созданным Angular"
+              "title": "Внедрение зависимостей в Angular",
+              "tooltip": "Система внедрения зависимостей Angular создает и предоставляет зависимые сервисы Angular классам"
             },
             {
               "url": "guide/hierarchical-dependency-injection",
@@ -407,26 +407,26 @@
         {
           "url": "guide/router",
           "title": "Маршрутизация и навигация",
-          "tooltip": "Откройте для себя основы экранной навигации с помощью углового маршрутизатора"
+          "tooltip": "Откройте для себя основы экранной навигации с помощью Angular маршрутизатора"
         },
         {
           "title": "Анимации",
-          "tooltip": "Руководство по анимационной системе Angular.",
+          "tooltip": "Руководство по системе анимаций Angular.",
           "children": [
             {
               "url": "guide/animations",
               "title": "Введение",
-              "tooltip": "Основные приемы в угловой анимации."
+              "tooltip": "Основные приемы анимаций в Angular."
             },
             {
               "url": "guide/transition-and-triggers",
-              "title": "Переход и триггеры",
+              "title": "Переходы и триггеры",
               "tooltip": "Продвинутые приемы при переходе и триггеры"
             },
             {
               "url": "guide/complex-animation-sequences",
               "title": "Сложные последовательности",
-              "tooltip": "Сложные угловые анимационные последовательности."
+              "tooltip": "Комплексные анимационные последовательности."
             },
             {
               "url": "guide/reusable-animations",
@@ -443,7 +443,7 @@
         {
 	        "url": "guide/zone",
           "title": "NgZone",
-          "tooltip": "How NgZone works"
+          "tooltip": "Как работает NgZone"
         }
       ]
     },
@@ -459,7 +459,7 @@
         {
           "url": "guide/i18n",
           "title": "Интернационализация (i18n)",
-          "tooltip": "Перевести текст шаблона приложения на несколько языков."
+          "tooltip": "Перевод текстов в шаблонах на несколько языков."
         },
         {
           "url": "guide/accessibility",
@@ -467,18 +467,18 @@
           "tooltip": "Создавайте приложения, которые будут доступны всем пользователям."
         },
         {
-          "title": "Работники сферы обслуживания и PWA",
-          "tooltip": "Работники сферы обслуживания: управление кэшированием ресурсов приложения.",
+          "title": "Service Workers и PWA",
+          "tooltip": "Service Workers: управление кэшированием ресурсов приложения.",
           "children": [
             {
               "url": "guide/service-worker-intro",
               "title": "Введение",
-              "tooltip": "Внедрение сервисных работников в Angular улучшает взаимодействие с медленным или ненадежным сетевым подключением"
+              "tooltip": "Внедрение Service Workers в Angular улучшает взаимодействие с медленным или ненадежным сетевым подключением"
             },
             {
               "url": "guide/service-worker-getting-started",
-              "title": "Начиная",
-              "tooltip": "Включение работника сервиса в CLI-проекте и наблюдение за поведением в браузере."
+              "title": "Начало работы",
+              "tooltip": "Включение Service Worker-а в CLI-проекте и наблюдение за поведением в браузере."
             },
             {
               "url": "guide/app-shell",
@@ -487,18 +487,18 @@
             },
             {
               "url": "guide/service-worker-communications",
-              "title": "Служба общения рабочих",
+              "title": "Коммуникация Service Worker-ов",
               "tooltip": "Сервисы, которые позволяют вам взаимодействовать с сервисным работником Angular"
             },
             {
               "url": "guide/service-worker-devops",
               "title": "Сервисный работник на производстве",
-              "tooltip": "Запуск приложений с сервисными работниками, управление обновлением приложений, отладка и удаление приложений"
+              "tooltip": "Запуск приложений с Service Worker, управление обновлением приложений, отладка и удаление приложений"
             },
             {
               "url": "guide/service-worker-config",
-              "title": "Настройка рабочего сервиса",
-              "tooltip": "Настройка поведения кэширования работника сервиса."
+              "title": "Настройка Service Worker",
+              "tooltip": "Настройка кэширования в Service Worker."
             }
           ]
         },
@@ -509,7 +509,7 @@
         },
         {
           "title": "Обновление с AngularJS",
-          "tooltip": "Постепенно обновлять приложение AngularJS до Angular.",
+          "tooltip": "Пошаговое обновление приложения с AngularJS на Angular.",
           "children": [
             {
               "url": "guide/upgrade-setup",
@@ -520,12 +520,12 @@
             {
               "url": "guide/upgrade",
               "title": "Инструкции по обновлению",
-              "tooltip": "Постепенно обновлять приложение AngularJS до Angular."
+              "tooltip": "Пошаговое обновление приложения с AngularJS на Angular."
             },
             {
               "url": "guide/upgrade-performance",
               "title": "Обновление для производительности",
-              "tooltip": "Переходите с AngularJS на Angular более гибким способом."
+              "tooltip": "Переход с AngularJS на Angular более гибким способом."
             },
             {
               "url": "guide/ajs-quick-reference",
@@ -541,7 +541,7 @@
             {
               "url": "guide/libraries",
               "title": "Обзор библиотек",
-              "tooltip": "Понять, как и когда использовать или создавать библиотеки."
+              "tooltip": "Понимание, как и когда использовать или создавать библиотеки."
             },
             {
               "url": "guide/using-libraries",
@@ -562,12 +562,12 @@
             {
               "url": "guide/schematics",
               "title": "Обзор схемы",
-              "tooltip": "Понять, как схемы используются в Angular."
+              "tooltip": "Понимание того, как схемы используются в Angular."
             },
             {
               "url": "guide/schematics-authoring",
               "title": "Авторские схемы",
-              "tooltip": "Понять структуру схемы."
+              "tooltip": "Понимание структуры схемы."
             },
             {
               "url": "guide/schematics-for-libraries",
@@ -599,28 +599,28 @@
           "hidden": true
         },
         {
-          "title": "AoT Compiler",
-          "tooltip": "Понимание заблаговременной компиляции.",
+          "title": "AOT компилятор",
+          "tooltip": "Понимание Ahead-of-Time компиляции.",
           "children": [
             {
               "url": "guide/aot-compiler",
-              "title": "Опережающий сборник",
-              "tooltip": "Узнайте, почему и как использовать компилятор Ahead-of-Time (AoT)"
+              "title": "Ahead-of-Time компиляция",
+              "tooltip": "Узнайте, почему и как использовать компилятор Ahead-of-Time (AOT)"
             },
             {
               "url": "guide/angular-compiler-options",
-              "title": "Параметры углового компилятора",
-              "tooltip": "Настройка компиляции AoT."
+              "title": "Параметры Angular компилятора",
+              "tooltip": "Настройка компиляции AOT."
            },
            {
               "url": "guide/aot-metadata-errors",
-              "title": "Ошибки метаданных AoT",
-              "tooltip": "Устранение неполадок при компиляции AoT."
+              "title": "Ошибки метаданных AOT",
+              "tooltip": "Устранение неполадок при AOT компиляции."
            },
            {
             "url": "guide/template-typecheck",
-            "title": "Template Type-checking",
-            "tooltip": "Template type-checking in Angular."
+            "title": "Проверка типов в шаблонах",
+            "tooltip": "Проверка типов в Angular шаблонах."
          }
         ]
       },
@@ -675,12 +675,12 @@
         {
           "url": "guide/workspace-config",
           "title": "Конфигурация рабочего пространства",
-          "tooltip": "The \"angular.json\" file contains workspace and project configuration defaults for Angular CLI commands."
+          "tooltip": "Файл \"angular.json\" содержит рабочее пространство и стандартные настройки проекта для Angular CLI команд."
         },
         {
           "url": "guide/npm-packages",
           "title": "Зависимости от npm",
-          "tooltip": "Описание пакетов npm, необходимых во время разработки и во время выполнения."
+          "tooltip": "Описание npm пакетов, необходимых во время разработки и во время выполнения."
         },
         {
           "url": "guide/typescript-configuration",
@@ -727,17 +727,17 @@
     },
     {
       "title": "Краткий справочник",
-      "tooltip": "Аннотации углового синтаксиса, кодирования и терминологии.",
+      "tooltip": "Аннотации Angular синтаксиса, кодирования и терминологии.",
       "children": [
         {
           "url": "guide/cheatsheet",
           "title": "Шпаргалка",
-          "tooltip": "Краткое руководство по распространенным методам углового кодирования."
+          "tooltip": "Краткое руководство по распространенным методам кодирования на Angular."
         },
         {
           "url": "guide/styleguide",
           "title": "Гид по стилю",
-          "tooltip": "Пиши угловой со стилем."
+          "tooltip": "Соблюдай Angular code-style."
         },
         {
           "url": "guide/glossary",
@@ -780,7 +780,7 @@
         {
           "url": "resources",
           "title": "Список ресурсов",
-          "tooltip": "Угловые инструменты, обучение и блоги со всего Интернета"
+          "tooltip": "Инструменты для работы с Angular, обучение и блоги со всего Интернета"
         },
         {
           "url": "presskit",
@@ -805,12 +805,12 @@
         {
           "url": "https://stackoverflow.com/questions/tagged/angular",
           "title": "Stack Overflow",
-          "tooltip": "Stack Overflow: где сообщество отвечает на ваши технические угловые вопросы"
+          "tooltip": "Stack Overflow: где сообщество отвечает на ваши технические вопросы по Angular"
         },
         {
           "url": "https://gitter.im/angular/angular",
           "title": "Gitter",
-          "tooltip": "Поболтать об Ангуляр с другими птичками из перьев"
+          "tooltip": "Поболтать об Angular с единомышленниками"
         },
         {
           "url": "https://github.com/angular/angular/issues",
@@ -830,7 +830,7 @@
         {
           "url": "events",
           "title": "Мероприятия",
-          "tooltip": "Угловые события во всем мире"
+          "tooltip": "Angular события во всем мире"
         },
         {
           "url": "http://www.meetup.com/topics/angularjs/",
@@ -858,7 +858,7 @@
       "title": "Языки",
       "children": [
         {
-          "title": "Engligh",
+          "title": "English",
           "url": "https://angular.io/"
         },
         {
