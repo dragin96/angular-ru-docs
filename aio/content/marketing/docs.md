@@ -39,15 +39,15 @@ Angular - это платформа для разработки приложен
 {@a feedback}
 ## Обратная связь
 
-<h4>Вы можете сидеть с нами! </h4>
+<h4>Мы рады каждому!</h4>
 
 Ждем вашего ответа. [Сообщить о проблемах или представить предложения для будущих документов.](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")
 
-Внесите свой вклад в Angular документы, создав
-[тянуть запросы](https://github.com/angular/angular/pulls "Angular Github pull requests")
+Внесите свой вклад в Angular документацию, создав
+[pull request](https://github.com/obenjiro/angular-ru-docs/pulls "Angular Github pull requests")
 в хранилище Angular Github.
-Смотрите [Содействие Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "Contributing guide")
-для получения информации о правилах подачи.
+Смотрите [Руководство по сотрудничеству](https://github.com/obenjiro/angular-ru-docs/blob/master/CONTRIBUTING.md "Contributing guide")
+для получения информации о правилах подачи pull request.
 
-Наше сообщество ценит уважительное, поддерживающее общение.
+Наше сообщество ценит уважительное, вежливое общение.
 Пожалуйста, проконсультируйтесь и придерживайтесь [Кодекса поведения](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "Contributor code of conduct").
