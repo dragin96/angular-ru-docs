@@ -1,53 +1,62 @@
-# Usage Metrics Gathering
-You can help the Angular Team to prioritize features and improvements by permitting the Angular
-team to send command-line command usage statistics to Google. The Angular Team does not collect
-usage statistics unless you explicitly opt in during the Angular CLI installation or upgrade.
+{@a usage-metrics-gathering}
+# Сбор метрик использования
+Вы можете помочь Angular Team определить приоритеты функций и улучшений, разрешив Angular
+команда для отправки статистики использования командной строки в Google. Angular Team не собирает
+статистику использования, если вы явно не согласились во время установки или обновления Angular CLI.
 
-## What is collected?
-Usage analytics include the commands and selected flags for each execution. Usage analytics may
-include the following information:
+{@a what-is-collected}
+## Что собрано?
+Аналитика использования включает команды и выбранные флаги для каждого выполнения. Использование аналитики возможно
+включает в себя следующую информацию:
 
-- Your operating system (Mac, Linux distribution, Windows) and its version.
-- Number of CPUs, amount of RAM.
-- Node and Angular CLI version (local version only).
-- How long each command took to initialize and execute.
-- Command name that was run.
-- For Schematics commands (add, generate, new and update), a list of whitelisted flags.
-- For build commands (build, serve), the number and size of bundles (initial and lazy),
-  compilation units, the time it took to build and rebuild, and basic Angular-specific
-  API usage.
-- Error code of exceptions and crash data. No stack trace is collected.
+- Ваша операционная система (Mac, дистрибутив Linux, Windows) и ее версия.
+- Количество процессоров, объем оперативной памяти.
+- Версия Node и Angular CLI (только локальная версия).
+- Сколько времени занимает каждая команда для инициализации и выполнения.
+- Имя команды, которая была запущена.
+- Для команд Schematics (добавление, генерация, новое и обновление), список флагов в белом списке.
+- Для сборки команд (сборки, служит), количество и размеров пучков (начальных и ленивых),
+  единицы компиляции, время, затрачиваемое на сборку и перестройку, и базовая специфика Angular
+  Использование API.
+- Код ошибки исключений и данных о сбое. Трассировка стека не собирается.
 
-Only Angular owned and developed schematics and builders are reported. Third-party schematics and
-builders do not send data to the Angular Team.
+Сообщается только о принадлежащих и разработанных схемах и строителях Angular. Сторонние схемы и др
+Строители не отправляют данные в Angular Team.
 
-## Opting in
-When installing the Angular CLI or upgrading an existing version, you are prompted to allow global
-collection of usage statistics. If you say no or skip the prompt, no data is collected.
+{@a opting-in}
+## Выбор в
+При установке Angular CLI или обновлении существующей версии вам предлагается разрешить глобальную
+Сбор статистики использования. Если вы говорите «нет» или пропускаете запрос, данные не собираются.
 
-Starting with version 8, we added the `analytics` command to the CLI. You can change your opt-in
-decision at any time using this command.
+Начиная с версии 8, мы добавили `analytics` команда в CLI. Вы можете изменить свой выбор
+решение в любое время с помощью этой команды.
 
-### Disabling usage analytics
-To disable analytics gathering, run the following command:
+{@a disabling-usage-analytics}
+### Отключение аналитики использования
+Для сбора отключить аналитики, выполните следующую команду:
 
 ```bash
+{@a disable-all-usage-analytics}
 # Disable all usage analytics.
 ng analytics off
 ```
 
-### Enabling usage analytics
-To enable usage analytics, run the following command:
+{@a enabling-usage-analytics}
+### Включение аналитики использования
+Чтобы включить аналитику использования, выполните следующую команду:
 
 ```bash
+{@a enable-all-usage-analytics}
 # Enable all usage analytics.
 ng analytics on
 ```
 
-### Prompting
-To prompt the user again about usage analytics, run the following command:
+{@a prompting}
+### Подсказывать
+Для того, чтобы снова предложить пользователю о аналитике использования, выполните следующую команду:
 
 ```bash
+{@a prompt-for-all-usage-analytics}
 # Prompt for all usage analytics.
 ng analytics prompt
 ```
