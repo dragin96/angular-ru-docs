@@ -50,7 +50,7 @@
     1. StackBlitz может генерировать `@Injectable()` без `{ providedIn: 'root' }` оператора как выше. Вместо этого генератор предоставляет услугу корзины в `app.module.ts` по умолчанию. Для целей
     этого урока, так или иначе работает. `@Injectable()` `{ providedIn: 'root' }` синтаксис [встряхивание дерева](/guide/dependency-injection-providers#tree-shakable-providers), что выходит за рамки данного руководства.
 
-1. в `CartService` Класс, определить `items` свойство для хранения массива текущих товаров в корзине.
+1. В классе `CartService`, определить свойство `items` для хранения массива текущих товаров в корзине.
 
     <code-example path="getting-started/src/app/cart.service.ts" header="src/app/cart.service.ts" region="props"></code-example>
 
