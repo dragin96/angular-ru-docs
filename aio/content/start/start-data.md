@@ -11,7 +11,7 @@
 * Добавьте компонент доставки, который получает цены доставки для элементов в корзине, используя Angular's `HttpClient` для получения данных о доставке из `.json` файл.
 
 {@a services}
-## Услуги
+## Сервисы
 
 Сервисы являются неотъемлемой частью Angular приложений. В Angular сервис - это экземпляр класса, который вы можете сделать доступным для любой части вашего приложения, используя Angular [система внедрения зависимостей](guide/glossary#dependency-injection-di "dependency injection definition").
 
@@ -41,13 +41,13 @@
 {@a define-a-cart-service}
 ### Определите сервис корзины
 
-1. Создайте услугу корзины.
+1. Создайте сервис корзины.
 
     1. Щелкните правой кнопкой мыши на `app` папку, выберите `Angular Generator` и выберите `Service` . Назовите новый сервис `cart`.
 
         <code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.1.ts"></code-example>
 
-    1. StackBlitz может генерировать `@Injectable()` без `{ providedIn: 'root' }` оператор как выше. Вместо этого генератор предоставляет услугу корзины в `app.module.ts` по умолчанию. Для целей
+    1. StackBlitz может генерировать `@Injectable()` без `{ providedIn: 'root' }` оператора как выше. Вместо этого генератор предоставляет услугу корзины в `app.module.ts` по умолчанию. Для целей
     этого урока, так или иначе работает. `@Injectable()` `{ providedIn: 'root' }` синтаксис [встряхивание дерева](/guide/dependency-injection-providers#tree-shakable-providers), что выходит за рамки данного руководства.
 
 1. в `CartService` Класс, определить `items` свойство для хранения массива текущих товаров в корзине.
