@@ -70,7 +70,7 @@
 ### Класс провайдеров с зависимостями
 
 Другой класс, `EvenBetterLogger`, может отображать имя пользователя в сообщении журнала.
-Этот регистратор получает пользователя от введенного `UserService`.
+Этот логгер получает пользователя от внедренного `UserService`.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="EvenBetterLogger"></code-example>
 
