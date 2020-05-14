@@ -18,7 +18,7 @@
 Angular CLI загружает и устанавливает все необходимое для тестирования приложения Angular с помощью [среда тестирования Jasmine](https://jasmine.github.io/).
 
 Проект, который вы создаете с помощью CLI, сразу готов к тестированию.
-Просто запустите [ `нг test` ](cli/test)команду CLI:
+Просто запустите команду CLI [`ng test`](cli/test):
 
 <code-example language="sh" class="code-shell">
   ng test
