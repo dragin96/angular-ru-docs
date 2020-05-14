@@ -66,20 +66,20 @@
 
 {@a product-details-use-cart-service}
 {@a use-the-cart-service}
-### Воспользуйтесь услугой корзины
+### Использование сервиса корзины
 
-В этом разделе рассказывается, как воспользоваться услугой корзины, чтобы добавить товар в корзину с помощью кнопки «Купить».
+В этом разделе рассказывается, как воспользоваться сервисом корзины, чтобы добавить товар в корзину с помощью кнопки «Купить».
 
-1. открыто `product-details.component.ts`.
+1. Откройте `product-details.component.ts`.
 
 1. Настройте компонент для использования службы корзины.
 
-    1. Импортируйте услугу корзины.
+    1. Импортируйте сервис корзины.
 
         <code-example header="src/app/product-details/product-details.component.ts" path="getting-started/src/app/product-details/product-details.component.ts" region="cart-service">
         </code-example>
 
-    1. Добавьте услугу корзины, добавив ее в `constructor()`.
+    1. Добавьте сервис корзины, добавив его в `constructor()`.
 
         <code-example path="getting-started/src/app/product-details/product-details.component.ts" header="src/app/product-details/product-details.component.ts" region="inject-cart-service">
         </code-example>
