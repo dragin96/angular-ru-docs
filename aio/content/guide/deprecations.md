@@ -111,7 +111,7 @@ v9 - v12
 
 {@a testing}
 {@a angularcoretesting}
-### @ Angular / ядро ​​/ тестирование
+### @angular/core/testing
 
 | API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
@@ -128,7 +128,7 @@ v9 - v12
 
 {@a router}
 {@a angularrouter}
-### @ Angular / маршрутизатор
+### @angular/router
 
 | API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
