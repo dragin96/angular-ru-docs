@@ -35,7 +35,7 @@ v9 - v12
 -->
 
 
-| Площадь | API или функция | Может быть удален в |
+| Пакет | API или функция | Может быть удален в |
 | ----------------------------- | -------------------------------------------------- ------------------------- | ----------------- |
 | `@angular/common`| [ `ReflectiveInjector` ](#reflectiveinjector)| <!--v8-->v10 |
 | `@angular/common`| [ `CurrencyPipe`-` DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| <!--v9-->v11 |
