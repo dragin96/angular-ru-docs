@@ -20,9 +20,9 @@ NgModule - это класс, помеченный `@NgModule` decorator.
 
 Angular библиотеки - это NgModules, такие как `FormsModule`, `HttpClientModule` и `RouterModule`.
 Многие сторонние библиотеки доступны как NgModules, такие как
-<a href="https://material.angular.io/">Материал Дизайн </a>,
-<a href="http://ionicframework.com/">Ионные </a>и
-<a href="https://github.com/angular/angularfire2">AngularFire2 </a>.
+<a href="https://material.angular.io/">Материал Дизайн</a>,
+<a href="http://ionicframework.com/">Ionic</a> и
+<a href="https://github.com/angular/angularfire2">AngularFire2</a>.
 
 NgModules объединяют компоненты, директивы и трубы в
 Сплоченные блоки функциональности, каждый из которых ориентирован на
@@ -49,9 +49,9 @@ NgModule метаданные делает следующее:
 Затем вы импортируете эти модули в корневой модуль.
 
 {@a the-basic-ngmodule}
-## Основной NgModule
+## Корневой NgModule
 
-[Угловое CLI](cli)генерирует следующие основные `AppModule` при создании нового приложения.
+При создании [Angular CLI](cli) генерирует основной модуль приложения `AppModule` при создании нового приложения.
 
 
 <code-example path="ngmodules/src/app/app.module.1.ts" header="src/app/app.module.ts (default AppModule)">
@@ -63,9 +63,9 @@ NgModule метаданные делает следующее:
 <hr />
 
 {@a more-on-ngmodules}
-## Больше на NgModules
+## Еще о NgModules
 
-Вы также можете быть заинтересованы в следующих ситуациях :
+Вы также можете быть заинтересованы в следующих статьях:
 * [Функциональные модули](guide/feature-modules).
 * [Входные компоненты](guide/entry-components).
 * [Провайдеры](guide/providers).
