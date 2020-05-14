@@ -664,7 +664,7 @@ _ Обычно ... но не всегда.
 Браузер не будет отображать  `<option>`  пределах  `<span>`.
 
 {@a ng-container-to-the-rescue}
-### <ng-container> на помощь
+### &lt;ng-container&gt; на помощь
 
 Angular  `<ng-container>`  - это группирующий элемент, который не влияет на стили или макет
 потому что Angular не помещает его в DOM_.
