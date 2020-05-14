@@ -139,14 +139,14 @@ v9 - v12
 
 | API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [Все точки входа](api/platform-webworker)| нет | V8 | Смотрите [платформа-веб-работник](#webworker-apps). |
+| [Все точки входа](api/platform-webworker)| нет | V8 | Смотрите [platform-webworker](#webworker-apps). |
 
 {@a platform-webworker-dynamic}
 ### @angular/platform-webworker-dynamic
 
 | API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
-| [Все точки входа](api/platform-webworker-dynamic)| нет | V8 | Смотри [платформа-веб-работник](#webworker-apps). |
+| [Все точки входа](api/platform-webworker-dynamic)| нет | V8 | Смотри [platform-webworker](#webworker-apps). |
 
 {@a upgrade}
 ### @angular/upgrade
