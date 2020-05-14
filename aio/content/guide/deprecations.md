@@ -82,7 +82,7 @@ v9 - v12
 {@a angularcommon}
 ### @ Angular / общий
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | -------------------------------------------------- ------------------------------------------- | -------------------------------------------------- - | --------------------- | ----- |
 | [ `CurrencyPipe`-` DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}`| v9 | Начиная с версии v11 код по умолчанию будет извлечен из данных локали, предоставленных `LOCAL_ID` , а не `USD` . |
 
@@ -91,7 +91,7 @@ v9 - v12
 {@a angularcore}
 ### @ Angular / основной
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [ `CollectionChangeRecord` ](api/core/CollectionChangeRecord)| [ `IterableChangeRecord` ](api/core/IterableChangeRecord)| v4 | нет |
 | [ `DefaultIterableDiffer` ](api/core/DefaultIterableDiffer)| н / д | v4 | Не является частью публичного API. |
@@ -113,7 +113,7 @@ v9 - v12
 {@a angularcoretesting}
 ### @ Angular / ядро ​​/ тестирование
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [ `TestBed.get` ](api/core/testing/TestBed#get)| [ `TestBed.inject` ](api/core/testing/TestBed#inject)| v9 | Такое же поведение, но тип безопасный. |
 
@@ -122,7 +122,7 @@ v9 - v12
 {@a angularforms}
 ### @angular/forms
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [ `ngModel`с реактивными формами](#ngmodel-reactive)| [ `FormControlDirective` ](api/forms/FormControlDirective)| v6 | нет |
 
@@ -130,35 +130,35 @@ v9 - v12
 {@a angularrouter}
 ### @ Angular / маршрутизатор
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [ `PreserveQueryParams` ](api/router/NavigationExtras#preserveQueryParams)| [ `queryParamsHandling` ](api/router/NavigationExtras#queryParamsHandling)| v4 | нет |
 
 {@a platform-webworker}
 ### @angular/platform-webworker
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [Все точки входа](api/platform-webworker)| нет | V8 | Смотрите [платформа-веб-работник](#webworker-apps). |
 
 {@a platform-webworker-dynamic}
 ### @angular/platform-webworker-dynamic
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [Все точки входа](api/platform-webworker-dynamic)| нет | V8 | Смотри [платформа-веб-работник](#webworker-apps). |
 
 {@a upgrade}
 ### @angular/upgrade
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [Все точки входа](api/upgrade)| [`@ angular / upgrade / static`](api/upgrade/static)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
 
 {@a upgrade-static}
 ### @angular/upgrade/static
 
-| API | Замена | Обесценивание объявлено | Примечания
+| API | Замена | Аннонс deprecated | Примечания
 | --- | ----------- | --------------------- | ----- |
 | [ `getAngularLib` ](api/upgrade/static/getAngularLib)| [ `getAngularJSGlobal` ](api/upgrade/static/getAngularJSGlobal)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
 [ `setAngularLib` ](api/upgrade/static/setAngularLib)| [ `setAngularJSGlobal` ](api/upgrade/static/setAngularJSGlobal)| v5 | Смотрите [Обновление от AngularJS](guide/upgrade). |
