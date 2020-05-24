@@ -28,7 +28,7 @@
 {@a step-1-registering-the-reactive-forms-module}
 ### Шаг 1: Регистрация модуля реактивных форм
 
-Использовать реактивные формы, импортировать `ReactiveFormsModule` из `@angular/forms` пакет и добавьте его в свой NgModule `imports` массив.
+Чтобы использовать реактивные формы, импортируйте пакет `ReactiveFormsModule` из `@angular/forms` и добавьте его в свой массив `imports` в NgModule.
 
 <code-example path="reactive-forms/src/app/app.module.ts" region="imports" header="src/app/app.module.ts (excerpt)"></code-example>
 
