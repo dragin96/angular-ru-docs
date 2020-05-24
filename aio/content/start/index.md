@@ -17,7 +17,7 @@
 
 {@a new-project}
 {@a create-a-new-project}
-## Создать новый проект
+## Создание нового проекта
 
 <h4>
 <live-example name="getting-started-v0" noDownload>Нажмите здесь, чтобы создать готовый пример проекта в StackBlitz.</live-example>
