@@ -388,7 +388,7 @@ export class HeroComponent {
     <td>нет </td>
   </tr>
    <tr>
-    <td>Доступ к недвижимости </td>
+    <td>Доступ к свойству</td>
     <td>да, если цель складная </td>
   </tr>
    <tr>
