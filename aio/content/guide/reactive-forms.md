@@ -52,7 +52,7 @@
 {@a step-3-registering-the-control-in-the-template}
 ### Шаг 3: Регистрация элемента управления в шаблоне
 
-После создания элемента управления в классе компонента его необходимо связать с элементом элемента управления формы в шаблоне. Обновите шаблон с помощью элемента управления формы, используя `formControl` привязка обеспечивается `FormControlDirective` включен в `ReactiveFormsModule`.
+После создания элемента управления в классе компонента его необходимо связать с элементом управления формы в шаблоне. Обновите шаблон с помощью элемента управления формы, используя `formControl`, привязка обеспечивается `FormControlDirective` которая находится в `ReactiveFormsModule`.
 
 <code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="control-binding" header="src/app/name-editor/name-editor.component.html"></code-example>
 
