@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd aio
-    - run: npm install
+    - run: yarn --frozen-lockfile
     - run: npm run build
