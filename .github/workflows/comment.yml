@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: ben-z/actions-comment-on-issue@1.0.2alpha1
+    - uses: ben-z/actions-comment-on-issue@1.0.2
       with:
         message: "Спасибо :) Постараюсь посмотреть issue ASAP.\n После коммита, выложу сборку документации в течении нескольких дней"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
