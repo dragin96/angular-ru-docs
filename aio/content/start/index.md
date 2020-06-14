@@ -105,7 +105,7 @@
         <img src="generated/images/guide/start/template-syntax-product-names.png" alt="Product names added to list">
       </div>
 
-1. Чтобы сделать каждое название товара ссылкой на детальную информацию о товаре, добавьте элемент `<a>` и определите его title как название товара, используя свойство связывания `[ ]` Синтаксис выглядит следующим образом :
+1. Чтобы сделать каждое название товара ссылкой на детальную информацию о товаре, добавьте элемент `<a>` и определите его title как название товара, используя синтаксис связывания свойства `[ ]`, это выглядит следующим образом:
 
     <code-example path="getting-started/src/app/product-list/product-list.component.2.html" header="src/app/product-list/product-list.component.html">
     </code-example>
