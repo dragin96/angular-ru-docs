@@ -1,0 +1,18 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Commment on Open
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  respond:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: ben-z/actions-comment-on-issue@1.0.2alpha1
+      with:
+        message: "Спасибо :) Постараюсь посмотреть issue ASAP.\n После коммита, выложу сборку документации в течении нескольких дней"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
