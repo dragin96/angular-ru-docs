@@ -2,7 +2,7 @@
   "name": "aio-scripts-js",
   "version": "1.0.0",
   "description": "Performing various tasks on PR build artifacts for angular.io.",
-  "repository": "https://github.com/angular/angular.git",
+  "repository": "https://github.com/obenjiro/angular-ru-docs.git",
   "author": "Angular",
   "license": "MIT",
   "scripts": {
