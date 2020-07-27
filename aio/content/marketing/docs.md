@@ -43,7 +43,7 @@ Angular - это платформа для разработки приложен
 
 Ждем вас. [Сообщить о проблемах или разместить предложение для будущей документации.](https://github.com/obenjiro/angular-ru-docs/issues/new/choose "Angular GitHub repository new issue form")
 
-Внесите свой вклад в Angular документацию, создав
+Внесите свой вклад в документацию Angular, создав
 [pull request](https://github.com/obenjiro/angular-ru-docs/pulls "Angular Github pull requests")
 в хранилище Angular Github.
 Смотрите [Руководство по сотрудничеству](https://github.com/obenjiro/angular-ru-docs/blob/master/CONTRIBUTING.md "Contributing guide")
