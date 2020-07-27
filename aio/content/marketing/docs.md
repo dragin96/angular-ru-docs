@@ -8,7 +8,7 @@ Angular - это платформа для разработки приложен
 
 <div class="card-container">
   <a href="start" class="docs-card" title="Angular Getting Started">
-      <section>Учитесь</section>
+      <section>Учитесь</section>  
       <p>Играйте и расширяйте небольшое готовое приложение Angular без каких-либо настроек </p>
       <p class="card-footer">Попробовать сейчас </p>
   </a>
@@ -31,7 +31,7 @@ Angular - это платформа для разработки приложен
 
 
 Эта документация предполагает, что вы уже знакомы с [HTML](https://developer.mozilla.org/docs/Learn/HTML/Introduction_to_HTML "Learn HTML"), [CSS](https://developer.mozilla.org/docs/Learn/CSS/First_steps "Learn CSS"), [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript"),
-и некоторые инструменты из [последние стандарты](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards"), такие как [классы](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") и [модули](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules").
+и некоторыми инструментами из [последних стандартов](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards"), такие как [классы](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") и [модули](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules").
 Примеры кода написаны с использованием [TypeScript](https://www.typescriptlang.org/ "TypeScript").
 Большая часть кода Angular может быть написана только с использованием новейшего JavaScript, с использованием [типов](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") для внедрения зависимостей и использованием [декораторов](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") для метаданных.
 
