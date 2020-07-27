@@ -492,7 +492,7 @@ class Dir extends Base {
 {@a entryComponents}
 {@a entrycomponents-and-analyzeforentrycomponents-no-longer-required}
 ### `entryComponents `и` ANALYZE_FOR_ENTRY_COMPONENTS`больше не требуется
-Ранее `entryComponents` массив в `NgModule` Определение использовалось для компилятору, какие компоненты будут создаваться и вставляться динамически. С Плющом это больше не требование, и `entryComponents` Массив может быть удален из существующих объявлений модуля. То же самое относится к `ANALYZE_FOR_ENTRY_COMPONENTS` токен инъекции.
+Ранее `entryComponents` массив в `NgModule` Определение использовалось для компилятору, какие компоненты будут создаваться и вставляться динамически. С Ivy это больше не требование, и `entryComponents` Массив может быть удален из существующих объявлений модуля. То же самое относится к `ANALYZE_FOR_ENTRY_COMPONENTS` токен инъекции.
 
 {@a moduleWithProviders}
 {@a modulewithproviders-type-without-a-generic}
