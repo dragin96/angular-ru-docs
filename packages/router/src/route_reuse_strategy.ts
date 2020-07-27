@@ -39,7 +39,7 @@ export type DetachedRouteHandleInternal = {
  * @publicApi
  */
 export abstract class RouteReuseStrategy {
-  /** Determines if this route (and its subtree) should be detached to be reused later */
+  /** Определяет, следует ли отключить этот маршрут (и его поддерево) для повторного использования позже */
   abstract shouldDetach(route: ActivatedRouteSnapshot): boolean;
 
   /**
