@@ -21,7 +21,7 @@ Angular - это платформа для разработки приложен
   <a href="guide/architecture" class="docs-card" title="Angular App Architecture">
       <section>Исследуйте</section>
       <p>Узнайте о фундаментальных концепциях дизайна и архитектуре приложений Angular </p>
-      <p class="card-footer">Введение в Angular понятия </p>
+      <p class="card-footer">Введение в концепции Angular </p>
   </a>
 </div>
 
