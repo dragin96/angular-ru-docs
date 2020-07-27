@@ -24,7 +24,7 @@
 </tr>
 <tr>
 <td><code>@<b>NgModule</b>({ declarations:..., imports:...,<br> exports:..., providers:..., bootstrap:...})<br>class MyModule {}</code></td>
-<td><p>Определяет модуль, который содержит компоненты, директивы, каналы и поставщиков. </p>
+<td><p>Определяет модуль, который содержит компоненты, директивы, пайпы и провайдеры. </p>
 </td>
 </tr><tr>
 <td><code><b>declarations:</b> [MyRedComponent, MyBlueComponent, MyDatePipe]</code></td>
