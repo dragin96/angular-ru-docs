@@ -1,47 +1,47 @@
-# Gathering and Viewing Usage Analytics
+# Сбор и просмотр аналитики использования
 
-Users can opt in to share their Angular CLI usage data with [Google Analytics](https://support.google.com/analytics/answer/1008015?hl=en), using the [`ng analytics` CLI command](analytics).
-The data is also shared with the Angular team, and used to improve the CLI.
+Пользователи могут поделиться своими данными об использовании Angular CLI с [Google Analytics](https://support.google.com/analytics/answer/1008015?hl=en), используя команду CLI [`ng analytics`](analytics).
+Данные также передаются команде Angular и используются для улучшения CLI.
 
-The gathering of CLI analytics data is disabled by default, and must be enabled at the project level by individual users.
-It cannot be enabled at the project level for all users.
+Сбор аналитических данных CLI по умолчанию отключен и должен быть включен отдельными пользователями на уровне проекта.
+Его нельзя включить на уровне проекта для всех пользователей.
 
-Data gathered in this way can be viewed on the Google Analytics site, but is not automatically visible on your own organization's Analytics site.
-As an administrator for an Angular development group, you can configure your instance of Angular CLI to be able to see analytics data for your own team's usage of the Angular CLI.
-This configuration option is separate from and in addition to other usage analytics that your users may be sharing with Google.
+Собранные таким образом данные можно просматривать на сайте Google Analytics, но они не отображаются автоматически на сайте вашей организации.
+Будучи администратором группы разработки Angular, вы можете настроить свой экземпляр Angular CLI, чтобы иметь возможность просматривать аналитические данные для использования Angular CLI вашей собственной командой.
+Этот параметр конфигурации отличается от других аналитических данных об использовании, которыми ваши пользователи могут делиться с Google, и в дополнение к ним.
 
-## Enable access to CLI usage data
+## Включить доступ к данным об использовании CLI
 
-To configure access to your own users' CLI usage data, use the `ng config` command to add a key to your global [`angular.json` workspace configuration file](guide/workspace-config).
-The key goes under `cli.analyticsSharing` at the top level of the file, outside the `projects` sections.
-The value of the key is your organization's tracking ID, as assigned by Google Analytics.
-This ID is a string that looks like `UA-123456-12`.
+Чтобы настроить доступ к данным об использовании CLI ваших собственных пользователей, используйте команду `ng config`, чтобы добавить ключ в ваш глобальный [файл конфигурации рабочей области angular.json](guide/workspace-config).
+Ключ находится в разделе `cli.analyticsSharing` на верхнем уровне файла, вне разделов `projects`.
+Значение ключа - это идентификатор отслеживания вашей организации, назначенный Google Analytics.
+Этот идентификатор представляет собой строку, которая выглядит как `UA-123456-12`.
 
-You can choose to use a descriptive string as the key value, or be assigned a random key when you run the CLI command.
-For example, the following command adds a configuration key named "tracking".
+Вы можете использовать описательную строку в качестве значения ключа или назначить случайный ключ при запуске команды CLI.
+Например, следующая команда добавляет ключ конфигурации с именем «tracking».
 
 <code-example language="sh" class="code-shell">
 ng config --global cli.analyticsSharing.tracking UA-123456-12
 </code-example>
 
-To turn off this feature, run the following command:
+Чтобы отключить эту функцию, выполните следующую команду:
 
 <code-example language="sh" class="code-shell">
 ng config --global --remove cli.analyticsSharing
 </code-example>
 
 
-## Per user tracking
+## За отслеживание пользователя
 
-You can add a custom user ID to the global configuration, in order to identify unique usage of commands and flags.
-If that user enables CLI analytics for their own project, your analytics display tracks and labels their individual usage.
+Вы можете добавить пользовательский идентификатор пользователя в глобальную конфигурацию, чтобы идентифицировать уникальное использование команд и флагов.
+Если этот пользователь включает аналитику CLI для своего собственного проекта, ваша аналитика отображает и помечает их индивидуальное использование.
 
 
 <code-example language="sh" class="code-shell">
 ng config --global cli.analyticsSharing.user SOME_USER_NAME
 </code-example>
 
-To generate a new random user ID, run the following command:
+Чтобы создать новый случайный идентификатор пользователя, выполните следующую команду:
 
 <code-example language="sh" class="code-shell">
 ng config --global cli.analyticsSharing.user ""
