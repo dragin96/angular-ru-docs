@@ -122,7 +122,7 @@
     </div>
 
 
-4. Добавьте описания товаров. Для элемента `<p>` используйте `*ngIf` таким образом, что Angular создаст `<p>` только если текущий товар имеет описание.
+4. Добавьте описания товаров. Для элемента `<p>` используйте `*ngIf` чтобы Angular создавал элемент `<p>` только если текущий товар имеет описание.
 
     <code-example path="getting-started/src/app/product-list/product-list.component.3.html" header="src/app/product-list/product-list.component.html">
     </code-example>
