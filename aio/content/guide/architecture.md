@@ -22,7 +22,7 @@ Angular написан на TypeScript.
 
 <div class="alert is-helpful>
 
-  См. [Angular словарь](guide/glossary)для основных определений важных Angular терминов и использования.
+  См. [Angular Глассарий](guide/glossary) с основными определениями важных терминов Angular и примеров их использования.
 
 </div>
 
