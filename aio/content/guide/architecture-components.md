@@ -94,13 +94,13 @@ Angular поддерживает *двустороннюю привязку да
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (binding)" region="binding"></code-example>
 
-*  `{{hero.name}}`  [* интерполяция*](guide/displaying-data#interpolation)
-отображает компонент  `hero.name`  свойства пределах  `<li>`  элемент.
+*  `{{hero.name}}`  [*интерполяция*](guide/displaying-data#interpolation)
+отображает компонент `hero.name`  свойства пределах  `<li>`  элемент.
 
-*  `[hero]`  [* привязка свойства*](guide/template-syntax#property-binding)передает значение
- `selectedHero` от родителя  `HeroListComponent`  к  `hero`  собственности ребенка  `HeroDetailComponent`.
+*  `[hero]`  [*привязка свойства*](guide/template-syntax#property-binding) передает значение
+ `selectedHero` от родителя  `HeroListComponent` к свойству `hero`  вложенного компонента  `HeroDetailComponent`.
 
-*  `(click)`  [* привязка события*](guide/user-input#binding-to-user-input-events)вызывает компонент  `selectHero`  Метод когда пользователь щелкает имя героя.
+*  `(click)`  [*привязка события*](guide/user-input#binding-to-user-input-events) вызывает компонент  `selectHero`  Метод когда пользователь щелкает имя героя.
 
 Двустороннее связывание данных (используется главным образом в [управляемых шаблонами формах](guide/forms))
 объединяет привязку свойства и события в одной записи.
