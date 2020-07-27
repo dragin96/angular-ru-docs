@@ -3,7 +3,7 @@
 <div id="cheatsheet">
 <table class="is-full-width is-fixed-layout">
 <tbody><tr>
-<th>Самонастройки </th>
+<th>Изначальная загрузка</th>
 <th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>
 </p>
 </th>
