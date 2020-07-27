@@ -8,9 +8,9 @@ Angular - это платформа для разработки приложен
 
 <div class="card-container">
   <a href="start" class="docs-card" title="Angular Getting Started">
-      <section>Учись </section>
-      <p>Играйте и расширяйте небольшое готовое приложение Angular без каких-либо настроек </p>
-      <p class="card-footer">Начало работы </p>
+      <section>Учитесь</section>
+      <p>Играйте и расширяйте небольшое готовое приложение Angular без каких-либо настроек</p>
+      <p class="card-footer">Начало работы</p>
   </a>
   <a href="guide/setup-local" class="docs-card"
     title="Angular Local Environment Setup">
