@@ -1053,7 +1053,6 @@ Please call "TestBed.compileComponents" before your test.
 Чтобы исправить проблему, позвоните `compileComponents()` как объяснено [ниже](#compile-components).
 
 {@a component-with-dependency}
-
 {@a component-with-a-dependency}
 ### Компонент с зависимостью
 
@@ -1144,15 +1143,14 @@ Angular имеет иерархическую систему впрыска.
 </div>
 
 {@a service-from-injector}
-
 {@a always-get-the-service-from-an-injector}
 #### Всегда получайте сервис от инжектора
 
-_Не_ ссылаться на `userServiceStub` объект
-это предоставляется модулю тестирования в теле вашего теста.
+_Не_ ссылайтесь на `userServiceStub` объект
+запровайденый модулю тестирования в теле вашего теста.
 **Это не работает!**
- `userService` в компонент, является полностью _different_ объектом
-клон предоставленного `userServiceStub`.
+ `userService` который вы инджектите в компонент, является полностью _другим_ объектом,
+клоном запровайденного `userServiceStub`.
 
 <code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="stub-not-injected" header="app/welcome/welcome.component.spec.ts"></code-example>
 
