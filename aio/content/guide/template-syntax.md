@@ -2183,7 +2183,7 @@ Angular, чтобы связать событие у ребенка,  `newItemEv
 Комбинировать привязки свойств и событий, используя банан в коробке
 синтаксис,  `[()]`, см. [Двухстороннее связывание](guide/template-syntax#two-way).
 
-Подробнее о том, как они работают, см. В предыдущих разделах [Вход](guide/template-syntax#input)и [Выход](guide/template-syntax#output). Чтобы увидеть его в действии, см. <live-example name="inputs-outputs">Пример входов и выходов </live-example>.
+Подробнее о том, как они работают, см. В предыдущих разделах [Ввод](guide/template-syntax#input)и [Вывод](guide/template-syntax#output). Чтобы увидеть его в действии, см. <live-example name="inputs-outputs">Пример входов и выходов </live-example>.
 
 {@a input-and-output-declarations}
 ##  `@Input() ` и ` @Output()` декларации

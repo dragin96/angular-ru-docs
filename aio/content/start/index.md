@@ -221,7 +221,7 @@ Let's take a quick look a the product list component's class definition:
 
 
 {@a input}
-## Вход
+## Ввод
 
 Сейчас в списке товаров отображается название и описание каждого товара.
 Компонент списка товаров также определяет свойство `products`, содержащее импортированные данные для каждого товара из массива `products` в `products.ts`.
@@ -293,7 +293,7 @@ Let's take a quick look a the product list component's class definition:
 
 
 {@a output}
-## Выход
+## Вывод
 
 Для того, чтобы заработала кнопка «Notify Me», вам нужно настроить две вещи:
 
